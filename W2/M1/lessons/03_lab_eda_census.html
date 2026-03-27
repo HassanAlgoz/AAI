@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Example: Population Trends (census 2010-2019) – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-8b4a5520c1676ac36cce40fd3d75803c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W4/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W5/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W6/"> 
+<span class="menu-text">Vibe</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Example: Population Trends (census 2010-2019)</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#table-description" id="toc-table-description" class="nav-link active" data-scroll-target="#table-description">Table Description</a></li>
+  <li><a href="#attribute-selection" id="toc-attribute-selection" class="nav-link" data-scroll-target="#attribute-selection">Attribute Selection</a></li>
+  <li><a href="#attribute-renaming" id="toc-attribute-renaming" class="nav-link" data-scroll-target="#attribute-renaming">Attribute Renaming</a></li>
+  <li><a href="#row-filtering" id="toc-row-filtering" class="nav-link" data-scroll-target="#row-filtering">Row Filtering</a></li>
+  <li><a href="#ages-97-100" id="toc-ages-97-100" class="nav-link" data-scroll-target="#ages-97-100">Ages 97-100</a></li>
+  <li><a href="#calculate-new-attributes-add-columns" id="toc-calculate-new-attributes-add-columns" class="nav-link" data-scroll-target="#calculate-new-attributes-add-columns">Calculate New Attributes (Add Columns)</a></li>
+  <li><a href="#example-sex-ratios" id="toc-example-sex-ratios" class="nav-link" data-scroll-target="#example-sex-ratios">Example: Sex Ratios</a>
+  <ul class="collapse">
+  <li><a href="#proportions-among-infants" id="toc-proportions-among-infants" class="nav-link" data-scroll-target="#proportions-among-infants">Proportions Among Infants</a></li>
+  <li><a href="#sex-ratio-at-each-age" id="toc-sex-ratio-at-each-age" class="nav-link" data-scroll-target="#sex-ratio-at-each-age">Sex Ratio at Each Age</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03_lab_eda_census.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Example: Population Trends (census 2010-2019)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Objective</strong>: see how Pandas’ DataFrame objects are used to work with tabular data.</p>
+<p><strong>Estimated time</strong>: 30 minutes.</p>
+<p>The data below contains “<strong>Annual Estimates of the Resident Population by Single Year of Age and Sex for the United States</strong>”</p>
+<div id="cell-2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Data URL</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data_url = 'http://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data_url <span class="op">=</span> Path(<span class="st">'../../data/nc-est2019-agesex-res.csv'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data into a Pandas DataFrame</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>full_census_df <span class="op">=</span> pd.read_csv(data_url)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first 10 rows of the DataFrame</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>full_census_df.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">CENSUS2010POP</th>
+<th data-quarto-table-cell-role="th">ESTIMATESBASE2010</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2010</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2011</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2012</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2013</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2014</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2015</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2016</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2017</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2018</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>0</td>
+<td>3944153</td>
+<td>3944160</td>
+<td>3951430</td>
+<td>3963092</td>
+<td>3926570</td>
+<td>3931258</td>
+<td>3954787</td>
+<td>3983981</td>
+<td>3954773</td>
+<td>3893990</td>
+<td>3815343</td>
+<td>3783052</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0</td>
+<td>1</td>
+<td>3978070</td>
+<td>3978090</td>
+<td>3957730</td>
+<td>3966225</td>
+<td>3977549</td>
+<td>3942698</td>
+<td>3948891</td>
+<td>3973133</td>
+<td>4002903</td>
+<td>3972711</td>
+<td>3908830</td>
+<td>3829599</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0</td>
+<td>2</td>
+<td>4096929</td>
+<td>4096939</td>
+<td>4090621</td>
+<td>3970654</td>
+<td>3978925</td>
+<td>3991740</td>
+<td>3958711</td>
+<td>3966321</td>
+<td>3991349</td>
+<td>4020045</td>
+<td>3987032</td>
+<td>3922044</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0</td>
+<td>3</td>
+<td>4119040</td>
+<td>4119051</td>
+<td>4111688</td>
+<td>4101644</td>
+<td>3981531</td>
+<td>3991017</td>
+<td>4005928</td>
+<td>3974351</td>
+<td>3982984</td>
+<td>4006946</td>
+<td>4033038</td>
+<td>3998665</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0</td>
+<td>4</td>
+<td>4063170</td>
+<td>4063186</td>
+<td>4077346</td>
+<td>4121488</td>
+<td>4111490</td>
+<td>3992502</td>
+<td>4004032</td>
+<td>4020292</td>
+<td>3989750</td>
+<td>3997280</td>
+<td>4018719</td>
+<td>4043323</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>0</td>
+<td>5</td>
+<td>4056858</td>
+<td>4056872</td>
+<td>4064521</td>
+<td>4087054</td>
+<td>4131049</td>
+<td>4121876</td>
+<td>4004576</td>
+<td>4017589</td>
+<td>4035033</td>
+<td>4003452</td>
+<td>4008443</td>
+<td>4028281</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>0</td>
+<td>6</td>
+<td>4066381</td>
+<td>4066412</td>
+<td>4072904</td>
+<td>4074531</td>
+<td>4096631</td>
+<td>4141126</td>
+<td>4133372</td>
+<td>4017388</td>
+<td>4031568</td>
+<td>4048018</td>
+<td>4014057</td>
+<td>4017227</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>0</td>
+<td>7</td>
+<td>4030579</td>
+<td>4030594</td>
+<td>4042990</td>
+<td>4082821</td>
+<td>4084175</td>
+<td>4106756</td>
+<td>4152666</td>
+<td>4145872</td>
+<td>4030888</td>
+<td>4044139</td>
+<td>4058370</td>
+<td>4022319</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>0</td>
+<td>8</td>
+<td>4046486</td>
+<td>4046497</td>
+<td>4025501</td>
+<td>4052773</td>
+<td>4092559</td>
+<td>4094513</td>
+<td>4118349</td>
+<td>4165033</td>
+<td>4158848</td>
+<td>4042924</td>
+<td>4054236</td>
+<td>4066194</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>0</td>
+<td>9</td>
+<td>4148353</td>
+<td>4148369</td>
+<td>4125312</td>
+<td>4035319</td>
+<td>4062726</td>
+<td>4103052</td>
+<td>4106068</td>
+<td>4130887</td>
+<td>4177895</td>
+<td>4170813</td>
+<td>4053179</td>
+<td>4061874</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="table-description" class="level2">
+<h2 class="anchored" data-anchor-id="table-description">Table Description</h2>
+<p>A <a href="https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.pdf">description of the table</a> appears online.</p>
+<p>The <code>SEX</code> column contains numeric codes: - <code>0</code> stands for the total - <code>1</code> for male - <code>2</code> for female</p>
+<p>The <code>AGE</code> column contains ages in completed years - the special value <code>999</code> is a sum of the total population - the value <code>100</code> is actually <code>100+</code></p>
+</section>
+<section id="attribute-selection" class="level2">
+<h2 class="anchored" data-anchor-id="attribute-selection">Attribute Selection</h2>
+<p>Suppose we are only interested in the population changes from 2014 to 2019. Let’s <code>select</code> the relevant columns.</p>
+<div id="cell-5" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns for the years 2014 and 2019</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>partial_census_df <span class="op">=</span> full_census_df[[<span class="st">'SEX'</span>, <span class="st">'AGE'</span>, <span class="st">'POPESTIMATE2014'</span>, <span class="st">'POPESTIMATE2019'</span>]]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>partial_census_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2014</th>
+<th data-quarto-table-cell-role="th">POPESTIMATE2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>0</td>
+<td>3954787</td>
+<td>3783052</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0</td>
+<td>1</td>
+<td>3948891</td>
+<td>3829599</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0</td>
+<td>2</td>
+<td>3958711</td>
+<td>3922044</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0</td>
+<td>3</td>
+<td>4005928</td>
+<td>3998665</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0</td>
+<td>4</td>
+<td>4004032</td>
+<td>4043323</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">301</th>
+<td>2</td>
+<td>97</td>
+<td>62407</td>
+<td>84358</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">302</th>
+<td>2</td>
+<td>98</td>
+<td>45887</td>
+<td>62607</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">303</th>
+<td>2</td>
+<td>99</td>
+<td>32245</td>
+<td>42528</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">304</th>
+<td>2</td>
+<td>100</td>
+<td>57108</td>
+<td>76850</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">305</th>
+<td>2</td>
+<td>999</td>
+<td>161646584</td>
+<td>166582199</td>
+</tr>
+</tbody>
+</table>
+
+<p>306 rows × 4 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="attribute-renaming" class="level2">
+<h2 class="anchored" data-anchor-id="attribute-renaming">Attribute Renaming</h2>
+<p>We can simplify the labels of the selected columns.</p>
+<div id="cell-7" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns for clarity</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>us_pop <span class="op">=</span> partial_census_df.rename(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'POPESTIMATE2014'</span>: <span class="st">'2014'</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'POPESTIMATE2019'</span>: <span class="st">'2019'</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    })</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>us_pop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2014</th>
+<th data-quarto-table-cell-role="th">2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>0</td>
+<td>3954787</td>
+<td>3783052</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0</td>
+<td>1</td>
+<td>3948891</td>
+<td>3829599</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0</td>
+<td>2</td>
+<td>3958711</td>
+<td>3922044</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0</td>
+<td>3</td>
+<td>4005928</td>
+<td>3998665</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0</td>
+<td>4</td>
+<td>4004032</td>
+<td>4043323</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">301</th>
+<td>2</td>
+<td>97</td>
+<td>62407</td>
+<td>84358</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">302</th>
+<td>2</td>
+<td>98</td>
+<td>45887</td>
+<td>62607</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">303</th>
+<td>2</td>
+<td>99</td>
+<td>32245</td>
+<td>42528</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">304</th>
+<td>2</td>
+<td>100</td>
+<td>57108</td>
+<td>76850</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">305</th>
+<td>2</td>
+<td>999</td>
+<td>161646584</td>
+<td>166582199</td>
+</tr>
+</tbody>
+</table>
+
+<p>306 rows × 4 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="row-filtering" class="level2">
+<h2 class="anchored" data-anchor-id="row-filtering">Row Filtering</h2>
+</section>
+<section id="ages-97-100" class="level2">
+<h2 class="anchored" data-anchor-id="ages-97-100">Ages 97-100</h2>
+<p>As a warm-up, let’s examine the total population, labeled by <code>SEX</code> code 0. Since all these rows will have the same value 0 in the <code>SEX</code> column, we will drop that column.</p>
+<div id="cell-11" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> us_pop[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>us_pop[mask]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2014</th>
+<th data-quarto-table-cell-role="th">2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">102</th>
+<td>1</td>
+<td>0</td>
+<td>2024511</td>
+<td>1935117</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">103</th>
+<td>1</td>
+<td>1</td>
+<td>2018511</td>
+<td>1958585</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">104</th>
+<td>1</td>
+<td>2</td>
+<td>2023752</td>
+<td>2005544</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">105</th>
+<td>1</td>
+<td>3</td>
+<td>2049250</td>
+<td>2043010</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">106</th>
+<td>1</td>
+<td>4</td>
+<td>2043524</td>
+<td>2066951</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">199</th>
+<td>1</td>
+<td>97</td>
+<td>20541</td>
+<td>32611</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">200</th>
+<td>1</td>
+<td>98</td>
+<td>13659</td>
+<td>23543</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">201</th>
+<td>1</td>
+<td>99</td>
+<td>9032</td>
+<td>14596</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">202</th>
+<td>1</td>
+<td>100</td>
+<td>13577</td>
+<td>23472</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">203</th>
+<td>1</td>
+<td>999</td>
+<td>156654424</td>
+<td>161657324</td>
+</tr>
+</tbody>
+</table>
+
+<p>102 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-12" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for total population (SEX code 0) and drop the SEX column</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>us_pop_by_age <span class="op">=</span> us_pop[us_pop[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">0</span>].drop(columns<span class="op">=</span><span class="st">'SEX'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>us_pop_by_age</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2014</th>
+<th data-quarto-table-cell-role="th">2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>3954787</td>
+<td>3783052</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1</td>
+<td>3948891</td>
+<td>3829599</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>3958711</td>
+<td>3922044</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>3</td>
+<td>4005928</td>
+<td>3998665</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>4</td>
+<td>4004032</td>
+<td>4043323</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">97</th>
+<td>97</td>
+<td>82948</td>
+<td>116969</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">98</th>
+<td>98</td>
+<td>59546</td>
+<td>86150</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">99</th>
+<td>99</td>
+<td>41277</td>
+<td>57124</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">100</th>
+<td>100</td>
+<td>70685</td>
+<td>100322</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">101</th>
+<td>999</td>
+<td>318301008</td>
+<td>328239523</td>
+</tr>
+</tbody>
+</table>
+
+<p>102 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<p>Now let’s look at the population in the highest ages.</p>
+<div id="cell-14" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display population for ages 97-100</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mask1 <span class="op">=</span> (us_pop_by_age[<span class="st">'AGE'</span>] <span class="op">&gt;=</span> <span class="dv">97</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> (us_pop_by_age[<span class="st">'AGE'</span>] <span class="op">&lt;=</span> <span class="dv">100</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> mask1 <span class="op">&amp;</span> mask2</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>us_pop_by_age[mask]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2014</th>
+<th data-quarto-table-cell-role="th">2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">97</th>
+<td>97</td>
+<td>82948</td>
+<td>116969</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">98</th>
+<td>98</td>
+<td>59546</td>
+<td>86150</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">99</th>
+<td>99</td>
+<td>41277</td>
+<td>57124</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">100</th>
+<td>100</td>
+<td>70685</td>
+<td>100322</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-new-attributes-add-columns" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-new-attributes-add-columns">Calculate New Attributes (Add Columns)</h2>
+<div id="cell-16" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>us_pop_by_age[<span class="st">'2019'</span>] <span class="op">-</span> us_pop_by_age[<span class="st">'2014'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>0      -171735
+1      -119292
+2       -36667
+3        -7263
+4        39291
+        ...   
+97       34021
+98       26604
+99       15847
+100      29637
+101    9938515
+Length: 102, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate change in population from 2014 to 2019</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>change <span class="op">=</span> us_pop_by_age[<span class="st">'2019'</span>] <span class="op">-</span> us_pop_by_age[<span class="st">'2014'</span>]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add columns for absolute change and percent change</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>us_pop_change <span class="op">=</span> us_pop_by_age.assign(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    Change<span class="op">=</span>change,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    Percent_Change<span class="op">=</span>change <span class="op">/</span> us_pop_by_age[<span class="st">'2014'</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Format percent change column</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>us_pop_change[<span class="st">'Percent_Change'</span>] <span class="op">=</span> us_pop_change[<span class="st">'Percent_Change'</span>].<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>us_pop_change</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2014</th>
+<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">Change</th>
+<th data-quarto-table-cell-role="th">Percent_Change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>3954787</td>
+<td>3783052</td>
+<td>-171735</td>
+<td>-4.34%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1</td>
+<td>3948891</td>
+<td>3829599</td>
+<td>-119292</td>
+<td>-3.02%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>3958711</td>
+<td>3922044</td>
+<td>-36667</td>
+<td>-0.93%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>3</td>
+<td>4005928</td>
+<td>3998665</td>
+<td>-7263</td>
+<td>-0.18%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>4</td>
+<td>4004032</td>
+<td>4043323</td>
+<td>39291</td>
+<td>0.98%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">97</th>
+<td>97</td>
+<td>82948</td>
+<td>116969</td>
+<td>34021</td>
+<td>41.01%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">98</th>
+<td>98</td>
+<td>59546</td>
+<td>86150</td>
+<td>26604</td>
+<td>44.68%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">99</th>
+<td>99</td>
+<td>41277</td>
+<td>57124</td>
+<td>15847</td>
+<td>38.39%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">100</th>
+<td>100</td>
+<td>70685</td>
+<td>100322</td>
+<td>29637</td>
+<td>41.93%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">101</th>
+<td>999</td>
+<td>318301008</td>
+<td>328239523</td>
+<td>9938515</td>
+<td>3.12%</td>
+</tr>
+</tbody>
+</table>
+
+<p>102 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<p>Almost all the entries displayed in the <code>Percent Change</code> column are negative, demonstrating a drop in population at the youngest ages. However, the overall population (<code>AGE=999</code>) grew by about 9.9 million people, a percent change of just over 3%.</p>
+<div id="cell-19" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display population change for age 999 (total population)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>us_pop_change[us_pop_change[<span class="st">'AGE'</span>] <span class="op">==</span> <span class="dv">999</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2014</th>
+<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">Change</th>
+<th data-quarto-table-cell-role="th">Percent_Change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">101</th>
+<td>999</td>
+<td>318301008</td>
+<td>328239523</td>
+<td>9938515</td>
+<td>3.12%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Let us compare this to the change at each age. For ease of interpretation, we will sort the table in decreasing order of the absolute change in population, contained in the column <code>Change</code>.</p>
+<div id="cell-21" class="cell" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display top changes by age group sorted by absolute change</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>us_pop_change[us_pop_change[<span class="st">'AGE'</span>] <span class="op">!=</span> <span class="dv">999</span>].sort_values(by<span class="op">=</span><span class="st">'Change'</span>, ascending<span class="op">=</span><span class="va">False</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2014</th>
+<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">Change</th>
+<th data-quarto-table-cell-role="th">Percent_Change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">72</th>
+<td>72</td>
+<td>2191642</td>
+<td>3191048</td>
+<td>999406</td>
+<td>45.60%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">68</th>
+<td>68</td>
+<td>2567511</td>
+<td>3345475</td>
+<td>777964</td>
+<td>30.30%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">69</th>
+<td>69</td>
+<td>2530460</td>
+<td>3252423</td>
+<td>721963</td>
+<td>28.53%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">70</th>
+<td>70</td>
+<td>2461426</td>
+<td>3136704</td>
+<td>675278</td>
+<td>27.43%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">71</th>
+<td>71</td>
+<td>2516392</td>
+<td>3083083</td>
+<td>566691</td>
+<td>22.52%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Take a look at the top few rows. While the percent change is about 3% for the overall population, it jumps to well over 20% for the people in their late sixties and early seventies. This stunning change contributes to what is known as the <strong>greying of America</strong>.</p>
+<p>What could explain this large increase? We can explore this question by examining the years in which the relevant groups were born.</p>
+<p>Those who were in the age group 69 to 72 in 2014 were born in the years 1942 to 1945. The attack on Pearl Harbor was in late 1941, and by 1942 U.S. forces were heavily engaged in a massive war that ended in 1945.</p>
+<p>Those who were 69 to 72 years old in 2019 were born in the years 1947 to 1950, at the height of the post-WWII baby boom in the United States.</p>
+<p><strong>The post-war jump in births is a major reason for the large changes that we have observed</strong>.</p>
+</section>
+<section id="example-sex-ratios" class="level1">
+<h1>Example: Sex Ratios</h1>
+<p>This time we will focus on population trends in relation to the SEX column.</p>
+<div id="cell-24" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for 2019 data and remove unnecessary columns</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>us_pop_2019 <span class="op">=</span> us_pop.drop(columns<span class="op">=</span>[<span class="st">'2014'</span>])</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select rows where age is 999 (total population)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>all_ages <span class="op">=</span> us_pop_2019[us_pop_2019[<span class="st">'AGE'</span>] <span class="op">==</span> <span class="dv">999</span>].drop(columns<span class="op">=</span><span class="st">'AGE'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>all_ages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">101</th>
+<td>0</td>
+<td>328239523</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">203</th>
+<td>1</td>
+<td>161657324</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">305</th>
+<td>2</td>
+<td>166582199</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Calculate proportions relative to total population in 2019:</p>
+<div id="cell-26" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pop_2019 <span class="op">=</span> all_ages.iloc[<span class="dv">0</span>][<span class="st">'2019'</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>all_ages[<span class="st">'Proportion'</span>] <span class="op">=</span> (all_ages[<span class="st">'2019'</span>] <span class="op">/</span> pop_2019).<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>all_ages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">Proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">101</th>
+<td>0</td>
+<td>328239523</td>
+<td>100.00%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">203</th>
+<td>1</td>
+<td>161657324</td>
+<td>49.25%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">305</th>
+<td>2</td>
+<td>166582199</td>
+<td>50.75%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="proportions-among-infants" class="level3">
+<h3 class="anchored" data-anchor-id="proportions-among-infants">Proportions Among Infants</h3>
+<p>When we look at infants, however, the opposite is true. Let’s define infants to be babies who have not yet completed one year, represented in the rows corresponding to <code>AGE 0</code>. Here are their numbers in the population. You can see that male infants outnumbered female infants.</p>
+<div id="cell-28" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>infants <span class="op">=</span> us_pop_2019[us_pop_2019[<span class="st">'AGE'</span>] <span class="op">==</span> <span class="dv">0</span>].drop(columns<span class="op">=</span><span class="st">'AGE'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>infants_2019 <span class="op">=</span> infants.loc[<span class="dv">0</span>, <span class="st">'2019'</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>infants[<span class="st">'Proportion'</span>] <span class="op">=</span> (infants[<span class="st">'2019'</span>] <span class="op">/</span> infants_2019).<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>infants</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">Proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>3783052</td>
+<td>100.00%</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">102</th>
+<td>1</td>
+<td>1935117</td>
+<td>51.15%</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">204</th>
+<td>2</td>
+<td>1847935</td>
+<td>48.85%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>As before, we can convert these counts to percents out of the total numbers of infants. The resulting table shows that in 2019, just over 51% of infants in the U.S. were male.</p>
+<p>In fact, it has long been observed that the proportion of males among newborns is slightly more than 1/2. The reason for this is not thoroughly understood.</p>
+</section>
+<section id="sex-ratio-at-each-age" class="level3">
+<h3 class="anchored" data-anchor-id="sex-ratio-at-each-age">Sex Ratio at Each Age</h3>
+<p>While there are more male infants than female, there are more females than males in the population overall.</p>
+<div id="cell-31" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select rows for males and females (excluding total)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>females <span class="op">=</span> us_pop_2019[(us_pop_2019[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">2</span>) <span class="op">&amp;</span> (us_pop_2019[<span class="st">'AGE'</span>] <span class="op">!=</span> <span class="dv">999</span>)].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>males <span class="op">=</span> us_pop_2019[(us_pop_2019[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (us_pop_2019[<span class="st">'AGE'</span>] <span class="op">!=</span> <span class="dv">999</span>)].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>females</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">SEX</th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2</td>
+<td>0</td>
+<td>1847935</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2</td>
+<td>1</td>
+<td>1871014</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>2</td>
+<td>1916500</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>2</td>
+<td>3</td>
+<td>1955655</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2</td>
+<td>4</td>
+<td>1976372</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">96</th>
+<td>2</td>
+<td>96</td>
+<td>111417</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">97</th>
+<td>2</td>
+<td>97</td>
+<td>84358</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">98</th>
+<td>2</td>
+<td>98</td>
+<td>62607</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">99</th>
+<td>2</td>
+<td>99</td>
+<td>42528</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">100</th>
+<td>2</td>
+<td>100</td>
+<td>76850</td>
+</tr>
+</tbody>
+</table>
+
+<p>101 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-32" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate sex ratios for 2019</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ratios <span class="op">=</span> females[[<span class="st">'AGE'</span>, <span class="st">'2019'</span>]]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ratios[<span class="st">'2019 F:M RATIO'</span>] <span class="op">=</span> ratios[<span class="st">'2019'</span>] <span class="op">/</span> males[<span class="st">'2019'</span>]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ratios</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">2019 F:M RATIO</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>1847935</td>
+<td>0.954947</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1</td>
+<td>1871014</td>
+<td>0.955289</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>1916500</td>
+<td>0.955601</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>3</td>
+<td>1955655</td>
+<td>0.957242</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>4</td>
+<td>1976372</td>
+<td>0.956177</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">96</th>
+<td>96</td>
+<td>111417</td>
+<td>2.419689</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">97</th>
+<td>97</td>
+<td>84358</td>
+<td>2.586796</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">98</th>
+<td>98</td>
+<td>62607</td>
+<td>2.659262</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">99</th>
+<td>99</td>
+<td>42528</td>
+<td>2.913675</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">100</th>
+<td>100</td>
+<td>76850</td>
+<td>3.274114</td>
+</tr>
+</tbody>
+</table>
+
+<p>101 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-33" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display sex ratios for ages above 75</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ratios_above_75 <span class="op">=</span> ratios[ratios[<span class="st">'AGE'</span>] <span class="op">&gt;</span> <span class="dv">75</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ratios_above_75</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">AGE</th>
+<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">2019 F:M RATIO</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">76</th>
+<td>76</td>
+<td>1218702</td>
+<td>1.214222</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">77</th>
+<td>77</td>
+<td>1056331</td>
+<td>1.235576</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">78</th>
+<td>78</td>
+<td>960647</td>
+<td>1.263727</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">79</th>
+<td>79</td>
+<td>898590</td>
+<td>1.281286</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">80</th>
+<td>80</td>
+<td>831640</td>
+<td>1.292093</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">81</th>
+<td>81</td>
+<td>788013</td>
+<td>1.327453</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">82</th>
+<td>82</td>
+<td>715575</td>
+<td>1.361014</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">83</th>
+<td>83</td>
+<td>671025</td>
+<td>1.397488</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">84</th>
+<td>84</td>
+<td>631230</td>
+<td>1.446027</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">85</th>
+<td>85</td>
+<td>551385</td>
+<td>1.485885</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">86</th>
+<td>86</td>
+<td>519340</td>
+<td>1.539670</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">87</th>
+<td>87</td>
+<td>479078</td>
+<td>1.597752</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">88</th>
+<td>88</td>
+<td>438887</td>
+<td>1.661249</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">89</th>
+<td>89</td>
+<td>403333</td>
+<td>1.733655</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">90</th>
+<td>90</td>
+<td>345227</td>
+<td>1.805392</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">91</th>
+<td>91</td>
+<td>306231</td>
+<td>1.902753</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">92</th>
+<td>92</td>
+<td>262383</td>
+<td>1.992520</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">93</th>
+<td>93</td>
+<td>217370</td>
+<td>2.101919</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">94</th>
+<td>94</td>
+<td>182384</td>
+<td>2.227101</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">95</th>
+<td>95</td>
+<td>145092</td>
+<td>2.340420</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">96</th>
+<td>96</td>
+<td>111417</td>
+<td>2.419689</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">97</th>
+<td>97</td>
+<td>84358</td>
+<td>2.586796</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">98</th>
+<td>98</td>
+<td>62607</td>
+<td>2.659262</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">99</th>
+<td>99</td>
+<td>42528</td>
+<td>2.913675</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">100</th>
+<td>100</td>
+<td>76850</td>
+<td>3.274114</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Finally, let’s plot the ratio</p>
+<div id="cell-35" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot sex ratios against age</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.plot(ratios[<span class="st">'AGE'</span>], ratios[<span class="st">'2019 F:M RATIO'</span>], marker<span class="op">=</span><span class="st">'o'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Age'</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Female to Male Ratio'</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Female to Male Ratio by Age (2019)'</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="03_lab_eda_census_files/figure-html/cell-19-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="03_lab_eda_census_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Hypothesis Testing – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-8b4a5520c1676ac36cce40fd3d75803c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W4/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W5/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W6/"> 
+<span class="menu-text">Vibe</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Hypothesis Testing</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#inferential-statistics" id="toc-inferential-statistics" class="nav-link active" data-scroll-target="#inferential-statistics">Inferential Statistics</a></li>
+  <li><a href="#what-is-a-hypothesis" id="toc-what-is-a-hypothesis" class="nav-link" data-scroll-target="#what-is-a-hypothesis">What is a Hypothesis?</a>
+  <ul class="collapse">
+  <li><a href="#definitions-null-vs.-alternative" id="toc-definitions-null-vs.-alternative" class="nav-link" data-scroll-target="#definitions-null-vs.-alternative">Definitions: Null vs.&nbsp;Alternative</a></li>
+  <li><a href="#anecdotal-evidence" id="toc-anecdotal-evidence" class="nav-link" data-scroll-target="#anecdotal-evidence">Anecdotal Evidence</a></li>
+  </ul></li>
+  <li><a href="#statistical-tests" id="toc-statistical-tests" class="nav-link" data-scroll-target="#statistical-tests">Statistical Tests</a>
+  <ul class="collapse">
+  <li><a href="#interpreting-the-result-of-the-test" id="toc-interpreting-the-result-of-the-test" class="nav-link" data-scroll-target="#interpreting-the-result-of-the-test">Interpreting the result of the test</a></li>
+  </ul></li>
+  <li><a href="#testing-for-difference-t-tests" id="toc-testing-for-difference-t-tests" class="nav-link" data-scroll-target="#testing-for-difference-t-tests">Testing for Difference: T-tests</a>
+  <ul class="collapse">
+  <li><a href="#case-1-compare-a-sample-against-the-population" id="toc-case-1-compare-a-sample-against-the-population" class="nav-link" data-scroll-target="#case-1-compare-a-sample-against-the-population">Case 1: Compare a Sample Against the Population</a></li>
+  <li><a href="#case-2-compare-independent-samples" id="toc-case-2-compare-independent-samples" class="nav-link" data-scroll-target="#case-2-compare-independent-samples">Case 2: Compare Independent Samples</a></li>
+  <li><a href="#case-3-paired-samples" id="toc-case-3-paired-samples" class="nav-link" data-scroll-target="#case-3-paired-samples">Case 3: Paired Samples</a></li>
+  <li><a href="#scipy-stats-mapping" id="toc-scipy-stats-mapping" class="nav-link" data-scroll-target="#scipy-stats-mapping">SciPy Stats Mapping</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" id="toc-hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" class="nav-link" data-scroll-target="#hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population">Hypothesis <span class="math inline">\(H_1\)</span>: the average height of NBA player is higher than the average height of the general population</a></li>
+  <li><a href="#hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" id="toc-hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" class="nav-link" data-scroll-target="#hypothesis-h_2-male-penguins-weigh-more-than-female-penguins">Hypothesis <span class="math inline">\(H_2\)</span>: male penguins weigh more than female penguins</a></li>
+  <li><a href="#hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" id="toc-hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" class="nav-link" data-scroll-target="#hypothesis-h_3-smokers-give-higher-tips-than-non-smokers">Hypothesis <span class="math inline">\(H_3\)</span>: smokers give higher tips than non-smokers</a></li>
+  <li><a href="#hypothesis-h_4-spinach-increases-grip-strength" id="toc-hypothesis-h_4-spinach-increases-grip-strength" class="nav-link" data-scroll-target="#hypothesis-h_4-spinach-increases-grip-strength">Hypothesis <span class="math inline">\(H_4\)</span>: spinach increases grip strength</a></li>
+  <li><a href="#one-way-anova-and-tukey-hsd" id="toc-one-way-anova-and-tukey-hsd" class="nav-link" data-scroll-target="#one-way-anova-and-tukey-hsd">One-way ANOVA and Tukey HSD</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01_hypothesis_testing.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Hypothesis Testing</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="cell-2" class="cell" data-execution_count="118">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="inferential-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="inferential-statistics">Inferential Statistics</h2>
+<p><em>Inferential Statistics</em> goes beyond description and into:</p>
+<ol type="1">
+<li>making informed guess about a group of people / items</li>
+<li>verify claims through data</li>
+</ol>
+<p><img src="https://datatab.net/assets/tutorial/Descriptive_statistics_and_inferential_statistics.png"></p>
+<p>We do this through making claims, and test them systematically through well-defined procedures.</p>
+</section>
+<section id="what-is-a-hypothesis" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-hypothesis">What is a Hypothesis?</h2>
+<p>If a person claims that:</p>
+<ul>
+<li>coffee makes you awake at night</li>
+<li>sleep makes you taller</li>
+<li>exercise makes you smarter</li>
+</ul>
+<p>Or even general statements like:</p>
+<ul>
+<li>people are addicted to smartphones</li>
+<li>people are more literate</li>
+</ul>
+<p>How can we test those claims against reality?</p>
+<section id="definitions-null-vs.-alternative" class="level3">
+<h3 class="anchored" data-anchor-id="definitions-null-vs.-alternative">Definitions: Null vs.&nbsp;Alternative</h3>
+<p>In every test, we pit two statements against each other:</p>
+<ol type="1">
+<li><strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>):</strong> The “status quo” or “no effect” statement. It assumes that any observed difference in your data is due to random sampling error (chance) rather than a true effect.</li>
+<li><strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span> or <span class="math inline">\(H_1\)</span>):</strong> The statement you are trying to find evidence for. It claims there is a real effect, a difference, or a relationship.</li>
+</ol>
+</section>
+<section id="anecdotal-evidence" class="level3">
+<h3 class="anchored" data-anchor-id="anecdotal-evidence">Anecdotal Evidence</h3>
+<p><strong>Anecdotal evidence</strong> is information based on personal accounts, individual stories, or isolated incidents rather than on systematic data or scientific investigation.</p>
+<p>Consider the following possible responses to the three research questions:</p>
+<ol type="1">
+<li><strong>A man on the news</strong> got mercury poisoning from eating swordfish, so the average mercury concentration in swordfish must be dangerously high.</li>
+<li><strong>I met two students</strong> who took more than 7 years to graduate from Duke, so it must take longer to graduate at Duke than at many other colleges.</li>
+<li><strong>My friend’s dad</strong> had a heart attack and died after they gave him a new heart disease drug, so the drug must not work.</li>
+</ol>
+<p>To put this to the test, we formulate both the null and the alternative hypothesis, and specify the parameter we would need to measure.</p>
+<p>For the mercury case: We need to compare the mean mercury level across a large sample of swordfish against the FDA safety threshold (typically 1.0 ppm).</p>
+<p>For the graduation case: We compare the distribution of graduation rates at Duke against the national average for 4-year private institutions.</p>
+<p>For the medical drug case: In a clinical trial, some patients in the treatment group will inevitably die. We must test if the survival rate of those taking the drug is statistically higher than the survival rate of those in a control group (placebo).</p>
+<p>The table following shows how this formulation compares:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Example</strong></th>
+<th><strong>H0​ (Null Hypothesis)</strong></th>
+<th><strong>Ha​ (Alternative Hypothesis)</strong></th>
+<th><strong>Parameter of Interest</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Mercury</strong></td>
+<td>Mean mercury <span class="math inline">\(\le\)</span> 1.0 ppm.</td>
+<td>Mean mercury <span class="math inline">\(&gt;\)</span> 1.0 ppm.</td>
+<td><span class="math inline">\(\mu\)</span> (Average Concentration)</td>
+</tr>
+<tr class="even">
+<td><strong>Duke Grad</strong></td>
+<td>Duke grad rate <span class="math inline">\(\le\)</span> National Avg.</td>
+<td>Duke grad rate <span class="math inline">\(&gt;\)</span> National Avg.</td>
+<td><span class="math inline">\(p\)</span> (Proportion of Graduates)</td>
+</tr>
+<tr class="odd">
+<td><strong>Heart Drug</strong></td>
+<td>Death rate (Drug) <span class="math inline">\(=\)</span> Death rate (Placebo).</td>
+<td>Death rate (Drug) <span class="math inline">\(&lt;\)</span> Death rate (Placebo).</td>
+<td><span class="math inline">\(p\)</span> (Survival Probability)</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="statistical-tests" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-tests">Statistical Tests</h2>
+<p>Statisticians have developed many methods of testing such hypothesis, based on two factors:</p>
+<p>Question we’re trying to answer</p>
+<ol type="1">
+<li>significant difference in one variable? (t-test)</li>
+<li>association between two categorical variables? (Chi-square)</li>
+<li>association between two numerical variables? (Pearon’s correlation coefficient)</li>
+</ol>
+<section id="interpreting-the-result-of-the-test" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-result-of-the-test">Interpreting the result of the test</h3>
+<p>The outcome of such tests is known to statisticians as the <strong>p-value</strong>:</p>
+<ul>
+<li>if it is below a threshold of <code>alpha = 0.05</code> (by convention from the scientific community) we <strong>“reject”</strong> the Null Hypothesis <span class="math inline">\(H_0\)</span></li>
+<li>if it is above that thershold, the test is inconclsuive; i.e., we <strong>“fail to reject”</strong></li>
+</ul>
+<p>Analogous to how, in a courtroom, the Null Hypothesis is: “people are innocent until proven guilty”. A jury might:</p>
+<ul>
+<li>have enough evidence to declare the defendant “guilty”; i.e., he rejects the null hypothesis and accept the alternative claims due to enough evidence beyond reasonable doubt</li>
+<li>find the defendant “not guilty” <strong>due to lack of evidence</strong>, but, <strong>they do not declare the defendant “innocent”</strong></li>
+</ul>
+<p>Similarly, <strong>if your test fails</strong>, it just means you didn’t have enough data to prove your alternative hypothesis. And this by no means proves that the null hypothesis is correct.</p>
+</section>
+</section>
+<section id="testing-for-difference-t-tests" class="level2">
+<h2 class="anchored" data-anchor-id="testing-for-difference-t-tests">Testing for Difference: T-tests</h2>
+<p>We’ll start with the first: <strong>difference</strong>.</p>
+<p><a href="../../assets/t-test.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../../assets/t-test.png" class="img-fluid"></a></p>
+<p>Learn more about the: <a href="https://youtu.be/Q_pO9NzWxPY?si=nJbx_ruQrBdtK3EC">One sample t-test vs Independent t-test vs Paired t-test | YouTube video by: numiqo</a></p>
+<section id="case-1-compare-a-sample-against-the-population" class="level3">
+<h3 class="anchored" data-anchor-id="case-1-compare-a-sample-against-the-population">Case 1: Compare a Sample Against the Population</h3>
+<p>In reality, this usually means we are making a <strong>comparison against a historic or global value</strong>. Examples:</p>
+<ul>
+<li>To compare the average <strong>height</strong> of a group of students (<span class="math inline">\(\bar{x}\)</span>) to the average height of the general population (<span class="math inline">\(\mu\)</span>).</li>
+<li>To compare the average <strong>IQ</strong> of a group of people (<span class="math inline">\(\bar{x}\)</span>) to the average IQ of the general population (<span class="math inline">\(\mu\)</span>).</li>
+<li>To compare the average <strong>cholesterol levels</strong> of a group of people (<span class="math inline">\(\bar{x}\)</span>) to the recommended cholesterol levels (<span class="math inline">\(\mu\)</span>).</li>
+</ul>
+</section>
+<section id="case-2-compare-independent-samples" class="level3">
+<h3 class="anchored" data-anchor-id="case-2-compare-independent-samples">Case 2: Compare Independent Samples</h3>
+<p>They are two different groups of people:</p>
+<ul>
+<li><strong>Control group</strong> takes a placebo drug (fake)</li>
+<li><strong>Treatment group</strong> takes the real drug</li>
+</ul>
+</section>
+<section id="case-3-paired-samples" class="level3">
+<h3 class="anchored" data-anchor-id="case-3-paired-samples">Case 3: Paired Samples</h3>
+<p>There are two cases for paired samples:</p>
+<ol type="1">
+<li>One group: usually looking for <strong>comparison</strong></li>
+<li>Two groups: usually seeking <strong>relationship</strong></li>
+</ol>
+<section id="case-3.1-one-group" class="level4">
+<h4 class="anchored" data-anchor-id="case-3.1-one-group">Case 3.1: One group</h4>
+<p>A group with the intervention and a group without the intervention:</p>
+<ol type="1">
+<li><strong>Measure twice</strong>, on the same group:
+<ul>
+<li>Grip strength — before vs.&nbsp;after eating spinach</li>
+<li>Quiz scores — iPad notes vs.&nbsp;paper notes</li>
+<li>Performance — with afternoon nap vs.&nbsp;without it</li>
+</ul></li>
+<li><strong>Two measurements</strong>, on the same group:
+<ul>
+<li>Temperature under right armpit and under left armpit</li>
+<li>BMI and Systolic Blood Pressure</li>
+</ul></li>
+</ol>
+</section>
+<section id="case-3.2-two-groups" class="level4">
+<h4 class="anchored" data-anchor-id="case-3.2-two-groups">Case 3.2 Two groups</h4>
+<p>Two groups where each record (sample) in the 1st group is naturally paired with a record (sample) in the 2nd group. For instance:</p>
+<ul>
+<li>twins (one in group A and one in group B)</li>
+<li>husband-wife (one in group A and one in group B)</li>
+<li>mother-baby (one in group A and one in group B)</li>
+</ul>
+</section>
+</section>
+<section id="scipy-stats-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="scipy-stats-mapping">SciPy Stats Mapping</h3>
+<p>We’ll be using <code>scipy.stats</code> package, and here is how it all fits togeher:</p>
+<ul>
+<li><strong>Comparision</strong>
+<ul>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/stats.html#one-sample-tests-paired-sample-tests">1 Sample</a>: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_1samp.html"><code>scipy.stats.ttest_1samp()</code></a></li>
+<li>2 Samples
+<ul>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/stats.html#independent-sample-tests">Independent</a>: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html"><code>scipy.stats.ttest_ind()</code></a></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/stats.html#one-sample-tests-paired-sample-tests">Paired</a>: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html"><code>scipy.stats.ttest_rel()</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="https://docs.scipy.org/doc/scipy/reference/stats.html#association-correlation-tests"><strong>Relationship</strong></a>:
+<ul>
+<li>Numerical: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html#scipy.stats.pearsonr"><code>pearsonr</code></a> or <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html#scipy.stats.spearmanr"><code>spearmanr</code></a></li>
+<li>Categorical: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html"><code>chi2_contingency()</code></a> followed by <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.contingency.association.html"><code>association()</code></a></li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../../assets/comparison_and_relationship.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Decision Tree: Selecting a Statistical Test"><img src="../../assets/comparison_and_relationship.png" class="img-fluid figure-img" alt="Decision Tree: Selecting a Statistical Test"></a></p>
+<figcaption>Decision Tree: Selecting a Statistical Test</figcaption>
+</figure>
+</div>
+<p><strong>Assumptions:</strong> All “T-tests” (comparisons) assume the underlying data follows a normal distribution. If your data is heavily skewed or contains outliers that violate this, the non-parametric alternatives (Mann-Whitney or Wilcoxon) are the mathematically “truthful” choices as they rely on ranks rather than raw values.</p>
+</section>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<section id="hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population">Hypothesis <span class="math inline">\(H_1\)</span>: the average height of NBA player is higher than the average height of the general population</h3>
+<div id="cell-24" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source NBA Heights: https://github.com/simonwarchol/NBA-Height-Weight/blob/master/CSVs/total.csv</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nba <span class="op">=</span> pd.read_csv(<span class="st">'../../data/nba_heights.csv'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nba.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="121">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">h_meters</th>
+<th data-quarto-table-cell-role="th">h_in</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">count</th>
+<td>435.000000</td>
+<td>435.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mean</th>
+<td>2.012483</td>
+<td>79.209195</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">std</th>
+<td>0.090078</td>
+<td>3.573444</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">min</th>
+<td>1.750000</td>
+<td>69.000000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">25%</th>
+<td>1.960000</td>
+<td>77.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">50%</th>
+<td>2.030000</td>
+<td>80.000000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">75%</th>
+<td>2.080000</td>
+<td>82.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>2.290000</td>
+<td>90.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-25" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source Human Heights: https://www.kaggle.com/datasets/burnoutminer/heights-and-weights-dataset</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>humans <span class="op">=</span> pd.read_csv(<span class="st">'../../data/SOCR-HeightWeight.csv'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>humans.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="122">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Index</th>
+<th data-quarto-table-cell-role="th">Height(Inches)</th>
+<th data-quarto-table-cell-role="th">Weight(Pounds)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">count</th>
+<td>25000.000000</td>
+<td>25000.000000</td>
+<td>25000.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mean</th>
+<td>12500.500000</td>
+<td>67.993114</td>
+<td>127.079421</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">std</th>
+<td>7217.022701</td>
+<td>1.901679</td>
+<td>11.660898</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">min</th>
+<td>1.000000</td>
+<td>60.278360</td>
+<td>78.014760</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">25%</th>
+<td>6250.750000</td>
+<td>66.704397</td>
+<td>119.308675</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">50%</th>
+<td>12500.500000</td>
+<td>67.995700</td>
+<td>127.157750</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">75%</th>
+<td>18750.250000</td>
+<td>69.272958</td>
+<td>134.892850</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>25000.000000</td>
+<td>75.152800</td>
+<td>170.924000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-26" class="cell" data-execution_count="123">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot smooth kde distribution of body mass for two sexes overlapping</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(nba, x<span class="op">=</span><span class="st">'h_in'</span>, fill<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(humans, x<span class="op">=</span><span class="st">'Height(Inches)'</span>, fill<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># vertical line at the mean of the height for both</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(humans[<span class="st">'Height(Inches)'</span>].mean(), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(nba[<span class="st">'h_in'</span>].mean(), color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_hypothesis_testing_files/figure-html/cell-5-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="01_hypothesis_testing_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="testing-the-hypothesis" class="level4">
+<h4 class="anchored" data-anchor-id="testing-the-hypothesis">Testing the hypothesis</h4>
+<p>to test the hypothesis we need to, firstly, select the <strong>Significance Level</strong> <code>alpha</code>. By convention (of the scientific community) it is set to <code>0.05</code>, and we don’t have a reason to change it.</p>
+<div id="cell-28" class="cell" data-execution_count="124">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># significance level</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Secondly, when comparing we have three options</p>
+<ol type="1">
+<li><code>alternative="two-sided"</code> the mean of the underlying distribution (<span class="math inline">\(\bar{x}\)</span>) <strong>of the sample is different</strong> than the given population mean (popmean: <span class="math inline">\(\mu\)</span>)</li>
+<li><code>alternative="less"</code> the mean of the underlying distribution (<span class="math inline">\(\bar{x}\)</span>) <strong>of the sample is less</strong> than the given population mean (popmean: <span class="math inline">\(\mu\)</span>)</li>
+<li><code>alternative="greater"</code> the mean of the underlying distribution (<span class="math inline">\(\bar{x}\)</span>) <strong>of the sample is greater</strong> than the given population mean (popmean: <span class="math inline">\(\mu\)</span>)</li>
+</ol>
+<div id="cell-30" class="cell" data-execution_count="125">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison &gt; 1 sample =&gt; ttest_1samp()</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>t_statistic, p_value <span class="op">=</span> stats.ttest_1samp(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    a<span class="op">=</span>nba[<span class="st">'h_in'</span>],</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    popmean<span class="op">=</span>humans[<span class="st">'Height(Inches)'</span>].mean(),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    alternative<span class="op">=</span><span class="st">"greater"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The outcome of the test is a tuple:</p>
+<ol type="1">
+<li><code>t_statistic</code></li>
+<li><code>p_value</code></li>
+</ol>
+<p>We only care about the <code>p_value</code> being less than the threshold <code>alpha</code>:</p>
+<div id="cell-32" class="cell" data-execution_count="135">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p_value: </span><span class="sc">{</span>p_value<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;=</span> alpha:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Conclusion: NBA players are taller than the general population"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Conclusion: not enough evidence to support the claim that NBA players are taller than the general population"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>p_value: 2.53e-227
+Conclusion: NBA players are taller than the general population</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-h_2-male-penguins-weigh-more-than-female-penguins">Hypothesis <span class="math inline">\(H_2\)</span>: male penguins weigh more than female penguins</h3>
+<div id="cell-34" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Let’s look at the distribution of <code>body_mass_g</code> shown for each <code>sex</code> separately:</p>
+<div id="cell-36" class="cell" data-execution_count="54">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'body_mass_g'</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'sex'</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'violin'</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    split<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    inner<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_hypothesis_testing_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="01_hypothesis_testing_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-37" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># significance level</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison &gt; 2 samples &gt; independent =&gt; ttest_ind()</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>t_statistic, p_value <span class="op">=</span> stats.ttest_ind(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    penguins.loc[penguins[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Male"</span>, <span class="st">'body_mass_g'</span>],</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    penguins.loc[penguins[<span class="st">"sex"</span>] <span class="op">==</span> <span class="st">"Female"</span>, <span class="st">'body_mass_g'</span>],</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    alternative<span class="op">=</span><span class="st">"greater"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic: </span><span class="sc">{</span>t_statistic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value: </span><span class="sc">{</span>p_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"significant!"</span> <span class="cf">if</span> p_value <span class="op">&lt;=</span> alpha <span class="cf">else</span> <span class="st">"not enough evidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-statistic: 8.541720337994516
+p-value: 2.448623375798112e-16
+significant!</code></pre>
+</div>
+</div>
+</section>
+<section id="hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-h_3-smokers-give-higher-tips-than-non-smokers">Hypothesis <span class="math inline">\(H_3\)</span>: smokers give higher tips than non-smokers</h3>
+<div id="cell-39" class="cell" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">'tips'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>tips.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>tips.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">total_bill</th>
+<th data-quarto-table-cell-role="th">tip</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">smoker</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">time</th>
+<th data-quarto-table-cell-role="th">size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>16.99</td>
+<td>1.01</td>
+<td>Female</td>
+<td>No</td>
+<td>Sun</td>
+<td>Dinner</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>10.34</td>
+<td>1.66</td>
+<td>Male</td>
+<td>No</td>
+<td>Sun</td>
+<td>Dinner</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>21.01</td>
+<td>3.50</td>
+<td>Male</td>
+<td>No</td>
+<td>Sun</td>
+<td>Dinner</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>23.68</td>
+<td>3.31</td>
+<td>Male</td>
+<td>No</td>
+<td>Sun</td>
+<td>Dinner</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>24.59</td>
+<td>3.61</td>
+<td>Female</td>
+<td>No</td>
+<td>Sun</td>
+<td>Dinner</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Let’s look at the box plot:</p>
+<div id="cell-41" class="cell" data-execution_count="53">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    tips,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'tip'</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'smoker'</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'box'</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_hypothesis_testing_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="01_hypothesis_testing_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-42" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># significance level</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison &gt; 2 samples &gt; independent =&gt; ttest_ind()</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>t_statistic, p_value <span class="op">=</span> stats.ttest_ind(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    tips.loc[tips[<span class="st">"smoker"</span>] <span class="op">==</span> <span class="st">"Yes"</span>, <span class="st">'tip'</span>],</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    tips.loc[tips[<span class="st">"smoker"</span>] <span class="op">==</span> <span class="st">"No"</span>, <span class="st">'tip'</span>],</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    alternative<span class="op">=</span><span class="st">"greater"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic: </span><span class="sc">{</span>t_statistic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value: </span><span class="sc">{</span>p_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"significant!"</span> <span class="cf">if</span> p_value <span class="op">&lt;=</span> alpha <span class="cf">else</span> <span class="st">"not enough evidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-statistic: 0.09222805186888201
+p-value: 0.4632965761122488
+not enough evidence</code></pre>
+</div>
+</div>
+</section>
+<section id="hypothesis-h_4-spinach-increases-grip-strength" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-h_4-spinach-increases-grip-strength">Hypothesis <span class="math inline">\(H_4\)</span>: spinach increases grip strength</h3>
+<div id="cell-44" class="cell" data-execution_count="76">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Made up some experimental data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>grip <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"subject"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>],</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"before"</span>: [<span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">55</span>, <span class="dv">53</span>, <span class="dv">54</span>, <span class="dv">56</span>, <span class="dv">57</span>, <span class="dv">58</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">61</span>, <span class="dv">62</span>, <span class="dv">63</span>, <span class="dv">64</span>, <span class="dv">65</span>, <span class="dv">66</span>, <span class="dv">67</span>, <span class="dv">68</span>, <span class="dv">70</span>, <span class="dv">72</span>],</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"after"</span>: [<span class="dv">60</span>, <span class="dv">68</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">59</span>, <span class="dv">61</span>, <span class="dv">62</span>, <span class="dv">63</span>, <span class="dv">64</span>, <span class="dv">65</span>, <span class="dv">66</span>, <span class="dv">67</span>, <span class="dv">68</span>, <span class="dv">70</span>, <span class="dv">72</span>, <span class="dv">73</span>, <span class="dv">75</span>, <span class="dv">76</span>, <span class="dv">77</span>, <span class="dv">78</span>],</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We could look at the distribution, <code>before</code> and <code>after</code>:</p>
+<div id="cell-46" class="cell" data-execution_count="112">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot smooth kde distribution of body mass for two sexes overlapping</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">3</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(grip, x<span class="op">=</span><span class="st">'before'</span>, fill<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(grip, x<span class="op">=</span><span class="st">'after'</span>, fill<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># legend</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>ax.legend([<span class="st">'before'</span>, <span class="st">'after'</span>])</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># vertical line at the mean of before and after</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>ax.axvline(grip[<span class="st">'before'</span>].mean(), color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>ax.axvline(grip[<span class="st">'after'</span>].mean(), color<span class="op">=</span><span class="st">'orange'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_hypothesis_testing_files/figure-html/cell-16-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="01_hypothesis_testing_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To draw a relational plot for each subject, we need to <code>melt</code> the dataframe to have a column indicated who took the treatment and who did not:</p>
+<div id="cell-48" class="cell" data-execution_count="69">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_grip <span class="op">=</span> grip.melt(id_vars<span class="op">=</span>[<span class="st">'subject'</span>], value_vars<span class="op">=</span>[<span class="st">'before'</span>, <span class="st">'after'</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df_grip.sample(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="69">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">subject</th>
+<th data-quarto-table-cell-role="th">variable</th>
+<th data-quarto-table-cell-role="th">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">31</th>
+<td>12</td>
+<td>after</td>
+<td>67</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">29</th>
+<td>10</td>
+<td>after</td>
+<td>65</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">36</th>
+<td>17</td>
+<td>after</td>
+<td>75</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">10</th>
+<td>11</td>
+<td>before</td>
+<td>61</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>3</td>
+<td>before</td>
+<td>55</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Now we can look at each subject’s performance, using the <code>relplot(kind="line")</code> like so:</p>
+<div id="cell-50" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sns.relplot(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    df_grip,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'line'</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'variable'</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'value'</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">'subject'</span>, col_wrap<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">3</span>, aspect<span class="op">=</span><span class="fl">.75</span>, linewidth<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_hypothesis_testing_files/figure-html/cell-18-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="01_hypothesis_testing_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Since we are looking for <strong>change</strong> we need to measure the <code>difference</code>:</p>
+<div id="cell-52" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>grip[<span class="st">'difference'</span>] <span class="op">=</span> grip[<span class="st">'after'</span>] <span class="op">-</span> grip[<span class="st">'before'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s have a look at the statistics of the data now:</p>
+<div id="cell-54" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>grip.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">subject</th>
+<th data-quarto-table-cell-role="th">before</th>
+<th data-quarto-table-cell-role="th">after</th>
+<th data-quarto-table-cell-role="th">difference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">count</th>
+<td>20.00000</td>
+<td>20.00000</td>
+<td>20.000000</td>
+<td>20.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mean</th>
+<td>10.50000</td>
+<td>60.60000</td>
+<td>66.450000</td>
+<td>5.850000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">std</th>
+<td>5.91608</td>
+<td>6.26099</td>
+<td>7.500702</td>
+<td>3.787445</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">min</th>
+<td>1.00000</td>
+<td>50.00000</td>
+<td>50.000000</td>
+<td>-5.000000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">25%</th>
+<td>5.75000</td>
+<td>55.75000</td>
+<td>61.750000</td>
+<td>5.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">50%</th>
+<td>10.50000</td>
+<td>60.50000</td>
+<td>66.500000</td>
+<td>5.000000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">75%</th>
+<td>15.25000</td>
+<td>65.25000</td>
+<td>72.250000</td>
+<td>7.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>20.00000</td>
+<td>72.00000</td>
+<td>78.000000</td>
+<td>16.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Using a <code>catplot(kind="point")</code> plot, one can visualize the <strong>mean and standard deviation</strong> of the <code>diffference</code> for the sample, not individuals:</p>
+<div id="cell-56" class="cell" data-execution_count="105">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    df_grip,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'variable'</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'value'</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'point'</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>g.set_xlabels(<span class="st">"Difference in grip strength"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_hypothesis_testing_files/figure-html/cell-21-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="01_hypothesis_testing_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-57" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine significance level</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison &gt; 2 samples &gt; paired =&gt; ttest_rel()</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>t_statistic, p_value <span class="op">=</span> stats.ttest_rel(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    grip[<span class="st">'after'</span>],</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    grip[<span class="st">'before'</span>],</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    alternative<span class="op">=</span><span class="st">"greater"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic: </span><span class="sc">{</span>t_statistic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value: </span><span class="sc">{</span>p_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"significant!"</span> <span class="cf">if</span> p_value <span class="op">&lt;=</span> alpha <span class="cf">else</span> <span class="st">"not enough evidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-statistic: 6.907558493188381
+p-value: 6.898776102555165e-07
+significant!</code></pre>
+</div>
+</div>
+</section>
+<section id="one-way-anova-and-tukey-hsd" class="level3">
+<h3 class="anchored" data-anchor-id="one-way-anova-and-tukey-hsd">One-way ANOVA and Tukey HSD</h3>
+<p><strong>An ANOVA (Analysis of Variance</strong>) is a statistical method used to determine if there are statistically significant differences between the means of three or more independent groups.</p>
+<p>While a t-test is used to compare the means of exactly two groups, the ANOVA is the “heavy lifter” used when your categorical variable has multiple levels. Example:</p>
+<ol type="1">
+<li>comparing three different dosages of a drug (10ml, 20ml, and 30ml)</li>
+<li>or four different studying methods (Flash-cards, Rereding, Practice Tests, and Retrieval)</li>
+</ol>
+<p>You might wonder: “Why not just run three separate t-tests to compare Group A vs.&nbsp;B, B vs.&nbsp;C, and A vs.&nbsp;C?”</p>
+<p>The answer is <strong>Type I Error (False Positives)</strong>. Every time you run a statistical test, there is usually a 5% chance (<span class="math inline">\(\alpha = 0.05\)</span>) of finding a “significant” result purely by luck. If you run many tests, those 5% chances add up.</p>
+<ul>
+<li><strong>1 test:</strong> 5% risk of error.</li>
+<li><strong>3 tests:</strong> ~14% risk of error.</li>
+<li><strong>ANOVA</strong> allows you to test all groups at once while keeping that total risk at 5%.</li>
+</ul>
+<p>If you get a significant result, you know that “at least one group is different,” but you don’t know if Group A is better than B, or if C is the only outlier. To find out exactly which groups differ, you must run a Post-Hoc Test (like the Tukey HSD).</p>
+<p>As such, we will only show <strong>Tukey’s HSD (Honestly Significant Difference)</strong>. It tells you which specific pairs are different while controlling for the increased risk of false positives.</p>
+<section id="hypothesis-h_5-weights-of-penguins-across-species-do-differ" class="level4">
+<h4 class="anchored" data-anchor-id="hypothesis-h_5-weights-of-penguins-across-species-do-differ">Hypothesis <span class="math inline">\(H_5\)</span>: weights of penguins across species do differ</h4>
+<div id="cell-60" class="cell" data-execution_count="97">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>penguins.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-61" class="cell" data-execution_count="118">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>penguins, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"body_mass_g"</span>, </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"violin"</span>, </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    inner<span class="op">=</span><span class="va">None</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>penguins, </span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>, </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"body_mass_g"</span>, </span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"k"</span>, </span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>g.ax</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_5791/3082984041.py:10: FutureWarning: 
+
+Setting a gradient palette using color= is deprecated and will be removed in v0.14.0. Set `palette='dark:k'` for the same effect.
+
+  sns.swarmplot(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_hypothesis_testing_files/figure-html/cell-24-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="01_hypothesis_testing_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-62" class="cell" data-execution_count="99">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.multicomp <span class="im">import</span> pairwise_tukeyhsd</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use pairwise_tukeyhsd for post-hoc analysis across species</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>tukey <span class="op">=</span> pairwise_tukeyhsd(endog<span class="op">=</span>penguins[<span class="st">'body_mass_g'</span>],</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                          groups<span class="op">=</span>penguins[<span class="st">'species'</span>],</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>                          alpha<span class="op">=</span>alpha)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tukey)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"significant!"</span> <span class="cf">if</span> (tukey.reject.<span class="bu">any</span>()) <span class="cf">else</span> <span class="st">"not enough evidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Multiple Comparison of Means - Tukey HSD, FWER=0.05      
+===============================================================
+  group1    group2   meandiff p-adj    lower     upper   reject
+---------------------------------------------------------------
+   Adelie Chinstrap   26.9239 0.9164 -132.3528  186.2005  False
+   Adelie    Gentoo 1386.2726    0.0 1252.2897 1520.2554   True
+Chinstrap    Gentoo 1359.3487    0.0 1194.4304 1524.2671   True
+---------------------------------------------------------------
+significant!</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

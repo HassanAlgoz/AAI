@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Model Evaluation – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-8b4a5520c1676ac36cce40fd3d75803c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W4/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W5/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W6/"> 
+<span class="menu-text">Vibe</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Model Evaluation</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#loss-function-vs-evaluation-metric" id="toc-loss-function-vs-evaluation-metric" class="nav-link active" data-scroll-target="#loss-function-vs-evaluation-metric">Loss Function vs Evaluation Metric</a></li>
+  <li><a href="#how-to-verify-the-model-is-learning" id="toc-how-to-verify-the-model-is-learning" class="nav-link" data-scroll-target="#how-to-verify-the-model-is-learning">How to verify the model is learning?</a></li>
+  <li><a href="#what-does-more-data-mean-for-a-model" id="toc-what-does-more-data-mean-for-a-model" class="nav-link" data-scroll-target="#what-does-more-data-mean-for-a-model">What does “more” data mean for a model?</a></li>
+  <li><a href="#model-scalability-can-the-model-learn-from-more-data" id="toc-model-scalability-can-the-model-learn-from-more-data" class="nav-link" data-scroll-target="#model-scalability-can-the-model-learn-from-more-data">Model scalability: can the model learn from more data?</a></li>
+  <li><a href="#over-fitting-and-under-fitting" id="toc-over-fitting-and-under-fitting" class="nav-link" data-scroll-target="#over-fitting-and-under-fitting">Over-fitting and Under-fitting</a></li>
+  <li><a href="#generalization" id="toc-generalization" class="nav-link" data-scroll-target="#generalization">Generalization</a>
+  <ul class="collapse">
+  <li><a href="#evaluating-generalization-performance" id="toc-evaluating-generalization-performance" class="nav-link" data-scroll-target="#evaluating-generalization-performance">Evaluating Generalization Performance</a></li>
+  <li><a href="#cross-validation-estimates" id="toc-cross-validation-estimates" class="nav-link" data-scroll-target="#cross-validation-estimates">Cross-validation estimates</a></li>
+  <li><a href="#cross-validation-strategies" id="toc-cross-validation-strategies" class="nav-link" data-scroll-target="#cross-validation-strategies">Cross-validation strategies</a></li>
+  <li><a href="#cross-validation-for-time-series-data" id="toc-cross-validation-for-time-series-data" class="nav-link" data-scroll-target="#cross-validation-for-time-series-data">Cross-validation for Time-series data</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Model Evaluation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="loss-function-vs-evaluation-metric" class="level2">
+<h2 class="anchored" data-anchor-id="loss-function-vs-evaluation-metric">Loss Function vs Evaluation Metric</h2>
+<p>The question is: how to evaluate the model’s performance?</p>
+<p><strong>Loss</strong> (lower is better): is the internal objective function being minimized by the selected machine learning algorithm during training. Examples:</p>
+<ul>
+<li>Mean Squared Error (MSE) for <code>LinearRegression</code></li>
+<li>Log Loss for <code>LogisticRegression</code></li>
+<li>Entropy for <code>DecisionTreeClassifier</code></li>
+</ul>
+<p><strong>Metrics</strong>: are used to evaluate the model’s performance from a practical or business perspective. They are not used to “train” the model; rather, to judge it’s performance and compare it against other models. Examples:</p>
+<ul>
+<li><a href="../../../W3/M4/lessons/01_slides_regression_metrics.html"><strong>Regression Metrics</strong></a> (where targets are <strong>continuous</strong>):
+<ul>
+<li>R-squared (default when you call <code>model.score()</code>)</li>
+<li>Mean Squared Error (MSE) - (also used as a loss function)</li>
+<li>Mean Absolute Percentage Error (MAPE)</li>
+</ul></li>
+<li><a href="../../../W3/M4/lessons/03_slides_classification_metrics.html"><strong>Classification Metrics</strong></a> (where targets are <strong>categorical</strong>):
+<ul>
+<li>Accuracy (default when you call <code>model.score()</code>)</li>
+<li>Precision</li>
+<li>Recall</li>
+</ul></li>
+</ul>
+<p>If you are wondering, can we use a metric as a loss function? The math says: only if the function is differentiable.</p>
+<p>What about using the loss as a metric? Humans say: if they are easily translatable to our business problem. (more on this later).</p>
+</section>
+<section id="how-to-verify-the-model-is-learning" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-verify-the-model-is-learning">How to verify the model is learning?</h2>
+<p>We can answer by saying: <strong>it should at least be better than a guess, let alone a random prediction</strong>.</p>
+<p>When doing supervised learning, a simple sanity check consists of comparing one’s estimator against simple rules of thumb.&nbsp;<a href="https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier"><code>DummyClassifier</code></a>&nbsp;implements several such simple strategies for classification:</p>
+<ul>
+<li><code>constant</code>&nbsp;always predicts a constant label that is provided by the user.</li>
+<li><code>most_frequent</code>&nbsp;always predicts the most frequent label in the training set.</li>
+<li><code>stratified</code>&nbsp;generates random predictions by respecting the training set class distribution (e.g., 20% of class A, 80% of class B).</li>
+</ul>
+<p>Note that with all these strategies, the&nbsp;<code>predict</code>&nbsp;method completely ignores the input data!</p>
+<p>To illustrate&nbsp;<a href="https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier"><code>DummyClassifier</code></a>, first let’s create an imbalanced dataset:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dummy_clf <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dummy_clf.fit(X_train, y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Next, let’s compare the accuracy of&nbsp;<code>LogisticRegression</code>&nbsp;and&nbsp;<code>most_frequent</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Dummy Classifier Score:'</span>, dummy_clf.score(X_test, y_test))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Logistic Regressino Score:'</span>, clf.score(X_test, y_test))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>More generally, when the accuracy of a classifier is too close to random, it probably means that something went wrong: features are not helpful, a hyperparameter is not correctly tuned, the classifier is suffering from class imbalance, etc…</p>
+<p><a href="https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyRegressor.html#sklearn.dummy.DummyRegressor" title="sklearn.dummy.DummyRegressor"><code>DummyRegressor</code></a>&nbsp;also implements four simple rules of thumb for regression:</p>
+<ul>
+<li><code>mean</code>&nbsp;always predicts the mean of the training targets.</li>
+<li><code>median</code>&nbsp;always predicts the median of the training targets.</li>
+<li><code>quantile</code>&nbsp;always predicts a user provided quantile of the training targets.</li>
+<li><code>constant</code>&nbsp;always predicts a constant value that is provided by the user.</li>
+</ul>
+<p>In all these strategies, the&nbsp;<code>predict</code>&nbsp;method completely ignores the input data.</p>
+</section>
+<section id="what-does-more-data-mean-for-a-model" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-more-data-mean-for-a-model">What does “more” data mean for a model?</h2>
+<p>Generally speaking, yes, given that a few conditions are met:</p>
+<p><strong>It fills gaps:</strong> New data must cover areas where the model actually lacks information. Piling on more examples of what it already understands (orange) won’t improve it. In the example below, you’re not going to see much improvement if you keep adding data to the tails (and ignoring the middle area).</p>
+<p><a href="../assets/adding_wrong_data_points.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/adding_wrong_data_points.png" class="img-fluid"></a></p>
+<p><strong>The model is capable:</strong> The mathematical tool must be complex enough to match the actual pattern. A basic straight-line model will never learn a curve, regardless of how much data you feed it. In the example below, adding more data will not improve accuracy since we’re attempting to model a nonlinear phenomenon with the wrong tool - linear regression.</p>
+<p><a href="../assets/inflexible_model.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../assets/inflexible_model.png" class="img-fluid"></a></p>
+<p><strong>Correctness</strong>: Beware of “Garbage in - garbage out.” Do not compromise data quality just so that you have a larger dataset. Trading quality for quantity is never a winning bet in machine learning.</p>
+<p><a href="https://qr.ae/pKkdtC">Original Post on Quora</a>.</p>
+</section>
+<section id="model-scalability-can-the-model-learn-from-more-data" class="level2">
+<h2 class="anchored" data-anchor-id="model-scalability-can-the-model-learn-from-more-data">Model scalability: can the model learn from more data?</h2>
+<p><strong>Learning curves</strong> show the effect of adding more training samples.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://scikit-learn.org/stable/_images/sphx_glr_plot_learning_curve_001.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure:"><img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_learning_curve_001.png" class="img-fluid figure-img" alt="Figure:"></a></p>
+<figcaption>Figure:</figcaption>
+</figure>
+</div>
+<div class="columns">
+<div class="column">
+<p>Left: naive Bayes classifier. Its shape can be found in more complex datasets very often:</p>
+<ul>
+<li>the training score is very high when using few samples for training and decreases when increasing the number of samples</li>
+<li>whereas the test score is very low at the beginning and then increases when adding samples.</li>
+<li>the training and test scores become more realistic when all the samples are used for training.</li>
+</ul>
+</div><div class="column">
+<p>Right: SVM classifier with RBF kernel.</p>
+<ul>
+<li>The training score remains high regardless of the size of the training set.</li>
+<li>On the other hand, the test score increases with the size of the training dataset.</li>
+<li>Indeed, it increases up to a point where it reaches a plateau.</li>
+</ul>
+</div>
+</div>
+<p>Observing such a <em>plateau</em> is an indication that <strong>it might not be useful to acquire new data to train the model</strong> since the generalization performance of the model will not increase anymore.</p>
+<p>Read more: <a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html">Plotting Learning Curves and Checking Models’ Scalability</a>.</p>
+</section>
+<section id="over-fitting-and-under-fitting" class="level2">
+<h2 class="anchored" data-anchor-id="over-fitting-and-under-fitting">Over-fitting and Under-fitting</h2>
+<p>Both Regression and Classification models can under-fit, over-fit, or fit just right.</p>
+<p>Here is how this looks like for Classification models:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/classification_under_optimal_overfitting.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure: showing under-fitting, optimal fitting, and over-fitting in a classification task"><img src="../assets/classification_under_optimal_overfitting.png" class="img-fluid figure-img" alt="Figure: showing under-fitting, optimal fitting, and over-fitting in a classification task"></a></p>
+<figcaption>Figure: showing under-fitting, optimal fitting, and over-fitting in a classification task</figcaption>
+</figure>
+</div>
+<p>Here is how it looks for Regression models:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_001.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure: showing under-fitting, optmial fitting, and over-fitting in a regression task"><img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_001.png" class="img-fluid figure-img" alt="Figure: showing under-fitting, optmial fitting, and over-fitting in a regression task"></a></p>
+<figcaption>Figure: showing under-fitting, optmial fitting, and over-fitting in a regression task</figcaption>
+</figure>
+</div>
+<p><a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_underfitting_overfitting.html">See Code</a>.</p>
+<p>Of course, this is simplified for visualization. In practice, we need to quantify this with numbers to estimate the performance for more-than-visually-possible amount of features.</p>
+</section>
+<section id="generalization" class="level2">
+<h2 class="anchored" data-anchor-id="generalization">Generalization</h2>
+<p><strong>Generalization</strong>: The extent to which a model fits data it hasn’t seen during training. It is quantified using an error metric.</p>
+<p>A model suffers from error coming from two conflicting sources: <strong>Bias</strong> and <strong>Variance</strong>.</p>
+<p><strong>Bias</strong>: This is the average estimation error on the training data. It occurs when a model is too simple to capture the underlying patterns in the data, either due to having too few parameters or a weak structure. This phenomenon is called <strong>Under-fitting</strong>.</p>
+<p><strong>Variance</strong>: This refers to the fluctuation in the model’s error when evaluated on different unseen datasets. It happens when a model is too detailed (has too many parameters), when there is insufficient data (the data fails to express the general pattern), or both. This is called <strong>Over-fitting</strong>.</p>
+<p>The <strong>Good-fit</strong> model strikes a balance between the two:</p>
+<ul>
+<li>The model: Has enough capacity for detail to capture small patterns, and enough abstraction to capture the big picture.</li>
+<li>The data: Adequately represents both small and large patterns.</li>
+</ul>
+<section id="evaluating-generalization-performance" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-generalization-performance">Evaluating Generalization Performance</h3>
+<p>Question: how to estimate generalization performance of a model?</p>
+<p>When selecting a model, we distinguish 3 different parts of the data that we have as follows:</p>
+<ul>
+<li><strong>Training set</strong>: Fit parameters</li>
+<li><strong>Validation set</strong>: Evaluate intermediate models to select the best one</li>
+<li><strong>Testing set</strong>: Final unbiased performance check</li>
+</ul>
+<p>These are represented in the figure below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/train_validation_test.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure: Dataset splits"><img src="../assets/train_validation_test.png" class="img-fluid figure-img" alt="Figure: Dataset splits"></a></p>
+<figcaption>Figure: Dataset splits</figcaption>
+</figure>
+</div>
+<p>Once the model has been chosen (using training and validation sets); they are grouped together again and the selected model is then trained on the entire train-validation set. Finally, it is tested on the never-seen test set.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you use the Testing Set to make decisions about which model is “better,” you have effectively turned your test set into a validation set. So, never let the model develop based on any information about the test set.</p>
+</div>
+</div>
+</section>
+<section id="cross-validation-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation-estimates">Cross-validation estimates</h3>
+<p>When doing a single train-test split we don’t give any indication regarding the robustness of the evaluation of our predictive model: in particular, <strong>if the test set is small</strong>, this estimate of the testing error will be unstable and wouldn’t reflect the “true error rate” we would have observed with the same model on an unlimited amount of test data.</p>
+<p>For instance, we could have been <strong>lucky when we did our random split of our limited dataset</strong> and isolated some of the easiest cases to predict in the testing set just by chance: the estimation of the testing error would be overly optimistic, in this case.</p>
+<p>To make our scoring more reliable we use <strong>Cross-validation (CV)</strong> which works with two loops:</p>
+<ul>
+<li><strong>Loop</strong>: set hyperparameters; the structural settings you chose before training begins, like the degree of the polynomial
+<ul>
+<li><strong>Fitting</strong>: the model uses the Training Set to adjust its internal parameters, like the coefficients and intercept in linear regression</li>
+<li>Test performance on the <em>Validation set</em> (so far it is unseen)</li>
+</ul></li>
+</ul>
+<p>By repeating the splitting procedure, and averaging the results, CV achieves a more reliable estimate of whether the model is over-fitting, under-fitting, or generalizing well.</p>
+<p>The following figure shows a generalization performance of a 3 different models, each across 5 CV splits:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/cv_generalization_performance_3_models.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure: Generalization performance across 5 CV splits"><img src="../assets/cv_generalization_performance_3_models.png" class="img-fluid figure-img" alt="Figure: Generalization performance across 5 CV splits"></a></p>
+<figcaption>Figure: Generalization performance across 5 CV splits</figcaption>
+</figure>
+</div>
+</section>
+<section id="cross-validation-strategies" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation-strategies">Cross-validation strategies</h3>
+<p>There are <a href="https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation-iterators">different cross-validation strategies</a>, two of which are summed up in the table below:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>k-fold</strong></th>
+<th><strong>Leave-p-out</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>• Training on&nbsp;<span class="math inline">\(k−1\)</span> folds and assessment on the remaining one <br>• Generally&nbsp;<span class="math inline">\(k=5\)</span>&nbsp;or&nbsp;<span class="math inline">\(k=10\)</span></td>
+<td>• Training on&nbsp;<span class="math inline">\(n−p\)</span>&nbsp;observations and assessment on the&nbsp;<span class="math inline">\(p\)</span>&nbsp;remaining ones <br>• Case&nbsp;<span class="math inline">\(p=1\)</span>&nbsp;is called “leave-one-out”</td>
+</tr>
+</tbody>
+</table>
+<p>The most commonly used method is called&nbsp;<span class="math inline">\(k\)</span>-fold cross-validation and splits the training data into&nbsp;<span class="math inline">\(k\)</span>&nbsp;folds to validate the model on one fold while training the model on the&nbsp;<span class="math inline">\(k−1\)</span>&nbsp;other folds, all of this&nbsp;<span class="math inline">\(k\)</span>&nbsp;times. The error is then averaged over the&nbsp;<span class="math inline">\(k\)</span>&nbsp;folds and is named <strong>cross-validation error</strong>.</p>
+<p><img src="../assets/cv_k-fold.png" class="img-fluid" alt="Figure: K-fold training with cross-validation">.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>A test set should still be held out for a final evaluation</strong>.</p>
+</div>
+</div>
+<p>The technique is explained in more details in the following lab.</p>
+</section>
+<section id="cross-validation-for-time-series-data" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation-for-time-series-data">Cross-validation for Time-series data</h3>
+<p>In time-series data, the order of the data is important. So, we need to use a cross-validation strategy that preserves the order of the data. One such strategy is called <code>TimeSeriesSplit</code>.</p>
+<p>Refer to <a href="https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation-of-time-series-data">this section</a> for more details.</p>
+<p>Then, to make use of the full dataset (especially in time-series predictions where recency it crucial); a final training on the entire dataset (including the test) is often done. But, no further testing is done after that. Instead, we report the number we got from the previous test.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
