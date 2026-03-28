@@ -237,13 +237,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A serial number for the bike</li>
 <li>Subscriber type and zip code</li>
 </ul>
-<p>Credit: this notebook is adapted from: <a href="https://inferentialthinking.com/chapters/08/5/Bike_Sharing_in_the_Bay_Area.html">Chapter 8.5 - Computational and Inferential Thinking: The Foundations of Data Science</a></p>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-4" class="cell">
+<div id="cell-3" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path_data <span class="op">=</span> <span class="st">'../../data/trip/'</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>trips <span class="op">=</span> pd.read_csv(path_data <span class="op">+</span> <span class="st">'trip.csv'</span>)</span>
@@ -348,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We’ll focus only on the <em>free trips</em>, which are trips that last less than 1800 seconds (half an hour). There is a charge for longer trips.</p>
 <p>The histogram below shows that most of the trips took around 10 minutes (600 seconds) or so. Very few took near 30 minutes (1800 seconds), possibly because people try to return the bikes before the cutoff time so as not to have to pay.</p>
-<div id="cell-6" class="cell" data-execution_count="12">
+<div id="cell-5" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>commute <span class="op">=</span> trips[trips[<span class="st">'Duration'</span>] <span class="op">&lt;</span> <span class="dv">1800</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>commute.plot.hist(y<span class="op">=</span><span class="st">'Duration'</span>, bins<span class="op">=</span><span class="dv">30</span>, title<span class="op">=</span><span class="st">'Trip Durations'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Duration (seconds)'</span>)</span>
@@ -362,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can get more detail by specifying a larger number of bins. But the overall shape doesn’t change much.</p>
-<div id="cell-8" class="cell" data-execution_count="16">
+<div id="cell-7" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>commute <span class="op">=</span> trips[trips[<span class="st">'Duration'</span>] <span class="op">&lt;</span> <span class="dv">1800</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>commute.plot.hist(y<span class="op">=</span><span class="st">'Duration'</span>, bins<span class="op">=</span><span class="dv">80</span>, title<span class="op">=</span><span class="st">'Trip Durations'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Duration (seconds)'</span>)</span>
@@ -378,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exploring-the-data-with-group-and-pivot" class="level2">
 <h2 class="anchored" data-anchor-id="exploring-the-data-with-group-and-pivot">Exploring the Data with <code>group</code> and <code>pivot</code></h2>
 <p>We can use <code>group</code> to identify the most highly used Start Station:</p>
-<div id="cell-10" class="cell" data-execution_count="17">
+<div id="cell-9" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>starts <span class="op">=</span> commute.groupby(<span class="st">'Start Station'</span>).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>).sort_values(by<span class="op">=</span><span class="st">'count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>starts.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -429,7 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="count-the-number-of-trips-for-each-start-and-end-stations" class="level3">
 <h3 class="anchored" data-anchor-id="count-the-number-of-trips-for-each-start-and-end-stations">Count the number of trips, for each start and end stations</h3>
 <p>The <code>group</code> method can also be used to classify the rentals by both Start Station and End Station.</p>
-<div id="cell-14" class="cell" data-execution_count="52">
+<div id="cell-13" class="cell" data-execution_count="52">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>start_end <span class="op">=</span> commute.groupby([<span class="st">'Start Station'</span>, <span class="st">'End Station'</span>]).size()</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>start_end.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="52">
@@ -443,7 +442,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Note that <code>groupby</code> results in multi-indexed DataFrame where <code>' 'Start Station'</code> and <code>'End Station'</code> are the 1st level, and 2nd level indexes respectively.</p>
-<div id="cell-16" class="cell" data-execution_count="53">
+<div id="cell-15" class="cell" data-execution_count="53">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>start_end.index</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="53">
 <pre><code>MultiIndex([(                                '2nd at Folsom', ...),
@@ -472,7 +471,7 @@ dtype: int64</code></pre>
 </div>
 <p>Let’s use <code>reset_index</code> to convert the result of the <code>groupby</code> operation from a multi-indexed DataFrame to a regular DataFrame.</p>
 <p>The <code>name='count'</code> ensures the aggregate-value column is given a name.</p>
-<div id="cell-18" class="cell" data-execution_count="54">
+<div id="cell-17" class="cell" data-execution_count="54">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>start_end <span class="op">=</span> start_end.reset_index(name<span class="op">=</span><span class="st">'count'</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>start_end.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="54">
@@ -531,7 +530,7 @@ dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="using-pivot-to-show-all-combinations">Using <code>pivot</code> to show all combinations</h3>
 <p>The <code>pivot</code> method does the same classification but displays its results in a contingency table that shows all possible combinations of Start and End Stations, even though some of them didn’t correspond to any trips. Remember that the first argument of a <code>pivot</code> statement specifies the column labels of the pivot table; the second argument labels the rows.</p>
 <p>There is a train station as well as a Bay Area Rapid Transit (BART) station near Beale at Market, explaining the high number of trips that start and end there.</p>
-<div id="cell-20" class="cell" data-execution_count="55">
+<div id="cell-19" class="cell" data-execution_count="55">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pivot_table <span class="op">=</span> commute.pivot_table(index<span class="op">=</span><span class="st">'Start Station'</span>, columns<span class="op">=</span><span class="st">'End Station'</span>, values<span class="op">=</span><span class="st">'Duration'</span>, aggfunc<span class="op">=</span><span class="st">'count'</span>, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pivot_table.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="55">
@@ -721,7 +720,7 @@ dtype: int64</code></pre>
 <section id="shortest-time" class="level3">
 <h3 class="anchored" data-anchor-id="shortest-time">Shortest Time</h3>
 <p>We can also use <code>pivot</code> to find the shortest time of the rides between Start and End Stations. Here <code>pivot</code> has been given <code>Duration</code> as the optional <code>values</code> argument, and <code>min</code> as the function which to perform on the values in each cell.</p>
-<div id="cell-23" class="cell" data-execution_count="56">
+<div id="cell-22" class="cell" data-execution_count="56">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pivot_table_min <span class="op">=</span> commute.pivot_table(index<span class="op">=</span><span class="st">'Start Station'</span>, columns<span class="op">=</span><span class="st">'End Station'</span>, values<span class="op">=</span><span class="st">'Duration'</span>, aggfunc<span class="op">=</span><span class="st">'min'</span>, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pivot_table_min.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="56">
@@ -913,7 +912,7 @@ dtype: int64</code></pre>
 <section id="drawing-maps" class="level2">
 <h2 class="anchored" data-anchor-id="drawing-maps">Drawing Maps</h2>
 <p>The table <code>stations</code> contains geographical information about each bike station, including latitude, longitude, and a “landmark” which is the name of the city where the station is located.</p>
-<div id="cell-26" class="cell" data-execution_count="57">
+<div id="cell-25" class="cell" data-execution_count="57">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stations <span class="op">=</span> pd.read_csv(path_data <span class="op">+</span> <span class="st">'station.csv'</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>stations.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="57">
@@ -991,7 +990,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>We can draw a map of where the stations are located, using <code>folium.Marker</code>. The function operates on a table, whose columns are (in order) latitude, longitude, and an optional identifier for each point.</p>
-<div id="cell-28" class="cell" data-execution_count="123">
+<div id="cell-27" class="cell" data-execution_count="123">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_map(data, lat_col<span class="op">=</span><span class="st">'lat'</span>, long_col<span class="op">=</span><span class="st">'long'</span>, label_col<span class="op">=</span><span class="va">None</span>):</span>
@@ -1003,7 +1002,7 @@ dtype: int64</code></pre>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            folium.Marker([row[lat_col], row[long_col]]).add_to(m)</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="124">
+<div id="cell-28" class="cell" data-execution_count="124">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>stations_map <span class="op">=</span> plot_map(stations, lat_col<span class="op">=</span><span class="st">'lat'</span>, long_col<span class="op">=</span><span class="st">'long'</span>, label_col<span class="op">=</span><span class="st">'name'</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>stations_map</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="124">
@@ -2553,7 +2552,7 @@ dtype: int64</code></pre>
 </div>
 <p>The map is created using <a href="http://www.openstreetmap.org/#map=5/51.500/-0.100">OpenStreetMap</a>, which is an open online mapping system that you can use just as you would use Google Maps or any other online map. Zoom in to San Francisco to see how the stations are distributed. Click on a marker to see which station it is.</p>
 <p>You can also represent points on a map by colored circles. Here is such a map of the San Francisco bike stations.</p>
-<div id="cell-32" class="cell" data-execution_count="125">
+<div id="cell-31" class="cell" data-execution_count="125">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sf <span class="op">=</span> stations[stations[<span class="st">'landmark'</span>] <span class="op">==</span> <span class="st">'San Francisco'</span>]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sf_map_data <span class="op">=</span> sf[[<span class="st">'lat'</span>, <span class="st">'long'</span>, <span class="st">'name'</span>]]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2850,7 +2849,7 @@ dtype: int64</code></pre>
 <section id="more-informative-maps-an-application-of-join" class="level2">
 <h2 class="anchored" data-anchor-id="more-informative-maps-an-application-of-join">More Informative Maps: An Application of <code>join</code></h2>
 <p>The bike stations are located in five different cities in the Bay Area. To distinguish the points by using a different color for each city, let’s start by using group to identify all the cities and assign each one a color.</p>
-<div id="cell-34" class="cell" data-execution_count="99">
+<div id="cell-33" class="cell" data-execution_count="99">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> stations[<span class="st">'landmark'</span>].unique()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'city'</span>: cities,</span>
@@ -2902,7 +2901,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Now we can join <code>stations</code> and <code>colors</code> by <code>landmark</code>, and then select the columns we need to draw a map.</p>
-<div id="cell-36" class="cell" data-execution_count="100">
+<div id="cell-35" class="cell" data-execution_count="100">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>joined <span class="op">=</span> stations.merge(colors, left_on<span class="op">=</span><span class="st">'landmark'</span>, right_on<span class="op">=</span><span class="st">'city'</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>colored <span class="op">=</span> joined[[<span class="st">'lat'</span>, <span class="st">'long'</span>, <span class="st">'name'</span>, <span class="st">'color'</span>]]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>colored.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2962,7 +2961,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="126">
+<div id="cell-36" class="cell" data-execution_count="126">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>colored_map <span class="op">=</span> folium.Map(location<span class="op">=</span>[colored[<span class="st">'lat'</span>].mean(), colored[<span class="st">'long'</span>].mean()], zoom_start<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, row <span class="kw">in</span> colored.iterrows():</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    folium.CircleMarker([row[<span class="st">'lat'</span>], row[<span class="st">'long'</span>]], color<span class="op">=</span>row[<span class="st">'color'</span>], fill<span class="op">=</span><span class="va">True</span>, popup<span class="op">=</span>row[<span class="st">'name'</span>]).add_to(colored_map)</span>
@@ -4514,7 +4513,7 @@ dtype: int64</code></pre>
 </div>
 <p>Now the markers have five different colors for the five different cities.</p>
 <p>To see where most of the bike rentals originate, let’s identify the start stations:</p>
-<div id="cell-40" class="cell" data-execution_count="102">
+<div id="cell-39" class="cell" data-execution_count="102">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>starts <span class="op">=</span> commute.groupby(<span class="st">'Start Station'</span>).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>).sort_values(by<span class="op">=</span><span class="st">'count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>starts.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="102">
@@ -4562,7 +4561,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>We can include the geographical data needed to map these stations, by first joining <code>starts</code> with <code>stations</code>:</p>
-<div id="cell-42" class="cell" data-execution_count="103">
+<div id="cell-41" class="cell" data-execution_count="103">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>station_starts <span class="op">=</span> stations.merge(starts, left_on<span class="op">=</span><span class="st">'name'</span>, right_on<span class="op">=</span><span class="st">'Start Station'</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>station_starts.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="103">
@@ -4652,7 +4651,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Now we extract just the data needed for drawing our map, adding a color and an area to each station. The area is 0.3 times the count of the number of rentals starting at each station, where the constant 0.3 was chosen so that the circles would appear at an appropriate scale on the map.</p>
-<div id="cell-45" class="cell" data-execution_count="116">
+<div id="cell-44" class="cell" data-execution_count="116">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>merged_df <span class="op">=</span> colored.merge(station_starts, left_on<span class="op">=</span><span class="st">'name'</span>, right_on<span class="op">=</span><span class="st">'Start Station'</span>, suffixes<span class="op">=</span>(<span class="st">''</span>, <span class="st">'_y'</span>))</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>starts_map_data <span class="op">=</span> merged_df[[<span class="st">'lat'</span>, <span class="st">'long'</span>, <span class="st">'name'</span>, <span class="st">'color'</span>, <span class="st">'count'</span>]]</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>starts_map_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -4718,7 +4717,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-46" class="cell" data-execution_count="122">
+<div id="cell-45" class="cell" data-execution_count="122">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>starts_map <span class="op">=</span> folium.Map(location<span class="op">=</span>[starts_map_data[<span class="st">'lat'</span>].mean(), starts_map_data[<span class="st">'long'</span>].mean()], zoom_start<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, row <span class="kw">in</span> starts_map_data.iterrows():</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    folium.CircleMarker([row[<span class="st">'lat'</span>], row[<span class="st">'long'</span>]], radius<span class="op">=</span>row[<span class="st">'count'</span>] <span class="op">*</span> <span class="fl">0.006</span>, color<span class="op">=</span>row[<span class="st">'color'</span>], fill<span class="op">=</span><span class="va">True</span>, popup<span class="op">=</span>row[<span class="st">'name'</span>]).add_to(starts_map)</span>
@@ -6227,6 +6226,11 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>That huge blob in San Francisco shows that the eastern section of the city is the unrivaled capital of bike rentals in the Bay Area.</p>
+<hr>
+<p>References:</p>
+<ul>
+<li><a href="https://inferentialthinking.com/chapters/08/5/Bike_Sharing_in_the_Bay_Area.html">Chapter 8.5 - Computational and Inferential Thinking: The Foundations of Data Science</a></li>
+</ul>
 
 
 </section>
