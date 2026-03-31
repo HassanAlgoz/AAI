@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
+
+  <title>Applied AI Bootcamp – Effective communication of exploratory results</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-5f0c85c1976c203864cee9db71b09d05.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Effective communication of exploratory results</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="why-this-matters" class="slide level2">
+<h2>Why this matters</h2>
+<p>Graphs communicate ideas quickly—but images can also mislead.</p>
+<p>This deck covers <strong>best practices</strong> for presenting data accurately and clearly. Visualization has room for creativity, yet solid principles still apply.</p>
+<aside class="notes">
+<p>Open with the tension: a picture <em>can</em> be worth a thousand words, but it can also lie or mislead. The goal of this session is not to kill creativity—visualization is partly an art—but to give you <strong>guiding principles</strong> so your exploratory graphics present data <strong>accurately</strong> and <strong>effectively</strong>. Everything that follows supports that single aim.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="whats-wrong-with-this-plot" class="slide level2">
+<h2>What’s wrong with this plot?</h2>
+
+<img data-src="../../assets/bad_example_height_per_country.png" class="r-stretch"><aside class="notes">
+<p>Pause on the image before you explain. Ask the room what feels off—scale, encoding, comparison, or story. You are priming them for the principles ahead: we will return to <em>why</em> bad choices happen (defaults, decoration, wrong chart type) as we go through each section. Keep this slide short; the next slides name the fixes.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="keep-it-simple" class="slide level2">
+<h2>1. Keep it simple</h2>
+<p>Decide what you want the reader to see. Use <strong>color</strong> to group or differentiate levels meaningfully—not only to brighten the plot.</p>
+<p>Pie slices are hard to compare; arbitrary colors distract; 3D rarely helps. A <strong>bar chart</strong> usually makes category magnitudes easier to read, especially with more than a few levels.</p>
+
+<img data-src="../../assets/viz_1.png" class="r-stretch"><aside class="notes">
+<p>Use the classic <strong>manufacturing cost</strong> example mentally: five cost categories. On the pie, ask aloud whether your eye can really compare “Buildings and administration” to “Workplace materials”—slice angles are poor for magnitude. Call out <strong>three</strong> problems: hard comparisons, <strong>meaningless</strong> rainbow-like colors, and <strong>3D</strong> that adds no insight. Then contrast with the bar chart: same categories, but length is easy to judge. Emphasize the rule: for more than a few categories, <strong>bars usually beat pies</strong> for reading values.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="use-color-to-draw-attention" class="slide level2">
+<h2>2. Use color to draw attention</h2>
+<p>Add color <strong>on purpose</strong>: draw attention to what matters, and question defaults (e.g., do red and purple bars imply a relationship?).</p>
+<p>Not everyone perceives color the same way—pair color with another cue (e.g., pattern) when you need to refer to highlighted elements in more than one way.</p>
+
+<img data-src="../../assets/viz_2.png" class="r-stretch"><aside class="notes">
+<p>Beauty is fine, but <strong>defaults are a decision</strong>—often a bad one. Walk through (a) vs (b): in (b), color <em>points</em> to one message; in (a), redundant hues make viewers wonder if red and purple “mean” something related. Mention <strong>accessibility</strong>: color vision varies; panel (c) shows pairing <strong>color with pattern</strong> so you can refer to the highlighted category in two ways. This is a good place to say “if you only remember one thing about color: use it to <strong>direct attention</strong>, not to decorate.”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tell-a-story" class="slide level2">
+<h2>3. Tell a story</h2>
+<p>Often the plot should include <strong>context</strong> that is not in the raw table—annotations, reference lines, or events that frame the narrative.</p>
+<p>Example: mark the start of a fiscal year. A diagonal line (y = x) can separate points where one coordinate exceeds the other.</p>
+
+<img data-src="../../assets/viz_3.png" class="r-stretch"><aside class="notes">
+<p>The dataset rarely contains the whole story. <strong>External information</strong>—policy dates, fiscal year starts, experimental conditions—belongs on the plot when it explains <em>why</em> the series looks the way it does. The text’s example: annotating the <strong>start of the university fiscal year</strong>. For scatterplots, a <strong>(y = x)</strong> line is standard: above the line, one variable exceeds the other; below, the reverse. That line is “context” encoded as geometry. Encourage students to ask: “What would a domain expert need to see that isn’t in the CSV?”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="order-matters" class="slide level2">
+<h2>4. Order matters</h2>
+<p>Software may order categories alphabetically by default—that is not always meaningful.</p>
+<p>Consider <strong>ordering by magnitude</strong> or by the <strong>natural sequence</strong> of the question (e.g., survey response order). A misleading order can fool a quick scan of the axes.</p>
+<aside class="notes">
+<p>Most tools <strong>alphabetize</strong> or use arbitrary order unless you override. Explain that <strong>alphabetical</strong> order is often meaningless for opinion or severity scales—readers skim the axis and infer a trend that isn’t there. Offer two better options: <strong>sort by count</strong> (tallest to shortest) when the story is “who is biggest,” and <strong>survey or logical order</strong> when the scale itself is ordinal (e.g., “very well” through “very badly”). Stress: <strong>wrong order misleads</strong> even when the numbers are correct. The next slide gives a real survey where question order is the right order.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="brexit-opinion-yougov-sept-2019" class="slide level2">
+<h2>Brexit opinion (YouGov, Sept 2019)</h2>
+<p>Survey of 1,639 adults in Great Britain: <a href="https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/x0msmggx08/YouGov%20-%20Brexit%20and%202019%20election.pdf">How well or badly do you think the government are doing at handling Britain’s exit from the European Union?</a></p>
+<ul>
+<li>Very well<br>
+</li>
+<li>Fairly well<br>
+</li>
+<li>Fairly badly<br>
+</li>
+<li>Very badly<br>
+</li>
+<li>Don’t know</li>
+</ul>
+
+<img data-src="../../assets/viz_4.png" class="r-stretch"><aside class="notes">
+<p><strong>YouGov, September 2019</strong>, <em>n</em> = 1,639 Great Britain adults—link is on the slide for anyone who wants the PDF. The question wording matters; the <strong>response options</strong> have a natural order from positive to negative (plus “Don’t know”). That is why <strong>alphabetical</strong> bar order fails here: the <em>right</em> order follows how the question was asked, as in the figure. Connect back to the previous slide: this is the “Figure 6.4” story in the book—(a) alphabetical, (b) by height, (c) by survey order. Walk the audience through what each ordering emphasizes before they stare at <code>viz_4</code>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="make-labels-easy-to-read" class="slide level2">
+<h2>5. Make labels easy to read</h2>
+<p>Same numbers, different layout: <strong>horizontal bars</strong> often leave more room for category labels than vertical bars.</p>
+<p>Clear labels → more learning from the chart. Aim for <strong>succinct, readable</strong> text.</p>
+
+<img data-src="../../assets/viz_5.png" class="r-stretch"><aside class="notes">
+<p>This continues the Brexit theme: results <strong>by region</strong> in stacked bars. (a) vertical vs (b) horizontal—the <strong>values are identical</strong>; only layout changes. Horizontal bars buy space for <strong>long region names</strong> on the axis. Repeat the mantra: the easier the labels, the more the reader actually reads. If something is hard to read, they skip it and your chart under-delivers. Tie to the chapter goal: <strong>maximum information, clearly</strong>, not maximum ink.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="pick-a-purpose" class="slide level2">
+<h2>6. Pick a purpose</h2>
+<p>Every graphical choice should serve the <strong>research question</strong>. Defaults are not always the right story.</p>
+<p>Stacked bars emphasize one kind of comparison; <strong>faceting</strong> or alternative encodings may fit another. Use informative labels, titles, and sources when you can.</p>
+
+<img data-src="../../assets/viz_6-1.png" class="r-stretch"><aside class="notes">
+<p><strong>Stacked bars</strong> answer “what is the composition within each group?”—not always the question you care about. Same data, three stories: (a) if <strong>proportions across regions</strong> are the headline, stacked or normalized views help. (b) if <strong>counts</strong> matter—not just shares—show totals or axes that preserve magnitude. (c) <strong>faceting</strong>—one small multiple per region—when you want readers to compare distributions <em>within</em> region without stacking confusion. Mention that good figures also carry <strong>titles and a data source URL</strong>; the book highlights that on (c). Preview the next slide: more variants of the same idea.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="same-data-different-emphasis" class="slide level2">
+<h2>Same data, different emphasis</h2>
+
+<img data-src="../../assets/viz_6-2.png" class="r-stretch"><aside class="notes">
+<p>Briefly contrast this panel with the previous: reinforce that <strong>encoding choice = editorial choice</strong>. Ask: “For <em>your</em> analysis, is the story about share, about total (N), or about per-region detail?” There is no single “correct” chart—only a chart that matches the <strong>question</strong>. Remind them to strip <strong>redundant</strong> ink and to label what matters.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="select-meaningful-colors" class="slide level2">
+<h2>7. Select meaningful colors</h2>
+<p>Avoid rainbow defaults when they do not match your variable. Choose palettes that are <strong>distinct</strong> and work for <strong>color-vision diversity</strong> (e.g., <strong>cividis</strong> for ordinal data—<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0199239">Nuñez, Anderton, and Renslow 2018</a>).</p>
+
+<img data-src="../../assets/viz_7.png" class="r-stretch"><aside class="notes">
+<p><strong>Rainbow</strong> scales are popular in defaults but often <strong>perceptually uneven</strong>—equal steps in data don’t look equal in hue. Research-backed palettes (the slide mentions <strong>cividis</strong> for ordinal data) aim for <strong>discriminability</strong> and <strong>robustness</strong> across common forms of color-vision deficiency. Same plot, two themes: let the audience see how “prettier” is not the same as “more informative.” Point to the paper if someone teaches or publishes in this space.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="takeaway" class="slide level2">
+<h2>Takeaway</h2>
+<p>Your graph should carry <strong>maximum information</strong> in minimum ink: clear labels (often horizontal), strong titles, and <strong>data source</strong> when possible.</p>
+<aside class="notes">
+<p>One-sentence synthesis of the chapter: <strong>maximal information, succinctly and clearly</strong>—Tufte’s spirit without naming him if you prefer. <strong>Horizontal labels</strong> when you can, <strong>titles</strong> that state the claim, and <strong>sources</strong> so the figure is trustworthy. This is a good moment to loop back to the opening “bad plot”: ask which principles it violated. End upbeat: these habits become automatic with practice.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="quantitative-perception" class="slide level2">
+<h2>Quantitative perception</h2>
+<p>How do we <strong>perceive</strong> quantities from visual properties of a chart?</p>
+
+<img data-src="../../assets/perception.png" class="r-stretch"><aside class="notes">
+<p>Transition from “what to draw” to “how humans read marks.” The perception figure summarizes <strong>which encodings</strong> we judge well (position along a common scale) vs poorly (area, angle, hue without order). Use this slide to justify why bar length beats pie angle, and why careful color matters. Keep it high level here; the next slide sends them to deeper resources.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="more-on-perception-and-encoding" class="slide level2">
+<h2>More on perception and encoding</h2>
+<ul>
+<li>Slide deck: <a href="https://speakerdeck.com/cmulbrandon/methods-for-visualizing-economics">Data Visualization Best Practices — Catherine Mulbrandon</a><br>
+</li>
+<li>Plot building blocks: <a href="https://seaborn.pydata.org/tutorial/properties.html">Plot properties — Seaborn</a> (color, style, size, text)</li>
+</ul>
+<aside class="notes">
+<p><strong>Mulbrandon’s</strong> deck is an excellent follow-up for economics-style communication. <strong>Seaborn’s “Plot properties”</strong> tutorial is practical for implementation: how library defaults map to <strong>color, style, size, and text</strong>—good for lab work after this lecture. Encourage bookmarking rather than reading live.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="color-scheme-tools" class="slide level2">
+<h2>Color scheme tools</h2>
+<ul>
+<li><a href="http://colorbrewer2.org">ColorBrewer 2.0</a><br>
+</li>
+<li><a href="https://coolors.co/">Coolors</a></li>
+</ul>
+<aside class="notes">
+<p><strong>ColorBrewer</strong> is the classic tool for <strong>map- and chart-ready</strong> palettes with accessibility in mind. <strong>Coolors</strong> helps when you need to explore combinations quickly—still check contrast and color-blind simulation before finalizing. These are for <em>after</em> you know your data type (qualitative vs sequential vs diverging).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="references" class="slide level2">
+<h2>References</h2>
+<ul>
+<li><a href="https://openintro-ims.netlify.app/explore-applications">OpenIntro: Introduction to Modern Statistics</a><br>
+</li>
+<li><a href="https://harvard-iacs.github.io/2021-CS109A/lectures/lecture12/presentation/Lecture12_Visualization_2021.pdf">CS109A | Harvard — Visualization lecture</a></li>
+</ul>
+<aside class="notes">
+<p>Credit the <strong>OpenIntro</strong> material this chapter draws from, and <strong>Harvard CS109A</strong> for a full lecture treatment of visualization if students want alternate explanations and examples. Close the session; invite questions.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+    (function() {
+      let previousOnload = window.onload;
+      window.onload = () => {
+        if (previousOnload) {
+          previousOnload();
+        }
+        lightboxQuarto.on('slide_before_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          const href = trigger.getAttribute('href');
+          if (href !== null) {
+            const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+            if (imgEl !== null) {
+              const srcAttr = imgEl.getAttribute("src");
+              if (srcAttr && srcAttr.startsWith("data:")) {
+                slideConfig.href = srcAttr;
+              }
+            }
+          } 
+        });
+      
+        lightboxQuarto.on('slide_after_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(slideNode);
+          }
+        });
+      
+      };
+      
+    })();
+              </script>
+    
+
+</body></html>

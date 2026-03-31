@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Bootcamp Introduction</title>
+  <title>Applied AI Bootcamp – Introduction to Data Science</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,14 +33,33 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-5f0c85c1976c203864cee9db71b09d05.css">
-  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-5f0c85c1976c203864cee9db71b09d05.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -135,187 +154,145 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Bootcamp Introduction</h1>
+  <h1 class="title">Introduction to Data Science</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section class="slide level2">
+<section id="motivating-story" class="slide level2">
+<h2>Motivating story</h2>
+<p><a href="https://notebooklm.google.com/notebook/8e9ff4ca-2054-48d5-b0d3-120db7d965f8?artifactId=ce04c28d-cadf-4431-9e82-7d15c8dc4d66">NotebookLM comic (John Snow)</a></p>
+<p><strong>The invisible threat:</strong> London, 1854 — cholera in Soho. Consensus: <em>miasma</em> (bad air). <strong>John Snow</strong> asked for evidence: cholera might spread through <strong>contaminated water</strong>, not smell.</p>
+</section>
+<section id="gathering-the-data" class="slide level2 scrollable">
+<h2>Gathering the data</h2>
+<p>Snow could not see bacteria; he <strong>collected data</strong> instead:</p>
+<ol type="1">
+<li><strong>Where</strong> each household lived.</li>
+<li><strong>Which</strong> drinking water they used.</li>
+</ol>
+<p>He put deaths on a <strong>map</strong> — one mark per address — turning tables into <strong>spatial</strong> evidence.</p>
+</section>
+<section id="identifying-the-pattern" class="slide level2">
+<h2>Identifying the pattern</h2>
+<p>Deaths clustered around the <strong>Broad Street pump</strong>, not evenly across “bad air.”</p>
 
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/program_info.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/program_info.png" class="quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-</section>
-<section id="schedule" class="slide level2">
-<h2>Schedule</h2>
+<img data-src="../../assets/snows-mapped-death-frequency.png" class="r-stretch"></section>
+<section id="investigating-anomalies" class="slide level2">
+<h2>Investigating anomalies</h2>
+<p>Strong hypotheses survive <strong>exceptions</strong>:</p>
 <ul>
-<li class="fragment"><strong>Course 1: Python</strong><br>
-Build strong Python programming foundations to apply and integrate ML/DL/AI in software systems.</li>
-<li class="fragment"><strong>Course 2: Applied Data Science</strong><br>
-Calculate, analyze, visualize, interpret data and test hypothesis using Data Science.</li>
-<li class="fragment"><strong>Course 3: Applied Machine Learning</strong><br>
-Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.</li>
-<li class="fragment"><strong>Course 4: Applied Deep Learning</strong><br>
-Use DL solution frameworks / libraries to apply AI to specific problems in vision and language.</li>
-<li class="fragment"><strong>Course 5: Agentic AI</strong><br>
-Develop, debug, evaluate deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.</li>
-<li class="fragment"><strong>Course 6: Agentic Engineering</strong><br>
-Use today’s best practices to accelerate software development in your codebase. Previously known as <em>Vibe Coding</em>.</li>
+<li><strong>The brewery:</strong> Workers drank beer / a <strong>private well</strong> — not the pump.</li>
+<li><strong>The workhouse:</strong> <strong>Own well</strong> — almost no deaths amid surrounding cases.</li>
+<li><strong>The Hampstead widow:</strong> Died far from Soho; she still drank <strong>Broad Street water</strong> (and her niece, who visited).</li>
 </ul>
+<p><strong>Conclusion:</strong> the variable was <strong>water from that pump</strong>, not proximity to foul air.</p>
 </section>
-<section id="capstone-project" class="slide level2 scrollable">
-<h2>Capstone Project</h2>
-<p>Utilize various skills learned during the bootcamp to solve problems that needs AI.</p>
-<p>Tentative schedule:</p>
+<section id="data-to-action" class="slide level2">
+<h2>Data to action</h2>
+<p>Snow showed the board his map and reasoning; they acted on the evidence.</p>
+<blockquote>
+<p>“I had an interview with the Board of Guardians of St.&nbsp;James’s parish… In consequence of what I said, the handle of the pump was removed on the following day.” — John Snow</p>
+</blockquote>
+<p>The well was later found <strong>near a leaking cesspit</strong>.</p>
+<p><span class="citation" data-cites="snow1855">(<a href="#/data-analysis" role="doc-biblioref" onclick="">Snow 1855</a>)</span></p>
+</section>
+<section id="why-this-matters-for-data-science" class="slide level2 scrollable">
+<h2>Why this matters for data science</h2>
+<p>John Snow’s workflow is still the template:</p>
 <ol type="1">
-<li>Ideation and team formation (by end of week 4)</li>
-<li>Proposal, project plan, and approval (week 5)</li>
-<li>Phase 1 (end of week 6): progress presentation</li>
-<li>Phase 2 (end of week 7): progress presentation</li>
-<li>Final submission and evaluation (week 8)</li>
+<li><strong>Question assumptions</strong> — demand evidence, not consensus alone.</li>
+<li><strong>Collect</strong> structured, verifiable information.</li>
+<li><strong>Visualize</strong> to see patterns lists hide.</li>
+<li><strong>Explain outliers</strong> — they often <strong>test</strong> the story.</li>
+<li><strong>Act</strong> — turn insight into a <strong>specific</strong> intervention.</li>
 </ol>
+<p><strong>Data science</strong> is using evidence to understand a situation and decide what to do — with modern tools for what Snow did on foot and on paper.</p>
 </section>
-<section id="sessions-and-break-times" class="slide level2">
-<h2>Sessions and Break times</h2>
+<section id="what-is-data-science" class="slide level2">
+<h2>What is data science?</h2>
+<p><strong>Data</strong> (plural): digitally recorded pieces of information about events. Together they support a full picture — stored and processed on computers.</p>
 <ul>
-<li><strong>Session 1</strong>: 9:00 PM - 10:30 PM</li>
-<li>10 minutes break</li>
-<li><strong>Session 2</strong>: 10:45 PM - 12:00 PM</li>
-<li>Lunch break 12:00 - 1:00 PM</li>
-<li><strong>Session 3 (Labs and Exercises)</strong>: 1:00 - 3:00 PM</li>
+<li>Numbers, text, images, sound, …</li>
+<li>Types: numerical, categorical (and subtypes).</li>
+<li>Different <strong>algorithms</strong> for different goals.</li>
 </ul>
+<blockquote>
+<p><strong>Data science</strong> is an interdisciplinary field that uses scientific methods, processes, algorithms, and systems to extract <strong>knowledge and insights</strong> from structured and unstructured data. It combines <strong>statistics</strong>, <strong>computer science</strong>, and <strong>domain knowledge</strong> to analyze data and support decisions and prediction.</p>
+</blockquote>
 </section>
-<section id="pedagogy" class="slide level2">
-<h2>Pedagogy</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/tell_me_and_I_forget.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure: Benjamin Franklin quote"><img data-src="../assets/tell_me_and_I_forget.png" class="quarto-figure quarto-figure-center" alt="Figure: Benjamin Franklin quote"></a></p>
-</figure>
-</div>
-<figcaption>Figure: Benjamin Franklin quote</figcaption>
-</figure>
-</div>
-</section>
-<section id="learning-material" class="slide level2 scrollable">
-<h2>Learning Material</h2>
-<ol type="1">
-<li><strong>Slides</strong>: concepts, mental models, connecting ideas, and discussion</li>
-<li><strong>Labs</strong>: details, docs, debugging, and what-ifs</li>
-<li><strong>Exercises</strong>: do it yourself</li>
-</ol>
-</section>
-<section id="submit-your-work" class="slide level2 scrollable">
-<h2>Submit your Work</h2>
-<p>Your GitHub repo is your <strong>proof-of-work</strong>. Open the repo <a href="https://github.com/HassanAlgoz/B5/tree/main">HassanAlgoz/B5</a> then:</p>
-<ol type="1">
-<li class="fragment">Fork it from the GitHub website</li>
-<li class="fragment">Clone it using VS Code locally</li>
-<li class="fragment">Create a <code>student/</code> folder in which you will include:
+<section id="three-pillars" class="slide level2">
+<h2>Three pillars</h2>
 <ul>
-<li class="fragment">A <code>student/README.md</code> file with your full name in there</li>
-<li class="fragment"><strong>Exercises</strong></li>
-<li class="fragment"><strong>Projects</strong></li>
-</ul></li>
-</ol>
-</section>
-<section id="commit-exercises" class="slide level2 scrollable">
-<h2>Commit Exercises</h2>
-<p><strong>Mandatory</strong>: it is required that you follow this instruction to get graded:</p>
-<ol type="1">
-<li class="fragment">First, <code>git add</code> and <code>git commit</code> the exercise before solving it.</li>
-<li class="fragment">Each subsequent commit must have
-<ol type="1">
-<li class="fragment">Course number</li>
-<li class="fragment">Module number</li>
-<li class="fragment">Exercise number or name</li>
-<li class="fragment">Question number or title</li>
-</ol></li>
-<li class="fragment">Exercises are due end of day (11:59 PM)<br>
-Make sure to <code>git push</code> before then</li>
-</ol>
-</section>
-<section id="clean-commit-examples" class="slide level2 scrollable">
-<h2>Clean Commit Examples</h2>
-<p>It is mandatory to follow this example:</p>
-<ul>
-<li class="fragment"><strong>Execises</strong>:
-<ol type="1">
-<li class="fragment"><code>C1 M2 Ex1: init</code> (1st exercise)</li>
-<li class="fragment"><code>C1 M2 Ex1: q1</code> (question 1 solved)</li>
-<li class="fragment"><code>C1 M2 Ex1: q2</code></li>
-<li class="fragment"><code>C1 M2 Ex2: init</code> (started 2nd exercise)</li>
-</ol></li>
-<li class="fragment"><strong>Projects</strong>:
-<ol type="1">
-<li class="fragment"><code>C1 Project: init</code></li>
-<li class="fragment"><code>C1 Project: step 1. univariate analysis</code></li>
-<li class="fragment"><code>C1 Project: step 2. pairplots</code></li>
-</ol></li>
+<li><strong>Domain knowledge</strong> — the right questions and interpreting results.</li>
+<li><strong>Math &amp; statistics</strong> — sound conclusions from <strong>incomplete</strong> information.</li>
+<li><strong>Computer science</strong> — storage, algorithms, scale.</li>
 </ul>
-</section>
-<section id="frequent-one-to-one-check-ins" class="slide level2 scrollable">
-<h2>Frequent one-to-one check-ins</h2>
-<p>By end of each day, we will have one-to-one check-ins with you (random selection):</p>
-<ol type="1">
-<li>You will lose points if you did not commit (and push) exercise solution by end of yesterday</li>
-<li>You will lose points if your commits aren’t clean</li>
-</ol>
-<p>If both of the above are good:</p>
-<ol type="1">
-<li>You will be asked to open the laptop, show and explain your solutions to specific exercises</li>
-<li>You will be asked a few questions about the learning material covered so far</li>
-</ol>
-</section>
-<section id="evaluation" class="slide level2 scrollable">
-<h2>Evaluation</h2>
-<ol type="1">
-<li><strong>Weekly Quiz</strong>: test your understanding</li>
-<li><strong>Weekly Project (individual)</strong>: apply learned skills</li>
-<li><strong>Project Presentation</strong>: on the day we start the next course (usually Sunday)<br>
-Prepare to be asked during the presentation about your work.</li>
-</ol>
-</section>
-<section id="why-presentations" class="slide level2 scrollable">
-<h2>Why Presentations?</h2>
+
+<img data-src="../../assets/Data-Science-Venn-Diagram.png" class="r-stretch"></section>
+<section id="how-did-john-snow-do-it" class="slide level2">
+<h2>How did John Snow do it?</h2>
 <ul>
-<li class="fragment">Your success in life depends on three key elements:
-<ol type="1">
-<li class="fragment">Your ability to <strong>speak</strong></li>
-<li class="fragment">Your ability to <strong>write</strong></li>
-<li class="fragment">The <strong>quality of your ideas</strong></li>
-</ol></li>
-<li class="fragment">.. in that order (as <a href="https://www.youtube.com/watch?v=Unzc731iCUY">Professor Winston puts it</a>).</li>
-<li class="fragment">Your ability to communicate ideas is ultimately more critical to your success than the ideas themselves.</li>
+<li><strong>Domain:</strong> physician who understood disease, the city, what variables to look at that may affect the outcome</li>
+<li><strong>Math &amp; statistics:</strong> structured data, mapping, reasoning from <strong>pattern + exceptions</strong>.</li>
+<li><strong>Computer science:</strong> none — paper records and <strong>minimal</strong> computation.</li>
 </ul>
+<p>Computers add <strong>speed and reach</strong>, not judgment. What we do with data still needs purpose and analysis.</p>
+<p>In other words, computation and data are just means to an end. That end is: <strong>us gaining knowledge</strong>.</p>
 </section>
-<section id="bad-students" class="slide level2 scrollable">
-<h2>Bad Students</h2>
+<section id="data-science-life-cycle" class="slide level2">
+<h2>Data science life cycle</h2>
+
+<img data-src="../../assets/DSLC.png" class="r-stretch"><p>Standard path from raw data to useful insight or product, and how roles map to the pipeline.</p>
+</section>
+<section id="the-process" class="slide level2 scrollable">
+<h2>The process</h2>
 <ol type="1">
-<li class="fragment">Let AI handle everything</li>
-<li class="fragment">Use someone else’s work</li>
-<li class="fragment">Skip content and not put in any effort</li>
-<li class="fragment">Unaware of required work to be done</li>
-<li class="fragment">Don’t commit as per the instructions</li>
+<li><strong>Collection</strong> — databases, logs, files, sensors, …</li>
+<li><strong>Cleaning</strong> — missing values, duplicates, formats, errors.</li>
+<li><strong>EDA</strong> — summaries and plots; trends, correlations, anomalies.</li>
+<li><strong>Model building</strong> — learn patterns / predict on new data.</li>
+<li><strong>Deployment</strong> — ship models into apps, APIs, or pipelines that run on <strong>new</strong> data.</li>
 </ol>
 </section>
-<section id="good-students" class="slide level2 scrollable">
-<h2>Good Students</h2>
-<ol type="1">
-<li class="fragment">You are honest and consistent in putting in the required effort in class</li>
-<li class="fragment">You pay attention to instructions and ask when things aren’t clear</li>
-<li class="fragment">You ask the right questions; for the sake of learning</li>
-<li class="fragment">You are not afraid of making mistakes; for the sake of exceeding your limits</li>
-</ol>
+<section id="the-roles" class="slide level2">
+<h2>The roles</h2>
+<p>In large orgs these lines are sharp; in startups one person may wear several hats:</p>
+<ul>
+<li><strong>Data engineers</strong> — infrastructure: ingestion, storage, pipelines (collection &amp; cleaning).</li>
+<li><strong>Data analysts</strong> — clean data, EDA, reports and dashboards (cleaning &amp; EDA).</li>
+<li><strong>ML engineers</strong> — reliable, efficient models in production (build &amp; deploy).</li>
+<li><strong>Data scientists</strong> — can span the whole cycle; often deepest in EDA and modeling, with enough engineering to get data and ship value.</li>
+</ul>
+<p>See: <a href="https://sdaia.gov.sa/ar/MediaCenter/KnowledgeCenter/ResearchLibrary/ProfessionalTrainingInTheFieldsOfDataAi.pdf">SDAIA Professinoal Training in the Fields of Data and AI</a>.</p>
 </section>
-<section id="the-end" class="title-slide slide level1 center">
-<h1>The End</h1>
+<section id="our-world-in-data" class="slide level2">
+<h2>Our World in Data</h2>
+<p>Want to look at the world through data? See many examples at: <a href="https://ourworldindata.org/">Our World in Data</a> — research and data on global challenges.</p>
+</section>
+<section id="data-analysis" class="slide level2 smaller scrollable">
+<h2>Data Analysis</h2>
+<blockquote>
+<p><strong>Data analysis</strong> is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making.</p>
+</blockquote>
+<p>Two approaches:</p>
+<ol type="1">
+<li><strong>Confirmatory Data Analysis (CDA)</strong><br>
+A top-down approach in which we start with a question and use data to answer it.<br>
+Example: Hypothesis: “people are addicted to smart phones”. Let’s see if the data supports this.<br>
+<a href="../../../W2/M1/lessons/02_lab_cda_blind_typing.html">Lab 1: Blind Typing Experiment</a></li>
+<li><strong>Exploratory Data Analysis (EDA)</strong><br>
+A bottom-up approach in which we start with the data and try to find something interesting.<br>
+Example Data: “people who exercise at the gym”. Let’s find out what are their: ages, occupations, and common interests are. <a href="../../../W2/M1/lessons/03_lab_eda_census.html">Lab 2: Exploring US Census 2010-2019 Data</a></li>
+</ol>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-snow1855" class="csl-entry" role="listitem">
+Snow, John. 1855. <em>On the Mode of Transmission of Cholera. Part 3, Table IX</em>. Available at: http://www.ph.ucla.edu/epi/snow/snowbook3.html (accessed 26 June 2016); John Churchill. <a href="http://www.ph.ucla.edu/epi/snow/snowbook3.html">http://www.ph.ucla.edu/epi/snow/snowbook3.html</a>.
+</div>
+</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -325,20 +302,20 @@ Prepare to be asked during the presentation about your work.</li>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

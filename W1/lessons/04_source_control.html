@@ -323,7 +323,7 @@
 <h2>Scenario 3: Pull Content Updates (The Process)</h2>
 <p>When we update the upstream, you can pull the changes.</p>
 <ol type="1">
-<li class="fragment">Fork the GitHub repo <a href="https://github.com/HassanAlgoz/python/tree/main">HassanAlgoz/python</a></li>
+<li class="fragment">Fork the GitHub repo <a href="https://github.com/HassanAlgoz/B5/tree/main">HassanAlgoz/B5</a></li>
 <li class="fragment">Clone your own fork</li>
 <li class="fragment">Setup the upstream (register another source for pulling changes from)</li>
 <li class="fragment">Ask for the latest updates from that source.</li>
@@ -337,7 +337,7 @@
 <section id="scenario-3-pull-content-updates-git-commands" class="slide level2">
 <h2>Scenario 3: Pull Content Updates (Git Commands)</h2>
 <p>Connect to the original repository (only needs to be done once):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="fu">git</span> remote add upstream https://github.com/HassanAlgoz/python.git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a></a><span class="fu">git</span> remote add upstream https://github.com/HassanAlgoz/B5.git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Bring the latest changes into your local machine:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a></a><span class="co"># Get the updates from the original source</span></span>
 <span id="cb13-2"><a></a><span class="fu">git</span> fetch upstream</span>
@@ -363,7 +363,13 @@
 <h2>Source Control in VS Code: Source Control overview screenshot</h2>
 
 <img data-src="../assets/vscode/overview.png" class="r-stretch"><aside class="notes">
-<p>This screenshot is meant to orient you to the Source Control view: - where you stage changes, - where commit messages are entered, - and how the diff editor helps you review what you are about to commit. Use this slide as your “map” before we split into the interface parts and workflows.</p>
+<p>This screenshot is meant to orient you to the Source Control view:</p>
+<ul>
+<li>where you stage changes,</li>
+<li>where commit messages are entered,</li>
+<li>and how the diff editor helps you review what you are about to commit.</li>
+</ul>
+<p>Use this slide as your “map” before we split into the interface parts and workflows.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -417,7 +423,12 @@
 <h2>Source Control Interface: Source Control Graph</h2>
 
 <img data-src="../assets/vscode/source-control-graph.png" class="r-stretch"><aside class="notes">
-<p>Look for the commit history graph: - it shows how commits relate to each other, - and it visualizes branch structure (where branches diverged and merged). When you’re unsure “what happened when”, this is usually the fastest place to look.</p>
+<p>Look for the commit history graph:</p>
+<ul>
+<li>it shows how commits relate to each other,</li>
+<li>and it visualizes branch structure (where branches diverged and merged).</li>
+</ul>
+<p>When you’re unsure “what happened when”, this is usually the fastest place to look.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -434,7 +445,12 @@
 <h2>Source Control Interface: Diff editor</h2>
 
 <img data-src="../assets/vscode/diff.png" class="r-stretch"><aside class="notes">
-<p>The diff editor is the “review tool”: - it shows what changed in a file (side-by-side), - so you can confirm the exact content before you commit. Treat this as a habit: review the diff first, then stage/commit.</p>
+<p>The diff editor is the “review tool”:</p>
+<ul>
+<li>it shows what changed in a file (side-by-side),</li>
+<li>so you can confirm the exact content before you commit.</li>
+</ul>
+<p>Treat this as a habit: review the diff first, then stage/commit.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -451,7 +467,12 @@
 <h2>Source Control Interface: Git blame / UI indicators</h2>
 
 <img data-src="../assets/vscode/git-blame-status-bar.png" class="r-stretch"><aside class="notes">
-<p>This image highlights Git-provided context inside the editor UI: - gutter indicators for changed lines, - and blame information (who last modified what). This helps you answer: “why is this line different?” without leaving VS Code.</p>
+<p>This image highlights Git-provided context inside the editor UI:</p>
+<ul>
+<li>gutter indicators for changed lines,</li>
+<li>and blame information (who last modified what).</li>
+</ul>
+<p>This helps you answer: “why is this line different?” without leaving VS Code.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -474,7 +495,12 @@
 <h2>Common Workflows: Review and Commit (Staging changes)</h2>
 
 <img data-src="../assets/vscode/stage-changes.png" class="r-stretch"><aside class="notes">
-<p>Staging is how you choose “what becomes part of the next snapshot” (commit): - you can stage whole files or just specific parts, - then your commit message should describe what’s staged. Think of staging as building the exact package you want to commit.</p>
+<p>Staging is how you choose “what becomes part of the next snapshot” (commit):</p>
+<ul>
+<li>you can stage whole files or just specific parts,</li>
+<li>then your commit message should describe what’s staged.</li>
+</ul>
+<p>Think of staging as building the exact package you want to commit.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -500,7 +526,12 @@
 <h2>Common Workflows: Sync (Incoming / outgoing changes)</h2>
 
 <img data-src="../assets/vscode/incoming-outgoing-changes.png" class="r-stretch"><aside class="notes">
-<p>Sync status helps you keep your local work aligned with the remote: - it shows what’s incoming (someone else’s commits), - and what’s outgoing (your commits waiting to be pushed). This is where you decide to fetch/pull/push next.</p>
+<p>Sync status helps you keep your local work aligned with the remote:</p>
+<ul>
+<li>it shows what’s incoming (someone else’s commits),</li>
+<li>and what’s outgoing (your commits waiting to be pushed).</li>
+</ul>
+<p>This is where you decide to fetch/pull/push next.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -517,7 +548,12 @@
 <h2>Common Workflows: Merge conflicts (3-way merge editor)</h2>
 
 <img data-src="../assets/vscode/merge-editor-overview.png" class="r-stretch"><aside class="notes">
-<p>When automatic merging fails, you’ll resolve conflicts here: - the 3-way merge view shows “ours”, “theirs”, and the base, - so you can choose the correct pieces and produce a clean result. Goal: end with code that compiles/tests and matches the intended logic.</p>
+<p>When automatic merging fails, you’ll resolve conflicts here:</p>
+<ul>
+<li>the 3-way merge view shows “ours”, “theirs”, and the base,</li>
+<li>so you can choose the correct pieces and produce a clean result.</li>
+</ul>
+<p>Goal: end with code that compiles/tests and matches the intended logic.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

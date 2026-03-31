@@ -1185,49 +1185,49 @@
   {
     "objectID": "W2/M1/lessons/03_lab_eda_census.html",
     "href": "W2/M1/lessons/03_lab_eda_census.html",
-    "title": "Example: Population Trends (census 2010-2019)",
+    "title": "Exploratory Data Analysis Overview Example",
     "section": "",
-    "text": "Objective: see how Pandas’ DataFrame objects are used to work with tabular data.\nEstimated time: 30 minutes.\nThe data below contains “Annual Estimates of the Resident Population by Single Year of Age and Sex for the United States”\nfrom pathlib import Path\nimport pandas as pd\n\n# Data URL\n# data_url = 'http://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv'\ndata_url = Path('../../data/nc-est2019-agesex-res.csv')\n\n# Load data into a Pandas DataFrame\nfull_census_df = pd.read_csv(data_url)\n\n# Display the first 10 rows of the DataFrame\nfull_census_df.head(10)\n\n\n\n\n\n\n\n\nSEX\nAGE\nCENSUS2010POP\nESTIMATESBASE2010\nPOPESTIMATE2010\nPOPESTIMATE2011\nPOPESTIMATE2012\nPOPESTIMATE2013\nPOPESTIMATE2014\nPOPESTIMATE2015\nPOPESTIMATE2016\nPOPESTIMATE2017\nPOPESTIMATE2018\nPOPESTIMATE2019\n\n\n\n\n0\n0\n0\n3944153\n3944160\n3951430\n3963092\n3926570\n3931258\n3954787\n3983981\n3954773\n3893990\n3815343\n3783052\n\n\n1\n0\n1\n3978070\n3978090\n3957730\n3966225\n3977549\n3942698\n3948891\n3973133\n4002903\n3972711\n3908830\n3829599\n\n\n2\n0\n2\n4096929\n4096939\n4090621\n3970654\n3978925\n3991740\n3958711\n3966321\n3991349\n4020045\n3987032\n3922044\n\n\n3\n0\n3\n4119040\n4119051\n4111688\n4101644\n3981531\n3991017\n4005928\n3974351\n3982984\n4006946\n4033038\n3998665\n\n\n4\n0\n4\n4063170\n4063186\n4077346\n4121488\n4111490\n3992502\n4004032\n4020292\n3989750\n3997280\n4018719\n4043323\n\n\n5\n0\n5\n4056858\n4056872\n4064521\n4087054\n4131049\n4121876\n4004576\n4017589\n4035033\n4003452\n4008443\n4028281\n\n\n6\n0\n6\n4066381\n4066412\n4072904\n4074531\n4096631\n4141126\n4133372\n4017388\n4031568\n4048018\n4014057\n4017227\n\n\n7\n0\n7\n4030579\n4030594\n4042990\n4082821\n4084175\n4106756\n4152666\n4145872\n4030888\n4044139\n4058370\n4022319\n\n\n8\n0\n8\n4046486\n4046497\n4025501\n4052773\n4092559\n4094513\n4118349\n4165033\n4158848\n4042924\n4054236\n4066194\n\n\n9\n0\n9\n4148353\n4148369\n4125312\n4035319\n4062726\n4103052\n4106068\n4130887\n4177895\n4170813\n4053179\n4061874"
+    "text": "EDA is a bottom-up approach in which we start with the data and try to find something interesting.\nObjective: show how EDA is done in Python using Pandas (the library for tabular data).\nEstimated time: 30 minutes.\nExample: We will demonstrate on the US Census (2010-2019) dataset. The “Annual Estimates of the Resident Population by Single Year of Age and Sex for the United States”.\nfrom pathlib import Path\nimport pandas as pd\n\n# Data URL\n# data_url = 'http://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv'\ndata_url = Path('../../data/nc-est2019-agesex-res.csv')\n\n# Load data into a Pandas DataFrame\nfull_census_df = pd.read_csv(data_url)\n\n# Display the first 10 rows of the DataFrame\nfull_census_df.head(10)\n\n\n\n\n\n\n\n\nSEX\nAGE\nCENSUS2010POP\nESTIMATESBASE2010\nPOPESTIMATE2010\nPOPESTIMATE2011\nPOPESTIMATE2012\nPOPESTIMATE2013\nPOPESTIMATE2014\nPOPESTIMATE2015\nPOPESTIMATE2016\nPOPESTIMATE2017\nPOPESTIMATE2018\nPOPESTIMATE2019\n\n\n\n\n0\n0\n0\n3944153\n3944160\n3951430\n3963092\n3926570\n3931258\n3954787\n3983981\n3954773\n3893990\n3815343\n3783052\n\n\n1\n0\n1\n3978070\n3978090\n3957730\n3966225\n3977549\n3942698\n3948891\n3973133\n4002903\n3972711\n3908830\n3829599\n\n\n2\n0\n2\n4096929\n4096939\n4090621\n3970654\n3978925\n3991740\n3958711\n3966321\n3991349\n4020045\n3987032\n3922044\n\n\n3\n0\n3\n4119040\n4119051\n4111688\n4101644\n3981531\n3991017\n4005928\n3974351\n3982984\n4006946\n4033038\n3998665\n\n\n4\n0\n4\n4063170\n4063186\n4077346\n4121488\n4111490\n3992502\n4004032\n4020292\n3989750\n3997280\n4018719\n4043323\n\n\n5\n0\n5\n4056858\n4056872\n4064521\n4087054\n4131049\n4121876\n4004576\n4017589\n4035033\n4003452\n4008443\n4028281\n\n\n6\n0\n6\n4066381\n4066412\n4072904\n4074531\n4096631\n4141126\n4133372\n4017388\n4031568\n4048018\n4014057\n4017227\n\n\n7\n0\n7\n4030579\n4030594\n4042990\n4082821\n4084175\n4106756\n4152666\n4145872\n4030888\n4044139\n4058370\n4022319\n\n\n8\n0\n8\n4046486\n4046497\n4025501\n4052773\n4092559\n4094513\n4118349\n4165033\n4158848\n4042924\n4054236\n4066194\n\n\n9\n0\n9\n4148353\n4148369\n4125312\n4035319\n4062726\n4103052\n4106068\n4130887\n4177895\n4170813\n4053179\n4061874"
   },
   {
     "objectID": "W2/M1/lessons/03_lab_eda_census.html#table-description",
     "href": "W2/M1/lessons/03_lab_eda_census.html#table-description",
-    "title": "Example: Population Trends (census 2010-2019)",
+    "title": "Exploratory Data Analysis Overview Example",
     "section": "Table Description",
     "text": "Table Description\nA description of the table appears online.\nThe SEX column contains numeric codes: - 0 stands for the total - 1 for male - 2 for female\nThe AGE column contains ages in completed years - the special value 999 is a sum of the total population - the value 100 is actually 100+"
   },
   {
     "objectID": "W2/M1/lessons/03_lab_eda_census.html#attribute-selection",
     "href": "W2/M1/lessons/03_lab_eda_census.html#attribute-selection",
-    "title": "Example: Population Trends (census 2010-2019)",
+    "title": "Exploratory Data Analysis Overview Example",
     "section": "Attribute Selection",
     "text": "Attribute Selection\nSuppose we are only interested in the population changes from 2014 to 2019. Let’s select the relevant columns.\n\n# Select relevant columns for the years 2014 and 2019\npartial_census_df = full_census_df[['SEX', 'AGE', 'POPESTIMATE2014', 'POPESTIMATE2019']]\npartial_census_df\n\n\n\n\n\n\n\n\nSEX\nAGE\nPOPESTIMATE2014\nPOPESTIMATE2019\n\n\n\n\n0\n0\n0\n3954787\n3783052\n\n\n1\n0\n1\n3948891\n3829599\n\n\n2\n0\n2\n3958711\n3922044\n\n\n3\n0\n3\n4005928\n3998665\n\n\n4\n0\n4\n4004032\n4043323\n\n\n...\n...\n...\n...\n...\n\n\n301\n2\n97\n62407\n84358\n\n\n302\n2\n98\n45887\n62607\n\n\n303\n2\n99\n32245\n42528\n\n\n304\n2\n100\n57108\n76850\n\n\n305\n2\n999\n161646584\n166582199\n\n\n\n\n306 rows × 4 columns"
   },
   {
     "objectID": "W2/M1/lessons/03_lab_eda_census.html#attribute-renaming",
     "href": "W2/M1/lessons/03_lab_eda_census.html#attribute-renaming",
-    "title": "Example: Population Trends (census 2010-2019)",
+    "title": "Exploratory Data Analysis Overview Example",
     "section": "Attribute Renaming",
     "text": "Attribute Renaming\nWe can simplify the labels of the selected columns.\n\n# Rename columns for clarity\nus_pop = partial_census_df.rename(\n    columns={\n        'POPESTIMATE2014': '2014',\n        'POPESTIMATE2019': '2019'\n    })\n\n\nus_pop\n\n\n\n\n\n\n\n\nSEX\nAGE\n2014\n2019\n\n\n\n\n0\n0\n0\n3954787\n3783052\n\n\n1\n0\n1\n3948891\n3829599\n\n\n2\n0\n2\n3958711\n3922044\n\n\n3\n0\n3\n4005928\n3998665\n\n\n4\n0\n4\n4004032\n4043323\n\n\n...\n...\n...\n...\n...\n\n\n301\n2\n97\n62407\n84358\n\n\n302\n2\n98\n45887\n62607\n\n\n303\n2\n99\n32245\n42528\n\n\n304\n2\n100\n57108\n76850\n\n\n305\n2\n999\n161646584\n166582199\n\n\n\n\n306 rows × 4 columns"
   },
   {
     "objectID": "W2/M1/lessons/03_lab_eda_census.html#row-filtering",
     "href": "W2/M1/lessons/03_lab_eda_census.html#row-filtering",
-    "title": "Example: Population Trends (census 2010-2019)",
+    "title": "Exploratory Data Analysis Overview Example",
     "section": "Row Filtering",
     "text": "Row Filtering"
   },
   {
     "objectID": "W2/M1/lessons/03_lab_eda_census.html#ages-97-100",
     "href": "W2/M1/lessons/03_lab_eda_census.html#ages-97-100",
-    "title": "Example: Population Trends (census 2010-2019)",
+    "title": "Exploratory Data Analysis Overview Example",
     "section": "Ages 97-100",
     "text": "Ages 97-100\nAs a warm-up, let’s examine the total population, labeled by SEX code 0. Since all these rows will have the same value 0 in the SEX column, we will drop that column.\n\nmask = us_pop['SEX'] == 1\nus_pop[mask]\n\n\n\n\n\n\n\n\nSEX\nAGE\n2014\n2019\n\n\n\n\n102\n1\n0\n2024511\n1935117\n\n\n103\n1\n1\n2018511\n1958585\n\n\n104\n1\n2\n2023752\n2005544\n\n\n105\n1\n3\n2049250\n2043010\n\n\n106\n1\n4\n2043524\n2066951\n\n\n...\n...\n...\n...\n...\n\n\n199\n1\n97\n20541\n32611\n\n\n200\n1\n98\n13659\n23543\n\n\n201\n1\n99\n9032\n14596\n\n\n202\n1\n100\n13577\n23472\n\n\n203\n1\n999\n156654424\n161657324\n\n\n\n\n102 rows × 4 columns\n\n\n\n\n# Filter for total population (SEX code 0) and drop the SEX column\nus_pop_by_age = us_pop[us_pop['SEX'] == 0].drop(columns='SEX')\nus_pop_by_age\n\n\n\n\n\n\n\n\nAGE\n2014\n2019\n\n\n\n\n0\n0\n3954787\n3783052\n\n\n1\n1\n3948891\n3829599\n\n\n2\n2\n3958711\n3922044\n\n\n3\n3\n4005928\n3998665\n\n\n4\n4\n4004032\n4043323\n\n\n...\n...\n...\n...\n\n\n97\n97\n82948\n116969\n\n\n98\n98\n59546\n86150\n\n\n99\n99\n41277\n57124\n\n\n100\n100\n70685\n100322\n\n\n101\n999\n318301008\n328239523\n\n\n\n\n102 rows × 3 columns\n\n\n\nNow let’s look at the population in the highest ages.\n\n# Display population for ages 97-100\nmask1 = (us_pop_by_age['AGE'] &gt;= 97)\nmask2 = (us_pop_by_age['AGE'] &lt;= 100)\nmask = mask1 & mask2\nus_pop_by_age[mask]\n\n\n\n\n\n\n\n\nAGE\n2014\n2019\n\n\n\n\n97\n97\n82948\n116969\n\n\n98\n98\n59546\n86150\n\n\n99\n99\n41277\n57124\n\n\n100\n100\n70685\n100322"
   },
   {
     "objectID": "W2/M1/lessons/03_lab_eda_census.html#calculate-new-attributes-add-columns",
     "href": "W2/M1/lessons/03_lab_eda_census.html#calculate-new-attributes-add-columns",
-    "title": "Example: Population Trends (census 2010-2019)",
+    "title": "Exploratory Data Analysis Overview Example",
     "section": "Calculate New Attributes (Add Columns)",
     "text": "Calculate New Attributes (Add Columns)\n\nus_pop_by_age['2019'] - us_pop_by_age['2014']\n\n0      -171735\n1      -119292\n2       -36667\n3        -7263\n4        39291\n        ...   \n97       34021\n98       26604\n99       15847\n100      29637\n101    9938515\nLength: 102, dtype: int64\n\n\n\n# Calculate change in population from 2014 to 2019\nchange = us_pop_by_age['2019'] - us_pop_by_age['2014']\n\n# Add columns for absolute change and percent change\nus_pop_change = us_pop_by_age.assign(\n    Change=change,\n    Percent_Change=change / us_pop_by_age['2014']\n)\n\n# Format percent change column\nus_pop_change['Percent_Change'] = us_pop_change['Percent_Change'].map(lambda x: f\"{x:.2%}\")\nus_pop_change\n\n\n\n\n\n\n\n\nAGE\n2014\n2019\nChange\nPercent_Change\n\n\n\n\n0\n0\n3954787\n3783052\n-171735\n-4.34%\n\n\n1\n1\n3948891\n3829599\n-119292\n-3.02%\n\n\n2\n2\n3958711\n3922044\n-36667\n-0.93%\n\n\n3\n3\n4005928\n3998665\n-7263\n-0.18%\n\n\n4\n4\n4004032\n4043323\n39291\n0.98%\n\n\n...\n...\n...\n...\n...\n...\n\n\n97\n97\n82948\n116969\n34021\n41.01%\n\n\n98\n98\n59546\n86150\n26604\n44.68%\n\n\n99\n99\n41277\n57124\n15847\n38.39%\n\n\n100\n100\n70685\n100322\n29637\n41.93%\n\n\n101\n999\n318301008\n328239523\n9938515\n3.12%\n\n\n\n\n102 rows × 5 columns\n\n\n\nAlmost all the entries displayed in the Percent Change column are negative, demonstrating a drop in population at the youngest ages. However, the overall population (AGE=999) grew by about 9.9 million people, a percent change of just over 3%.\n\n# Display population change for age 999 (total population)\nus_pop_change[us_pop_change['AGE'] == 999]\n\n\n\n\n\n\n\n\nAGE\n2014\n2019\nChange\nPercent_Change\n\n\n\n\n101\n999\n318301008\n328239523\n9938515\n3.12%\n\n\n\n\n\n\n\nLet us compare this to the change at each age. For ease of interpretation, we will sort the table in decreasing order of the absolute change in population, contained in the column Change.\n\n# Display top changes by age group sorted by absolute change\nus_pop_change[us_pop_change['AGE'] != 999].sort_values(by='Change', ascending=False).head()\n\n\n\n\n\n\n\n\nAGE\n2014\n2019\nChange\nPercent_Change\n\n\n\n\n72\n72\n2191642\n3191048\n999406\n45.60%\n\n\n68\n68\n2567511\n3345475\n777964\n30.30%\n\n\n69\n69\n2530460\n3252423\n721963\n28.53%\n\n\n70\n70\n2461426\n3136704\n675278\n27.43%\n\n\n71\n71\n2516392\n3083083\n566691\n22.52%\n\n\n\n\n\n\n\nTake a look at the top few rows. While the percent change is about 3% for the overall population, it jumps to well over 20% for the people in their late sixties and early seventies. This stunning change contributes to what is known as the greying of America.\nWhat could explain this large increase? We can explore this question by examining the years in which the relevant groups were born.\nThose who were in the age group 69 to 72 in 2014 were born in the years 1942 to 1945. The attack on Pearl Harbor was in late 1941, and by 1942 U.S. forces were heavily engaged in a massive war that ended in 1945.\nThose who were 69 to 72 years old in 2019 were born in the years 1947 to 1950, at the height of the post-WWII baby boom in the United States.\nThe post-war jump in births is a major reason for the large changes that we have observed."
   },
@@ -1950,7 +1950,7 @@
     "href": "W1/lessons/01_bootcamp_intro.html#submit-your-work",
     "title": "Bootcamp Introduction",
     "section": "Submit your Work",
-    "text": "Submit your Work\nYour GitHub repo is your proof-of-work. Open the repo HassanAlgoz/python then:\n\nFork it from the GitHub website\nClone it using VS Code locally\nCreate a student/ folder in which you will include:\n\nA student/README.md file with your full name in there\nExercises\nProjects"
+    "text": "Submit your Work\nYour GitHub repo is your proof-of-work. Open the repo HassanAlgoz/B5 then:\n\nFork it from the GitHub website\nClone it using VS Code locally\nCreate a student/ folder in which you will include:\n\nA student/README.md file with your full name in there\nExercises\nProjects"
   },
   {
     "objectID": "W1/lessons/01_bootcamp_intro.html#commits",
@@ -2300,14 +2300,14 @@
     "href": "W1/lessons/03_vs_code.html#basic-layout",
     "title": "VS Code Basics",
     "section": "Basic layout",
-    "text": "Basic layout\n\n\nThis screenshot introduces the six core regions of VS Code. Point out where learners should spend most of their time: Explorer, editor, terminal panel, and status bar.\nThe six main areas are: - Editor - The main area to edit your files. You can open as many editors as you like side by side vertically and horizontally. - Primary Side Bar - Contains different views like the Explorer to assist you while working on your project. - Secondary Side Bar - Opposite the Primary Side Bar. By default, contains the Chat view. Drag and drop views from the Primary Side Bar to the Secondary Side Bar to move them. - Status Bar - Information about the opened project and the files you edit. - Activity Bar - Located on the far left-hand side. Lets you switch between views and gives you additional context-specific indicators, like the number of outgoing changes when Git is enabled. You can change the position of the Activity Bar. - Panel - An additional space for views below the editor region. By default, it contains output, debug information, errors and warnings, and an integrated terminal. The Panel can also be moved to the left or right for more vertical space.\nEach time you start VS Code, it opens up in the same state it was in when you last closed it. The folder, layout, and opened files are preserved.\nOpen files in each editor are displayed with tabbed headers (Tabs) at the top of the editor region. To learn more about tabbed headers, see the Tabs section.\nYou can move the Primary Side Bar to the right hand side by right-clicking the Activity Bar and selecting Move Primary Side Bar Right or toggle its visibility (⌘B (Windows, Linux Ctrl+B)).\nLearn more about using Primary and Secondary Side Bar.\nUp next: five visual slides showing editor layouts, floating windows, views, and command tools."
+    "text": "Basic layout\n\n\nThis screenshot introduces the six core regions of VS Code. Point out where learners should spend most of their time: Explorer, editor, terminal panel, and status bar.\nThe six main areas are:\n\nEditor - The main area to edit your files. You can open as many editors as you like side by side vertically and horizontally.\nPrimary Side Bar - Contains different views like the Explorer to assist you while working on your project.\nSecondary Side Bar - Opposite the Primary Side Bar. By default, contains the Chat view. Drag and drop views from the Primary Side Bar to the Secondary Side Bar to move them.\nStatus Bar - Information about the opened project and the files you edit.\nActivity Bar - Located on the far left-hand side. Lets you switch between views and gives you additional context-specific indicators, like the number of outgoing changes when Git is enabled. You can change the position of the Activity Bar.\nPanel - An additional space for views below the editor region. By default, it contains output, debug information, errors and warnings, and an integrated terminal. The Panel can also be moved to the left or right for more vertical space.\n\nEach time you start VS Code, it opens up in the same state it was in when you last closed it. The folder, layout, and opened files are preserved.\nOpen files in each editor are displayed with tabbed headers (Tabs) at the top of the editor region. To learn more about tabbed headers, see the Tabs section.\nYou can move the Primary Side Bar to the right hand side by right-clicking the Activity Bar and selecting Move Primary Side Bar Right or toggle its visibility (⌘B (Windows, Linux Ctrl+B)).\nLearn more about using Primary and Secondary Side Bar.\nUp next: five visual slides showing editor layouts, floating windows, views, and command tools."
   },
   {
     "objectID": "W1/lessons/03_vs_code.html#side-by-side-editing",
     "href": "W1/lessons/03_vs_code.html#side-by-side-editing",
     "title": "VS Code Basics",
     "section": "Side by side editing",
-    "text": "Side by side editing\n\n\nYou can open as many editors as you like side by side vertically and horizontally. If you already have an editor open, there are multiple ways of opening another editor to the side:\nCommon ways to open a split include: - Alt and select a file in the Explorer view. - ⌘\\ (Windows, Linux Ctrl+\\) to split the active editor into two. - Open to the Side (⌃Enter (Windows, Linux Ctrl+Enter)) from the Explorer context menu on a file. - Select the Split Editor button in the upper right of an editor. - Drag and drop a file to any side of the editor region. Hold Ctrl (Option on macOS) while dragging to copy the tab instead of moving it. - Press ⌃Enter (Windows, Linux Ctrl+Enter) in the Quick Open (⌘P (Windows, Linux Ctrl+P)) file list.\nWhen you open another file, the editor that is active will display the content of that file. If you have two editors side by side and you want to open file ‘foo.cs’ into the right-hand editor, make sure that this editor is active (by clicking inside it) before opening file ‘foo.cs’.\nWhen you have more than one editor open, you can switch between them quickly by holding the Ctrl key (Cmd on macOS) and pressing 1, 2, or 3.\nYou can resize editors and reorder them. Drag and drop the editor title area to reposition or resize the editor."
+    "text": "Side by side editing\n\n\nYou can open as many editors as you like side by side vertically and horizontally. If you already have an editor open, there are multiple ways of opening another editor to the side:\nCommon ways to open a split include:\n\nAlt and select a file in the Explorer view.\n⌘\\ (Windows, Linux Ctrl+\\) to split the active editor into two.\nOpen to the Side (⌃Enter (Windows, Linux Ctrl+Enter)) from the Explorer context menu on a file.\nSelect the Split Editor button in the upper right of an editor.\nDrag and drop a file to any side of the editor region. Hold Ctrl (Option on macOS) while dragging to copy the tab instead of moving it.\nPress ⌃Enter (Windows, Linux Ctrl+Enter) in the Quick Open (⌘P (Windows, Linux Ctrl+P)) file list.\n\nWhen you open another file, the editor that is active will display the content of that file. If you have two editors side by side and you want to open file ‘foo.cs’ into the right-hand editor, make sure that this editor is active (by clicking inside it) before opening file ‘foo.cs’.\nWhen you have more than one editor open, you can switch between them quickly by holding the Ctrl key (Cmd on macOS) and pressing 1, 2, or 3.\nYou can resize editors and reorder them. Drag and drop the editor title area to reposition or resize the editor."
   },
   {
     "objectID": "W1/lessons/03_vs_code.html#editor-groups",
@@ -2321,7 +2321,7 @@
     "href": "W1/lessons/03_vs_code.html#command-palette",
     "title": "VS Code Basics",
     "section": "Command Palette",
-    "text": "Command Palette\n\n\nVS Code is equally accessible from the keyboard. The most important key combination to know is ⇧⌘P (Windows, Linux Ctrl+Shift+P), which brings up the Command Palette. From here, you have access to all functionality within VS Code, including keyboard shortcuts for the most common operations.\nIn the Command Palette, these quick keys do the following: - ⌘P (Windows, Linux Ctrl+P) enables you to navigate to any file or symbol by typing its name - ⌃Tab (Windows, Linux Ctrl+Tab) cycles you through the last set of files opened - ⇧⌘P (Windows, Linux Ctrl+Shift+P) brings you directly to the editor commands - ⇧⌘O (Windows, Linux Ctrl+Shift+O) enables you to navigate to a specific symbol in a file - ⌃G (Windows, Linux Ctrl+G) enables you to navigate to a specific line in a file\nThe Command Palette provides access to many commands. You can run editor commands, open files, search for symbols, and see a quick outline of a file, all using the same interactive window. Here are a few tips:\nType ? in the input field to get a list of available commands that you can run from the Command Palette.\nUp next: three quick image slides that show Command Palette help, placement options, and theme preview behavior."
+    "text": "Command Palette\n\n\nVS Code is equally accessible from the keyboard. The most important key combination to know is ⇧⌘P (Windows, Linux Ctrl+Shift+P), which brings up the Command Palette. From here, you have access to all functionality within VS Code, including keyboard shortcuts for the most common operations.\nIn the Command Palette, these quick keys do the following:\n\n⌘P (Windows, Linux Ctrl+P) enables you to navigate to any file or symbol by typing its name\n⌃Tab (Windows, Linux Ctrl+Tab) cycles you through the last set of files opened\n⇧⌘P (Windows, Linux Ctrl+Shift+P) brings you directly to the editor commands\n⇧⌘O (Windows, Linux Ctrl+Shift+O) enables you to navigate to a specific symbol in a file\n⌃G (Windows, Linux Ctrl+G) enables you to navigate to a specific line in a file\n\nThe Command Palette provides access to many commands. You can run editor commands, open files, search for symbols, and see a quick outline of a file, all using the same interactive window. Here are a few tips:\nType ? in the input field to get a list of available commands that you can run from the Command Palette.\nUp next: three quick image slides that show Command Palette help, placement options, and theme preview behavior."
   },
   {
     "objectID": "W1/lessons/03_vs_code.html#quick-open-help",
@@ -2468,7 +2468,7 @@
     "href": "W1/lessons/03_vs_code.html#advanced-search-options",
     "title": "VS Code Basics",
     "section": "Advanced search options",
-    "text": "Advanced search options\n\n\nVS Code also supports regular expression searching in the search box.\nYou can configure advanced search options by selecting the ellipsis (Toggle Search Details) below the search box on the right (or press ⇧⌘J (Windows, Linux Ctrl+Shift+J)). This shows additional fields to configure the search.\nYou can use Quick Search to quickly find text across all files in the currently opened folder. Open the Command Palette (⇧⌘P (Windows, Linux Ctrl+Shift+P)) and enter the Search: Quick Search command.\nGlob pattern examples: - * to match zero or more characters in a path segment - ? to match on one character in a path segment - ** to match any number of path segments, including none - {} to group conditions (for example {**/*.html,**/*.txt} matches all HTML and text files) - [] to declare a range of characters to match (example.[0-9] to match on example.0, example.1, …) - [!...] to negate a range of characters to match (example.[!0-9] to match on example.a, example.b, but not example.0)\nIn the two input boxes below the search box, you can enter patterns to include or exclude from the search. If you enter example, that will match every folder and file named example in the workspace. If you enter ./example, that will match the folder example/ at the top level of your workspace. Use , to separate multiple patterns. Paths must use forward slashes. You can also use glob pattern syntax, for example:\nNote about case sensitivity: Glob patterns follow your operating system’s file system rules. On Windows and macOS, patterns are case-insensitive (for example, *.CS matches file.cs). On Linux, patterns are case-sensitive. This is separate from the search text Match Case toggle, which controls whether the search text itself is case-sensitive. Learn more about glob patterns.\nPatterns in .gitignore files are matched case-insensitively on Windows and macOS, and case-sensitively on Linux. Learn more about glob pattern case sensitivity.\nFrom the Explorer, you can right-click on a folder and select Find in Folder to search inside a folder only."
+    "text": "Advanced search options\n\n\nVS Code also supports regular expression searching in the search box.\nYou can configure advanced search options by selecting the ellipsis (Toggle Search Details) below the search box on the right (or press ⇧⌘J (Windows, Linux Ctrl+Shift+J)). This shows additional fields to configure the search.\nYou can use Quick Search to quickly find text across all files in the currently opened folder. Open the Command Palette (⇧⌘P (Windows, Linux Ctrl+Shift+P)) and enter the Search: Quick Search command.\nGlob pattern examples:\n\n* to match zero or more characters in a path segment\n? to match on one character in a path segment\n** to match any number of path segments, including none\n{} to group conditions (for example {**/*.html,**/*.txt} matches all HTML and text files)\n[] to declare a range of characters to match (example.[0-9] to match on example.0, example.1, …)\n[!...] to negate a range of characters to match (example.[!0-9] to match on example.a, example.b, but not example.0)\n\nIn the two input boxes below the search box, you can enter patterns to include or exclude from the search. If you enter example, that will match every folder and file named example in the workspace. If you enter ./example, that will match the folder example/ at the top level of your workspace. Use , to separate multiple patterns. Paths must use forward slashes. You can also use glob pattern syntax, for example:\nNote about case sensitivity: Glob patterns follow your operating system’s file system rules. On Windows and macOS, patterns are case-insensitive (for example, *.CS matches file.cs). On Linux, patterns are case-sensitive. This is separate from the search text Match Case toggle, which controls whether the search text itself is case-sensitive. Learn more about glob patterns.\nPatterns in .gitignore files are matched case-insensitively on Windows and macOS, and case-sensitively on Linux. Learn more about glob pattern case sensitivity.\nFrom the Explorer, you can right-click on a folder and select Find in Folder to search inside a folder only."
   },
   {
     "objectID": "W1/lessons/03_vs_code.html#search-and-replace",
@@ -2587,7 +2587,7 @@
     "href": "W1/lessons/04_source_control.html#scenario-3-pull-content-updates-the-process",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Scenario 3: Pull Content Updates (The Process)",
-    "text": "Scenario 3: Pull Content Updates (The Process)\nWhen we update the upstream, you can pull the changes.\n\nFork the GitHub repo HassanAlgoz/python\nClone your own fork\nSetup the upstream (register another source for pulling changes from)\nAsk for the latest updates from that source.\nMerge those updates into your current files."
+    "text": "Scenario 3: Pull Content Updates (The Process)\nWhen we update the upstream, you can pull the changes.\n\nFork the GitHub repo HassanAlgoz/B5\nClone your own fork\nSetup the upstream (register another source for pulling changes from)\nAsk for the latest updates from that source.\nMerge those updates into your current files."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#figure-the-fork-button",
@@ -2601,14 +2601,14 @@
     "href": "W1/lessons/04_source_control.html#scenario-3-pull-content-updates-git-commands",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Scenario 3: Pull Content Updates (Git Commands)",
-    "text": "Scenario 3: Pull Content Updates (Git Commands)\nConnect to the original repository (only needs to be done once):\ngit remote add upstream https://github.com/HassanAlgoz/python.git\nBring the latest changes into your local machine:\n# Get the updates from the original source\ngit fetch upstream\n\n# Switch to your main branch\ngit checkout main\n\n# Combine the upstream changes into your local branch\ngit merge upstream/main\nAlternatively, to do it in one step:\ngit pull upstream main\nLearn to Resolve merge conflicts in VS Code."
+    "text": "Scenario 3: Pull Content Updates (Git Commands)\nConnect to the original repository (only needs to be done once):\ngit remote add upstream https://github.com/HassanAlgoz/B5.git\nBring the latest changes into your local machine:\n# Get the updates from the original source\ngit fetch upstream\n\n# Switch to your main branch\ngit checkout main\n\n# Combine the upstream changes into your local branch\ngit merge upstream/main\nAlternatively, to do it in one step:\ngit pull upstream main\nLearn to Resolve merge conflicts in VS Code."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#source-control-in-vs-code-source-control-overview-screenshot",
     "href": "W1/lessons/04_source_control.html#source-control-in-vs-code-source-control-overview-screenshot",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Source Control in VS Code: Source Control overview screenshot",
-    "text": "Source Control in VS Code: Source Control overview screenshot\n\n\nThis screenshot is meant to orient you to the Source Control view: - where you stage changes, - where commit messages are entered, - and how the diff editor helps you review what you are about to commit. Use this slide as your “map” before we split into the interface parts and workflows."
+    "text": "Source Control in VS Code: Source Control overview screenshot\n\n\nThis screenshot is meant to orient you to the Source Control view:\n\nwhere you stage changes,\nwhere commit messages are entered,\nand how the diff editor helps you review what you are about to commit.\n\nUse this slide as your “map” before we split into the interface parts and workflows."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#prerequisites",
@@ -2636,21 +2636,21 @@
     "href": "W1/lessons/04_source_control.html#source-control-interface-source-control-graph",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Source Control Interface: Source Control Graph",
-    "text": "Source Control Interface: Source Control Graph\n\n\nLook for the commit history graph: - it shows how commits relate to each other, - and it visualizes branch structure (where branches diverged and merged). When you’re unsure “what happened when”, this is usually the fastest place to look."
+    "text": "Source Control Interface: Source Control Graph\n\n\nLook for the commit history graph:\n\nit shows how commits relate to each other,\nand it visualizes branch structure (where branches diverged and merged).\n\nWhen you’re unsure “what happened when”, this is usually the fastest place to look."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#source-control-interface-diff-editor",
     "href": "W1/lessons/04_source_control.html#source-control-interface-diff-editor",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Source Control Interface: Diff editor",
-    "text": "Source Control Interface: Diff editor\n\n\nThe diff editor is the “review tool”: - it shows what changed in a file (side-by-side), - so you can confirm the exact content before you commit. Treat this as a habit: review the diff first, then stage/commit."
+    "text": "Source Control Interface: Diff editor\n\n\nThe diff editor is the “review tool”:\n\nit shows what changed in a file (side-by-side),\nso you can confirm the exact content before you commit.\n\nTreat this as a habit: review the diff first, then stage/commit."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#source-control-interface-git-blame-ui-indicators",
     "href": "W1/lessons/04_source_control.html#source-control-interface-git-blame-ui-indicators",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Source Control Interface: Git blame / UI indicators",
-    "text": "Source Control Interface: Git blame / UI indicators\n\n\nThis image highlights Git-provided context inside the editor UI: - gutter indicators for changed lines, - and blame information (who last modified what). This helps you answer: “why is this line different?” without leaving VS Code."
+    "text": "Source Control Interface: Git blame / UI indicators\n\n\nThis image highlights Git-provided context inside the editor UI:\n\ngutter indicators for changed lines,\nand blame information (who last modified what).\n\nThis helps you answer: “why is this line different?” without leaving VS Code."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#common-workflows-review-and-commit-key-elements",
@@ -2664,7 +2664,7 @@
     "href": "W1/lessons/04_source_control.html#common-workflows-review-and-commit-staging-changes",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Common Workflows: Review and Commit (Staging changes)",
-    "text": "Common Workflows: Review and Commit (Staging changes)\n\n\nStaging is how you choose “what becomes part of the next snapshot” (commit): - you can stage whole files or just specific parts, - then your commit message should describe what’s staged. Think of staging as building the exact package you want to commit."
+    "text": "Common Workflows: Review and Commit (Staging changes)\n\n\nStaging is how you choose “what becomes part of the next snapshot” (commit):\n\nyou can stage whole files or just specific parts,\nthen your commit message should describe what’s staged.\n\nThink of staging as building the exact package you want to commit."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#common-workflows-sync-merge-branches-history-key-elements",
@@ -2678,14 +2678,14 @@
     "href": "W1/lessons/04_source_control.html#common-workflows-sync-incoming-outgoing-changes",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Common Workflows: Sync (Incoming / outgoing changes)",
-    "text": "Common Workflows: Sync (Incoming / outgoing changes)\n\n\nSync status helps you keep your local work aligned with the remote: - it shows what’s incoming (someone else’s commits), - and what’s outgoing (your commits waiting to be pushed). This is where you decide to fetch/pull/push next."
+    "text": "Common Workflows: Sync (Incoming / outgoing changes)\n\n\nSync status helps you keep your local work aligned with the remote:\n\nit shows what’s incoming (someone else’s commits),\nand what’s outgoing (your commits waiting to be pushed).\n\nThis is where you decide to fetch/pull/push next."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#common-workflows-merge-conflicts-3-way-merge-editor",
     "href": "W1/lessons/04_source_control.html#common-workflows-merge-conflicts-3-way-merge-editor",
     "title": "Git Basics and Source Control in VS Code",
     "section": "Common Workflows: Merge conflicts (3-way merge editor)",
-    "text": "Common Workflows: Merge conflicts (3-way merge editor)\n\n\nWhen automatic merging fails, you’ll resolve conflicts here: - the 3-way merge view shows “ours”, “theirs”, and the base, - so you can choose the correct pieces and produce a clean result. Goal: end with code that compiles/tests and matches the intended logic."
+    "text": "Common Workflows: Merge conflicts (3-way merge editor)\n\n\nWhen automatic merging fails, you’ll resolve conflicts here:\n\nthe 3-way merge view shows “ours”, “theirs”, and the base,\nso you can choose the correct pieces and produce a clean result.\n\nGoal: end with code that compiles/tests and matches the intended logic."
   },
   {
     "objectID": "W1/lessons/04_source_control.html#common-workflows-branches-switching-branches",
@@ -2741,7 +2741,7 @@
     "href": "W1/index.html#module-4-programming-paradigms",
     "title": "Applied AI Bootcamp",
     "section": "Module 4: Programming Paradigms",
-    "text": "Module 4: Programming Paradigms\nLessons:\n\nObject-oriented programming\nFunctional programming\nError\n\nExercises:\n\nChapter 14: Classes and Functions\nChapter 15: Classes and Methods\nChapter 16: Classes and Objects"
+    "text": "Module 4: Programming Paradigms\nLessons:\n\nObject-oriented programming\nFunctional programming\nError\n\n\nExercises\n\nChapter 14: Classes and Functions\nChapter 15: Classes and Methods\nChapter 16: Classes and Objects"
   },
   {
     "objectID": "W1/index.html#worked-examples-and-exercises",
@@ -2895,7 +2895,7 @@
     "href": "W2/M3/lessons/01_statistics.html",
     "title": "Statistics",
     "section": "",
-    "text": "import pandas as pd\nimport seaborn as sns"
+    "text": "import pandas as pd\nimport seaborn as sns\nExample: we will demonstrate using datasets accessible from the seaborn library. Once you call load_dataset, it will load it into a DataFrame.\npenguins = sns.load_dataset('penguins')\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale"
   },
   {
     "objectID": "W2/M3/lessons/01_statistics.html#motivation",
@@ -2916,7 +2916,7 @@
     "href": "W2/M3/lessons/01_statistics.html#proportion",
     "title": "Statistics",
     "section": "Proportion",
-    "text": "Proportion\nProportion (\\(\\hat p\\)): is a fraction of the sample that has a certain characteristic. Also known as: Relative Frequency, and is often expressed in precentage (%).\n\\[ \\hat{p} = \\frac{\\text{count with characteristic}}{n} \\]\nExample is the value_counts(), summarizing the count of each value in the variable column:\n\npenguins['island'].value_counts()\n\nisland\nBiscoe       168\nDream        124\nTorgersen     52\nName: count, dtype: int64\n\n\nBut we could also visualize it:\n\nsns.displot(\n    data=penguins, x='island', hue='island',\n    shrink=0.8, discrete=True,\n    height=3, aspect=1\n)\n\n\n\n\n\n\n\n\nLet’s look at the NBA players dataset:\n\ndf = pd.read_csv('./data/nba_heights.csv')\ndf.head()\n\n\n\n\n\n\n\n\nlast_name\nfirst_name\nh_meters\nh_in\n\n\n\n\n0\nAcker\nAlex\n1.96\n77\n\n\n1\nAdams\nHassan\n1.93\n76\n\n\n2\nAfflalo\nArron\n1.96\n77\n\n\n3\nAger\nMaurice\n1.96\n77\n\n\n4\nAjinca\nAlexis\n2.13\n84"
+    "text": "Proportion\nWhen ccounts are relative to the whole, it is called Proportion (\\(\\hat p\\)) or Relative Frequency and is often expressed in precentage (%).\n\\[\n\\hat{p} = \\frac{n}{N}\n\\]\nWe can show this using value_counts with normalize=True, like so:\n\npenguins['island'].value_counts(normalize=True)\n\nisland\nBiscoe       0.488372\nDream        0.360465\nTorgersen    0.151163\nName: proportion, dtype: float64\n\n\nIt can be expressed in seaborn displot by setting stat=\"probability\":\n\nsns.displot(\n    data=penguins, x='island', hue='island',\n    shrink=0.8, discrete=True,\n    height=3, aspect=1,\n    stat='probability'  # Shows relative frequency\n)\n\n\n\n\n\n\n\n\nNotice how the bars are always proportional whether we are using counts or frequencies on the y-axis."
   },
   {
     "objectID": "W2/M3/lessons/01_statistics.html#what-is-a-distribution",
@@ -2930,14 +2930,14 @@
     "href": "W2/M3/lessons/01_statistics.html#the-normal-distribution",
     "title": "Statistics",
     "section": "The Normal Distribution",
-    "text": "The Normal Distribution\nThe Normal Distribution (or Gaussian Distribution) is a bell-shaped distribution that is symmetric around the mean, with the highest density of data points in the center.\nThe height distribution of NBA players is one example.\nTo check for that we first standardize the variable, which is done by calculating the z-score:\n\\[ z = \\frac{x-\\mu}{\\sigma} \\]\nWhere:\n\n\\(\\mu\\) is the mean\n\\(\\sigma\\) is the standard deviation\n\nThe z-score is also interpreted as:\n\ncentering around the mean\nadjusting by the standard deviation\n\nLet’s do it in code:\n\ndef z_score(series: pd.Series):\n    return (series - series.mean()) / series.std()\n\ndf['h_meters_z'] = z_score(df['h_meters'])\n\nEach height value now has been mapped to a standard value, which we call the z score:\n\ndf[['h_meters', 'h_meters_z']]\n\n\n\n\n\n\n\n\nh_meters\nh_meters_z\n\n\n\n\n0\n1.96\n-0.582635\n\n\n1\n1.93\n-0.915679\n\n\n2\n1.96\n-0.582635\n\n\n3\n1.96\n-0.582635\n\n\n4\n2.13\n1.304612\n\n\n...\n...\n...\n\n\n430\n2.11\n1.082583\n\n\n431\n2.29\n3.080845\n\n\n432\n2.13\n1.304612\n\n\n433\n1.98\n-0.360606\n\n\n434\n2.03\n0.194467\n\n\n\n\n435 rows × 2 columns\n\n\n\nNotice how the shape of the distribution itself doesn’t change what so ever:\n\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots(2, 1, figsize=(8, 4))\n\nsns.kdeplot(df['h_meters'], fill=True, ax=ax[0])\nsns.kdeplot(df['h_meters_z'], fill=True, ax=ax[1])\n\nplt.show()\n\n\n\n\n\n\n\n\nThe 68-95-99.7 Rule: In a perfect Gaussian distribution, data is distributed with mathematical precision. This is often called the Empirical Rule:\n\n\n\n\n\n\n\nDistance from Mean\nPercentage of Data Included\n\n\n\n\nWithin \\(1\\sigma\\)\n68.2%\n\n\nWithin \\(2\\sigma\\)\n95.4%\n\n\nWithin \\(3\\sigma\\)\n99.7%\n\n\n\n\n\n\nThe Normal Distribution\n\n\nMany other things in life follow the same distribution:\n\nBiological Measurements: Beyond height, things like blood pressure, leaf lengths on a tree, or the birth weight of newborns follow this curve.\nManufacturing Errors: If a machine is set to cut 10cm bolts, most will be exactly 10cm. A few will be 10.01cm, and a few 9.99cm. Extremely rare outliers might be 10.1cm.\nStandardized Testing: Exams like the SAT or IQ tests are specifically designed so that the results fall into a normal distribution, allowing scorers to see how an individual compares to the “average” (\\(\\mu\\)).\n\n\nExample 1: Students Scores (Interactive)\niIf students in a math class took a final exam, and the class average was 7.5 out of 10 and the standard deviation was 0.5 points. If the class scores follow a normal distribution, then this means that:\n\n68% of the students received a score between 7.0 and 8.0 on the test, or the mean (7.5) plus or minus 1 standard deviation (0.5)\n95% of students received a grade between 6.5 and 8.5 on the exam, or the mean (7.5) plus or minus 2 standard deviations (1.0)\n99.7% of students received a grade between 6.0 and 9.0, or the mean (7.5) plus or minor 3 standard deviations\n\nThe following is an interactive example which you can try out to play with the normal distribution:\n\nChanging the mean would move the median, min and max statistics with it, but won’t have an effect on the range statistic.\nChanging the std would affect the min and max statistics and consequently, the range statstic, but won’t have an effect on the median.\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Generate a NumPy ndarray of 1000 elements sampled from a normal distribution\n# with the specified mean and standard deviation.\nscores = np.random.normal(\n    loc=9.0,   # Mean               &lt;&lt; CHANGE THIS\n    scale=0.3, # Standard Deviation &lt;&lt; CHANGE THIS\n    size=1000, # Number of observations\n)\n\n# Plot the bell curve of the data.\nplt.hist(scores, bins=40, density=True, range=(0, 10))\nplt.xlabel(\"Score\")\nplt.ylabel(\"Density\")\nplt.title(\"Bell curve of student scores\")\nplt.show()\n\n\n\n\n\n\n\n\nTry and Observe: try changing the mean and standard deviation in the above code to see how normal curve behaves.\n\n\nBox-and-whiskers Plot\nA boxplot gives a nice summary of one or several numeric variables. The line that divides the box into 2 parts represents the median of the data. The end of the box shows the upper and lower quartiles. The extreme lines show the highest and lowest value excluding outliers.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Generate a NumPy ndarray of 1000 elements sampled from a normal distribution\n# with the specified mean and standard deviation.\nscores = np.random.normal(\n    loc=9.0,   # Mean               &lt;&lt; CHANGE THIS\n    scale=0.3, # Standard Deviation &lt;&lt; CHANGE THIS\n    size=1000, # Number of observations\n)\n\n# Plot the bell curve of the data.\nplt.boxplot(scores, vert=False, meanline=True, showmeans=True)\nplt.xlim(0, 10)\nplt.xlabel(\"Score\")\nplt.ylabel(\"Density\")\nplt.title(\"Bell curve of student scores\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\nExample 2: Comparative IQ Distribution\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.stats import norm\n\n# 1. Define the statistical parameters based on new instructions:\nmean_iq = 100\nstd_dev_women = 13.2  # Lower variance (taller, narrower curve than men)\nstd_dev_men = 16.2    # Higher variance (shorter, wider curve)\n\n# 2. Generate x-axis values (spanning 70 to 130 to cover the image's range)\nx = np.linspace(70, 130, 1000)\n\n# 3. Calculate the Probability Density Function (PDF) for both groups\ny_women = norm.pdf(x, mean_iq, std_dev_women)\ny_men = norm.pdf(x, mean_iq, std_dev_men)\n\n# 4. Initialize the plot\nfig, ax = plt.subplots(figsize=(8, 5))\n\n# Plot the curves matching the visual colors\nax.plot(x, y_women, color='firebrick', linewidth=2)\nax.plot(x, y_men, color='navy', linewidth=2)\n\n# Vertical line for the mean\nax.axvline(mean_iq, color='black', linestyle='--', linewidth=1)\nax.text(mean_iq + 1, max(y_women)*0.70, f'$\\\\mu={mean_iq}$', color='black', fontsize=12)\n\n# Add text labels directly onto the plot (coordinates manually adjusted for fit)\nax.text(112, max(y_women)*0.90, 'Women\\n$\\\\sigma\\\\approx{}$13.2', \n        color='firebrick', fontsize=12)\nax.text(120, max(y_men)*0.55, 'Men\\n$\\\\sigma\\\\approx{}$16.2', \n        color='navy', fontsize=12)\n\n# 5. Formatting to match the original image's clean style\nax.set_title('Comparative Sex IQ Distribution', fontsize=14, fontweight='bold', pad=15)\nax.set_xlabel('IQ', fontsize=12, fontweight='bold', labelpad=10)\nax.set_ylabel('Probability Density', fontsize=12, labelpad=10)\n\n# Set the specific x-axis tick marks\nax.set_xticks(range(75, 125, 5))\n\n# Remove y-axis ticks and unnecessary borders to mirror the original figure\nax.set_yticks([])\nax.spines['top'].set_visible(False)\nax.spines['right'].set_visible(False)\nax.spines['left'].set_visible(False)\n\n# Render the plot\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\nThe figure above shows two Normal distributions:\n\nwith the same Mean (center)\nbut different Standard Deviation (dispersion).\n\nCommon Misconception: People often see the red curve is much taller and mistakenly conclude that: “there are more women in the dataset than men”. Wrong! In reality, the area under the curve represents the total population, not the height of the peak.\nNotice that both the red curve (Women) and the blue curve (Men) peak at the same point on the x-axis (IQ ≈ 100). This indicates that the mean, median, and mode for both groups are approximately equal.\nBecause the variance for men is roughly 5% to 15% larger than it is for women, the male distribution curve is wider and flatter, while the female distribution curve is taller and narrower around the middle.\n\nThe Middle: Women are more heavily clustered around the dead-center average (the 85 to 115 IQ range).\nThe Extremes: Men are overrepresented at both extremes of the bell curve.\n\nIf you look at the extreme right tail of the distribution (an IQ of 140 or higher), the wider male variance means there is a higher ratio of men to women. Conversely, if you look at the extreme left tail (an IQ of 60 or lower), there is also a significantly higher ratio of men to women experiencing severe cognitive deficits."
+    "text": "The Normal Distribution\nThe Normal Distribution (or Gaussian Distribution) is a bell-shaped distribution that is symmetric around the mean, with the highest density of data points in the center.\nThe height distribution of NBA players is one example.\nTo check for that we first standardize the variable, which is done by calculating the z-score:\n\\[ z = \\frac{x-\\mu}{\\sigma} \\]\nWhere:\n\n\\(\\mu\\) is the mean\n\\(\\sigma\\) is the standard deviation\n\nThe z-score is also interpreted as:\n\ncentering around the mean\nadjusting by the standard deviation\n\nLet’s do it in code:\n\ndef z_score(series: pd.Series):\n    return (series - series.mean()) / series.std()\n\ndf['h_meters_z'] = z_score(df['h_meters'])\n\nEach height value now has been mapped to a standard value, which we call the z score:\n\ndf[['h_meters', 'h_meters_z']]\n\n\n\n\n\n\n\n\nh_meters\nh_meters_z\n\n\n\n\n0\n1.96\n-0.582635\n\n\n1\n1.93\n-0.915679\n\n\n2\n1.96\n-0.582635\n\n\n3\n1.96\n-0.582635\n\n\n4\n2.13\n1.304612\n\n\n...\n...\n...\n\n\n430\n2.11\n1.082583\n\n\n431\n2.29\n3.080845\n\n\n432\n2.13\n1.304612\n\n\n433\n1.98\n-0.360606\n\n\n434\n2.03\n0.194467\n\n\n\n\n435 rows × 2 columns\n\n\n\nNotice how the shape of the distribution itself doesn’t change what so ever:\n\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots(2, 1, figsize=(8, 4))\n\nsns.kdeplot(df['h_meters'], fill=True, ax=ax[0])\nsns.kdeplot(df['h_meters_z'], fill=True, ax=ax[1])\n\nplt.show()\n\n\n\n\n\n\n\n\nThe 68-95-99.7 Rule: In a perfect Gaussian distribution, data is distributed with mathematical precision. This is often called the Empirical Rule:\n\n\n\n\n\n\n\nDistance from Mean\nPercentage of Data Included\n\n\n\n\nWithin \\(1\\sigma\\)\n68.2%\n\n\nWithin \\(2\\sigma\\)\n95.4%\n\n\nWithin \\(3\\sigma\\)\n99.7%\n\n\n\n\n\n\nThe Normal Distribution\n\n\nMany other things in life follow the same distribution:\n\nBiological Measurements: Beyond height, things like blood pressure, leaf lengths on a tree, or the birth weight of newborns follow this curve.\nManufacturing Errors: If a machine is set to cut 10cm bolts, most will be exactly 10cm. A few will be 10.01cm, and a few 9.99cm. Extremely rare outliers might be 10.1cm.\nStandardized Testing: Exams like the SAT or IQ tests are specifically designed so that the results fall into a normal distribution, allowing scorers to see how an individual compares to the “average” (\\(\\mu\\)).\n\n\nExample 1: Students Scores (Interactive)\niIf students in a math class took a final exam, and the class average was 7.5 out of 10 and the standard deviation was 0.5 points. If the class scores follow a normal distribution, then this means that:\n\n68% of the students received a score between 7.0 and 8.0 on the test, or the mean (7.5) plus or minus 1 standard deviation (0.5)\n95% of students received a grade between 6.5 and 8.5 on the exam, or the mean (7.5) plus or minus 2 standard deviations (1.0)\n99.7% of students received a grade between 6.0 and 9.0, or the mean (7.5) plus or minor 3 standard deviations\n\nThe following is an interactive example which you can try out to play with the normal distribution:\n\nChanging the mean would move the median, min and max statistics with it, but won’t have an effect on the range statistic.\nChanging the std would affect the min and max statistics and consequently, the range statstic, but won’t have an effect on the median.\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Generate a NumPy ndarray of 1000 elements sampled from a normal distribution\n# with the specified mean and standard deviation.\nscores = np.random.normal(\n    loc=9.0,   # Mean               &lt;&lt; CHANGE THIS\n    scale=0.3, # Standard Deviation &lt;&lt; CHANGE THIS\n    size=1000, # Number of observations\n)\n\n# Plot the bell curve of the data.\nplt.hist(scores, bins=40, density=True, range=(0, 10))\nplt.xlabel(\"Score\")\nplt.ylabel(\"Density\")\nplt.title(\"Bell curve of student scores\")\nplt.show()\n\n\n\n\n\n\n\n\nTry and Observe: try changing the mean and standard deviation in the above code to see how normal curve behaves.\n\n\nBox-and-whiskers Plot\nA boxplot gives a nice summary of one or several numeric variables. The line that divides the box into 2 parts represents the median of the data. The end of the box shows the upper and lower quartiles. The extreme lines show the highest and lowest value excluding outliers.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Generate a NumPy ndarray of 1000 elements sampled from a normal distribution\n# with the specified mean and standard deviation.\nscores = np.random.normal(\n    loc=9.0,   # Mean               &lt;&lt;----------------------------- CHANGE THIS\n    scale=0.3, # Standard Deviation &lt;&lt;----------------------------- CHANGE THIS\n    size=1000, # Number of observations\n)\n\n# Plot the bell curve of the data.\nplt.boxplot(scores, vert=False, meanline=True, showmeans=True)\nplt.xlim(0, 10)\nplt.xlabel(\"Score\")\nplt.ylabel(\"Density\")\nplt.title(\"Bell curve of student scores\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\nExample 2: Comparative IQ Distribution\n\n\n\n\n\n\n\n\n\nThe figure above shows two Normal distributions:\n\nwith the same Mean (center)\nbut different Standard Deviation (dispersion).\n\nCommon Misconception: People often see the red curve is much taller and mistakenly conclude that: “there are more women in the dataset than men”. Wrong! In reality, the area under the curve represents the total population, not the height of the peak.\nNotice that both the red curve (Women) and the blue curve (Men) peak at the same point on the x-axis (IQ ≈ 100). This indicates that the mean, median, and mode for both groups are approximately equal.\nBecause the variance for men is roughly 5% to 15% larger than it is for women, the male distribution curve is wider and flatter, while the female distribution curve is taller and narrower around the middle.\n\nThe Middle: Women are more heavily clustered around the dead-center average (the 85 to 115 IQ range).\nThe Extremes: Men are overrepresented at both extremes of the bell curve.\n\nIf you look at the extreme right tail of the distribution (an IQ of 140 or higher), the wider male variance means there is a higher ratio of men to women. Conversely, if you look at the extreme left tail (an IQ of 60 or lower), there is also a significantly higher ratio of men to women experiencing severe cognitive deficits."
   },
   {
     "objectID": "W2/M3/lessons/01_statistics.html#outliers-out-of-normal",
     "href": "W2/M3/lessons/01_statistics.html#outliers-out-of-normal",
     "title": "Statistics",
     "section": "Outliers: Out-of-normal",
-    "text": "Outliers: Out-of-normal\nAn Outlier is an observation which deviates “too much” from other observations. Since statistical models look at the group, members that aren’t likely of the same group distort these models and affect our calculated statistics, especially when the outliers are exterme and numerous.\nWe don’t automatically remove these values, rather, we might want to inspect further to know more about their story.\nDeciding how much is “too much” can be done many ways:\n\nThe Z-Score method\nThe IQR method\nothers..\n\n\n1. Z-Score Method\nThe most common one that works well with the Normal Distribution is the Z-score method, which is calculated by subtracting the mean and dividing by the standard deviation:\n\\[ z = \\frac{x-\\mu}{\\sigma} \\]\nThen, we consider any values below and above three standard deviations away as being an anomaly, like so:\n\\[\nz \\leq -3 \\\\\nz \\geq +3\n\\]\nMore succiently:\n\\[ \\text{Outlier if:} \\vert z \\vert \\geq 3 \\]\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.stats import norm\n\n# 1. Setup Data\nz = np.linspace(-4, 4, 1000)\ny = norm.pdf(z)\n\nfig, ax = plt.subplots(figsize=(10, 6))\n\n# 2. Define Regions and Colors\n# Pink: |z| &lt; 1\n# Yellow: 1 &lt;= |z| &lt; 2\n# Purple: 2 &lt;= |z| &lt; 3\ncolors = {\n    'most': '#005587',\n    'common': '#3288bd',\n    'least': '#74add1'\n}\n\n# Fill regions\nax.fill_between(z, y, where=(np.abs(z) &lt;= 1), color=colors['most'])\nax.fill_between(z, y, where=((np.abs(z) &gt; 1) & (np.abs(z) &lt;= 2)), color=colors['common'])\nax.fill_between(z, y, where=((np.abs(z) &gt; 2) & (np.abs(z) &lt;= 3)), color=colors['least'])\n\n# 3. Plot the Curve and Vertical Lines\nax.plot(z, y, color='black', linewidth=1)\nfor x_val in [-3, -2, -1, 1, 2, 3]:\n    ax.vlines(x_val, 0, norm.pdf(x_val), color='black', linewidth=1)\n\n# Center dashed line\nax.vlines(0, 0, norm.pdf(0), color='black', linestyle='--', linewidth=1)\n\n# 4. Add Dots and X-axis Labels\nz_ticks = [-3, -2, -1, 0, 1, 2, 3]\nax.scatter(z_ticks, [0]*7, color='black', zorder=5)\nax.set_xticks(z_ticks)\nax.set_xticklabels([f'z = {v}' for v in z_ticks])\n\n# 5. Annotations (Text and Arrows)\n# Main Title\nax.set_title(\"Detecting Outliers with z-Scores\", fontsize=16, fontweight='bold', pad=20)\n\n# \"Most Common\"\nax.text(0, 0.42, \"Most Common\", ha='center', fontsize=12)\n\n# \"Common\" pointers\nax.annotate('Least Common', xy=(-2.5, 0.015), xytext=(-3.5, 0.15),\n            arrowprops=dict(arrowstyle='-', color='black'), ha='center')\nax.annotate('Least Common', xy=(2.5, 0.015), xytext=(3.5, 0.15),\n            arrowprops=dict(arrowstyle='-', color='black'), ha='center')\n\n# \"Outliers\" pointers\nax.annotate('Outliers', xy=(-3.2, 0.005), xytext=(-5, 0.05), color='red',\n            arrowprops=dict(arrowstyle='-', connectionstyle=\"angle,angleA=0,angleB=90\", color='red'), \n            ha='center', va='center')\nax.annotate('Outliers', xy=(3.2, 0.005), xytext=(5, 0.05), color='red',\n            arrowprops=dict(arrowstyle='-', connectionstyle=\"angle,angleA=0,angleB=90\", color='red'), \n            ha='center', va='center')\n\n# 6. Clean up styling\nax.set_xlim(-4.5, 4.5)\nax.set_ylim(0, 0.45)\nax.set_yticks([]) # Hide Y axis\nax.spines['top'].set_visible(False)\nax.spines['right'].set_visible(False)\nax.spines['left'].set_visible(False)\nax.spines['bottom'].set_linewidth(1)\n\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n2. IQR Method\nBy convention, a data point may be considered to be an outlier if it lies outside of the Inter-quartile range (IQR) by more than 1.5 times the IQR. i.e.:\n\\[\nx &lt; Q_1 - 1.5 \\times \\text{IQR}\\\\\nx &gt; Q_3 + 1.5 \\times \\text{IQR}\n\\]\n\n\n\nBox and Whiskers Plot"
+    "text": "Outliers: Out-of-normal\nAn Outlier is an observation which deviates “too much” from other observations. Since statistical models look at the group, members that aren’t likely of the same group distort these models and affect our calculated statistics, especially when the outliers are exterme and numerous.\nWe don’t automatically remove these values, rather, we might want to inspect further to know more about their story.\nDeciding how much is “too much” can be done many ways:\n\nThe Z-Score method\nThe IQR method\nothers..\n\n\n1. Z-Score Method\nThe most common one that works well with the Normal Distribution is the Z-score method, which is calculated by subtracting the mean and dividing by the standard deviation:\n\\[ z = \\frac{x-\\mu}{\\sigma} \\]\nThen, we consider any values below and above three standard deviations away as being an anomaly, like so:\n\\[\nz \\leq -3 \\\\\nz \\geq +3\n\\]\nMore succiently:\n\\[ \\text{Outlier if:} \\vert z \\vert \\geq 3 \\]\n\n\n\n\n\n\n\n\n\n\n\n2. IQR Method\nBy convention, a data point may be considered to be an outlier if it lies outside of the Inter-quartile range (IQR) by more than 1.5 times the IQR. i.e.:\n\\[\nx &lt; Q_1 - 1.5 \\times \\text{IQR}\\\\\nx &gt; Q_3 + 1.5 \\times \\text{IQR}\n\\]\n\n\n\nBox and Whiskers Plot"
   },
   {
     "objectID": "W2/M3/lessons/01_statistics.html#interpreting-distributions",
@@ -2951,7 +2951,7 @@
     "href": "W2/M3/lessons/01_statistics.html#other-distributions",
     "title": "Statistics",
     "section": "Other Distributions",
-    "text": "Other Distributions\nWe describe the distribtuion using these vocabularies:\n\nNormal: symmetric triangle\nUniform: even, like a brush\nLeft-skewed: right-angle triangle\nRight-skewed: left-angle triangle\nBimodal: two normals together\nMulti-modal: many normals together\n\n\n\n\nHistogram Distributions\n\n\nFor examples, see the blog: Distribution of Things.\n\nSkewness\nWe get skewness when the distribution is not symmetric:\n\nThe Mode is the peak\nThe Mean pulls the curve downwards\nThe Median follows the mean a little bit\n\n\n\n\nSkewness\n\n\n\n\nExample: Exponential Distribution\nDistrubtion of Death by Age in Australia in the Year 2012.\n\n\n\nDeaths in Australia in the year 2012\n\n\nThe figure above shows a left-tailed exponential distribution.\nThe graph shows “Deaths in Australia in the year 2012.” This is an excellent example of a Negatively Skewed (Left-Skewed) distribution.\n\nDirection of Skew: A distribution is named by the direction of its “tail.” Here, the tail extends toward the younger age brackets (the left). This indicates that while most people die at older ages, a smaller number of “outliers” die much younger, pulling the average down.\nThe Relationship Between Mean, Median, and Mode: In a perfectly symmetrical curve, these three would be the same. However, in a skewed distribution, they pull apart:\n\nMode (~87 years): The “most frequent” age of death, represented by the highest peak.\nMedian (~81 years): The middle value; 50% of people died before this age, and 50% after.\nMean (~77 years): The arithmetic average. It is the most affected by the “tail.” Because some people die very young (ages 0–40), the mean is pulled significantly lower than the mode.\n\nInsight: When data is skewed, the Median is often a better “typical” representation of the data than the Mean, because the Mean is overly sensitive to extreme outliers (infant mortality or early-life accidents)."
+    "text": "Other Distributions\nWe describe the distribtuion using these vocabularies:\n\nNormal: symmetric triangle\nUniform: even, like a brush\nLeft-skewed: right-angle triangle\nRight-skewed: left-angle triangle\nBimodal: two normals together\nMulti-modal: many normals together\n\n\n\n\nHistogram Distributions\n\n\nFor examples, see the blog: Distribution of Things.\n\n3. Skewness\nWe get skewness when the distribution is not symmetric:\n\nThe Mode is the peak\nThe Mean pulls the curve downwards\nThe Median follows the mean a little bit\n\n\n\n\nSkewness\n\n\n\n\nExample: Exponential Distribution\nDistrubtion of Death by Age in Australia in the Year 2012.\n\n\n\nDeaths in Australia in the year 2012\n\n\nThe figure above shows a left-tailed exponential distribution.\nThe graph shows “Deaths in Australia in the year 2012.” This is an excellent example of a Negatively Skewed (Left-Skewed) distribution.\n\nDirection of Skew: A distribution is named by the direction of its “tail.” Here, the tail extends toward the younger age brackets (the left). This indicates that while most people die at older ages, a smaller number of “outliers” die much younger, pulling the average down.\nThe Relationship Between Mean, Median, and Mode: In a perfectly symmetrical curve, these three would be the same. However, in a skewed distribution, they pull apart:\n\nMode (~87 years): The “most frequent” age of death, represented by the highest peak.\nMedian (~81 years): The middle value; 50% of people died before this age, and 50% after.\nMean (~77 years): The arithmetic average. It is the most affected by the “tail.” Because some people die very young (ages 0–40), the mean is pulled significantly lower than the mode.\n\nInsight: When data is skewed, the Median is often a better “typical” representation of the data than the Mean, because the Mean is overly sensitive to extreme outliers (infant mortality or early-life accidents)."
   },
   {
     "objectID": "W2/M3/lessons/01_statistics.html#variations-of-distribution-plots",
@@ -3021,14 +3021,14 @@
     "href": "W2/index.html#module-3-descriptive-statistics",
     "title": "Applied AI Bootcamp",
     "section": "Module 3: Descriptive Statistics",
-    "text": "Module 3: Descriptive Statistics\n\nM3-1: Statistical Analysis\nLearning outcomes:\n\nDefine statistics\nDistinguish between Population and Sample\nGive examples of numerical variables and categorical variables\nRecognize the two type of summaries: numerical and visual\nExplain what Proportion is\nExplain what a Distribution is\nDescribe what are the mean and variance\nExplain what a Percentile means\nDescribe how do we get a z-score and why we might need it\nExplain what is 1, 2, and 3 standard deviations mean for a normal distribution\nGiven a box-and-whiskers plot, identify its graphical elements and tell what they mean\nGiven a plot like the Comparative Sex IQ Distribution, make at least 2 interpretations\nGiven a plot like the Comparative Sex IQ Distribution, recognize whether a statement is true or not\nName at least 2 outlier-removal methods and explain how they work\nGiven a distribution plot; name it (e.g., normal, uniform, or skewed to the right)\n\nLesson: Statistical Analysis.\n\n\nM3-2: Statistical Visualization\nLearning outcomes:\n\nDistinguish between figure and axes in matplotlib\nName the three figure-level functions in seaborn\nDistinguish between Histogram and Barplot\nGiven a DataFrame, make subplots via the col and row parameters in a figure-level function\nGiven a DataFrame, make subplots and put custom plots using axes-level functions; and have them do sharex=True or sharey=True\nGiven a DataFrame, plot the ECDF and interpret it\nGiven a DataFrame, plot a bi-variate histogram and interpret it\nVisualize numerical vs categorical relationships using sns.catplot()\nVisualize multiple categorical variables in one plot\nUse different colors, markers, and styles in a plot\nRelate variables using scatter plot\nIdentify issues in a given visualization and suggest improvements\n\nLessons and labs:\n\nPython Visualization Tools\nVisualizing distributions of data\nVisualizing categorical data\nVisualizing statistical relationships\nEffective communication of exploratory results\n\nExercises:\n\nVisualization Exercises (4 questions)\nEDA Penguins (7 questions)"
+    "text": "Module 3: Descriptive Statistics\n\nM3-1: Statistical Analysis\nLearning outcomes:\n\nDefine statistics\nDistinguish between Population and Sample\nGive examples of numerical variables and categorical variables\nRecognize the two type of summaries: numerical and visual\nExplain what Proportion is\nExplain what a Distribution is\nDescribe what are the mean and variance\nExplain what a Percentile means\nDescribe how do we get a z-score and why we might need it\nExplain what is 1, 2, and 3 standard deviations mean for a normal distribution\nGiven a box-and-whiskers plot, identify its graphical elements and tell what they mean\nGiven a plot like the Comparative Sex IQ Distribution, make at least 2 interpretations\nGiven a plot like the Comparative Sex IQ Distribution, recognize whether a statement is true or not\nName at least 2 outlier-removal methods and explain how they work\nGiven a distribution plot; name it (e.g., normal, uniform, or skewed to the right)\n\nLessons:\n\nLesson: Statistics\nLab: Statistics\n\n\n\nM3-2: Statistical Visualization\nLearning outcomes:\n\nDistinguish between figure and axes in matplotlib\nName the three figure-level functions in seaborn\nDistinguish between Histogram and Barplot\nGiven a DataFrame, make subplots via the col and row parameters in a figure-level function\nGiven a DataFrame, make subplots and put custom plots using axes-level functions; and have them do sharex=True or sharey=True\nGiven a DataFrame, plot the ECDF and interpret it\nGiven a DataFrame, plot a bi-variate histogram and interpret it\nVisualize numerical vs categorical relationships using sns.catplot()\nVisualize multiple categorical variables in one plot\nUse different colors, markers, and styles in a plot\nRelate variables using scatter plot\nIdentify issues in a given visualization and suggest improvements\n\nLessons and labs:\n\nPython Visualization Tools\nVisualizing distributions of data\nVisualizing categorical data\nVisualizing statistical relationships\nEffective communication of exploratory results\n\nExercises:\n\nEDA Penguins (7 questions)\nVisualization Exercises (4 questions)"
   },
   {
     "objectID": "W2/index.html#module-4-inferential-statistics",
     "href": "W2/index.html#module-4-inferential-statistics",
     "title": "Applied AI Bootcamp",
     "section": "Module 4: Inferential Statistics",
-    "text": "Module 4: Inferential Statistics\n\nM4-1: Hypothesis Testing\nLearning outcomes:\n\nDistinguish between Inferential and Descriptive Statistics\nDistinguish between Null and Alternative Hypothesis\nGiven an alternative hypothesis select the correct statistical test\nIntrepret the result of a statistical test (p-value)\nUnderstand that alpha (the significance level) is selected by convention to have the value of 0.05\nDistinguish between Treatment and Control Groups\nGiven a claim in layman terms, describe it in statistical terms, as a hypothesis\nGiven a hypothesis in statistical terms, explain it in layman terms\nRecognize when the test is two-sided or one-sided (and in which direction)\n\nLab: Hypothesis Testing.\n\n\nM4-2: Association and Correlation\nLearning outcomes:\n\nDistinguish between association and correlation\nRecognize how Chi-square test and Cramer’s value are used together\nInterpret a Chi-square statistic\nInterpret a Cramér’s V statistic\nFind the association between two categorical variables in terms of both: significance and strength\nInterpret an r-square statistic\nGiven a scatter plot, choose the corresponding r-square value from a list of given values\nRecognize non-linearity and outlier issues with r-squared value\nExplain the phrase “correlation does not imply causation” and give at least 1 example of your own\nExplain what a Confounding Variable is\n\nLabs:\n\nCategorical Association\nNumerical Correlation\n\nExercises:\n\nHypothesis Testing (4 questions)"
+    "text": "Module 4: Inferential Statistics\n\nM4-1: Hypothesis Testing\nLearning outcomes:\n\nDistinguish between Inferential and Descriptive Statistics\nDistinguish between Null and Alternative Hypothesis\nGiven an alternative hypothesis select the correct statistical test\nIntrepret the result of a statistical test (p-value)\nUnderstand that alpha (the significance level) is selected by convention to have the value of 0.05\nDistinguish between Treatment and Control Groups\nGiven a claim in layman terms, describe it in statistical terms, as a hypothesis\nGiven a hypothesis in statistical terms, explain it in layman terms\nRecognize when the test is two-sided or one-sided (and in which direction)\n\nLessons:\n\nLesson: Hypothesis Testing\nLab: Hypothesis Testing\n\n\n\nM4-2: Association and Correlation\nLearning outcomes:\n\nDistinguish between association and correlation\nRecognize how Chi-square test and Cramer’s value are used together\nInterpret a Chi-square statistic\nInterpret a Cramér’s V statistic\nFind the association between two categorical variables in terms of both: significance and strength\nInterpret an r-square statistic\nGiven a scatter plot, choose the corresponding r-square value from a list of given values\nRecognize non-linearity and outlier issues with r-squared value\nExplain the phrase “correlation does not imply causation” and give at least 1 example of your own\nExplain what a Confounding Variable is\n\nLessons:\n\nLesson: Correlation\nLab 1: Categorical Association\nLab 2: Numerical Correlation\n\nExercises:\n\nHypothesis Testing (4 questions)"
   },
   {
     "objectID": "W2/quantiles.html",
@@ -3082,9 +3082,9 @@
   {
     "objectID": "W2/M1/lessons/02_lab_cda_blind_typing.html",
     "href": "W2/M1/lessons/02_lab_cda_blind_typing.html",
-    "title": "Data Analysis",
+    "title": "Confirmatory Data Analysis Overview Example",
     "section": "",
-    "text": "Data analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making.\nTwo approaches to data analysis:"
+    "text": "CDA is a top-down approach in which we start with a question and use data to answer it.\nIntervention or Treatment is the term we use to describe the act of deliberately changing a variable in a system to observe the effect on other variables.\nMaking causal conclusions based on experiments is often reasonable, since we can randomly assign the explanatory variable(s), i.e., the treatments. However, making the same causal conclusions based on observational data can be treacherous and is not recommended.\nRead more, if you are interested in: Study design (IMS book)."
   },
   {
     "objectID": "W2/M1/lessons/02_lab_cda_blind_typing.html#a.-confirmatory-data-analysis-cda",
@@ -3103,7 +3103,7 @@
   {
     "objectID": "W2/M1/lessons/02_lab_cda_blind_typing.html#experiment-blind-typing",
     "href": "W2/M1/lessons/02_lab_cda_blind_typing.html#experiment-blind-typing",
-    "title": "Data Analysis",
+    "title": "Confirmatory Data Analysis Overview Example",
     "section": "Experiment: Blind Typing",
     "text": "Experiment: Blind Typing\nAn experiment aims to confirm a hypothesis using data. Hence, we are doing CDA.\nIn this experiment, we want to test people who claim that they type without looking at their keyboard. Let’s verify their claim. The words-per-minute typed should not significantly drop if we turn off the lights.\n\nWe will test our typing with the lights on\nThen, we’ll test again with the lights off\n\nNow let’s jump to action..\n\n1. Data Collection\n\nExperiment subjects will visit the website: https://monkeytype.com/ to undergo the typing test.\nEach subject will report their own score. Which we will store down below.\n\n\n\n2. Data Loading\nWe will use regular Python lists to store the measurements before and after the intervention.\n\n# Experiment Data\nscores_1 = [33, 46, 35, 28, 20, 22, 19, 25, 19, 67, 23, 19, 40, 18, 27, 44]\nscores_2 = [46, 23, 36, 21, 38, 23, 22, 27, 28, 37, 37, 26, 33, 53, 9, 13]\n\n\n\n3. Verification\nWe expect the same participants to undergo the experiment once with the lights on and once with the lights out.\n\n# Quick Check\nassert len(scores_1) == len(scores_2)\n\n\n\n4. Transformation\n\n# Concatenate\nscores = scores_1 + scores_2\nscores[:10]\n\n[33, 46, 35, 28, 20, 22, 19, 25, 19, 67]\n\n\n\n\n5. Analysis\n\ndef my_sum(data):\n    s = 0\n    for i in scores:\n        s += i\n    return s\n\nmy_sum(scores)\n\n957\n\n\n\ndef my_average(data):\n    return my_sum(data) / len(scores)\n\nmy_average(scores)\n\n29.90625\n\n\n\ndef my_median(data):\n    mid_index = len(scores) // 2\n    return sorted(data)[mid_index]\n\nmy_median(scores)\n\n27\n\n\nIn Python, libraries like Pandas include data-structures and algorithms (collectively as objects) to perform calculations efficiently on lists and tables, also known as: Series and DataFrames respectively.\n\n\nEnter: pandas.Series\n\nimport pandas as pd\n\ns = pd.Series(scores, name=\"wpm\")\ns[:10]\n\n0    33\n1    46\n2    35\n3    28\n4    20\n5    22\n6    19\n7    25\n8    19\n9    67\nName: wpm, dtype: int64\n\n\nStatistics:\n\nprint(\"Number of items:\", len(s))\nprint(\"Sum:\", s.sum())\nprint(\"Average:\", s.mean())\nprint(\"Median:\", s.median(),)\nprint(\"Mode:\", s.mode()[0])\nprint(\"Standard Deviation:\", s.std())\n\nNumber of items: 32\nSum: 957\nAverage: 29.90625\nMedian: 27.0\nMode: 19\nStandard Deviation: 12.32191694083247\n\n\nBut also:\n\ns.nlargest(3)\n\n9     67\n29    53\n1     46\nName: wpm, dtype: int64\n\n\n\ns.nsmallest(3)\n\n30     9\n31    13\n13    18\nName: wpm, dtype: int64\n\n\n\n\nEnter: pandas.DataFrame\n\nfrom pathlib import Path\n\n# Load data from CSV into a DataFrame\nfile_path = Path(\"../../data/wpm.csv\")\ndf = pd.read_csv(file_path)\n\n\ndf.head()\n\n\n\n\n\n\n\n\nwpm\nlight\n\n\n\n\n0\n11\nFalse\n\n\n1\n15\nFalse\n\n\n2\n50\nFalse\n\n\n3\n13\nFalse\n\n\n4\n15\nFalse\n\n\n\n\n\n\n\n\nimport pandas as pd\nfrom pathlib import Path\n\nfile_path = Path(\"../../data/wpm.csv\")\n\n# df = pd.DataFrame({\n#     \"wpm\": scores_1 + scores_2,\n#     \"intervention\": [False] * len(scores_1) + [True] * len(scores_2)\n# })\n\ndf = pd.read_csv(file_path)\n\n\ndf.head()\n\n\n\n\n\n\n\n\nwpm\nlight\n\n\n\n\n0\n11\nFalse\n\n\n1\n15\nFalse\n\n\n2\n50\nFalse\n\n\n3\n13\nFalse\n\n\n4\n15\nFalse\n\n\n\n\n\n\n\n\ndf.tail()\n\n\n\n\n\n\n\n\nwpm\nlight\n\n\n\n\n21\n21\nTrue\n\n\n22\n37\nTrue\n\n\n23\n42\nTrue\n\n\n24\n36\nTrue\n\n\n25\n40\nTrue\n\n\n\n\n\n\n\n\nAside: you might wonder what is [False] * len(scores_2)\n\n\nx = [10, 10, 10]\nx * 3\n\n[10, 10, 10, 10, 10, 10, 10, 10, 10]\n\n\n\nx = pd.Series([10, 10, 10])\nx * 3\n\n0    30\n1    30\n2    30\ndtype: int64\n\n\n\nxs = [True] * len(scores_1) + [False] * len(scores_2)\n\n\n# head and tail\nxs[:3], xs[-3:]\n\n([True, True, True], [False, False, False])\n\n\n\n\nOverall statistics\n\ndf.describe().T\n\n\n\n\n\n\n\n\ncount\nmean\nstd\nmin\n25%\n50%\n75%\nmax\n\n\n\n\nwpm\n26.0\n29.346154\n12.013134\n10.0\n20.25\n28.0\n40.0\n50.0\n\n\n\n\n\n\n\n\n\nStatistics by group\n\n# df.groupby(by='intervention').describe()\ndf.groupby(by='light').describe()\n\n\n\n\n\n\n\n\nwpm\n\n\n\ncount\nmean\nstd\nmin\n25%\n50%\n75%\nmax\n\n\nlight\n\n\n\n\n\n\n\n\n\n\n\n\nFalse\n13.0\n26.153846\n13.813316\n10.0\n15.0\n23.0\n38.0\n50.0\n\n\nTrue\n13.0\n32.538462\n9.368523\n20.0\n24.0\n36.0\n41.0\n46.0\n\n\n\n\n\n\n\n\n\nVisualization: Seaborn\nSeaborn is a visualization library specifically built for statistical plots. We’ll use it to render the Box-and-whiskers Plot which visualizes the statistics described in the summary table above.\n\nimport seaborn as sns\n\nsns.boxplot(\n    data=df,\n    y='wpm',\n    # x='intervention'\n    x='light'\n)"
   },
@@ -4477,7 +4477,7 @@
     "href": "W1/lessons/01_bootcamp_intro.html#sessions-and-break-times",
     "title": "Bootcamp Introduction",
     "section": "Sessions and Break times",
-    "text": "Sessions and Break times\n\nSession 1: 9:00 PM - 9:50 PM\n10 minutes break\nSession 2: 10:00 PM - 10:50 PM\n10 minutes break\nSession 3: 11:00 PM - 12:00 PM\nLunch break 12:00 - 1:00 PM\nSession 4 (Labs and Exercises): 1:00 - 3:00 PM"
+    "text": "Sessions and Break times\n\nSession 1: 9:00 PM - 10:30 PM\n10 minutes break\nSession 2: 10:45 PM - 12:00 PM\nLunch break 12:00 - 1:00 PM\nSession 3 (Labs and Exercises): 1:00 - 3:00 PM"
   },
   {
     "objectID": "W1/lessons/01_bootcamp_intro.html#commits-are-mandatory",
@@ -4673,13 +4673,643 @@
     "href": "W1/index.html#module-2-python-syntax",
     "title": "Applied AI Bootcamp",
     "section": "Module 2: Python Syntax",
-    "text": "Module 2: Python Syntax\nLessons:\n\nScripting\nControl Flow\nFunctions\n\nWorked Examples:\n\nNumbers\nControl Flow\n\nExercises (read instructions below):\n\nChapter 1: Programming as a Way of Thinking\nChapter 2: Variables and Statements\nChapter 3: Functions\nChapter 4: Functions and Interfaces\nChapter 5: Conditionals and Recursion\n\nPlease follow instructions to act as a proof-of-work:\n\nDownload the notebook and remove all but the Exercises section\nPut this file in your repo, under the folder student/\nPut your name at the top of the file: \"Name: &lt;your name&gt;\"\nDo both git add student/chap01.ipynb and git commit -m \"C1 Chapter 1: init\" (or via GUI)\nNote: the C1 indicates our current Python Course: Course 1.\nSolve the first question\nDo a git add student/chap01.ipynb again, followed by a git commit -m \"C1 Chapter 1: q1\" (or via GUI)\nRepeat for next questions (steps 4 and 5)\nRepeat for next exercise notebooks (steps 1 to 6)\n\nNote: this work should be submitted by the end of today 11:59 PM. So, make sure your commits are pushed before that time: git push (or via GUI)."
+    "text": "Module 2: Python Syntax\nLessons:\n\nScripting\nControl Flow\nFunctions\n\nWorked Examples:\n\nNumbers\nControl Flow\n\n\nExercises (read instructions below)\n\nChapter 1: Programming as a Way of Thinking\nChapter 2: Variables and Statements\nChapter 3: Functions\nChapter 4: Functions and Interfaces\nChapter 5: Conditionals and Recursion\n\nPlease follow instructions to act as a proof-of-work:\n\nDownload the notebook and remove all but the Exercises section\nPut this file in your repo, under the folder student/\nPut your name at the top of the file: \"Name: &lt;your name&gt;\"\nDo both git add student/chap01.ipynb and git commit -m \"C1 Chapter 1: init\" (or via GUI)\nNote: the C1 indicates our current Python Course: Course 1.\nSolve the first question\nDo a git add student/chap01.ipynb again, followed by a git commit -m \"C1 Chapter 1: q1\" (or via GUI)\nRepeat for next questions (steps 4 and 5)\nRepeat for next exercise notebooks (steps 1 to 6)\n\nNote: this work should be submitted by the end of today 11:59 PM. So, make sure your commits are pushed before that time: git push (or via GUI)."
   },
   {
     "objectID": "W1/index.html#module-3-collections",
     "href": "W1/index.html#module-3-collections",
     "title": "Applied AI Bootcamp",
     "section": "Module 3: Collections",
-    "text": "Module 3: Collections\nLessons:\n\nSequencing\nComputer and the world\nText files\nIteration\n\nWorked Examples:\n\nSequencing\nDictionary\nProcedural\n\nExercises:\n\nChapter 7: Iteration and Search\nChapter 9: Lists\nChapter 10: Dictionaries"
+    "text": "Module 3: Collections\nLessons:\n\nSequencing\nComputer and the world\nText files\nIteration\n\nWorked Examples:\n\nSequencing\nDictionary\nProcedural\n\n\nExercises\n\nChapter 7: Iteration and Search\nChapter 9: Lists\nChapter 10: Dictionaries"
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#motivating-story",
+    "href": "W2/M1/lessons/01_slides_intro.html#motivating-story",
+    "title": "Introduction to Data Science",
+    "section": "Motivating story",
+    "text": "Motivating story\nNotebookLM comic (John Snow)\nThe invisible threat: London, 1854 — cholera in Soho. Consensus: miasma (bad air). John Snow asked for evidence: cholera might spread through contaminated water, not smell."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#gathering-the-data",
+    "href": "W2/M1/lessons/01_slides_intro.html#gathering-the-data",
+    "title": "Introduction to Data Science",
+    "section": "Gathering the data",
+    "text": "Gathering the data\nSnow could not see bacteria; he collected data instead:\n\nWhere each household lived.\nWhich drinking water they used.\n\nHe put deaths on a map — one mark per address — turning tables into spatial evidence."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#identifying-the-pattern",
+    "href": "W2/M1/lessons/01_slides_intro.html#identifying-the-pattern",
+    "title": "Introduction to Data Science",
+    "section": "Identifying the pattern",
+    "text": "Identifying the pattern\nDeaths clustered around the Broad Street pump, not evenly across “bad air.”"
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#investigating-anomalies",
+    "href": "W2/M1/lessons/01_slides_intro.html#investigating-anomalies",
+    "title": "Introduction to Data Science",
+    "section": "Investigating anomalies",
+    "text": "Investigating anomalies\nStrong hypotheses survive exceptions:\n\nThe brewery: Workers drank beer / a private well — not the pump.\nThe workhouse: Own well — almost no deaths amid surrounding cases.\nThe Hampstead widow: Died far from Soho; she still drank Broad Street water (and her niece, who visited).\n\nConclusion: the variable was water from that pump, not proximity to foul air."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#data-to-action",
+    "href": "W2/M1/lessons/01_slides_intro.html#data-to-action",
+    "title": "Introduction to Data Science",
+    "section": "Data to action",
+    "text": "Data to action\nSnow showed the board his map and reasoning; they acted on the evidence.\n\n“I had an interview with the Board of Guardians of St. James’s parish… In consequence of what I said, the handle of the pump was removed on the following day.” — John Snow\n\nThe well was later found near a leaking cesspit.\n(Snow 1855)"
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#why-this-matters-for-data-science",
+    "href": "W2/M1/lessons/01_slides_intro.html#why-this-matters-for-data-science",
+    "title": "Introduction to Data Science",
+    "section": "Why this matters for data science",
+    "text": "Why this matters for data science\nJohn Snow’s workflow is still the template:\n\nQuestion assumptions — demand evidence, not consensus alone.\nCollect structured, verifiable information.\nVisualize to see patterns lists hide.\nExplain outliers — they often test the story.\nAct — turn insight into a specific intervention.\n\nData science is using evidence to understand a situation and decide what to do — with modern tools for what Snow did on foot and on paper."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#what-is-data-science",
+    "href": "W2/M1/lessons/01_slides_intro.html#what-is-data-science",
+    "title": "Introduction to Data Science",
+    "section": "What is data science?",
+    "text": "What is data science?\nData (plural): digitally recorded pieces of information about events. Together they support a full picture — stored and processed on computers.\n\nNumbers, text, images, sound, …\nTypes: numerical, categorical (and subtypes).\nDifferent algorithms for different goals.\n\n\nData science is an interdisciplinary field that uses scientific methods, processes, algorithms, and systems to extract knowledge and insights from structured and unstructured data. It combines statistics, computer science, and domain knowledge to analyze data and support decisions and prediction."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#three-pillars",
+    "href": "W2/M1/lessons/01_slides_intro.html#three-pillars",
+    "title": "Introduction to Data Science",
+    "section": "Three pillars",
+    "text": "Three pillars\n\nDomain knowledge — the right questions and interpreting results.\nMath & statistics — sound conclusions from incomplete information.\nComputer science — storage, algorithms, scale."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#how-did-john-snow-do-it",
+    "href": "W2/M1/lessons/01_slides_intro.html#how-did-john-snow-do-it",
+    "title": "Introduction to Data Science",
+    "section": "How did John Snow do it?",
+    "text": "How did John Snow do it?\n\nDomain: physician who understood disease, the city, what variables to look at that may affect the outcome\nMath & statistics: structured data, mapping, reasoning from pattern + exceptions.\nComputer science: none — paper records and minimal computation.\n\nComputers add speed and reach, not judgment. What we do with data still needs purpose and analysis.\nIn other words, computation and data are just means to an end. That end is: us gaining knowledge."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#data-science-life-cycle",
+    "href": "W2/M1/lessons/01_slides_intro.html#data-science-life-cycle",
+    "title": "Introduction to Data Science",
+    "section": "Data science life cycle",
+    "text": "Data science life cycle\n\nStandard path from raw data to useful insight or product, and how roles map to the pipeline."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#the-process",
+    "href": "W2/M1/lessons/01_slides_intro.html#the-process",
+    "title": "Introduction to Data Science",
+    "section": "The process",
+    "text": "The process\n\nCollection — databases, logs, files, sensors, …\nCleaning — missing values, duplicates, formats, errors.\nEDA — summaries and plots; trends, correlations, anomalies.\nModel building — learn patterns / predict on new data.\nDeployment — ship models into apps, APIs, or pipelines that run on new data."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#the-roles",
+    "href": "W2/M1/lessons/01_slides_intro.html#the-roles",
+    "title": "Introduction to Data Science",
+    "section": "The roles",
+    "text": "The roles\nIn large orgs these lines are sharp; in startups one person may wear several hats:\n\nData engineers — infrastructure: ingestion, storage, pipelines (collection & cleaning).\nData analysts — clean data, EDA, reports and dashboards (cleaning & EDA).\nML engineers — reliable, efficient models in production (build & deploy).\nData scientists — can span the whole cycle; often deepest in EDA and modeling, with enough engineering to get data and ship value.\n\nSee: SDAIA Professinoal Training in the Fields of Data and AI."
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#our-world-in-data",
+    "href": "W2/M1/lessons/01_slides_intro.html#our-world-in-data",
+    "title": "Introduction to Data Science",
+    "section": "Our World in Data",
+    "text": "Our World in Data\nWant to look at the world through data? See many examples at: Our World in Data — research and data on global challenges."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#why-this-matters",
+    "href": "W2/M3/lessons/06_effective_comm.html#why-this-matters",
+    "title": "Effective communication of exploratory results",
+    "section": "Why this matters",
+    "text": "Why this matters\nGraphs communicate ideas quickly—but images can also mislead.\nThis deck covers best practices for presenting data accurately and clearly. Visualization has room for creativity, yet solid principles still apply.\n\nOpen with the tension: a picture can be worth a thousand words, but it can also lie or mislead. The goal of this session is not to kill creativity—visualization is partly an art—but to give you guiding principles so your exploratory graphics present data accurately and effectively. Everything that follows supports that single aim."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#whats-wrong-with-this-plot",
+    "href": "W2/M3/lessons/06_effective_comm.html#whats-wrong-with-this-plot",
+    "title": "Effective communication of exploratory results",
+    "section": "What’s wrong with this plot?",
+    "text": "What’s wrong with this plot?\n\n\nPause on the image before you explain. Ask the room what feels off—scale, encoding, comparison, or story. You are priming them for the principles ahead: we will return to why bad choices happen (defaults, decoration, wrong chart type) as we go through each section. Keep this slide short; the next slides name the fixes."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#keep-it-simple",
+    "href": "W2/M3/lessons/06_effective_comm.html#keep-it-simple",
+    "title": "Effective communication of exploratory results",
+    "section": "1. Keep it simple",
+    "text": "1. Keep it simple\nDecide what you want the reader to see. Use color to group or differentiate levels meaningfully—not only to brighten the plot.\nPie slices are hard to compare; arbitrary colors distract; 3D rarely helps. A bar chart usually makes category magnitudes easier to read, especially with more than a few levels.\n\n\nUse the classic manufacturing cost example mentally: five cost categories. On the pie, ask aloud whether your eye can really compare “Buildings and administration” to “Workplace materials”—slice angles are poor for magnitude. Call out three problems: hard comparisons, meaningless rainbow-like colors, and 3D that adds no insight. Then contrast with the bar chart: same categories, but length is easy to judge. Emphasize the rule: for more than a few categories, bars usually beat pies for reading values."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#use-color-to-draw-attention",
+    "href": "W2/M3/lessons/06_effective_comm.html#use-color-to-draw-attention",
+    "title": "Effective communication of exploratory results",
+    "section": "2. Use color to draw attention",
+    "text": "2. Use color to draw attention\nAdd color on purpose: draw attention to what matters, and question defaults (e.g., do red and purple bars imply a relationship?).\nNot everyone perceives color the same way—pair color with another cue (e.g., pattern) when you need to refer to highlighted elements in more than one way.\n\n\nBeauty is fine, but defaults are a decision—often a bad one. Walk through (a) vs (b): in (b), color points to one message; in (a), redundant hues make viewers wonder if red and purple “mean” something related. Mention accessibility: color vision varies; panel (c) shows pairing color with pattern so you can refer to the highlighted category in two ways. This is a good place to say “if you only remember one thing about color: use it to direct attention, not to decorate.”"
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#tell-a-story",
+    "href": "W2/M3/lessons/06_effective_comm.html#tell-a-story",
+    "title": "Effective communication of exploratory results",
+    "section": "3. Tell a story",
+    "text": "3. Tell a story\nOften the plot should include context that is not in the raw table—annotations, reference lines, or events that frame the narrative.\nExample: mark the start of a fiscal year. A diagonal line (y = x) can separate points where one coordinate exceeds the other.\n\n\nThe dataset rarely contains the whole story. External information—policy dates, fiscal year starts, experimental conditions—belongs on the plot when it explains why the series looks the way it does. The text’s example: annotating the start of the university fiscal year. For scatterplots, a (y = x) line is standard: above the line, one variable exceeds the other; below, the reverse. That line is “context” encoded as geometry. Encourage students to ask: “What would a domain expert need to see that isn’t in the CSV?”"
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#order-matters",
+    "href": "W2/M3/lessons/06_effective_comm.html#order-matters",
+    "title": "Effective communication of exploratory results",
+    "section": "4. Order matters",
+    "text": "4. Order matters\nSoftware may order categories alphabetically by default—that is not always meaningful.\nConsider ordering by magnitude or by the natural sequence of the question (e.g., survey response order). A misleading order can fool a quick scan of the axes.\n\nMost tools alphabetize or use arbitrary order unless you override. Explain that alphabetical order is often meaningless for opinion or severity scales—readers skim the axis and infer a trend that isn’t there. Offer two better options: sort by count (tallest to shortest) when the story is “who is biggest,” and survey or logical order when the scale itself is ordinal (e.g., “very well” through “very badly”). Stress: wrong order misleads even when the numbers are correct. The next slide gives a real survey where question order is the right order."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#brexit-opinion-yougov-sept-2019",
+    "href": "W2/M3/lessons/06_effective_comm.html#brexit-opinion-yougov-sept-2019",
+    "title": "Effective communication of exploratory results",
+    "section": "Brexit opinion (YouGov, Sept 2019)",
+    "text": "Brexit opinion (YouGov, Sept 2019)\nSurvey of 1,639 adults in Great Britain: How well or badly do you think the government are doing at handling Britain’s exit from the European Union?\n\nVery well\n\nFairly well\n\nFairly badly\n\nVery badly\n\nDon’t know\n\n\n\nYouGov, September 2019, n = 1,639 Great Britain adults—link is on the slide for anyone who wants the PDF. The question wording matters; the response options have a natural order from positive to negative (plus “Don’t know”). That is why alphabetical bar order fails here: the right order follows how the question was asked, as in the figure. Connect back to the previous slide: this is the “Figure 6.4” story in the book—(a) alphabetical, (b) by height, (c) by survey order. Walk the audience through what each ordering emphasizes before they stare at viz_4."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#make-labels-easy-to-read",
+    "href": "W2/M3/lessons/06_effective_comm.html#make-labels-easy-to-read",
+    "title": "Effective communication of exploratory results",
+    "section": "5. Make labels easy to read",
+    "text": "5. Make labels easy to read\nSame numbers, different layout: horizontal bars often leave more room for category labels than vertical bars.\nClear labels → more learning from the chart. Aim for succinct, readable text.\n\n\nThis continues the Brexit theme: results by region in stacked bars. (a) vertical vs (b) horizontal—the values are identical; only layout changes. Horizontal bars buy space for long region names on the axis. Repeat the mantra: the easier the labels, the more the reader actually reads. If something is hard to read, they skip it and your chart under-delivers. Tie to the chapter goal: maximum information, clearly, not maximum ink."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#pick-a-purpose",
+    "href": "W2/M3/lessons/06_effective_comm.html#pick-a-purpose",
+    "title": "Effective communication of exploratory results",
+    "section": "6. Pick a purpose",
+    "text": "6. Pick a purpose\nEvery graphical choice should serve the research question. Defaults are not always the right story.\nStacked bars emphasize one kind of comparison; faceting or alternative encodings may fit another. Use informative labels, titles, and sources when you can.\n\n\nStacked bars answer “what is the composition within each group?”—not always the question you care about. Same data, three stories: (a) if proportions across regions are the headline, stacked or normalized views help. (b) if counts matter—not just shares—show totals or axes that preserve magnitude. (c) faceting—one small multiple per region—when you want readers to compare distributions within region without stacking confusion. Mention that good figures also carry titles and a data source URL; the book highlights that on (c). Preview the next slide: more variants of the same idea."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#same-data-different-emphasis",
+    "href": "W2/M3/lessons/06_effective_comm.html#same-data-different-emphasis",
+    "title": "Effective communication of exploratory results",
+    "section": "Same data, different emphasis",
+    "text": "Same data, different emphasis\n\n\nBriefly contrast this panel with the previous: reinforce that encoding choice = editorial choice. Ask: “For your analysis, is the story about share, about total (N), or about per-region detail?” There is no single “correct” chart—only a chart that matches the question. Remind them to strip redundant ink and to label what matters."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#select-meaningful-colors",
+    "href": "W2/M3/lessons/06_effective_comm.html#select-meaningful-colors",
+    "title": "Effective communication of exploratory results",
+    "section": "7. Select meaningful colors",
+    "text": "7. Select meaningful colors\nAvoid rainbow defaults when they do not match your variable. Choose palettes that are distinct and work for color-vision diversity (e.g., cividis for ordinal data—Nuñez, Anderton, and Renslow 2018).\n\n\nRainbow scales are popular in defaults but often perceptually uneven—equal steps in data don’t look equal in hue. Research-backed palettes (the slide mentions cividis for ordinal data) aim for discriminability and robustness across common forms of color-vision deficiency. Same plot, two themes: let the audience see how “prettier” is not the same as “more informative.” Point to the paper if someone teaches or publishes in this space."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#takeaway",
+    "href": "W2/M3/lessons/06_effective_comm.html#takeaway",
+    "title": "Effective communication of exploratory results",
+    "section": "Takeaway",
+    "text": "Takeaway\nYour graph should carry maximum information in minimum ink: clear labels (often horizontal), strong titles, and data source when possible.\n\nOne-sentence synthesis of the chapter: maximal information, succinctly and clearly—Tufte’s spirit without naming him if you prefer. Horizontal labels when you can, titles that state the claim, and sources so the figure is trustworthy. This is a good moment to loop back to the opening “bad plot”: ask which principles it violated. End upbeat: these habits become automatic with practice."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#quantitative-perception",
+    "href": "W2/M3/lessons/06_effective_comm.html#quantitative-perception",
+    "title": "Effective communication of exploratory results",
+    "section": "Quantitative perception",
+    "text": "Quantitative perception\nHow do we perceive quantities from visual properties of a chart?\n\n\nTransition from “what to draw” to “how humans read marks.” The perception figure summarizes which encodings we judge well (position along a common scale) vs poorly (area, angle, hue without order). Use this slide to justify why bar length beats pie angle, and why careful color matters. Keep it high level here; the next slide sends them to deeper resources."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#more-on-perception-and-encoding",
+    "href": "W2/M3/lessons/06_effective_comm.html#more-on-perception-and-encoding",
+    "title": "Effective communication of exploratory results",
+    "section": "More on perception and encoding",
+    "text": "More on perception and encoding\n\nSlide deck: Data Visualization Best Practices — Catherine Mulbrandon\n\nPlot building blocks: Plot properties — Seaborn (color, style, size, text)\n\n\nMulbrandon’s deck is an excellent follow-up for economics-style communication. Seaborn’s “Plot properties” tutorial is practical for implementation: how library defaults map to color, style, size, and text—good for lab work after this lecture. Encourage bookmarking rather than reading live."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#color-scheme-tools",
+    "href": "W2/M3/lessons/06_effective_comm.html#color-scheme-tools",
+    "title": "Effective communication of exploratory results",
+    "section": "Color scheme tools",
+    "text": "Color scheme tools\n\nColorBrewer 2.0\n\nCoolors\n\n\nColorBrewer is the classic tool for map- and chart-ready palettes with accessibility in mind. Coolors helps when you need to explore combinations quickly—still check contrast and color-blind simulation before finalizing. These are for after you know your data type (qualitative vs sequential vs diverging)."
+  },
+  {
+    "objectID": "W2/M3/lessons/06_effective_comm.html#references",
+    "href": "W2/M3/lessons/06_effective_comm.html#references",
+    "title": "Effective communication of exploratory results",
+    "section": "References",
+    "text": "References\n\nOpenIntro: Introduction to Modern Statistics\n\nCS109A | Harvard — Visualization lecture\n\n\nCredit the OpenIntro material this chapter draws from, and Harvard CS109A for a full lecture treatment of visualization if students want alternate explanations and examples. Close the session; invite questions."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#from-description-to-claims",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#from-description-to-claims",
+    "title": "Hypothesis Testing",
+    "section": "From description to claims",
+    "text": "From description to claims\nDescriptive statistics summarizes what you measured.\nInferential statistics goes further: informed guesses about a population, and checking claims against data—using clear rules.\n\nFrame the notebook’s arc: we already know how to summarize samples; now we ask whether patterns are more than noise. Tie to the course story (e.g., “Are NBA players really taller?”): that is inference, not just plotting means."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#descriptive-vs-inferential",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#descriptive-vs-inferential",
+    "title": "Hypothesis Testing",
+    "section": "Descriptive vs inferential",
+    "text": "Descriptive vs inferential\n\n\n\nDescribe: means, plots, tables for the data in hand.\n\nInfer: use those summaries to reason about what we did not observe—under uncertainty.\n\nWe make claims and test them with defined procedures.\n\n\n\n\nWalk the diagram: descriptive stays with the sample; inference reaches toward the population or toward “if we repeated the study.” The external image in the notebook serves the same role; this local asset matches the idea. Emphasize: inference always involves assumptions and limits—we will name a few (normality, independence) later."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#everyday-claims",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#everyday-claims",
+    "title": "Hypothesis Testing",
+    "section": "Everyday claims",
+    "text": "Everyday claims\nPeople assert things like:\n\nCoffee keeps you awake at night.\n\nExercise makes you smarter.\n\n“Everyone” is addicted to smartphones.\n\nQuestion: how do we test such statements against reality—not with one story, but with data?\n\nUse this slide to surface anecdotes vs systematic evidence. Do not dismiss anecdotes; they generate hypotheses—but they do not replace sampling and tests. Transition: we formalize claims as (H_0) and (H_a)."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#two-competing-statements",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#two-competing-statements",
+    "title": "Hypothesis Testing",
+    "section": "Two competing statements",
+    "text": "Two competing statements\nIn every formal test we line up:\n\nNull hypothesis ((H_0)): the “status quo” or no effect. Any difference you see could be chance (sampling noise).\n\nAlternative hypothesis ((H_a) or (H_1)): what you seek evidence for—a real effect, difference, or relationship.\n\n\nStress language: we never “prove (H_0)” in a single study; we fail to reject it when evidence is weak. That sets up the p-value slide. Students often confuse “accept null” with “no effect”—correct that gently."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#why-anecdotes-fail",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#why-anecdotes-fail",
+    "title": "Hypothesis Testing",
+    "section": "Why anecdotes fail",
+    "text": "Why anecdotes fail\nAnecdotal evidence: personal stories or isolated incidents—not a systematic sample.\nWe turn anecdotes into parameters and data:\n\nSwordfish mercury → compare mean mercury in many fish to a regulatory threshold.\n\nDuke graduation time → compare Duke’s distribution to a national benchmark.\n\nA new drug → compare survival in treatment vs control (placebo), not one patient.\n\n\nUse the notebook’s three vignettes quickly: news story, two students at Duke, friend’s dad. For each, name the population parameter (mean (), proportion (p), survival rate) and the need for comparison groups where relevant."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#example-formulations",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#example-formulations",
+    "title": "Hypothesis Testing",
+    "section": "Example formulations",
+    "text": "Example formulations\n\n\n\n\n\n\n\n\n\nExample\n(H_0)\n(H_a)\nParameter\n\n\n\n\nMercury\nMean () 1.0 ppm\nMean (&gt;) 1.0 ppm\n()\n\n\nDuke grad\nRate () national avg.\nRate (&gt;) national avg.\n(p)\n\n\nHeart drug\nDeath rate (drug) (=) (placebo)\nDeath rate (drug) (&lt;) (placebo)\nsurvival / (p)\n\n\n\n\nThis table is the bridge from English claims to symbols. Pause on direction: one-sided vs two-sided tests come from how (H_a) is stated. The lab will mirror this when they write hypotheses for their own questions."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#which-test-answers-your-question",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#which-test-answers-your-question",
+    "title": "Hypothesis Testing",
+    "section": "Which test answers your question?",
+    "text": "Which test answers your question?\nMethods differ by what you ask:\n\nDifference in one numeric variable (often t-tests).\n\nAssociation between two categorical variables (chi-square).\n\nAssociation between two numeric variables (Pearson correlation—and alternatives).\n\n\nKeep it high level: this deck focuses on t-tests; chi-square and Pearson are pointers to later work or other modules. The decision tree slide will show how these pieces fit on one map."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#p-values-and",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#p-values-and",
+    "title": "Hypothesis Testing",
+    "section": "p-values and ()",
+    "text": "p-values and ()\nTest output includes a p-value.\n\nIf p (&lt; ) (convention: (= 0.05)), we reject (H_0).\n\nIf p (), we fail to reject (H_0)—not the same as “(H_0) is true.”\n\nCourtroom analogy: (H_0) () “innocent until proven guilty.” “Not guilty” can mean lack of evidence, not proof of innocence.\n\nHammer the wording: “fail to reject” not “accept”. Same as the notebook. If time, mention that () is a community convention, not a law of nature—preregistered studies may justify other thresholds."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#testing-differences-three-t-test-situations",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#testing-differences-three-t-test-situations",
+    "title": "Hypothesis Testing",
+    "section": "Testing differences: three t-test situations",
+    "text": "Testing differences: three t-test situations\n\n\nt-tests compare means in three setups:\n\nOne sample: sample mean vs a reference (population or standard).\n\nIndependent samples: two unrelated groups (e.g., treatment vs control).\n\nPaired: same units twice, or natural pairs (twins, matched pairs).\n\nVideo overview (numiqo).\n\n\n\n\nLet the figure carry structure. After this slide, unpack each case in one slide each—fast, because the picture is the anchor."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#case-1-one-sample-vs-a-reference",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#case-1-one-sample-vs-a-reference",
+    "title": "Hypothesis Testing",
+    "section": "Case 1: One sample vs a reference",
+    "text": "Case 1: One sample vs a reference\nCompare ({x}) from your sample to a known or assumed ():\n\nStudent heights vs national average.\n\nIQ in a group vs population mean.\n\nCholesterol vs clinical guideline.\n\nNotebook example: NBA player heights vs general population ( ttest_1samp ).\n\n“Population” here often means a benchmark from literature or policy, not a full census. The NBA vs humans example is vivid: huge separation, tiny p-value—good for pedagogy, not subtle statistics."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#case-2-two-independent-samples",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#case-2-two-independent-samples",
+    "title": "Hypothesis Testing",
+    "section": "Case 2: Two independent samples",
+    "text": "Case 2: Two independent samples\nTwo different groups:\n\nControl (placebo) vs treatment (drug).\n\nMale vs female penguins on body mass (ttest_ind).\n\nNotebook: tips from smokers vs non-smokers (same function, different story).\n\nCheck independence: different rows, no pairing. Common mistake: using ttest_ind on before/after data from the same people—that is paired."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#case-3-paired-data",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#case-3-paired-data",
+    "title": "Hypothesis Testing",
+    "section": "Case 3: Paired data",
+    "text": "Case 3: Paired data\n3.1 One group, two measurements: before/after, method A vs method B on the same subjects (spinach and grip strength in the notebook).\n3.2 Natural pairs: twin A vs twin B, husband–wife, mother–baby—each row is a pair (ttest_rel).\n\nContrast with independent: pairing removes between-person noise and can hugely change the result. The notebook’s grip-strength example is ideal for code walkthrough in the notebook itself."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#scipy-functions-to-remember",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#scipy-functions-to-remember",
+    "title": "Hypothesis Testing",
+    "section": "SciPy: functions to remember",
+    "text": "SciPy: functions to remember\n\n\n\nIdea\nSciPy\n\n\n\n\nOne sample vs mean\nttest_1samp\n\n\nTwo independent groups\nttest_ind\n\n\nPaired differences\nttest_rel\n\n\nNumeric association\npearsonr, spearmanr\n\n\nCategorical association\nchi2_contingency (+ association)\n\n\n\n\nPoint to the SciPy stats docs—students will copy-paste the right function once the question type is clear. Mention alternative (two-sided, less, greater) matches how (H_a) is directional."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#choosing-a-test-decision-tree",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#choosing-a-test-decision-tree",
+    "title": "Hypothesis Testing",
+    "section": "Choosing a test (decision tree)",
+    "text": "Choosing a test (decision tree)\n\n\n\nComparison or relationship?\n\nHow many groups? Paired or not?\n\nVariable types: numeric vs categorical?\n\nUse the tree to narrow choices before coding.\n\n\n\n\nThis is the same figure as the notebook. Encourage students to print or bookmark it. It prevents “I ran a t-test because I always run a t-test.”"
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#assumptions-and-plan-b",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#assumptions-and-plan-b",
+    "title": "Hypothesis Testing",
+    "section": "Assumptions (and Plan B)",
+    "text": "Assumptions (and Plan B)\nClassical t-tests assume roughly normal data (or large enough (n) for the mean to behave).\nIf data are heavily skewed or dominated by outliers, non-parametric tests (e.g., Mann–Whitney, Wilcoxon) use ranks and are often safer for reporting “location” differences honestly.\n\nDo not turn this into a full assumptions course—flag check plots (histogram, QQ) and robust alternatives. The notebook states this in one paragraph; match that tone."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#beyond-two-groups-anova-preview",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#beyond-two-groups-anova-preview",
+    "title": "Hypothesis Testing",
+    "section": "Beyond two groups: ANOVA (preview)",
+    "text": "Beyond two groups: ANOVA (preview)\nA t-test compares two means. With three or more groups (e.g., penguin species on body mass), use one-way ANOVA as the omnibus test; Tukey HSD (or similar) for pairwise comparisons—not many separate t-tests without correction (inflates false positives).\n\nThe notebook adds ANOVA/Tukey briefly; mention multiple comparisons problem in one sentence. Full treatment belongs to follow-up reading or another session."
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#where-to-go-next",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#where-to-go-next",
+    "title": "Hypothesis testing",
+    "section": "Where to go next",
+    "text": "Where to go next\n\nLesson notebook: 01_hypothesis_testing.ipynb — NBA heights, penguins, tips, paired spinach, ANOVA.\n\nSciPy reference: stats.\n\n\nClose the loop: slides = ideas and map; notebook = code, plots, numbers. Assign or suggest working through one example end-to-end before the next class."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#what-correlation-summarizes",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#what-correlation-summarizes",
+    "title": "Numerical correlation",
+    "section": "What correlation summarizes",
+    "text": "What correlation summarizes\nCorrelation measures how two numeric variables co-vary: when one tends to be high or low, does the other tend to follow?\nWe start with the picture—a scatterplot—and then attach a single number: the Pearson correlation coefficient (r).\n\nPosition this lesson after hypothesis tests on means: correlation is about association between continuous measurements, not difference of group means."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#visual-working-definition",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#visual-working-definition",
+    "title": "Numerical correlation",
+    "section": "Visual working definition",
+    "text": "Visual working definition\n\n\nGraphically, correlation reflects how tightly points cluster around a straight line.\n\nPerfect linearity → (r = ).\n\nStrong trends → (r) near ().\n\nLittle linear structure → (r) near (0).\n\n\n\n\n\nWalk the classic eight-panel figure (often called “Figure 7.10” in texts). Stress linear: a beautiful curve can still yield (r ). That tees up the “nonlinear” and “linear only” slides later."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#example-hybrid-cars",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#example-hybrid-cars",
+    "title": "Numerical correlation",
+    "section": "Example: hybrid cars",
+    "text": "Example: hybrid cars\nThe hybrid table (adapted from Larry Winner’s archive) lists U.S. hybrid passenger cars (1997–2013).\nVariables: vehicle, year, msrp, acceleration, mpg, class.\nThe notebook plots scatterplots and then computes (r)—same workflow students should copy.\n\nKeep this light: one sentence on provenance builds trust. Send them to the notebook for the full table and code (path_data + 'hybrid.csv')."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#positive-association-price-vs-acceleration",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#positive-association-price-vs-acceleration",
+    "title": "Numerical correlation",
+    "section": "Positive association: price vs acceleration",
+    "text": "Positive association: price vs acceleration\nScatter: msrp (vertical) vs acceleration (horizontal).\nPoints slope upward: faster acceleration tends to go with higher price on average—positive association.\n\nMatch the notebook’s “Relationship 1.” Mention the typo in the notebook (“accelaration”) only if someone asks—don’t derail."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#negative-association-price-vs-efficiency",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#negative-association-price-vs-efficiency",
+    "title": "Numerical correlation",
+    "section": "Negative association: price vs efficiency",
+    "text": "Negative association: price vs efficiency\nScatter: msrp vs mpg.\nPoints slope downward: higher mpg tends to pair with lower price on average—negative association.\nThe notebook also notes confounding: quick cars are often less fuel-efficient and pricier, so stories intertwine.\n\n“Relationship 2” in the notebook. Good moment to say correlation does not assign which variable “causes” which—only joint behavior."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#nonlinear-pattern",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#nonlinear-pattern",
+    "title": "Numerical correlation",
+    "section": "Nonlinear pattern",
+    "text": "Nonlinear pattern\nThe price–mpg cloud often follows a curve, not a straight line.\nPearson (r) still measures linear fit; a strong curved relationship may produce a modest (r) if the curve isn’t well approximated by a line.\n\n\nUse plots to see curvature. For monotonic but nonlinear relationships, Spearman rank correlation (in the notebook / SciPy) is a common companion to Pearson.\n\n\n\n\nThe notebook explicitly says points cluster around a curve, not a line. Tie to spearmanr when you demo code."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#the-pearson-correlation-coefficient",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#the-pearson-correlation-coefficient",
+    "title": "Numerical correlation",
+    "section": "The Pearson correlation coefficient",
+    "text": "The Pearson correlation coefficient\nIdea: standardized cross-products / average “co-movement” after centering and scaling.\nIn code: pandas .corr() on two columns, or scipy.stats.pearsonr (returns (r) and a p-value for a test of “no linear association”).\nThe notebook breaks down the calculation step-by-step—use it when teaching the algebra.\n\nDo not derive the full sum on slides unless your audience loves algebra; point to the “Calculation breakdown” section. Emphasize pairwise complete observations when there are missing values."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#correlation-is-unitless",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#correlation-is-unitless",
+    "title": "Numerical correlation",
+    "section": "Correlation is unitless",
+    "text": "Correlation is unitless\nStandardizing removes units: (r) is comparable across studies (e.g., dollars vs inches doesn’t matter).\n\n\nSame underlying relationship, different scales on the axes—same (r).\nThis is why (r) is useful for comparing strength across different variable pairs.\n\n\n\n\nWalk the figure: rescaling axes stretches the plot but not the linear association strength. Connect to z-scores if your class already knows them."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#association-causation",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#association-causation",
+    "title": "Numerical correlation",
+    "section": "Association () causation",
+    "text": "Association () causation\nA correlation is not a mechanism. Confounders, reverse causation, and selection can produce strong (r) with no direct causal link.\nExamples (from the notebook):\n\nWeight and math ability (age confounding).\n\nChocolate and Nobel prizes (country-level quirks).\n\nLiberal arts bachelor’s degrees and pediatricians (spurious time-series overlap).\n\n\n\nFamous chocolate vs Nobel plot: entertaining, not a dietary policy.\nNEJM paper — discuss ecological / country-level aggregation.\n\n\n\n\nKeep tone curious, not preachy. Ask: “What’s a confounder here?” (wealth, health care, R&D spending, …). Good bridge to study design."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#another-spurious-series",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#another-spurious-series",
+    "title": "Numerical correlation",
+    "section": "Another spurious series",
+    "text": "Another spurious series\n\n\nTwo trends can look correlated over time even when unrelated—always ask who is the unit of analysis and what drives each series.\n\n\n\n\n“Liberal arts bachelor’s vs pediatricians” is the notebook’s third bullet; this figure illustrates nonsense coupling generically. Reinforce: causality needs design (RCT, natural experiments), not just (r)."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#toward-causality",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#toward-causality",
+    "title": "Numerical correlation",
+    "section": "Toward causality",
+    "text": "Toward causality\nCorrelation supports prediction and hypothesis generation; causal claims need design: randomization, control groups, careful measurement, and domain theory.\nDeeper read: Study design — Introduction to Modern Statistics (Çetinkaya-Rundel & Hardin).\n\nOne minute max. Students who want “causal inference” as a next course get a breadcrumb."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#correlation-measures-linear-association",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#correlation-measures-linear-association",
+    "title": "Numerical correlation",
+    "section": "Correlation measures linear association",
+    "text": "Correlation measures linear association\nPearson (r) answers: “How well does a straight line summarize the cloud?”\nIf the truth is nonlinear (U-shaped, logistic, etc.), (r) can understate a strong relationship—or misstate it.\nSupplement: Spearman (rank) for monotonic trends; visualize first.\n\nOptional demo: parabola-shaped data with (r ). The correlation-non-linear asset already supports the narrative."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#correlation-is-sensitive-to-outliers",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#correlation-is-sensitive-to-outliers",
+    "title": "Numerical correlation",
+    "section": "Correlation is sensitive to outliers",
+    "text": "Correlation is sensitive to outliers\nA few extreme points can pull the best-fit line and change (r) a lot.\nPractice: plot residuals, consider robust methods or winsorizing after investigation—not before hiding real structure.\n\nThe notebook shows before/after outlier scenarios. Live session: drag one point in a tool or show their plots. Mention influence vs leverage only in advanced sections."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#ecological-correlation",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#ecological-correlation",
+    "title": "Numerical correlation",
+    "section": "Ecological correlation",
+    "text": "Ecological correlation\nCorrelations computed on aggregates (states, countries) can be stronger than correlations among individuals—different population, different story.\nExample: Critical Reading vs Math SAT by state (notebook): interesting for policy, not the same as student-level association.\n\nClassic warning: ecological fallacy—inferring individual behavior from group summaries. Good for discussions of election maps and health data."
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#application-and-code",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#application-and-code",
+    "title": "Numerical correlation",
+    "section": "Application and code",
+    "text": "Application and code\n\nNotebook: 03_num_correlation.ipynb — hybrid plots, manual decomposition, pearsonr, Spearman, ecological SAT example.\n\nPlayground: Inferential Thinking — correlation (referenced in the notebook).\n\n\nClose with: “Scatter first, number second, causal language last.” Assign one pair of variables from their own project and require a plot and (r)."
+  },
+  {
+    "objectID": "W2/M1/texts/01_intro.html",
+    "href": "W2/M1/texts/01_intro.html",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "Link to comic\n\n\nIn the late summer of 1854, the Soho district of London experienced a devastating outbreak of cholera. Within a few days, hundreds of people died. At the time, the prevailing medical consensus was the “miasma theory”—the idea that diseases were spread by foul-smelling, poisoned air emanating from decaying organic matter.\nBecause Soho was crowded and had poor sanitation, the miasma theory seemed to fit. The government’s public health interventions focused on trying to clean up the smell. However, one physician, John Snow, approached the problem differently. He did not accept the established consensus because it lacked rigorous empirical support. He suspected cholera was caused by something ingested, specifically through contaminated water.\n\n\n\nSnow could not see the cholera bacteria; the microscope technology of the time was not advanced enough to easily identify it, and the germ theory of disease was not yet established. Instead of arguing theory, Snow gathered data.\nHe walked the streets of Soho, knocking on doors and interviewing the families of those who had died. He recorded two critical pieces of information for every household:\n\nThe location of the home.\nThe source of their drinking water.\n\nHe then took this tabular data and visualized it. He took a street map of Soho and drew a black bar for every cholera death at the exact address where it occurred.\n\n\n\nWhen the data was plotted spatially, a clear pattern emerged. The deaths were not spread evenly through the “bad air” of Soho. They were heavily concentrated in a specific cluster around the public water pump on Broad Street.\n\n\n\nDeath Counts Mapped in the neighborhood\n\n\nIn data analysis, identifying a trend is only the first step; a robust model must also account for outliers and anomalies. Snow looked closely at the exceptions to his spatial pattern:\n\nThe Brewery: There was a large brewery located very close to the Broad Street pump, yet none of the workers had contracted cholera. Snow investigated and found that the workers were given a daily allowance of beer and rarely drank from the public pump. Furthermore, the brewery had its own private deep well.\nThe Workhouse: A nearby workhouse surrounded by cholera cases had almost no deaths. Snow found they also had their own private well.\nThe Hampstead Widow: Snow found a record of a widow who died of cholera miles away in Hampstead, an area entirely free of the outbreak. He visited her home and discovered that she used to live in Soho and liked the taste of the Broad Street water so much that she had a servant fetch a large bottle of it every week. Her niece, who visited and drank the water, also died.\n\nThese anomalies, rather than breaking his hypothesis, provided the strongest evidence for it. The variable controlling the disease was not proximity to bad air, but the specific consumption of water from the Broad Street pump.\n\n\n\nSnow presented his map and his findings to the local Board of Guardians. The evidence was clear enough to prompt an immediate, physical intervention.\n\n“I had an interview with the Board of Guardians of St. James’s parish… In consequence of what I said, the handle of the pump was removed on the following day.” — John Snow\n\nThe removal of the pump handle stopped the immediate outbreak. Later investigations revealed that the Broad Street well had been dug mere feet from a leaking cesspit.\n\n[@snow1855]\n\n\n\nJohn Snow’s work perfectly encapsulates the core process of data science, long before computers existed:\n\nQuestioning Assumptions: He did not accept the “miasma” consensus because it was not supported by evidence.\nData Collection: He systematically gathered raw, verifiable information (locations and water sources).\nVisualization: He mapped the data to reveal spatial patterns that were invisible in a simple list of numbers.\nInvestigating Outliers: He rigorously checked his hypothesis against the exceptions (the brewery, the widow).\nActionable Insight: He translated his findings into a specific, targeted intervention (removing the pump handle) that solved the problem.\n\nData Science is not merely about writing code or knowing complex equations. It is about using evidence to uncover the truth of a situation and making informed decisions. Throughout this course, you will learn the modern tools to do exactly what John Snow did: gather data, find the pattern, explain the anomalies, and remove the pump handle.\n\n\n\n\nData (plural) is a digitally recorded small piece of information about an event. When put together, one can piece together the full picture. But, first, we store them on computers.\n\nData can be numbers, text, images, sounds, etc.\nData also falls into types: numerical, categorical and sub-types.\nData is analyzed using different algorithms for different purposes.\n\n.. there is alot to say about data .. hence, we have Data Science.\n\nData Science is an interdisciplinary field that uses scientific methods, processes, algorithms, and systems to extract knowledge and insights from structured and unstructured data. It combines principles and techniques from statistics, computer science, and domain-specific knowledge to analyze, interpret, and leverage data for decision-making and predictive analytics.\n\n\nDomain Knowledge is essential for asking the right questions and for understanding the answers produced by computational tools.\nMath & Statistics studies how to make robust conclusions based on incomplete information.\nComputer Science is needed since data are stored on computers and processed by algorithms.\n\n\nImage Source: https://www.researchgate.net/figure/Data-Science-Venn-Diagram_fig1_365946272\n\n\n\nDomain Knowledge: Snow is a doctor\nMath & Statistics: Snow used data, plotted it, and drew conclusions\nComputer Science: Snow did not have computers, but the data was stored on paper, and he did not need to do much computations.\n\nThe use of computers does not give us more intelligence, it simply gives us the ability to get data in real-time from users of our systems. What we do with this data needs our own analytical mindset and purpose.\n\n\n\n\n\nThis image illustrates the standard Data Science Life Cycle (the sequence of steps required to turn raw data into useful tools or insights) and maps those steps to the specific job titles responsible for them.\n\n\nThis represents the sequential journey of data from its raw state to a finished product.\n\nCollection: This is the act of gathering raw data from various sources. It involves extracting records from databases, logging user actions on a website, or downloading files.\nCleaning: Raw data is rarely ready to use. It contains missing values, duplicates, and errors. Cleaning is the process of standardizing formats and fixing or removing corrupted data so that it doesn’t skew the final results.\nExploratory Data Analysis (EDA): Before building complex systems, you must understand what the data looks like. This involves calculating basic statistics (averages, ranges) and creating visual charts to find trends, correlations, or anomalies. 4. Model Building: This is where machine learning happens. It involves feeding the cleaned, understood data into mathematical algorithms so the computer can learn to recognize patterns and make predictions on new, unseen data.\nModel Deployment: A predictive model is useless if it only sits on a researcher’s laptop. Deployment is the software engineering process of integrating that model into a live application, website, or server where it can process new data in real-time.\n\n\n\n\nDifferent specialists focus on different parts of the pipeline.\n\nData Engineers (Collection & Cleaning): These are essentially software engineers who build the underlying infrastructure. They construct the databases and automated pipelines that safely extract, store, and organize massive amounts of data so that others can use it.\nData Analysts (Cleaning & EDA): Analysts focus on understanding historical data to answer specific business questions. They take the data provided by the engineers, ensure it is clean for their specific needs, and build reports or dashboards to explain what has happened in the past.\nMachine Learning Engineers (Model Building & Deployment): These professionals bridge the gap between mathematics and software engineering. They take a predictive concept and write the code to ensure it runs efficiently, accurately, and reliably in a live production environment.\nData Scientists (The Entire Pipeline): Data Scientists are the generalists of the field. As the long bottom bar shows, they possess the technical skills to handle the entire lifecycle from start to finish. In practice, they primarily focus heavily on EDA and Model Building, but they must understand data engineering to get their data, and deployment to ensure their models are usable.\n\nWhile this diagram cleanly separates these roles, the real world is often messier. In large technology companies, these divisions are strict. In smaller companies or startups, a single “Data Scientist” might be expected to do the jobs of all four roles simultaneously.\n\n\n\n\nOWID - Research and data to make progress against the world’s largest problems."
+  },
+  {
+    "objectID": "W2/M1/texts/01_intro.html#motivating-story",
+    "href": "W2/M1/texts/01_intro.html#motivating-story",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "Link to comic\n\n\nIn the late summer of 1854, the Soho district of London experienced a devastating outbreak of cholera. Within a few days, hundreds of people died. At the time, the prevailing medical consensus was the “miasma theory”—the idea that diseases were spread by foul-smelling, poisoned air emanating from decaying organic matter.\nBecause Soho was crowded and had poor sanitation, the miasma theory seemed to fit. The government’s public health interventions focused on trying to clean up the smell. However, one physician, John Snow, approached the problem differently. He did not accept the established consensus because it lacked rigorous empirical support. He suspected cholera was caused by something ingested, specifically through contaminated water.\n\n\n\nSnow could not see the cholera bacteria; the microscope technology of the time was not advanced enough to easily identify it, and the germ theory of disease was not yet established. Instead of arguing theory, Snow gathered data.\nHe walked the streets of Soho, knocking on doors and interviewing the families of those who had died. He recorded two critical pieces of information for every household:\n\nThe location of the home.\nThe source of their drinking water.\n\nHe then took this tabular data and visualized it. He took a street map of Soho and drew a black bar for every cholera death at the exact address where it occurred.\n\n\n\nWhen the data was plotted spatially, a clear pattern emerged. The deaths were not spread evenly through the “bad air” of Soho. They were heavily concentrated in a specific cluster around the public water pump on Broad Street.\n\n\n\nDeath Counts Mapped in the neighborhood\n\n\nIn data analysis, identifying a trend is only the first step; a robust model must also account for outliers and anomalies. Snow looked closely at the exceptions to his spatial pattern:\n\nThe Brewery: There was a large brewery located very close to the Broad Street pump, yet none of the workers had contracted cholera. Snow investigated and found that the workers were given a daily allowance of beer and rarely drank from the public pump. Furthermore, the brewery had its own private deep well.\nThe Workhouse: A nearby workhouse surrounded by cholera cases had almost no deaths. Snow found they also had their own private well.\nThe Hampstead Widow: Snow found a record of a widow who died of cholera miles away in Hampstead, an area entirely free of the outbreak. He visited her home and discovered that she used to live in Soho and liked the taste of the Broad Street water so much that she had a servant fetch a large bottle of it every week. Her niece, who visited and drank the water, also died.\n\nThese anomalies, rather than breaking his hypothesis, provided the strongest evidence for it. The variable controlling the disease was not proximity to bad air, but the specific consumption of water from the Broad Street pump.\n\n\n\nSnow presented his map and his findings to the local Board of Guardians. The evidence was clear enough to prompt an immediate, physical intervention.\n\n“I had an interview with the Board of Guardians of St. James’s parish… In consequence of what I said, the handle of the pump was removed on the following day.” — John Snow\n\nThe removal of the pump handle stopped the immediate outbreak. Later investigations revealed that the Broad Street well had been dug mere feet from a leaking cesspit.\n\n[@snow1855]\n\n\n\nJohn Snow’s work perfectly encapsulates the core process of data science, long before computers existed:\n\nQuestioning Assumptions: He did not accept the “miasma” consensus because it was not supported by evidence.\nData Collection: He systematically gathered raw, verifiable information (locations and water sources).\nVisualization: He mapped the data to reveal spatial patterns that were invisible in a simple list of numbers.\nInvestigating Outliers: He rigorously checked his hypothesis against the exceptions (the brewery, the widow).\nActionable Insight: He translated his findings into a specific, targeted intervention (removing the pump handle) that solved the problem.\n\nData Science is not merely about writing code or knowing complex equations. It is about using evidence to uncover the truth of a situation and making informed decisions. Throughout this course, you will learn the modern tools to do exactly what John Snow did: gather data, find the pattern, explain the anomalies, and remove the pump handle."
+  },
+  {
+    "objectID": "W2/M1/texts/01_intro.html#what-is-data-science",
+    "href": "W2/M1/texts/01_intro.html#what-is-data-science",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "Data (plural) is a digitally recorded small piece of information about an event. When put together, one can piece together the full picture. But, first, we store them on computers.\n\nData can be numbers, text, images, sounds, etc.\nData also falls into types: numerical, categorical and sub-types.\nData is analyzed using different algorithms for different purposes.\n\n.. there is alot to say about data .. hence, we have Data Science.\n\nData Science is an interdisciplinary field that uses scientific methods, processes, algorithms, and systems to extract knowledge and insights from structured and unstructured data. It combines principles and techniques from statistics, computer science, and domain-specific knowledge to analyze, interpret, and leverage data for decision-making and predictive analytics.\n\n\nDomain Knowledge is essential for asking the right questions and for understanding the answers produced by computational tools.\nMath & Statistics studies how to make robust conclusions based on incomplete information.\nComputer Science is needed since data are stored on computers and processed by algorithms.\n\n\nImage Source: https://www.researchgate.net/figure/Data-Science-Venn-Diagram_fig1_365946272\n\n\n\nDomain Knowledge: Snow is a doctor\nMath & Statistics: Snow used data, plotted it, and drew conclusions\nComputer Science: Snow did not have computers, but the data was stored on paper, and he did not need to do much computations.\n\nThe use of computers does not give us more intelligence, it simply gives us the ability to get data in real-time from users of our systems. What we do with this data needs our own analytical mindset and purpose."
+  },
+  {
+    "objectID": "W2/M1/texts/01_intro.html#data-science-life-cycle",
+    "href": "W2/M1/texts/01_intro.html#data-science-life-cycle",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "This image illustrates the standard Data Science Life Cycle (the sequence of steps required to turn raw data into useful tools or insights) and maps those steps to the specific job titles responsible for them.\n\n\nThis represents the sequential journey of data from its raw state to a finished product.\n\nCollection: This is the act of gathering raw data from various sources. It involves extracting records from databases, logging user actions on a website, or downloading files.\nCleaning: Raw data is rarely ready to use. It contains missing values, duplicates, and errors. Cleaning is the process of standardizing formats and fixing or removing corrupted data so that it doesn’t skew the final results.\nExploratory Data Analysis (EDA): Before building complex systems, you must understand what the data looks like. This involves calculating basic statistics (averages, ranges) and creating visual charts to find trends, correlations, or anomalies. 4. Model Building: This is where machine learning happens. It involves feeding the cleaned, understood data into mathematical algorithms so the computer can learn to recognize patterns and make predictions on new, unseen data.\nModel Deployment: A predictive model is useless if it only sits on a researcher’s laptop. Deployment is the software engineering process of integrating that model into a live application, website, or server where it can process new data in real-time.\n\n\n\n\nDifferent specialists focus on different parts of the pipeline.\n\nData Engineers (Collection & Cleaning): These are essentially software engineers who build the underlying infrastructure. They construct the databases and automated pipelines that safely extract, store, and organize massive amounts of data so that others can use it.\nData Analysts (Cleaning & EDA): Analysts focus on understanding historical data to answer specific business questions. They take the data provided by the engineers, ensure it is clean for their specific needs, and build reports or dashboards to explain what has happened in the past.\nMachine Learning Engineers (Model Building & Deployment): These professionals bridge the gap between mathematics and software engineering. They take a predictive concept and write the code to ensure it runs efficiently, accurately, and reliably in a live production environment.\nData Scientists (The Entire Pipeline): Data Scientists are the generalists of the field. As the long bottom bar shows, they possess the technical skills to handle the entire lifecycle from start to finish. In practice, they primarily focus heavily on EDA and Model Building, but they must understand data engineering to get their data, and deployment to ensure their models are usable.\n\nWhile this diagram cleanly separates these roles, the real world is often messier. In large technology companies, these divisions are strict. In smaller companies or startups, a single “Data Scientist” might be expected to do the jobs of all four roles simultaneously."
+  },
+  {
+    "objectID": "W2/M1/texts/01_intro.html#our-world-in-data",
+    "href": "W2/M1/texts/01_intro.html#our-world-in-data",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "OWID - Research and data to make progress against the world’s largest problems."
+  },
+  {
+    "objectID": "W2/index.html#references",
+    "href": "W2/index.html#references",
+    "title": "Applied AI Bootcamp",
+    "section": "References",
+    "text": "References\n\nhttps://openintro-ims.netlify.app/\nhttps://www.coursera.org/professional-certificates/google-advanced-data-analytics\nhttps://www.kaggle.com/learn/data-visualization"
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html",
+    "href": "W2/M3/texts/06_effective_comm.html",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "Graphs can powerfully communicate ideas directly and quickly. We all know, after all, that “a picture is worth 1000 words.” Unfortunately, however, there are times when an image conveys a message which is inaccurate or misleading.\nThis chapter focuses on how graphs can best be utilized to present data accurately and effectively. Along with data modeling, creative visualization is somewhat of an art. However, even with an art, there are recommended guiding principles. We provide a few best practices for creating data visualizations.\n\n\n\n\n\n\nWhen creating a graphic, keep in mind what it is that you’d like your reader to see. Colors should be used to group items or differentiate levels in meaningful ways. Colors can be distracting when they are only used to brighten up the plot.\nConsider a manufacturing company that has summarized its costs into five different categories. In the two graphics provided in Figure 6.1, notice that the magnitudes in the pie chart in Figure 6.1 (a) are difficult for the eye to compare. That is, can your eye tell how different “Buildings and administration” is from “Workplace materials” when looking at the slices of pie? Additionally, the colors in the pie chart do not mean anything and are therefore distracting. Lastly, the three-dimensional aspect of the image does not improve the reader’s ability to understand the data presented.\nAs an alternative, a bar plot is been provided in Figure 6.1 (b). Notice how much easier it is to identify the magnitude of the differences across categories while not being distracted by other aspects of the image. Typically, a bar plot will be easier for the reader to digest than a pie chart, especially if the categorical data being plotted has more than just a few levels.\n\n\n\n\nThere are many reasons why you might choose to add color to your plots. An important principle to keep in mind is to use color to draw attention. Of course, you should still think about how visually pleasing your visualization is, and if you’re adding color for making it visually pleasing without drawing attention to a particular feature, that might be fine. However, you should be critical of default coloring and explicitly decide whether to include color and how. Notice that in Figure 6.2 (b) the coloring is done in such a way to draw the reader’s attention to one particular piece of information. The default coloring in Figure 6.2 (a) can be distracting and makes the reader question, for example, is there something similar about the red and purple bars? Also note that not everyone sees color the same way, often it’s useful to add color and one more feature (e.g., pattern) so that you can refer to the features you’re drawing attention to in multiple ways, as shown in Figure 6.2 (c). \n\n\n\nFor many graphs, an important aspect is the inclusion of information which is not provided in the dataset that is being plotted. The external information serves to contextualize the data and helps communicate the narrative of the research.\nIn Figure 6.3, the graph on the right is annotated with information about the start of the university’s fiscal year which contextualizes the information provided by the data. Sometimes the additional information may be a diagonal line given by \\(y = x\\), points above the line quickly show the reader which values have a coordinate larger than the coordinate; points below the line show the opposite. \n\n\n\nMost software programs have built in methods for some of the plot details – some order levels alphabetically, some provide functionality for arranging them in a custom order. As seen in Figure 6.4 (a), the alphabetical ordering isn’t particularly meaningful for describing the data. Sometimes it makes sense to order the bars from tallest to shortest (or vice versa), as shown in Figure 6.4 (b). But in this case, the best ordering is probably the one in which the questions were asked, as shown in Figure 6.4 (c). An ordering which does not make sense in the context of the problem (e.g., alphabetically here), can mislead the reader who might take a quick glance at the axes and not read the bar labels carefully.\nIn September 2019, YouGov survey asked 1,639 Great Britain adults the following question:\nHow well or badly do you think the government are doing at handling Britain’s exit from the European Union?\n\nVery well\nFairly well\nFairly badly\nVery badly\nDon’t know \n\n\n\n\nThe Brexit survey results were additionally broken down by region in Great Britain. The stacked bar plot allows for comparison of Brexit opinion across the five regions. In Figure 6.5 (a) the bars are vertical and in Figure 6.5 (b) they are horizontal. While the quantitative information in the two graphics is identical, flipping the graph and creating horizontal bars provides more space for the axis labels. The easier the categories are to read, the more the reader will learn from the visualization. Remember, the goal is to convey as much information as possible in a succinct and clear manner. \n\n\n\nEvery graphical decision should be made with a purpose. As previously mentioned, sticking with default options is not always best for conveying the narrative of your data story. Stacked bar plots tell one part of a story. Depending on your research question, they may not tell the part of the story most important to the research.\nFigure 6.6 provides three different ways of representing the same information. If the most important comparison across regions is proportion, you might prefer Figure 6.6 (a). If the most important comparison across regions also considers the total number of individuals in the region, you might prefer Figure 6.6 (b). If a separate bar plot for each region makes the point you’d like, use Figure 6.6 (c), which has been faceted by region. Figure 6.6 (c) also provides full titles and a succinct URL with the data source. Other deliberate decisions to consider include using informative labels and avoiding redundancy. \n\n\n\n\nOne last consideration for building graphs is to consider color choices. Default or rainbow colors are not always the choice which will best distinguish the level of your variables. Much research has been done to find color combinations which are distinct and which are clear for differently sighted individuals. The cividis scale works well with ordinal data. (Nuñez, Anderton, and Renslow 2018) Figure 6.7 shows the same plot with two different color themes.  In this chapter different representations are contrasted to demonstrate best practices in creating graphs. The fundamental principle is that your graph should provide maximal information succinctly and clearly. Labels should be clear and oriented horizontally for the reader. Don’t forget titles and, if possible, include the source of the data.\n\n\n\nHow do we percieve quantities as given by the plot properties?  Checkout the slide deck: Data Visualization Best Practices by Catherine Mulbrandon.\nFor more details on properties of: color, style, size, text, checkout the Plot Properties | Seaborn\n\n\n\n\nhttp://colorbrewer2.org\nhttps://coolors.co/\n\nReferences:\n\nOpen Intro: Introduction to Modern Statistics\nCS109A | Harvard"
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#keep-it-simple",
+    "href": "W2/M3/texts/06_effective_comm.html#keep-it-simple",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "When creating a graphic, keep in mind what it is that you’d like your reader to see. Colors should be used to group items or differentiate levels in meaningful ways. Colors can be distracting when they are only used to brighten up the plot.\nConsider a manufacturing company that has summarized its costs into five different categories. In the two graphics provided in Figure 6.1, notice that the magnitudes in the pie chart in Figure 6.1 (a) are difficult for the eye to compare. That is, can your eye tell how different “Buildings and administration” is from “Workplace materials” when looking at the slices of pie? Additionally, the colors in the pie chart do not mean anything and are therefore distracting. Lastly, the three-dimensional aspect of the image does not improve the reader’s ability to understand the data presented.\nAs an alternative, a bar plot is been provided in Figure 6.1 (b). Notice how much easier it is to identify the magnitude of the differences across categories while not being distracted by other aspects of the image. Typically, a bar plot will be easier for the reader to digest than a pie chart, especially if the categorical data being plotted has more than just a few levels."
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#use-color-to-draw-attention",
+    "href": "W2/M3/texts/06_effective_comm.html#use-color-to-draw-attention",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "There are many reasons why you might choose to add color to your plots. An important principle to keep in mind is to use color to draw attention. Of course, you should still think about how visually pleasing your visualization is, and if you’re adding color for making it visually pleasing without drawing attention to a particular feature, that might be fine. However, you should be critical of default coloring and explicitly decide whether to include color and how. Notice that in Figure 6.2 (b) the coloring is done in such a way to draw the reader’s attention to one particular piece of information. The default coloring in Figure 6.2 (a) can be distracting and makes the reader question, for example, is there something similar about the red and purple bars? Also note that not everyone sees color the same way, often it’s useful to add color and one more feature (e.g., pattern) so that you can refer to the features you’re drawing attention to in multiple ways, as shown in Figure 6.2 (c)."
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#tell-a-story",
+    "href": "W2/M3/texts/06_effective_comm.html#tell-a-story",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "For many graphs, an important aspect is the inclusion of information which is not provided in the dataset that is being plotted. The external information serves to contextualize the data and helps communicate the narrative of the research.\nIn Figure 6.3, the graph on the right is annotated with information about the start of the university’s fiscal year which contextualizes the information provided by the data. Sometimes the additional information may be a diagonal line given by \\(y = x\\), points above the line quickly show the reader which values have a coordinate larger than the coordinate; points below the line show the opposite."
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#order-matters",
+    "href": "W2/M3/texts/06_effective_comm.html#order-matters",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "Most software programs have built in methods for some of the plot details – some order levels alphabetically, some provide functionality for arranging them in a custom order. As seen in Figure 6.4 (a), the alphabetical ordering isn’t particularly meaningful for describing the data. Sometimes it makes sense to order the bars from tallest to shortest (or vice versa), as shown in Figure 6.4 (b). But in this case, the best ordering is probably the one in which the questions were asked, as shown in Figure 6.4 (c). An ordering which does not make sense in the context of the problem (e.g., alphabetically here), can mislead the reader who might take a quick glance at the axes and not read the bar labels carefully.\nIn September 2019, YouGov survey asked 1,639 Great Britain adults the following question:\nHow well or badly do you think the government are doing at handling Britain’s exit from the European Union?\n\nVery well\nFairly well\nFairly badly\nVery badly\nDon’t know"
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#make-the-labels-as-easy-to-read-as-possible",
+    "href": "W2/M3/texts/06_effective_comm.html#make-the-labels-as-easy-to-read-as-possible",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "The Brexit survey results were additionally broken down by region in Great Britain. The stacked bar plot allows for comparison of Brexit opinion across the five regions. In Figure 6.5 (a) the bars are vertical and in Figure 6.5 (b) they are horizontal. While the quantitative information in the two graphics is identical, flipping the graph and creating horizontal bars provides more space for the axis labels. The easier the categories are to read, the more the reader will learn from the visualization. Remember, the goal is to convey as much information as possible in a succinct and clear manner."
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#pick-a-purpose",
+    "href": "W2/M3/texts/06_effective_comm.html#pick-a-purpose",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "Every graphical decision should be made with a purpose. As previously mentioned, sticking with default options is not always best for conveying the narrative of your data story. Stacked bar plots tell one part of a story. Depending on your research question, they may not tell the part of the story most important to the research.\nFigure 6.6 provides three different ways of representing the same information. If the most important comparison across regions is proportion, you might prefer Figure 6.6 (a). If the most important comparison across regions also considers the total number of individuals in the region, you might prefer Figure 6.6 (b). If a separate bar plot for each region makes the point you’d like, use Figure 6.6 (c), which has been faceted by region. Figure 6.6 (c) also provides full titles and a succinct URL with the data source. Other deliberate decisions to consider include using informative labels and avoiding redundancy."
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#select-meaningful-colors",
+    "href": "W2/M3/texts/06_effective_comm.html#select-meaningful-colors",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "One last consideration for building graphs is to consider color choices. Default or rainbow colors are not always the choice which will best distinguish the level of your variables. Much research has been done to find color combinations which are distinct and which are clear for differently sighted individuals. The cividis scale works well with ordinal data. (Nuñez, Anderton, and Renslow 2018) Figure 6.7 shows the same plot with two different color themes.  In this chapter different representations are contrasted to demonstrate best practices in creating graphs. The fundamental principle is that your graph should provide maximal information succinctly and clearly. Labels should be clear and oriented horizontally for the reader. Don’t forget titles and, if possible, include the source of the data."
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#qunatitative-perception",
+    "href": "W2/M3/texts/06_effective_comm.html#qunatitative-perception",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "How do we percieve quantities as given by the plot properties?  Checkout the slide deck: Data Visualization Best Practices by Catherine Mulbrandon.\nFor more details on properties of: color, style, size, text, checkout the Plot Properties | Seaborn"
+  },
+  {
+    "objectID": "W2/M3/texts/06_effective_comm.html#great-sites-for-selecting-color-schemes",
+    "href": "W2/M3/texts/06_effective_comm.html#great-sites-for-selecting-color-schemes",
+    "title": "Effective communication of exploratory results",
+    "section": "",
+    "text": "http://colorbrewer2.org\nhttps://coolors.co/\n\nReferences:\n\nOpen Intro: Introduction to Modern Statistics\nCS109A | Harvard"
+  },
+  {
+    "objectID": "W2/M4/lessons/03_slides_num_correlation.html#lab",
+    "href": "W2/M4/lessons/03_slides_num_correlation.html#lab",
+    "title": "Numerical correlation",
+    "section": "Lab",
+    "text": "Lab\nLab Notebook— hybrid plots, manual decomposition, pearsonr, Spearman, ecological SAT example.\n\nClose with: “Scatter first, number second, causal language last.” Assign one pair of variables from their own project and require a plot and (r)."
+  },
+  {
+    "objectID": "W1/index.html#final-exercises",
+    "href": "W1/index.html#final-exercises",
+    "title": "Applied AI Bootcamp",
+    "section": "Final Exercises",
+    "text": "Final Exercises\n\nList and Dict Access\nCeasar Cipher\nReading docs: random\nRequests to APIs"
+  },
+  {
+    "objectID": "W2/M4/lessons/01_slides_hypothesis_testing.html#lab",
+    "href": "W2/M4/lessons/01_slides_hypothesis_testing.html#lab",
+    "title": "Hypothesis Testing",
+    "section": "Lab",
+    "text": "Lab\nLab Notebook — NBA heights, penguins, tips, paired spinach, ANOVA.\n\nClose the loop: slides = ideas and map; notebook = code, plots, numbers. Assign or suggest working through one example end-to-end before the next class."
+  },
+  {
+    "objectID": "W2/M3/lessons/01_slides_statistics.html#motivation",
+    "href": "W2/M3/lessons/01_slides_statistics.html#motivation",
+    "title": "Statistics",
+    "section": "Motivation",
+    "text": "Motivation\nQuestion: are NBA Players really taller than most people?"
+  },
+  {
+    "objectID": "W2/M3/lessons/01_slides_statistics.html#population",
+    "href": "W2/M3/lessons/01_slides_statistics.html#population",
+    "title": "Statistics",
+    "section": "Population",
+    "text": "Population\nPopulation (مجتمع إحصائي): The object which the research intends to generalize its results towards.\n\nPeople: like every person living in a specific neighborhood\nThings: like every lightbulb produced in a factory today\n\nSample (عينة): is subset of Population. Our sample is NBA Players (at some point in time)."
+  },
+  {
+    "objectID": "W2/M3/lessons/01_slides_statistics.html#thinking-in-levels-about-population-and-sample",
+    "href": "W2/M3/lessons/01_slides_statistics.html#thinking-in-levels-about-population-and-sample",
+    "title": "Statistics",
+    "section": "Thinking in levels about population and sample",
+    "text": "Thinking in levels about population and sample\nIn reality, we don’t always have access to all population. Hence, it is helpful to think in levels, The smallest of which is the Subject:\n\n\nIn research, these terms describe a “funnel” that narrows down from a massive group of people to the specific individuals being studied.\n\nPopulation: The entire broad group of people that your research results are intended to describe (e.g., “all adults with Type 2 diabetes”).\nTarget Population: The specific subset of the population that meets your formal “eligibility rules” or sampling criteria (e.g., “adults with Type 2 diabetes living in Canada, aged 40–60”).\nAccessible Population: The actual portion of the target population that the researcher can realistically reach and recruit from (e.g., “adults with Type 2 diabetes at three specific clinics in Toronto”).\nSample: The small group of individuals chosen from the accessible population who actually take part in the study.\nSubject, Participant, or Informant: A single individual within the sample."
+  },
+  {
+    "objectID": "W2/M3/lessons/01_slides_statistics.html#variables",
+    "href": "W2/M3/lessons/01_slides_statistics.html#variables",
+    "title": "Statistics",
+    "section": "Variables",
+    "text": "Variables\nVariables (متغيرات) are the shared attributes of the subjects. They may be:\n\nNumerical (عددي) weight, temperature, or duration.\nCategorical (فئوي) “Success/Failure,” color, or brand.\n\nCan you distinguish them the following tabl e?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n\n\nRelevance is key. Pick attributes that you think might explian logical relationship to the conclusions you want to make.\nIn our case, we are looking at the height variable."
+  },
+  {
+    "objectID": "W2/M3/lessons/01_slides_statistics.html#statistics",
+    "href": "W2/M3/lessons/01_slides_statistics.html#statistics",
+    "title": "Statistics",
+    "section": "Statistics",
+    "text": "Statistics\nStatistics (إحصاءات) is the study of how best to collect, analyze, and draw conclusions from data.\nDescriptive Statistics (إحصاء وصفي) summarizes qualities of a group (of people or things):\n\nUsing a Statistic / Parameter (إحصاءة) (mean, median, variance, range, ..etc.)\nNumerical. It sums up variables across subjects to describe them in general.\nUsing a Graph / Plot (رسم بياني) (points, lines, colors, size, text, ..etc.)\nVisual. They simplify the data by doing local statistics (e.g., bins of bar plot).\n\nIn both cases, we are interested in look at multipe statistics, and multiple graphs, before we move on to making conclusions."
+  },
+  {
+    "objectID": "W2/M3/lessons/01_slides_statistics.html#inferentail-statistics",
+    "href": "W2/M3/lessons/01_slides_statistics.html#inferentail-statistics",
+    "title": "Statistics",
+    "section": "Inferentail Statistics",
+    "text": "Inferentail Statistics\nInferential Statistics (احصاء استدلالي) goes from description to drawing conclusions.\n\nAt its heart, statistics is the bridge between raw observation and useful information."
+  },
+  {
+    "objectID": "W2/M3/lessons/01_slides_statistics.html#lab",
+    "href": "W2/M3/lessons/01_slides_statistics.html#lab",
+    "title": "Statistics",
+    "section": "Lab",
+    "text": "Lab\n\n“involve me and I remember”"
+  },
+  {
+    "objectID": "W2/M3/lessons/01_statistics.html#counts",
+    "href": "W2/M3/lessons/01_statistics.html#counts",
+    "title": "Statistics",
+    "section": "Counts",
+    "text": "Counts\nStatistics starts with Counts; the number of subjects with a certain characteristic.\nExample is the value_counts(), summarizing the count of each value in the variable column:\n\npenguins['island'].value_counts()\n\nisland\nBiscoe       168\nDream        124\nTorgersen     52\nName: count, dtype: int64\n\n\nBut we could also visualize it:\n\nsns.displot(\n    data=penguins, x='island', hue='island',\n    shrink=0.8, discrete=True,\n    height=3, aspect=1\n)"
+  },
+  {
+    "objectID": "W2/M3/lessons/01_statistics.html#distributions",
+    "href": "W2/M3/lessons/01_statistics.html#distributions",
+    "title": "Statistics",
+    "section": "Distributions",
+    "text": "Distributions\nThe Distribution of a variable is the frequencies of its values\n\nFor categorical variables (like island) they are just the proportions\nFor numerical variables, we need binning; i.e., grouping ranges of numerical values into buckets (we’ll see this when we plot it)\n\nLet’s look at the NBA players dataset:\n\ndf = pd.read_csv('../../data/nba_heights.csv')\ndf.head()\n\n\n\n\n\n\n\n\nlast_name\nfirst_name\nh_meters\nh_in\n\n\n\n\n0\nAcker\nAlex\n1.96\n77\n\n\n1\nAdams\nHassan\n1.93\n76\n\n\n2\nAfflalo\nArron\n1.96\n77\n\n\n3\nAger\nMaurice\n1.96\n77\n\n\n4\nAjinca\nAlexis\n2.13\n84\n\n\n\n\n\n\n\nLet’s look at the value counts of height in meters h_meters (numerical):\n\ncounts = df['h_meters'].value_counts()\ncounts.nlargest(10)\n\nh_meters\n2.06    58\n2.03    43\n2.08    43\n2.01    41\n2.11    39\n1.91    35\n1.98    34\n2.13    33\n1.96    28\n1.88    21\nName: count, dtype: int64\n\n\nWe describe a distribtuion by three properties:\n\nCentral Tendency\nDispersion\nSkewness\n\n\n1. Central Tendency\n\nMode: the most frequent value (\\(\\bar{x}\\) or \\(\\mu\\)).\nMedian: the middle value when data are ordered.\nMean (average): the center of “mass”.\n\nThe mean (\\(\\mu\\)) is the sum of the values divided by their count:\n\\[\n\\mu = \\frac{1}{N}\\sum_{i=1}^{N} x_i\n\\]\n\n\\(\\mu\\) denotes population mean\n\\(N\\) is the count\n\n\n\n2. Dispersion\n\nRange: the difference between the maximum and minimum values.\nVariance: the average of the squared differences from the mean (\\(\\sigma^2\\)).\nStandard Deviation: the square root of the variance (\\(\\sigma\\)).\n\nThe variance (\\(\\sigma^2\\)) is described mathematically as:\n\\[\n\\sigma^2 = \\frac{1}{N}\\sum_{i=1}^{N}(x_i - \\mu)^2\n\\]\nIn a physical sense, we can see:\n\nthe variance being the spread of the mass\nthe mean being the center of the mass\n\n\n\n\nPhysical Metaphor\n\n\nIn Pandas, we simply call the describe method on the column (series), to get all these statistics:\n\ndf['h_meters'].describe()\n\ncount    435.000000\nmean       2.012483\nstd        0.090078\nmin        1.750000\n25%        1.960000\n50%        2.030000\n75%        2.080000\nmax        2.290000\nName: h_meters, dtype: float64\n\n\nNote the following:\n\nThe std is the standard deviation\nThe 50% percentile is the median statistic.\nThe range is shown by the max and min statistics.\nThe mode is more useful when we are looking at categorical attribute. In our case, the attribute is numerical.\n\n\n\nPercentiles\nThe median is the 50th percentile (50%) which means that 50% of the data points are below this value.\nThe 25% and the 75% percentiles go by other names: - the 1st and 3rd quartiles - the Q1 and Q3 - the lower and upper quartiles\n\n\nVisualizing the Distribution\nWe can visualize the count of their heights with a Histogram, which is one type of Distribution Plot; named as such because it shows where the values of the variable height lie on the x-axis, and how many of them are there (count).\nInstead of showing all the values, we group them into Bins of uniform size, and represent how many values in the bin, vertically, by the height of bin itself.\nThis is the simplest and most useful type of statistical plot. In seaborn, it is displot (distribution plot), like so:\n\nsns.displot(df, x='h_meters')\n\n\n\n\n\n\n\n\nSometimes we use the Kernel Density Estimation plot (KDE) instead to show the distrubtion:\n\nsns.displot(df, x='h_meters', kind='kde', fill=True)\n\n\n\n\n\n\n\n\n\n# Source NBA Heights: https://github.com/simonwarchol/NBA-Height-Weight/blob/master/CSVs/total.csv\nnba = pd.read_csv('/../../data/nba_heights.csv')\nnba.describe()\n\n\n\n\n\n\n\n\nh_meters\nh_in\n\n\n\n\ncount\n435.000000\n435.000000\n\n\nmean\n2.012483\n79.209195\n\n\nstd\n0.090078\n3.573444\n\n\nmin\n1.750000\n69.000000\n\n\n25%\n1.960000\n77.000000\n\n\n50%\n2.030000\n80.000000\n\n\n75%\n2.080000\n82.000000\n\n\nmax\n2.290000\n90.000000\n\n\n\n\n\n\n\n\n# Source Human Heights: https://www.kaggle.com/datasets/burnoutminer/heights-and-weights-dataset\nhumans = pd.read_csv('../../data/SOCR-HeightWeight.csv')\nhumans.describe()\n\n\n\n\n\n\n\n\nIndex\nHeight(Inches)\nWeight(Pounds)\n\n\n\n\ncount\n25000.000000\n25000.000000\n25000.000000\n\n\nmean\n12500.500000\n67.993114\n127.079421\n\n\nstd\n7217.022701\n1.901679\n11.660898\n\n\nmin\n1.000000\n60.278360\n78.014760\n\n\n25%\n6250.750000\n66.704397\n119.308675\n\n\n50%\n12500.500000\n67.995700\n127.157750\n\n\n75%\n18750.250000\n69.272958\n134.892850\n\n\nmax\n25000.000000\n75.152800\n170.924000\n\n\n\n\n\n\n\n\nimport matplotlib.pyplot as plt\n\n# Plot the distributions of both on the same plot\nsns.kdeplot(nba, x='h_in', fill=True)\nsns.kdeplot(humans, x='Height(Inches)', fill=True)\n\n# vertical line at the mean of the height for both\nplt.axvline(humans['Height(Inches)'].mean(), color='red', linestyle='--')\nplt.axvline(nba['h_in'].mean(), color='blue', linestyle='--')\n\n&lt;matplotlib.lines.Line2D at 0x766a3b5a45f0&gt;"
+  },
+  {
+    "objectID": "W2/M1/lessons/01_slides_intro.html#data-analysis",
+    "href": "W2/M1/lessons/01_slides_intro.html#data-analysis",
+    "title": "Introduction to Data Science",
+    "section": "Data Analysis",
+    "text": "Data Analysis\n\nData analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making.\n\nTwo approaches:\n\nConfirmatory Data Analysis (CDA)\nA top-down approach in which we start with a question and use data to answer it.\nExample: Hypothesis: “people are addicted to smart phones”. Let’s see if the data supports this.\nLab 1: Blind Typing Experiment\nExploratory Data Analysis (EDA)\nA bottom-up approach in which we start with the data and try to find something interesting.\nExample Data: “people who exercise at the gym”. Let’s find out what are their: ages, occupations, and common interests are. Lab 2: Exploring US Census 2010-2019 Data\n\n\n\n\n\nSnow, John. 1855. On the Mode of Transmission of Cholera. Part 3, Table IX. Available at: http://www.ph.ucla.edu/epi/snow/snowbook3.html (accessed 26 June 2016); John Churchill. http://www.ph.ucla.edu/epi/snow/snowbook3.html."
   }
 ]

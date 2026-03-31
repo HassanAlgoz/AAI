@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Example: Population Trends (census 2010-2019) – Applied AI Bootcamp</title>
+<title>Exploratory Data Analysis Overview Example – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Example: Population Trends (census 2010-2019)</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exploratory Data Analysis Overview Example</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -212,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Example: Population Trends (census 2010-2019)</h1>
+<h1 class="title">Exploratory Data Analysis Overview Example</h1>
 </div>
 
 
@@ -229,10 +229,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Objective</strong>: see how Pandas’ DataFrame objects are used to work with tabular data.</p>
+<p>EDA is a bottom-up approach in which we start with the data and try to find something interesting.</p>
+<p><strong>Objective</strong>: show how EDA is done in Python using Pandas (the library for tabular data).</p>
 <p><strong>Estimated time</strong>: 30 minutes.</p>
-<p>The data below contains “<strong>Annual Estimates of the Resident Population by Single Year of Age and Sex for the United States</strong>”</p>
-<div id="cell-2" class="cell">
+<p><strong>Example</strong>: We will demonstrate on the US Census (2010-2019) dataset. The “Annual Estimates of the Resident Population by Single Year of Age and Sex for the United States”.</p>
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -245,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first 10 rows of the DataFrame</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>full_census_df.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
@@ -455,11 +456,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="attribute-selection" class="level2">
 <h2 class="anchored" data-anchor-id="attribute-selection">Attribute Selection</h2>
 <p>Suppose we are only interested in the population changes from 2014 to 2019. Let’s <code>select</code> the relevant columns.</p>
-<div id="cell-5" class="cell" data-execution_count="10">
+<div id="cell-5" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant columns for the years 2014 and 2019</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>partial_census_df <span class="op">=</span> full_census_df[[<span class="st">'SEX'</span>, <span class="st">'AGE'</span>, <span class="st">'POPESTIMATE2014'</span>, <span class="st">'POPESTIMATE2019'</span>]]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>partial_census_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -562,7 +563,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="attribute-renaming" class="level2">
 <h2 class="anchored" data-anchor-id="attribute-renaming">Attribute Renaming</h2>
 <p>We can simplify the labels of the selected columns.</p>
-<div id="cell-7" class="cell" data-execution_count="11">
+<div id="cell-7" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns for clarity</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>us_pop <span class="op">=</span> partial_census_df.rename(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{</span>
@@ -570,9 +571,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'POPESTIMATE2019'</span>: <span class="st">'2019'</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    })</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="14">
+<div id="cell-8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>us_pop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
 
@@ -678,10 +679,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ages-97-100" class="level2">
 <h2 class="anchored" data-anchor-id="ages-97-100">Ages 97-100</h2>
 <p>As a warm-up, let’s examine the total population, labeled by <code>SEX</code> code 0. Since all these rows will have the same value 0 in the <code>SEX</code> column, we will drop that column.</p>
-<div id="cell-11" class="cell" data-execution_count="19">
+<div id="cell-11" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> us_pop[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">1</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>us_pop[mask]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -780,11 +781,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="31">
+<div id="cell-12" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for total population (SEX code 0) and drop the SEX column</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>us_pop_by_age <span class="op">=</span> us_pop[us_pop[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">0</span>].drop(columns<span class="op">=</span><span class="st">'SEX'</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>us_pop_by_age</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -872,13 +873,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now let’s look at the population in the highest ages.</p>
-<div id="cell-14" class="cell" data-execution_count="34">
+<div id="cell-14" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display population for ages 97-100</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mask1 <span class="op">=</span> (us_pop_by_age[<span class="st">'AGE'</span>] <span class="op">&gt;=</span> <span class="dv">97</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> (us_pop_by_age[<span class="st">'AGE'</span>] <span class="op">&lt;=</span> <span class="dv">100</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> mask1 <span class="op">&amp;</span> mask2</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>us_pop_by_age[mask]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -925,9 +926,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="calculate-new-attributes-add-columns" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-new-attributes-add-columns">Calculate New Attributes (Add Columns)</h2>
-<div id="cell-16" class="cell" data-execution_count="36">
+<div id="cell-16" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>us_pop_by_age[<span class="st">'2019'</span>] <span class="op">-</span> us_pop_by_age[<span class="st">'2014'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>0      -171735
 1      -119292
 2       -36667
@@ -942,7 +943,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Length: 102, dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="37">
+<div id="cell-17" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate change in population from 2014 to 2019</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>change <span class="op">=</span> us_pop_by_age[<span class="st">'2019'</span>] <span class="op">-</span> us_pop_by_age[<span class="st">'2014'</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -955,7 +956,7 @@ Length: 102, dtype: int64</code></pre>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Format percent change column</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>us_pop_change[<span class="st">'Percent_Change'</span>] <span class="op">=</span> us_pop_change[<span class="st">'Percent_Change'</span>].<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>us_pop_change</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="37">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -1067,10 +1068,10 @@ Length: 102, dtype: int64</code></pre>
 </div>
 </div>
 <p>Almost all the entries displayed in the <code>Percent Change</code> column are negative, demonstrating a drop in population at the youngest ages. However, the overall population (<code>AGE=999</code>) grew by about 9.9 million people, a percent change of just over 3%.</p>
-<div id="cell-19" class="cell">
+<div id="cell-19" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display population change for age 999 (total population)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>us_pop_change[us_pop_change[<span class="st">'AGE'</span>] <span class="op">==</span> <span class="dv">999</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -1101,10 +1102,10 @@ Length: 102, dtype: int64</code></pre>
 </div>
 </div>
 <p>Let us compare this to the change at each age. For ease of interpretation, we will sort the table in decreasing order of the absolute change in population, contained in the column <code>Change</code>.</p>
-<div id="cell-21" class="cell" data-execution_count="39">
+<div id="cell-21" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display top changes by age group sorted by absolute change</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>us_pop_change[us_pop_change[<span class="st">'AGE'</span>] <span class="op">!=</span> <span class="dv">999</span>].sort_values(by<span class="op">=</span><span class="st">'Change'</span>, ascending<span class="op">=</span><span class="va">False</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -1175,14 +1176,14 @@ Length: 102, dtype: int64</code></pre>
 <section id="example-sex-ratios" class="level1">
 <h1>Example: Sex Ratios</h1>
 <p>This time we will focus on population trends in relation to the SEX column.</p>
-<div id="cell-24" class="cell">
+<div id="cell-24" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for 2019 data and remove unnecessary columns</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>us_pop_2019 <span class="op">=</span> us_pop.drop(columns<span class="op">=</span>[<span class="st">'2014'</span>])</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select rows where age is 999 (total population)</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>all_ages <span class="op">=</span> us_pop_2019[us_pop_2019[<span class="st">'AGE'</span>] <span class="op">==</span> <span class="dv">999</span>].drop(columns<span class="op">=</span><span class="st">'AGE'</span>)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>all_ages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -1217,11 +1218,11 @@ Length: 102, dtype: int64</code></pre>
 </div>
 </div>
 <p>Calculate proportions relative to total population in 2019:</p>
-<div id="cell-26" class="cell">
+<div id="cell-26" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pop_2019 <span class="op">=</span> all_ages.iloc[<span class="dv">0</span>][<span class="st">'2019'</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>all_ages[<span class="st">'Proportion'</span>] <span class="op">=</span> (all_ages[<span class="st">'2019'</span>] <span class="op">/</span> pop_2019).<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>all_ages</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -1262,12 +1263,12 @@ Length: 102, dtype: int64</code></pre>
 <section id="proportions-among-infants" class="level3">
 <h3 class="anchored" data-anchor-id="proportions-among-infants">Proportions Among Infants</h3>
 <p>When we look at infants, however, the opposite is true. Let’s define infants to be babies who have not yet completed one year, represented in the rows corresponding to <code>AGE 0</code>. Here are their numbers in the population. You can see that male infants outnumbered female infants.</p>
-<div id="cell-28" class="cell">
+<div id="cell-28" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>infants <span class="op">=</span> us_pop_2019[us_pop_2019[<span class="st">'AGE'</span>] <span class="op">==</span> <span class="dv">0</span>].drop(columns<span class="op">=</span><span class="st">'AGE'</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>infants_2019 <span class="op">=</span> infants.loc[<span class="dv">0</span>, <span class="st">'2019'</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>infants[<span class="st">'Proportion'</span>] <span class="op">=</span> (infants[<span class="st">'2019'</span>] <span class="op">/</span> infants_2019).<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>infants</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -1311,12 +1312,12 @@ Length: 102, dtype: int64</code></pre>
 <section id="sex-ratio-at-each-age" class="level3">
 <h3 class="anchored" data-anchor-id="sex-ratio-at-each-age">Sex Ratio at Each Age</h3>
 <p>While there are more male infants than female, there are more females than males in the population overall.</p>
-<div id="cell-31" class="cell">
+<div id="cell-31" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select rows for males and females (excluding total)</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>females <span class="op">=</span> us_pop_2019[(us_pop_2019[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">2</span>) <span class="op">&amp;</span> (us_pop_2019[<span class="st">'AGE'</span>] <span class="op">!=</span> <span class="dv">999</span>)].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>males <span class="op">=</span> us_pop_2019[(us_pop_2019[<span class="st">'SEX'</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (us_pop_2019[<span class="st">'AGE'</span>] <span class="op">!=</span> <span class="dv">999</span>)].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>females</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
 
@@ -1403,12 +1404,12 @@ Length: 102, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-32" class="cell">
+<div id="cell-32" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate sex ratios for 2019</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ratios <span class="op">=</span> females[[<span class="st">'AGE'</span>, <span class="st">'2019'</span>]]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ratios[<span class="st">'2019 F:M RATIO'</span>] <span class="op">=</span> ratios[<span class="st">'2019'</span>] <span class="op">/</span> males[<span class="st">'2019'</span>]</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ratios</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -1495,11 +1496,11 @@ Length: 102, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell">
+<div id="cell-33" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display sex ratios for ages above 75</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ratios_above_75 <span class="op">=</span> ratios[ratios[<span class="st">'AGE'</span>] <span class="op">&gt;</span> <span class="dv">75</span>]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ratios_above_75</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -1670,17 +1671,20 @@ Length: 102, dtype: int64</code></pre>
 </div>
 </div>
 <p>Finally, let’s plot the ratio</p>
-<div id="cell-35" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div id="cell-35" class="cell" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot sex ratios against age</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">3</span>))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.plot(ratios[<span class="st">'AGE'</span>], ratios[<span class="st">'2019 F:M RATIO'</span>], marker<span class="op">=</span><span class="st">'o'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Age'</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Female to Male Ratio'</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Female to Male Ratio by Age (2019)'</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot sex ratios against age using seaborn</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>fg <span class="op">=</span> sns.relplot(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>ratios, x<span class="op">=</span><span class="st">'AGE'</span>, y<span class="op">=</span><span class="st">'2019 F:M RATIO'</span>, kind<span class="op">=</span><span class="st">'line'</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span><span class="st">'o'</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'b'</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="dv">5</span><span class="op">/</span><span class="dv">3</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>fg.set_axis_labels(<span class="st">'Age'</span>, <span class="st">'Female to Male Ratio'</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>fg.figure.suptitle(<span class="st">'Female to Male Ratio by Age (2019)'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

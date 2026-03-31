@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Bootcamp Introduction</title>
+  <title>Applied AI Bootcamp – Statistics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -34,13 +34,13 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-5f0c85c1976c203864cee9db71b09d05.css">
-  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
-  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-5f0c85c1976c203864cee9db71b09d05.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -135,185 +135,164 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Bootcamp Introduction</h1>
+  <h1 class="title">Statistics</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section class="slide level2">
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<p><strong>Question: are NBA Players really taller than most people?</strong></p>
 
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/program_info.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/program_info.png" class="quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-</section>
-<section id="schedule" class="slide level2">
-<h2>Schedule</h2>
+<img data-src="../../assets/nba_players_are_tall.png" class="r-stretch"></section>
+<section id="population" class="slide level2">
+<h2>Population</h2>
+<p><strong>Population</strong> (مجتمع إحصائي): The object which the research intends to generalize its results towards.</p>
 <ul>
-<li class="fragment"><strong>Course 1: Python</strong><br>
-Build strong Python programming foundations to apply and integrate ML/DL/AI in software systems.</li>
-<li class="fragment"><strong>Course 2: Applied Data Science</strong><br>
-Calculate, analyze, visualize, interpret data and test hypothesis using Data Science.</li>
-<li class="fragment"><strong>Course 3: Applied Machine Learning</strong><br>
-Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.</li>
-<li class="fragment"><strong>Course 4: Applied Deep Learning</strong><br>
-Use DL solution frameworks / libraries to apply AI to specific problems in vision and language.</li>
-<li class="fragment"><strong>Course 5: Agentic AI</strong><br>
-Develop, debug, evaluate deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.</li>
-<li class="fragment"><strong>Course 6: Agentic Engineering</strong><br>
-Use today’s best practices to accelerate software development in your codebase. Previously known as <em>Vibe Coding</em>.</li>
+<li>People: like every person living in a specific neighborhood</li>
+<li>Things: like every lightbulb produced in a factory today</li>
+</ul>
+<p><strong>Sample</strong> (عينة): is subset of <em>Population</em>. Our sample is NBA Players (at some point in time).</p>
+
+<img data-src="../../assets/population_sample.png" class="r-stretch"></section>
+<section id="thinking-in-levels-about-population-and-sample" class="slide level2 scrollable">
+<h2>Thinking in levels about population and sample</h2>
+<p>In reality, we don’t always have access to all population. Hence, it is helpful to think in levels, The smallest of which is the <strong>Subject</strong>:</p>
+<p><a href="../../assets/population_sampling_reality.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../../assets/population_sampling_reality.png"></a></p>
+<aside class="notes">
+<p>In research, these terms describe a “funnel” that narrows down from a massive group of people to the specific individuals being studied.</p>
+<ol type="1">
+<li><strong>Population:</strong> The entire broad group of people that your research results are intended to describe (e.g., “all adults with Type 2 diabetes”).</li>
+<li><strong>Target Population:</strong> The specific subset of the population that meets your formal “eligibility rules” or sampling criteria (e.g., “adults with Type 2 diabetes living in Canada, aged 40–60”).</li>
+<li><strong>Accessible Population:</strong> The actual portion of the target population that the researcher can realistically reach and recruit from (e.g., “adults with Type 2 diabetes at three specific clinics in Toronto”).</li>
+<li><strong>Sample:</strong> The small group of individuals chosen from the accessible population who actually take part in the study.</li>
+<li><strong>Subject, Participant, or Informant:</strong> A single individual within the sample.</li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="variables" class="slide level2">
+<h2>Variables</h2>
+<p><strong>Variables</strong> (متغيرات) are the shared attributes of the subjects. They may be:</p>
+<ul>
+<li><strong>Numerical</strong> (عددي) weight, temperature, or duration.</li>
+<li><strong>Categorical</strong> (فئوي) “Success/Failure,” color, or brand.</li>
+</ul>
+<p>Can you distinguish them the following tabl e?</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 21%">
+<col style="width: 13%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>species</th>
+<th>island</th>
+<th>bill_length_mm</th>
+<th>bill_depth_mm</th>
+<th>flipper_length_mm</th>
+<th>body_mass_g</th>
+<th>sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>Male</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>Female</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>Female</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>Female</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Relevance is key. Pick attributes that you think might explian logical relationship to the conclusions you want to make.</li>
+<li>In our case, we are looking at the <code>height</code> variable.</li>
 </ul>
 </section>
-<section id="capstone-project" class="slide level2 scrollable">
-<h2>Capstone Project</h2>
-<p>Utilize various skills learned during the bootcamp to solve problems that needs AI.</p>
-<p>Tentative schedule:</p>
+<section id="statistics" class="slide level2 scrollable">
+<h2>Statistics</h2>
+<p><strong>Statistics</strong> (إحصاءات) is the study of how best to collect, analyze, and draw conclusions from data.</p>
+<p><strong>Descriptive Statistics</strong> (إحصاء وصفي) summarizes qualities of a group (of people or things):</p>
 <ol type="1">
-<li>Ideation and team formation (by end of week 4)</li>
-<li>Proposal, project plan, and approval (week 5)</li>
-<li>Phase 1 (end of week 6): progress presentation</li>
-<li>Phase 2 (end of week 7): progress presentation</li>
-<li>Final submission and evaluation (week 8)</li>
+<li>Using a <strong>Statistic / Parameter</strong> (إحصاءة) (mean, median, variance, range, ..etc.)<br>
+Numerical. It sums up variables across subjects to describe them in general.</li>
+<li>Using a <strong>Graph / Plot</strong> (رسم بياني) (points, lines, colors, size, text, ..etc.)<br>
+Visual. They simplify the data by doing local statistics (e.g., bins of bar plot).</li>
 </ol>
+<p>In both cases, we are interested in look at <strong>multipe</strong> statistics, and <strong>multiple</strong> graphs, before we move on to making conclusions.</p>
 </section>
-<section id="sessions-and-break-times" class="slide level2">
-<h2>Sessions and Break times</h2>
-<ul>
-<li><strong>Session 1</strong>: 9:00 PM - 10:30 PM</li>
-<li>10 minutes break</li>
-<li><strong>Session 2</strong>: 10:45 PM - 12:00 PM</li>
-<li>Lunch break 12:00 - 1:00 PM</li>
-<li><strong>Session 3 (Labs and Exercises)</strong>: 1:00 - 3:00 PM</li>
-</ul>
+<section id="inferentail-statistics" class="slide level2">
+<h2>Inferentail Statistics</h2>
+<p><strong>Inferential Statistics</strong> (احصاء استدلالي) goes from description to <strong>drawing conclusions</strong>.</p>
+
+<img data-src="../assets/inferential_statistics.png" class="r-stretch"><p>At its heart, statistics is the bridge between raw observation and useful information.</p>
 </section>
-<section id="pedagogy" class="slide level2">
-<h2>Pedagogy</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/tell_me_and_I_forget.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure: Benjamin Franklin quote"><img data-src="../assets/tell_me_and_I_forget.png" class="quarto-figure quarto-figure-center" alt="Figure: Benjamin Franklin quote"></a></p>
-</figure>
-</div>
-<figcaption>Figure: Benjamin Franklin quote</figcaption>
-</figure>
-</div>
-</section>
-<section id="learning-material" class="slide level2 scrollable">
-<h2>Learning Material</h2>
-<ol type="1">
-<li><strong>Slides</strong>: concepts, mental models, connecting ideas, and discussion</li>
-<li><strong>Labs</strong>: details, docs, debugging, and what-ifs</li>
-<li><strong>Exercises</strong>: do it yourself</li>
-</ol>
-</section>
-<section id="submit-your-work" class="slide level2 scrollable">
-<h2>Submit your Work</h2>
-<p>Your GitHub repo is your <strong>proof-of-work</strong>. Open the repo <a href="https://github.com/HassanAlgoz/B5/tree/main">HassanAlgoz/B5</a> then:</p>
-<ol type="1">
-<li class="fragment">Fork it from the GitHub website</li>
-<li class="fragment">Clone it using VS Code locally</li>
-<li class="fragment">Create a <code>student/</code> folder in which you will include:
-<ul>
-<li class="fragment">A <code>student/README.md</code> file with your full name in there</li>
-<li class="fragment"><strong>Exercises</strong></li>
-<li class="fragment"><strong>Projects</strong></li>
-</ul></li>
-</ol>
-</section>
-<section id="commit-exercises" class="slide level2 scrollable">
-<h2>Commit Exercises</h2>
-<p><strong>Mandatory</strong>: it is required that you follow this instruction to get graded:</p>
-<ol type="1">
-<li class="fragment">First, <code>git add</code> and <code>git commit</code> the exercise before solving it.</li>
-<li class="fragment">Each subsequent commit must have
-<ol type="1">
-<li class="fragment">Course number</li>
-<li class="fragment">Module number</li>
-<li class="fragment">Exercise number or name</li>
-<li class="fragment">Question number or title</li>
-</ol></li>
-<li class="fragment">Exercises are due end of day (11:59 PM)<br>
-Make sure to <code>git push</code> before then</li>
-</ol>
-</section>
-<section id="clean-commit-examples" class="slide level2 scrollable">
-<h2>Clean Commit Examples</h2>
-<p>It is mandatory to follow this example:</p>
-<ul>
-<li class="fragment"><strong>Execises</strong>:
-<ol type="1">
-<li class="fragment"><code>C1 M2 Ex1: init</code> (1st exercise)</li>
-<li class="fragment"><code>C1 M2 Ex1: q1</code> (question 1 solved)</li>
-<li class="fragment"><code>C1 M2 Ex1: q2</code></li>
-<li class="fragment"><code>C1 M2 Ex2: init</code> (started 2nd exercise)</li>
-</ol></li>
-<li class="fragment"><strong>Projects</strong>:
-<ol type="1">
-<li class="fragment"><code>C1 Project: init</code></li>
-<li class="fragment"><code>C1 Project: step 1. univariate analysis</code></li>
-<li class="fragment"><code>C1 Project: step 2. pairplots</code></li>
-</ol></li>
-</ul>
-</section>
-<section id="frequent-one-to-one-check-ins" class="slide level2 scrollable">
-<h2>Frequent one-to-one check-ins</h2>
-<p>By end of each day, we will have one-to-one check-ins with you (random selection):</p>
-<ol type="1">
-<li>You will lose points if you did not commit (and push) exercise solution by end of yesterday</li>
-<li>You will lose points if your commits aren’t clean</li>
-</ol>
-<p>If both of the above are good:</p>
-<ol type="1">
-<li>You will be asked to open the laptop, show and explain your solutions to specific exercises</li>
-<li>You will be asked a few questions about the learning material covered so far</li>
-</ol>
-</section>
-<section id="evaluation" class="slide level2 scrollable">
-<h2>Evaluation</h2>
-<ol type="1">
-<li><strong>Weekly Quiz</strong>: test your understanding</li>
-<li><strong>Weekly Project (individual)</strong>: apply learned skills</li>
-<li><strong>Project Presentation</strong>: on the day we start the next course (usually Sunday)<br>
-Prepare to be asked during the presentation about your work.</li>
-</ol>
-</section>
-<section id="why-presentations" class="slide level2 scrollable">
-<h2>Why Presentations?</h2>
-<ul>
-<li class="fragment">Your success in life depends on three key elements:
-<ol type="1">
-<li class="fragment">Your ability to <strong>speak</strong></li>
-<li class="fragment">Your ability to <strong>write</strong></li>
-<li class="fragment">The <strong>quality of your ideas</strong></li>
-</ol></li>
-<li class="fragment">.. in that order (as <a href="https://www.youtube.com/watch?v=Unzc731iCUY">Professor Winston puts it</a>).</li>
-<li class="fragment">Your ability to communicate ideas is ultimately more critical to your success than the ideas themselves.</li>
-</ul>
-</section>
-<section id="bad-students" class="slide level2 scrollable">
-<h2>Bad Students</h2>
-<ol type="1">
-<li class="fragment">Let AI handle everything</li>
-<li class="fragment">Use someone else’s work</li>
-<li class="fragment">Skip content and not put in any effort</li>
-<li class="fragment">Unaware of required work to be done</li>
-<li class="fragment">Don’t commit as per the instructions</li>
-</ol>
-</section>
-<section id="good-students" class="slide level2 scrollable">
-<h2>Good Students</h2>
-<ol type="1">
-<li class="fragment">You are honest and consistent in putting in the required effort in class</li>
-<li class="fragment">You pay attention to instructions and ask when things aren’t clear</li>
-<li class="fragment">You ask the right questions; for the sake of learning</li>
-<li class="fragment">You are not afraid of making mistakes; for the sake of exceeding your limits</li>
-</ol>
-</section>
-<section id="the-end" class="title-slide slide level1 center">
-<h1>The End</h1>
+<section id="lab" class="slide level2">
+<h2>Lab</h2>
+<blockquote>
+<p>“involve me and I remember”</p>
+</blockquote>
 
 
 </section>
@@ -325,20 +304,20 @@ Prepare to be asked during the presentation about your work.</li>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
