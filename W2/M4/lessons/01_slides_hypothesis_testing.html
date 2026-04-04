@@ -141,24 +141,6 @@
 </div>
 
 </section>
-<section id="from-description-to-claims" class="slide level2">
-<h2>From description to claims</h2>
-<p><strong>Descriptive statistics</strong> summarizes what you measured.</p>
-<p><strong>Inferential statistics</strong> goes further: informed guesses about a <strong>population</strong>, and <strong>checking claims</strong> against data—using clear rules.</p>
-<aside class="notes">
-<p>Frame the notebook’s arc: we already know how to summarize samples; now we ask whether patterns are <strong>more than noise</strong>. Tie to the course story (e.g., “Are NBA players really taller?”): that is inference, not just plotting means.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="descriptive-vs-inferential" class="slide level2">
 <h2>Descriptive vs inferential</h2>
 <div class="columns">
@@ -170,9 +152,10 @@
 </ul>
 <p>We make <strong>claims</strong> and test them with defined procedures.</p>
 </div><div class="column" style="width:60%;">
-<p><a href="../../assets/inferential-statistics.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../../assets/inferential-statistics.png" style="width:100.0%" alt="Diagram contrasting descriptive and inferential statistics"></a></p>
+<p><a href="../../assets/inferential-statistics.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../../assets/inferential-statistics.png" alt="Diagram contrasting descriptive and inferential statistics"></a></p>
 </div></div>
 <aside class="notes">
+<p>Frame the notebook’s arc: we already know how to summarize samples; now we ask whether patterns are <strong>more than noise</strong>. Tie to the course story (e.g., “Are NBA players really taller?”): that is inference, not just plotting means.</p>
 <p>Walk the diagram: descriptive stays with the sample; inference reaches toward the population or toward “if we repeated the study.” The external image in the notebook serves the same role; this local asset matches the idea. Emphasize: inference always involves <strong>assumptions</strong> and <strong>limits</strong>—we will name a few (normality, independence) later.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -198,7 +181,7 @@
 </ul>
 <p><strong>Question:</strong> how do we test such statements against reality—not with one story, but with data?</p>
 <aside class="notes">
-<p>Use this slide to surface <strong>anecdotes</strong> vs <strong>systematic evidence</strong>. Do not dismiss anecdotes; they generate hypotheses—but they do not replace sampling and tests. Transition: we formalize claims as (H_0) and (H_a).</p>
+<p>Use this slide to surface <strong>anecdotes</strong> vs <strong>systematic evidence</strong>. Do not dismiss anecdotes; they generate hypotheses—but they do not replace sampling and tests. Transition: we formalize claims as <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_a\)</span>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -215,12 +198,12 @@
 <h2>Two competing statements</h2>
 <p>In every formal test we line up:</p>
 <ol type="1">
-<li><strong>Null hypothesis ((H_0)):</strong> the “status quo” or <strong>no effect</strong>. Any difference you see could be <strong>chance</strong> (sampling noise).<br>
+<li><strong>Null hypothesis (<span class="math inline">\(H_0\)</span>):</strong> the “status quo” or <strong>no effect</strong>. Any difference you see could be <strong>chance</strong> (sampling noise).<br>
 </li>
-<li><strong>Alternative hypothesis ((H_a) or (H_1)):</strong> what you seek evidence <strong>for</strong>—a real effect, difference, or relationship.</li>
+<li><strong>Alternative hypothesis (<span class="math inline">\(H_a\)</span> or <span class="math inline">\(H_1\)</span>):</strong> what you seek evidence <strong>for</strong>—a real effect, difference, or relationship.</li>
 </ol>
 <aside class="notes">
-<p>Stress language: we never “prove (H_0)” in a single study; we <strong>fail to reject</strong> it when evidence is weak. That sets up the p-value slide. Students often confuse “accept null” with “no effect”—correct that gently.</p>
+<p>Stress language: we never “prove <span class="math inline">\(H_0\)</span>” in a single study; we <strong>fail to reject</strong> it when evidence is weak. That sets up the p-value slide. Students often confuse “accept null” with “no effect”—correct that gently.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -245,7 +228,7 @@
 <li>A new drug → compare <strong>survival</strong> in treatment vs <strong>control</strong> (placebo), not one patient.</li>
 </ul>
 <aside class="notes">
-<p>Use the notebook’s three vignettes quickly: news story, two students at Duke, friend’s dad. For each, name the <strong>population parameter</strong> (mean (), proportion (p), survival rate) and the need for <strong>comparison groups</strong> where relevant.</p>
+<p>Use the notebook’s three vignettes quickly: news story, two students at Duke, friend’s dad. For each, name the <strong>population parameter</strong> (mean <span class="math inline">\(\mu\)</span>, proportion <span class="math inline">\(p\)</span>, survival rate) and the need for <strong>comparison groups</strong> where relevant.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -270,34 +253,34 @@
 <thead>
 <tr class="header">
 <th>Example</th>
-<th>(H_0)</th>
-<th>(H_a)</th>
+<th><span class="math inline">\(H_0\)</span></th>
+<th><span class="math inline">\(H_a\)</span></th>
 <th>Parameter</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Mercury</td>
-<td>Mean () 1.0 ppm</td>
-<td>Mean (&gt;) 1.0 ppm</td>
-<td>()</td>
+<td>Mean <span class="math inline">\(\le\)</span> 1.0 ppm</td>
+<td>Mean <span class="math inline">\(&gt;\)</span> 1.0 ppm</td>
+<td><span class="math inline">\(\mu\)</span></td>
 </tr>
 <tr class="even">
 <td>Duke grad</td>
-<td>Rate () national avg.</td>
-<td>Rate (&gt;) national avg.</td>
-<td>(p)</td>
+<td>Rate <span class="math inline">\(\le\)</span> national avg.</td>
+<td>Rate <span class="math inline">\(&gt;\)</span> national avg.</td>
+<td><span class="math inline">\(p\)</span></td>
 </tr>
 <tr class="odd">
 <td>Heart drug</td>
-<td>Death rate (drug) (=) (placebo)</td>
-<td>Death rate (drug) (&lt;) (placebo)</td>
-<td>survival / (p)</td>
+<td>Death rate (drug) <span class="math inline">\(=\)</span> (placebo)</td>
+<td>Death rate (drug) <span class="math inline">\(&lt;\)</span> (placebo)</td>
+<td>survival / <span class="math inline">\(p\)</span></td>
 </tr>
 </tbody>
 </table>
 <aside class="notes">
-<p>This table is the bridge from English claims to symbols. Pause on <strong>direction</strong>: one-sided vs two-sided tests come from how (H_a) is stated. The lab will mirror this when they write hypotheses for their own questions.</p>
+<p>This table is the bridge from English claims to symbols. Pause on <strong>direction</strong>: one-sided vs two-sided tests come from how <span class="math inline">\(H_a\)</span> is stated. The lab will mirror this when they write hypotheses for their own questions.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -334,17 +317,17 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="p-values-and" class="slide level2">
-<h2>p-values and ()</h2>
+<section id="p-values-and-alpha" class="slide level2">
+<h2>p-values and <span class="math inline">\(\alpha\)</span></h2>
 <p>Test output includes a <strong>p-value</strong>.</p>
 <ul>
-<li>If <strong>p (&lt; )</strong> (convention: <strong>(= 0.05)</strong>), we <strong>reject (H_0)</strong>.<br>
+<li>If <strong>p <span class="math inline">\(&lt; \alpha\)</span></strong> (convention: <strong><span class="math inline">\(\alpha = 0.05\)</span></strong>), we <strong>reject <span class="math inline">\(H_0\)</span></strong>.<br>
 </li>
-<li>If <strong>p ()</strong>, we <strong>fail to reject (H_0)</strong>—not the same as “(H_0) is true.”</li>
+<li>If <strong>p <span class="math inline">\(\ge \alpha\)</span></strong>, we <strong>fail to reject <span class="math inline">\(H_0\)</span></strong>—not the same as “<span class="math inline">\(H_0\)</span> is true.”</li>
 </ul>
-<p><strong>Courtroom analogy:</strong> (H_0) () “innocent until proven guilty.” “Not guilty” can mean <strong>lack of evidence</strong>, not proof of innocence.</p>
+<p><strong>Courtroom analogy:</strong> <span class="math inline">\(H_0\)</span> <span class="math inline">\(\approx\)</span> “innocent until proven guilty.” “Not guilty” can mean <strong>lack of evidence</strong>, not proof of innocence.</p>
 <aside class="notes">
-<p>Hammer the wording: <strong>“fail to reject”</strong> not <strong>“accept”</strong>. Same as the notebook. If time, mention that () is a <strong>community convention</strong>, not a law of nature—preregistered studies may justify other thresholds.</p>
+<p>Hammer the wording: <strong>“fail to reject”</strong> not <strong>“accept”</strong>. Same as the notebook. If time, mention that <span class="math inline">\(\alpha\)</span> is a <strong>community convention</strong>, not a law of nature—preregistered studies may justify other thresholds.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -359,8 +342,6 @@
 </section>
 <section id="testing-differences-three-t-test-situations" class="slide level2 scrollable">
 <h2>Testing differences: three t-test situations</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
 <p><strong>t-tests</strong> compare <strong>means</strong> in three setups:</p>
 <ol type="1">
 <li><strong>One sample:</strong> sample mean vs a <strong>reference</strong> (population or standard).<br>
@@ -370,10 +351,8 @@
 <li><strong>Paired:</strong> same units <strong>twice</strong>, or <strong>natural pairs</strong> (twins, matched pairs).</li>
 </ol>
 <p><a href="https://youtu.be/Q_pO9NzWxPY">Video overview</a> (numiqo).</p>
-</div><div class="column" style="width:60%;">
-<p><a href="../../assets/t-test.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="../../assets/t-test.png" style="width:100.0%" alt="Diagram of one-sample, independent, and paired t-tests"></a></p>
-</div></div>
-<aside class="notes">
+
+<img data-src="../../assets/t-test.png" class="r-stretch quarto-figure quarto-figure-center"><aside class="notes">
 <p>Let the figure carry structure. After this slide, unpack each case in one slide each—fast, because the picture is the anchor.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -389,7 +368,7 @@
 </section>
 <section id="case-1-one-sample-vs-a-reference" class="slide level2">
 <h2>Case 1: One sample vs a reference</h2>
-<p>Compare ({x}) from <strong>your sample</strong> to a known or assumed <strong>()</strong>:</p>
+<p>Compare <span class="math inline">\(\bar{x}\)</span> from <strong>your sample</strong> to a known or assumed <strong><span class="math inline">\(\mu\)</span></strong>:</p>
 <ul>
 <li>Student heights vs <strong>national</strong> average.<br>
 </li>
@@ -486,7 +465,7 @@
 </tbody>
 </table>
 <aside class="notes">
-<p>Point to the <a href="https://docs.scipy.org/doc/scipy/reference/stats.html">SciPy stats docs</a>—students will copy-paste the right function once the <strong>question type</strong> is clear. Mention <strong>alternative</strong> (<code>two-sided</code>, <code>less</code>, <code>greater</code>) matches how (H_a) is directional.</p>
+<p>Point to the <a href="https://docs.scipy.org/doc/scipy/reference/stats.html">SciPy stats docs</a>—students will copy-paste the right function once the <strong>question type</strong> is clear. Mention <strong>alternative</strong> (<code>two-sided</code>, <code>less</code>, <code>greater</code>) matches how <span class="math inline">\(H_a\)</span> is directional.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -528,27 +507,12 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="assumptions-and-plan-b" class="slide level2">
-<h2>Assumptions (and Plan B)</h2>
-<p><strong>Classical t-tests</strong> assume <strong>roughly normal</strong> data (or large enough (n) for the mean to behave).</p>
-<p>If data are <strong>heavily skewed</strong> or dominated by <strong>outliers</strong>, <strong>non-parametric</strong> tests (e.g., <strong>Mann–Whitney</strong>, <strong>Wilcoxon</strong>) use <strong>ranks</strong> and are often safer for reporting “location” differences honestly.</p>
-<aside class="notes">
-<p>Do not turn this into a full assumptions course—flag <strong>check plots</strong> (histogram, QQ) and <strong>robust alternatives</strong>. The notebook states this in one paragraph; match that tone.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="beyond-two-groups-anova-preview" class="slide level2">
 <h2>Beyond two groups: ANOVA (preview)</h2>
-<p>A <strong>t-test</strong> compares <strong>two</strong> means. With <strong>three or more</strong> groups (e.g., penguin <strong>species</strong> on body mass), use <strong>one-way ANOVA</strong> as the omnibus test; <strong>Tukey HSD</strong> (or similar) for <strong>pairwise</strong> comparisons—<strong>not</strong> many separate t-tests without correction (inflates false positives).</p>
+<ul>
+<li>A <strong>t-test</strong> compares <strong>two</strong> means.</li>
+<li>With <strong>three or more</strong> groups (e.g., penguin <strong>species</strong> on body mass) use <strong>one-way ANOVA</strong> as the omnibus test; or better yet: <strong>Tukey HSD</strong>.</li>
+</ul>
 <aside class="notes">
 <p>The notebook adds ANOVA/Tukey briefly; mention <strong>multiple comparisons</strong> problem in one sentence. Full treatment belongs to follow-up reading or another session.</p>
 <style type="text/css">
@@ -566,19 +530,6 @@
 <section id="lab" class="slide level2">
 <h2>Lab</h2>
 <p><a href="../../../W2/M4/lessons/01_hypothesis_testing.html">Lab Notebook</a> — NBA heights, penguins, tips, paired spinach, ANOVA.</p>
-<aside class="notes">
-<p>Close the loop: slides = <strong>ideas and map</strong>; notebook = <strong>code, plots, numbers</strong>. Assign or suggest working through one example end-to-end before the next class.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 
 
 </section>

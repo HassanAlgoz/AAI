@@ -281,15 +281,15 @@ window.Quarto = {
 </header>
 
 
-<div id="bc81b34d" class="cell" data-execution_count="17">
+<div id="bc81b34d" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Example</strong>: we will demonstrate using datasets accessible from the seaborn library. Once you call <code>load_dataset</code>, it will load it into a DataFrame.</p>
-<div id="92e7ec52" class="cell" data-execution_count="18">
+<div id="92e7ec52" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -1148,6 +1148,18 @@ x &gt; Q_3 + 1.5 \times \text{IQR}
 <figcaption>Skewness</figcaption>
 </figure>
 </div>
+<p>This can be calculated using the <code>.skew()</code> method where:</p>
+<ul>
+<li><code>0</code> Perfectly Symmetrical (Normal).</li>
+<li><code>&gt;0</code> Right-skewed: Long tail on the right side.</li>
+<li><code>&lt;0</code> Left-skewed: Long tail on the left side.</li>
+</ul>
+<div id="1ec380dc" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'body_mass_g'</span>].skew()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>np.float64(0.470329330480123)</code></pre>
+</div>
+</div>
 </section>
 <section id="example-exponential-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="example-exponential-distribution">Example: Exponential Distribution</h3>
@@ -1183,13 +1195,15 @@ x &gt; Q_3 + 1.5 \times \text{IQR}
 <figcaption>Mirror Histogram</figcaption>
 </figure>
 </div>
+<p>Example: <a href="https://datasaudi.sa/en#population-pyramid">Population Pyramid</a></p>
+<p><a href="../assets/population_pyramid.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="../assets/population_pyramid.png" class="img-fluid"></a></p>
 </section>
 <section id="variation-2-ridgeline-plot" class="level3">
 <h3 class="anchored" data-anchor-id="variation-2-ridgeline-plot">Variation 2: Ridgeline Plot</h3>
 <p>A <a href="https://www.data-to-viz.com/graph/ridgeline.html"><strong>Ridgeline plot</strong></a> (sometimes called <strong>Joyplot</strong>) shows the distribution of a numeric value for several groups. Distribution can be represented using histograms or density plots, all aligned to the same horizontal scale and presented with a slight overlap.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Ridge Plot of Temperature in Lincoln NE in 2016"><img src="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" height="480" alt="Ridge Plot of Temperature in Lincoln NE in 2016" class="figure-img"></a></p>
+<p><a href="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Ridge Plot of Temperature in Lincoln NE in 2016"><img src="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" height="480" alt="Ridge Plot of Temperature in Lincoln NE in 2016" class="figure-img"></a></p>
 <figcaption>Ridge Plot of Temperature in Lincoln NE in 2016</figcaption>
 </figure>
 </div>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Visualization Exercises – Applied AI Bootcamp</title>
+<title>Exercise: Descriptive statistics with Palmer Penguins – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -74,6 +109,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -129,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Visualization Exercises</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Descriptive statistics with Palmer Penguins</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,19 +219,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#antibiotic-use-in-children" id="toc-antibiotic-use-in-children" class="nav-link active" data-scroll-target="#antibiotic-use-in-children">1. Antibiotic use in children</a></li>
-  <li><a href="#black-lives-matter." id="toc-black-lives-matter." class="nav-link" data-scroll-target="#black-lives-matter.">2. Black Lives Matter.</a></li>
-  <li><a href="#heart-transplant-data-display." id="toc-heart-transplant-data-display." class="nav-link" data-scroll-target="#heart-transplant-data-display.">3. Heart transplant data display.</a></li>
-  <li><a href="#meat-consumption-and-life-expectancy." id="toc-meat-consumption-and-life-expectancy." class="nav-link" data-scroll-target="#meat-consumption-and-life-expectancy.">4. Meat consumption and life expectancy.</a></li>
+  <li><a href="#meet-the-palmer-penguins" id="toc-meet-the-palmer-penguins" class="nav-link active" data-scroll-target="#meet-the-palmer-penguins">Meet the Palmer penguins</a></li>
+  <li><a href="#bill-dimensions" id="toc-bill-dimensions" class="nav-link" data-scroll-target="#bill-dimensions">Bill dimensions</a></li>
+  <li><a href="#a.-concepts-what-statistics-is-and-how-we-use-data" id="toc-a.-concepts-what-statistics-is-and-how-we-use-data" class="nav-link" data-scroll-target="#a.-concepts-what-statistics-is-and-how-we-use-data">A. Concepts: what statistics is and how we use data</a></li>
+  <li><a href="#b.-calculations-on-the-sample-proportion-mean-variance" id="toc-b.-calculations-on-the-sample-proportion-mean-variance" class="nav-link" data-scroll-target="#b.-calculations-on-the-sample-proportion-mean-variance">B. Calculations on the sample: proportion, mean, variance</a></li>
+  <li><a href="#c.-shape-of-distributions-vocabulary-and-examples" id="toc-c.-shape-of-distributions-vocabulary-and-examples" class="nav-link" data-scroll-target="#c.-shape-of-distributions-vocabulary-and-examples">C. Shape of distributions: vocabulary and examples</a></li>
+  <li><a href="#d.-percentiles-and-the-empirical-rule-normal-distribution" id="toc-d.-percentiles-and-the-empirical-rule-normal-distribution" class="nav-link" data-scroll-target="#d.-percentiles-and-the-empirical-rule-normal-distribution">D. Percentiles and the empirical rule (normal distribution)</a></li>
+  <li><a href="#e.-box-plot-read-the-graphic" id="toc-e.-box-plot-read-the-graphic" class="nav-link" data-scroll-target="#e.-box-plot-read-the-graphic">E. Box plot: read the graphic</a></li>
+  <li><a href="#f.-outliers" id="toc-f.-outliers" class="nav-link" data-scroll-target="#f.-outliers">F. Outliers</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="viz_exercises.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Visualization Exercises</h1>
+<h1 class="title">Exercise: Descriptive statistics with Palmer Penguins</h1>
 </div>
 
 
@@ -184,44 +252,106 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="antibiotic-use-in-children" class="level3">
-<h3 class="anchored" data-anchor-id="antibiotic-use-in-children">1. Antibiotic use in children</h3>
-<p>The bar plot and the pie chart below show the distribution of pre-existing medical conditions of children involved in a study on the optimal duration of antibiotic use in treatment of tracheitis, which is an upper respiratory infection.</p>
-<p><a href="../../assets/viz_exercise_1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../../assets/viz_exercise_1.png" class="img-fluid"></a></p>
-<ol type="a">
-<li><p>What features are apparent in the bar plot but not in the pie chart?</p></li>
-<li><p>What features are apparent in the pie chart but not in the bar plot?</p></li>
-<li><p>Which graph would you prefer to use for displaying these categorical data?</p></li>
-</ol>
+<p>This exercise uses the Palmer Penguins dataset (<code>seaborn.load_dataset('penguins')</code>) and ties directly to the <strong>M3-1: Statistical Analysis</strong> learning outcomes. Work through the sections in order. Where you are asked for prose, use your own words in a short paragraph unless a bullet list is requested.</p>
+<p>Dataset reference: <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="meet-the-palmer-penguins" class="level3">
+<h3 class="anchored" data-anchor-id="meet-the-palmer-penguins">Meet the Palmer penguins</h3>
+<p><a href="../assets/lter_penguins.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/lter_penguins.png" class="img-fluid"></a></p>
 </section>
-<section id="black-lives-matter." class="level3">
-<h3 class="anchored" data-anchor-id="black-lives-matter.">2. Black Lives Matter.</h3>
-<p>A Washington Post-Schar School poll conducted in the United States in June 2020, among a random national sample of 1,006 adults, asked respondents whether they support or oppose protests following George Floyd’s killing that have taken place in cities across the US. The survey also collected information on the age of the respondents. (Washington Post 2020) The results are summarized in the stacked bar plot below.</p>
-<p><a href="../../assets/viz_exercise_3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../../assets/viz_exercise_3.png" class="img-fluid"></a></p>
-<ol type="a">
-<li><p>Based on the stacked bar plot, do views on the protests and age appear to be associated? Explain your reasoning.</p></li>
-<li><p>Conjecture other possible variables that might explain the potential association between these two variables.</p></li>
-</ol>
+<section id="bill-dimensions" class="level3">
+<h3 class="anchored" data-anchor-id="bill-dimensions">Bill dimensions</h3>
+<p>The culmen is the upper ridge of a bird’s bill. In the simplified&nbsp;<code>penguins</code>&nbsp;data, culmen length and depth are renamed as variables&nbsp;<code>bill_length_mm</code>&nbsp;and&nbsp;<code>bill_depth_mm</code>&nbsp;to be more intuitive.</p>
+<p>For this penguin data, the culmen (bill) length and depth are measured as shown below (thanks Kristen Gorman for clarifying!):</p>
+<p><a href="../assets/culmen_depth.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../assets/culmen_depth.png" class="img-fluid"></a></p>
+<hr>
 </section>
-<section id="heart-transplant-data-display." class="level3">
-<h3 class="anchored" data-anchor-id="heart-transplant-data-display.">3. Heart transplant data display.</h3>
-<p>The Stanford University Heart Transplant Study was conducted to determine whether an experimental heart transplant program increased lifespan. Each patient entering the program was officially designated a heart transplant candidate, meaning that they were gravely ill and might benefit from a new heart. Patients were randomly assigned into treatment and control groups. Patients in the treatment group received a transplant, and those in the control group did not. The visualizations below display two different versions of the study results.9 (Turnbull, Brown, and Hu 1974)</p>
-<p><a href="../../assets/viz_exercise_5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../../assets/viz_exercise_5.png" class="img-fluid"></a></p>
-<ol type="a">
-<li><p>Provide one aspect of the two group comparison that is easier to see from the stacked bar plot (left)?</p></li>
-<li><p>Provide one aspect of the two group comparison that is easeir to see from the standardized bar plot (right)?</p></li>
-<li><p>For the Heart Transplant Study which of those aspects would be more important to display? That is, which bar plot would be better as a data visualization?</p></li>
-</ol>
+<section id="a.-concepts-what-statistics-is-and-how-we-use-data" class="level2">
+<h2 class="anchored" data-anchor-id="a.-concepts-what-statistics-is-and-how-we-use-data">A. Concepts: what statistics is and how we use data</h2>
+<p><strong>1.</strong> For this dataset, what is a reasonable <strong>population</strong> you might want to learn about? What is the <strong>sample</strong> you actually have in <code>df</code>? (One or two sentences each.)</p>
+<p><strong>2.</strong> List every column in <code>df</code>. For each, label it <strong>numerical</strong> or <strong>categorical</strong> (if a column could be debated, say why).</p>
+<p><strong>3.</strong> Give <strong>two new examples</strong> of variables that are clearly numerical and <strong>two</strong> that are clearly categorical <em>not</em> in this table (any domain you like).</p>
+<hr>
 </section>
-<section id="meat-consumption-and-life-expectancy." class="level3">
-<h3 class="anchored" data-anchor-id="meat-consumption-and-life-expectancy.">4. Meat consumption and life expectancy.</h3>
-<p>In data collected for You et al.&nbsp;(2022), total meat intake is associated with life expectancy (at birth) in 175 countries. Meat intake is measured in kg per capita per year (averaged over 2011 to 2013). The two ridge plots show an association between income and meat consumption (higher income countries tend to eat more meat) and an association between income and life expectancy (higher income countries have higher life expectancy).</p>
-<p><a href="../../assets/viz_exercise_7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../../assets/viz_exercise_7.png" class="img-fluid"></a></p>
-<ol type="a">
-<li><p>Do the graphs above demonstrate that meat consumption and life expectancy are associated? That is, can you tell if countries with low meat consumption have low life expectancy? Explain.</p></li>
-<li><p>Let’s assume that you had a plot comparing meat consumption and life expectancy, and they do seem associated. Your friend says that the plot shows that high meat consumption leads to a longer life. You correctly say, no, we can’t tell if there is a causal realtionship because the relationship is confounded by income level. Explain what you mean.</p></li>
-<li><p>How can you investigate the relationship between meat consumption and life expectancy in the presence of confounding variables (like income)?</p></li>
-</ol>
+<section id="b.-calculations-on-the-sample-proportion-mean-variance" class="level2">
+<h2 class="anchored" data-anchor-id="b.-calculations-on-the-sample-proportion-mean-variance">B. Calculations on the sample: proportion, mean, variance</h2>
+<p>Use the cleaned numeric columns only where needed (drop rows with missing body mass or bill length, or use <code>.dropna(subset=[...])</code> as you prefer). Show your code and round printed numbers sensibly.</p>
+<p><strong>1.</strong> For the variable <code>body_mass_g</code>:</p>
+<ul>
+<li>Compute the <strong>proportion</strong> of penguins with body mass <strong>greater than</strong> the overall median body mass (among non-missing values).</li>
+<li>Compute the <strong>mean</strong> and <strong>variance</strong> of <code>body_mass_g</code> (same subset).</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>2.</strong> For <code>body_mass_g</code>, identify at least <strong>two</strong> distributional summary measures that describe <strong>center</strong> and <strong>spread</strong> (name them and compute them). Optionally add a third that describes <strong>shape</strong> (e.g.&nbsp;skewness), if you know how to compute it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="c.-shape-of-distributions-vocabulary-and-examples" class="level2">
+<h2 class="anchored" data-anchor-id="c.-shape-of-distributions-vocabulary-and-examples">C. Shape of distributions: vocabulary and examples</h2>
+<p><strong>1.</strong> Briefly define each shape in your own words: <strong>normal (Gaussian)</strong>, <strong>uniform</strong>, <strong>skewed</strong>, <strong>exponential</strong>.</p>
+<p><strong>2.</strong> Give <strong>two real-world examples</strong> of quantities that are <em>often modeled as</em> roughly normally distributed (they need not be perfect). (you can search the internet)</p>
+<p><strong>3.</strong> Give <strong>one example</strong> of data that is typically <strong>not</strong> normal—e.g.&nbsp;<strong>exponential-like</strong> or strongly skewed—and say why. (you can search the internet)</p>
+<hr>
+</section>
+<section id="d.-percentiles-and-the-empirical-rule-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="d.-percentiles-and-the-empirical-rule-normal-distribution">D. Percentiles and the empirical rule (normal distribution)</h2>
+<p>Work on <code>body_mass_g</code> (non-missing) or <code>bill_length_mm</code>—pick one and stick to it for this section.</p>
+<p><strong>1.</strong> In plain language, explain what the <strong>75th percentile</strong> of body mass means for a penguin in this sample.</p>
+<p><strong>2.</strong> Compute the <strong>25th, 50th, and 75th percentiles</strong> for your chosen variable.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Assume for <strong>discussion</strong> that flipper length (or another chosen numeric column) were <strong>exactly</strong> normal with the mean and standard deviation you observe in the sample.</p>
+<p><strong>3.</strong> For a normal distribution, explain what share of values fall within <strong>1</strong>, <strong>2</strong>, and <strong>3 standard deviations</strong> of the mean (the empirical rule). Then <strong>compute</strong> the interval <span class="math inline">\(\mu \pm 1\sigma\)</span>, <span class="math inline">\(\mu \pm 2\sigma\)</span>, and <span class="math inline">\(\mu \pm 3\sigma\)</span> using your sample <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> for that variable.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="e.-box-plot-read-the-graphic" class="level2">
+<h2 class="anchored" data-anchor-id="e.-box-plot-read-the-graphic">E. Box plot: read the graphic</h2>
+<p><strong>1.</strong> (SOLVED) Draw a <strong>box plot</strong> of <code>body_mass_g</code>, split by <code>species</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: boxplot-body-mass-by-species</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Body mass (g) by penguin species"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df_box <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>, <span class="st">"species"</span>])</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_box, x<span class="op">=</span><span class="st">"species"</span>, y<span class="op">=</span><span class="st">"body_mass_g"</span>, hue<span class="op">=</span><span class="st">'sex'</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Body mass by species"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Species"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Body mass (g)"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>2.</strong> On your plot, <strong>label or describe</strong> what each part represents: median, quartiles, whiskers, and points outside the whiskers (if any). What does the box width tell you?</p>
+<p><em>(Your interpretation.)</em></p>
+<p><strong>3.</strong> Write <strong>two</strong> sentences about the sample using words like <strong>“most”</strong> and <strong>“few”</strong> (e.g.&nbsp;which species tend to be heavier). Base this only on what you see in the plot.</p>
+<p><em>(Your interpretation.)</em></p>
+<p><strong>4.</strong> Write <strong>one</strong> quantitative claim about the data (e.g.&nbsp;“the median body mass of Chinstrap is above 3500 g”). Then <strong>verify</strong> it with code (<code>groupby</code>, <code>median</code>, etc.) and state whether your claim was <strong>true or false</strong>.</p>
+<p><em>(Your claim and conclusion: write in prose.)</em></p>
+<p>Use the cell below as a starting point: it prints <strong>medians by species</strong> and shows one example check (Chinstrap median vs 3500 g). Adapt the last lines to match <em>your</em> claim.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: verify-median-example</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_v <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>, <span class="st">"species"</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>medians <span class="op">=</span> df_v.groupby(<span class="st">"species"</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">"body_mass_g"</span>].median()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Median body mass (g) by species:"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(medians)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Example verification — replace with checks that match your own claim</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>chin_median <span class="op">=</span> medians.get(<span class="st">"Chinstrap"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Example claim: Chinstrap median &gt; 3500 g"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Chinstrap median:"</span>, chin_median)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Claim is true:"</span>, chin_median <span class="op">&gt;</span> <span class="dv">3500</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="f.-outliers" class="level2">
+<h2 class="anchored" data-anchor-id="f.-outliers">F. Outliers</h2>
+<p><strong>1.</strong> Name <strong>two</strong> methods for identifying or <strong>removing outliers</strong> on a numeric column. For each, give a <strong>one-sentence</strong> explanation of the rule. Then show <strong>one</strong> method applied in code to flag outliers in <code>bill_length_mm</code> (do not delete them from the full dataset the count or indices is enough).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
