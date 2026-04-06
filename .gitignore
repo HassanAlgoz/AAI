@@ -22,3 +22,5 @@ _site/
 _freeze/
 .jupyter_cache/
 site_libs/
+
+en.openfoodfacts.org.products.tsv
