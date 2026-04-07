@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exercise: Statistical Visualization – Applied AI Bootcamp</title>
+<title>Exercise 2: Statistical Visualization – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -132,23 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../../W2/"> 
-<span class="menu-text">DS</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W3/"> 
-<span class="menu-text">ML</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W4/"> 
-<span class="menu-text">DL</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W5/"> 
-<span class="menu-text">Agentic</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W6/"> 
-<span class="menu-text">Vibe</span></a>
+<span class="menu-text">Data Science</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -161,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Statistical Visualization</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise 2: Statistical Visualization</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -193,14 +177,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#d.-categorical-data" id="toc-d.-categorical-data" class="nav-link" data-scroll-target="#d.-categorical-data">D. Categorical Data</a></li>
   <li><a href="#e.-relational-plots-and-aesthetics" id="toc-e.-relational-plots-and-aesthetics" class="nav-link" data-scroll-target="#e.-relational-plots-and-aesthetics">E. Relational Plots and Aesthetics</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="m3-2_exercise.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercise: Statistical Visualization</h1>
+<h1 class="title">Exercise 2: Statistical Visualization</h1>
 </div>
 
 
@@ -218,14 +202,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This exercise focuses on data visualization using <code>matplotlib</code> and <code>seaborn</code>. It covers the <strong>M3-2: Statistical Visualization</strong> learning outcomes. We will primarily use the Palmer Penguins dataset. Work through the sections in order.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="cell-3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+</div>
 <section id="a.-fundamentals-of-plotting" class="level2">
 <h2 class="anchored" data-anchor-id="a.-fundamentals-of-plotting">A. Fundamentals of plotting</h2>
 <p><strong>1.</strong> Explain the difference between a <code>figure</code> and an <code>axes</code> in <code>matplotlib</code>. (1-2 sentences)</p>
@@ -234,45 +219,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>(Your answer)</em></p>
 <p><strong>3.</strong> Briefly explain the difference between a <strong>Histogram</strong> and a <strong>Barplot</strong>. Which one is used to show the distribution of numerical data, and which is used for categorical data?</p>
 <p><em>(Your answer)</em></p>
-<hr>
 </section>
 <section id="b.-subplots-and-grids" class="level2">
 <h2 class="anchored" data-anchor-id="b.-subplots-and-grids">B. Subplots and Grids</h2>
 <p><strong>1.</strong> Using a seaborn <strong>figure-level</strong> function (like <code>sns.relplot</code> or <code>sns.displot</code>), create subplots using the <code>col</code> and <code>row</code> parameters. For example, plot <code>flipper_length_mm</code> vs <code>body_mass_g</code> across columns for <code>sex</code> and rows for <code>island</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-11" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>2.</strong> Using <strong>axes-level</strong> functions, create a figure with subplots (e.g., 1 row and 2 columns) using <code>plt.subplots</code>. - Plot a scatterplot of <code>bill_length_mm</code> vs <code>bill_depth_mm</code> on the first axes (<code>ax1</code>). - Plot a boxplot (or another axes-level plot of your choice) of <code>bill_length_mm</code> by <code>species</code> on the second axes (<code>ax2</code>). - Make sure to use <code>sharey=True</code> (or <code>sharex=True</code>) where appropriate so the subplots are linked on the shared dimension.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+<div id="cell-13" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="c.-visualizing-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="c.-visualizing-distributions">C. Visualizing Distributions</h2>
 <p><strong>1.</strong> Write code to show a <strong>box plot</strong> of <code>flipper_length_mm</code> separated by <code>species</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-15" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>2.</strong> Show two distributions on the same figure axes: plot the distribution of <code>body_mass_g</code> grouped by <code>sex</code> (e.g., using <code>sns.kdeplot</code>, or <code>sns.histplot</code> with overlapping transparent bins).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-17" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>3.</strong> Plot the Empirical Cumulative Distribution Function (<strong>ECDF</strong>) for <code>body_mass_g</code>, split by <code>species</code>. Briefly interpret what the plot tells you about how the species compare in weight.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-19" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><em>(Your interpretation here)</em></p>
 <p><strong>4.</strong> Plot a <strong>bi-variate histogram</strong> using <code>sns.histplot</code> showing <code>bill_length_mm</code> on the x-axis and <code>bill_depth_mm</code> on the y-axis. What does the intensity mapping (the color blocks) represent?</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-22" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><em>(Your interpretation here)</em></p>
-<hr>
 </section>
 <section id="d.-categorical-data" class="level2">
 <h2 class="anchored" data-anchor-id="d.-categorical-data">D. Categorical Data</h2>
 <p><strong>1.</strong> Visualize numerical vs categorical relationships using <code>sns.catplot()</code>. Plot <code>bill_depth_mm</code> across different <code>island</code>s. Experiment with different categorical plot kinds (e.g., <code>kind='violin'</code> or <code>kind='swarm'</code>).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-25" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>2.</strong> Visualize multiple categorical variables in one plot. Show a count of penguins by <code>island</code>, and further separate the counts by <code>species</code> (using the <code>hue</code> parameter in a count plot or a similar approach).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+<div id="cell-27" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="e.-relational-plots-and-aesthetics" class="level2">
 <h2 class="anchored" data-anchor-id="e.-relational-plots-and-aesthetics">E. Relational Plots and Aesthetics</h2>
 <p><strong>1.</strong> Relate two numerical variables using a simple <strong>scatter plot</strong>: plot <code>bill_length_mm</code> vs <code>flipper_length_mm</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-29" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>2.</strong> Enhance the scatter plot from the previous step by using different <strong>colors</strong> (<code>hue</code>), <strong>markers</strong> (<code>style</code>), and <strong>sizes</strong> (<code>size</code>) based on other variables in the dataset. Make the plot visually distinct and ensure it is readable.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+<div id="cell-31" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>

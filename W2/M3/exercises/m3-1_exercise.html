@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exercise: Descriptive statistics with Palmer Penguins – Applied AI Bootcamp</title>
+<title>Exercise 1: Descriptive statistics with Palmer Penguins – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -177,7 +177,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Descriptive statistics with Palmer Penguins</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise 1: Descriptive statistics with Palmer Penguins</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -212,14 +212,14 @@ window.Quarto = {
   <li><a href="#e.-box-plot-read-the-graphic" id="toc-e.-box-plot-read-the-graphic" class="nav-link" data-scroll-target="#e.-box-plot-read-the-graphic">E. Box plot: read the graphic</a></li>
   <li><a href="#f.-outliers" id="toc-f.-outliers" class="nav-link" data-scroll-target="#f.-outliers">F. Outliers</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="m3-1_exercise.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercise: Descriptive statistics with Palmer Penguins</h1>
+<h1 class="title">Exercise 1: Descriptive statistics with Palmer Penguins</h1>
 </div>
 
 
@@ -238,12 +238,14 @@ window.Quarto = {
 
 <p>This exercise uses the Palmer Penguins dataset (<code>seaborn.load_dataset('penguins')</code>) and ties directly to the <strong>M3-1: Statistical Analysis</strong> learning outcomes. Work through the sections in order. Where you are asked for prose, use your own words in a short paragraph unless a bullet list is requested.</p>
 <p>Dataset reference: <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins</a>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="cell-3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <section id="meet-the-palmer-penguins" class="level3">
 <h3 class="anchored" data-anchor-id="meet-the-palmer-penguins">Meet the Palmer penguins</h3>
 <p><a href="../assets/lter_penguins.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/lter_penguins.png" class="img-fluid"></a></p>
@@ -253,14 +255,12 @@ window.Quarto = {
 <p>The culmen is the upper ridge of a bird’s bill. In the simplified&nbsp;<code>penguins</code>&nbsp;data, culmen length and depth are renamed as variables&nbsp;<code>bill_length_mm</code>&nbsp;and&nbsp;<code>bill_depth_mm</code>&nbsp;to be more intuitive.</p>
 <p>For this penguin data, the culmen (bill) length and depth are measured as shown below (thanks Kristen Gorman for clarifying!):</p>
 <p><a href="../assets/culmen_depth.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../assets/culmen_depth.png" class="img-fluid"></a></p>
-<hr>
 </section>
 <section id="a.-concepts-what-statistics-is-and-how-we-use-data" class="level2">
 <h2 class="anchored" data-anchor-id="a.-concepts-what-statistics-is-and-how-we-use-data">A. Concepts: what statistics is and how we use data</h2>
 <p><strong>1.</strong> For this dataset, what is a reasonable <strong>population</strong> you might want to learn about? What is the <strong>sample</strong> you actually have in <code>df</code>? (One or two sentences each.)</p>
 <p><strong>2.</strong> List every column in <code>df</code>. For each, label it <strong>numerical</strong> or <strong>categorical</strong> (if a column could be debated, say why).</p>
 <p><strong>3.</strong> Give <strong>two new examples</strong> of variables that are clearly numerical and <strong>two</strong> that are clearly categorical <em>not</em> in this table (any domain you like).</p>
-<hr>
 </section>
 <section id="b.-calculations-on-the-sample-proportion-mean-variance" class="level2">
 <h2 class="anchored" data-anchor-id="b.-calculations-on-the-sample-proportion-mean-variance">B. Calculations on the sample: proportion, mean, variance</h2>
@@ -270,45 +270,49 @@ window.Quarto = {
 <li>Compute the <strong>proportion</strong> of penguins with body mass <strong>greater than</strong> the overall median body mass (among non-missing values).</li>
 <li>Compute the <strong>mean</strong> and <strong>variance</strong> of <code>body_mass_g</code> (same subset).</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-8" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>2.</strong> For <code>body_mass_g</code>, identify at least <strong>two</strong> distributional summary measures that describe <strong>center</strong> and <strong>spread</strong> (name them and compute them). Optionally add a third that describes <strong>shape</strong> (e.g.&nbsp;skewness), if you know how to compute it.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+<div id="cell-10" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="c.-shape-of-distributions-vocabulary-and-examples" class="level2">
 <h2 class="anchored" data-anchor-id="c.-shape-of-distributions-vocabulary-and-examples">C. Shape of distributions: vocabulary and examples</h2>
 <p><strong>1.</strong> Briefly define each shape in your own words: <strong>normal (Gaussian)</strong>, <strong>uniform</strong>, <strong>skewed</strong>, <strong>exponential</strong>.</p>
 <p><strong>2.</strong> Give <strong>two real-world examples</strong> of quantities that are <em>often modeled as</em> roughly normally distributed (they need not be perfect). (you can search the internet)</p>
 <p><strong>3.</strong> Give <strong>one example</strong> of data that is typically <strong>not</strong> normal—e.g.&nbsp;<strong>exponential-like</strong> or strongly skewed—and say why. (you can search the internet)</p>
-<hr>
 </section>
 <section id="d.-percentiles-and-the-empirical-rule-normal-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="d.-percentiles-and-the-empirical-rule-normal-distribution">D. Percentiles and the empirical rule (normal distribution)</h2>
 <p>Work on <code>body_mass_g</code> (non-missing) or <code>bill_length_mm</code>—pick one and stick to it for this section.</p>
-<p><strong>1.</strong> In plain language, explain what the <strong>75th percentile</strong> of body mass means for a penguin in this sample.</p>
-<p><strong>2.</strong> Compute the <strong>25th, 50th, and 75th percentiles</strong> for your chosen variable.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>1.</strong> In plain language, explain what the <strong>75th percentile</strong> of body mass means for a penguin in this sample. <strong>2.</strong> Compute the <strong>25th, 50th, and 75th percentiles</strong> for your chosen variable.</p>
+<div id="cell-13" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>Assume for <strong>discussion</strong> that flipper length (or another chosen numeric column) were <strong>exactly</strong> normal with the mean and standard deviation you observe in the sample.</p>
 <p><strong>3.</strong> For a normal distribution, explain what share of values fall within <strong>1</strong>, <strong>2</strong>, and <strong>3 standard deviations</strong> of the mean (the empirical rule). Then <strong>compute</strong> the interval <span class="math inline">\(\mu \pm 1\sigma\)</span>, <span class="math inline">\(\mu \pm 2\sigma\)</span>, and <span class="math inline">\(\mu \pm 3\sigma\)</span> using your sample <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> for that variable.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+<div id="cell-15" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="e.-box-plot-read-the-graphic" class="level2">
 <h2 class="anchored" data-anchor-id="e.-box-plot-read-the-graphic">E. Box plot: read the graphic</h2>
 <p><strong>1.</strong> (SOLVED) Draw a <strong>box plot</strong> of <code>body_mass_g</code>, split by <code>species</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: boxplot-body-mass-by-species</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Body mass (g) by penguin species"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<div id="boxplot-body-mass-by-species" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>df_box <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>, <span class="st">"species"</span>])</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>df_box <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>, <span class="st">"species"</span>])</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_box, x<span class="op">=</span><span class="st">"species"</span>, y<span class="op">=</span><span class="st">"body_mass_g"</span>, hue<span class="op">=</span><span class="st">'sex'</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Body mass by species"</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Species"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Body mass (g)"</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">4</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df_box, x<span class="op">=</span><span class="st">"species"</span>, y<span class="op">=</span><span class="st">"body_mass_g"</span>, hue<span class="op">=</span><span class="st">'sex'</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Body mass by species"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Species"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Body mass (g)"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>2.</strong> On your plot, <strong>label or describe</strong> what each part represents: median, quartiles, whiskers, and points outside the whiskers (if any). What does the box width tell you?</p>
 <p><em>(Your interpretation.)</em></p>
 <p><strong>3.</strong> Write <strong>two</strong> sentences about the sample using words like <strong>“most”</strong> and <strong>“few”</strong> (e.g.&nbsp;which species tend to be heavier). Base this only on what you see in the plot.</p>
@@ -316,26 +320,28 @@ window.Quarto = {
 <p><strong>4.</strong> Write <strong>one</strong> quantitative claim about the data (e.g.&nbsp;“the median body mass of Chinstrap is above 3500 g”). Then <strong>verify</strong> it with code (<code>groupby</code>, <code>median</code>, etc.) and state whether your claim was <strong>true or false</strong>.</p>
 <p><em>(Your claim and conclusion: write in prose.)</em></p>
 <p>Use the cell below as a starting point: it prints <strong>medians by species</strong> and shows one example check (Chinstrap median vs 3500 g). Adapt the last lines to match <em>your</em> claim.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: verify-median-example</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_v <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>, <span class="st">"species"</span>])</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>medians <span class="op">=</span> df_v.groupby(<span class="st">"species"</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">"body_mass_g"</span>].median()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Median body mass (g) by species:"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(medians)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Example verification — replace with checks that match your own claim</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>chin_median <span class="op">=</span> medians.get(<span class="st">"Chinstrap"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Example claim: Chinstrap median &gt; 3500 g"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Chinstrap median:"</span>, chin_median)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Claim is true:"</span>, chin_median <span class="op">&gt;</span> <span class="dv">3500</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
+<div id="verify-median-example" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_v <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna(subset<span class="op">=</span>[<span class="st">"body_mass_g"</span>, <span class="st">"species"</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>medians <span class="op">=</span> df_v.groupby(<span class="st">"species"</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">"body_mass_g"</span>].median()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Median body mass (g) by species:"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(medians)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Example verification — replace with checks that match your own claim</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>chin_median <span class="op">=</span> medians.get(<span class="st">"Chinstrap"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Example claim: Chinstrap median &gt; 3500 g"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Chinstrap median:"</span>, chin_median)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"  Claim is true:"</span>, chin_median <span class="op">&gt;</span> <span class="dv">3500</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="f.-outliers" class="level2">
 <h2 class="anchored" data-anchor-id="f.-outliers">F. Outliers</h2>
 <p><strong>1.</strong> Name <strong>two</strong> methods for identifying or <strong>removing outliers</strong> on a numeric column. For each, give a <strong>one-sentence</strong> explanation of the rule. Then show <strong>one</strong> method applied in code to flag outliers in <code>bill_length_mm</code> (do not delete them from the full dataset the count or indices is enough).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-27" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>

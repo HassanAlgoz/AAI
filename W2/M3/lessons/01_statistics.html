@@ -206,39 +206,49 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#counts" id="toc-counts" class="nav-link active" data-scroll-target="#counts">Counts</a></li>
-  <li><a href="#proportion" id="toc-proportion" class="nav-link" data-scroll-target="#proportion">Proportion</a></li>
-  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions">Distributions</a>
+  <li><a href="#distributions" id="toc-distributions" class="nav-link active" data-scroll-target="#distributions">Distributions</a>
+  <ul class="collapse">
+  <li><a href="#counts" id="toc-counts" class="nav-link" data-scroll-target="#counts">Counts</a></li>
+  <li><a href="#proportions" id="toc-proportions" class="nav-link" data-scroll-target="#proportions">Proportions</a></li>
+  <li><a href="#numerical-variable-distribution" id="toc-numerical-variable-distribution" class="nav-link" data-scroll-target="#numerical-variable-distribution">Numerical Variable Distribution</a></li>
+  <li><a href="#binning" id="toc-binning" class="nav-link" data-scroll-target="#binning">Binning</a></li>
+  <li><a href="#visualizing-numerical-distribution-histogram" id="toc-visualizing-numerical-distribution-histogram" class="nav-link" data-scroll-target="#visualizing-numerical-distribution-histogram">Visualizing Numerical Distribution: Histogram</a></li>
+  </ul></li>
+  <li><a href="#distribution-statistics" id="toc-distribution-statistics" class="nav-link" data-scroll-target="#distribution-statistics">Distribution Statistics</a>
   <ul class="collapse">
   <li><a href="#central-tendency" id="toc-central-tendency" class="nav-link" data-scroll-target="#central-tendency">1. Central Tendency</a></li>
   <li><a href="#dispersion" id="toc-dispersion" class="nav-link" data-scroll-target="#dispersion">2. Dispersion</a></li>
   <li><a href="#percentiles" id="toc-percentiles" class="nav-link" data-scroll-target="#percentiles">Percentiles</a></li>
-  <li><a href="#visualizing-the-distribution" id="toc-visualizing-the-distribution" class="nav-link" data-scroll-target="#visualizing-the-distribution">Visualizing the Distribution</a></li>
+  <li><a href="#skewness" id="toc-skewness" class="nav-link" data-scroll-target="#skewness">3. Skewness</a></li>
   </ul></li>
+  <li><a href="#comparing-distributions-nba-vs-the-rest" id="toc-comparing-distributions-nba-vs-the-rest" class="nav-link" data-scroll-target="#comparing-distributions-nba-vs-the-rest">Comparing Distributions: NBA vs the rest</a></li>
   <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution">The Normal Distribution</a>
   <ul class="collapse">
+  <li><a href="#distribution-is-the-same-across-linear-scales" id="toc-distribution-is-the-same-across-linear-scales" class="nav-link" data-scroll-target="#distribution-is-the-same-across-linear-scales">Distribution is the same across linear scales</a></li>
+  <li><a href="#other-examples-of-normal-distribution" id="toc-other-examples-of-normal-distribution" class="nav-link" data-scroll-target="#other-examples-of-normal-distribution">Other examples of Normal Distribution</a></li>
   <li><a href="#example-1-students-scores-interactive" id="toc-example-1-students-scores-interactive" class="nav-link" data-scroll-target="#example-1-students-scores-interactive">Example 1: Students Scores (Interactive)</a></li>
-  <li><a href="#box-and-whiskers-plot" id="toc-box-and-whiskers-plot" class="nav-link" data-scroll-target="#box-and-whiskers-plot">Box-and-whiskers Plot</a></li>
   <li><a href="#example-2-comparative-iq-distribution" id="toc-example-2-comparative-iq-distribution" class="nav-link" data-scroll-target="#example-2-comparative-iq-distribution">Example 2: Comparative IQ Distribution</a></li>
   </ul></li>
   <li><a href="#outliers-out-of-normal" id="toc-outliers-out-of-normal" class="nav-link" data-scroll-target="#outliers-out-of-normal">Outliers: Out-of-normal</a>
   <ul class="collapse">
   <li><a href="#z-score-method" id="toc-z-score-method" class="nav-link" data-scroll-target="#z-score-method">1. Z-Score Method</a></li>
   <li><a href="#iqr-method" id="toc-iqr-method" class="nav-link" data-scroll-target="#iqr-method">2. IQR Method</a></li>
+  <li><a href="#box-and-whiskers-plot" id="toc-box-and-whiskers-plot" class="nav-link" data-scroll-target="#box-and-whiskers-plot">Box-and-whiskers Plot</a></li>
+  <li><a href="#comparing-iqr-z-score-methods" id="toc-comparing-iqr-z-score-methods" class="nav-link" data-scroll-target="#comparing-iqr-z-score-methods">Comparing IQR &amp; Z-score methods</a></li>
   </ul></li>
   <li><a href="#interpreting-distributions" id="toc-interpreting-distributions" class="nav-link" data-scroll-target="#interpreting-distributions">Interpreting Distributions</a>
   <ul class="collapse">
   <li><a href="#interpreting-outliers" id="toc-interpreting-outliers" class="nav-link" data-scroll-target="#interpreting-outliers">Interpreting Outliers</a></li>
   </ul></li>
-  <li><a href="#other-distributions" id="toc-other-distributions" class="nav-link" data-scroll-target="#other-distributions">Other Distributions</a>
-  <ul class="collapse">
-  <li><a href="#skewness" id="toc-skewness" class="nav-link" data-scroll-target="#skewness">3. Skewness</a></li>
-  <li><a href="#example-exponential-distribution" id="toc-example-exponential-distribution" class="nav-link" data-scroll-target="#example-exponential-distribution">Example: Exponential Distribution</a></li>
-  </ul></li>
   <li><a href="#variations-of-distribution-plots" id="toc-variations-of-distribution-plots" class="nav-link" data-scroll-target="#variations-of-distribution-plots">Variations of Distribution Plots</a>
   <ul class="collapse">
   <li><a href="#variation-1-mirror-histogram" id="toc-variation-1-mirror-histogram" class="nav-link" data-scroll-target="#variation-1-mirror-histogram">Variation 1: Mirror Histogram</a></li>
   <li><a href="#variation-2-ridgeline-plot" id="toc-variation-2-ridgeline-plot" class="nav-link" data-scroll-target="#variation-2-ridgeline-plot">Variation 2: Ridgeline Plot</a></li>
+  </ul></li>
+  <li><a href="#other-distributions" id="toc-other-distributions" class="nav-link" data-scroll-target="#other-distributions">Other Distributions</a>
+  <ul class="collapse">
+  <li><a href="#example-exponential-distribution" id="toc-example-exponential-distribution" class="nav-link" data-scroll-target="#example-exponential-distribution">Example: Exponential Distribution</a></li>
+  <li><a href="#other-examples" id="toc-other-examples" class="nav-link" data-scroll-target="#other-examples">Other Examples</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01_statistics.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -265,15 +275,15 @@ window.Quarto = {
 </header>
 
 
-<div id="bc81b34d" class="cell" data-execution_count="2">
+<div id="bc81b34d" class="cell" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Example</strong>: we will demonstrate using datasets accessible from the seaborn library. Once you call <code>load_dataset</code>, it will load it into a DataFrame.</p>
-<div id="92e7ec52" class="cell" data-execution_count="3">
+<div id="92e7ec52" class="cell" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <div>
 
 
@@ -347,13 +357,20 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="counts" class="level2">
-<h2 class="anchored" data-anchor-id="counts">Counts</h2>
+<section id="distributions" class="level2">
+<h2 class="anchored" data-anchor-id="distributions">Distributions</h2>
+<p>The <strong>Distribution</strong> of a variable is the frequencies of its values</p>
+<ul>
+<li>For categorical variables (like <code>island</code>) they are just the <strong>proportions</strong> (relative counts)</li>
+<li>For numerical variables, we need <strong>binning</strong>; i.e., grouping ranges of numerical values into buckets (we’ll see this when we plot it)</li>
+</ul>
+<section id="counts" class="level3">
+<h3 class="anchored" data-anchor-id="counts">Counts</h3>
 <p>Statistics starts with <strong>Counts</strong>; the number of subjects with a certain characteristic.</p>
 <p>Example is the <code>value_counts()</code>, summarizing the count of each value in the variable column:</p>
-<div id="f35f7035" class="cell" data-execution_count="19">
+<div id="f35f7035" class="cell" data-execution_count="44">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'island'</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>island
 Biscoe       168
 Dream        124
@@ -362,12 +379,13 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>But we could also visualize it:</p>
-<div id="9f211ed7" class="cell" data-execution_count="20">
+<div id="9f211ed7" class="cell" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'island'</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    shrink<span class="op">=</span><span class="fl">0.8</span>, discrete<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">3</span>, aspect<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    discrete<span class="op">=</span><span class="va">True</span>, <span class="co"># categorical</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    shrink<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">3</span>, aspect<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -377,16 +395,16 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-<section id="proportion" class="level2">
-<h2 class="anchored" data-anchor-id="proportion">Proportion</h2>
+<section id="proportions" class="level3">
+<h3 class="anchored" data-anchor-id="proportions">Proportions</h3>
 <p>When ccounts are relative to the whole, it is called <strong>Proportion</strong> (<span class="math inline">\(\hat p\)</span>) or <em>Relative Frequency</em> and is often expressed in precentage (%).</p>
 <p><span class="math display">\[
 \hat{p} = \frac{n}{N}
 \]</span></p>
 <p>We can show this using <code>value_counts</code> with <code>normalize=True</code>, like so:</p>
-<div id="68bf1dc2" class="cell" data-execution_count="21">
+<div id="68bf1dc2" class="cell" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'island'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="46">
 <pre><code>island
 Biscoe       0.488372
 Dream        0.360465
@@ -395,13 +413,14 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 </div>
 <p>It can be expressed in seaborn <code>displot</code> by setting <code>stat="probability"</code>:</p>
-<div id="0c9b5cbc" class="cell" data-execution_count="32">
+<div id="0c9b5cbc" class="cell" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">'island'</span>, hue<span class="op">=</span><span class="st">'island'</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    shrink<span class="op">=</span><span class="fl">0.8</span>, discrete<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">3</span>, aspect<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">'probability'</span>  <span class="co"># Shows relative frequency</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    discrete<span class="op">=</span><span class="va">True</span>, <span class="co"># categorical</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    shrink<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">3</span>, aspect<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">'probability'</span>  <span class="co"># Shows relative frequency</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -412,18 +431,13 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 <p>Notice how the bars are always proportional whether we are using counts or frequencies on the y-axis.</p>
 </section>
-<section id="distributions" class="level2">
-<h2 class="anchored" data-anchor-id="distributions">Distributions</h2>
-<p>The <strong>Distribution</strong> of a variable is the frequencies of its values</p>
-<ul>
-<li>For categorical variables (like <code>island</code>) they are just the proportions</li>
-<li>For numerical variables, we need <strong>binning</strong>; i.e., grouping ranges of numerical values into buckets (we’ll see this when we plot it)</li>
-</ul>
+<section id="numerical-variable-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-variable-distribution">Numerical Variable Distribution</h3>
 <p>Let’s look at the NBA players dataset:</p>
-<div id="d48a33c5" class="cell" data-execution_count="23">
+<div id="d48a33c5" class="cell" data-execution_count="48">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../../data/nba_heights.csv'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="48">
 <div>
 
 
@@ -480,10 +494,10 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 </div>
 <p>Let’s look at the value counts of height in meters <code>h_meters</code> (numerical):</p>
-<div id="f224688f" class="cell" data-execution_count="24">
+<div id="f224688f" class="cell" data-execution_count="49">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> df[<span class="st">'h_meters'</span>].value_counts()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>counts.nlargest(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="49">
 <pre><code>h_meters
 2.06    58
 2.03    43
@@ -498,6 +512,63 @@ Name: proportion, dtype: float64</code></pre>
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
+</section>
+<section id="binning" class="level3">
+<h3 class="anchored" data-anchor-id="binning">Binning</h3>
+<div id="c8fd9224" class="cell" data-execution_count="116">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> pd.cut(df[<span class="st">'h_meters'</span>], bins<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>bin_counts <span class="op">=</span> bins.value_counts().sort_index()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>bin_counts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="116">
+<pre><code>h_meters
+(1.749, 1.827]      5
+(1.827, 1.904]     47
+(1.904, 1.981]    114
+(1.981, 2.059]     84
+(2.059, 2.136]    173
+(2.136, 2.213]     11
+(2.213, 2.29]       1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-numerical-distribution-histogram" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-numerical-distribution-histogram">Visualizing Numerical Distribution: Histogram</h3>
+<p>We can visualize the count of their heights with a <strong>Histogram</strong>, which is one type of <em>Distribution Plot</em>; named as such because it shows where the values of the variable <code>height</code> lie on the x-axis, and how many of them are there (count).</p>
+<p>Instead of showing all the values, we group them into <strong>Bins</strong> of uniform size, and represent how many values in the bin, vertically, by the height of bin itself.</p>
+<p>This is the simplest and most useful type of statistical plot. In seaborn, it is <code>displot</code> (distribution plot), like so:</p>
+<div id="bcdc000e" class="cell" data-execution_count="100">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.displot(df, x<span class="op">=</span><span class="st">'h_meters'</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.5</span>, height<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_statistics_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="01_statistics_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sometimes we use the <strong>Kernel Density Estimation plot</strong> (KDE) instead to show the distrubtion:</p>
+<div id="becfb253" class="cell" data-execution_count="118">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sns.displot(df, x<span class="op">=</span><span class="st">'h_meters'</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'kde'</span>, fill<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.5</span>, height<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_statistics_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="01_statistics_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="distribution-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="distribution-statistics">Distribution Statistics</h2>
 <p>We describe a distribtuion by three properties:</p>
 <ol type="1">
 <li><strong>Central Tendency</strong></li>
@@ -507,9 +578,9 @@ Name: count, dtype: int64</code></pre>
 <section id="central-tendency" class="level3">
 <h3 class="anchored" data-anchor-id="central-tendency">1. Central Tendency</h3>
 <ol type="1">
-<li><strong>Mode</strong>: the most frequent value (<span class="math inline">\(\bar{x}\)</span> or <span class="math inline">\(\mu\)</span>).</li>
+<li><strong>Mode</strong>: the most frequent value.</li>
 <li><strong>Median</strong>: the middle value when data are ordered.</li>
-<li><strong>Mean</strong> (average): the center of “mass”.</li>
+<li><strong>Mean</strong> (average): the center of “mass” (<span class="math inline">\(\bar{x}\)</span> or <span class="math inline">\(\mu\)</span>).</li>
 </ol>
 <p>The mean (<span class="math inline">\(\mu\)</span>) is the sum of the values divided by their count:</p>
 <p><span class="math display">\[
@@ -538,14 +609,14 @@ Name: count, dtype: int64</code></pre>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../../assets/variance_physical_metaphor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Physical Metaphor"><img src="../../assets/variance_physical_metaphor.png" class="img-fluid figure-img" alt="Physical Metaphor"></a></p>
+<p><a href="../../assets/variance_physical_metaphor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Physical Metaphor"><img src="../../assets/variance_physical_metaphor.png" class="img-fluid figure-img" alt="Physical Metaphor"></a></p>
 <figcaption>Physical Metaphor</figcaption>
 </figure>
 </div>
 <p>In Pandas, we simply call the <code>describe</code> method on the column (series), to get all these statistics:</p>
-<div id="d3379061" class="cell" data-execution_count="26">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'h_meters'</span>].describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div id="d3379061" class="cell" data-execution_count="121">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'h_meters'</span>].describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="121">
 <pre><code>count    435.000000
 mean       2.012483
 std        0.090078
@@ -570,37 +641,41 @@ Name: h_meters, dtype: float64</code></pre>
 <p>The <strong>median</strong> is the 50th percentile (<code>50%</code>) which means that 50% of the data points are below this value.</p>
 <p>The <code>25%</code> and the <code>75%</code> percentiles go by other names: - the 1st and 3rd quartiles - the Q1 and Q3 - the lower and upper quartiles</p>
 </section>
-<section id="visualizing-the-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="visualizing-the-distribution">Visualizing the Distribution</h3>
-<p>We can visualize the count of their heights with a <strong>Histogram</strong>, which is one type of <em>Distribution Plot</em>; named as such because it shows where the values of the variable <code>height</code> lie on the x-axis, and how many of them are there (count).</p>
-<p>Instead of showing all the values, we group them into <strong>Bins</strong> of uniform size, and represent how many values in the bin, vertically, by the height of bin itself.</p>
-<p>This is the simplest and most useful type of statistical plot. In seaborn, it is <code>displot</code> (distribution plot), like so:</p>
-<div id="ed3cb564" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.displot(df, x<span class="op">=</span><span class="st">'h_meters'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
+<section id="skewness" class="level3">
+<h3 class="anchored" data-anchor-id="skewness">3. Skewness</h3>
+<p>We get skewness when the distribution is <strong>not symmetric</strong>:</p>
+<ul>
+<li>The <em>Mode</em> is the peak</li>
+<li>The <em>Mean</em> pulls the curve downwards</li>
+<li>The <em>Median</em> follows the mean a little bit</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="01_statistics_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="../../assets/skewness.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Skewness"><img src="../../assets/skewness.png" height="480" alt="Skewness" class="figure-img"></a></p>
+<figcaption>Skewness</figcaption>
 </figure>
 </div>
+<p>This can be calculated using the <code>.skew()</code> method where:</p>
+<ul>
+<li><code>0</code> Perfectly Symmetrical (Normal).</li>
+<li><code>&gt;0</code> Right-skewed: Long tail on the right side.</li>
+<li><code>&lt;0</code> Left-skewed: Long tail on the left side.</li>
+</ul>
+<div id="22f5afbb" class="cell" data-execution_count="122">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'h_meters'</span>].skew()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="122">
+<pre><code>np.float64(-0.39538985680696676)</code></pre>
 </div>
 </div>
-<p>Sometimes we use the <strong>Kernel Density Estimation plot</strong> (KDE) instead to show the distrubtion:</p>
-<div id="b6a1bf41" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.displot(df, x<span class="op">=</span><span class="st">'h_meters'</span>, kind<span class="op">=</span><span class="st">'kde'</span>, fill<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="01_statistics_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="67520505" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source NBA Heights: https://github.com/simonwarchol/NBA-Height-Weight/blob/master/CSVs/total.csv</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>nba <span class="op">=</span> pd.read_csv(<span class="st">'/../../data/nba_heights.csv'</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>nba.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+</section>
+</section>
+<section id="comparing-distributions-nba-vs-the-rest" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-distributions-nba-vs-the-rest">Comparing Distributions: NBA vs the rest</h2>
+<div id="67520505" class="cell" data-execution_count="62">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source NBA Heights: https://github.com/simonwarchol/NBA-Height-Weight/blob/master/CSVs/total.csv</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>nba <span class="op">=</span> pd.read_csv(<span class="st">'../../data/nba_heights.csv'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>nba.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
 <div>
 
 
@@ -659,11 +734,11 @@ Name: h_meters, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="dc929d21" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source Human Heights: https://www.kaggle.com/datasets/burnoutminer/heights-and-weights-dataset</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>humans <span class="op">=</span> pd.read_csv(<span class="st">'../../data/SOCR-HeightWeight.csv'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>humans.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div id="dc929d21" class="cell" data-execution_count="63">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source Human Heights: https://www.kaggle.com/datasets/burnoutminer/heights-and-weights-dataset</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>humans <span class="op">=</span> pd.read_csv(<span class="st">'../../data/SOCR-HeightWeight.csv'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>humans.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="63">
 <div>
 
 
@@ -731,34 +806,66 @@ Name: h_meters, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="f0582914" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the distributions of both on the same plot</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(nba, x<span class="op">=</span><span class="st">'h_in'</span>, fill<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(humans, x<span class="op">=</span><span class="st">'Height(Inches)'</span>, fill<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># vertical line at the mean of the height for both</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plt.axvline(humans[<span class="st">'Height(Inches)'</span>].mean(), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.axvline(nba[<span class="st">'h_in'</span>].mean(), color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<pre><code>&lt;matplotlib.lines.Line2D at 0x766a3b5a45f0&gt;</code></pre>
-</div>
+<ul>
+<li>We will draw both distributions on the same plot, with different colors for comparison.</li>
+<li>The vertical line is the <strong>mean</strong></li>
+</ul>
+<div id="f0582914" class="cell" data-execution_count="111">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the distributions of both on the same plot</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(nba, x<span class="op">=</span><span class="st">'h_in'</span>, fill<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(humans, x<span class="op">=</span><span class="st">'Height(Inches)'</span>, fill<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># vertical line at the mean of the height for both</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(humans[<span class="st">'Height(Inches)'</span>].mean(), color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>plt.axvline(nba[<span class="st">'h_in'</span>].mean(), color<span class="op">=</span><span class="st">'blue'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-15-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="01_statistics_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></a></p>
+<p><a href="01_statistics_files/figure-html/cell-17-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="01_statistics_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
+<p><strong>What can we say about the Red distribution of height vs the Blue one?</strong></p>
 </section>
 <section id="the-normal-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="the-normal-distribution">The Normal Distribution</h2>
 <p>The <strong>Normal Distribution</strong> (or <strong>Gaussian Distribution</strong>) is a bell-shaped distribution that is symmetric around the mean, with the highest density of data points in the center.</p>
-<p>The <code>height</code> distribution of NBA players is one example.</p>
-<p>To check for that we first standardize the variable, which is done by calculating the <strong>z-score</strong>:</p>
+<p>Human <code>height</code> is one example of such distribution.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../../assets/normal_distribution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="The Normal Distribution"><img src="../../assets/normal_distribution.png" height="550" alt="The Normal Distribution" class="figure-img"></a></p>
+<figcaption>The Normal Distribution</figcaption>
+</figure>
+</div>
+<p><strong>The 68-95-99.7 Rule</strong>: In a perfect Gaussian distribution, data is distributed with mathematical precision. This is often called the <strong>Empirical Rule</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Distance from Mean</strong></th>
+<th><strong>Percentage of Data Included</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Within <span class="math inline">\(1\sigma\)</span></td>
+<td><strong>68.2%</strong></td>
+</tr>
+<tr class="even">
+<td>Within <span class="math inline">\(2\sigma\)</span></td>
+<td><strong>95.4%</strong></td>
+</tr>
+<tr class="odd">
+<td>Within <span class="math inline">\(3\sigma\)</span></td>
+<td><strong>99.7%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>To <em>standardize</em> the distribution values such that they are comparable and statistically interpretable (e.g., flagging outliers), we calculate the <strong>z-score</strong>:</p>
 <p><span class="math display">\[ z = \frac{x-\mu}{\sigma} \]</span></p>
 <p>Where:</p>
 <ul>
@@ -771,16 +878,16 @@ Name: h_meters, dtype: float64</code></pre>
 <li>adjusting by the standard deviation</li>
 </ol>
 <p>Let’s do it in code:</p>
-<div id="7d155062" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> z_score(series: pd.Series):</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (series <span class="op">-</span> series.mean()) <span class="op">/</span> series.std()</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'h_meters_z'</span>] <span class="op">=</span> z_score(df[<span class="st">'h_meters'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="045e5eb2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> z_score(series: pd.Series):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (series <span class="op">-</span> series.mean()) <span class="op">/</span> series.std()</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'h_z'</span>] <span class="op">=</span> z_score(df[<span class="st">'h_meters'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Each <code>height</code> value now has been mapped to a standard value, which we call the <code>z</code> score:</p>
-<div id="11de87cc" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'h_meters'</span>, <span class="st">'h_meters_z'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div id="fec9c7ac" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'h_meters'</span>, <span class="st">'h_z'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
 <div>
 
 
@@ -789,7 +896,7 @@ Name: h_meters, dtype: float64</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">h_meters</th>
-<th data-quarto-table-cell-role="th">h_meters_z</th>
+<th data-quarto-table-cell-role="th">h_z</th>
 </tr>
 </thead>
 <tbody>
@@ -855,63 +962,37 @@ Name: h_meters, dtype: float64</code></pre>
 </div>
 </div>
 </div>
+<section id="distribution-is-the-same-across-linear-scales" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-is-the-same-across-linear-scales">Distribution is the same across linear scales</h3>
 <p>Notice how the shape of the distribution itself doesn’t change what so ever:</p>
-<div id="af8569ba" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(df[<span class="st">'h_meters'</span>], fill<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(df[<span class="st">'h_meters_z'</span>], fill<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b94bbee9" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">12</span>))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(df[<span class="st">'h_in'</span>], fill<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(df[<span class="st">'h_meters'</span>], fill<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(df[<span class="st">'h_z'</span>], fill<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span>ax[<span class="dv">2</span>])</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-18-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="01_statistics_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="01_statistics_files/figure-html/cell-20-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="01_statistics_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>The 68-95-99.7 Rule</strong>: In a perfect Gaussian distribution, data is distributed with mathematical precision. This is often called the <strong>Empirical Rule</strong>:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 56%">
-<col style="width: 43%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Distance from Mean</strong></th>
-<th><strong>Percentage of Data Included</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Within <span class="math inline">\(1\sigma\)</span></td>
-<td><strong>68.2%</strong></td>
-</tr>
-<tr class="even">
-<td>Within <span class="math inline">\(2\sigma\)</span></td>
-<td><strong>95.4%</strong></td>
-</tr>
-<tr class="odd">
-<td>Within <span class="math inline">\(3\sigma\)</span></td>
-<td><strong>99.7%</strong></td>
-</tr>
-</tbody>
-</table>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../../assets/normal_distribution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="The Normal Distribution"><img src="../../assets/normal_distribution.png" height="550" alt="The Normal Distribution" class="figure-img"></a></p>
-<figcaption>The Normal Distribution</figcaption>
-</figure>
-</div>
+</section>
+<section id="other-examples-of-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="other-examples-of-normal-distribution">Other examples of Normal Distribution</h3>
 <p>Many other things in life follow the same distribution:</p>
 <ul>
 <li><strong>Biological Measurements</strong>: Beyond height, things like blood pressure, leaf lengths on a tree, or the birth weight of newborns follow this curve.</li>
 <li><strong>Manufacturing Errors</strong>: If a machine is set to cut <code>10cm</code> bolts, most will be exactly <code>10cm</code>. A few will be <code>10.01cm</code>, and a few <code>9.99cm</code>. Extremely rare outliers might be <code>10.1cm</code>.</li>
 <li><strong>Standardized Testing</strong>: Exams like the SAT or IQ tests are <em>specifically designed</em> so that the results fall into a normal distribution, allowing scorers to see how an individual compares to the “average” (<span class="math inline">\(\mu\)</span>).</li>
 </ul>
+</section>
 <section id="example-1-students-scores-interactive" class="level3">
 <h3 class="anchored" data-anchor-id="example-1-students-scores-interactive">Example 1: Students Scores (Interactive)</h3>
 <p>iIf students in a math class took a final exam, and the class average was 7.5 out of 10 and the standard deviation was 0.5 points. If the class scores follow a normal distribution, then this means that:</p>
@@ -925,72 +1006,42 @@ Name: h_meters, dtype: float64</code></pre>
 <li>Changing the <code>mean</code> would move the <code>median</code>, <code>min</code> and <code>max</code> statistics with it, but won’t have an effect on the <code>range</code> statistic.</li>
 <li>Changing the <code>std</code> would affect the <code>min</code> and <code>max</code> statistics and consequently, the <code>range</code> statstic, but won’t have an effect on the <code>median</code>.</li>
 </ul>
-<div id="7ecdecbc" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a NumPy ndarray of 1000 elements sampled from a normal distribution</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># with the specified mean and standard deviation.</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.random.normal(</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="fl">9.0</span>,   <span class="co"># Mean               &lt;&lt; CHANGE THIS</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    scale<span class="op">=</span><span class="fl">0.3</span>, <span class="co"># Standard Deviation &lt;&lt; CHANGE THIS</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="dv">1000</span>, <span class="co"># Number of observations</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the bell curve of the data.</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plt.hist(scores, bins<span class="op">=</span><span class="dv">40</span>, density<span class="op">=</span><span class="va">True</span>, <span class="bu">range</span><span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Score"</span>)</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Bell curve of student scores"</span>)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b3c71437" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a NumPy ndarray of 1000 elements sampled from a normal distribution</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># with the specified mean and standard deviation.</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.random.normal(</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="fl">7.5</span>,   <span class="co"># Mean               &lt;&lt; CHANGE THIS</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    scale<span class="op">=</span><span class="fl">0.5</span>, <span class="co"># Standard Deviation &lt;&lt; CHANGE THIS</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="dv">1000</span>, <span class="co"># Number of observations</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the bell curve of the data.</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>plt.hist(scores, bins<span class="op">=</span><span class="dv">40</span>, density<span class="op">=</span><span class="va">True</span>, <span class="bu">range</span><span class="op">=</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Score"</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Bell curve of student scores"</span>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-19-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="01_statistics_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="01_statistics_files/figure-html/cell-21-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="01_statistics_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>Try and Observe</strong>: try changing the mean and standard deviation in the above code to see how normal curve behaves.</p>
 </section>
-<section id="box-and-whiskers-plot" class="level3">
-<h3 class="anchored" data-anchor-id="box-and-whiskers-plot">Box-and-whiskers Plot</h3>
-<p>A <a href="https://www.data-to-viz.com/#boxplot"><strong>boxplot</strong></a> gives a nice summary of one or several numeric variables. The line that divides the box into 2 parts represents the median of the data. The end of the box shows the upper and lower quartiles. The extreme lines show the highest and lowest value excluding outliers.</p>
-<div id="e5062b39" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a NumPy ndarray of 1000 elements sampled from a normal distribution</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># with the specified mean and standard deviation.</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.random.normal(</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="fl">9.0</span>,   <span class="co"># Mean               &lt;&lt;----------------------------- CHANGE THIS</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    scale<span class="op">=</span><span class="fl">0.3</span>, <span class="co"># Standard Deviation &lt;&lt;----------------------------- CHANGE THIS</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="dv">1000</span>, <span class="co"># Number of observations</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the bell curve of the data.</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>plt.boxplot(scores, vert<span class="op">=</span><span class="va">False</span>, meanline<span class="op">=</span><span class="va">True</span>, showmeans<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Score"</span>)</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Bell curve of student scores"</span>)</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-20-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="01_statistics_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 <section id="example-2-comparative-iq-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="example-2-comparative-iq-distribution">Example 2: Comparative IQ Distribution</h3>
-<div id="d4a2e3fa" class="cell">
+<p><strong>What do you observe about the two overlapping distributions?</strong></p>
+<div id="d4a2e3fa" class="cell" data-execution_count="70">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-21-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="01_statistics_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="01_statistics_files/figure-html/cell-22-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="01_statistics_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1031,11 +1082,11 @@ z \geq +3
 \]</span></p>
 <p>More succiently:</p>
 <p><span class="math display">\[ \text{Outlier if:} \vert z \vert \geq 3 \]</span></p>
-<div id="b559c883" class="cell">
+<div id="b559c883" class="cell" data-execution_count="71">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="01_statistics_files/figure-html/cell-22-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="01_statistics_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="01_statistics_files/figure-html/cell-23-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="01_statistics_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1055,6 +1106,43 @@ x &gt; Q_3 + 1.5 \times \text{IQR}
 </figure>
 </div>
 </section>
+<section id="box-and-whiskers-plot" class="level3">
+<h3 class="anchored" data-anchor-id="box-and-whiskers-plot">Box-and-whiskers Plot</h3>
+<p>A <a href="https://www.data-to-viz.com/#boxplot"><strong>boxplot</strong></a> gives a nice summary of one or several numeric variables. The line that divides the box into 2 parts represents the median of the data. The end of the box shows the upper and lower quartiles. The extreme lines show the highest and lowest value excluding outliers.</p>
+<div id="6db659c4" class="cell" data-execution_count="140">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a NumPy ndarray of 1000 elements sampled from a normal distribution</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># with the specified mean and standard deviation.</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.random.normal(</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    loc<span class="op">=</span><span class="fl">9.0</span>,   <span class="co"># Mean               &lt;&lt;----------------------------- CHANGE THIS</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    scale<span class="op">=</span><span class="fl">0.3</span>, <span class="co"># Standard Deviation &lt;&lt;----------------------------- CHANGE THIS</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="dv">1000</span>, <span class="co"># Number of observations</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the bell curve of the data.</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">2</span>))</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>plt.boxplot(scores, vert<span class="op">=</span><span class="va">False</span>, meanline<span class="op">=</span><span class="va">True</span>, showmeans<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Score"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Bell curve of student scores"</span>)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="01_statistics_files/figure-html/cell-24-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="01_statistics_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-iqr-z-score-methods" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-iqr-z-score-methods">Comparing IQR &amp; Z-score methods</h3>
+<p>We notice that the IQR-method is more conservative; i.e., <strong>flags more outliers</strong> compared to the z-score method.</p>
+<p><a href="../assets/boxplot_vs_normal.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="../assets/boxplot_vs_normal.png" class="img-fluid"></a></p>
+</section>
 </section>
 <section id="interpreting-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="interpreting-distributions">Interpreting Distributions</h2>
@@ -1068,7 +1156,7 @@ x &gt; Q_3 + 1.5 \times \text{IQR}
 <p>Let’s visualize it:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../../assets/nba_comparative_distribution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Comparative Distribution of NBA Player’s Heights and Human Heights. Image Source: https://distributionofthings.com/human-height/"><img src="../../assets/nba_comparative_distribution.png" class="img-fluid figure-img" alt="Comparative Distribution of NBA Player’s Heights and Human Heights. Image Source: https://distributionofthings.com/human-height/"></a></p>
+<p><a href="../../assets/nba_comparative_distribution.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Comparative Distribution of NBA Player’s Heights and Human Heights. Image Source: https://distributionofthings.com/human-height/"><img src="../../assets/nba_comparative_distribution.png" class="img-fluid figure-img" alt="Comparative Distribution of NBA Player’s Heights and Human Heights. Image Source: https://distributionofthings.com/human-height/"></a></p>
 <figcaption>Comparative Distribution of NBA Player’s Heights and Human Heights. Image Source: https://distributionofthings.com/human-height/</figcaption>
 </figure>
 </div>
@@ -1100,8 +1188,33 @@ x &gt; Q_3 + 1.5 \times \text{IQR}
 <p>If you want to read more about human height, its evolution across the world and predictions for the future I encourage you to check out this great <a href="https://ourworldindata.org/human-height">article from Our World in Data</a>.</p>
 </section>
 </section>
+<section id="variations-of-distribution-plots" class="level2">
+<h2 class="anchored" data-anchor-id="variations-of-distribution-plots">Variations of Distribution Plots</h2>
+<section id="variation-1-mirror-histogram" class="level3">
+<h3 class="anchored" data-anchor-id="variation-1-mirror-histogram">Variation 1: Mirror Histogram</h3>
+<p>A common variation of the histogram is the <a href="https://python-graph-gallery.com/density-mirror/"><strong>mirror histogram</strong></a>: it puts face to face 2 histograms to compare their distribution.</p>
+<p><a href="../assets/population_pyramid.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="../assets/population_pyramid.png" class="img-fluid"></a></p>
+<p>See: <a href="https://datasaudi.sa/en#population-pyramid">Population Pyramid | DataSaudi.sa</a></p>
+</section>
+<section id="variation-2-ridgeline-plot" class="level3">
+<h3 class="anchored" data-anchor-id="variation-2-ridgeline-plot">Variation 2: Ridgeline Plot</h3>
+<p>A <a href="https://www.data-to-viz.com/graph/ridgeline.html"><strong>Ridgeline plot</strong></a> (sometimes called <strong>Joyplot</strong>) shows the distribution of a numeric value for several groups. Distribution can be represented using histograms or density plots, all aligned to the same horizontal scale and presented with a slight overlap.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Ridge Plot of Temperature in Lincoln NE in 2016"><img src="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" height="480" alt="Ridge Plot of Temperature in Lincoln NE in 2016" class="figure-img"></a></p>
+<figcaption>Ridge Plot of Temperature in Lincoln NE in 2016</figcaption>
+</figure>
+</div>
+</section>
+</section>
 <section id="other-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="other-distributions">Other Distributions</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../../assets/histogram_distributions.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Histogram Distributions"><img src="../../assets/histogram_distributions.png" height="600" alt="Histogram Distributions" class="figure-img"></a></p>
+<figcaption>Histogram Distributions</figcaption>
+</figure>
+</div>
 <p>We describe the distribtuion using these vocabularies:</p>
 <ol type="1">
 <li>Normal: symmetric triangle</li>
@@ -1111,46 +1224,12 @@ x &gt; Q_3 + 1.5 \times \text{IQR}
 <li>Bimodal: two normals together</li>
 <li>Multi-modal: many normals together</li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../../assets/histogram_distributions.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Histogram Distributions"><img src="../../assets/histogram_distributions.png" height="600" alt="Histogram Distributions" class="figure-img"></a></p>
-<figcaption>Histogram Distributions</figcaption>
-</figure>
-</div>
-<p>For examples, see the blog: <a href="https://distributionofthings.com/">Distribution of Things</a>.</p>
-<section id="skewness" class="level3">
-<h3 class="anchored" data-anchor-id="skewness">3. Skewness</h3>
-<p>We get skewness when the distribution is <strong>not symmetric</strong>:</p>
-<ul>
-<li>The <em>Mode</em> is the peak</li>
-<li>The <em>Mean</em> pulls the curve downwards</li>
-<li>The <em>Median</em> follows the mean a little bit</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../../assets/skewness.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Skewness"><img src="../../assets/skewness.png" height="480" alt="Skewness" class="figure-img"></a></p>
-<figcaption>Skewness</figcaption>
-</figure>
-</div>
-<p>This can be calculated using the <code>.skew()</code> method where:</p>
-<ul>
-<li><code>0</code> Perfectly Symmetrical (Normal).</li>
-<li><code>&gt;0</code> Right-skewed: Long tail on the right side.</li>
-<li><code>&lt;0</code> Left-skewed: Long tail on the left side.</li>
-</ul>
-<div id="1ec380dc" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'body_mass_g'</span>].skew()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>np.float64(0.470329330480123)</code></pre>
-</div>
-</div>
-</section>
 <section id="example-exponential-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="example-exponential-distribution">Example: Exponential Distribution</h3>
 <p>Distrubtion of Death by Age in Australia in the Year 2012.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../../assets/deaths-in-australia-in-the-year-2012.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Deaths in Australia in the year 2012"><img src="../../assets/deaths-in-australia-in-the-year-2012.png" height="480" alt="Deaths in Australia in the year 2012" class="figure-img"></a></p>
+<p><a href="../../assets/deaths-in-australia-in-the-year-2012.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Deaths in Australia in the year 2012"><img src="../../assets/deaths-in-australia-in-the-year-2012.png" height="480" alt="Deaths in Australia in the year 2012" class="figure-img"></a></p>
 <figcaption>Deaths in Australia in the year 2012</figcaption>
 </figure>
 </div>
@@ -1167,30 +1246,9 @@ x &gt; Q_3 + 1.5 \times \text{IQR}
 <li><strong>Insight:</strong> When data is skewed, the <strong>Median</strong> is often a better “typical” representation of the data than the Mean, because the Mean is overly sensitive to extreme outliers (infant mortality or early-life accidents).</li>
 </ul>
 </section>
-</section>
-<section id="variations-of-distribution-plots" class="level2">
-<h2 class="anchored" data-anchor-id="variations-of-distribution-plots">Variations of Distribution Plots</h2>
-<section id="variation-1-mirror-histogram" class="level3">
-<h3 class="anchored" data-anchor-id="variation-1-mirror-histogram">Variation 1: Mirror Histogram</h3>
-<p>A common variation of the histogram is the <a href="https://python-graph-gallery.com/density-mirror/"><strong>mirror histogram</strong></a>: it puts face to face 2 histograms to compare their distribution.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../../assets/mirror_histogram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Mirror Histogram"><img src="../../assets/mirror_histogram.png" class="img-fluid figure-img" alt="Mirror Histogram"></a></p>
-<figcaption>Mirror Histogram</figcaption>
-</figure>
-</div>
-<p>Example: <a href="https://datasaudi.sa/en#population-pyramid">Population Pyramid</a></p>
-<p><a href="../assets/population_pyramid.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="../assets/population_pyramid.png" class="img-fluid"></a></p>
-</section>
-<section id="variation-2-ridgeline-plot" class="level3">
-<h3 class="anchored" data-anchor-id="variation-2-ridgeline-plot">Variation 2: Ridgeline Plot</h3>
-<p>A <a href="https://www.data-to-viz.com/graph/ridgeline.html"><strong>Ridgeline plot</strong></a> (sometimes called <strong>Joyplot</strong>) shows the distribution of a numeric value for several groups. Distribution can be represented using histograms or density plots, all aligned to the same horizontal scale and presented with a slight overlap.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20" title="Ridge Plot of Temperature in Lincoln NE in 2016"><img src="../../assets/ridgeplot_temperature_in_lincoln_ne_in_2016.png" height="480" alt="Ridge Plot of Temperature in Lincoln NE in 2016" class="figure-img"></a></p>
-<figcaption>Ridge Plot of Temperature in Lincoln NE in 2016</figcaption>
-</figure>
-</div>
+<section id="other-examples" class="level3">
+<h3 class="anchored" data-anchor-id="other-examples">Other Examples</h3>
+<p>See the blog: <a href="https://distributionofthings.com/"><strong>Distribution of Things</strong></a>.</p>
 
 
 </section>

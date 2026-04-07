@@ -214,7 +214,7 @@ window.Quarto = {
   <li><a href="#wide-to-long-format-1" id="toc-wide-to-long-format-1" class="nav-link" data-scroll-target="#wide-to-long-format-1">Wide to long format</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="05_pd_reshape.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03_pd_reshape.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -240,7 +240,7 @@ window.Quarto = {
 
 <p>Subtitle: <strong>How to reshape the layout of tables</strong>.</p>
 <p>For more information see the user guide section on <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html">Reshaping</a>.</p>
-<div id="99bafa06" class="cell" data-execution_count="1">
+<div id="99bafa06" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="data-formats" class="level2">
@@ -256,7 +256,7 @@ window.Quarto = {
 </section>
 <section id="long-to-wide-table-format" class="level2">
 <h2 class="anchored" data-anchor-id="long-to-wide-table-format">Long to wide table format</h2>
-<div id="01874859" class="cell" data-execution_count="2">
+<div id="01874859" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"team"</span>:   [<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>],</span>
@@ -265,7 +265,7 @@ window.Quarto = {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -335,42 +335,44 @@ window.Quarto = {
 </div>
 <p>The&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.pivot.html#pandas.pivot" title="pandas.pivot"><code>pivot()</code></a>&nbsp;function is purely reshaping of the data: a single value for each index/column combination is required.</p>
 <p>We can use the following basic syntax to convert a pandas DataFrame from a long format to a wide format:</p>
-<div id="d497fc80" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pd.pivot(df, index<span class="op">=</span><span class="st">'team'</span>, columns<span class="op">=</span><span class="st">'player'</span>, values<span class="op">=</span><span class="st">'points'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div id="d497fc80" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pd.pivot(df, index<span class="op">=</span><span class="st">'player'</span>, columns<span class="op">=</span><span class="st">'team'</span>, values<span class="op">=</span><span class="st">'points'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th">player</th>
-<th data-quarto-table-cell-role="th">1</th>
-<th data-quarto-table-cell-role="th">2</th>
-<th data-quarto-table-cell-role="th">3</th>
-<th data-quarto-table-cell-role="th">4</th>
+<th data-quarto-table-cell-role="th">team</th>
+<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">B</th>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">team</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player</th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">A</th>
+<th data-quarto-table-cell-role="th">1</th>
 <td>11</td>
-<td>8</td>
-<td>10</td>
-<td>6</td>
+<td>12</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">B</th>
-<td>12</td>
+<th data-quarto-table-cell-role="th">2</th>
+<td>8</td>
 <td>5</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3</th>
+<td>10</td>
 <td>9</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6</td>
 <td>4</td>
 </tr>
 </tbody>
@@ -383,10 +385,10 @@ window.Quarto = {
 <section id="wide-to-long-format" class="level2">
 <h2 class="anchored" data-anchor-id="wide-to-long-format">Wide to long format</h2>
 <p>Starting again from the wide format table created in the previous section, we add a new index to the&nbsp;<code>DataFrame</code>&nbsp;with&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.reset_index.html#pandas.DataFrame.reset_index" title="pandas.DataFrame.reset_index"><code>reset_index()</code></a>, and use <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.melt.html#pandas.melt"><code>melt()</code></a> to make the column headers, the variable names in a newly created column.</p>
-<div id="a990526b" class="cell" data-execution_count="4">
+<div id="a990526b" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pivoted <span class="op">=</span> pd.pivot(df, index<span class="op">=</span><span class="st">'team'</span>, columns<span class="op">=</span><span class="st">'player'</span>, values<span class="op">=</span><span class="st">'points'</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pivoted.reset_index().melt(id_vars<span class="op">=</span>[<span class="st">'team'</span>], var_name<span class="op">=</span><span class="st">'player'</span>, value_name<span class="op">=</span><span class="st">'points'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -459,7 +461,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="air-quality-data">Air Quality Data</h2>
 <p>The air-quality data is provided in a so-called&nbsp;<strong>long format</strong>&nbsp;data representation with each observation on a separate row and each variable a separate column of the data table. The long/narrow format is also known as the&nbsp;<a href="https://www.jstatsoft.org/article/view/v059i10">tidy data format</a>.</p>
 <p>Let’s load it into <code>air_quality</code> DataFrame:</p>
-<div id="0010ade5" class="cell" data-execution_count="5">
+<div id="0010ade5" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://github.com/pandas-dev/pandas/blob/main/doc/data/air_quality_long.csv"</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>air_quality <span class="op">=</span> pd.read_csv(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    url.replace(<span class="st">"blob"</span>, <span class="st">"raw"</span>),</span>
@@ -467,7 +469,7 @@ window.Quarto = {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    parse_dates<span class="op">=</span><span class="va">True</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>air_quality.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -557,9 +559,9 @@ window.Quarto = {
 <p>and the index of the&nbsp;<code>DataFrame</code>&nbsp;is&nbsp;<code>datetime</code>, the datetime of the measurement.</p>
 </blockquote>
 <p>Keep in mind that we have 2 parameters:</p>
-<div id="151be582" class="cell" data-execution_count="6">
+<div id="151be582" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>air_quality[<span class="st">"parameter"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>parameter
 no2     3447
 pm25    1825
@@ -567,10 +569,10 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Let’s focus on <span class="math inline">\(NO2\)</span> data:</p>
-<div id="557f60a5" class="cell" data-execution_count="7">
+<div id="557f60a5" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>no2 <span class="op">=</span> air_quality[air_quality[<span class="st">"parameter"</span>] <span class="op">==</span> <span class="st">"no2"</span>]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>no2.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -751,7 +753,7 @@ Name: count, dtype: int64</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="05_pd_reshape_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="05_pd_reshape_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_pd_reshape_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="03_pd_reshape_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>

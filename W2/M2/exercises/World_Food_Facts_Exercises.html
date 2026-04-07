@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Pandas’ Function application – Applied AI Bootcamp</title>
+<title>Exercise 1 – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -135,23 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../../W2/"> 
-<span class="menu-text">DS</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W3/"> 
-<span class="menu-text">ML</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W4/"> 
-<span class="menu-text">DL</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W5/"> 
-<span class="menu-text">Agentic</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W6/"> 
-<span class="menu-text">Vibe</span></a>
+<span class="menu-text">Data Science</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -164,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Pandas’ Function application</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise 1</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,18 +174,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#tablewise-function-application-pipe" id="toc-tablewise-function-application-pipe" class="nav-link active" data-scroll-target="#tablewise-function-application-pipe">1. Tablewise Function Application: <code>pipe()</code></a></li>
-  <li><a href="#row-or-column-wise-function-application-applyfunc-axis0" id="toc-row-or-column-wise-function-application-applyfunc-axis0" class="nav-link" data-scroll-target="#row-or-column-wise-function-application-applyfunc-axis0">2. Row or Column-wise Function Application: <code>apply(func, axis=0)</code></a></li>
-  <li><a href="#applying-elementwise-functions-map" id="toc-applying-elementwise-functions-map" class="nav-link" data-scroll-target="#applying-elementwise-functions-map">3. Applying Elementwise Functions: <code>map()</code></a></li>
+  <li><a href="#step-1.-go-to-httpswww.kaggle.comopenfoodfactsworld-food-factsdata" id="toc-step-1.-go-to-httpswww.kaggle.comopenfoodfactsworld-food-factsdata" class="nav-link active" data-scroll-target="#step-1.-go-to-httpswww.kaggle.comopenfoodfactsworld-food-factsdata">Step 1. Go to https://www.kaggle.com/openfoodfacts/world-food-facts/data</a></li>
+  <li><a href="#step-2.-download-the-dataset-to-your-computer-and-unzip-it." id="toc-step-2.-download-the-dataset-to-your-computer-and-unzip-it." class="nav-link" data-scroll-target="#step-2.-download-the-dataset-to-your-computer-and-unzip-it.">Step 2. Download the dataset to your computer and unzip it.</a></li>
+  <li><a href="#step-3.-use-the-tsv-file-and-assign-it-to-a-dataframe-called-food" id="toc-step-3.-use-the-tsv-file-and-assign-it-to-a-dataframe-called-food" class="nav-link" data-scroll-target="#step-3.-use-the-tsv-file-and-assign-it-to-a-dataframe-called-food">Step 3. Use the tsv file and assign it to a dataframe called food</a></li>
+  <li><a href="#step-4.-see-the-first-5-entries" id="toc-step-4.-see-the-first-5-entries" class="nav-link" data-scroll-target="#step-4.-see-the-first-5-entries">Step 4. See the first 5 entries</a></li>
+  <li><a href="#step-5.-what-is-the-number-of-observations-in-the-dataset" id="toc-step-5.-what-is-the-number-of-observations-in-the-dataset" class="nav-link" data-scroll-target="#step-5.-what-is-the-number-of-observations-in-the-dataset">Step 5. What is the number of observations in the dataset?</a></li>
+  <li><a href="#step-6.-what-is-the-number-of-columns-in-the-dataset" id="toc-step-6.-what-is-the-number-of-columns-in-the-dataset" class="nav-link" data-scroll-target="#step-6.-what-is-the-number-of-columns-in-the-dataset">Step 6. What is the number of columns in the dataset?</a></li>
+  <li><a href="#step-7.-print-the-name-of-all-the-columns." id="toc-step-7.-print-the-name-of-all-the-columns." class="nav-link" data-scroll-target="#step-7.-print-the-name-of-all-the-columns.">Step 7. Print the name of all the columns.</a></li>
+  <li><a href="#step-8.-what-is-the-name-of-105th-column" id="toc-step-8.-what-is-the-name-of-105th-column" class="nav-link" data-scroll-target="#step-8.-what-is-the-name-of-105th-column">Step 8. What is the name of 105th column?</a></li>
+  <li><a href="#step-9.-what-is-the-type-of-the-observations-of-the-105th-column" id="toc-step-9.-what-is-the-type-of-the-observations-of-the-105th-column" class="nav-link" data-scroll-target="#step-9.-what-is-the-type-of-the-observations-of-the-105th-column">Step 9. What is the type of the observations of the 105th column?</a></li>
+  <li><a href="#step-10.-how-is-the-dataset-indexed" id="toc-step-10.-how-is-the-dataset-indexed" class="nav-link" data-scroll-target="#step-10.-how-is-the-dataset-indexed">Step 10. How is the dataset indexed?</a></li>
+  <li><a href="#step-11.-what-is-the-product-name-of-the-19th-observation" id="toc-step-11.-what-is-the-product-name-of-the-19th-observation" class="nav-link" data-scroll-target="#step-11.-what-is-the-product-name-of-the-19th-observation">Step 11. What is the product name of the 19th observation?</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03_pd_function_application.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="World_Food_Facts_Exercises.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Pandas’ Function application</h1>
+<h1 class="title">Exercise 1</h1>
 </div>
 
 
@@ -218,47 +210,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Estimated Time</strong>: 25 minutes.</p>
-<div id="241ee56b" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="step-1.-go-to-httpswww.kaggle.comopenfoodfactsworld-food-factsdata" class="level3">
+<h3 class="anchored" data-anchor-id="step-1.-go-to-httpswww.kaggle.comopenfoodfactsworld-food-factsdata">Step 1. Go to https://www.kaggle.com/openfoodfacts/world-food-facts/data</h3>
+</section>
+<section id="step-2.-download-the-dataset-to-your-computer-and-unzip-it." class="level3">
+<h3 class="anchored" data-anchor-id="step-2.-download-the-dataset-to-your-computer-and-unzip-it.">Step 2. Download the dataset to your computer and unzip it.</h3>
+<div id="cell-4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> kagglehub</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Download latest version</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> kagglehub.dataset_download(<span class="st">"openfoodfacts/world-food-facts"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Path to dataset files:"</span>, path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Functions can be applied:</p>
-<ul>
-<li>to each row or column (row/column-wise)</li>
-<li>to each individual element (element-wise)</li>
-</ul>
-<p>Or it may be applied to the data structure as a whole, whether <code>DataFrame</code> or <code>Series</code>.</p>
-<section id="tablewise-function-application-pipe" class="level3">
-<h3 class="anchored" data-anchor-id="tablewise-function-application-pipe">1. Tablewise Function Application: <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pipe.html#pandas.DataFrame.pipe"><code>pipe()</code></a></h3>
-<p>A pipeline is a sequence of data processing steps. In Pandas:</p>
-<ul>
-<li>input: <code>DataFrame</code>, output: <code>DataFrame</code></li>
-<li>input: <code>Series</code>, output: <code>Series</code></li>
-</ul>
-<p>Example:</p>
-<div id="dac6fa6a" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_city_name(df):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Chicago, IL -&gt; Chicago for city_name column</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"city_name"</span>] <span class="op">=</span> df[<span class="st">"city_and_code"</span>].<span class="bu">str</span>.split(<span class="st">","</span>).<span class="bu">str</span>.get(<span class="dv">0</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_country_name(df, country_name<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Chicago -&gt; Chicago-US for city_name column</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    col <span class="op">=</span> <span class="st">"city_name"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"city_and_country"</span>] <span class="op">=</span> df[col] <span class="op">+</span> country_name</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>df_p <span class="op">=</span> pd.DataFrame({<span class="st">"city_and_code"</span>: [<span class="st">"Chicago, IL"</span>]})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-3.-use-the-tsv-file-and-assign-it-to-a-dataframe-called-food" class="level3">
+<h3 class="anchored" data-anchor-id="step-3.-use-the-tsv-file-and-assign-it-to-a-dataframe-called-food">Step 3. Use the tsv file and assign it to a dataframe called food</h3>
+<div id="cell-6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path <span class="op">+</span> <span class="st">'/en.openfoodfacts.org.products.tsv'</span>, delimiter<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_84491/2344497127.py:3: DtypeWarning: Columns (0: code, 1: created_t, 2: last_modified_t, 3: manufacturing_places, 4: manufacturing_places_tags, 5: emb_codes, 6: emb_codes_tags, 7: first_packaging_code_geo, 8: cities, 9: cities_tags, 10: allergens_en, 11: traces, 12: traces_tags, 13: traces_en, 14: ingredients_from_palm_oil_tags) have mixed types. Specify dtype option on import or set low_memory=False.
+  df = pd.read_csv('en.openfoodfacts.org.products.tsv', delimiter='\t')</code></pre>
 </div>
-<p>Regular function calling works, but it can get messy:</p>
-<div id="048860fa" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>add_country_name(extract_city_name(df_p), country_name<span class="op">=</span><span class="st">"US"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+</div>
+</section>
+<section id="step-4.-see-the-first-5-entries" class="level3">
+<h3 class="anchored" data-anchor-id="step-4.-see-the-first-5-entries">Step 4. See the first 5 entries</h3>
+<div id="cell-8" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -266,330 +248,229 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">city_and_code</th>
-<th data-quarto-table-cell-role="th">city_name</th>
-<th data-quarto-table-cell-role="th">city_and_country</th>
+<th data-quarto-table-cell-role="th">code</th>
+<th data-quarto-table-cell-role="th">url</th>
+<th data-quarto-table-cell-role="th">creator</th>
+<th data-quarto-table-cell-role="th">created_t</th>
+<th data-quarto-table-cell-role="th">created_datetime</th>
+<th data-quarto-table-cell-role="th">last_modified_t</th>
+<th data-quarto-table-cell-role="th">last_modified_datetime</th>
+<th data-quarto-table-cell-role="th">product_name</th>
+<th data-quarto-table-cell-role="th">generic_name</th>
+<th data-quarto-table-cell-role="th">quantity</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">fruits-vegetables-nuts_100g</th>
+<th data-quarto-table-cell-role="th">fruits-vegetables-nuts-estimate_100g</th>
+<th data-quarto-table-cell-role="th">collagen-meat-protein-ratio_100g</th>
+<th data-quarto-table-cell-role="th">cocoa_100g</th>
+<th data-quarto-table-cell-role="th">chlorophyl_100g</th>
+<th data-quarto-table-cell-role="th">carbon-footprint_100g</th>
+<th data-quarto-table-cell-role="th">nutrition-score-fr_100g</th>
+<th data-quarto-table-cell-role="th">nutrition-score-uk_100g</th>
+<th data-quarto-table-cell-role="th">glycemic-index_100g</th>
+<th data-quarto-table-cell-role="th">water-hardness_100g</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>Chicago, IL</td>
-<td>Chicago</td>
-<td>ChicagoUS</td>
+<td>3087</td>
+<td>http://world-en.openfoodfacts.org/product/0000...</td>
+<td>openfoodfacts-contributors</td>
+<td>1474103866</td>
+<td>2016-09-17T09:17:46Z</td>
+<td>1474103893</td>
+<td>2016-09-17T09:18:13Z</td>
+<td>Farine de blé noir</td>
+<td>NaN</td>
+<td>1kg</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>The issue with nested function calls is that they can be hard to read. For example, consider the following code (5 steps):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> format_currency(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    calculate_tax(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        add_country_name(</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            extract_city_name(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                clean_date_format(df_p)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            ), </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            country_name<span class="op">=</span><span class="st">"US"</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        ), </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        tax_rate<span class="op">=</span><span class="fl">0.08</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The issue with this <strong>inside-out</strong> is:</p>
-<ul>
-<li>Can you easily see the order of operations? (<code>clean_date_format -&gt; extract_city_name -&gt; ...</code>)</li>
-<li>Can you easily add or remove steps?</li>
-<li>Can you easily disable just one step for debugging?</li>
-<li>Can you easily tell which parameters go with which function?</li>
-</ul>
-<p>Using the <code>pipe()</code> you can keep the logic linear (top-to-bottom) and improve readability:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> (df_p</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    .pipe(clean_date_format)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    .pipe(extract_city_name)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    .pipe(add_country_name, country_name<span class="op">=</span><span class="st">"US"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    .pipe(calculate_tax, tax_rate<span class="op">=</span><span class="fl">0.08</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    .pipe(format_currency)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<blockquote class="blockquote">
-<p>Note: The parentheses around the entire expression are necessary to allow line breaks.</p>
-</blockquote>
-<p>Advantages of using <code>pipe()</code>:</p>
-<ul>
-<li>The order is clear (top-to-bottom).</li>
-<li>You can easily add/remove steps.</li>
-<li>You can easily disable just one step for debugging.</li>
-<li>You can easily tell which parameters go with which function.</li>
-</ul>
-<p>Let’s apply that to our example functions:</p>
-<div id="373ccaa2" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    df_p</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    .pipe(extract_city_name)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    .pipe(add_country_name, country_name<span class="op">=</span><span class="st">"US"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">city_and_code</th>
-<th data-quarto-table-cell-role="th">city_name</th>
-<th data-quarto-table-cell-role="th">city_and_country</th>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>4530</td>
+<td>http://world-en.openfoodfacts.org/product/0000...</td>
+<td>usda-ndb-import</td>
+<td>1489069957</td>
+<td>2017-03-09T14:32:37Z</td>
+<td>1489069957</td>
+<td>2017-03-09T14:32:37Z</td>
+<td>Banana Chips Sweetened (Whole)</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>14.0</td>
+<td>14.0</td>
+<td>NaN</td>
+<td>NaN</td>
 </tr>
-</thead>
-<tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Chicago, IL</td>
-<td>Chicago</td>
-<td>ChicagoUS</td>
+<th data-quarto-table-cell-role="th">2</th>
+<td>4559</td>
+<td>http://world-en.openfoodfacts.org/product/0000...</td>
+<td>usda-ndb-import</td>
+<td>1489069957</td>
+<td>2017-03-09T14:32:37Z</td>
+<td>1489069957</td>
+<td>2017-03-09T14:32:37Z</td>
+<td>Peanuts</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>16087</td>
+<td>http://world-en.openfoodfacts.org/product/0000...</td>
+<td>usda-ndb-import</td>
+<td>1489055731</td>
+<td>2017-03-09T10:35:31Z</td>
+<td>1489055731</td>
+<td>2017-03-09T10:35:31Z</td>
+<td>Organic Salted Nut Mix</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>12.0</td>
+<td>12.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>16094</td>
+<td>http://world-en.openfoodfacts.org/product/0000...</td>
+<td>usda-ndb-import</td>
+<td>1489055653</td>
+<td>2017-03-09T10:34:13Z</td>
+<td>1489055653</td>
+<td>2017-03-09T10:34:13Z</td>
+<td>Organic Polenta</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 </tr>
 </tbody>
 </table>
 
+<p>5 rows × 163 columns</p>
 </div>
 </div>
 </div>
 </section>
-<section id="row-or-column-wise-function-application-applyfunc-axis0" class="level3">
-<h3 class="anchored" data-anchor-id="row-or-column-wise-function-application-applyfunc-axis0">2. Row or Column-wise Function Application: <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html#pandas.DataFrame.apply"><code>apply(func, axis=0)</code></a></h3>
-<p><code>axis</code>: Axis along which the function is applied:</p>
-<ul>
-<li><code>0</code> or <code>'index'</code>: apply function to each column.</li>
-<li><code>1</code> or <code>'columns'</code>: apply function to each row.</li>
-</ul>
-<p>let’s create some example objects:</p>
-<div id="756c726a" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> pd.date_range(<span class="st">"1/1/2000"</span>, periods<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> pd.Series(np.random.randn(<span class="dv">5</span>), index<span class="op">=</span>[<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>])</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(np.random.randn(<span class="dv">8</span>, <span class="dv">3</span>), index<span class="op">=</span>index, columns<span class="op">=</span>[<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="65d79e4f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> custom_mean(x: pd.Series):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.mean(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="35ac41ba" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">apply</span>(custom_mean, axis<span class="op">=</span><span class="dv">0</span>) <span class="co"># column-wise mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<pre><code>A   -0.310340
-B   -0.472755
-C    0.325519
-dtype: float64</code></pre>
-</div>
-</div>
-<div id="6f495165" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">apply</span>(custom_mean, axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># row-wise mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<pre><code>2000-01-01   -0.239737
-2000-01-02   -0.155064
-2000-01-03   -0.175493
-2000-01-04    0.373051
-2000-01-05   -1.122354
-2000-01-06    0.447404
-2000-01-07   -0.635230
-2000-01-08    0.287220
-Freq: D, dtype: float64</code></pre>
-</div>
-</div>
-<p>Using a broadcastable operation (like addition, multiplication, etc.) means the axis parameter doesn’t matter:</p>
-<ul>
-<li>Example: <code>axis=0</code> (column-wise) or <code>axis=1</code> (row-wise) when doing <code>x + 10</code></li>
-</ul>
-<div id="e9c0e02f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_square(x: pd.Series):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Equal results whether applied column-wise or row-wise</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">apply</span>(my_square, axis<span class="op">=</span><span class="dv">0</span>) <span class="op">==</span> df.<span class="bu">apply</span>(my_square, axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">A</th>
-<th data-quarto-table-cell-role="th">B</th>
-<th data-quarto-table-cell-role="th">C</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-01</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-02</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-03</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-04</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-05</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-06</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-07</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-08</th>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div id="fa903767" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using lambda functions</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: np.mean(x), axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># row-wise mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<pre><code>2000-01-01   -0.239737
-2000-01-02   -0.155064
-2000-01-03   -0.175493
-2000-01-04    0.373051
-2000-01-05   -1.122354
-2000-01-06    0.447404
-2000-01-07   -0.635230
-2000-01-08    0.287220
-Freq: D, dtype: float64</code></pre>
+<section id="step-5.-what-is-the-number-of-observations-in-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="step-5.-what-is-the-number-of-observations-in-the-dataset">Step 5. What is the number of observations in the dataset?</h3>
+<div id="cell-10" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>356027</code></pre>
 </div>
 </div>
 </section>
-<section id="applying-elementwise-functions-map" class="level3">
-<h3 class="anchored" data-anchor-id="applying-elementwise-functions-map">3. Applying Elementwise Functions: <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.map.html#pandas.DataFrame.map"><code>map()</code></a></h3>
-<p>The method <code>map()</code>:</p>
-<ul>
-<li>Accepts any Python function taking a single value and returning a single value</li>
-<li>Works for both <code>Series</code> and <code>DataFrame</code></li>
-</ul>
-<p>For example:</p>
-<div id="bb4812ed" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x: pd.DataFrame <span class="op">|</span> pd.Series):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">+</span> <span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="d5a162e2" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.<span class="bu">map</span>(f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">A</th>
-<th data-quarto-table-cell-role="th">B</th>
-<th data-quarto-table-cell-role="th">C</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-01</th>
-<td>9.728402</td>
-<td>8.549829</td>
-<td>9.816187</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-02</th>
-<td>10.260756</td>
-<td>9.561032</td>
-<td>9.648915</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-03</th>
-<td>9.320493</td>
-<td>10.089545</td>
-<td>11.456899</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-04</th>
-<td>9.237168</td>
-<td>9.664241</td>
-<td>10.353561</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-05</th>
-<td>9.387044</td>
-<td>8.610235</td>
-<td>10.955880</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-06</th>
-<td>9.158378</td>
-<td>9.305512</td>
-<td>10.498780</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2000-01-07</th>
-<td>9.265393</td>
-<td>9.797601</td>
-<td>8.912780</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">2000-01-08</th>
-<td>8.430285</td>
-<td>10.316812</td>
-<td>8.396696</td>
-</tr>
-</tbody>
-</table>
-
+<section id="step-6.-what-is-the-number-of-columns-in-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="step-6.-what-is-the-number-of-columns-in-the-dataset">Step 6. What is the number of columns in the dataset?</h3>
+<div id="cell-12" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df.shape[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>163</code></pre>
 </div>
 </div>
+</section>
+<section id="step-7.-print-the-name-of-all-the-columns." class="level3">
+<h3 class="anchored" data-anchor-id="step-7.-print-the-name-of-all-the-columns.">Step 7. Print the name of all the columns.</h3>
+<div id="cell-14" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Index(['code', 'url', 'creator', 'created_t', 'created_datetime',
+       'last_modified_t', 'last_modified_datetime', 'product_name',
+       'generic_name', 'quantity',
+       ...
+       'fruits-vegetables-nuts_100g', 'fruits-vegetables-nuts-estimate_100g',
+       'collagen-meat-protein-ratio_100g', 'cocoa_100g', 'chlorophyl_100g',
+       'carbon-footprint_100g', 'nutrition-score-fr_100g',
+       'nutrition-score-uk_100g', 'glycemic-index_100g',
+       'water-hardness_100g'],
+      dtype='str', length=163)</code></pre>
 </div>
-<div id="bccbb5be" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'A'</span>].<span class="bu">map</span>(f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<pre><code>2000-01-01     9.728402
-2000-01-02    10.260756
-2000-01-03     9.320493
-2000-01-04     9.237168
-2000-01-05     9.387044
-2000-01-06     9.158378
-2000-01-07     9.265393
-2000-01-08     8.430285
-Freq: D, Name: A, dtype: float64</code></pre>
+</div>
+</section>
+<section id="step-8.-what-is-the-name-of-105th-column" class="level3">
+<h3 class="anchored" data-anchor-id="step-8.-what-is-the-name-of-105th-column">Step 8. What is the name of 105th column?</h3>
+<div id="cell-16" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.columns[<span class="dv">105</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>'-fructose_100g'</code></pre>
 </div>
 </div>
-<hr>
-<p>References:</p>
-<ul>
-<li><a href="https://pandas.pydata.org/docs/user_guide/basics.html#function-application">Pandas’ User Guide &gt; Essential basic functionality &gt; Function application</a></li>
-</ul>
+</section>
+<section id="step-9.-what-is-the-type-of-the-observations-of-the-105th-column" class="level3">
+<h3 class="anchored" data-anchor-id="step-9.-what-is-the-type-of-the-observations-of-the-105th-column">Step 9. What is the type of the observations of the 105th column?</h3>
+<div id="cell-18" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'-fructose_100g'</span>].dtype</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>dtype('float64')</code></pre>
+</div>
+</div>
+</section>
+<section id="step-10.-how-is-the-dataset-indexed" class="level3">
+<h3 class="anchored" data-anchor-id="step-10.-how-is-the-dataset-indexed">Step 10. How is the dataset indexed?</h3>
+<div id="cell-20" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.index</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>RangeIndex(start=0, stop=356027, step=1)</code></pre>
+</div>
+</div>
+</section>
+<section id="step-11.-what-is-the-product-name-of-the-19th-observation" class="level3">
+<h3 class="anchored" data-anchor-id="step-11.-what-is-the-product-name-of-the-19th-observation">Step 11. What is the product name of the 19th observation?</h3>
+<div id="cell-22" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">19</span>, <span class="st">'product_name'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>'Organic Oat Groats'</code></pre>
+</div>
+</div>
 
 
 </section>

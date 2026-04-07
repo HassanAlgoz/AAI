@@ -258,7 +258,7 @@ window.Quarto = {
 
 <p><strong>Pandas</strong> provides fast, flexible, and expressive data structures designed to make working with “relational” or “labeled” data both <strong>easy and intuitive</strong>. Pandas is also <strong>very fast</strong> since it builds on top of <strong>NumPy</strong>, which builds on top of <strong>C</strong>.</p>
 <p>The community agreed alias for <code>pandas</code> is <code>pd</code>, so it has been standard practice:</p>
-<div id="3c81b04a" class="cell" data-execution_count="40">
+<div id="3c81b04a" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="bookmarks" class="level3">
@@ -283,7 +283,7 @@ window.Quarto = {
 <p>Pandas provides the&nbsp;<a href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv"><code>read_csv()</code></a>&nbsp;function to read data stored as a csv file into a pandas&nbsp;<code>DataFrame</code>. pandas supports many different file formats or data sources out of the box (csv, excel, sql, json, parquet, …), each of them with the prefix&nbsp;<code>read_*</code>.</p>
 <p><a href="../assets/pandas/pandas_io.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/pandas/pandas_io.png" class="img-fluid"></a></p>
 <p>See: <a href="https://pandas.pydata.org/docs/user_guide/io.html">IO tools (text, CSV, HDF5, …)</a> for a table containing available readers and writers.</p>
-<div id="da6e0925" class="cell" data-execution_count="41">
+<div id="da6e0925" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">help</span>(pd.read_csv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Help on function read_csv in module pandas:
@@ -749,7 +749,7 @@ read_csv(filepath_or_buffer: 'FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[st
 <p>Let’s demonstrate:</p>
 <section id="read-from-file-on-disk" class="level3">
 <h3 class="anchored" data-anchor-id="read-from-file-on-disk">read from file on disk</h3>
-<div id="769c1e14" class="cell" data-execution_count="42">
+<div id="769c1e14" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Best practice: use pathlib to handle file paths</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -764,7 +764,7 @@ read_csv(filepath_or_buffer: 'FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[st
 True</code></pre>
 </div>
 </div>
-<div id="8b2449b7" class="cell" data-execution_count="43">
+<div id="8b2449b7" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_wpm <span class="op">=</span> data_dir <span class="op">/</span> <span class="st">'wpm.csv'</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Debugging</span></span>
@@ -776,13 +776,13 @@ True</code></pre>
 </div>
 </div>
 <p>Once we have specified the path, we load the data into a Python object; i.e., a <code>DataFrame</code>:</p>
-<div id="49b84bdf" class="cell" data-execution_count="44">
+<div id="49b84bdf" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice we use `df` to denote a DataFrame</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_1 <span class="op">=</span> pd.read_csv(data_wpm)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Debugging</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>df_1.head() <span class="co"># show first 5 rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 
 
@@ -830,7 +830,7 @@ True</code></pre>
 <section id="read-from-url" class="level3">
 <h3 class="anchored" data-anchor-id="read-from-url">read from url</h3>
 <p>Alternatively, one could load the data from a url directly:</p>
-<div id="b23417e7" class="cell" data-execution_count="45">
+<div id="b23417e7" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GitHub URL (replace "blob" with "raw" to get the raw content)</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data_url_wpm <span class="op">=</span> <span class="st">"https://github.com/HassanAlgoz/B5/blob/main/content/W2/data/wpm.csv"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>data_url_wpm <span class="op">=</span> data_url_wpm.replace(<span class="st">"blob"</span>, <span class="st">"raw"</span>)</span>
@@ -838,7 +838,7 @@ True</code></pre>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Debugging</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>df_2.tail() <span class="co"># show last 5 rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
@@ -887,16 +887,16 @@ True</code></pre>
 <section id="dataframe-metadata" class="level2">
 <h2 class="anchored" data-anchor-id="dataframe-metadata">DataFrame Metadata</h2>
 <p>The&nbsp;<code>head</code>/<code>tail</code>/<code>info</code>&nbsp;methods and the&nbsp;<code>dtypes</code>&nbsp;attribute are convenient for a first check:</p>
-<div id="d5e6ebb8" class="cell" data-execution_count="46">
+<div id="d5e6ebb8" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># show only data types</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df_2.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>wpm      int64
 light     bool
 dtype: object</code></pre>
 </div>
 </div>
-<div id="949e9679" class="cell" data-execution_count="47">
+<div id="949e9679" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># show full technical details of the DataFrame</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df_2.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -916,7 +916,7 @@ memory usage: 366.0 bytes</code></pre>
 <h2 class="anchored" data-anchor-id="creating-a-dataframe">Creating a DataFrame</h2>
 <p>Sometimes, like in demonstration, you need to create a <code>DataFrame</code> object, not loaded from outside.</p>
 <p>DataFrames can be constructed from Python dictionaries, like so:</p>
-<div id="813301b3" class="cell" data-execution_count="48">
+<div id="813301b3" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    {</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'A'</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>],</span>
@@ -925,7 +925,7 @@ memory usage: 366.0 bytes</code></pre>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="48">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -971,17 +971,17 @@ memory usage: 366.0 bytes</code></pre>
 <li><strong>Index</strong>: to access rows (by position)</li>
 <li><strong>Label</strong>: to access columns (by name)</li>
 </ul>
-<div id="77a37122" class="cell" data-execution_count="49">
+<div id="77a37122" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show index</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df_2.index</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="49">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>RangeIndex(start=0, stop=26, step=1)</code></pre>
 </div>
 </div>
-<div id="965774de" class="cell" data-execution_count="50">
+<div id="965774de" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show labels</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_2.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>Index(['wpm', 'light'], dtype='str')</code></pre>
 </div>
 </div>
@@ -990,13 +990,13 @@ memory usage: 366.0 bytes</code></pre>
 <section id="select-specific-columns" class="level3">
 <h3 class="anchored" data-anchor-id="select-specific-columns">Select specific columns</h3>
 <p><a href="../assets/pandas/subset_columns.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="../assets/pandas/subset_columns.png" class="img-fluid"></a></p>
-<div id="4697451f" class="cell" data-execution_count="51">
+<div id="4697451f" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>s_wpm <span class="op">=</span> df_2[<span class="st">'wpm'</span>]</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Debugging</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># show last 8 rows</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>s_wpm.tail(<span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="51">
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>18    46
 19    25
 20    41
@@ -1010,23 +1010,23 @@ Name: wpm, dtype: int64</code></pre>
 </div>
 <p>Notice the index on the left, from <code>18</code> to <code>25</code>, indicating the location of each row, in order.</p>
 <p>Let’s load a another csv and select subsets:</p>
-<div id="df254fee" class="cell" data-execution_count="52">
+<div id="df254fee" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_titanic <span class="op">=</span> pd.read_csv(<span class="st">"https://raw.githubusercontent.com/pandas-dev/pandas/main/doc/data/titanic.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="25d54b51" class="cell" data-execution_count="53">
+<div id="25d54b51" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show labels</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_titanic.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="53">
+<div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
        'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'],
       dtype='str')</code></pre>
 </div>
 </div>
-<div id="2b09db32" class="cell" data-execution_count="54">
+<div id="2b09db32" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select specific columns</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df_subset <span class="op">=</span> df_titanic[[<span class="st">'Name'</span>, <span class="st">'Age'</span>, <span class="st">'Sex'</span>]]</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>df_subset.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="54">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -1081,12 +1081,12 @@ Name: wpm, dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="select-specific-rows">Select specific rows</h3>
 <p><a href="../assets/pandas/subset_rows.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="../assets/pandas/subset_rows.png" class="img-fluid"></a></p>
 <p>To select rows based on a conditional expression, use a condition inside the selection brackets <code>[]</code>, like so:</p>
-<div id="369879ac" class="cell" data-execution_count="55">
+<div id="369879ac" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>above_35 <span class="op">=</span> df_titanic[df_titanic[<span class="st">"Age"</span>] <span class="op">&gt;</span> <span class="dv">35</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="303e4367" class="cell" data-execution_count="56">
+<div id="303e4367" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>above_35.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="56">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <div>
 
 
@@ -1194,9 +1194,9 @@ Name: wpm, dtype: int64</code></pre>
 <section id="mask" class="level4">
 <h4 class="anchored" data-anchor-id="mask">Mask</h4>
 <p>The condition inside the selection brackets&nbsp;<code>titanic["Age"]&nbsp;&gt;&nbsp;35</code>&nbsp;checks for which rows the&nbsp;<code>Age</code>&nbsp;column has a value larger than 35. It is also known as a <strong>boolean mask</strong>, since it results in a <code>Series</code> of <code>True</code>/<code>False</code> values:</p>
-<div id="182828e7" class="cell" data-execution_count="57">
+<div id="182828e7" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_titanic[<span class="st">"Age"</span>] <span class="op">&gt;</span> <span class="dv">35</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="57">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>0      False
 1       True
 2      False
@@ -1221,7 +1221,7 @@ Name: Age, Length: 891, dtype: bool</code></pre>
 <li>each condition must be surrounded by parentheses <code>()</code></li>
 <li>you can not use <code>or</code>/<code>and</code> but need to use the or <strong>operator <code>|</code></strong> and the <strong>and operator <code>&amp;</code></strong>.</li>
 </ol>
-<div id="9443acd0" class="cell" data-execution_count="58">
+<div id="9443acd0" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Condition 1</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>mask_1 <span class="op">=</span> df_titanic[<span class="st">"Age"</span>] <span class="op">&gt;</span> <span class="dv">35</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1234,7 +1234,7 @@ Name: Age, Length: 891, dtype: bool</code></pre>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the mask to the DataFrame</span></span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>above_35_df <span class="op">=</span> df_titanic[mask]</span>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>above_35_df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="58">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <div>
 
 
@@ -1350,10 +1350,10 @@ Name: Age, Length: 891, dtype: bool</code></pre>
 </ol>
 <section id="loc-label-based-selection" class="level4">
 <h4 class="anchored" data-anchor-id="loc-label-based-selection"><code>loc</code>: label-based selection</h4>
-<div id="a8357136" class="cell" data-execution_count="59">
+<div id="a8357136" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>seniors_names <span class="op">=</span> df_titanic.loc[df_titanic[<span class="st">"Age"</span>] <span class="op">&gt;</span> <span class="dv">65</span>, <span class="st">"Name"</span>]</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>seniors_names.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="59">
+<div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>33                    Wheadon, Mr. Edward H
 96                Goldschmidt, Mr. George B
 116                    Connors, Mr. Patrick
@@ -1368,13 +1368,13 @@ Name: Name, dtype: str</code></pre>
 <li>the part after the comma is the <strong>columns</strong> you want to select</li>
 </ol>
 <p>Let’s demonstrate combining conditions and multiple column selection:</p>
-<div id="a2b6534b" class="cell" data-execution_count="60">
+<div id="a2b6534b" class="cell" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> (df_titanic[<span class="st">"Age"</span>] <span class="op">&gt;</span> <span class="dv">65</span>) <span class="op">&amp;</span> (df_titanic[<span class="st">'Sex'</span>] <span class="op">==</span> <span class="st">'male'</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [<span class="st">"Name"</span>, <span class="st">'Pclass'</span>]</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>seniors <span class="op">=</span> df_titanic.loc[condition, columns]</span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>seniors.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="60">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <div>
 
 
@@ -1419,7 +1419,7 @@ Name: Name, dtype: str</code></pre>
 </div>
 </div>
 <p>To demonstrate using the result, let’s say we want to know the first names these people have:</p>
-<div id="06ba675a" class="cell" data-execution_count="61">
+<div id="06ba675a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert Series to a Python list</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> seniors[<span class="st">'Name'</span>].to_list()</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1976,7 +1976,7 @@ Name: count, dtype: int64</code></pre>
 <section id="dropping-columns" class="level3">
 <h3 class="anchored" data-anchor-id="dropping-columns">Dropping columns</h3>
 <p>We might choose to drop the previous columns as well:</p>
-<div id="d0d71f80" class="cell" data-execution_count="72">
+<div id="d0d71f80" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_socr <span class="op">=</span> df_socr.drop(</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">'Height(Inches)'</span>, <span class="st">'Weight(Pounds)'</span>],</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>)</span>

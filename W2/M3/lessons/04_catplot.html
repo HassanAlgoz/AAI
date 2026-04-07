@@ -138,23 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../../W2/"> 
-<span class="menu-text">DS</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W3/"> 
-<span class="menu-text">ML</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W4/"> 
-<span class="menu-text">DL</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W5/"> 
-<span class="menu-text">Agentic</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W6/"> 
-<span class="menu-text">Vibe</span></a>
+<span class="menu-text">Data Science</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -193,17 +177,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#categorical-scatterplots" id="toc-categorical-scatterplots" class="nav-link active" data-scroll-target="#categorical-scatterplots">Categorical scatterplots</a></li>
+  <li><a href="#categorical-scatterplots-stripplot-vs-swarmplot" id="toc-categorical-scatterplots-stripplot-vs-swarmplot" class="nav-link active" data-scroll-target="#categorical-scatterplots-stripplot-vs-swarmplot">Categorical scatterplots: Stripplot vs Swarmplot</a>
+  <ul class="collapse">
+  <li><a href="#conditional-on-a-third-variable-using-hue" id="toc-conditional-on-a-third-variable-using-hue" class="nav-link" data-scroll-target="#conditional-on-a-third-variable-using-hue">Conditional on a third variable (using <code>hue</code>)</a></li>
+  <li><a href="#control-order" id="toc-control-order" class="nav-link" data-scroll-target="#control-order">Control Order</a></li>
+  <li><a href="#horirzontally" id="toc-horirzontally" class="nav-link" data-scroll-target="#horirzontally">Horirzontally</a></li>
+  </ul></li>
   <li><a href="#comparing-distributions" id="toc-comparing-distributions" class="nav-link" data-scroll-target="#comparing-distributions">Comparing distributions</a>
   <ul class="collapse">
   <li><a href="#boxplots" id="toc-boxplots" class="nav-link" data-scroll-target="#boxplots">Boxplots</a></li>
-  <li><a href="#boxen-plot" id="toc-boxen-plot" class="nav-link" data-scroll-target="#boxen-plot">Boxen plot</a></li>
-  <li><a href="#violin-plots" id="toc-violin-plots" class="nav-link" data-scroll-target="#violin-plots">Violin plots</a></li>
   </ul></li>
   <li><a href="#count-plot" id="toc-count-plot" class="nav-link" data-scroll-target="#count-plot">Count Plot</a></li>
   <li><a href="#estimating-central-tendency" id="toc-estimating-central-tendency" class="nav-link" data-scroll-target="#estimating-central-tendency">Estimating central tendency</a>
   <ul class="collapse">
-  <li><a href="#bar-plots" id="toc-bar-plots" class="nav-link" data-scroll-target="#bar-plots">Bar plots</a></li>
   <li><a href="#point-plots" id="toc-point-plots" class="nav-link" data-scroll-target="#point-plots">Point plots</a></li>
   </ul></li>
   </ul>
@@ -232,6 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>In the <a href="../../../W2/M3/lessons/05_relplot.html">relational plot tutorial</a> we saw how to use different visual representations to show the relationship between multiple variables in a dataset. In the examples, we focused on cases where the main relationship was between two numerical variables. <strong>If one of the main variables is “categorical” (divided into discrete groups) it may be helpful to use a more specialized approach to visualization</strong>.</p>
+<p><a href="../assets/catplot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/catplot.png" class="img-fluid"></a></p>
 <p>It’s helpful to think of the different categorical plot kinds as belonging to <strong>three different families</strong>, which we’ll discuss in detail below. They are:</p>
 <ol type="1">
 <li><strong>Categorical scatterplots</strong>:
@@ -253,14 +240,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ol>
 <p>The unified API <a href="https://seaborn.pydata.org/generated/seaborn.catplot.html#seaborn.catplot"><code>catplot()</code></a> makes it easy to switch between different kinds and see your data from several perspectives.</p>
-<div id="5d294bfb" class="cell">
+<div id="5d294bfb" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="2afacace" class="cell">
+<div id="2afacace" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">"tips"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tips.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -334,10 +321,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="categorical-scatterplots" class="level2">
-<h2 class="anchored" data-anchor-id="categorical-scatterplots">Categorical scatterplots</h2>
-<p>The default representation of the data in <code>catplot()</code> uses a scatterplot. There are actually two different categorical scatter plots in seaborn. They take different approaches to resolving the main challenge in representing categorical data with a scatter plot, which is that all of the points belonging to one category would fall on the same position along the axis corresponding to the categorical variable. The approach used by <code>stripplot()</code>, which is the default “kind” in <code>catplot()</code> is to adjust the positions of points on the categorical axis with a small amount of random “jitter”:</p>
-<div id="4773a3db" class="cell" data-execution_count="14">
+<section id="categorical-scatterplots-stripplot-vs-swarmplot" class="level2">
+<h2 class="anchored" data-anchor-id="categorical-scatterplots-stripplot-vs-swarmplot">Categorical scatterplots: Stripplot vs Swarmplot</h2>
+<p>Scatterplots may have overlap, hence we may solve it by reducing transparency (<code>alpha=0.6</code>) or using <strong>Swarm Plot</strong> instead of the default <strong>Strip Plot</strong>:</p>
+<div id="4773a3db" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stripplot and swarmplot are axes-level functions, so use them directly (not catplot) for subplotting</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span><span class="dv">1</span>,</span>
@@ -357,65 +344,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="04_catplot_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="04_catplot_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
+<section id="conditional-on-a-third-variable-using-hue" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-on-a-third-variable-using-hue">Conditional on a third variable (using <code>hue</code>)</h3>
 <p>Similar to the relational plots, it’s possible to add another dimension to a categorical plot by using a <code>hue</code> semantic. (The categorical plots <strong>do not</strong> currently support <code>size</code> or <code>style</code> semantics). Each different categorical plotting function handles the <code>hue</code> semantic differently. For the scatter plots, it is only necessary to change the color of the points:</p>
-<div id="4f47ac5c" class="cell" data-execution_count="15">
+<div id="4f47ac5c" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"day"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"total_bill"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"swarm"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"swarm"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"day"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"total_bill"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-5-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="04_catplot_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-5-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="04_catplot_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="control-order" class="level3">
+<h3 class="anchored" data-anchor-id="control-order">Control Order</h3>
 <p>The <strong>ordering can also be controlled</strong> on a plot-specific basis using the order parameter. This can be important when drawing multiple categorical plots in the same figure, which we’ll see more of below:</p>
-<div id="d1bcb256" class="cell" data-execution_count="19">
+<div id="d1bcb256" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"smoker"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"tip"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>[<span class="st">"No"</span>, <span class="st">"Yes"</span>],</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"strip"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"smoker"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"tip"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>[<span class="st">"No"</span>, <span class="st">"Yes"</span>],</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-6-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="04_catplot_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-6-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="04_catplot_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="horirzontally" class="level3">
+<h3 class="anchored" data-anchor-id="horirzontally">Horirzontally</h3>
 <p>it’s often helpful to put the categorical variable <strong>on the vertical axis</strong> instead, specifically, when:</p>
 <ol type="1">
 <li>the category <strong>names are relatively long</strong></li>
 <li>or <strong>there are many categories</strong></li>
 </ol>
-<div id="7aa4fa4e" class="cell" data-execution_count="20">
+<div id="7aa4fa4e" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"total_bill"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"day"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"swarm"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"swarm"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"total_bill"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"day"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"time"</span>,</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="04_catplot_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="04_catplot_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="comparing-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-distributions">Comparing distributions</h2>
@@ -423,26 +420,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="boxplots" class="level3">
 <h3 class="anchored" data-anchor-id="boxplots">Boxplots</h3>
 <p>The first is the familiar&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.boxplot.html#seaborn.boxplot" title="seaborn.boxplot"><code>boxplot()</code></a>. This kind of plot shows the three quartile values of the distribution along with extreme values. The “whiskers” extend to points that lie within 1.5 IQRs of the lower and upper quartile, and then observations that fall outside this range are displayed independently. This means that each value in the boxplot corresponds to an actual observation in the data.</p>
-<div id="fce11e58" class="cell" data-execution_count="25">
+<div id="fce11e58" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"day"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"total_bill"</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"box"</span> <span class="co"># ADDED</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"box"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"day"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"total_bill"</span>,</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="04_catplot_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="04_catplot_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>For further customization of the plot, you can use the methods on the FacetGrid object that it returns:</p>
-<div id="20497f76" class="cell" data-execution_count="38">
+<p>For further customization of the plot, you can use the methods on the <strong>FacetGrid</strong> object that it returns. Let’s demonstrate using the <code>titantic</code> dataset:</p>
+<div id="20497f76" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="op">=</span> sns.load_dataset(<span class="st">"titanic"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>titanic.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="38">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -564,145 +561,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="c837ef49" class="cell" data-execution_count="65">
+<p>Calling <code>sns.catplot()</code> returns a <strong>FacetGrid</strong>, <code>g</code>, whoose <code>g.axes</code> are accessible:</p>
+<div id="c837ef49" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"fare"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"embark_town"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    row<span class="op">=</span><span class="st">"class"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"box"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    orient<span class="op">=</span><span class="st">"h"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    sharex<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    margin_titles<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="fl">1.5</span>, aspect<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"box"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"fare"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"embark_town"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    row<span class="op">=</span><span class="st">"class"</span>,          <span class="co"># split the data into three plots</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    orient<span class="op">=</span><span class="st">"h"</span>,           <span class="co"># horizontal orientation</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    sharex<span class="op">=</span><span class="va">True</span>,          <span class="co"># x-axis is different for all three plots</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    margin_titles<span class="op">=</span><span class="va">True</span>,   <span class="co"># add a title to each facet</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="fl">1.5</span>, aspect<span class="op">=</span><span class="dv">4</span>, <span class="co"># set the size of the figure</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Fare"</span>, ylabel<span class="op">=</span><span class="st">""</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>g.set_titles(row_template<span class="op">=</span><span class="st">"</span><span class="sc">{row_name}</span><span class="st"> class"</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> g.axes.flat:</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    ax.xaxis.set_major_formatter(<span class="st">'$</span><span class="sc">{x:.0f}</span><span class="st">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> g.axes.flat:</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(<span class="dv">0</span>, <span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="04_catplot_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="04_catplot_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Notice the x-axis is different for all three plots since we specified <code>sharex=False</code>.</p>
-</section>
-<section id="boxen-plot" class="level3">
-<h3 class="anchored" data-anchor-id="boxen-plot">Boxen plot</h3>
-<p>A related function,&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.boxenplot.html#seaborn.boxenplot" title="seaborn.boxenplot"><code>boxenplot()</code></a>, draws a plot that is similar to a box plot but optimized for showing more information about the shape of the distribution. <strong>It is best suited for larger datasets</strong>:</p>
-<div id="d59bbc2b" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="op">=</span> sns.load_dataset(<span class="st">"diamonds"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>diamonds.sort_values(<span class="st">"color"</span>),</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"color"</span>, y<span class="op">=</span><span class="st">"price"</span>, kind<span class="op">=</span><span class="st">"boxen"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7087e7eb1d00&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-11-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="04_catplot_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="violin-plots" class="level3">
-<h3 class="anchored" data-anchor-id="violin-plots">Violin plots</h3>
-<p>A different approach is a&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.violinplot.html#seaborn.violinplot" title="seaborn.violinplot"><code>violinplot()</code></a>, which combines a <strong>boxplot</strong> with the <strong>kernel density estimation</strong> procedure described in the&nbsp;<a href="https://seaborn.pydata.org/tutorial/distributions.html#distribution-tutorial">distributions</a>&nbsp;tutorial:</p>
-<div id="f056a1cb" class="cell" data-execution_count="45">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"total_bill"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"day"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"violin"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="04_catplot_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>It’s also possible to <strong>“split” the violins</strong>, which can allow for a more efficient use of space:</p>
-<div id="f7d4c2bf" class="cell" data-execution_count="46">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"total_bill"</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"day"</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"violin"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    split<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="04_catplot_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Finally, there are several options for the plot that is drawn on the interior of the violins, including ways to <strong>show each individual observation</strong> instead of the summary boxplot values:</p>
-<div id="748af9de" class="cell" data-execution_count="47">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"day"</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"total_bill"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"violin"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    inner<span class="op">=</span><span class="st">"stick"</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    split<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"pastel"</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-14-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="04_catplot_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>It can also be useful to combine&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.swarmplot.html#seaborn.swarmplot" title="seaborn.swarmplot"><code>swarmplot()</code></a>&nbsp;or&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.stripplot.html#seaborn.stripplot" title="seaborn.stripplot"><code>stripplot()</code></a>&nbsp;with a box plot or violin plot to show each observation along with a summary of the distribution:</p>
-<div id="dcd08f1e" class="cell" data-execution_count="54">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.catplot(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"day"</span>, </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"total_bill"</span>, </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"violin"</span>, </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    inner<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>tips, </span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"day"</span>, </span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"total_bill"</span>, </span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"k"</span>, </span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="dv">3</span>, </span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>g.ax)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-15-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="04_catplot_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
+<p>Notice the x-axis is the same for all three plots since we specified <code>sharex=True</code>.</p>
 </section>
 </section>
 <section id="count-plot" class="level2">
 <h2 class="anchored" data-anchor-id="count-plot">Count Plot</h2>
 <p>In seaborn, the&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.countplot.html#seaborn.countplot"><code>countplot()</code></a>&nbsp;function is <strong>similar to a histogram over a categorical, rather than quantitative, variable</strong>. Notice that we neve specify the y-axis, because it is implicitly the <code>count</code>:</p>
-<div id="3f962422" class="cell" data-execution_count="69">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(data<span class="op">=</span>titanic, x<span class="op">=</span><span class="st">"deck"</span>, kind<span class="op">=</span><span class="st">"count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3f962422" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(data<span class="op">=</span>titanic, kind<span class="op">=</span><span class="st">"count"</span>, x<span class="op">=</span><span class="st">"deck"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-16-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="04_catplot_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="04_catplot_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -711,41 +605,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="estimating-central-tendency" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-central-tendency">Estimating central tendency</h2>
 <p>For other applications, rather than showing the distribution within each category, you might want to show <strong>an estimate of the central tendency of the values</strong>.</p>
-<section id="bar-plots" class="level3">
-<h3 class="anchored" data-anchor-id="bar-plots">Bar plots</h3>
-<p><strong>Not to be confused with the</strong> <a href="https://seaborn.pydata.org/generated/seaborn.countplot.html#seaborn.countplot"><code>countplot()</code></a>, the&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.barplot.html#seaborn.barplot"><code>barplot()</code></a>&nbsp;function:</p>
-<ul>
-<li>operates on a full dataset and applies a function to <strong>obtain the estimate (taking the mean by default)</strong>.</li>
-<li>When there are multiple observations in each category, it also uses bootstrapping to compute a confidence interval around the estimate, which is plotted using <a href="https://seaborn.pydata.org/tutorial/error_bars.html">error bars</a>:</li>
-</ul>
-<div id="fe2d6db7" class="cell" data-execution_count="67">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="op">=</span> sns.load_dataset(<span class="st">"titanic"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic, x<span class="op">=</span><span class="st">"sex"</span>, y<span class="op">=</span><span class="st">"survived"</span>, hue<span class="op">=</span><span class="st">"class"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"bar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-17-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="04_catplot_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The default error bars show 95% confidence intervals, but (starting in v0.12), it is possible to select from a number of other representations:</p>
-<div id="3ca4bee1" class="cell" data-execution_count="68">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic, x<span class="op">=</span><span class="st">"age"</span>, y<span class="op">=</span><span class="st">"deck"</span>,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    errorbar<span class="op">=</span>(<span class="st">"pi"</span>, <span class="dv">95</span>), kind<span class="op">=</span><span class="st">"bar"</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-18-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="04_catplot_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 <section id="point-plots" class="level3">
 <h3 class="anchored" data-anchor-id="point-plots">Point plots</h3>
 <p>An alternative style for visualizing the same information is offered by the&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.pointplot.html#seaborn.pointplot" title="seaborn.pointplot"><code>pointplot()</code></a>&nbsp;function. This function:</p>
@@ -754,17 +613,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Additionally,&nbsp;<a href="https://seaborn.pydata.org/generated/seaborn.pointplot.html#seaborn.pointplot" title="seaborn.pointplot"><code>pointplot()</code></a>&nbsp;connects points from the same&nbsp;<code>hue</code>&nbsp;category. This makes it easy to see how the main relationship is changing as a function of the hue semantic, <strong>because your eyes are quite good at picking up on differences of slopes</strong></li>
 <li>It can still be a good idea to vary the <code>marker</code> and/or linestyle along with the <code>hue</code> to make figures that are maximally accessible and reproduce well in black and white:</li>
 </ol>
-<div id="92b4ad8e" class="cell" data-execution_count="71">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>titanic, x<span class="op">=</span><span class="st">"class"</span>, y<span class="op">=</span><span class="st">"survived"</span>, hue<span class="op">=</span><span class="st">"sex"</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span>{<span class="st">"male"</span>: <span class="st">"g"</span>, <span class="st">"female"</span>: <span class="st">"m"</span>},</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    markers<span class="op">=</span>[<span class="st">"^"</span>, <span class="st">"o"</span>], linestyles<span class="op">=</span>[<span class="st">"-"</span>, <span class="st">"--"</span>],</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"point"</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="394debf1" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>wpm <span class="op">=</span> pd.read_csv(<span class="st">'../../data/wpm.csv'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wpm[:<span class="dv">3</span>])</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(wpm[<span class="op">-</span><span class="dv">3</span>:])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   wpm  light
+0   11  False
+1   15  False
+2   50  False
+    wpm  light
+23   42   True
+24   36   True
+25   40   True</code></pre>
+</div>
+</div>
+<div id="92b4ad8e" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>wpm, x<span class="op">=</span><span class="st">"light"</span>, y<span class="op">=</span><span class="st">"wpm"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"point"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="04_catplot_files/figure-html/cell-19-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="04_catplot_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="04_catplot_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="04_catplot_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>

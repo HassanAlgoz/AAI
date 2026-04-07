@@ -138,23 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../../W2/"> 
-<span class="menu-text">DS</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W3/"> 
-<span class="menu-text">ML</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W4/"> 
-<span class="menu-text">DL</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W5/"> 
-<span class="menu-text">Agentic</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../W6/"> 
-<span class="menu-text">Vibe</span></a>
+<span class="menu-text">Data Science</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -197,17 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bar-plot" id="toc-bar-plot" class="nav-link" data-scroll-target="#bar-plot">Bar plot</a></li>
   <li><a href="#conditioning-on-other-variables" id="toc-conditioning-on-other-variables" class="nav-link" data-scroll-target="#conditioning-on-other-variables">Conditioning on other variables</a></li>
   <li><a href="#normalized-histogram-statistics" id="toc-normalized-histogram-statistics" class="nav-link" data-scroll-target="#normalized-histogram-statistics">Normalized histogram statistics</a></li>
-  <li><a href="#kernel-density-estimation" id="toc-kernel-density-estimation" class="nav-link" data-scroll-target="#kernel-density-estimation">Kernel density estimation</a>
-  <ul class="collapse">
-  <li><a href="#choosing-the-smoothing-bandwidth" id="toc-choosing-the-smoothing-bandwidth" class="nav-link" data-scroll-target="#choosing-the-smoothing-bandwidth">Choosing the smoothing bandwidth</a></li>
-  </ul></li>
   <li><a href="#empirical-cumulative-distributions" id="toc-empirical-cumulative-distributions" class="nav-link" data-scroll-target="#empirical-cumulative-distributions">Empirical cumulative distributions</a></li>
-  <li><a href="#visualizing-bivariate-distributions" id="toc-visualizing-bivariate-distributions" class="nav-link" data-scroll-target="#visualizing-bivariate-distributions">Visualizing bivariate distributions</a>
-  <ul class="collapse">
-  <li><a href="#bivariate-categorical-variables" id="toc-bivariate-categorical-variables" class="nav-link" data-scroll-target="#bivariate-categorical-variables">Bivariate Categorical Variables</a></li>
-  </ul></li>
-  <li><a href="#plotting-joint-and-marginal-distributions" id="toc-plotting-joint-and-marginal-distributions" class="nav-link" data-scroll-target="#plotting-joint-and-marginal-distributions">Plotting joint and marginal distributions</a></li>
-  <li><a href="#plotting-many-distributions" id="toc-plotting-many-distributions" class="nav-link" data-scroll-target="#plotting-many-distributions">Plotting many distributions</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03_displot.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
@@ -243,14 +217,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Do the answers to these questions vary <strong>across subsets</strong> defined by other variables?</li>
 </ol>
 <p>By convention, the alias <code>sns</code> is used for <code>seaborn</code>:</p>
-<div id="2cde2b6d" class="cell">
+<div id="2cde2b6d" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s load smoe data and look at some plots possible with seaborn.</p>
-<div id="8428cd1e" class="cell">
+<div id="8428cd1e" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -329,11 +303,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The <strong>axes-level</strong> functions are <a href="https://seaborn.pydata.org/generated/seaborn.histplot.html#seaborn.histplot"><code>histplot()</code></a>, <a href="https://seaborn.pydata.org/generated/seaborn.kdeplot.html#seaborn.kdeplot"><code>kdeplot()</code></a>, <a href="https://seaborn.pydata.org/generated/seaborn.ecdfplot.html#seaborn.ecdfplot"><code>ecdfplot()</code></a>, and <a href="https://seaborn.pydata.org/generated/seaborn.rugplot.html#seaborn.rugplot"><code>rugplot()</code></a>.</li>
 <li>They are grouped together within the <strong>figure-level</strong> <a href="https://seaborn.pydata.org/generated/seaborn.displot.html#seaborn.displot"><code>displot()</code></a>, <a href="https://seaborn.pydata.org/generated/seaborn.jointplot.html#seaborn.jointplot"><code>jointplot()</code></a>, and <a href="https://seaborn.pydata.org/generated/seaborn.pairplot.html#seaborn.pairplot"><code>pairplot()</code></a> functions.</li>
 </ol>
+<p><a href="../assets/displot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/displot.png" class="img-fluid"></a></p>
 <section id="plotting-univariate-histograms" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-univariate-histograms">Plotting univariate histograms</h3>
 <p>A <strong>histogram</strong> is a bar plot where the axis representing the data variable is divided into a set of discrete bins and the count of observations falling within each bin is shown using the height of the corresponding bar.</p>
 <p>We use the <code>sns.displot()</code> function with the default value <code>kind="hist"</code>:</p>
-<div id="736b6b40" class="cell" data-execution_count="4">
+<div id="736b6b40" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>penguins,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
@@ -342,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="03_displot_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="03_displot_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -351,20 +326,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>It is always advisable to check that your impressions of the distribution are consistent across different bin sizes</strong>.</p>
 <p>You may choose to adjust the size / number of bins in two ways:</p>
 <ul>
-<li>By Width: <code>binwidth=3</code></li>
+<li>By Width: <code>binwidth=10</code></li>
 <li>By Count: <code>bins=20</code></li>
 </ul>
-<div id="d3f57ff8" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    binwidth<span class="op">=</span><span class="dv">3</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d3f57ff8" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>figure, axes <span class="op">=</span> plt.subplots(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Left</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    binwidth<span class="op">=</span><span class="dv">10</span>,         <span class="co"># by width</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">0</span>]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Right</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>sns.histplot(</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span><span class="dv">7</span>,               <span class="co"># by count</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">1</span>]</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-5-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="03_displot_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-5-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="03_displot_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -373,10 +364,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="bar-plot" class="level3">
 <h3 class="anchored" data-anchor-id="bar-plot">Bar plot</h3>
 <p>It’s also possible to visualize the distribution of a categorical variable using the logic of a histogram.</p>
-<div id="3f18d86e" class="cell" data-execution_count="30">
+<div id="3f18d86e" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">"tips"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tips[<span class="st">'size'</span>].value_counts().sort_index()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>size
 1      4
 2    156
@@ -394,11 +385,11 @@ Name: count, dtype: int64</code></pre>
 <li>discrete bins are automatically set for categorical variables, but it may also be helpful to “<code>shrink</code>” the bars slightly to emphasize the categorical nature of the axis:</li>
 </ul>
 <div id="17be46af" class="cell" data-execution_count="31">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sns.displot(tips, x<span class="op">=</span><span class="st">"size"</span>, discrete<span class="op">=</span><span class="va">True</span>, shrink<span class="op">=</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sns.displot(tips, kind<span class="op">=</span><span class="st">'hist'</span>, x<span class="op">=</span><span class="st">"size"</span>, discrete<span class="op">=</span><span class="va">True</span>, shrink<span class="op">=</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="03_displot_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="03_displot_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -407,50 +398,58 @@ Name: count, dtype: int64</code></pre>
 <section id="conditioning-on-other-variables" class="level2">
 <h2 class="anchored" data-anchor-id="conditioning-on-other-variables">Conditioning on other variables</h2>
 <p>Once you understand the distribution of a variable, the next step is often to ask: <strong>whether features of that distribution differ across other variables in the dataset</strong>. For example, what accounts for the bimodal distribution of flipper lengths that we saw above?</p>
-<p>Assigning a variable to <code>hue</code> will draw a separate histogram for each of its unique values and distinguish them by color:</p>
-<div id="963bca1e" class="cell" data-execution_count="32">
+<ul>
+<li>Assigning a variable to <code>hue="species"</code> (or other categorical variables) will draw a separate histogram for each of its unique values and distinguish them by color.</li>
+</ul>
+<div id="0010bfcb" class="cell" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'kde'</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    fill<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>,   <span class="co"># Distinguish by color</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="03_displot_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="03_displot_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>By default, the different histograms are “layered” on top of each other and, in some cases, they may be difficult to distinguish. One option is to change the visual representation of the histogram from a bar plot to a “step” plot:</p>
-<div id="611a3efd" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, element<span class="op">=</span><span class="st">"step"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Overlapping distribution may be stacked via <code>multiple="stack"</code>, useful in histograms</li>
+</ul>
+<div id="963bca1e" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"species"</span>,   <span class="co"># Distinguish by color</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    multiple<span class="op">=</span><span class="st">"stack"</span> <span class="co"># On top of each other</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="03_displot_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Alternatively, instead of layering each bar, they can be “stacked”, or moved vertically. In this plot, the outline of the full histogram will match the plot with only a single variable:</p>
-<div id="8b5978f7" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, multiple<span class="op">=</span><span class="st">"stack"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="03_displot_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="03_displot_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>It is also possible to draw each individual distribution in a separate subplot: by assigning the second variable to <code>col</code> or <code>row</code> rather than (or in addition to) <code>hue</code>:</p>
-<div id="7ea97367" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, col<span class="op">=</span><span class="st">"sex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7ea97367" class="cell" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'kde'</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    fill<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"body_mass_g"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    row<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"island"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="03_displot_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-10-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="03_displot_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -475,27 +474,33 @@ Note
 <ul>
 <li><strong>When the subsets have unequal numbers of observations</strong>, comparing their distributions in terms of counts may not be ideal.</li>
 <li>One solution is to normalize the counts using the <code>stat</code> parameter:</li>
+<li>By default, however, <strong>the normalization is applied to the entire distribution</strong>, so this simply rescales the height of the bars.</li>
+<li>By setting <code>common_norm=False</code>, <strong>each subset will be normalized independently</strong></li>
 </ul>
-<div id="91bdc060" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, stat<span class="op">=</span><span class="st">"density"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c502ac9d" class="cell" data-execution_count="54">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, col<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># stat="density",   # stat="density"; Adjust for unequal counts</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># common_norm=False, # common_norm=False; to normalize each subset independently</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="03_displot_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="03_displot_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-<ul>
-<li>By default, however, <strong>the normalization is applied to the entire distribution</strong>, so this simply rescales the height of the bars.</li>
-<li>By setting <code>common_norm=False</code>, <strong>each subset will be normalized independently</strong></li>
-</ul>
-<div id="c502ac9d" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, stat<span class="op">=</span><span class="st">"density"</span>, common_norm<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c1e90a85" class="cell" data-execution_count="64">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, col<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">"density"</span>,    <span class="co"># stat="density"; Adjust for unequal counts</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    common_norm<span class="op">=</span><span class="va">False</span>, <span class="co"># common_norm=False; to normalize each subset independently</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="03_displot_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="03_displot_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -504,72 +509,30 @@ Note
 <li>Density normalization scales the bars so that <strong>their areas sum to 1</strong>. As a result, the density axis is not directly interpretable.</li>
 <li>Another option is to normalize the bars so that <strong>their heights sum to 1</strong>. This makes most sense when the variable is discrete, but it is an option for all histograms:</li>
 </ul>
-<div id="6c49e897" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, stat<span class="op">=</span><span class="st">"probability"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="6c49e897" class="cell" data-execution_count="63">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, col<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">"probability"</span>, <span class="co"># bar heights sum up to 1</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    common_norm<span class="op">=</span><span class="va">False</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-14-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="03_displot_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-13-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="03_displot_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="kernel-density-estimation" class="level2">
-<h2 class="anchored" data-anchor-id="kernel-density-estimation">Kernel density estimation</h2>
-<p>A histogram aims to approximate the underlying probability density function that generated the data by binning and counting observations. Kernel density estimation (KDE) presents a different solution to the same problem. Rather than using discrete bins, a KDE plot smooths the observations with a Gaussian kernel, producing a continuous density estimate:</p>
-<div id="2a5c3649" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, kind<span class="op">=</span><span class="st">"kde"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-15-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="03_displot_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="choosing-the-smoothing-bandwidth" class="level3">
-<h3 class="anchored" data-anchor-id="choosing-the-smoothing-bandwidth">Choosing the smoothing bandwidth</h3>
-<ul>
-<li>Much like with the <strong>bin size</strong> in the histogram</li>
-<li>the ability of the KDE to accurately represent the data depends on the choice of <strong>smoothing bandwidth</strong>.</li>
-</ul>
-<p>An over-smoothed estimate might erase meaningful features, but an under-smoothed estimate can obscure the true shape within random noise. The easiest way to check the robustness of the estimate is to adjust the default bandwidth:</p>
-<div id="d8a75799" class="cell" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, kind<span class="op">=</span><span class="st">"kde"</span>, bw_adjust<span class="op">=</span><span class="fl">.25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-16-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="03_displot_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>Note how the <strong>narrow</strong> bandwidth makes the bimodality much more <strong>apparent</strong>, but the curve is much less smooth.</li>
-<li>In contrast, a <strong>larger</strong> bandwidth <strong>obscures</strong> the bimodality almost completely:</li>
-</ul>
-<div id="db9aa59f" class="cell" data-execution_count="26">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, kind<span class="op">=</span><span class="st">"kde"</span>, bw_adjust<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-17-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="03_displot_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
 </section>
 <section id="empirical-cumulative-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="empirical-cumulative-distributions">Empirical cumulative distributions</h2>
 <p>A third option for visualizing distributions computes the “empirical cumulative distribution function” (ECDF). This plot draws a monotonically-increasing curve through each datapoint such that <strong>the height of the curve reflects the proportion of observations with a smaller value</strong>:</p>
 <div id="fb101989" class="cell" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, kind<span class="op">=</span><span class="st">"ecdf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, kind<span class="op">=</span><span class="st">"ecdf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-18-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="03_displot_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-14-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="03_displot_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -578,189 +541,32 @@ Note
 <p>Firstly, unlike the histogram or KDE, it directly represents each datapoint. That means there is no bin size or smoothing parameter to consider.</p>
 <p>Secondly, because the curve is monotonically increasing, it is well-suited for comparing multiple distributions:</p>
 <div id="90fad729" class="cell" data-execution_count="34">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>sns.ecdfplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"ECDF by Species"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"KDE by Species"</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>sns.ecdfplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"ECDF by Species"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"KDE by Species"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-19-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="03_displot_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-15-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="03_displot_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The major downside to the ECDF plot is that it represents the shape of the distribution less intuitively than a histogram or density curve. Consider how the bimodality of flipper lengths is immediately apparent in the histogram, but to see it in the ECDF plot, you must look for varying slopes. <strong>Nevertheless, with practice, you can learn to answer all of the important questions about a distribution by examining the ECDF, and doing so can be a powerful approach</strong>.</p>
-</section>
-<section id="visualizing-bivariate-distributions" class="level2">
-<h2 class="anchored" data-anchor-id="visualizing-bivariate-distributions">Visualizing bivariate distributions</h2>
+<hr>
+<p>References:</p>
 <ul>
-<li>All of the examples so far have considered univariate distributions: distributions of a single variable, perhaps conditional on a second variable assigned to <code>hue</code>.</li>
-<li>Assigning a second variable to <code>y</code>, however, will plot a <strong>bivariate distribution</strong></li>
-<li>To aid interpretation of the heatmap, add a <code>cbar=True</code> (colorbar) to show the mapping between counts and color intensity:</li>
+<li>https://seaborn.pydata.org/tutorial/distributions.html</li>
 </ul>
-<div id="2a6f1818" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>, cbar<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-20-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="03_displot_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>A <strong>bivariate histogram</strong> bins the data within rectangles that tile the plot and then shows the count of observations within each rectangle with the fill color (analogous to a <a href="https://seaborn.pydata.org/generated/seaborn.heatmap.html#seaborn.heatmap"><code>heatmap()</code></a>).</p>
-<p>Similarly, a <strong>bivariate KDE</strong> plot smoothes the (x, y) observations with a 2D Gaussian. The default representation then shows the contours of the 2D density:</p>
-<div id="2e62dd82" class="cell" data-execution_count="36">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>, kind<span class="op">=</span><span class="st">"kde"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-21-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="03_displot_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>Assigning a <code>hue</code> variable will plot multiple heatmaps or contour sets using different colors.</li>
-<li>For bivariate histograms, this will only work well if there is minimal overlap between the conditional distributions:</li>
-</ul>
-<div id="0fb54760" class="cell" data-execution_count="38">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, kind<span class="op">=</span><span class="st">"kde"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-22-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="03_displot_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="bivariate-categorical-variables" class="level3">
-<h3 class="anchored" data-anchor-id="bivariate-categorical-variables">Bivariate Categorical Variables</h3>
-<p>In contrast, plotting two discrete variables is an easy to way show the cross-tabulation of the observations:</p>
-<div id="5072f415" class="cell" data-execution_count="41">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="op">=</span> sns.load_dataset(<span class="st">"diamonds"</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>sns.displot(diamonds, x<span class="op">=</span><span class="st">"color"</span>, y<span class="op">=</span><span class="st">"clarity"</span>, cbar<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-23-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19"><img src="03_displot_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="plotting-joint-and-marginal-distributions" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-joint-and-marginal-distributions">Plotting joint and marginal distributions</h2>
-<ul>
-<li>The first is <code>jointplot()</code>, which augments a bivariate relational or distribution plot with the marginal distributions of the two variables.</li>
-<li>By default, <code>jointplot()</code> represents the bivariate distribution using <code>scatterplot()</code> and the marginal distributions using <code>histplot()</code>:</li>
-</ul>
-<div id="16429b0d" class="cell" data-execution_count="42">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sns.jointplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-24-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-20"><img src="03_displot_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Similar to <code>displot()</code>, setting a different <code>kind="kde"</code> in <code>jointplot()</code> will change both the joint and marginal plots the use <code>kdeplot()</code>:</p>
-<div id="63c7fad6" class="cell" data-execution_count="43">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sns.jointplot(</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>penguins,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"kde"</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-25-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-21"><img src="03_displot_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p><a href="https://seaborn.pydata.org/generated/seaborn.jointplot.html#seaborn.jointplot"><code>jointplot()</code></a> is a convenient interface to the <a href="https://seaborn.pydata.org/generated/seaborn.JointGrid.html#seaborn.JointGrid"><strong><code>JointGrid</code></strong></a> class, which offeres more flexibility when used directly:</p>
-<div id="eabd094c" class="cell" data-execution_count="44">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.JointGrid(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>g.plot_joint(sns.histplot)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>g.plot_marginals(sns.boxplot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-26-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-22"><img src="03_displot_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>A less-obtrusive way to show marginal distributions uses a “rug” plot, which adds a small tick on the edge of the plot to represent each individual observation. This is built into displot():</p>
-<div id="b4f5d7bb" class="cell" data-execution_count="45">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"kde"</span>, rug<span class="op">=</span><span class="va">True</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-27-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-23"><img src="03_displot_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>And the axes-level <a href="https://seaborn.pydata.org/generated/seaborn.rugplot.html#seaborn.rugplot"><code>rugplot()</code></a> function can be used to add rugs on the side of any other kind of plot:</p>
-<div id="474c4c5f" class="cell" data-execution_count="46">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sns.relplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>sns.rugplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"bill_depth_mm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-28-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-24"><img src="03_displot_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="plotting-many-distributions" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-many-distributions">Plotting many distributions</h2>
-<p>The <code>pairplot()</code> function offers a similar blend of joint and marginal distributions. Rather than focusing on a single relationship, however, <code>pairplot()</code> uses a <a href="https://seaborn.pydata.org/tutorial/axis_grids.html">“small-multiple” approach</a> to visualize:</p>
-<ol type="1">
-<li>the <strong>univariate distribution</strong> of all variables in a dataset</li>
-<li>along with all of their <strong>pairwise relationships</strong>:</li>
-</ol>
-<div id="df43a742" class="cell" data-execution_count="47">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sns.pairplot(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-29-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-25"><img src="03_displot_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
-<p>As with <a href="https://seaborn.pydata.org/generated/seaborn.jointplot.html#seaborn.jointplot"><code>jointplot()</code></a>/<a href="https://seaborn.pydata.org/generated/seaborn.JointGrid.html#seaborn.JointGrid"><strong>JointGrid</strong></a>, using the underlying <a href="https://seaborn.pydata.org/generated/seaborn.PairGrid.html#seaborn.PairGrid"><strong>PairGrid</strong></a> directly will afford more flexibility with only a bit more typing:</p>
-<div id="db15640c" class="cell" data-execution_count="48">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.PairGrid(penguins)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>g.map_upper(sns.histplot)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>g.map_lower(sns.kdeplot, fill<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>g.map_diag(sns.histplot, kde<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-30-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-26"><img src="03_displot_files/figure-html/cell-30-output-1.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
-</div>
-</div>
 
 
 </section>
