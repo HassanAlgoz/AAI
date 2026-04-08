@@ -112,8 +112,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -568,7 +582,7 @@ pm25    1825
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<p>Let’s focus on <span class="math inline">\(NO2\)</span> data:</p>
+<p>Let’s focus on <span class="math inline">NO2</span> data:</p>
 <div id="557f60a5" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>no2 <span class="op">=</span> air_quality[air_quality[<span class="st">"parameter"</span>] <span class="op">==</span> <span class="st">"no2"</span>]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>no2.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -758,7 +772,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>Let’s say we want the mean concentrations for <span class="math inline">\(NO2\)</span> and <span class="math inline">\(PM2.5\)</span> in each of the stations in table form.</p>
+<p>Let’s say we want the mean concentrations for <span class="math inline">NO2</span> and <span class="math inline">PM2.5</span> in each of the stations in table form.</p>
 <p>In the case of&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.pivot.html#pandas.DataFrame.pivot" title="pandas.DataFrame.pivot"><code>pivot()</code></a>, the data is only rearranged. When multiple values need to be aggregated (in this specific case, the values on different time steps),&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.pivot_table.html#pandas.DataFrame.pivot_table" title="pandas.DataFrame.pivot_table"><code>pivot_table()</code></a>&nbsp;can be used, providing an aggregation function (e.g.&nbsp;mean) on how to combine these values.</p>
 <div id="ce4d247e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>air_quality.pivot_table(</span>
@@ -1120,7 +1134,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>Let’s say now we want to collect all air quality <span class="math inline">\(NO2\)</span> measurements in a single column (long format). The parameters passed to&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.melt.html#pandas.melt" title="pandas.melt"><code>pandas.melt()</code></a>&nbsp;can be defined in more detail:</p>
+<p>Let’s say now we want to collect all air quality <span class="math inline">NO2</span> measurements in a single column (long format). The parameters passed to&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.melt.html#pandas.melt" title="pandas.melt"><code>pandas.melt()</code></a>&nbsp;can be defined in more detail:</p>
 <div id="e3572d4f" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>no_2 <span class="op">=</span> no2_pivoted.melt(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span><span class="st">"date.utc"</span>,</span>

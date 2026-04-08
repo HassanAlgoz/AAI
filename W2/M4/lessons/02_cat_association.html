@@ -112,8 +112,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -206,7 +220,7 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#step-1-chi-square-test-chi2" id="toc-step-1-chi-square-test-chi2" class="nav-link active" data-scroll-target="#step-1-chi-square-test-chi2">Step 1: Chi-square Test (<span class="math inline">\(\chi^2\)</span>)</a></li>
+  <li><a href="#step-1-chi-square-test-chi2" id="toc-step-1-chi-square-test-chi2" class="nav-link active" data-scroll-target="#step-1-chi-square-test-chi2">Step 1: Chi-square Test (<span class="math inline">\chi^2</span>)</a></li>
   <li><a href="#step-2-calculate-cramers-v" id="toc-step-2-calculate-cramers-v" class="nav-link" data-scroll-target="#step-2-calculate-cramers-v">Step 2: Calculate Cramer’s V</a></li>
   <li><a href="#step-3-interpreting-the-results" id="toc-step-3-interpreting-the-results" class="nav-link" data-scroll-target="#step-3-interpreting-the-results">Step 3: Interpreting the results</a></li>
   </ul>
@@ -241,7 +255,7 @@ window.Quarto = {
 <li>To quantify the <strong>strength</strong> of association, we’ll be using Cramer’s V</li>
 </ol>
 <section id="hypothesis-h_1-there-is-a-strong-relationship-between-occupation-of-a-person-and-their-gender" class="level4">
-<h4 class="anchored" data-anchor-id="hypothesis-h_1-there-is-a-strong-relationship-between-occupation-of-a-person-and-their-gender">Hypothesis <span class="math inline">\(H_1\)</span>: there is a strong relationship between <strong>occupation</strong> of a person and their <strong>gender</strong></h4>
+<h4 class="anchored" data-anchor-id="hypothesis-h_1-there-is-a-strong-relationship-between-occupation-of-a-person-and-their-gender">Hypothesis <span class="math inline">H_1</span>: there is a strong relationship between <strong>occupation</strong> of a person and their <strong>gender</strong></h4>
 <div id="537014c7" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -446,7 +460,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </section>
 <section id="step-1-chi-square-test-chi2" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-chi-square-test-chi2">Step 1: Chi-square Test (<span class="math inline">\(\chi^2\)</span>)</h3>
+<h3 class="anchored" data-anchor-id="step-1-chi-square-test-chi2">Step 1: Chi-square Test (<span class="math inline">\chi^2</span>)</h3>
 <ul>
 <li>The <strong>Chi-squared test</strong> is used to test for <strong>association between two categorical variables</strong>.</li>
 <li>However, it doesn’t quantify how strong this association is.</li>
@@ -670,7 +684,7 @@ P-value: 0.00e+00
 significant!</code></pre>
 </div>
 </div>
-<p>Always check the p-value of your Chi-square test first. If the p-value is not significant (usually <span class="math inline">\(p &gt; 0.05\)</span>), the association is likely due to chance, and interpreting Cramér’s V becomes moot. In our case, the <span class="math inline">\(p &lt; 0.05\)</span> and hence we proceed..</p>
+<p>Always check the p-value of your Chi-square test first. If the p-value is not significant (usually <span class="math inline">p &gt; 0.05</span>), the association is likely due to chance, and interpreting Cramér’s V becomes moot. In our case, the <span class="math inline">p &lt; 0.05</span> and hence we proceed..</p>
 <p>We do not care about the <code>chi2_stat</code> and <code>expected_frequencies</code>, but, we will need the <strong>Degrees of Freedom</strong> (<code>dof = min(n_rows, n_cols)</code>) in interpreting Cramer’s V test result.</p>
 </section>
 </section>

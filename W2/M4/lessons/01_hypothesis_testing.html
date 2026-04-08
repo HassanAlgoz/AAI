@@ -112,8 +112,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -225,10 +239,10 @@ window.Quarto = {
   </ul></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
   <ul class="collapse">
-  <li><a href="#hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" id="toc-hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" class="nav-link" data-scroll-target="#hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population">Hypothesis <span class="math inline">\(H_1\)</span>: the average height of NBA player is higher than the average height of the general population</a></li>
-  <li><a href="#hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" id="toc-hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" class="nav-link" data-scroll-target="#hypothesis-h_2-male-penguins-weigh-more-than-female-penguins">Hypothesis <span class="math inline">\(H_2\)</span>: male penguins weigh more than female penguins</a></li>
-  <li><a href="#hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" id="toc-hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" class="nav-link" data-scroll-target="#hypothesis-h_3-smokers-give-higher-tips-than-non-smokers">Hypothesis <span class="math inline">\(H_3\)</span>: smokers give higher tips than non-smokers</a></li>
-  <li><a href="#hypothesis-h_4-spinach-increases-grip-strength" id="toc-hypothesis-h_4-spinach-increases-grip-strength" class="nav-link" data-scroll-target="#hypothesis-h_4-spinach-increases-grip-strength">Hypothesis <span class="math inline">\(H_4\)</span>: spinach increases grip strength</a></li>
+  <li><a href="#hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" id="toc-hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" class="nav-link" data-scroll-target="#hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population">Hypothesis <span class="math inline">H_1</span>: the average height of NBA player is higher than the average height of the general population</a></li>
+  <li><a href="#hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" id="toc-hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" class="nav-link" data-scroll-target="#hypothesis-h_2-male-penguins-weigh-more-than-female-penguins">Hypothesis <span class="math inline">H_2</span>: male penguins weigh more than female penguins</a></li>
+  <li><a href="#hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" id="toc-hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" class="nav-link" data-scroll-target="#hypothesis-h_3-smokers-give-higher-tips-than-non-smokers">Hypothesis <span class="math inline">H_3</span>: smokers give higher tips than non-smokers</a></li>
+  <li><a href="#hypothesis-h_4-spinach-increases-grip-strength" id="toc-hypothesis-h_4-spinach-increases-grip-strength" class="nav-link" data-scroll-target="#hypothesis-h_4-spinach-increases-grip-strength">Hypothesis <span class="math inline">H_4</span>: spinach increases grip strength</a></li>
   <li><a href="#one-way-anova-and-tukey-hsd" id="toc-one-way-anova-and-tukey-hsd" class="nav-link" data-scroll-target="#one-way-anova-and-tukey-hsd">One-way ANOVA and Tukey HSD</a></li>
   </ul></li>
   </ul>
@@ -290,8 +304,8 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="definitions-null-vs.-alternative">Definitions: Null vs.&nbsp;Alternative</h3>
 <p>In every test, we pit two statements against each other:</p>
 <ol type="1">
-<li><strong>Null Hypothesis (<span class="math inline">\(H_0\)</span>):</strong> The “status quo” or “no effect” statement. It assumes that any observed difference in your data is due to random sampling error (chance) rather than a true effect.</li>
-<li><strong>Alternative Hypothesis (<span class="math inline">\(H_a\)</span> or <span class="math inline">\(H_1\)</span>):</strong> The statement you are trying to find evidence for. It claims there is a real effect, a difference, or a relationship.</li>
+<li><strong>Null Hypothesis (<span class="math inline">H_0</span>):</strong> The “status quo” or “no effect” statement. It assumes that any observed difference in your data is due to random sampling error (chance) rather than a true effect.</li>
+<li><strong>Alternative Hypothesis (<span class="math inline">H_a</span> or <span class="math inline">H_1</span>):</strong> The statement you are trying to find evidence for. It claims there is a real effect, a difference, or a relationship.</li>
 </ol>
 </section>
 <section id="anecdotal-evidence" class="level3">
@@ -326,21 +340,21 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td><strong>Mercury</strong></td>
-<td>Mean mercury <span class="math inline">\(\le\)</span> 1.0 ppm.</td>
-<td>Mean mercury <span class="math inline">\(&gt;\)</span> 1.0 ppm.</td>
-<td><span class="math inline">\(\mu\)</span> (Average Concentration)</td>
+<td>Mean mercury <span class="math inline">\le</span> 1.0 ppm.</td>
+<td>Mean mercury <span class="math inline">&gt;</span> 1.0 ppm.</td>
+<td><span class="math inline">\mu</span> (Average Concentration)</td>
 </tr>
 <tr class="even">
 <td><strong>Duke Grad</strong></td>
-<td>Duke grad rate <span class="math inline">\(\le\)</span> National Avg.</td>
-<td>Duke grad rate <span class="math inline">\(&gt;\)</span> National Avg.</td>
-<td><span class="math inline">\(p\)</span> (Proportion of Graduates)</td>
+<td>Duke grad rate <span class="math inline">\le</span> National Avg.</td>
+<td>Duke grad rate <span class="math inline">&gt;</span> National Avg.</td>
+<td><span class="math inline">p</span> (Proportion of Graduates)</td>
 </tr>
 <tr class="odd">
 <td><strong>Heart Drug</strong></td>
-<td>Death rate (Drug) <span class="math inline">\(=\)</span> Death rate (Placebo).</td>
-<td>Death rate (Drug) <span class="math inline">\(&lt;\)</span> Death rate (Placebo).</td>
-<td><span class="math inline">\(p\)</span> (Survival Probability)</td>
+<td>Death rate (Drug) <span class="math inline">=</span> Death rate (Placebo).</td>
+<td>Death rate (Drug) <span class="math inline">&lt;</span> Death rate (Placebo).</td>
+<td><span class="math inline">p</span> (Survival Probability)</td>
 </tr>
 </tbody>
 </table>
@@ -359,7 +373,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="interpreting-the-result-of-the-test">Interpreting the result of the test</h3>
 <p>The outcome of such tests is known to statisticians as the <strong>p-value</strong>:</p>
 <ul>
-<li>if it is below a threshold of <code>alpha = 0.05</code> (by convention from the scientific community) we <strong>“reject”</strong> the Null Hypothesis <span class="math inline">\(H_0\)</span></li>
+<li>if it is below a threshold of <code>alpha = 0.05</code> (by convention from the scientific community) we <strong>“reject”</strong> the Null Hypothesis <span class="math inline">H_0</span></li>
 <li>if it is above that thershold, the test is inconclsuive; i.e., we <strong>“fail to reject”</strong></li>
 </ul>
 <p>Analogous to how, in a courtroom, the Null Hypothesis is: “people are innocent until proven guilty”. A jury might:</p>
@@ -379,9 +393,9 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="case-1-compare-a-sample-against-the-population">Case 1: Compare a Sample Against the Population</h3>
 <p>In reality, this usually means we are making a <strong>comparison against a historic or global value</strong>. Examples:</p>
 <ul>
-<li>To compare the average <strong>height</strong> of a group of students (<span class="math inline">\(\bar{x}\)</span>) to the average height of the general population (<span class="math inline">\(\mu\)</span>).</li>
-<li>To compare the average <strong>IQ</strong> of a group of people (<span class="math inline">\(\bar{x}\)</span>) to the average IQ of the general population (<span class="math inline">\(\mu\)</span>).</li>
-<li>To compare the average <strong>cholesterol levels</strong> of a group of people (<span class="math inline">\(\bar{x}\)</span>) to the recommended cholesterol levels (<span class="math inline">\(\mu\)</span>).</li>
+<li>To compare the average <strong>height</strong> of a group of students (<span class="math inline">\bar{x}</span>) to the average height of the general population (<span class="math inline">\mu</span>).</li>
+<li>To compare the average <strong>IQ</strong> of a group of people (<span class="math inline">\bar{x}</span>) to the average IQ of the general population (<span class="math inline">\mu</span>).</li>
+<li>To compare the average <strong>cholesterol levels</strong> of a group of people (<span class="math inline">\bar{x}</span>) to the recommended cholesterol levels (<span class="math inline">\mu</span>).</li>
 </ul>
 </section>
 <section id="case-2-compare-independent-samples" class="level3">
@@ -457,7 +471,7 @@ window.Quarto = {
 <section id="examples" class="level2">
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
 <section id="hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population" class="level3">
-<h3 class="anchored" data-anchor-id="hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population">Hypothesis <span class="math inline">\(H_1\)</span>: the average height of NBA player is higher than the average height of the general population</h3>
+<h3 class="anchored" data-anchor-id="hypothesis-h_1-the-average-height-of-nba-player-is-higher-than-the-average-height-of-the-general-population">Hypothesis <span class="math inline">H_1</span>: the average height of NBA player is higher than the average height of the general population</h3>
 <div id="cell-24" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source NBA Heights: https://github.com/simonwarchol/NBA-Height-Weight/blob/master/CSVs/total.csv</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nba <span class="op">=</span> pd.read_csv(<span class="st">'../../data/nba_heights.csv'</span>)</span>
@@ -618,9 +632,9 @@ window.Quarto = {
 </div>
 <p>Secondly, when comparing we have three options</p>
 <ol type="1">
-<li><code>alternative="two-sided"</code> the mean of the underlying distribution (<span class="math inline">\(\bar{x}\)</span>) <strong>of the sample is different</strong> than the given population mean (popmean: <span class="math inline">\(\mu\)</span>)</li>
-<li><code>alternative="less"</code> the mean of the underlying distribution (<span class="math inline">\(\bar{x}\)</span>) <strong>of the sample is less</strong> than the given population mean (popmean: <span class="math inline">\(\mu\)</span>)</li>
-<li><code>alternative="greater"</code> the mean of the underlying distribution (<span class="math inline">\(\bar{x}\)</span>) <strong>of the sample is greater</strong> than the given population mean (popmean: <span class="math inline">\(\mu\)</span>)</li>
+<li><code>alternative="two-sided"</code> the mean of the underlying distribution (<span class="math inline">\bar{x}</span>) <strong>of the sample is different</strong> than the given population mean (popmean: <span class="math inline">\mu</span>)</li>
+<li><code>alternative="less"</code> the mean of the underlying distribution (<span class="math inline">\bar{x}</span>) <strong>of the sample is less</strong> than the given population mean (popmean: <span class="math inline">\mu</span>)</li>
+<li><code>alternative="greater"</code> the mean of the underlying distribution (<span class="math inline">\bar{x}</span>) <strong>of the sample is greater</strong> than the given population mean (popmean: <span class="math inline">\mu</span>)</li>
 </ol>
 <div id="cell-30" class="cell" data-execution_count="125">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comparison &gt; 1 sample =&gt; ttest_1samp()</span></span>
@@ -651,7 +665,7 @@ Conclusion: NBA players are taller than the general population</code></pre>
 </section>
 </section>
 <section id="hypothesis-h_2-male-penguins-weigh-more-than-female-penguins" class="level3">
-<h3 class="anchored" data-anchor-id="hypothesis-h_2-male-penguins-weigh-more-than-female-penguins">Hypothesis <span class="math inline">\(H_2\)</span>: male penguins weigh more than female penguins</h3>
+<h3 class="anchored" data-anchor-id="hypothesis-h_2-male-penguins-weigh-more-than-female-penguins">Hypothesis <span class="math inline">H_2</span>: male penguins weigh more than female penguins</h3>
 <div id="cell-34" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
@@ -771,7 +785,7 @@ significant!</code></pre>
 </div>
 </section>
 <section id="hypothesis-h_3-smokers-give-higher-tips-than-non-smokers" class="level3">
-<h3 class="anchored" data-anchor-id="hypothesis-h_3-smokers-give-higher-tips-than-non-smokers">Hypothesis <span class="math inline">\(H_3\)</span>: smokers give higher tips than non-smokers</h3>
+<h3 class="anchored" data-anchor-id="hypothesis-h_3-smokers-give-higher-tips-than-non-smokers">Hypothesis <span class="math inline">H_3</span>: smokers give higher tips than non-smokers</h3>
 <div id="cell-39" class="cell" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -893,7 +907,7 @@ not enough evidence</code></pre>
 </div>
 </section>
 <section id="hypothesis-h_4-spinach-increases-grip-strength" class="level3">
-<h3 class="anchored" data-anchor-id="hypothesis-h_4-spinach-increases-grip-strength">Hypothesis <span class="math inline">\(H_4\)</span>: spinach increases grip strength</h3>
+<h3 class="anchored" data-anchor-id="hypothesis-h_4-spinach-increases-grip-strength">Hypothesis <span class="math inline">H_4</span>: spinach increases grip strength</h3>
 <div id="cell-44" class="cell" data-execution_count="76">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Made up some experimental data</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>grip <span class="op">=</span> pd.DataFrame({</span>
@@ -1130,7 +1144,7 @@ significant!</code></pre>
 <li>or four different studying methods (Flash-cards, Rereding, Practice Tests, and Retrieval)</li>
 </ol>
 <p>You might wonder: “Why not just run three separate t-tests to compare Group A vs.&nbsp;B, B vs.&nbsp;C, and A vs.&nbsp;C?”</p>
-<p>The answer is <strong>Type I Error (False Positives)</strong>. Every time you run a statistical test, there is usually a 5% chance (<span class="math inline">\(\alpha = 0.05\)</span>) of finding a “significant” result purely by luck. If you run many tests, those 5% chances add up.</p>
+<p>The answer is <strong>Type I Error (False Positives)</strong>. Every time you run a statistical test, there is usually a 5% chance (<span class="math inline">\alpha = 0.05</span>) of finding a “significant” result purely by luck. If you run many tests, those 5% chances add up.</p>
 <ul>
 <li><strong>1 test:</strong> 5% risk of error.</li>
 <li><strong>3 tests:</strong> ~14% risk of error.</li>
@@ -1139,7 +1153,7 @@ significant!</code></pre>
 <p>If you get a significant result, you know that “at least one group is different,” but you don’t know if Group A is better than B, or if C is the only outlier. To find out exactly which groups differ, you must run a Post-Hoc Test (like the Tukey HSD).</p>
 <p>As such, we will only show <strong>Tukey’s HSD (Honestly Significant Difference)</strong>. It tells you which specific pairs are different while controlling for the increased risk of false positives.</p>
 <section id="hypothesis-h_5-weights-of-penguins-across-species-do-differ" class="level4">
-<h4 class="anchored" data-anchor-id="hypothesis-h_5-weights-of-penguins-across-species-do-differ">Hypothesis <span class="math inline">\(H_5\)</span>: weights of penguins across species do differ</h4>
+<h4 class="anchored" data-anchor-id="hypothesis-h_5-weights-of-penguins-across-species-do-differ">Hypothesis <span class="math inline">H_5</span>: weights of penguins across species do differ</h4>
 <div id="cell-60" class="cell" data-execution_count="97">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>

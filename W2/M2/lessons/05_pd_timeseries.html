@@ -112,8 +112,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -441,7 +455,7 @@ Name: datetime, Length: 2068, dtype: int32</code></pre>
 </div>
 <p>By using&nbsp;<code>Timestamp</code>&nbsp;objects for dates, a lot of time-related properties are provided by pandas. For example the&nbsp;<code>month</code>, but also&nbsp;<code>year</code>,&nbsp;<code>quarter</code>,… All of these properties are accessible by the&nbsp;<code>dt</code>&nbsp;accessor.</p>
 <p>An overview of the existing date properties is given in the&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#timeseries-components">time and date components overview table</a>. More details about the&nbsp;<code>dt</code>&nbsp;accessor to return datetime like properties are explained in a dedicated section on the&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html#basics-dt-accessors">dt accessor</a>.</p>
-<p>Let’s say we want to know what is the average <span class="math inline">\(NO_2\)</span> concentration for each day of the week for each of the measurement locations:</p>
+<p>Let’s say we want to know what is the average <span class="math inline">NO_2</span> concentration for each day of the week for each of the measurement locations:</p>
 <div id="ef03a9d6" class="cell" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>air_quality.groupby(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    [air_quality[<span class="st">'datetime'</span>].dt.weekday, <span class="st">"location"</span>])[<span class="st">"value"</span>].mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -472,9 +486,9 @@ Name: value, dtype: float64</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p>Remember the split-apply-combine pattern provided by&nbsp;<code>groupby</code>&nbsp;from the&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/06_calculate_statistics.html#min-tut-06-stats">tutorial on statistics calculation</a>? Here, we want to calculate a given statistic (e.g.&nbsp;mena <span class="math inline">\(NO_2\)</span>)&nbsp;<strong>for each weekday</strong>&nbsp;and&nbsp;<strong>for each measurement location</strong>. To group on weekdays, we use the datetime property&nbsp;<code>weekday</code>&nbsp;(with Monday=0 and Sunday=6) of pandas&nbsp;<code>Timestamp</code>, which is also accessible by the&nbsp;<code>dt</code>&nbsp;accessor. The grouping on both locations and weekdays can be done to split the calculation of the mean on each of these combinations.</p>
+<p>Remember the split-apply-combine pattern provided by&nbsp;<code>groupby</code>&nbsp;from the&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/06_calculate_statistics.html#min-tut-06-stats">tutorial on statistics calculation</a>? Here, we want to calculate a given statistic (e.g.&nbsp;mena <span class="math inline">NO_2</span>)&nbsp;<strong>for each weekday</strong>&nbsp;and&nbsp;<strong>for each measurement location</strong>. To group on weekdays, we use the datetime property&nbsp;<code>weekday</code>&nbsp;(with Monday=0 and Sunday=6) of pandas&nbsp;<code>Timestamp</code>, which is also accessible by the&nbsp;<code>dt</code>&nbsp;accessor. The grouping on both locations and weekdays can be done to split the calculation of the mean on each of these combinations.</p>
 </blockquote>
-<p>Let’s plot the typical&nbsp;<span class="math inline">\(NO_2\)</span>&nbsp;pattern during the day of our time series of all stations together. In other words, what is the average value for each hour of the day?</p>
+<p>Let’s plot the typical&nbsp;<span class="math inline">NO_2</span>&nbsp;pattern during the day of our time series of all stations together. In other words, what is the average value for each hour of the day?</p>
 <div id="1efdaf77" class="cell" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -491,7 +505,7 @@ Name: value, dtype: float64</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p>Similar to the previous case, we want to calculate a given statistic (e.g.&nbsp;mean <span class="math inline">\(NO_2\)</span>)&nbsp;<strong>for each hour of the day</strong>&nbsp;and we can use the split-apply-combine approach again. For this case, we use the datetime property&nbsp;<code>hour</code>&nbsp;of pandas&nbsp;<code>Timestamp</code>, which is also accessible by the&nbsp;<code>dt</code>&nbsp;accessor.</p>
+<p>Similar to the previous case, we want to calculate a given statistic (e.g.&nbsp;mean <span class="math inline">NO_2</span>)&nbsp;<strong>for each hour of the day</strong>&nbsp;and we can use the split-apply-combine approach again. For this case, we use the datetime property&nbsp;<code>hour</code>&nbsp;of pandas&nbsp;<code>Timestamp</code>, which is also accessible by the&nbsp;<code>dt</code>&nbsp;accessor.</p>
 </blockquote>
 <p>In the&nbsp;<a href="../../../W2/M2/lessons/03_pd_reshape.html">tutorial on reshaping</a>,&nbsp;<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.pivot.html#pandas.pivot"><code>pivot()</code></a>&nbsp;was introduced to reshape the data table with each of the measurements locations as a separate column:</p>
 <div id="1360b104" class="cell" data-execution_count="47">
@@ -578,7 +592,7 @@ Name: value, dtype: float64</code></pre>
 </div>
 </div>
 <p>Some other advantages are the convenient subsetting of time period or the adapted time scale on plots. Let’s apply this on our data.</p>
-<p>Create a plot of the&nbsp;<span class="math inline">\(NO_2\)</span>&nbsp;values in the different stations from May 20th till the end of May 21st. By providing a&nbsp;<strong>string that parses to a datetime</strong>, a specific subset of the data can be selected on a&nbsp;<code>DatetimeIndex</code>:</p>
+<p>Create a plot of the&nbsp;<span class="math inline">NO_2</span>&nbsp;values in the different stations from May 20th till the end of May 21st. By providing a&nbsp;<strong>string that parses to a datetime</strong>, a specific subset of the data can be selected on a&nbsp;<code>DatetimeIndex</code>:</p>
 <div id="97d20fa8" class="cell" data-execution_count="51">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>no_2[<span class="st">"2019-05-20"</span>:<span class="st">"2019-05-21"</span>].plot()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -648,7 +662,7 @@ Name: value, dtype: float64</code></pre>
 <pre><code>&lt;MonthBegin&gt;</code></pre>
 </div>
 </div>
-<p>Let’s plot the daily mean&nbsp;<span class="math inline">\(NO_2\)</span>&nbsp;value in each of the stations:</p>
+<p>Let’s plot the daily mean&nbsp;<span class="math inline">NO_2</span>&nbsp;value in each of the stations:</p>
 <div id="a243a017" class="cell" data-execution_count="54">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>no_2.resample(<span class="st">"D"</span>).mean().plot(style<span class="op">=</span><span class="st">"-o"</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">

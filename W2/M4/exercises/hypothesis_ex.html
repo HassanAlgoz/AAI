@@ -109,8 +109,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -320,10 +334,10 @@ window.Quarto = {
 </ul>
 <p><strong>Your Task</strong>: is to accept or reject the following hypothesis using statistical testing:</p>
 <ul>
-<li>Hypothesis <span class="math inline">\(H_1\)</span>: smoking is associated with time of visit</li>
-<li>Hypothesis <span class="math inline">\(H_2\)</span>: the bigger the group the higher the tip</li>
-<li>Hypothesis <span class="math inline">\(H_3\)</span>: group size is different based on the time of visit</li>
-<li>Hypothesis <span class="math inline">\(H_4\)</span>: (… come up with a hypothesis of your own …)</li>
+<li>Hypothesis <span class="math inline">H_1</span>: smoking is associated with time of visit</li>
+<li>Hypothesis <span class="math inline">H_2</span>: the bigger the group the higher the tip</li>
+<li>Hypothesis <span class="math inline">H_3</span>: group size is different based on the time of visit</li>
+<li>Hypothesis <span class="math inline">H_4</span>: (… come up with a hypothesis of your own …)</li>
 <li>Finally, analyze if size (party size) is a <strong>confounder</strong>. That is, does a larger party cause a higher tip, or simply a higher bill which then leads to a higher tip?</li>
 </ul>
 <hr>

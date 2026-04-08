@@ -217,14 +217,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Do the answers to these questions vary <strong>across subsets</strong> defined by other variables?</li>
 </ol>
 <p>By convention, the alias <code>sns</code> is used for <code>seaborn</code>:</p>
-<div id="2cde2b6d" class="cell" data-execution_count="8">
+<div id="2cde2b6d" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s load smoe data and look at some plots possible with seaborn.</p>
-<div id="8428cd1e" class="cell" data-execution_count="9">
+<div id="8428cd1e" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="plotting-univariate-histograms">Plotting univariate histograms</h3>
 <p>A <strong>histogram</strong> is a bar plot where the axis representing the data variable is divided into a set of discrete bins and the count of observations falling within each bin is shown using the height of the corresponding bar.</p>
 <p>We use the <code>sns.displot()</code> function with the default value <code>kind="hist"</code>:</p>
-<div id="736b6b40" class="cell" data-execution_count="10">
+<div id="736b6b40" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>penguins,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">"hist"</span>,</span>
@@ -329,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>By Width: <code>binwidth=10</code></li>
 <li>By Count: <code>bins=20</code></li>
 </ul>
-<div id="d3f57ff8" class="cell" data-execution_count="30">
+<div id="d3f57ff8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>figure, axes <span class="op">=</span> plt.subplots(</span>
@@ -364,10 +364,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="bar-plot" class="level3">
 <h3 class="anchored" data-anchor-id="bar-plot">Bar plot</h3>
 <p>It’s also possible to visualize the distribution of a categorical variable using the logic of a histogram.</p>
-<div id="3f18d86e" class="cell" data-execution_count="12">
+<div id="3f18d86e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">"tips"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tips[<span class="st">'size'</span>].value_counts().sort_index()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>size
 1      4
 2    156
@@ -384,7 +384,7 @@ Name: count, dtype: int64</code></pre>
 <li>automatically specify them with: <code>discrete=True</code></li>
 <li>discrete bins are automatically set for categorical variables, but it may also be helpful to “<code>shrink</code>” the bars slightly to emphasize the categorical nature of the axis:</li>
 </ul>
-<div id="17be46af" class="cell" data-execution_count="31">
+<div id="17be46af" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sns.displot(tips, kind<span class="op">=</span><span class="st">'hist'</span>, x<span class="op">=</span><span class="st">"size"</span>, discrete<span class="op">=</span><span class="va">True</span>, shrink<span class="op">=</span><span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -401,7 +401,7 @@ Name: count, dtype: int64</code></pre>
 <ul>
 <li>Assigning a variable to <code>hue="species"</code> (or other categorical variables) will draw a separate histogram for each of its unique values and distinguish them by color.</li>
 </ul>
-<div id="0010bfcb" class="cell" data-execution_count="36">
+<div id="0010bfcb" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'kde'</span>,</span>
@@ -420,7 +420,7 @@ Name: count, dtype: int64</code></pre>
 <ul>
 <li>Overlapping distribution may be stacked via <code>multiple="stack"</code>, useful in histograms</li>
 </ul>
-<div id="963bca1e" class="cell" data-execution_count="32">
+<div id="963bca1e" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
@@ -436,16 +436,15 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>It is also possible to draw each individual distribution in a separate subplot: by assigning the second variable to <code>col</code> or <code>row</code> rather than (or in addition to) <code>hue</code>:</p>
-<div id="7ea97367" class="cell" data-execution_count="41">
+<div id="7ea97367" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    penguins,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    kind<span class="op">=</span><span class="st">'kde'</span>,</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    fill<span class="op">=</span><span class="va">True</span>,</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"body_mass_g"</span>,</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"sex"</span>,</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    row<span class="op">=</span><span class="st">"species"</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"island"</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -454,6 +453,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
+<p>Some distributions won’t show up simply because some species are exclusive to some islands.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -477,7 +477,7 @@ Note
 <li>By default, however, <strong>the normalization is applied to the entire distribution</strong>, so this simply rescales the height of the bars.</li>
 <li>By setting <code>common_norm=False</code>, <strong>each subset will be normalized independently</strong></li>
 </ul>
-<div id="c502ac9d" class="cell" data-execution_count="54">
+<div id="c502ac9d" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, col<span class="op">=</span><span class="st">"species"</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># stat="density",   # stat="density"; Adjust for unequal counts</span></span>
@@ -491,7 +491,7 @@ Note
 </div>
 </div>
 </div>
-<div id="c1e90a85" class="cell" data-execution_count="64">
+<div id="c1e90a85" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, col<span class="op">=</span><span class="st">"species"</span>,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">"density"</span>,    <span class="co"># stat="density"; Adjust for unequal counts</span></span>
@@ -509,7 +509,7 @@ Note
 <li>Density normalization scales the bars so that <strong>their areas sum to 1</strong>. As a result, the density axis is not directly interpretable.</li>
 <li>Another option is to normalize the bars so that <strong>their heights sum to 1</strong>. This makes most sense when the variable is discrete, but it is an option for all histograms:</li>
 </ul>
-<div id="6c49e897" class="cell" data-execution_count="63">
+<div id="6c49e897" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.displot(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, col<span class="op">=</span><span class="st">"species"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    stat<span class="op">=</span><span class="st">"probability"</span>, <span class="co"># bar heights sum up to 1</span></span>
@@ -527,7 +527,7 @@ Note
 <section id="empirical-cumulative-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="empirical-cumulative-distributions">Empirical cumulative distributions</h2>
 <p>A third option for visualizing distributions computes the “empirical cumulative distribution function” (ECDF). This plot draws a monotonically-increasing curve through each datapoint such that <strong>the height of the curve reflects the proportion of observations with a smaller value</strong>:</p>
-<div id="fb101989" class="cell" data-execution_count="27">
+<div id="fb101989" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.displot(penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, kind<span class="op">=</span><span class="st">"ecdf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -537,26 +537,42 @@ Note
 </div>
 </div>
 </div>
+<p>We can see that the median (50th percentile) is around 198. Let’s calculate it to verify:</p>
+<div id="e8a16a86" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'flipper_length_mm'</span>].median()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>np.float64(197.0)</code></pre>
+</div>
+</div>
+<p>.. and the 99th percentile is around 228. Let’s verify:</p>
+<div id="199658b7" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins[<span class="st">'flipper_length_mm'</span>].quantile(<span class="fl">0.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>np.float64(230.0)</code></pre>
+</div>
+</div>
 <p>The ECDF plot has two key advantages.</p>
-<p>Firstly, unlike the histogram or KDE, it directly represents each datapoint. That means there is no bin size or smoothing parameter to consider.</p>
-<p>Secondly, because the curve is monotonically increasing, it is well-suited for comparing multiple distributions:</p>
-<div id="90fad729" class="cell" data-execution_count="34">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>sns.ecdfplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"ECDF by Species"</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"KDE by Species"</span>)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Firstly, unlike the histogram or KDE, it directly represents each datapoint. That means there is no bin size or smoothing parameter to consider.</li>
+<li>Secondly, because the curve is monotonically increasing, it is well-suited for comparing multiple distributions:</li>
+</ul>
+<div id="90fad729" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>sns.ecdfplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"ECDF by Species"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"KDE by Species"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="03_displot_files/figure-html/cell-15-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="03_displot_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="03_displot_files/figure-html/cell-17-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="03_displot_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
