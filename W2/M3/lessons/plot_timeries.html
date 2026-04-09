@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Applied Data Science Course – Applied AI Bootcamp</title>
+<title>Timeseries Plots – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,26 +23,64 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8b4a5520c1676ac36cce40fd3d75803c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-8b4a5520c1676ac36cce40fd3d75803c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -81,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Applied AI Bootcamp</span>
     </a>
   </div>
@@ -92,11 +133,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../W1/"> 
+    <a class="nav-link" href="../../../W1/"> 
 <span class="menu-text">Python</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../W2/"> 
+    <a class="nav-link" href="../../../W2/"> 
 <span class="menu-text">Data Science</span></a>
   </li>  
 </ul>
@@ -110,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Applied Data Science Course</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Timeseries Plots</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -132,33 +173,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#module-1-introductions" id="toc-module-1-introductions" class="nav-link active" data-scroll-target="#module-1-introductions">Module 1: Introductions</a></li>
-  <li><a href="#module-2-data-wrangling" id="toc-module-2-data-wrangling" class="nav-link" data-scroll-target="#module-2-data-wrangling">Module 2: Data Wrangling</a></li>
-  <li><a href="#module-3-descriptive-statistics" id="toc-module-3-descriptive-statistics" class="nav-link" data-scroll-target="#module-3-descriptive-statistics">Module 3: Descriptive Statistics</a>
-  <ul class="collapse">
-  <li><a href="#m3-1-statistical-analysis" id="toc-m3-1-statistical-analysis" class="nav-link" data-scroll-target="#m3-1-statistical-analysis">M3-1: Statistical Analysis</a></li>
-  <li><a href="#m3-2-statistical-visualization" id="toc-m3-2-statistical-visualization" class="nav-link" data-scroll-target="#m3-2-statistical-visualization">M3-2: Statistical Visualization</a></li>
-  </ul></li>
-  <li><a href="#module-4-inferential-statistics" id="toc-module-4-inferential-statistics" class="nav-link" data-scroll-target="#module-4-inferential-statistics">Module 4: Inferential Statistics</a>
-  <ul class="collapse">
-  <li><a href="#m4-1-hypothesis-testing" id="toc-m4-1-hypothesis-testing" class="nav-link" data-scroll-target="#m4-1-hypothesis-testing">M4-1: Hypothesis Testing</a></li>
-  <li><a href="#m4-2-association-and-correlation" id="toc-m4-2-association-and-correlation" class="nav-link" data-scroll-target="#m4-2-association-and-correlation">M4-2: Association and Correlation</a></li>
-  </ul></li>
-  <li><a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects">Projects</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
-</nav>
-    </div>
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="plot_timeries.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Applied Data Science Course</h1>
+<h1 class="title">Timeseries Plots</h1>
 </div>
 
 
@@ -175,243 +197,75 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="module-1-introductions" class="level2">
-<h2 class="anchored" data-anchor-id="module-1-introductions">Module 1: Introductions</h2>
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Define Data Science</li>
-<li>Identify the three circles that make up Data Science</li>
-<li>Recognize the three roles that a Data Scienist takes on</li>
-<li>Distinguish between Data Engineers, Data Analysts and Machine Learning Engineers</li>
-<li>Define Data Analysis</li>
-<li>Distinguish between CDA and EDA and give one example for each</li>
-<li>Recognize that outliers can actually inform our investigation and are not to be treated as random noise or errors</li>
-</ol>
-<p>Lessons and labs:</p>
-<ol type="1">
-<li><a href="../W2/M1/lessons/01_slides_intro.html">Introduction to Data Science Processes and Roles</a></li>
-<li><a href="../W2/M1/lessons/02_lab_cda_blind_typing.html">Lab 1: Confirmatory Data Analysis (CDA)- blind typing experiment</a> (15m read)</li>
-<li><a href="../W2/M1/lessons/03_lab_eda_census.html">Lab 2: Exploratory Data Analysis (EDA)- US Census 2010-2019</a> (30m read)</li>
-</ol>
-<section id="exercises" class="level4">
-<h4 class="anchored" data-anchor-id="exercises">Exercises</h4>
-<ol type="1">
-<li><a href="../W2/M1/exercises/john_snow.html">John Snow</a> (3 questions)</li>
-<li><a href="https://notebooklm.google.com/notebook/8e9ff4ca-2054-48d5-b0d3-120db7d965f8?artifactId=f7631507-8fba-427b-991b-962a13bad964">Review Quiz NotebookLM</a> (10 questions)</li>
-</ol>
-</section>
-</section>
-<section id="module-2-data-wrangling" class="level2">
-<h2 class="anchored" data-anchor-id="module-2-data-wrangling">Module 2: Data Wrangling</h2>
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Explain the roles of <code>DataFrame</code> and <code>Series</code> in pandas and inspect basic metadata (<code>head</code>, <code>tail</code>, <code>info</code>, <code>dtypes</code>, <code>index</code>, <code>columns</code>)</li>
-<li>Load tabular data into pandas from local files and URLs, and construct a <code>DataFrame</code> from Python data structures</li>
-<li>Select and filter data using column selection, boolean masks, combined conditions, and label/position indexing with <code>loc</code> and <code>iloc</code></li>
-<li>Create and transform columns using vectorized operations, including deriving new columns, dropping columns, and renaming columns</li>
-<li>Compute descriptive statistics with methods such as <code>mean</code>, <code>median</code>, <code>describe</code>, and <code>agg</code>, while interpreting grouped summaries</li>
-<li>Aggregate data by one or more categories using <code>groupby</code> and count category frequencies with <code>value_counts</code></li>
-<li>Apply custom functions table-wise, row/column-wise, and element-wise using <code>pipe</code>, <code>apply</code>, and <code>map</code></li>
-</ol>
-<p>Lessons and labs:</p>
-<ol type="1">
-<li><a href="../W2/M2/lessons/01_pd_dataframe.html">Lab: Pandas Essentials</a></li>
-<li><a href="../W2/M2/lessons/02_pd_agg.html">Lab: Summary Statistics</a></li>
-<li><a href="../W2/M2/lessons/03_pd_reshape.html">Lab: Reshaping DataFrames)</a></li>
-<li><a href="../W2/M2/lessons/04_lab_bike_sharing.html">Example: Bike Sharing</a></li>
-<li><a href="../W2/M2/lessons/05_pd_timeseries.html">Lab: Timeseries</a></li>
-<li><a href="../W2/M2/lessons/06_pd_function_application.html">Lab: Function application</a></li>
-</ol>
-<section id="exercises-1" class="level4">
-<h4 class="anchored" data-anchor-id="exercises-1">Exercises</h4>
-<ol type="1">
-<li>Getting to Know your Data:
-<ol type="1">
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/01_Getting_%26_Knowing_Your_Data/World_Food_Facts/Exercises.ipynb">World Food Facts</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/01_Getting_%26_Knowing_Your_Data/Chipotle/Exercises.ipynb">Chipotle</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/01_Getting_%26_Knowing_Your_Data/Occupation/Exercises.ipynb">Occupation</a></li>
-</ol></li>
-<li>Filtering and Sorting Data
-<ol type="1">
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/02_Filtering_%26_Sorting/Chipotle/Exercises.ipynb">Chipotle</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/02_Filtering_%26_Sorting/Euro12/Exercises.ipynb">Euro12</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/02_Filtering_%26_Sorting/Fictional_Army/Exercise.ipynb">Fictional Army</a></li>
-</ol></li>
-<li>Group By
-<ol type="1">
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/03_Grouping/Alcohol_Consumption/Exercise.ipynb">Alcohol Consumption</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/03_Grouping/Occupation/Exercise.ipynb">Occupation</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/03_Grouping/Regiment/Exercises.ipynb">Regiment</a></li>
-</ol></li>
-</ol>
-</section>
-<section id="bonus-exercises" class="level4">
-<h4 class="anchored" data-anchor-id="bonus-exercises">Bonus Exercises</h4>
-<ol start="4" type="1">
-<li>Apply
-<ol type="1">
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/04_Apply/Students_Alcohol_Consumption/Exercises.ipynb">Students Alcohol Consumption</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/04_Apply/US_Crime_Rates/Exercises.ipynb">US_Crime_Rates</a></li>
-</ol></li>
-<li>Merge
-<ol type="1">
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/05_Merge/Auto_MPG/Exercises.ipynb">Auto_MPG</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/05_Merge/Fictitous_Names/Exercises.ipynb">Fictitious Names</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/05_Merge/Housing_Market/Exercises.ipynb">House Market</a></li>
-</ol></li>
-<li>Stats
-<ol type="1">
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/tree/master/06_Stats/US_Baby_Names/Exercises.ipynb">US_Baby_Names</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/tree/master/06_Stats/Wind_Stats/Exercises.ipynb">Wind_Stats</a></li>
-</ol></li>
-<li>Time Series
-<ol type="1">
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/09_Time_Series/Apple_Stock/Exercises.ipynb">Apple_Stock</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/09_Time_Series/Getting_Financial_Data/Exercises.ipynb">Getting_Financial_Data</a></li>
-<li><a href="https://github.com/HassanAlgoz/pandas_exercises/blob/master/09_Time_Series/Investor_Flow_of_Funds_US/Exercises.ipynb">Investor_Flow_of_Funds_US</a></li>
-</ol></li>
-</ol>
-</section>
-<section id="videos" class="level4">
-<h4 class="anchored" data-anchor-id="videos">Videos</h4>
-<p>If you like walkthroughs, follow this <a href="https://www.youtube.com/playlist?list=PLgJhDSE2ZLxaY_DigHeiIDC1cD09rXgJv">YouTube Playlist</a> which go through the exercises as well.</p>
-</section>
-</section>
-<section id="module-3-descriptive-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="module-3-descriptive-statistics">Module 3: Descriptive Statistics</h2>
-<section id="m3-1-statistical-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="m3-1-statistical-analysis">M3-1: Statistical Analysis</h3>
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Describe what statistics is all about</li>
-<li>Identify the two types of statistics and how they work together</li>
-<li>Distinguish between Population and Sample</li>
-<li>Given a dataset, identify the numerical and categorical variables</li>
-<li>Provide more examples of numerical variables and categorical variables</li>
-<li>Describe common statistics like: <em>Proportion</em>, <em>Mean</em> an <em>Variance</em> (and calculate them).</li>
-<li>Identify at least two key elements that describe a Distribution, (and calculate them).</li>
-<li>Describe different shapes of distributions using terms like: normal/gaussian, uniform, skewed, and exponential</li>
-<li>Give at least 2 examples of normally distributed data</li>
-<li>Give at least 1 example of non-normally distributed data (e.g., exponential)</li>
-<li>Explain what a <em>Percentile</em> means in layman terms; (and calculate them).</li>
-<li>Explain what is 1, 2, and 3 standard deviations mean for a normal distribution (and calculate them)</li>
-<li>Given a box-and-whiskers plot, identify its graphical elements and tell what they mean</li>
-<li>Given a plot make general statements about the samples using words like: “most”, “few”</li>
-<li>Given a general statement about a samples, verify whether it is true or not</li>
-<li>Name at least 2 outlier-removal methods and explain how they work</li>
-</ol>
-<p>Lessons:</p>
-<ul>
-<li><a href="../W2/M3/lessons/01_slides_statistics.html">Lesson: Statistics</a></li>
-<li><a href="../W2/M3/lessons/01_univariate.html">Lab: Univariate Analysis</a></li>
-</ul>
-<section id="exercises-2" class="level4">
-<h4 class="anchored" data-anchor-id="exercises-2">Exercises</h4>
-<ol type="1">
-<li><a href="../W2/M3/exercises/m3-1_exercise.html">Exercise</a></li>
-</ol>
-</section>
-</section>
-<section id="m3-2-statistical-visualization" class="level3">
-<h3 class="anchored" data-anchor-id="m3-2-statistical-visualization">M3-2: Statistical Visualization</h3>
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Distinguish between figure and axes in matplotlib</li>
-<li>Name the three figure-level functions in seaborn</li>
-<li>Distinguish between Histogram and Barplot</li>
-<li>Given a DataFrame, make subplots via the <code>col</code> and <code>row</code> parameters in a figure-level function</li>
-<li>Given a DataFrame, make subplots and put custom plots using axes-level functions; and have them do <code>sharex=True</code> or <code>sharey=True</code></li>
-<li>Given a dataset, write code to show a box plot</li>
-<li>Given a dataset, write code to show two distributions on the same figure axes</li>
-<li>Given a DataFrame, plot the ECDF and interpret it</li>
-<li>Given a DataFrame, plot a bi-variate histogram and interpret it</li>
-<li>Visualize numerical vs categorical relationships using <code>sns.catplot()</code></li>
-<li>Visualize multiple categorical variables in one plot</li>
-<li>Use different colors, markers, and styles in a plot</li>
-<li>Relate variables using scatter plot</li>
-<li>Identify issues in a given visualization and suggest improvements</li>
-</ol>
-<p>Lessons and labs:</p>
-<ol type="1">
-<li><a href="../W2/M3/lessons/02_data_viz.html">Data Visualization</a></li>
-</ol>
-<section id="exercises-3" class="level4">
-<h4 class="anchored" data-anchor-id="exercises-3">Exercises</h4>
-<ol type="1">
-<li><a href="../W2/M3/exercises/m3-2_exercise.html">Exercise</a></li>
-<li><a href="../W2/M3/exercises/viz_exercises.html">Visualization Exercises</a></li>
-</ol>
-</section>
-</section>
-</section>
-<section id="module-4-inferential-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="module-4-inferential-statistics">Module 4: Inferential Statistics</h2>
-<section id="m4-1-hypothesis-testing" class="level3">
-<h3 class="anchored" data-anchor-id="m4-1-hypothesis-testing">M4-1: Hypothesis Testing</h3>
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Distinguish between <em>Inferential</em> and <em>Descriptive</em> Statistics</li>
-<li>Distinguish between <em>Null</em> and <em>Alternative</em> Hypothesis</li>
-<li>Given an alternative hypothesis select the correct statistical test</li>
-<li>Intrepret the result of a statistical test (p-value)</li>
-<li>Understand that alpha (the significance level) is selected by convention to have the value of <code>0.05</code></li>
-<li>Distinguish between <em>Treatment</em> and <em>Control</em> Groups</li>
-<li>Given a claim in layman terms, describe it in statistical terms, as a hypothesis</li>
-<li>Given a hypothesis in statistical terms, explain it in layman terms</li>
-<li>Recognize when the test is two-sided or one-sided (and in which direction)</li>
-</ol>
-<p>Lessons:</p>
-<ul>
-<li><a href="../W2/M3/lessons/03_hypothesis_testing.html">Lab: Hypothesis Testing</a></li>
-</ul>
-</section>
-<section id="m4-2-association-and-correlation" class="level3">
-<h3 class="anchored" data-anchor-id="m4-2-association-and-correlation">M4-2: Association and Correlation</h3>
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Distinguish between association and correlation</li>
-<li>Recognize how Chi-square test and Cramer’s value are used together</li>
-<li>Interpret a Chi-square statistic</li>
-<li>Interpret a Cramér’s V statistic</li>
-<li>Find the association between two categorical variables in terms of both: significance and strength</li>
-<li>Interpret an r-square statistic</li>
-<li>Given a scatter plot, choose the corresponding r-square value from a list of given values</li>
-<li>Recognize non-linearity and outlier issues with r-squared value</li>
-<li>Explain the phrase “correlation does not imply causation” and give at least 1 example of your own</li>
-<li>Explain what a <em>Confounding Variable</em> is</li>
-</ol>
-<p>Lessons:</p>
-<ul>
-<li><a href="../W2/M3/lessons/04_bivariate.html">Lab: Bivariate Analysis</a></li>
-</ul>
-<section id="exercises-4" class="level4">
-<h4 class="anchored" data-anchor-id="exercises-4">Exercises</h4>
-<ol type="1">
-<li><a href="../W2/M4/exercises/hypothesis_ex.html">Hypothesis Testing</a> (4 questions)</li>
-</ol>
-</section>
-</section>
-</section>
-<section id="projects" class="level2">
-<h2 class="anchored" data-anchor-id="projects">Projects</h2>
-<p>You will do all three projects, but only 1 will be presented:</p>
-<ul>
-<li><a href="../W2/Project/p1/p1_fast_food.html">Project 1: Fast Food Marketing Campaign A/B Test</a></li>
-<li><a href="../W2/Project/p2/p2_student_exam.html">Project 2: Student Exam Performance Factors</a></li>
-<li><a href="../W2/Project/p3/p3_GMHCI-2026.html">Project 3: Global Mental Health Crisis Index 2026</a></li>
-</ul>
-<hr>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>https://openintro-ims.netlify.app/</li>
-<li>https://www.coursera.org/professional-certificates/google-advanced-data-analytics</li>
-<li>https://www.kaggle.com/learn/data-visualization</li>
-</ul>
+<div id="ad7682dc" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="582c34ec" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dowjones <span class="op">=</span> sns.load_dataset(<span class="st">"dowjones"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dowjones.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
 
 
-</section>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>1914-12-01</td>
+<td>55.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1915-01-01</td>
+<td>56.55</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>1915-02-01</td>
+<td>56.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>1915-03-01</td>
+<td>58.30</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>1915-04-01</td>
+<td>66.45</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="840457a8" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.relplot(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>dowjones, kind<span class="op">=</span><span class="st">"line"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"Date"</span>, y<span class="op">=</span><span class="st">"Price"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x79cc78a0b3b0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="plot_timeries_files/figure-html/cell-4-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="plot_timeries_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -815,6 +669,38 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
