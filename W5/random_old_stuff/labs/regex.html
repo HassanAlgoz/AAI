@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regular Expressions in Python – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W4/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W5/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Regular Expressions in Python</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#outline" id="toc-outline" class="nav-link" data-scroll-target="#outline">Outline</a></li>
+  <li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link" data-scroll-target="#regular-expressions">Regular Expressions</a>
+  <ul class="collapse">
+  <li><a href="#core-applications" id="toc-core-applications" class="nav-link" data-scroll-target="#core-applications">Core Applications</a>
+  <ul class="collapse">
+  <li><a href="#use-cases-for-regex-in-mldl" id="toc-use-cases-for-regex-in-mldl" class="nav-link" data-scroll-target="#use-cases-for-regex-in-mldl">Use Cases for Regex in ML/DL</a></li>
+  </ul></li>
+  <li><a href="#the-regex-library-in-python" id="toc-the-regex-library-in-python" class="nav-link" data-scroll-target="#the-regex-library-in-python">The <code>regex</code> library in Python</a></li>
+  <li><a href="#character-class" id="toc-character-class" class="nav-link" data-scroll-target="#character-class">Character Class</a></li>
+  <li><a href="#classes-with-symbols" id="toc-classes-with-symbols" class="nav-link" data-scroll-target="#classes-with-symbols">Classes with Symbols</a>
+  <ul class="collapse">
+  <li><a href="#numbers" id="toc-numbers" class="nav-link" data-scroll-target="#numbers">Numbers</a></li>
+  <li><a href="#letters" id="toc-letters" class="nav-link" data-scroll-target="#letters">Letters</a></li>
+  <li><a href="#word-boundary-b" id="toc-word-boundary-b" class="nav-link" data-scroll-target="#word-boundary-b">Word Boundary <code>\b</code></a></li>
+  </ul></li>
+  <li><a href="#repetition-and-quantification" id="toc-repetition-and-quantification" class="nav-link" data-scroll-target="#repetition-and-quantification">Repetition and Quantification</a></li>
+  <li><a href="#matching" id="toc-matching" class="nav-link" data-scroll-target="#matching">Matching</a></li>
+  <li><a href="#adjusting-the-matching-process" id="toc-adjusting-the-matching-process" class="nav-link" data-scroll-target="#adjusting-the-matching-process">Adjusting the Matching Process</a></li>
+  <li><a href="#extracting-groups-from-text" id="toc-extracting-groups-from-text" class="nav-link" data-scroll-target="#extracting-groups-from-text">Extracting Groups from Text</a></li>
+  <li><a href="#naming-groups" id="toc-naming-groups" class="nav-link" data-scroll-target="#naming-groups">Naming Groups</a></li>
+  <li><a href="#compiling-the-regular-expression-once" id="toc-compiling-the-regular-expression-once" class="nav-link" data-scroll-target="#compiling-the-regular-expression-once">Compiling the Regular Expression Once</a></li>
+  <li><a href="#editing-regular-expressions" id="toc-editing-regular-expressions" class="nav-link" data-scroll-target="#editing-regular-expressions">Editing Regular Expressions</a></li>
+  <li><a href="#other-resources-for-learning-regular-expressions" id="toc-other-resources-for-learning-regular-expressions" class="nav-link" data-scroll-target="#other-resources-for-learning-regular-expressions">Other Resources for Learning Regular Expressions</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#pro-tip-flashtext" id="toc-pro-tip-flashtext" class="nav-link" data-scroll-target="#pro-tip-flashtext">Pro-tip: <strong>FlashText</strong></a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="regex.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regular Expressions in Python</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This notebook introduces Regular Expressions (Regex), a powerful pattern-matching tool essential for text processing in NLP and data engineering pipelines. Regex provides a concise and flexible way to search, match, and manipulate text patterns, making it indispensable for data cleaning, preprocessing, feature extraction, and validation tasks. We’ll learn the syntax, metacharacters, and practical applications of regex in machine learning and deep learning workflows, with a focus on real-world use cases in text preprocessing and data wrangling.</p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<ul>
+<li>Understand the importance of Regex in ML and DL pipelines.</li>
+<li>Learn common characters and metacharacters used in regex patterns</li>
+<li>Write regex patterns to match and replace text in strings</li>
+<li>Read regex patterns and tell what they do</li>
+<li>Translate natural language into regex patterns</li>
+</ul>
+<p>A concise explanation of regex and their use cases (text searching, data validation, text manipulation).</p>
+</section>
+<section id="outline" class="level2">
+<h2 class="anchored" data-anchor-id="outline">Outline</h2>
+<ol type="1">
+<li><strong>Introduction to Regular Expressions</strong> - What regex is and why it matters</li>
+<li><strong>Core Applications</strong> - Data scraping, wrangling, and validation</li>
+<li><strong>Use Cases in ML/DL Pipelines</strong>:
+<ul>
+<li>Data Cleaning &amp; Preprocessing</li>
+<li>Feature Extraction</li>
+<li>Weak Supervision &amp; Labeling</li>
+</ul></li>
+<li><strong>The <code>regex</code> Library in Python</strong> - Introduction to the regex module</li>
+<li><strong>Character Classes</strong> - Using <code>[ ]</code> to match character sets</li>
+<li><strong>Metacharacters</strong> - Special characters with specific meanings</li>
+<li><strong>Quantifiers</strong> - Matching multiple occurrences (<code>*</code>, <code>+</code>, <code>?</code>, <code>{}</code>)</li>
+<li><strong>Anchors</strong> - Matching positions (<code>^</code>, <code>$</code>, <code>\b</code>)</li>
+<li><strong>Groups and Capturing</strong> - Extracting specific parts of matches</li>
+<li><strong>Practical Examples</strong> - Real-world pattern matching scenarios</li>
+<li><strong>Tools and Resources</strong> - Regex editors and learning resources</li>
+</ol>
+</section>
+<section id="regular-expressions" class="level1">
+<h1>Regular Expressions</h1>
+<blockquote class="blockquote">
+<p>A <strong>regular expression</strong> (shortened as regex or regexp), sometimes referred to as a rational expression,is a sequence of characters that specifies a match pattern in text. Usually such patterns are used by string-searching algorithms for “find” or “find and replace” operations on strings, or for input validation. – <a href="https://en.wikipedia.org/wiki/Regular_expression">Wikipedia</a></p>
+</blockquote>
+<p>Example 1:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Antony08.gif/474px-Antony08.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Regular expression"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Antony08.gif/474px-Antony08.gif" class="img-fluid figure-img" alt="Regular expression"></a></p>
+<figcaption>Regular expression</figcaption>
+</figure>
+</div>
+<p>Blue highlights show the match results of the regular expression pattern: <code>/r[aeiou]+/g</code> (lowercase <code>r</code> followed by one or more lowercase vowels).</p>
+<p><strong>Try it:</strong> in VS Code (and other IDEs): <code>Ctrl+Shift+H</code> (for the open tab) and <code>Ctrl+Shift+F</code> (for the workspace) then click on the (“dot star” thing).</p>
+<p>Example 2:</p>
+<div id="cell-7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">Pushups 30 reps 3 sets</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">5 reps 2 sets Pullups</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">2 Sets 15 Reps One-leg Squats</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">4 sets 8 reps 22.5 lbs Dumbbell Rows</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">4 sets 8 reps 15.25kg Dumbbell Rows</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This <code>text</code> is an exercise log where each line contains a type of exercise, the number of sessions (sets), and repetitions (reps), but they are unorganized and inconsistent. The name, the units, the order of (reps then sets or sets then reps) and so on.</p>
+<section id="core-applications" class="level2">
+<h2 class="anchored" data-anchor-id="core-applications">Core Applications</h2>
+<p>Now that you know the syntax, you can use regex for much more than just finding words. It is the industry standard for:</p>
+<ul>
+<li><strong>Data Scraping &amp; Wrangling:</strong> Extracting specific information from websites or cleaning up messy datasets.</li>
+<li><strong>Data Validation:</strong> Ensuring user input (like emails or phone numbers) follows the correct format.</li>
+</ul>
+<section id="use-cases-for-regex-in-mldl" class="level3">
+<h3 class="anchored" data-anchor-id="use-cases-for-regex-in-mldl">Use Cases for Regex in ML/DL</h3>
+<p>Regular Expressions (Regex) are an indispensable tool in the Machine Learning (ML) and Deep Learning (DL) pipeline, particularly within <strong>Natural Language Processing (NLP)</strong> and <strong>Data Engineering</strong>.</p>
+<p>While deep learning models are great at learning patterns, they are computationally expensive and require clean data. Regex serves as a lightweight, rule-based filter to clean, structure, and extract data <em>before</em> it ever touches a neural network.</p>
+<p>Here are the primary use cases for Regex in an ML/DL workflow, organized by pipeline stage.</p>
+<hr>
+<section id="data-cleaning-preprocessing-nlp" class="level4">
+<h4 class="anchored" data-anchor-id="data-cleaning-preprocessing-nlp">1. Data Cleaning &amp; Preprocessing (NLP)</h4>
+<p>This is the most common use case. Raw text data (from web scrapes, social media, or documents) is notoriously “noisy.” You must sanitize it to prevent your model from learning irrelevant patterns.</p>
+<p><strong>Removing Noise:</strong> Stripping out HTML tags, URLs, hashtags, or non-ASCII characters that might confuse a model.</p>
+<ul>
+<li><em>Example:</em> Removing URLs to reduce vocabulary size.</li>
+<li><em>Pattern:</em> <code>https?://\S+|www\.\S+</code></li>
+</ul>
+<p><strong>PII Redaction (Privacy):</strong> Anonymizing data by detecting and masking Personally Identifiable Information (emails, phone numbers, SSNs) before training to ensure privacy compliance.</p>
+<ul>
+<li><em>Example:</em> Replacing emails with a <code>&lt;EMAIL&gt;</code> token.</li>
+<li><em>Pattern:</em> <code>\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b</code></li>
+</ul>
+<p><strong>Contraction Expansion:</strong> Converting “don’t” to “do not” or “I’m” to “I am” to standardize input for tokenizers.</p>
+</section>
+<section id="feature-extraction-structured-data-from-unstructured-text" class="level4">
+<h4 class="anchored" data-anchor-id="feature-extraction-structured-data-from-unstructured-text">2. Feature Extraction (Structured Data from Unstructured Text)</h4>
+<p>Before feeding text into a model (like BERT or a Logistic Regressor), you often need to extract explicit features to feed into a separate dense layer or to use for stratification.</p>
+<p><strong>Extracting Metadata:</strong> Pulling dates, prices, invoice numbers, or ID codes from unstructured strings to create new tabular features.</p>
+<ul>
+<li><em>Example:</em> Extracting dates from “Meeting on 2023-05-12”.</li>
+<li><em>Pattern:</em> <code>\d{4}-\d{2}-\d{2}</code></li>
+</ul>
+<p><strong>Specific Entity Identification:</strong> Detecting specific codes (like stock tickers <code>\$[A-Z]+</code> or error codes <code>Error \d{3}</code>) to create binary features (e.g., <code>has_error_code</code>).</p>
+</section>
+<section id="weak-supervision-labeling-snorkelheuristics" class="level4">
+<h4 class="anchored" data-anchor-id="weak-supervision-labeling-snorkelheuristics">3. Weak Supervision &amp; Labeling (Snorkel/Heuristics)</h4>
+<p>In scenarios where you lack labeled data, you can use Regex to create “noisy” labels (Weak Supervision) to bootstrap a dataset.</p>
+<p><strong>Rule-Based Labeling Functions:</strong> If you are building a spam classifier, you might write a regex to label any text containing “BUY NOW” or “CLICK HERE” as <code>SPAM</code>.</p>
+<p><strong>Filtering Positive/Negative Samples:</strong> Using regex to filter a massive unlabelled dataset to find samples that <em>likely</em> belong to a specific class to send to human annotators.</p>
+<hr>
+</section>
+<section id="summary-table-regex-in-ml" class="level4">
+<h4 class="anchored" data-anchor-id="summary-table-regex-in-ml">Summary Table: Regex in ML</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Goal</th>
+<th>Example Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Preprocessing</strong></td>
+<td>Clean Text</td>
+<td>Remove HTML tags (<code>&lt;.*?&gt;</code>) from web crawl data.</td>
+</tr>
+<tr class="even">
+<td><strong>Feature Eng.</strong></td>
+<td>Create Features</td>
+<td>Extract “1200 sqft” to create a numerical <code>area</code> feature.</td>
+</tr>
+<tr class="odd">
+<td><strong>Labeling</strong></td>
+<td>Weak Labels</td>
+<td>Label text as “Urgent” if it matches `ASAP</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="the-regex-library-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="the-regex-library-in-python">The <code>regex</code> library in Python</h2>
+<p>The Python docs for the built-in <a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%5D(https://docs.python.org/3/library/re.html)"><code>re</code></a> library states:</p>
+<blockquote class="blockquote">
+<p>See also The third-party <a href="https://www.google.com/search?q=%5Bhttps://pypi.org/project/regex/%5D(https://pypi.org/project/regex/)"><code>regex</code> module</a>, which has an API compatible with the standard library re module, but offers additional functionality and a more thorough Unicode support.</p>
+</blockquote>
+<p>Our discussion in this section will be about the <code>regex</code> library (which has a similar API to <code>re</code>). We import it like any other library:</p>
+<div id="cell-19" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># File &gt; Open Folder &gt; W5_NLP</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (VS Code root should be at W5_NLP)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then run: `uv sync`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-20" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard library imports</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (none needed for this notebook)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Third-party imports</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> regex <span class="im">as</span> re</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Characters are used to define the pattern, so some of them have special significance unlike others.</p>
+<p><strong>Meta-characters</strong>: These are characters with a specific meaning other than what they appear to be; they are:</p>
+<pre><code>. ^ $ * + ? { } [ ] \ | ( )
+</code></pre>
+</section>
+<section id="character-class" class="level2">
+<h2 class="anchored" data-anchor-id="character-class">Character Class</h2>
+<p>We will start by explaining the <strong>Character Class</strong> <code>[ ]</code> selector, which works as follows:</p>
+<ul>
+<li><code>[abc]</code> matches a, b, or c.</li>
+<li><code>[^abc]</code> matches any character <em>except</em> a, b, or c.</li>
+<li><code>[a-c]</code> matches any character from a to c: <code>a</code>, <code>b</code>, or <code>c</code>.</li>
+<li><code>[3-7]</code> matches any digit from 3 to 7: <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code>, or <code>7</code>.</li>
+<li><code>[a-zA-Z]</code> matches any lowercase or uppercase letter from a to z or A to Z.</li>
+<li><code>[a-zA-Z0-9_]</code> matches any lowercase or uppercase letter, digit, or <code>_</code> (underscore).</li>
+</ul>
+<p>From this, you know the meaning of:</p>
+<ul>
+<li>The <code>^</code> sign in contexts like <code>[^</code>: it indicates the <strong>negation of the class</strong>.</li>
+<li>The <code>-</code> sign in contexts like <code>[a-b]</code>: it indicates the <strong>characters between the two characters (inclusive)</strong>.</li>
+</ul>
+<p>Consider the following example:</p>
+<ul>
+<li>Note that the pattern <code>[0-9][0-9]</code> matches any two consecutive digits from 0 to 9.</li>
+<li>The function <code>regex.search</code> is used to search inside <code>text</code> for the <code>pattern</code>; the result is of type <code>Match</code> if the pattern is found, otherwise it is <code>None</code>.</li>
+</ul>
+<p>To extract the matching text, we use the method <code>match.group()</code> like this:</p>
+<div id="cell-23" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"I am 21 years old"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="st">"[0-9][0-9]"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(pattern, text)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(match)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-24" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> match:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-25" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"I am 21 years old"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\d\d</span><span class="vs">"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(pattern, text)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> match:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="classes-with-symbols" class="level2">
+<h2 class="anchored" data-anchor-id="classes-with-symbols">Classes with Symbols</h2>
+<p>Joining the characters mentioned above are:</p>
+<ul>
+<li><p><strong><code>\d</code></strong> and its opposite <strong><code>\D</code></strong>: Matches any decimal digit; equivalent to <code>[0-9]</code>.</p></li>
+<li><p><strong><code>\w</code></strong> and its opposite <strong><code>\W</code></strong>: Matches alphanumeric characters and the underscore <code>[a-zA-Z0-9_]</code>. Regarding Unicode patterns (str), it matches alphanumeric characters in Unicode (as defined by <a href="https://docs.python.org/3/library/stdtypes.html#str.isalnum"><code>str.isalnum()</code></a>), plus the underscore <code>_</code>.</p></li>
+<li><p><strong><code>\s</code></strong> and its opposite <strong><code>\S</code></strong>: Matches whitespace; equivalent to <code>[ \t\n\r\f\v]</code> (note the inclusion of the space).</p></li>
+<li><p><strong><code>\b</code></strong> and its opposite <strong><code>\B</code></strong>: Matches a word boundary.</p></li>
+</ul>
+<p>Because Python considers the <code>\</code> mark in strings as a sign for special characters (<a href="http://docs.python.org/3/reference/lexical_analysis.html#escape-sequences">Escape Character</a>) such as:</p>
+<ul>
+<li><code>\n</code> for new line</li>
+<li><code>\t</code> for whitespace (tab)</li>
+<li><code>\r</code> for return to start (carriage return)</li>
+<li><code>\f</code> for form feed</li>
+<li><code>\v</code> for vertical tab</li>
+</ul>
+<p>To avoid conflict between the intended <code>\</code> character in standard Python strings and the shortcuts we want, Python introduced the <code>r</code> character to disable the special nature of <code>\</code> so that string patterns can be written as <strong>Raw Strings</strong>, as shown below.</p>
+<div id="cell-27" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>animals <span class="op">=</span> [</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cat"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bat"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dog"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rat"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\w</span><span class="vs">a</span><span class="dv">\w</span><span class="vs">"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> animal <span class="kw">in</span> animals:</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    match <span class="op">=</span> re.search(pattern, animal)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> match:</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(match.group())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="numbers" class="level3">
+<h3 class="anchored" data-anchor-id="numbers">Numbers</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Always use <strong>Raw Strings</strong> (with the <code>r</code> prefix) when writing patterns.</p>
+</div>
+</div>
+<div id="cell-29" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"I am 21 years old"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\d\d</span><span class="vs">"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(pattern, text)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> match:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-30" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">"My ear"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">"I arrived early"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>text3 <span class="op">=</span> <span class="st">"This is the end of the year"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-31" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>entire <span class="op">=</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span> <span class="op">+</span> <span class="st">"ear"</span> <span class="op">+</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(entire, text1))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(entire, text2))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(entire, text3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-32" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>starts <span class="op">=</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span> <span class="op">+</span> <span class="st">"ear"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(starts, text1))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(starts, text2))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(starts, text3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-33" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ends   <span class="op">=</span> <span class="st">"ear"</span> <span class="op">+</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(ends, text1))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(ends, text2))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(ends, text3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="letters" class="level3">
+<h3 class="anchored" data-anchor-id="letters">Letters</h3>
+<p>For matching letters, we might use the shortcut <code>\w</code>. The following pattern says: <strong>Any two characters with the letter <code>a</code> in between</strong>, such as: <code>cat</code>, <code>bat</code>, or <code>rat</code>. The excluded word from this pattern is <code>dog</code>.</p>
+<p>Note that the pattern <code>\wa\w</code> consists of three parts:</p>
+<ol type="1">
+<li><code>\w</code> matches alphanumeric characters and the underscore.</li>
+<li><code>a</code> matches the character <code>a</code> as is.</li>
+<li><code>\w</code> matches alphanumeric characters and the underscore.</li>
+</ol>
+<div id="cell-35" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> [</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"it costs 123"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I bought it for 12.3 last time"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I paid 12.34 SAR for it"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-36" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\d</span><span class="op">+</span><span class="kw">(</span><span class="ch">\.</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="op">?</span><span class="vs">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-37" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> prices:</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    match <span class="op">=</span> re.search(pattern, p)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> match:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'price:'</span>, match.group())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="word-boundary-b" class="level3">
+<h3 class="anchored" data-anchor-id="word-boundary-b">Word Boundary <code>\b</code></h3>
+<p>The symbol <code>\b</code> matches a boundary, and is used for contexts where we want a full word match, not a part of another word.</p>
+<div id="cell-39" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">"My ear"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">"I arrived early"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>text3 <span class="op">=</span> <span class="st">"This is the end of the year"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note in the following example that the pattern only matches the first text, because it requires the word to have a boundary at both the beginning and the end:</p>
+<div id="cell-41" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>entire <span class="op">=</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span> <span class="op">+</span> <span class="st">"ear"</span> <span class="op">+</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(entire, text1))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(entire, text2))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(entire, text3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note in the following example that it matches the first and second, because the requirement is a boundary at the beginning only:</p>
+<div id="cell-43" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>starts <span class="op">=</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span> <span class="op">+</span> <span class="st">"ear"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(starts, text1))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(starts, text2))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(starts, text3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>And this last example matches the first and the last, because they have a boundary at the end:</p>
+<div id="cell-45" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ends   <span class="op">=</span> <span class="st">"ear"</span> <span class="op">+</span> <span class="vs">r"</span><span class="dv">\b</span><span class="vs">"</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(ends, text1))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(ends, text2))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(ends, text3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-46" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Pushups 20 reps 4 sets"</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\d</span><span class="op">+</span><span class="vs">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-47" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.match(pattern, text))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-48" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.match(pattern, <span class="st">"20"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-49" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(pattern, text))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-50" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> re.search(pattern, text)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m.group())</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m.start(), m.end())</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m.span())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-51" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ol <span class="op">=</span> re.findall(pattern, text)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ol)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-52" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> re.finditer(pattern, text)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> it:</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-53" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> [</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"it costs 123"</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I bought it for 12.3 last time"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I paid 12.34 SAR for it"</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-54" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\d</span><span class="op">+</span><span class="kw">(</span><span class="ch">\.</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="op">?</span><span class="vs">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-55" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> prices:</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    match <span class="op">=</span> re.search(pattern, p)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> match:</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'price:'</span>, match.group())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="repetition-and-quantification" class="level2">
+<h2 class="anchored" data-anchor-id="repetition-and-quantification">Repetition and Quantification</h2>
+<p>Repetition marks / <strong>Quantifiers</strong> are used to specify the number of repetitions of the preceding pattern. They are as follows:</p>
+<ul>
+<li><code>{3}</code> exactly three times.</li>
+<li><code>{2,4}</code> from 2 to 4 times.</li>
+<li><code>{3,}</code> three times or more.</li>
+<li><code>+</code> one or more times.</li>
+<li><code>*</code> zero or more times.</li>
+<li><code>?</code> zero or exactly one time.</li>
+</ul>
+<p>To define a group of characters within a pattern, we use parentheses: <code>( )</code> around the pattern to make it a <strong>Match Group</strong> (<a href="https://docs.python.org/3/howto/regex.html#grouping">Match Group</a>).</p>
+<p>For example, if you want to match the price in the following texts:</p>
+<div id="cell-57" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> [</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"it costs 123"</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I bought it for 12.3 last time"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"I paid 12.34 SAR for it"</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You would use the following pattern:</p>
+<div id="cell-59" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\d</span><span class="op">+</span><span class="kw">(</span><span class="ch">\.</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="op">?</span><span class="vs">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It consists of three parts:</p>
+<ul>
+<li><code>\d+</code> consists of two parts:
+<ul>
+<li><code>\d</code> a digit</li>
+<li><code>+</code> one or more times</li>
+</ul></li>
+<li><code>(...)?</code> what is between the parentheses: zero or exactly one time
+<ul>
+<li><code>\.</code> we need the <code>\</code> sign to disable the special property of the dot character, otherwise it would match any character</li>
+<li><code>\d+</code> a digit, one or more times</li>
+</ul></li>
+</ul>
+<div id="cell-61" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> prices:</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    match <span class="op">=</span> re.search(pattern, p)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> match:</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'price:'</span>, match.group())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-62" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"She is she."</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text):</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text, re.IGNORECASE):</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-63" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using multiple flags</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>re.search(pattern, text, re.IGNORECASE <span class="op">|</span> re.LOCALE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="matching" class="level2">
+<h2 class="anchored" data-anchor-id="matching">Matching</h2>
+<p>There are four basic functions for matching in Python:</p>
+<ul>
+<li><code>re.match(pattern, string, flags=0) -&gt; Match | None</code>
+<ul>
+<li>Matches the pattern at the <em>beginning</em> of the string.</li>
+</ul></li>
+<li><code>re.search(pattern, string, flags=0) -&gt; Match | None</code>
+<ul>
+<li>Searches for the <em>first</em> match of the pattern in the string.</li>
+</ul></li>
+<li><code>re.findall(pattern, string, flags=0) -&gt; list</code>
+<ul>
+<li>Creates a list of <em>all</em> matches for the pattern in the string.</li>
+</ul></li>
+<li><code>re.finditer(pattern, string, flags=0) -&gt; Iterator[Match[str]]</code>
+<ul>
+<li>Creates an iterator for <em>all</em> matches for the pattern in the string.</li>
+</ul></li>
+</ul>
+<p>The result of this <strong>Matching</strong>, which is a <a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23match-objects%5D(https://docs.python.org/3/library/re.html%23match-objects)"><code>Match</code></a> object, includes four attributes:</p>
+<ul>
+<li><a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.Match.group%5D(https://docs.python.org/3/library/re.html%23re.Match.group)"><code>group()</code></a></li>
+<li><code>start()</code></li>
+<li><code>end()</code></li>
+<li><code>span()</code></li>
+</ul>
+<p>The concept becomes clear with an example:</p>
+<div id="cell-65" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Pushups 20 reps 4 sets"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="dv">\d</span><span class="op">+</span><span class="vs">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>First point: Matching with the <code>.match()</code> function occurs from the beginning of the text. Consequently, if you tried to match this whole text, you wouldn’t find a match, even though matching works for the number alone. Matching on the full text:</p>
+<div id="cell-67" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.match(pattern, text))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Matching on the number alone (successful):</p>
+<div id="cell-69" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.match(pattern, <span class="st">"20"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Therefore, we use the <code>.search()</code> function to look for the pattern in any position of the text:</p>
+<div id="cell-71" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(re.search(pattern, text))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We can access the match attributes:</p>
+<div id="cell-73" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> re.search(pattern, text)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m.group())</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m.start(), m.end())</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m.span())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>However, the match returned a single number, and our intention was to match both of them: <code>20</code> and <code>4</code> in the example. Therefore, we use the <code>.findall()</code> procedure as follows:</p>
+<div id="cell-75" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ol <span class="op">=</span> re.findall(pattern, text)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ol)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you want the <code>Match</code> object (not just the matched text), use the <code>.finditer()</code> procedure as follows:</p>
+<div id="cell-77" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>it <span class="op">=</span> re.finditer(pattern, text)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> it:</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-78" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"This dates back to 1970-06-29"</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">-</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">-</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">"</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(pattern, text)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> match:</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">0</span>))</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">1</span>))</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">2</span>))</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-79" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"20 Reps 4 Sets"</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> re.search(<span class="vs">r"</span><span class="kw">((</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Reps</span><span class="kw">)</span><span class="vs"> </span><span class="kw">((</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Sets</span><span class="kw">)</span><span class="vs">"</span>, text)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> m:</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">1</span>))</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">2</span>))</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">3</span>))</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="adjusting-the-matching-process" class="level2">
+<h2 class="anchored" data-anchor-id="adjusting-the-matching-process">Adjusting the Matching Process</h2>
+<p><a href="https://docs.python.org/3/howto/regex.html#compilation-flags">Flags</a> are used to adjust matching in several ways:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.ASCII%5D(https://docs.python.org/3/library/re.html%23re.ASCII)"><code>ASCII</code></a>,&nbsp;<a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.A%5D(https://docs.python.org/3/library/re.html%23re.A)"><code>A</code></a></td>
+<td>Makes symbols like <code>\w</code>, <code>\b</code>, <code>\s</code> and <code>\d</code> match only ASCII characters.</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.DOTALL%5D(https://docs.python.org/3/library/re.html%23re.DOTALL)"><code>DOTALL</code></a>,&nbsp;<a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.S%5D(https://docs.python.org/3/library/re.html%23re.S)"><code>S</code></a></td>
+<td>Makes the symbol <code>.</code> match any character, including newlines.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.IGNORECASE%5D(https://docs.python.org/3/library/re.html%23re.IGNORECASE)"><code>IGNORECASE</code></a>,&nbsp;<a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.I%5D(https://docs.python.org/3/library/re.html%23re.I)"><code>I</code></a></td>
+<td>Makes matching case-insensitive.</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.LOCALE%5D(https://docs.python.org/3/library/re.html%23re.LOCALE)"><code>LOCALE</code></a>,&nbsp;<a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.L%5D(https://docs.python.org/3/library/re.html%23re.L)"><code>L</code></a></td>
+<td>Makes matching take locale settings into account.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.MULTILINE%5D(https://docs.python.org/3/library/re.html%23re.MULTILINE)"><code>MULTILINE</code></a>,&nbsp;<a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.M%5D(https://docs.python.org/3/library/re.html%23re.M)"><code>M</code></a></td>
+<td>Enables multi-line matching, affecting the <code>^</code> and <code>$</code> symbols.</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.VERBOSE%5D(https://docs.python.org/3/library/re.html%23re.VERBOSE)"><code>VERBOSE</code></a>,&nbsp;<a href="https://www.google.com/search?q=%5Bhttps://docs.python.org/3/library/re.html%23re.X%5D(https://docs.python.org/3/library/re.html%23re.X)"><code>X</code></a>&nbsp;(for “Extended”)</td>
+<td>Allows writing regular expressions structured more clearly and easier to understand.</td>
+</tr>
+</tbody>
+</table>
+<p>We illustrate using the flag <code>re.IGNORECASE</code> as we need it for matching Latin words. Note the difference in the two matches:</p>
+<div id="cell-81" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"She is she."</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text):</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text, re.IGNORECASE):</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To use a set of flags, we merge them with the <code>|</code> sign as follows:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>re.search(pattern, text, re.IGNORECASE <span class="op">|</span> re.LOCALE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-83" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"Muhammad AlKhwarizmi, Polymath"</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> re.search(<span class="vs">r"</span><span class="kw">(</span><span class="fu">?P&lt;first_name&gt;</span><span class="dv">\w</span><span class="op">+</span><span class="kw">)</span><span class="vs"> </span><span class="kw">(</span><span class="fu">?P&lt;last_name&gt;</span><span class="dv">\w</span><span class="op">+</span><span class="kw">)</span><span class="vs">, </span><span class="dv">\w</span><span class="op">+</span><span class="vs">"</span>, text)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> m:</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.groupdict())</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="st">'first_name'</span>))</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="st">'last_name'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-84" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"20 Reps 4 Sets"</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> re.search(<span class="vs">r"</span><span class="kw">((</span><span class="fu">?P&lt;reps&gt;</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Reps</span><span class="kw">)</span><span class="vs"> </span><span class="kw">((</span><span class="fu">?P&lt;sets&gt;</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Sets</span><span class="kw">)</span><span class="vs">"</span>, text)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> m:</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.groupdict())</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="st">'reps'</span>))</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="st">'sets'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="extracting-groups-from-text" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-groups-from-text">Extracting Groups from Text</h2>
+<p><strong>Quantifiers</strong> are used to describe a date as: four digits, then a dash, then two digits, then a dash, then two digits. Parentheses are used to divide them when reading.</p>
+<div id="cell-86" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"This dates back to 1970-06-29"</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{4}</span><span class="kw">)</span><span class="vs">-</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">-</span><span class="kw">(</span><span class="dv">\d</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">"</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>match <span class="op">=</span> re.search(pattern, text)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> match:</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">0</span>))</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">1</span>))</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">2</span>))</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(match.group(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note that group <code>0</code> matches the <em>whole</em>. Therefore, when we used <code>.group()</code> before, the default was to extract all the text if it matched the pattern. But now we know that <code>1</code>, <code>2</code>, and <code>3</code> match parts within the pattern itself according to the parentheses placed in it.</p>
+<p>Here is another example involving <strong>nesting parentheses inside parentheses</strong>, which clarifies the significance of the numbers given to the <code>.group(n)</code> procedure:</p>
+<div id="cell-88" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"20 Reps 4 Sets"</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> re.search(<span class="vs">r"</span><span class="kw">((</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Reps</span><span class="kw">)</span><span class="vs"> </span><span class="kw">((</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Sets</span><span class="kw">)</span><span class="vs">"</span>, text)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> m:</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">1</span>))</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">2</span>))</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">3</span>))</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>And so on.</p>
+<div id="cell-90" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">"She is she."</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">"They are they."</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>patternc <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, re.IGNORECASE)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> patternc.finditer(text1):</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> patternc.finditer(text2):</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-91" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">"She is she."</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">"They are they."</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text1, re.IGNORECASE):</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text2, re.IGNORECASE):</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="naming-groups" class="level2">
+<h2 class="anchored" data-anchor-id="naming-groups">Naming Groups</h2>
+<p>One of the features of the pattern matching engine in Python specifically is the ability to name groups in the pattern so they can be extracted by name. The naming comes after the first parenthesis like this: <code>(?P&lt;name&gt;...)</code> where <code>...</code> represents the string pattern. This is done as follows:</p>
+<p>text = “Muhammad AlKhwarizmi, Polymath”</p>
+<p>m = re.search(r”(?P<first_name>+) (?P<last_name>+), +“, text) if m: print(m.groupdict()) print(m.group(‘first_name’)) print(m.group(‘last_name’))</last_name></first_name></p>
+<p>It works the same way in nested groups:</p>
+<div id="cell-95" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"20 Reps 4 Sets"</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> re.search(<span class="vs">r"</span><span class="kw">((</span><span class="fu">?P&lt;reps&gt;</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Reps</span><span class="kw">)</span><span class="vs"> </span><span class="kw">((</span><span class="fu">?P&lt;sets&gt;</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs"> Sets</span><span class="kw">)</span><span class="vs">"</span>, text)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> m:</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.groupdict())</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="st">'reps'</span>))</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.group(<span class="st">'sets'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This makes extracting patterns from texts much easier.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Group naming is a Python-only feature, and is not part of the general regular expression specification. This means you may not find it in other engines such as interactive editors found on the web.</p>
+</div>
+</div>
+<div id="cell-97" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="st">Pushups 30 reps 3 sets</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="st">5 reps 2 sets Pullups</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="st">2 Sets 15 Reps One-leg Squats</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="st">4 sets 8 reps 22.5 lbs Dumbbell Rows</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="st">4 sets 8 reps 15.25kg Dumbbell Rows</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="compiling-the-regular-expression-once" class="level2">
+<h2 class="anchored" data-anchor-id="compiling-the-regular-expression-once">Compiling the Regular Expression Once</h2>
+<p>We have used library procedures directly like: <code>re.match()</code> and <code>re.search()</code>, etc. These take the pattern, compile it, and then execute it with a package written in C. If the pattern is used frequently, the compilation process is performed multiple times, <strong>which is a waste!</strong> To compile the pattern once and then apply it multiple times (without repeating the compilation), we use the <strong>compilation</strong> procedure <code>re.compile()</code> as follows:</p>
+<div id="cell-99" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">"She is she."</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">"They are they."</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>patternc <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, re.IGNORECASE)</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> patternc.finditer(text1):</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> patternc.finditer(text2):</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To see the difference, compare it with the snippet where <strong>we did not use pre-compilation</strong>; it repeats every time:</p>
+<div id="cell-101" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="op">=</span> <span class="st">"She is she."</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>text2 <span class="op">=</span> <span class="st">"They are they."</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text1, re.IGNORECASE):</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> re.finditer(<span class="vs">r"</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">"</span>, text2, re.IGNORECASE):</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="editing-regular-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="editing-regular-expressions">Editing Regular Expressions</h2>
+<p>We recommend using <strong>Regular Expression editing</strong> tools such as: <a href="https://regex101.com/">regex101</a>; they are much better than writing it without a tool.</p>
+<ul>
+<li>In the sidebar, choose the <strong>Python</strong> Flavor.</li>
+<li>In the first field, write the regular expression.</li>
+<li>In the large box, place the text you want to match.</li>
+</ul>
+<p>There is also another editor like <a href="https://regexr.com/">regexr</a>, and in the sidebar, you will find <strong>Community Patterns</strong> where you can find an index of text patterns shared by other programmers. Or at: <a href="https://github.com/regexhq">regexHQ</a>.</p>
+<p>Thus, you modify the pattern and add to the texts until you reach the best pattern to copy and place in your program.</p>
+<p>This editor uses the same engine as: <a href="https://pythex.org/">pythex</a>.</p>
+</section>
+<section id="other-resources-for-learning-regular-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="other-resources-for-learning-regular-expressions">Other Resources for Learning Regular Expressions</h2>
+<ul>
+<li><a href="https://github.com/ziishaned/learn-regex">Learn Regex The Easy Way</a></li>
+</ul>
+<p>Interactive lessons for learning regular expressions:</p>
+<ul>
+<li><a href="https://regexlearn.com/">RegexLearn</a></li>
+<li><a href="https://regexone.com/">RegexOne</a></li>
+</ul>
+<p>da</p>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li><p><strong>Regular Expressions (Regex)</strong> are powerful pattern-matching tools essential for text processing in NLP and data engineering pipelines.</p></li>
+<li><p>Regex is indispensable in ML/DL workflows for:</p>
+<ul>
+<li><strong>Data Cleaning &amp; Preprocessing</strong>: Removing noise (HTML tags, URLs, hashtags), PII redaction, contraction expansion</li>
+<li><strong>Feature Extraction</strong>: Extracting metadata (dates, prices, IDs) from unstructured text</li>
+<li><strong>Weak Supervision &amp; Labeling</strong>: Creating rule-based labels for unlabeled data</li>
+</ul></li>
+<li><p><strong>Character Classes</strong> <code>[ ]</code> allow matching sets of characters:</p>
+<ul>
+<li><code>[abc]</code> matches a, b, or c</li>
+<li><code>[^abc]</code> matches any character except a, b, or c</li>
+<li><code>[a-z]</code> matches any lowercase letter from a to z</li>
+</ul></li>
+<li><p><strong>Metacharacters</strong> have special meanings: <code>. ^ $ * + ? { } [ ] \ | ( )</code></p></li>
+<li><p><strong>Quantifiers</strong> control how many times a pattern matches:</p>
+<ul>
+<li><code>*</code> (0 or more), <code>+</code> (1 or more), <code>?</code> (0 or 1), <code>{n}</code> (exactly n), <code>{n,m}</code> (between n and m)</li>
+</ul></li>
+<li><p><strong>Anchors</strong> match positions: <code>^</code> (start), <code>$</code> (end), <code>\b</code> (word boundary)</p></li>
+<li><p><strong>Groups</strong> <code>()</code> allow capturing and extracting specific parts of matches</p></li>
+<li><p>The <strong><code>regex</code> library</strong> in Python provides enhanced Unicode support and additional functionality compared to the standard <code>re</code> module</p></li>
+<li><p>Use regex editing tools like <a href="https://regex101.com/">regex101.com</a> or <a href="https://regexr.com/">regexr.com</a> for developing and testing patterns</p></li>
+<li><p>For large-scale keyword replacement/extraction, consider <strong>FlashText</strong> as a faster alternative to regex</p></li>
+</ul>
+</section>
+<section id="pro-tip-flashtext" class="level2">
+<h2 class="anchored" data-anchor-id="pro-tip-flashtext">Pro-tip: <strong>FlashText</strong></h2>
+<p><a href="https://pypi.org/project/flashtext/">FlashText</a> can be used to replace keywords in sentences or extract keywords from sentences. It is based on the FlashText algorithm (<a href="https://arxiv.org/abs/1711.00046">Paper: Replace or Retrieve Keywords In Documents at Scale</a>).</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

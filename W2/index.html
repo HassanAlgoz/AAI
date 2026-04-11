@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8b4a5520c1676ac36cce40fd3d75803c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,6 +71,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -97,7 +140,19 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../W2/"> 
-<span class="menu-text">Data Science</span></a>
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../W4/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../W5/"> 
+<span class="menu-text">DL</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -138,15 +193,15 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#module-1-introductions" id="toc-module-1-introductions" class="nav-link active" data-scroll-target="#module-1-introductions">Module 1: Introductions</a></li>
   <li><a href="#module-2-data-wrangling" id="toc-module-2-data-wrangling" class="nav-link" data-scroll-target="#module-2-data-wrangling">Module 2: Data Wrangling</a></li>
-  <li><a href="#module-3-descriptive-statistics" id="toc-module-3-descriptive-statistics" class="nav-link" data-scroll-target="#module-3-descriptive-statistics">Module 3: Descriptive Statistics</a>
+  <li><a href="#module-3-statistical-analysis" id="toc-module-3-statistical-analysis" class="nav-link" data-scroll-target="#module-3-statistical-analysis">Module 3: Statistical Analysis</a>
   <ul class="collapse">
-  <li><a href="#m3-1-statistical-analysis" id="toc-m3-1-statistical-analysis" class="nav-link" data-scroll-target="#m3-1-statistical-analysis">M3-1: Statistical Analysis</a></li>
-  <li><a href="#m3-2-statistical-visualization" id="toc-m3-2-statistical-visualization" class="nav-link" data-scroll-target="#m3-2-statistical-visualization">M3-2: Statistical Visualization</a></li>
+  <li><a href="#m3-1-univariate-analysis" id="toc-m3-1-univariate-analysis" class="nav-link" data-scroll-target="#m3-1-univariate-analysis">M3-1: Univariate Analysis</a></li>
+  <li><a href="#m3-2-statistical-visualizations" id="toc-m3-2-statistical-visualizations" class="nav-link" data-scroll-target="#m3-2-statistical-visualizations">M3-2: Statistical Visualizations</a></li>
   </ul></li>
   <li><a href="#module-4-inferential-statistics" id="toc-module-4-inferential-statistics" class="nav-link" data-scroll-target="#module-4-inferential-statistics">Module 4: Inferential Statistics</a>
   <ul class="collapse">
   <li><a href="#m4-1-hypothesis-testing" id="toc-m4-1-hypothesis-testing" class="nav-link" data-scroll-target="#m4-1-hypothesis-testing">M4-1: Hypothesis Testing</a></li>
-  <li><a href="#m4-2-association-and-correlation" id="toc-m4-2-association-and-correlation" class="nav-link" data-scroll-target="#m4-2-association-and-correlation">M4-2: Association and Correlation</a></li>
+  <li><a href="#m4-2-bivariate-analysis" id="toc-m4-2-bivariate-analysis" class="nav-link" data-scroll-target="#m4-2-bivariate-analysis">M4-2: Bivariate Analysis</a></li>
   </ul></li>
   <li><a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects">Projects</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -277,19 +332,17 @@ ul.task-list li input[type="checkbox"] {
 <p>If you like walkthroughs, follow this <a href="https://www.youtube.com/playlist?list=PLgJhDSE2ZLxaY_DigHeiIDC1cD09rXgJv">YouTube Playlist</a> which go through the exercises as well.</p>
 </section>
 </section>
-<section id="module-3-descriptive-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="module-3-descriptive-statistics">Module 3: Descriptive Statistics</h2>
-<section id="m3-1-statistical-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="m3-1-statistical-analysis">M3-1: Statistical Analysis</h3>
+<section id="module-3-statistical-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="module-3-statistical-analysis">Module 3: Statistical Analysis</h2>
+<section id="m3-1-univariate-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="m3-1-univariate-analysis">M3-1: Univariate Analysis</h3>
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Describe what statistics is all about</li>
-<li>Identify the two types of statistics and how they work together</li>
+<li>Identify the two types of statistics</li>
 <li>Distinguish between Population and Sample</li>
 <li>Given a dataset, identify the numerical and categorical variables</li>
-<li>Provide more examples of numerical variables and categorical variables</li>
-<li>Describe common statistics like: <em>Proportion</em>, <em>Mean</em> an <em>Variance</em> (and calculate them).</li>
-<li>Identify at least two key elements that describe a Distribution, (and calculate them).</li>
+<li>Show statistics like: <em>Proportion</em>, <em>Mean</em> an <em>Variance</em> (and calculate them)</li>
+<li>Identify the two two key elements that describe a Distribution, (and calculate them)</li>
 <li>Describe different shapes of distributions using terms like: normal/gaussian, uniform, skewed, and exponential</li>
 <li>Give at least 2 examples of normally distributed data</li>
 <li>Give at least 1 example of non-normally distributed data (e.g., exponential)</li>
@@ -312,8 +365,8 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 </section>
 </section>
-<section id="m3-2-statistical-visualization" class="level3">
-<h3 class="anchored" data-anchor-id="m3-2-statistical-visualization">M3-2: Statistical Visualization</h3>
+<section id="m3-2-statistical-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="m3-2-statistical-visualizations">M3-2: Statistical Visualizations</h3>
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Distinguish between figure and axes in matplotlib</li>
@@ -352,6 +405,9 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>Distinguish between <em>Inferential</em> and <em>Descriptive</em> Statistics</li>
 <li>Distinguish between <em>Null</em> and <em>Alternative</em> Hypothesis</li>
+<li>Recognize anecdotal evidence as such</li>
+<li>Given a statement, define the null and alternative hypothesis to setup the statistical testing procedure</li>
+<li>Explain what failing to reject the null hypothesis means</li>
 <li>Given an alternative hypothesis select the correct statistical test</li>
 <li>Intrepret the result of a statistical test (p-value)</li>
 <li>Understand that alpha (the significance level) is selected by convention to have the value of <code>0.05</code></li>
@@ -365,20 +421,21 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="../W2/M3/lessons/03_hypothesis_testing.html">Lab: Hypothesis Testing</a></li>
 </ul>
 </section>
-<section id="m4-2-association-and-correlation" class="level3">
-<h3 class="anchored" data-anchor-id="m4-2-association-and-correlation">M4-2: Association and Correlation</h3>
+<section id="m4-2-bivariate-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="m4-2-bivariate-analysis">M4-2: Bivariate Analysis</h3>
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Distinguish between association and correlation</li>
+<li>Distinguish between correlation and association</li>
+<li>Interpret a give correlation coefficient <span class="math inline">r</span></li>
+<li>Given a correlation coefficient <span class="math inline">r</span> map it to a scatter plot</li>
+<li>Use <code>sns.pairplot(kind="reg")</code> to plot pairwise relationships in a datset</li>
+<li>Explain correlation is not causation with an example</li>
+<li>Demonstrate knowledge of how to find out if a variable may be confounding</li>
+<li>Give an example where a variable is found not to be confounding</li>
 <li>Recognize how Chi-square test and Cramer’s value are used together</li>
-<li>Interpret a Chi-square statistic</li>
-<li>Interpret a Cramér’s V statistic</li>
 <li>Find the association between two categorical variables in terms of both: significance and strength</li>
-<li>Interpret an r-square statistic</li>
-<li>Given a scatter plot, choose the corresponding r-square value from a list of given values</li>
-<li>Recognize non-linearity and outlier issues with r-squared value</li>
-<li>Explain the phrase “correlation does not imply causation” and give at least 1 example of your own</li>
-<li>Explain what a <em>Confounding Variable</em> is</li>
+<li>Use <code>histplot(discrete=True)</code> to plot proportions of categroical variables</li>
+<li>Calculate the contingency table and plot the heatmap</li>
 </ol>
 <p>Lessons:</p>
 <ul>
@@ -394,13 +451,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="projects" class="level2">
 <h2 class="anchored" data-anchor-id="projects">Projects</h2>
-<p>You will do all three projects, but only 1 will be presented:</p>
+<p>All three projects are required, but only one will be selected to present:</p>
 <ul>
 <li><a href="../W2/Project/p1/p1_fast_food.html">Project 1: Fast Food Marketing Campaign A/B Test</a></li>
 <li><a href="../W2/Project/p2/p2_student_exam.html">Project 2: Student Exam Performance Factors</a></li>
 <li><a href="../W2/Project/p3/p3_GMHCI-2026.html">Project 3: Global Mental Health Crisis Index 2026</a></li>
 </ul>
-<hr>
+<p>See <a href="../W2/Project/presentation.html">Project Notebook Presentation</a>.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
