@@ -129,9 +129,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -173,24 +170,12 @@
 </section>
 <section id="an-example-of-a-decision-tree" class="slide level2">
 <h2>An example of a decision tree</h2>
-<div class="cell" data-reveal="true" width="100%" data-layout-align="center">
+<div class="cell" width="100%" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph TD
-    %% Define colors for leaves: blue for "Low income", orange for "High income"
-    classDef blue fill:#0074D9,color:white,stroke:#333,stroke-width:2px;
-    classDef orange fill:#FF851B,color:white,stroke:#333,stroke-width:2px;
-
-    A[/Age &lt; 28.5 ?/] -- Yes --&gt; B[Low income]
-    A -- No --&gt; C[/Hours per week &lt; 40 ?/]
-    C -- Yes --&gt; D[Low income]
-    C -- No --&gt; E[High income]
-
-    class B,D blue;
-    class E orange;
-</pre>
+<p><a href="01_slides_trees_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="01_slides_trees_files/figure-revealjs/mermaid-figure-1.png" style="width:5.1in;height:3.24in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -224,14 +209,14 @@
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_blue_orange1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Tree blue or orange 1"><img data-src="../assets/tree_blue_orange1.svg" style="width:100.0%" alt="Tree blue or orange 1"></a></p>
+<p><a href="../assets/tree_blue_orange1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Tree blue or orange 1"><img data-src="../assets/tree_blue_orange1.svg" style="width:100.0%" alt="Tree blue or orange 1"></a></p>
 <figcaption>Tree blue or orange 1</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree2D_1split.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Tree 2D 1 split"><img data-src="../assets/tree2D_1split.svg" style="width:100.0%" alt="Tree 2D 1 split"></a></p>
+<p><a href="../assets/tree2D_1split.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Tree 2D 1 split"><img data-src="../assets/tree2D_1split.svg" style="width:100.0%" alt="Tree 2D 1 split"></a></p>
 <figcaption>Tree 2D 1 split</figcaption>
 </figure>
 </div>
@@ -260,14 +245,14 @@
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_blue_orange2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Tree blue or orange 2"><img data-src="../assets/tree_blue_orange2.svg" style="width:100.0%" alt="Tree blue or orange 2"></a></p>
+<p><a href="../assets/tree_blue_orange2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Tree blue or orange 2"><img data-src="../assets/tree_blue_orange2.svg" style="width:100.0%" alt="Tree blue or orange 2"></a></p>
 <figcaption>Tree blue or orange 2</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree2D_2split.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Tree 2D 2 split"><img data-src="../assets/tree2D_2split.svg" style="width:100.0%" alt="Tree 2D 2 split"></a></p>
+<p><a href="../assets/tree2D_2split.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Tree 2D 2 split"><img data-src="../assets/tree2D_2split.svg" style="width:100.0%" alt="Tree 2D 2 split"></a></p>
 <figcaption>Tree 2D 2 split</figcaption>
 </figure>
 </div>
@@ -292,14 +277,14 @@
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_blue_orange3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Tree blue or orange 3"><img data-src="../assets/tree_blue_orange3.svg" style="width:100.0%" alt="Tree blue or orange 3"></a></p>
+<p><a href="../assets/tree_blue_orange3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Tree blue or orange 3"><img data-src="../assets/tree_blue_orange3.svg" style="width:100.0%" alt="Tree blue or orange 3"></a></p>
 <figcaption>Tree blue or orange 3</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree2D_3split.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Tree 2D 3 split"><img data-src="../assets/tree2D_3split.svg" style="width:100.0%" alt="Tree 2D 3 split"></a></p>
+<p><a href="../assets/tree2D_3split.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Tree 2D 3 split"><img data-src="../assets/tree2D_3split.svg" style="width:100.0%" alt="Tree 2D 3 split"></a></p>
 <figcaption>Tree 2D 3 split</figcaption>
 </figure>
 </div>
@@ -326,7 +311,7 @@
 <div class="center">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_regression1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Tree regression 1"><img data-src="../assets/tree_regression1.svg" style="width:80.0%" alt="Tree regression 1"></a></p>
+<p><a href="../assets/tree_regression1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Tree regression 1"><img data-src="../assets/tree_regression1.svg" style="width:80.0%" alt="Tree regression 1"></a></p>
 <figcaption>Tree regression 1</figcaption>
 </figure>
 </div>
@@ -354,14 +339,14 @@
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_regression_structure1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Tree regression structure 1"><img data-src="../assets/tree_regression_structure1.svg" style="width:100.0%" alt="Tree regression structure 1"></a></p>
+<p><a href="../assets/tree_regression_structure1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Tree regression structure 1"><img data-src="../assets/tree_regression_structure1.svg" style="width:100.0%" alt="Tree regression structure 1"></a></p>
 <figcaption>Tree regression structure 1</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_regression2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Tree regression 2"><img data-src="../assets/tree_regression2.svg" style="width:100.0%" alt="Tree regression 2"></a></p>
+<p><a href="../assets/tree_regression2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Tree regression 2"><img data-src="../assets/tree_regression2.svg" style="width:100.0%" alt="Tree regression 2"></a></p>
 <figcaption>Tree regression 2</figcaption>
 </figure>
 </div>
@@ -391,14 +376,14 @@
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_regression_structure2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Tree regression structure 2"><img data-src="../assets/tree_regression_structure2.svg" style="width:100.0%" alt="Tree regression structure 2"></a></p>
+<p><a href="../assets/tree_regression_structure2.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Tree regression structure 2"><img data-src="../assets/tree_regression_structure2.svg" style="width:100.0%" alt="Tree regression structure 2"></a></p>
 <figcaption>Tree regression structure 2</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_regression3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Tree regression 3"><img data-src="../assets/tree_regression3.svg" style="width:100.0%" alt="Tree regression 3"></a></p>
+<p><a href="../assets/tree_regression3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Tree regression 3"><img data-src="../assets/tree_regression3.svg" style="width:100.0%" alt="Tree regression 3"></a></p>
 <figcaption>Tree regression 3</figcaption>
 </figure>
 </div>
@@ -423,14 +408,14 @@
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_regression_structure3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Tree regression structure 3"><img data-src="../assets/tree_regression_structure3.svg" style="width:100.0%" alt="Tree regression structure 3"></a></p>
+<p><a href="../assets/tree_regression_structure3.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Tree regression structure 3"><img data-src="../assets/tree_regression_structure3.svg" style="width:100.0%" alt="Tree regression structure 3"></a></p>
 <figcaption>Tree regression structure 3</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/tree_regression4.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Tree regression 4"><img data-src="../assets/tree_regression4.svg" style="width:100.0%" alt="Tree regression 4"></a></p>
+<p><a href="../assets/tree_regression4.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Tree regression 4"><img data-src="../assets/tree_regression4.svg" style="width:100.0%" alt="Tree regression 4"></a></p>
 <figcaption>Tree regression 4</figcaption>
 </figure>
 </div>
@@ -461,7 +446,7 @@
 <div class="column" style="width:33%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/dt_underfit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Underfit"><img data-src="../assets/dt_underfit.svg" style="width:100.0%" alt="Underfit"></a></p>
+<p><a href="../assets/dt_underfit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Underfit"><img data-src="../assets/dt_underfit.svg" style="width:100.0%" alt="Underfit"></a></p>
 <figcaption>Underfit</figcaption>
 </figure>
 </div>
@@ -472,7 +457,7 @@
 </div><div class="column" style="width:33%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/dt_fit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Fit"><img data-src="../assets/dt_fit.svg" style="width:100.0%" alt="Fit"></a></p>
+<p><a href="../assets/dt_fit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Fit"><img data-src="../assets/dt_fit.svg" style="width:100.0%" alt="Fit"></a></p>
 <figcaption>Fit</figcaption>
 </figure>
 </div>
@@ -482,7 +467,7 @@
 </div><div class="column" style="width:33%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/dt_overfit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Overfit"><img data-src="../assets/dt_overfit.svg" style="width:100.0%" alt="Overfit"></a></p>
+<p><a href="../assets/dt_overfit.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Overfit"><img data-src="../assets/dt_overfit.svg" style="width:100.0%" alt="Overfit"></a></p>
 <figcaption>Overfit</figcaption>
 </figure>
 </div>

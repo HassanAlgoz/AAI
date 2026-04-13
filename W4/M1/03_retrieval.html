@@ -78,6 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,9 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -253,38 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph TD
-    %% Input processing
-    subgraph "📥 Input processing"
-        A[/Raw Data/] --&gt; B[Loaders]
-        B --&gt; B2[/Documents/]
-        B2 --&gt; C[Splitters]
-        C --&gt; D[/Chunks/]
-    end
-
-    %% Embedding &amp; storage
-    subgraph "🔢 Embedding &amp; storage"
-        D --&gt; E[Embedding models]
-        E --&gt; F[/Vectors/]
-        F --&gt; G[(Vector stores)]
-    end
-
-    %% Retrieval
-    subgraph "🔍 Retrieval"
-        H[/User Query/] --&gt; I["Embedding models (same)"]
-        I --&gt; J[/Vector/]
-        J --&gt; K[Retrievers]
-        K -- Vector --&gt; G
-        G -- Chunks --&gt; K
-        K --&gt; L[/Relevant context/]
-    end
-
-    %% Generation
-    subgraph "Generation"
-        L -- Augment --&gt; O[LLM]
-        O --&gt; P[/Answer/]
-    end
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="03_retrieval_files/figure-html/mermaid-figure-1.png" style="width:6.48in;height:14.39in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -302,10 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-  S[/"Sources&lt;br&gt;(Google Drive, Slack, Notion, etc.)"/] --&gt; L[Document Loaders]
-  L --&gt; A[/Documents/]
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="03_retrieval_files/figure-html/mermaid-figure-9.png" style="width:7.74in;height:1.07in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -320,12 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[/Documents/] --&gt; B[Splitter]
-  B --&gt; C1[/Chunk 1/]
-  B --&gt; C2[/Chunk 2/]
-  B --&gt; C3[/Chunk 3/]
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="03_retrieval_files/figure-html/mermaid-figure-8.png" style="width:4.93in;height:2.43in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -362,14 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-  D1[Embedding Model]
-  D2[Embedding Model]
-  D3[Embedding Model]
-  C1[/Chunk 1/] --&gt; D1 --&gt; E1[/Vector 1/]
-  C2[/Chunk 2/] --&gt; D2 --&gt; E2[/Vector 2/]
-  C3[/Chunk 3/] --&gt; D3 --&gt; E3[/Vector 3/]
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="03_retrieval_files/figure-html/mermaid-figure-7.png" style="width:5.48in;height:2.9in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -384,12 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    S[(Vector Store)]
-    E1[/Vector 1/] --&gt; S
-    E2[/Vector 2/] --&gt; S
-    E3[/Vector 3/] --&gt; S
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="03_retrieval_files/figure-html/mermaid-figure-6.png" style="width:2.95in;height:2.43in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -404,13 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    R[Retriever] --&gt; S[(Vector Store)]
-    S --&gt; R
-    R --&gt; C1[/Chunk 14/]
-    R --&gt; C2[/Chunk 8/]
-    R --&gt; C3[/Chunk 62/]
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="03_retrieval_files/figure-html/mermaid-figure-5.png" style="width:3.24in;height:3.71in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -477,18 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph LR
-    A[User Question] --&gt; B["Retrieve Relevant Documents"]
-    B --&gt; C["Generate Answer"]
-    C --&gt; D[Return Answer to User]
-
-    %% Styling
-    classDef startend fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff
-    classDef process fill:#1976d2,stroke:#0d47a1,stroke-width:1.5px,color:#fff
-
-    class A,D startend
-    class B,C process
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="03_retrieval_files/figure-html/mermaid-figure-4.png" style="width:10.28in;height:0.98in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -503,25 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph TD
-    A[User Input / Question] --&gt; B["Agent (LLM)"]
-    B --&gt; C{Need external info?}
-    C -- Yes --&gt; D["Search using tool(s)"]
-    D --&gt; H{Enough to answer?}
-    H -- No --&gt; B
-    H -- Yes --&gt; I[Generate final answer]
-    C -- No --&gt; I
-    I --&gt; J[Return to user]
-
-    %% Dark-mode friendly styling
-    classDef startend fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff
-    classDef decision fill:#f9a825,stroke:#f57f17,stroke-width:2px,color:#000
-    classDef process fill:#1976d2,stroke:#0d47a1,stroke-width:1.5px,color:#fff
-
-    class A,J startend
-    class B,D,I process
-    class C,H decision
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="03_retrieval_files/figure-html/mermaid-figure-3.png" style="width:3.72in;height:10.81in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -575,28 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph TD
-    A[User Question] --&gt; B[Query Enhancement]
-    B --&gt; C[Retrieve Documents]
-    C --&gt; D{Sufficient Info?}
-    D -- No --&gt; E[Refine Query]
-    E --&gt; C
-    D -- Yes --&gt; F[Generate Answer]
-    F --&gt; G{Answer Quality OK?}
-    G -- No --&gt; H{Try Different Approach?}
-    H -- Yes --&gt; E
-    H -- No --&gt; I[Return Best Answer]
-    G -- Yes --&gt; I
-    I --&gt; J[Return to User]
-
-    classDef startend fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff
-    classDef decision fill:#f9a825,stroke:#f57f17,stroke-width:2px,color:#000
-    classDef process fill:#1976d2,stroke:#0d47a1,stroke-width:1.5px,color:#fff
-
-    class A,J startend
-    class B,C,E,F,I process
-    class D,G,H decision
-</pre>
+<p><a href="03_retrieval_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="03_retrieval_files/figure-html/mermaid-figure-2.png" style="width:5.91in;height:14.46in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -1047,6 +940,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

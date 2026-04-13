@@ -195,9 +195,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
   
   <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -239,7 +236,7 @@
 </section>
 <section id="loading-the-dataset" class="slide level2">
 <h2>Loading the Dataset</h2>
-<div id="19f2878c" class="cell" data-execution_count="2">
+<div id="bf45c4a2" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># We retrieve a dataset directly for regression modeling</span></span>
@@ -272,7 +269,7 @@
 </section>
 <section id="why-do-we-split-our-data" class="slide level2">
 <h2>Why do we split our data?</h2>
-<div id="00aad112" class="cell" data-execution_count="3">
+<div id="d544a7b6" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb2-2"><a></a></span>
 <span id="cb2-3"><a></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
@@ -306,15 +303,12 @@ Shape of X_test: (292, 5)</code></pre>
 </section>
 <section id="train-test-split-proportions" class="slide level2">
 <h2>Train-Test Split Proportions</h2>
-<div class="cell" data-reveal="true" data-layout-align="center">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart TD
-    A[Dataset] --&gt; B(Training Set&lt;br&gt;80%)
-    A --&gt; C(Testing Set&lt;br&gt;20%)
-</pre>
+<p><a href="03_slides_pipeline_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="03_slides_pipeline_files/figure-revealjs/mermaid-figure-1.png" style="width:3in;height:2.06in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -343,15 +337,12 @@ Shape of X_test: (292, 5)</code></pre>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p>a</p>
-<div class="cell" data-reveal="true" height="300" data-layout-align="center">
+<div class="cell" height="300" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">pie title Small Dataset (Thousands)
-    "Train" : 80
-    "Test" : 20
-</pre>
+<p><a href="03_slides_pipeline_files/figure-revealjs/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="03_slides_pipeline_files/figure-revealjs/mermaid-figure-6.png" style="width:5.73in;height:4.69in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -359,15 +350,12 @@ Shape of X_test: (292, 5)</code></pre>
 </div>
 </div><div class="column" style="width:60%;">
 <p>b</p>
-<div class="cell" data-reveal="true" data-layout-align="center">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">pie title Big Dataset (Millions)
-    "Train" : 98
-    "Test" : 2
-</pre>
+<p><a href="03_slides_pipeline_files/figure-revealjs/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="03_slides_pipeline_files/figure-revealjs/mermaid-figure-5.png" style="width:5.73in;height:4.69in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -407,7 +395,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="problem-1-inconsistent-pre-processing" class="slide level2">
 <h2>Problem 1: Inconsistent Pre-processing</h2>
-<div id="396da773" class="cell" data-execution_count="4">
+<div id="5dd1e671" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb4-2"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> SGDRegressor</span>
 <span id="cb4-3"><a></a></span>
@@ -443,7 +431,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="problem-2-data-leakage" class="slide level2">
 <h2>Problem 2: Data Leakage</h2>
-<div id="7a0a311a" class="cell" data-execution_count="5">
+<div id="bf877f7a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># The Pitfall: Fitting the scaler on the ENTIRE dataset BEFORE splitting</span></span>
 <span id="cb5-2"><a></a>scaler <span class="op">=</span> StandardScaler()</span>
 <span id="cb5-3"><a></a>X_transformed <span class="op">=</span> scaler.fit_transform(X[numeric_features])</span>
@@ -473,35 +461,33 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="data-leakage-visualized" class="slide level2">
 <h2>Data Leakage Visualized</h2>
-<div class="cell" data-reveal="true" data-layout-align="center">
+<div class="columns">
+<div class="column">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart TD
-    subgraph WRONG [Data Leakage!]
-        A1[Entire Dataset] --&gt; B1[Fit Scaler on ALL data]
-        B1 --&gt; C1[Split Data]
-        C1 --&gt; D1[Train Data contains Test metadata]
-        C1 --&gt; E1[Test Data]
-    end
-    
-    subgraph RIGHT [Proper Process]
-        A2[Entire Dataset] --&gt; B2[Split Data FIRST]
-        B2 --&gt; C2[Train Data]
-        B2 --&gt; D2[Test Data]
-        C2 --&gt; E2[Fit Scaler on Train ONLY]
-        E2 --&gt; F2[Transform Test Data]
-    end
-    
-    style WRONG stroke:#f66,stroke-width:2px
-    style RIGHT stroke:#6f6,stroke-width:2px
-</pre>
+<p><a href="03_slides_pipeline_files/figure-revealjs/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="03_slides_pipeline_files/figure-revealjs/mermaid-figure-4.png" style="width:5.68in;height:6.04in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
+</div><div class="column">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<p><a href="03_slides_pipeline_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="03_slides_pipeline_files/figure-revealjs/mermaid-figure-3.png" style="width:5.34in;height:6.89in"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div></div>
+<!-- end columns -->
 <aside class="notes">
 <p>The pipeline is exactly what forces us into the ‘RIGHT’ box continuously.</p>
 <style type="text/css">
@@ -557,19 +543,12 @@ Convert categorical features into a numeric format with encoders.</li>
 <section id="pipelines" class="slide level2">
 <h2>Pipelines</h2>
 <p>In scikit-learn, a <code>Pipeline</code> is a strictly ordered sequence of steps where the output of one step becomes the input of the next.</p>
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    A[X] --&gt; Pipeline{{Pipeline}}
-    subgraph Pipeline
-        direction LR
-        B1["SimpleImputer&lt;br/&gt;(Transformer)"] --&gt; B2["OneHotEncoder&lt;br/&gt;(Transformer)"] --&gt; B3["LinearRegression&lt;br/&gt;(Predictor)"]
-    end
-    Pipeline --&gt; Y[y]
-</pre>
+<p><a href="03_slides_pipeline_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="03_slides_pipeline_files/figure-revealjs/mermaid-figure-2.png" style="width:10.35in;height:1.71in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -586,7 +565,7 @@ Convert categorical features into a numeric format with encoders.</li>
 <li>The culminating final component is invariably a <strong>Predictor</strong>.</li>
 </ul>
 </div><div class="column" style="width:60%;">
-<p><a href="../assets/estimator_transformer_predictor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/estimator_transformer_predictor.png"></a></p>
+<p><a href="../assets/estimator_transformer_predictor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../assets/estimator_transformer_predictor.png"></a></p>
 </div></div>
 <aside class="notes">
 <p>All of scikit-learn is architected identically to this pipeline schema.</p>
@@ -609,8 +588,8 @@ Convert categorical features into a numeric format with encoders.</li>
 <thead>
 <tr class="header">
 <th style="text-align: left;"><strong>Transformer</strong></th>
-<th style="text-align: left;"><strong>Learning: <code>fit</code></strong></th>
-<th style="text-align: left;"><strong>Transform: <code>transform</code></strong></th>
+<th style="text-align: left;"><strong>Estimating: <code>fit()</code></strong></th>
+<th style="text-align: left;"><strong>Transforming: <code>transform()</code></strong></th>
 </tr>
 </thead>
 <tbody>
@@ -639,7 +618,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="pre-processing-numerical-features" class="slide level2">
 <h2>Pre-processing Numerical Features</h2>
-<div id="ccdae436" class="cell" data-execution_count="6">
+<div id="4ceaa34d" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb6-2"><a></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb6-3"><a></a></span>
@@ -671,7 +650,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="pre-processing-categorical-features" class="slide level2">
 <h2>Pre-processing Categorical Features</h2>
-<div id="6277f669" class="cell" data-execution_count="7">
+<div id="e3246801" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb7-2"><a></a></span>
 <span id="cb7-3"><a></a>categorical_transformer <span class="op">=</span> OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -696,7 +675,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="putting-it-together-with-columntransformer" class="slide level2">
 <h2>Putting it Together with ColumnTransformer</h2>
-<div id="b9751658" class="cell" data-execution_count="8">
+<div id="60d6aa1e" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb8-2"><a></a></span>
 <span id="cb8-3"><a></a>preprocessor <span class="op">=</span> ColumnTransformer(</span>
@@ -727,7 +706,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="the-complete-pipeline" class="slide level2">
 <h2>The Complete Pipeline</h2>
-<div id="77979e7c" class="cell" data-execution_count="9">
+<div id="8497566a" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a>pipe <span class="op">=</span> Pipeline(</span>
 <span id="cb9-2"><a></a>    steps<span class="op">=</span>[</span>
 <span id="cb9-3"><a></a>        (<span class="st">"preprocessor"</span>, preprocessor),</span>
@@ -740,7 +719,7 @@ Convert categorical features into a numeric format with encoders.</li>
 <span id="cb9-10"><a></a>score <span class="op">=</span> pipe.score(X_test, y_test)</span>
 <span id="cb9-11"><a></a><span class="bu">print</span>(<span class="ss">f"Test Score: </span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test Score: 0.661</code></pre>
+<pre><code>Test Score: 0.663</code></pre>
 </div>
 </div>
 <ul>
@@ -764,7 +743,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="transformers-vs-predictors" class="slide level2">
 <h2>Transformers vs Predictors</h2>
-<div id="920e4e3e" class="cell" data-execution_count="10">
+<div id="399d49f6" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="co"># Manual Transformer Logic Example</span></span>
 <span id="cb11-2"><a></a>scaler.fit(X_train_num)</span>
 <span id="cb11-3"><a></a>X_train_scaled <span class="op">=</span> scaler.transform(X_train_num)</span>

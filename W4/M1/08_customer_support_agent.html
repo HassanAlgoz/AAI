@@ -78,6 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,9 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -255,39 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#4CAF50','primaryTextColor':'#fff','primaryBorderColor':'#2E7D32','lineColor':'#666','secondaryColor':'#FF9800','tertiaryColor':'#2196F3'}}}%%
-flowchart TD
-    %% Start
-    Start(["💬 Customer reports&lt;br&gt;an issue"]) --&gt; Warranty{Is the device&lt;br&gt;under warranty?}
-
-    %% Warranty check
-    Warranty --&gt;|"✅ Yes"| IssueType{What type&lt;br&gt;of issue?}
-    Warranty --&gt;|"❌ No"| OutOfWarranty{What type&lt;br&gt;of issue?}
-
-    %% In-Warranty branch
-    IssueType --&gt;|"🔩 Hardware"| Repair[Provide warranty&lt;br&gt;repair instructions]
-    IssueType --&gt;|"💻 Software"| Troubleshoot[Provide troubleshooting&lt;br&gt;steps]
-
-    %% Out-of-Warranty branch
-    OutOfWarranty --&gt;|"🔩 Hardware"| Escalate[Escalate to human&lt;br&gt;for paid repair options]
-    OutOfWarranty --&gt;|"💻 Software"| Troubleshoot
-
-    %% Troubleshooting follow-up
-    Troubleshoot --&gt; Close(["✅ Issue Resolved"])
-    Repair --&gt; Close
-    Escalate --&gt; Close
-
-    %% === Styling ===
-    classDef startEnd fill:#DCFCE7,stroke:#16A34A,stroke-width:2px,color:#14532D
-    classDef decisionNode fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#1E3A8A
-    classDef actionNode fill:#FEF3C7,stroke:#F59E0B,stroke-width:2px,color:#78350F
-    classDef escalateNode fill:#FEE2E2,stroke:#DC2626,stroke-width:2px,color:#7F1D1D
-
-    class Start,Close startEnd
-    class Warranty,IssueType,OutOfWarranty decisionNode
-    class Repair,Troubleshoot actionNode
-    class Escalate escalateNode
-</pre>
+<p><a href="08_customer_support_agent_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="08_customer_support_agent_files/figure-html/mermaid-figure-1.png" style="width:8.18in;height:8.23in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -299,31 +267,7 @@ flowchart TD
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">sequenceDiagram
-    participant Customer
-    participant Agent
-    participant Workflow State
-    participant Human
-
-    Customer-&gt;&gt;Agent: "My phone is broken"
-    Note over Agent,Workflow State: Step: Get warranty status&lt;br/&gt;Tools: record_warranty_status
-    Agent--&gt;&gt;Customer: "Is your device under warranty?"
-
-    Customer-&gt;&gt;Agent: "Yes, it's still under warranty"
-    Agent-&gt;&gt;Workflow State: record_warranty_status("in_warranty")
-    Note over Agent,Workflow State: Step: Classify issue&lt;br/&gt;Tools: record_issue_type
-    Agent--&gt;&gt;Customer: "Can you describe the issue?"
-
-    Customer-&gt;&gt;Agent: "The screen is cracked"
-    Agent-&gt;&gt;Workflow State: record_issue_type("hardware")
-    Note over Agent,Workflow State: Step: Provide resolution&lt;br/&gt;Tools: provide_solution, escalate_to_human
-    Agent--&gt;&gt;Customer: "Here's the warranty repair process..."
-
-    Customer-&gt;&gt;Agent: "WHERE IS THE HUMAN MANAGER!"
-    Agent-&gt;&gt;Human: escalate_to_human("customer is angry")
-    Human-&gt;&gt;Agent: "Tell them the issue is fixed, and their ticket number is 123456. End the conversation there."
-    Agent--&gt;&gt;Customer: "Issue is fixed! Your ticket number is 123456. Have a nice day!"
-</pre>
+<p><a href="08_customer_support_agent_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="08_customer_support_agent_files/figure-html/mermaid-figure-2.png" style="width:13.06in;height:9.59in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -1580,6 +1524,38 @@ Tip
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

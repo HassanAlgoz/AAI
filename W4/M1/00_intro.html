@@ -43,6 +43,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,9 +73,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -344,13 +344,7 @@ ul.task-list li input[type="checkbox"] {
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph LR
-    A[User question] --&gt; B[Retriever]
-    B --&gt; C[Relevant docs]
-    C --&gt; D[Chat model]
-    A --&gt; D
-    D --&gt; E[Informed response]
-</pre>
+<p><a href="00_intro_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="00_intro_files/figure-html/mermaid-figure-1.png" style="width:10.35in;height:1.09in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -364,14 +358,7 @@ ul.task-list li input[type="checkbox"] {
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph LR
-    A[User request] --&gt; B[Agent]
-    B --&gt; C{Need tool?}
-    C --&gt;|Yes| D[Call tool]
-    D --&gt; E[Tool result]
-    E --&gt; B
-    C --&gt;|No| F[Final answer]
-</pre>
+<p><a href="00_intro_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="00_intro_files/figure-html/mermaid-figure-3.png" style="width:9.43in;height:2.37in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -385,15 +372,7 @@ ul.task-list li input[type="checkbox"] {
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">graph LR
-    A[Complex Task] --&gt; B[Supervisor agent]
-    B --&gt; C[Specialist agent 1]
-    B --&gt; D[Specialist agent 2]
-    C --&gt; E[Results]
-    D --&gt; E
-    E --&gt; B
-    B --&gt; F[Coordinated response]
-</pre>
+<p><a href="00_intro_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="00_intro_files/figure-html/mermaid-figure-2.png" style="width:8.62in;height:3.26in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -857,6 +836,38 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

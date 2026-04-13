@@ -78,6 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -105,9 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -232,14 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    LLM1[[LLM Call 1]]
-    LLM2[[LLM Call 2]]
-    Output([Output])
-
-    Input --&gt; LLM1 --&gt; LLM2 --&gt; Output
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="10_workflows_files/figure-html/mermaid-figure-1.png" style="width:5.32in;height:0.57in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -254,16 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    LLM1[[LLM Call A]]
-    LLM2[[LLM Call B]]
-    Output1([Output A])
-    Output2([Output B])
-
-    Input --&gt; LLM1 --&gt; Output1
-    Input --&gt; LLM2 --&gt; Output2
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="10_workflows_files/figure-html/mermaid-figure-10.png" style="width:3.87in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -281,18 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    Router[[Router LLM]]
-    LLM_A[[LLM A]]
-    LLM_B[[LLM B]]
-    Output_A([Output A])
-    Output_B([Output B])
-
-    Input --&gt; Router
-    Router -- Route A --&gt; LLM_A --&gt; Output_A
-    Router -- Route B --&gt; LLM_B --&gt; Output_B
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="10_workflows_files/figure-html/mermaid-figure-9.png" style="width:5.78in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -306,21 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    Orchestrator[[Orchestrator LLM]]
-    Worker1[[Worker LLM 1]]
-    Worker2[[Worker LLM 2]]
-    Synthesizer[[Synthesizer LLM]]
-    Output([Output])
-
-    Input --&gt; Orchestrator
-    Orchestrator --&gt; Worker1
-    Orchestrator --&gt; Worker2
-    Worker1 --&gt; Synthesizer
-    Worker2 --&gt; Synthesizer
-    Synthesizer --&gt; Output
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="10_workflows_files/figure-html/mermaid-figure-8.png" style="width:8.12in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -335,16 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    Generator[[Generator LLM]]
-    Evaluator[[Evaluator LLM]]
-    Output([Final Output])
-
-    Input --&gt; Generator --&gt; Evaluator
-    Evaluator -- Accept --&gt; Output
-    Evaluator -- Revise --&gt; Generator
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="10_workflows_files/figure-html/mermaid-figure-7.png" style="width:7.33in;height:0.66in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -408,14 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    LLM1[[LLM Call 1]]
-    LLM2[[LLM Call 2]]
-    Output([Output])
-
-    Input --&gt; LLM1 --&gt; LLM2 --&gt; Output
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="10_workflows_files/figure-html/mermaid-figure-6.png" style="width:5.32in;height:0.57in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -505,16 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    LLM1[[LLM Call A]]
-    LLM2[[LLM Call B]]
-    Output1([Output A])
-    Output2([Output B])
-
-    Input --&gt; LLM1 --&gt; Output1
-    Input --&gt; LLM2 --&gt; Output2
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="10_workflows_files/figure-html/mermaid-figure-5.png" style="width:3.87in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -598,18 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    Router[[Router LLM]]
-    LLM_A[[LLM A]]
-    LLM_B[[LLM B]]
-    Output_A([Output A])
-    Output_B([Output B])
-
-    Input --&gt; Router
-    Router -- Route A --&gt; LLM_A --&gt; Output_A
-    Router -- Route B --&gt; LLM_B --&gt; Output_B
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="10_workflows_files/figure-html/mermaid-figure-4.png" style="width:5.78in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -711,21 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    Orchestrator[[Orchestrator LLM]]
-    Worker1[[Worker LLM 1]]
-    Worker2[[Worker LLM 2]]
-    Synthesizer[[Synthesizer LLM]]
-    Output([Output])
-
-    Input --&gt; Orchestrator
-    Orchestrator --&gt; Worker1
-    Orchestrator --&gt; Worker2
-    Worker1 --&gt; Synthesizer
-    Worker2 --&gt; Synthesizer
-    Synthesizer --&gt; Output
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="10_workflows_files/figure-html/mermaid-figure-3.png" style="width:8.12in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -2224,16 +2133,7 @@ Future directions in scaling research are converging on three synergistic thrust
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-    Input([Input])
-    Generator[[Generator LLM]]
-    Evaluator[[Evaluator LLM]]
-    Output([Final Output])
-
-    Input --&gt; Generator --&gt; Evaluator
-    Evaluator -- Accept --&gt; Output
-    Evaluator -- Revise --&gt; Generator
-</pre>
+<p><a href="10_workflows_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="10_workflows_files/figure-html/mermaid-figure-2.png" style="width:7.33in;height:0.66in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -2708,6 +2608,38 @@ Future directions in scaling research are converging on three synergistic thrust
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
