@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exercise: Multi-variable Regression 1 – Applied AI Bootcamp</title>
+<title>M4.Ex1: Housing Prices Model (PyCaret) – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Multi-variable Regression 1</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M4.Ex1: Housing Prices Model (PyCaret)</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -186,17 +186,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#advertising-dataset" id="toc-advertising-dataset" class="nav-link active" data-scroll-target="#advertising-dataset">1. Advertising Dataset</a></li>
-  <li><a href="#auto-mpg-dataset" id="toc-auto-mpg-dataset" class="nav-link" data-scroll-target="#auto-mpg-dataset">2. Auto MPG Dataset</a></li>
+  <li><a href="#pycaret" id="toc-pycaret" class="nav-link active" data-scroll-target="#pycaret">PyCaret</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  <li><a href="#california-housing-prices-dataset" id="toc-california-housing-prices-dataset" class="nav-link" data-scroll-target="#california-housing-prices-dataset">California Housing Prices Dataset</a>
+  <ul class="collapse">
+  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data">Load the data</a></li>
+  </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03_multi-variable_regression_ex_1.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ex1_pycaret_regression.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercise: Multi-variable Regression 1</h1>
+<h1 class="title">M4.Ex1: Housing Prices Model (PyCaret)</h1>
 </div>
 
 
@@ -213,121 +217,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The dataset progressively gets more complex:</p>
-<ol type="1">
-<li><a href="https://www.statlearning.com/s/Advertising.csv">The Advertising Dataset</a> has only <code>3</code> numerical features, with <code>200</code> samples</li>
-<li><a href="https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data">The Auto MPG Dataset</a> has <code>5</code> numerical features and <code>3</code> categorical features, with <code>398</code> samples</li>
-</ol>
-<p><strong>Your task</strong> is to do the following:</p>
-<ol type="1">
-<li>Load the data: <a href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"><code>pd.read_csv()</code></a></li>
-<li>Identify the features and their types: <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.info.html"><code>df.info()</code></a></li>
-<li>Identify the target and its type: <code>target_col = ...</code></li>
-<li>Explore the data: stats (<a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html"><code>df.describe()</code></a>) and visuals (<code>import seaborn as sns</code>)</li>
-<li>Initialize a regression model</li>
-<li>Train the model: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor.fit"><code>.fit()</code></a></li>
-<li>Evaluate the model: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor.score"><code>.score()</code></a></li>
-<li>Inspect the model weights:
 <ul>
-<li>Hint: you must pre-process the numerical data to get calibrated weights (<a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html"><code>StandardScaler</code></a>)</li>
-<li>Example: how much does spending on TV ads contributes to Sales? (Hint: <code>model.coef_</code>)</li>
-<li>Example: how much the factors leave unexplained on what affects Sales? (Hint: <code>model.intercept_</code>)</li>
-</ul></li>
-<li>Make predictions on new cases of your choice: <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor.predict"><code>.predict()</code></a></li>
-</ol>
-<div id="ef8815ba" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="advertising-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="advertising-dataset">1. Advertising Dataset</h2>
-<p>The Advertising Dataset is a fundamental resource in statistical learning and regression analysis. It is primarily known for its use in the first chapter of the seminal textbook “An Introduction to Statistical Learning” (ISLR) by Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani.</p>
-<p>The dataset is used to illustrate the relationship between advertising budgets across different media and the resulting product sales.</p>
-<ul>
-<li>Features: <code>3</code> numerical</li>
-<li>Target: <code>sales</code> of the product (in thousands of units).</li>
-<li>Size: <code>200</code> samples.</li>
-<li>Source: <a href="https://www.statlearning.com/s/Advertising.csv">Advertising Dataset</a></li>
+<li>Run: <a href="https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W3/M4/exercises/ex1_pycaret_regression.ipynb"><strong>Open In Colab</strong></a></li>
 </ul>
-<div id="21cd337c" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>adv <span class="op">=</span> pd.read_csv(<span class="st">"../../../datasets/advertising.csv"</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">TV</th>
-<th data-quarto-table-cell-role="th">Radio</th>
-<th data-quarto-table-cell-role="th">Newspaper</th>
-<th data-quarto-table-cell-role="th">Sales</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>230.1</td>
-<td>37.8</td>
-<td>69.2</td>
-<td>22.1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>44.5</td>
-<td>39.3</td>
-<td>45.1</td>
-<td>10.4</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>17.2</td>
-<td>45.9</td>
-<td>69.3</td>
-<td>12.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>151.5</td>
-<td>41.3</td>
-<td>58.5</td>
-<td>16.5</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>180.8</td>
-<td>10.8</td>
-<td>58.4</td>
-<td>17.9</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div id="67487aa5" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sns.pairplot(adv,x_vars<span class="op">=</span>[<span class="st">'TV'</span>,<span class="st">'Radio'</span>,<span class="st">'Newspaper'</span>],y_vars<span class="op">=</span><span class="st">'Sales'</span>,height<span class="op">=</span><span class="dv">6</span>,aspect<span class="op">=</span><span class="fl">0.7</span>,kind<span class="op">=</span><span class="st">'reg'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="d863bd40" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<section id="pycaret" class="level2">
+<h2 class="anchored" data-anchor-id="pycaret">PyCaret</h2>
+<p><a href="https://pycaret.gitbook.io/docs"><strong>PyCaret</strong></a> is an open-source, low-code machine learning library in Python that automates machine learning workflows. It is an end-to-end machine learning and model management tool that speeds up the experiment cycle exponentially and makes you more productive.</p>
+<p>In comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code></a>, <a href="https://xgboost.ai/"><code>XGBoost</code></a>, <a href="https://lightgbm.readthedocs.io/en/stable/"><code>LightGBM</code></a>, <a href="https://catboost.ai/"><code>CatBoost</code></a>, <a href="https://optuna.org/"><code>Optuna</code></a>, <a href="https://hyperopt.github.io/hyperopt/"><code>Hyperopt</code></a>, <a href="https://www.ray.io/"><code>Ray</code></a>, and many more.</p>
 </section>
-<section id="auto-mpg-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="auto-mpg-dataset">2. Auto MPG Dataset</h2>
-<p>The Auto MPG Dataset is a classic benchmark for regression analysis in machine learning. It originally appeared in the 1983 American Statistical Association (ASA) Exposition and was later donated to the UCI Machine Learning Repository by Ross Quinlan in 1993.</p>
-<p>The data consists of technical specifications for various car models from the late 1970s and early 1980s, primarily used to predict fuel efficiency (MPG).</p>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<p>Your task is to follow the steps outlined here, and apply them on the <strong>California Housing Dataset</strong> below:</p>
 <ul>
-<li>Features: <code>5</code> numerical, <code>3</code> categorical</li>
-<li>Target: <code>mpg</code> (miles per gallon)</li>
-<li>Size: <code>398</code> samples</li>
-<li>Source: <a href="https://archive.ics.uci.edu/dataset/9/auto+mpg">Auto MPG Dataset</a></li>
+<li><a href="https://pycaret.gitbook.io/docs/get-started/quickstart#regression"><strong>🚀 Regression</strong></a>
+<ul>
+<li>Setup</li>
+<li>Compare Models</li>
+<li>Analyze Model</li>
+<li>Predictions</li>
+<li>Save the model</li>
+</ul></li>
 </ul>
-<div id="6c60a58a" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pd.read_csv(<span class="st">"../../../datasets/auto-mpg.csv"</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+</section>
+<section id="california-housing-prices-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="california-housing-prices-dataset">California Housing Prices Dataset</h2>
+<p>Find and download the dataset from Kaggle at <a href="https://www.kaggle.com/datasets/dhirajnirne/california-housing-data">California Housing Dataset</a>.</p>
+<p>According to <a href="https://keras.io/api/datasets/california_housing/">keras.io</a>:</p>
+<blockquote class="blockquote">
+<p>This dataset was obtained from the StatLib repository.</p>
+<p>It’s a continuous regression dataset with 20,640 samples with 8 features each.</p>
+<p>The target variable is a scalar: the median house value for California districts, in dollars.</p>
+<p>The 8 input features are the following:</p>
+<ul>
+<li>MedInc: median income in block group</li>
+<li>HouseAge: median house age in block group</li>
+<li>AveRooms: average number of rooms per household</li>
+<li>AveBedrms: average number of bedrooms per household</li>
+<li>Population: block group population</li>
+<li>AveOccup: average number of household members</li>
+<li>Latitude: block group latitude</li>
+<li>Longitude: block group longitude</li>
+</ul>
+<p>This dataset was derived from the 1990 U.S. census, using one row per census block group. A block group is the smallest geographical unit for which the U.S. Census Bureau publishes sample data (a block group typically has a population of 600 to 3,000 people).</p>
+<p>A household is a group of people residing within a home. Since the average number of rooms and bedrooms in this dataset are provided per household, these columns may take surprisingly large values for block groups with few households and many empty houses, such as vacation resorts.</p>
+</blockquote>
+<section id="load-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="load-the-data">Load the data</h3>
+<div id="50e779eb" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.read_csv("../../../datasets/california_housing.csv").head()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -335,77 +273,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">mpg</th>
-<th data-quarto-table-cell-role="th">cylinders</th>
-<th data-quarto-table-cell-role="th">displacement</th>
-<th data-quarto-table-cell-role="th">horsepower</th>
-<th data-quarto-table-cell-role="th">weight</th>
-<th data-quarto-table-cell-role="th">acceleration</th>
-<th data-quarto-table-cell-role="th">model year</th>
-<th data-quarto-table-cell-role="th">origin</th>
-<th data-quarto-table-cell-role="th">car name</th>
+<th data-quarto-table-cell-role="th">longitude</th>
+<th data-quarto-table-cell-role="th">latitude</th>
+<th data-quarto-table-cell-role="th">housing_median_age</th>
+<th data-quarto-table-cell-role="th">total_rooms</th>
+<th data-quarto-table-cell-role="th">total_bedrooms</th>
+<th data-quarto-table-cell-role="th">population</th>
+<th data-quarto-table-cell-role="th">households</th>
+<th data-quarto-table-cell-role="th">median_income</th>
+<th data-quarto-table-cell-role="th">median_house_value</th>
+<th data-quarto-table-cell-role="th">ocean_proximity</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>18.0</td>
-<td>8</td>
-<td>307.0</td>
-<td>130</td>
-<td>3504</td>
-<td>12.0</td>
-<td>70</td>
-<td>1</td>
-<td>chevrolet chevelle malibu</td>
+<td>-122.23</td>
+<td>37.88</td>
+<td>41.0</td>
+<td>880.0</td>
+<td>129.0</td>
+<td>322.0</td>
+<td>126.0</td>
+<td>8.3252</td>
+<td>452600.0</td>
+<td>NEAR BAY</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>15.0</td>
-<td>8</td>
-<td>350.0</td>
-<td>165</td>
-<td>3693</td>
-<td>11.5</td>
-<td>70</td>
-<td>1</td>
-<td>buick skylark 320</td>
+<td>-122.22</td>
+<td>37.86</td>
+<td>21.0</td>
+<td>7099.0</td>
+<td>1106.0</td>
+<td>2401.0</td>
+<td>1138.0</td>
+<td>8.3014</td>
+<td>358500.0</td>
+<td>NEAR BAY</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>18.0</td>
-<td>8</td>
-<td>318.0</td>
-<td>150</td>
-<td>3436</td>
-<td>11.0</td>
-<td>70</td>
-<td>1</td>
-<td>plymouth satellite</td>
+<td>-122.24</td>
+<td>37.85</td>
+<td>52.0</td>
+<td>1467.0</td>
+<td>190.0</td>
+<td>496.0</td>
+<td>177.0</td>
+<td>7.2574</td>
+<td>352100.0</td>
+<td>NEAR BAY</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>16.0</td>
-<td>8</td>
-<td>304.0</td>
-<td>150</td>
-<td>3433</td>
-<td>12.0</td>
-<td>70</td>
-<td>1</td>
-<td>amc rebel sst</td>
+<td>-122.25</td>
+<td>37.85</td>
+<td>52.0</td>
+<td>1274.0</td>
+<td>235.0</td>
+<td>558.0</td>
+<td>219.0</td>
+<td>5.6431</td>
+<td>341300.0</td>
+<td>NEAR BAY</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>17.0</td>
-<td>8</td>
-<td>302.0</td>
-<td>140</td>
-<td>3449</td>
-<td>10.5</td>
-<td>70</td>
-<td>1</td>
-<td>ford torino</td>
+<td>-122.25</td>
+<td>37.85</td>
+<td>52.0</td>
+<td>1627.0</td>
+<td>280.0</td>
+<td>565.0</td>
+<td>259.0</td>
+<td>3.8462</td>
+<td>342200.0</td>
+<td>NEAR BAY</td>
 </tr>
 </tbody>
 </table>
@@ -413,12 +357,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="26d8bed9" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Find more datasets on <a href="https://archive.ics.uci.edu/datasets">UCI Machine Learning Repository</a>.</p>
+<p><strong>Task</strong>: Your model should learn from this data and be able to predict the median housing price (<code>median_house_value</code>) in any district, given all the other metrics.</p>
+<p>Please read the above dataset description to understand what the features mean.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

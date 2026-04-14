@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exercise: Encoding high-cardinality features – Applied AI Bootcamp</title>
+<title>Exercise: Categorical feature encoding – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Encoding high-cardinality features</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Categorical feature encoding</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -182,22 +182,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#step-1-find-the-categorical-features" id="toc-step-1-find-the-categorical-features" class="nav-link active" data-scroll-target="#step-1-find-the-categorical-features">Step 1 — Find the categorical features</a></li>
-  <li><a href="#step-2-quantify-memory-before-and-after-one-hot-encoding" id="toc-step-2-quantify-memory-before-and-after-one-hot-encoding" class="nav-link" data-scroll-target="#step-2-quantify-memory-before-and-after-one-hot-encoding">Step 2 — Quantify memory <em>before</em> and <em>after</em> one-hot encoding</a></li>
-  <li><a href="#step-3-reflect-on-the-impact-of-one-hot-encoding" id="toc-step-3-reflect-on-the-impact-of-one-hot-encoding" class="nav-link" data-scroll-target="#step-3-reflect-on-the-impact-of-one-hot-encoding">Step 3 — Reflect on the impact of one-hot encoding</a></li>
-  </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="05_high-cardinality.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
-    </div>
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="categorical_encoding_ex.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercise: Encoding high-cardinality features</h1>
+<h1 class="title">Exercise: Categorical feature encoding</h1>
 </div>
 
 
@@ -214,27 +206,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this notebook we will <strong>demonstrate the issue with one-hot encoding high-cardinality categorical features</strong>.</p>
-<p>You already saw in <code>lab_encode</code> that one-hot encoding can dramatically increase the number of columns and memory usage for datasets with many categories (like Ames Housing). Here, you will <strong>reproduce this effect yourself step-by-step</strong>:</p>
+<p>Dataset: <a href="https://www.openml.org/search?type=data&amp;status=active&amp;id=42165">Ames Housing dataset</a></p>
 <ol type="1">
-<li><strong>Load</strong> the Ames Housing data and take a quick look at it.</li>
-<li><strong>Identify</strong> the categorical features.</li>
-<li><strong>Measure</strong> how much memory the categorical part of the data uses <em>before</em> encoding.</li>
-<li><strong>Apply</strong> one-hot encoding to those categorical features.</li>
-<li><strong>Measure and compare</strong> the memory usage <em>after</em> encoding.</li>
+<li>Download the dataset and load it into a pandas DataFrame.</li>
+<li>Encode the categorical features using the <code>OrdinalEncoder</code> and <code>OneHotEncoder</code> using the <code>fit</code> and <code>transform</code> methods</li>
 </ol>
-<p>As you go, pause after each step and write down what you <strong>expect</strong> to happen (e.g., <em>“I expect the number of columns to increase by about X”</em>), then check against the actual results.</p>
-<div id="7ccf884a" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="4aa41d99" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/halgoz/work/udacity-c6/c6/content/modules/.venv/lib/python3.12/site-packages/sklearn/datasets/_openml.py:1035: UserWarning: Version 1 of dataset ames-housing is inactive, meaning that issues have been found in the dataset. Try using a newer version from this URL: https://openml.org/data/v1/download/20649135/ames-housing.arff
-  warn(</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<p>Consider the following columns:</p>
+<ul>
+<li><code>SalePrice</code>: The property’s sale price in dollars. This is the <strong>target variable</strong>.</li>
+<li><code>LotArea</code>: Lot size in square feet</li>
+<li><code>MSZoning</code>: Identifies the general zoning classification of the sale.
+<ul>
+<li>Categories:
+<ul>
+<li><code>A</code> Agriculture</li>
+<li><code>C</code> Commercial</li>
+<li><code>FV</code> Floating Village Residential</li>
+<li><code>I</code> Industrial</li>
+<li><code>RH</code> Residential High Density</li>
+<li><code>RL</code> Residential Low Density</li>
+<li><code>RP</code> Residential Low Density Park</li>
+<li><code>RM</code> Residential Medium Density</li>
+</ul></li>
+</ul></li>
+<li><code>LandSlope</code>: Slope of property
+<ul>
+<li>Categories:
+<ul>
+<li><code>Gtl</code> Gentle slope</li>
+<li><code>Mod</code> Moderate Slope<br>
+</li>
+<li><code>Sev</code> Severe Slope</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Note</strong>: Split the data into training and testing sets using the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html"><code>train_test_split</code></a> function, and use the <code>fit</code> on the training set and <code>transform</code> on the testing set.</p>
+<div id="af792153" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">=</span> fetch_openml(name<span class="op">=</span><span class="st">"house_prices"</span>, as_frame<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> ames_housing.data</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> ames_housing.target</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
 <div>
 
 
@@ -242,149 +257,149 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">MS_SubClass</th>
-<th data-quarto-table-cell-role="th">MS_Zoning</th>
-<th data-quarto-table-cell-role="th">Lot_Frontage</th>
-<th data-quarto-table-cell-role="th">Lot_Area</th>
+<th data-quarto-table-cell-role="th">Id</th>
+<th data-quarto-table-cell-role="th">MSSubClass</th>
+<th data-quarto-table-cell-role="th">MSZoning</th>
+<th data-quarto-table-cell-role="th">LotFrontage</th>
+<th data-quarto-table-cell-role="th">LotArea</th>
 <th data-quarto-table-cell-role="th">Street</th>
 <th data-quarto-table-cell-role="th">Alley</th>
-<th data-quarto-table-cell-role="th">Lot_Shape</th>
-<th data-quarto-table-cell-role="th">Land_Contour</th>
+<th data-quarto-table-cell-role="th">LotShape</th>
+<th data-quarto-table-cell-role="th">LandContour</th>
 <th data-quarto-table-cell-role="th">Utilities</th>
-<th data-quarto-table-cell-role="th">Lot_Config</th>
 <th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">Pool_QC</th>
+<th data-quarto-table-cell-role="th">ScreenPorch</th>
+<th data-quarto-table-cell-role="th">PoolArea</th>
+<th data-quarto-table-cell-role="th">PoolQC</th>
 <th data-quarto-table-cell-role="th">Fence</th>
-<th data-quarto-table-cell-role="th">Misc_Feature</th>
-<th data-quarto-table-cell-role="th">Misc_Val</th>
-<th data-quarto-table-cell-role="th">Mo_Sold</th>
-<th data-quarto-table-cell-role="th">Year_Sold</th>
-<th data-quarto-table-cell-role="th">Sale_Type</th>
-<th data-quarto-table-cell-role="th">Sale_Condition</th>
-<th data-quarto-table-cell-role="th">Longitude</th>
-<th data-quarto-table-cell-role="th">Latitude</th>
+<th data-quarto-table-cell-role="th">MiscFeature</th>
+<th data-quarto-table-cell-role="th">MiscVal</th>
+<th data-quarto-table-cell-role="th">MoSold</th>
+<th data-quarto-table-cell-role="th">YrSold</th>
+<th data-quarto-table-cell-role="th">SaleType</th>
+<th data-quarto-table-cell-role="th">SaleCondition</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_Low_Density</td>
-<td>141</td>
-<td>31770</td>
+<td>1</td>
+<td>60</td>
+<td>RL</td>
+<td>65.0</td>
+<td>8450</td>
 <td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Slightly_Irregular</td>
+<td>NaN</td>
+<td>Reg</td>
 <td>Lvl</td>
 <td>AllPub</td>
-<td>Corner</td>
 <td>...</td>
-<td>No_Pool</td>
-<td>No_Fence</td>
-<td>None</td>
 <td>0</td>
-<td>5</td>
-<td>2010</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0</td>
+<td>2</td>
+<td>2008</td>
 <td>WD</td>
 <td>Normal</td>
-<td>-93.619754</td>
-<td>42.054035</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_High_Density</td>
-<td>80</td>
-<td>11622</td>
+<td>2</td>
+<td>20</td>
+<td>RL</td>
+<td>80.0</td>
+<td>9600</td>
 <td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Regular</td>
+<td>NaN</td>
+<td>Reg</td>
 <td>Lvl</td>
 <td>AllPub</td>
-<td>Inside</td>
 <td>...</td>
-<td>No_Pool</td>
-<td>Minimum_Privacy</td>
-<td>None</td>
 <td>0</td>
-<td>6</td>
-<td>2010</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0</td>
+<td>5</td>
+<td>2007</td>
 <td>WD</td>
 <td>Normal</td>
-<td>-93.619756</td>
-<td>42.053014</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_Low_Density</td>
-<td>81</td>
-<td>14267</td>
+<td>3</td>
+<td>60</td>
+<td>RL</td>
+<td>68.0</td>
+<td>11250</td>
 <td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Slightly_Irregular</td>
+<td>NaN</td>
+<td>IR1</td>
 <td>Lvl</td>
 <td>AllPub</td>
-<td>Corner</td>
 <td>...</td>
-<td>No_Pool</td>
-<td>No_Fence</td>
-<td>Gar2</td>
-<td>12500</td>
-<td>6</td>
-<td>2010</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0</td>
+<td>9</td>
+<td>2008</td>
 <td>WD</td>
 <td>Normal</td>
-<td>-93.619387</td>
-<td>42.052659</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_Low_Density</td>
-<td>93</td>
-<td>11160</td>
+<td>4</td>
+<td>70</td>
+<td>RL</td>
+<td>60.0</td>
+<td>9550</td>
 <td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Regular</td>
+<td>NaN</td>
+<td>IR1</td>
 <td>Lvl</td>
 <td>AllPub</td>
-<td>Corner</td>
 <td>...</td>
-<td>No_Pool</td>
-<td>No_Fence</td>
-<td>None</td>
 <td>0</td>
-<td>4</td>
-<td>2010</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0</td>
+<td>2</td>
+<td>2006</td>
 <td>WD</td>
-<td>Normal</td>
-<td>-93.617320</td>
-<td>42.051245</td>
+<td>Abnorml</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>Two_Story_1946_and_Newer</td>
-<td>Residential_Low_Density</td>
-<td>74</td>
-<td>13830</td>
+<td>5</td>
+<td>60</td>
+<td>RL</td>
+<td>84.0</td>
+<td>14260</td>
 <td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Slightly_Irregular</td>
+<td>NaN</td>
+<td>IR1</td>
 <td>Lvl</td>
 <td>AllPub</td>
-<td>Inside</td>
 <td>...</td>
-<td>No_Pool</td>
-<td>Minimum_Privacy</td>
-<td>None</td>
 <td>0</td>
-<td>3</td>
-<td>2010</td>
+<td>0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>0</td>
+<td>12</td>
+<td>2008</td>
 <td>WD</td>
 <td>Normal</td>
-<td>-93.638933</td>
-<td>42.060899</td>
 </tr>
 </tbody>
 </table>
@@ -393,330 +408,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="step-1-find-the-categorical-features" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-find-the-categorical-features">Step 1 — Find the categorical features</h3>
-<ol type="1">
-<li>Call <code>data.info()</code> in the cell below.</li>
-<li><strong>Scan the output</strong>:
-<ul>
-<li>Which columns are <code>category</code> or <code>object</code> (string) type?</li>
-<li>Roughly how many categorical columns are there?</li>
-</ul></li>
-<li>Use <code>data.select_dtypes</code> to keep only the categorical columns.</li>
-</ol>
-<p>Before you run the code, ask yourself:</p>
-<ul>
-<li><strong>Prediction:</strong> Do you think there are <em>a few</em> or <em>many</em> categorical columns in this dataset?</li>
-<li>How might that affect one-hot encoding?</li>
-</ul>
-<div id="406d17ff" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.DataFrame'&gt;
-RangeIndex: 2930 entries, 0 to 2929
-Data columns (total 80 columns):
- #   Column              Non-Null Count  Dtype   
----  ------              --------------  -----   
- 0   MS_SubClass         2930 non-null   category
- 1   MS_Zoning           2930 non-null   category
- 2   Lot_Frontage        2930 non-null   int64   
- 3   Lot_Area            2930 non-null   int64   
- 4   Street              2930 non-null   category
- 5   Alley               2930 non-null   category
- 6   Lot_Shape           2930 non-null   category
- 7   Land_Contour        2930 non-null   category
- 8   Utilities           2930 non-null   category
- 9   Lot_Config          2930 non-null   category
- 10  Land_Slope          2930 non-null   category
- 11  Neighborhood        2930 non-null   category
- 12  Condition_1         2930 non-null   category
- 13  Condition_2         2930 non-null   category
- 14  Bldg_Type           2930 non-null   category
- 15  House_Style         2930 non-null   category
- 16  Overall_Qual        2930 non-null   category
- 17  Overall_Cond        2930 non-null   category
- 18  Year_Built          2930 non-null   int64   
- 19  Year_Remod_Add      2930 non-null   int64   
- 20  Roof_Style          2930 non-null   category
- 21  Roof_Matl           2930 non-null   category
- 22  Exterior_1st        2930 non-null   category
- 23  Exterior_2nd        2930 non-null   category
- 24  Mas_Vnr_Type        2930 non-null   category
- 25  Mas_Vnr_Area        2930 non-null   int64   
- 26  Exter_Qual          2930 non-null   category
- 27  Exter_Cond          2930 non-null   category
- 28  Foundation          2930 non-null   category
- 29  Bsmt_Qual           2930 non-null   category
- 30  Bsmt_Cond           2930 non-null   category
- 31  Bsmt_Exposure       2930 non-null   category
- 32  BsmtFin_Type_1      2930 non-null   category
- 33  BsmtFin_SF_1        2930 non-null   int64   
- 34  BsmtFin_Type_2      2930 non-null   category
- 35  BsmtFin_SF_2        2930 non-null   int64   
- 36  Bsmt_Unf_SF         2930 non-null   int64   
- 37  Total_Bsmt_SF       2930 non-null   int64   
- 38  Heating             2930 non-null   category
- 39  Heating_QC          2930 non-null   category
- 40  Central_Air         2930 non-null   category
- 41  Electrical          2930 non-null   category
- 42  First_Flr_SF        2930 non-null   int64   
- 43  Second_Flr_SF       2930 non-null   int64   
- 44  Low_Qual_Fin_SF     2930 non-null   int64   
- 45  Gr_Liv_Area         2930 non-null   int64   
- 46  Bsmt_Full_Bath      2930 non-null   int64   
- 47  Bsmt_Half_Bath      2930 non-null   int64   
- 48  Full_Bath           2930 non-null   int64   
- 49  Half_Bath           2930 non-null   int64   
- 50  Bedroom_AbvGr       2930 non-null   int64   
- 51  Kitchen_AbvGr       2930 non-null   int64   
- 52  Kitchen_Qual        2930 non-null   category
- 53  TotRms_AbvGrd       2930 non-null   int64   
- 54  Functional          2930 non-null   category
- 55  Fireplaces          2930 non-null   int64   
- 56  Fireplace_Qu        2930 non-null   category
- 57  Garage_Type         2930 non-null   category
- 58  Garage_Finish       2930 non-null   category
- 59  Garage_Cars         2930 non-null   int64   
- 60  Garage_Area         2930 non-null   int64   
- 61  Garage_Qual         2930 non-null   category
- 62  Garage_Cond         2930 non-null   category
- 63  Paved_Drive         2930 non-null   category
- 64  Wood_Deck_SF        2930 non-null   int64   
- 65  Open_Porch_SF       2930 non-null   int64   
- 66  Enclosed_Porch      2930 non-null   int64   
- 67  Three_season_porch  2930 non-null   int64   
- 68  Screen_Porch        2930 non-null   int64   
- 69  Pool_Area           2930 non-null   int64   
- 70  Pool_QC             2930 non-null   category
- 71  Fence               2930 non-null   category
- 72  Misc_Feature        2930 non-null   category
- 73  Misc_Val            2930 non-null   int64   
- 74  Mo_Sold             2930 non-null   int64   
- 75  Year_Sold           2930 non-null   int64   
- 76  Sale_Type           2930 non-null   category
- 77  Sale_Condition      2930 non-null   category
- 78  Longitude           2930 non-null   float64 
- 79  Latitude            2930 non-null   float64 
-dtypes: category(46), float64(2), int64(32)
-memory usage: 913.1 KB</code></pre>
-</div>
-</div>
-<div id="48eec73e" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">MS_SubClass</th>
-<th data-quarto-table-cell-role="th">MS_Zoning</th>
-<th data-quarto-table-cell-role="th">Street</th>
-<th data-quarto-table-cell-role="th">Alley</th>
-<th data-quarto-table-cell-role="th">Lot_Shape</th>
-<th data-quarto-table-cell-role="th">Land_Contour</th>
-<th data-quarto-table-cell-role="th">Utilities</th>
-<th data-quarto-table-cell-role="th">Lot_Config</th>
-<th data-quarto-table-cell-role="th">Land_Slope</th>
-<th data-quarto-table-cell-role="th">Neighborhood</th>
-<th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">Garage_Type</th>
-<th data-quarto-table-cell-role="th">Garage_Finish</th>
-<th data-quarto-table-cell-role="th">Garage_Qual</th>
-<th data-quarto-table-cell-role="th">Garage_Cond</th>
-<th data-quarto-table-cell-role="th">Paved_Drive</th>
-<th data-quarto-table-cell-role="th">Pool_QC</th>
-<th data-quarto-table-cell-role="th">Fence</th>
-<th data-quarto-table-cell-role="th">Misc_Feature</th>
-<th data-quarto-table-cell-role="th">Sale_Type</th>
-<th data-quarto-table-cell-role="th">Sale_Condition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_Low_Density</td>
-<td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Slightly_Irregular</td>
-<td>Lvl</td>
-<td>AllPub</td>
-<td>Corner</td>
-<td>Gtl</td>
-<td>North_Ames</td>
-<td>...</td>
-<td>Attchd</td>
-<td>Fin</td>
-<td>Typical</td>
-<td>Typical</td>
-<td>Partial_Pavement</td>
-<td>No_Pool</td>
-<td>No_Fence</td>
-<td>None</td>
-<td>WD</td>
-<td>Normal</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_High_Density</td>
-<td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Regular</td>
-<td>Lvl</td>
-<td>AllPub</td>
-<td>Inside</td>
-<td>Gtl</td>
-<td>North_Ames</td>
-<td>...</td>
-<td>Attchd</td>
-<td>Unf</td>
-<td>Typical</td>
-<td>Typical</td>
-<td>Paved</td>
-<td>No_Pool</td>
-<td>Minimum_Privacy</td>
-<td>None</td>
-<td>WD</td>
-<td>Normal</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_Low_Density</td>
-<td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Slightly_Irregular</td>
-<td>Lvl</td>
-<td>AllPub</td>
-<td>Corner</td>
-<td>Gtl</td>
-<td>North_Ames</td>
-<td>...</td>
-<td>Attchd</td>
-<td>Unf</td>
-<td>Typical</td>
-<td>Typical</td>
-<td>Paved</td>
-<td>No_Pool</td>
-<td>No_Fence</td>
-<td>Gar2</td>
-<td>WD</td>
-<td>Normal</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>One_Story_1946_and_Newer_All_Styles</td>
-<td>Residential_Low_Density</td>
-<td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Regular</td>
-<td>Lvl</td>
-<td>AllPub</td>
-<td>Corner</td>
-<td>Gtl</td>
-<td>North_Ames</td>
-<td>...</td>
-<td>Attchd</td>
-<td>Fin</td>
-<td>Typical</td>
-<td>Typical</td>
-<td>Paved</td>
-<td>No_Pool</td>
-<td>No_Fence</td>
-<td>None</td>
-<td>WD</td>
-<td>Normal</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Two_Story_1946_and_Newer</td>
-<td>Residential_Low_Density</td>
-<td>Pave</td>
-<td>No_Alley_Access</td>
-<td>Slightly_Irregular</td>
-<td>Lvl</td>
-<td>AllPub</td>
-<td>Inside</td>
-<td>Gtl</td>
-<td>Gilbert</td>
-<td>...</td>
-<td>Attchd</td>
-<td>Fin</td>
-<td>Typical</td>
-<td>Typical</td>
-<td>Paved</td>
-<td>No_Pool</td>
-<td>Minimum_Privacy</td>
-<td>None</td>
-<td>WD</td>
-<td>Normal</td>
-</tr>
-</tbody>
-</table>
-
-<p>5 rows × 46 columns</p>
-</div>
-</div>
-</div>
-</section>
-<section id="step-2-quantify-memory-before-and-after-one-hot-encoding" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-quantify-memory-before-and-after-one-hot-encoding">Step 2 — Quantify memory <em>before</em> and <em>after</em> one-hot encoding</h3>
-<p>In the next few cells you will:</p>
-<ol type="1">
-<li>Compute the <strong>number of columns</strong> and <strong>memory usage</strong> for the raw categorical data (<code>cat_data</code>).</li>
-<li>Apply <strong><code>OneHotEncoder</code></strong> to those columns.</li>
-<li>Compute the <strong>number of columns</strong> and <strong>memory usage</strong> for the encoded data.</li>
-</ol>
-<p>As you work through the cells, keep track of:</p>
-<ul>
-<li>How many columns do you start with?</li>
-<li>How many columns do you end up with after encoding?</li>
-<li>How many <strong>times larger</strong> is the memory usage after encoding?</li>
-</ul>
-<p>Try to write down your guesses before you run the code, and then compare them with the actual numbers.</p>
-<div id="4682bd41" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="4efd0c7f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> OneHotEncoder(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    sparse_output<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    handle_unknown<span class="op">=</span><span class="st">'ignore'</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>encoder.set_output(transform<span class="op">=</span><span class="st">'pandas'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="763c2301" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="e345b323" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ncols_after <span class="op">=</span> cat_data_encoded.shape[<span class="dv">1</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mem_after <span class="op">=</span> cat_data_encoded.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>  <span class="co"># MB</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="step-3-reflect-on-the-impact-of-one-hot-encoding" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-reflect-on-the-impact-of-one-hot-encoding">Step 3 — Reflect on the impact of one-hot encoding</h3>
-<p>Run the cell below to print the <strong>number of columns</strong> and <strong>memory usage</strong> before and after one-hot encoding.</p>
-<p>Then answer these questions in your own words (e.g., in a separate markdown cell or your notes):</p>
-<ul>
-<li>By what <strong>factor</strong> did the number of columns increase?</li>
-<li>By what <strong>factor</strong> did the memory usage increase?</li>
-<li>Why might this be a problem for datasets with even <strong>higher cardinality</strong> (more unique categories) or many more rows?</li>
-<li>How could parameters like <code>min_frequency</code> or <code>max_categories</code> in <code>OneHotEncoder</code> help mitigate this issue?</li>
-</ul>
-<p>Finally, compare your results to the summary in the <code>lab_encode</code> notebook. Do they roughly match what you saw there?</p>
-<div id="e01ced26" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns Before: </span><span class="sc">{</span>ncols_before<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns After: </span><span class="sc">{</span>ncols_after<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Memory Before: </span><span class="sc">{</span>mem_before<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Memory After: </span><span class="sc">{</span>mem_after<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ef974959" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

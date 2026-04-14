@@ -236,7 +236,7 @@
 </section>
 <section id="loading-the-dataset" class="slide level2">
 <h2>Loading the Dataset</h2>
-<div id="bf45c4a2" class="cell" data-execution_count="1">
+<div id="bf45c4a2" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># We retrieve a dataset directly for regression modeling</span></span>
@@ -269,7 +269,7 @@
 </section>
 <section id="why-do-we-split-our-data" class="slide level2">
 <h2>Why do we split our data?</h2>
-<div id="d544a7b6" class="cell" data-execution_count="2">
+<div id="d544a7b6" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb2-2"><a></a></span>
 <span id="cb2-3"><a></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
@@ -395,7 +395,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="problem-1-inconsistent-pre-processing" class="slide level2">
 <h2>Problem 1: Inconsistent Pre-processing</h2>
-<div id="5dd1e671" class="cell" data-execution_count="3">
+<div id="5dd1e671" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb4-2"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> SGDRegressor</span>
 <span id="cb4-3"><a></a></span>
@@ -431,7 +431,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="problem-2-data-leakage" class="slide level2">
 <h2>Problem 2: Data Leakage</h2>
-<div id="bf877f7a" class="cell" data-execution_count="4">
+<div id="bf877f7a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># The Pitfall: Fitting the scaler on the ENTIRE dataset BEFORE splitting</span></span>
 <span id="cb5-2"><a></a>scaler <span class="op">=</span> StandardScaler()</span>
 <span id="cb5-3"><a></a>X_transformed <span class="op">=</span> scaler.fit_transform(X[numeric_features])</span>
@@ -618,7 +618,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="pre-processing-numerical-features" class="slide level2">
 <h2>Pre-processing Numerical Features</h2>
-<div id="4ceaa34d" class="cell" data-execution_count="5">
+<div id="4ceaa34d" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb6-2"><a></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb6-3"><a></a></span>
@@ -650,7 +650,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="pre-processing-categorical-features" class="slide level2">
 <h2>Pre-processing Categorical Features</h2>
-<div id="e3246801" class="cell" data-execution_count="6">
+<div id="e3246801" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb7-2"><a></a></span>
 <span id="cb7-3"><a></a>categorical_transformer <span class="op">=</span> OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"ignore"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -675,7 +675,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="putting-it-together-with-columntransformer" class="slide level2">
 <h2>Putting it Together with ColumnTransformer</h2>
-<div id="60d6aa1e" class="cell" data-execution_count="7">
+<div id="60d6aa1e" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb8-2"><a></a></span>
 <span id="cb8-3"><a></a>preprocessor <span class="op">=</span> ColumnTransformer(</span>
@@ -706,7 +706,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="the-complete-pipeline" class="slide level2">
 <h2>The Complete Pipeline</h2>
-<div id="8497566a" class="cell" data-execution_count="8">
+<div id="8497566a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a>pipe <span class="op">=</span> Pipeline(</span>
 <span id="cb9-2"><a></a>    steps<span class="op">=</span>[</span>
 <span id="cb9-3"><a></a>        (<span class="st">"preprocessor"</span>, preprocessor),</span>
@@ -743,7 +743,7 @@ Convert categorical features into a numeric format with encoders.</li>
 </section>
 <section id="transformers-vs-predictors" class="slide level2">
 <h2>Transformers vs Predictors</h2>
-<div id="399d49f6" class="cell" data-execution_count="9">
+<div id="399d49f6" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="co"># Manual Transformer Logic Example</span></span>
 <span id="cb11-2"><a></a>scaler.fit(X_train_num)</span>
 <span id="cb11-3"><a></a>X_train_scaled <span class="op">=</span> scaler.transform(X_train_num)</span>

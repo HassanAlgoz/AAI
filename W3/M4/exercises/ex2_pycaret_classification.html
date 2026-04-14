@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exercise: Multi-variable Regression 2 – Applied AI Bootcamp</title>
+<title>M4.Ex2: Penguins Classification (PyCaret) – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Multi-variable Regression 2</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M4.Ex2: Penguins Classification (PyCaret)</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -186,17 +186,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#california-housing-prices-dataset" id="toc-california-housing-prices-dataset" class="nav-link active" data-scroll-target="#california-housing-prices-dataset">1. California Housing Prices Dataset</a></li>
-  <li><a href="#abalone-dataset" id="toc-abalone-dataset" class="nav-link" data-scroll-target="#abalone-dataset">2. Abalone Dataset</a></li>
+  <li><a href="#pycaret" id="toc-pycaret" class="nav-link active" data-scroll-target="#pycaret">PyCaret</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  <li><a href="#palmer-penguins-dataset" id="toc-palmer-penguins-dataset" class="nav-link" data-scroll-target="#palmer-penguins-dataset">Palmer Penguins Dataset</a>
+  <ul class="collapse">
+  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data">Load the data</a></li>
+  </ul></li>
+  <li><a href="#experiments" id="toc-experiments" class="nav-link" data-scroll-target="#experiments">Experiments</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="04_multi-variable_regression_ex_2.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ex2_pycaret_classification.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercise: Multi-variable Regression 2</h1>
+<h1 class="title">M4.Ex2: Penguins Classification (PyCaret)</h1>
 </div>
 
 
@@ -213,40 +218,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Your task</strong>: is to build a complete pipeline to process, fit, and score a predictive regression model.</p>
-<p>We will work with two datasets:</p>
-<ol type="1">
-<li>The California Housing Prices Dataset has <code>8</code> numerical features and <code>1</code> categorical, with <code>20,640</code> samples</li>
-<li>the Abalone Dataset will require you to do more reading and understanding of the dataset, before you can use it.</li>
-</ol>
-<div id="e860634a" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<section id="california-housing-prices-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="california-housing-prices-dataset">1. California Housing Prices Dataset</h2>
-<p>Find and download the dataset from Kaggle at <a href="https://www.kaggle.com/datasets/dhirajnirne/california-housing-data">California Housing Dataset</a>.</p>
-<p>According to <a href="https://keras.io/api/datasets/california_housing/">keras.io</a>:</p>
-<blockquote class="blockquote">
-<p>This dataset was obtained from the StatLib repository.</p>
-<p>It’s a continuous regression dataset with 20,640 samples with 8 features each.</p>
-<p>The target variable is a scalar: the median house value for California districts, in dollars.</p>
-<p>The 8 input features are the following:</p>
 <ul>
-<li>MedInc: median income in block group</li>
-<li>HouseAge: median house age in block group</li>
-<li>AveRooms: average number of rooms per household</li>
-<li>AveBedrms: average number of bedrooms per household</li>
-<li>Population: block group population</li>
-<li>AveOccup: average number of household members</li>
-<li>Latitude: block group latitude</li>
-<li>Longitude: block group longitude</li>
+<li>Run: <a href="https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W3/M4/exercises/ex2_pycaret_classification.ipynb"><strong>Open In Colab</strong></a></li>
 </ul>
-<p>This dataset was derived from the 1990 U.S. census, using one row per census block group. A block group is the smallest geographical unit for which the U.S. Census Bureau publishes sample data (a block group typically has a population of 600 to 3,000 people).</p>
-<p>A household is a group of people residing within a home. Since the average number of rooms and bedrooms in this dataset are provided per household, these columns may take surprisingly large values for block groups with few households and many empty houses, such as vacation resorts.</p>
-</blockquote>
-<div id="add26b19" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pd.read_csv(<span class="st">"../../../datasets/california_housing.csv"</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<section id="pycaret" class="level2">
+<h2 class="anchored" data-anchor-id="pycaret">PyCaret</h2>
+<p><a href="https://pycaret.gitbook.io/docs"><strong>PyCaret</strong></a> is an open-source, low-code machine learning library in Python that automates machine learning workflows. It is an end-to-end machine learning and model management tool that speeds up the experiment cycle exponentially and makes you more productive.</p>
+<p>In comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code></a>, <a href="https://xgboost.ai/"><code>XGBoost</code></a>, <a href="https://lightgbm.readthedocs.io/en/stable/"><code>LightGBM</code></a>, <a href="https://catboost.ai/"><code>CatBoost</code></a>, <a href="https://optuna.org/"><code>Optuna</code></a>, <a href="https://hyperopt.github.io/hyperopt/"><code>Hyperopt</code></a>, <a href="https://www.ray.io/"><code>Ray</code></a>, and many more.</p>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<p>Your task is to follow the steps outlined here, and apply them on the <strong>Palmer Penguins Dataset</strong> below:</p>
+<ul>
+<li><a href="https://pycaret.gitbook.io/docs/get-started/quickstart#classification"><strong>🚀 Classification</strong></a>
+<ul>
+<li>Setup</li>
+<li>Compare Models</li>
+<li>Analyze Model</li>
+<li>Predictions</li>
+<li>Save the model</li>
+</ul></li>
+</ul>
+</section>
+<section id="palmer-penguins-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="palmer-penguins-dataset">Palmer Penguins Dataset</h2>
+<p>The goal of palmer penguins is to provide a great dataset for data exploration &amp; visualization, as an alternative to iris.</p>
+<p>The data contains 344 penguins. There are 3 different species of penguins in this dataset, collected from 3 islands in the Palmer Archipelago, Antarctica.</p>
+<ul>
+<li>Features: <code>4</code> numerical, <code>2</code> categorical</li>
+<li>Target: <code>species</code> (Categorical / 3 classes)</li>
+<li>Size: <code>344</code> samples</li>
+<li>Source: <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins</a></li>
+</ul>
+<section id="load-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="load-the-data">Load the data</h3>
+<div id="50e779eb" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">'penguins'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -338,27 +349,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="5d1b110a" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
-<section id="abalone-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="abalone-dataset">2. Abalone Dataset</h2>
-<p>Predicting the age of abalone from physical measurements.</p>
-<p>A real challenge is different formats, hence we present this to you as an opportunity to practice dealling with this problem:</p>
+</section>
+<section id="experiments" class="level2">
+<h2 class="anchored" data-anchor-id="experiments">Experiments</h2>
 <ol type="1">
-<li>Visit the <a href="https://archive.ics.uci.edu/dataset/1/abalone">dataset page</a> and click the <strong>“Download”</strong> button.
+<li><strong>First experiment</strong>:
 <ul>
-<li>You will read the page yourself to understand the purpose of this data, and what you are supposed to do.</li>
-<li>You will notice that it is not simply a <code>.csv</code> file. Rather, <code>3</code> different files, compressed.</li>
+<li>X = Flipper Length (numerical) &amp; Bill Length (numerical)</li>
+<li>y = Species (categorical)</li>
 </ul></li>
-<li>Find out how to read it correctly as a DataFrame for exploratory data analysis</li>
-<li>Finally, train a regression model on the features and the target</li>
+<li><strong>Second experiment</strong>:
+<ul>
+<li>X = Weights (numerical) &amp; Species (categorical)</li>
+<li>y = Sex (categroical)</li>
+</ul></li>
+<li><strong>Third experiment</strong>:
+<ul>
+<li>X = <code>island</code>, <code>bill_length_mm</code>, <code>bill_depth_mm</code>, <code>flipper_length_mm</code>, <code>body_mass_g</code></li>
+<li>y = Sex and Species (multi-label classification)</li>
+</ul></li>
 </ol>
-<div id="ea9eee9f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Find more datasets on <a href="https://archive.ics.uci.edu/datasets">UCI Machine Learning Repository</a>.</p>
 
 
 </section>

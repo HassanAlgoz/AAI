@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>M1.Ex1: Model Hours vs Marks – Applied AI Bootcamp</title>
+<title>Exercise: Encoding high-cardinality features – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M1.Ex1: Model Hours vs Marks</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Exercise: Encoding high-cardinality features</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -186,33 +186,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#step-1.-load-the-data" id="toc-step-1.-load-the-data" class="nav-link active" data-scroll-target="#step-1.-load-the-data">Step 1. Load the data</a></li>
-  <li><a href="#step-2.a-assign-variables-x-to-the-features-and-y-to-the-target" id="toc-step-2.a-assign-variables-x-to-the-features-and-y-to-the-target" class="nav-link" data-scroll-target="#step-2.a-assign-variables-x-to-the-features-and-y-to-the-target">Step 2.a Assign variables <code>X</code> to the features and <code>y</code> to the target</a></li>
-  <li><a href="#step-2.b-print-the-type-of-each" id="toc-step-2.b-print-the-type-of-each" class="nav-link" data-scroll-target="#step-2.b-print-the-type-of-each">Step 2.b print the type of each</a></li>
-  <li><a href="#step-2.c-identify-whether-the-target-is-categorical-or-numerical-whether-the-task-is-regression-or-classification" id="toc-step-2.c-identify-whether-the-target-is-categorical-or-numerical-whether-the-task-is-regression-or-classification" class="nav-link" data-scroll-target="#step-2.c-identify-whether-the-target-is-categorical-or-numerical-whether-the-task-is-regression-or-classification">Step 2.c identify whether the target is categorical or numerical &amp; whether the task is regression or classification</a></li>
-  <li><a href="#step-3.-identify-the-number-of-samples-and-columns-of-both-the-data-matrix-and-the-target" id="toc-step-3.-identify-the-number-of-samples-and-columns-of-both-the-data-matrix-and-the-target" class="nav-link" data-scroll-target="#step-3.-identify-the-number-of-samples-and-columns-of-both-the-data-matrix-and-the-target">Step 3. Identify the number of samples and columns of both the data matrix and the target</a></li>
-  <li><a href="#step-4.-summarize-the-distribution-of-the-data-min-max-median-mean-and-standard-deviation" id="toc-step-4.-summarize-the-distribution-of-the-data-min-max-median-mean-and-standard-deviation" class="nav-link" data-scroll-target="#step-4.-summarize-the-distribution-of-the-data-min-max-median-mean-and-standard-deviation">Step 4. Summarize the distribution of the data (min, max, median, mean, and standard deviation)</a></li>
-  <li><a href="#step-5.-plot-the-feature-vs-the-target" id="toc-step-5.-plot-the-feature-vs-the-target" class="nav-link" data-scroll-target="#step-5.-plot-the-feature-vs-the-target">Step 5. Plot the feature vs the target</a></li>
-  <li><a href="#step-6.-what-is-the-relationship-between-the-feature-and-the-target-increasing-or-decreasing-or-none" id="toc-step-6.-what-is-the-relationship-between-the-feature-and-the-target-increasing-or-decreasing-or-none" class="nav-link" data-scroll-target="#step-6.-what-is-the-relationship-between-the-feature-and-the-target-increasing-or-decreasing-or-none">Step 6. What is the relationship between the feature and the target? (increasing or decreasing or none)</a></li>
-  <li><a href="#step-7.-initialize-a-linearregression-model" id="toc-step-7.-initialize-a-linearregression-model" class="nav-link" data-scroll-target="#step-7.-initialize-a-linearregression-model">Step 7. Initialize a <code>LinearRegression</code> model</a></li>
-  <li><a href="#step-8.-split-the-dataset-into-train-and-test-sets" id="toc-step-8.-split-the-dataset-into-train-and-test-sets" class="nav-link" data-scroll-target="#step-8.-split-the-dataset-into-train-and-test-sets">Step 8. Split the dataset into train and test sets</a></li>
-  <li><a href="#step-9.a-train-the-model-on-the-training-set" id="toc-step-9.a-train-the-model-on-the-training-set" class="nav-link" data-scroll-target="#step-9.a-train-the-model-on-the-training-set">Step 9.a Train the model on the training set</a></li>
-  <li><a href="#step-9.b-identify-the-learned-slope-and-the-y-intercept-of-the-model" id="toc-step-9.b-identify-the-learned-slope-and-the-y-intercept-of-the-model" class="nav-link" data-scroll-target="#step-9.b-identify-the-learned-slope-and-the-y-intercept-of-the-model">Step 9.b Identify the learned slope and the y-intercept of the model</a></li>
-  <li><a href="#step-9.c-how-much-marks-do-we-get-per-1-hour-of-study" id="toc-step-9.c-how-much-marks-do-we-get-per-1-hour-of-study" class="nav-link" data-scroll-target="#step-9.c-how-much-marks-do-we-get-per-1-hour-of-study">Step 9.c how much marks do we get per 1 hour of study?</a></li>
-  <li><a href="#step-9.d-how-much-does-a-10-minutes-increase-of-study-time-adds-to-our-marks" id="toc-step-9.d-how-much-does-a-10-minutes-increase-of-study-time-adds-to-our-marks" class="nav-link" data-scroll-target="#step-9.d-how-much-does-a-10-minutes-increase-of-study-time-adds-to-our-marks">Step 9.d how much does a 10 minutes increase of study time adds to our marks?</a></li>
-  <li><a href="#step-9.e-if-one-doesnt-study-at-all-how-much-marks-do-they-get" id="toc-step-9.e-if-one-doesnt-study-at-all-how-much-marks-do-they-get" class="nav-link" data-scroll-target="#step-9.e-if-one-doesnt-study-at-all-how-much-marks-do-they-get">Step 9.e if one doesn’t study at all, how much marks do they get?</a></li>
-  <li><a href="#step-10.-evaluate-the-model-on-the-test-set" id="toc-step-10.-evaluate-the-model-on-the-test-set" class="nav-link" data-scroll-target="#step-10.-evaluate-the-model-on-the-test-set">Step 10. Evaluate the model on the test set</a></li>
-  <li><a href="#step-11.-take-a-sample-of-three-rows-from-the-test-set-and-make-a-prediction-on-them-and-check-whether-they-match-the-true-label-or-not" id="toc-step-11.-take-a-sample-of-three-rows-from-the-test-set-and-make-a-prediction-on-them-and-check-whether-they-match-the-true-label-or-not" class="nav-link" data-scroll-target="#step-11.-take-a-sample-of-three-rows-from-the-test-set-and-make-a-prediction-on-them-and-check-whether-they-match-the-true-label-or-not">Step 11. Take a sample of three rows from the test set and make a prediction on them and check whether they match the true label or not</a></li>
-  <li><a href="#step-12.-plot-the-data-and-the-regression-line" id="toc-step-12.-plot-the-data-and-the-regression-line" class="nav-link" data-scroll-target="#step-12.-plot-the-data-and-the-regression-line">Step 12. Plot the data and the regression line</a></li>
+  <li><a href="#step-1-find-the-categorical-features" id="toc-step-1-find-the-categorical-features" class="nav-link active" data-scroll-target="#step-1-find-the-categorical-features">Step 1 — Find the categorical features</a></li>
+  <li><a href="#step-2-quantify-memory-before-and-after-one-hot-encoding" id="toc-step-2-quantify-memory-before-and-after-one-hot-encoding" class="nav-link" data-scroll-target="#step-2-quantify-memory-before-and-after-one-hot-encoding">Step 2 — Quantify memory <em>before</em> and <em>after</em> one-hot encoding</a></li>
+  <li><a href="#step-3-reflect-on-the-impact-of-one-hot-encoding" id="toc-step-3-reflect-on-the-impact-of-one-hot-encoding" class="nav-link" data-scroll-target="#step-3-reflect-on-the-impact-of-one-hot-encoding">Step 3 — Reflect on the impact of one-hot encoding</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ex1_reg.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="02_high-cardinality.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">M1.Ex1: Model Hours vs Marks</h1>
+<h1 class="title">Exercise: Encoding high-cardinality features</h1>
 </div>
 
 
@@ -229,19 +214,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<ul>
-<li>Run: <a href="https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W3/M1/exercises/ex1_reg.ipynb"><strong>Open In Colab</strong></a></li>
-<li>Raw Dataset: <a href="https://raw.githubusercontent.com/HassanAlgoz/B5/main/content/datasets/Rounded_Student_Hours_Studied_vs_Marks_Dataset.csv">Rounded_Student_Hours_Studied_vs_Marks_Dataset.csv</a></li>
-</ul>
-<div id="56357e3f" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sklearn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this notebook we will <strong>demonstrate the issue with one-hot encoding high-cardinality categorical features</strong>.</p>
+<p>You already saw in <code>lab_encode</code> that one-hot encoding can dramatically increase the number of columns and memory usage for datasets with many categories (like Ames Housing). Here, you will <strong>reproduce this effect yourself step-by-step</strong>:</p>
+<ol type="1">
+<li><strong>Load</strong> the Ames Housing data and take a quick look at it.</li>
+<li><strong>Identify</strong> the categorical features.</li>
+<li><strong>Measure</strong> how much memory the categorical part of the data uses <em>before</em> encoding.</li>
+<li><strong>Apply</strong> one-hot encoding to those categorical features.</li>
+<li><strong>Measure and compare</strong> the memory usage <em>after</em> encoding.</li>
+</ol>
+<p>As you go, pause after each step and write down what you <strong>expect</strong> to happen (e.g., <em>“I expect the number of columns to increase by about X”</em>), then check against the actual results.</p>
+<div id="7ccf884a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ames_housing <span class="op">=</span> fetch_openml(data_id<span class="op">=</span><span class="dv">41211</span>, as_frame<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> ames_housing.data</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> ames_housing.target</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="step-1.-load-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="step-1.-load-the-data">Step 1. Load the data</h3>
-<div id="224021b6" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.read_csv("../../../datasets/Rounded_Student_Hours_Studied_vs_Marks_Dataset.csv").head()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<section id="step-1-find-the-categorical-features" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-find-the-categorical-features">Step 1 — Find the categorical features</h3>
+<ol type="1">
+<li>Call <code>data.info()</code> in the cell below.</li>
+<li><strong>Scan the output</strong>:
+<ul>
+<li>Which columns are <code>category</code> or <code>object</code> (string) type?</li>
+<li>Roughly how many categorical columns are there?</li>
+</ul></li>
+<li>Use <code>data.select_dtypes</code> to keep only the categorical columns.</li>
+</ol>
+<p>Before you run the code, ask yourself:</p>
+<ul>
+<li><strong>Prediction:</strong> Do you think there are <em>a few</em> or <em>many</em> categorical columns in this dataset?</li>
+<li>How might that affect one-hot encoding?</li>
+</ul>
+<div id="406d17ff" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.DataFrame'&gt;
+RangeIndex: 2930 entries, 0 to 2929
+Data columns (total 80 columns):
+ #   Column              Non-Null Count  Dtype   
+---  ------              --------------  -----   
+ 0   MS_SubClass         2930 non-null   category
+ 1   MS_Zoning           2930 non-null   category
+ 2   Lot_Frontage        2930 non-null   int64   
+ 3   Lot_Area            2930 non-null   int64   
+ 4   Street              2930 non-null   category
+ 5   Alley               2930 non-null   category
+ 6   Lot_Shape           2930 non-null   category
+ 7   Land_Contour        2930 non-null   category
+ 8   Utilities           2930 non-null   category
+ 9   Lot_Config          2930 non-null   category
+ 10  Land_Slope          2930 non-null   category
+ 11  Neighborhood        2930 non-null   category
+ 12  Condition_1         2930 non-null   category
+ 13  Condition_2         2930 non-null   category
+ 14  Bldg_Type           2930 non-null   category
+ 15  House_Style         2930 non-null   category
+ 16  Overall_Qual        2930 non-null   category
+ 17  Overall_Cond        2930 non-null   category
+ 18  Year_Built          2930 non-null   int64   
+ 19  Year_Remod_Add      2930 non-null   int64   
+ 20  Roof_Style          2930 non-null   category
+ 21  Roof_Matl           2930 non-null   category
+ 22  Exterior_1st        2930 non-null   category
+ 23  Exterior_2nd        2930 non-null   category
+ 24  Mas_Vnr_Type        2930 non-null   category
+ 25  Mas_Vnr_Area        2930 non-null   int64   
+ 26  Exter_Qual          2930 non-null   category
+ 27  Exter_Cond          2930 non-null   category
+ 28  Foundation          2930 non-null   category
+ 29  Bsmt_Qual           2930 non-null   category
+ 30  Bsmt_Cond           2930 non-null   category
+ 31  Bsmt_Exposure       2930 non-null   category
+ 32  BsmtFin_Type_1      2930 non-null   category
+ 33  BsmtFin_SF_1        2930 non-null   int64   
+ 34  BsmtFin_Type_2      2930 non-null   category
+ 35  BsmtFin_SF_2        2930 non-null   int64   
+ 36  Bsmt_Unf_SF         2930 non-null   int64   
+ 37  Total_Bsmt_SF       2930 non-null   int64   
+ 38  Heating             2930 non-null   category
+ 39  Heating_QC          2930 non-null   category
+ 40  Central_Air         2930 non-null   category
+ 41  Electrical          2930 non-null   category
+ 42  First_Flr_SF        2930 non-null   int64   
+ 43  Second_Flr_SF       2930 non-null   int64   
+ 44  Low_Qual_Fin_SF     2930 non-null   int64   
+ 45  Gr_Liv_Area         2930 non-null   int64   
+ 46  Bsmt_Full_Bath      2930 non-null   int64   
+ 47  Bsmt_Half_Bath      2930 non-null   int64   
+ 48  Full_Bath           2930 non-null   int64   
+ 49  Half_Bath           2930 non-null   int64   
+ 50  Bedroom_AbvGr       2930 non-null   int64   
+ 51  Kitchen_AbvGr       2930 non-null   int64   
+ 52  Kitchen_Qual        2930 non-null   category
+ 53  TotRms_AbvGrd       2930 non-null   int64   
+ 54  Functional          2930 non-null   category
+ 55  Fireplaces          2930 non-null   int64   
+ 56  Fireplace_Qu        2930 non-null   category
+ 57  Garage_Type         2930 non-null   category
+ 58  Garage_Finish       2930 non-null   category
+ 59  Garage_Cars         2930 non-null   int64   
+ 60  Garage_Area         2930 non-null   int64   
+ 61  Garage_Qual         2930 non-null   category
+ 62  Garage_Cond         2930 non-null   category
+ 63  Paved_Drive         2930 non-null   category
+ 64  Wood_Deck_SF        2930 non-null   int64   
+ 65  Open_Porch_SF       2930 non-null   int64   
+ 66  Enclosed_Porch      2930 non-null   int64   
+ 67  Three_season_porch  2930 non-null   int64   
+ 68  Screen_Porch        2930 non-null   int64   
+ 69  Pool_Area           2930 non-null   int64   
+ 70  Pool_QC             2930 non-null   category
+ 71  Fence               2930 non-null   category
+ 72  Misc_Feature        2930 non-null   category
+ 73  Misc_Val            2930 non-null   int64   
+ 74  Mo_Sold             2930 non-null   int64   
+ 75  Year_Sold           2930 non-null   int64   
+ 76  Sale_Type           2930 non-null   category
+ 77  Sale_Condition      2930 non-null   category
+ 78  Longitude           2930 non-null   float64 
+ 79  Latitude            2930 non-null   float64 
+dtypes: category(46), float64(2), int64(32)
+memory usage: 913.1 KB</code></pre>
+</div>
+</div>
+<div id="48eec73e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -249,93 +352,209 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Hours_Studied</th>
-<th data-quarto-table-cell-role="th">Marks</th>
+<th data-quarto-table-cell-role="th">MS_SubClass</th>
+<th data-quarto-table-cell-role="th">MS_Zoning</th>
+<th data-quarto-table-cell-role="th">Street</th>
+<th data-quarto-table-cell-role="th">Alley</th>
+<th data-quarto-table-cell-role="th">Lot_Shape</th>
+<th data-quarto-table-cell-role="th">Land_Contour</th>
+<th data-quarto-table-cell-role="th">Utilities</th>
+<th data-quarto-table-cell-role="th">Lot_Config</th>
+<th data-quarto-table-cell-role="th">Land_Slope</th>
+<th data-quarto-table-cell-role="th">Neighborhood</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Garage_Type</th>
+<th data-quarto-table-cell-role="th">Garage_Finish</th>
+<th data-quarto-table-cell-role="th">Garage_Qual</th>
+<th data-quarto-table-cell-role="th">Garage_Cond</th>
+<th data-quarto-table-cell-role="th">Paved_Drive</th>
+<th data-quarto-table-cell-role="th">Pool_QC</th>
+<th data-quarto-table-cell-role="th">Fence</th>
+<th data-quarto-table-cell-role="th">Misc_Feature</th>
+<th data-quarto-table-cell-role="th">Sale_Type</th>
+<th data-quarto-table-cell-role="th">Sale_Condition</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>4.76</td>
-<td>46.27</td>
+<td>One_Story_1946_and_Newer_All_Styles</td>
+<td>Residential_Low_Density</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Slightly_Irregular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Corner</td>
+<td>Gtl</td>
+<td>North_Ames</td>
+<td>...</td>
+<td>Attchd</td>
+<td>Fin</td>
+<td>Typical</td>
+<td>Typical</td>
+<td>Partial_Pavement</td>
+<td>No_Pool</td>
+<td>No_Fence</td>
+<td>None</td>
+<td>WD</td>
+<td>Normal</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>3.00</td>
-<td>34.30</td>
+<td>One_Story_1946_and_Newer_All_Styles</td>
+<td>Residential_High_Density</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Regular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Inside</td>
+<td>Gtl</td>
+<td>North_Ames</td>
+<td>...</td>
+<td>Attchd</td>
+<td>Unf</td>
+<td>Typical</td>
+<td>Typical</td>
+<td>Paved</td>
+<td>No_Pool</td>
+<td>Minimum_Privacy</td>
+<td>None</td>
+<td>WD</td>
+<td>Normal</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>2.08</td>
-<td>33.63</td>
+<td>One_Story_1946_and_Newer_All_Styles</td>
+<td>Residential_Low_Density</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Slightly_Irregular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Corner</td>
+<td>Gtl</td>
+<td>North_Ames</td>
+<td>...</td>
+<td>Attchd</td>
+<td>Unf</td>
+<td>Typical</td>
+<td>Typical</td>
+<td>Paved</td>
+<td>No_Pool</td>
+<td>No_Fence</td>
+<td>Gar2</td>
+<td>WD</td>
+<td>Normal</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>4.04</td>
-<td>47.81</td>
+<td>One_Story_1946_and_Newer_All_Styles</td>
+<td>Residential_Low_Density</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Regular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Corner</td>
+<td>Gtl</td>
+<td>North_Ames</td>
+<td>...</td>
+<td>Attchd</td>
+<td>Fin</td>
+<td>Typical</td>
+<td>Typical</td>
+<td>Paved</td>
+<td>No_Pool</td>
+<td>No_Fence</td>
+<td>None</td>
+<td>WD</td>
+<td>Normal</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>9.49</td>
-<td>66.26</td>
+<td>Two_Story_1946_and_Newer</td>
+<td>Residential_Low_Density</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Slightly_Irregular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Inside</td>
+<td>Gtl</td>
+<td>Gilbert</td>
+<td>...</td>
+<td>Attchd</td>
+<td>Fin</td>
+<td>Typical</td>
+<td>Typical</td>
+<td>Paved</td>
+<td>No_Pool</td>
+<td>Minimum_Privacy</td>
+<td>None</td>
+<td>WD</td>
+<td>Normal</td>
 </tr>
 </tbody>
 </table>
 
+<p>5 rows × 46 columns</p>
 </div>
 </div>
 </div>
 </section>
-<section id="step-2.a-assign-variables-x-to-the-features-and-y-to-the-target" class="level3">
-<h3 class="anchored" data-anchor-id="step-2.a-assign-variables-x-to-the-features-and-y-to-the-target">Step 2.a Assign variables <code>X</code> to the features and <code>y</code> to the target</h3>
+<section id="step-2-quantify-memory-before-and-after-one-hot-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-quantify-memory-before-and-after-one-hot-encoding">Step 2 — Quantify memory <em>before</em> and <em>after</em> one-hot encoding</h3>
+<p>In the next few cells you will:</p>
+<ol type="1">
+<li>Compute the <strong>number of columns</strong> and <strong>memory usage</strong> for the raw categorical data (<code>cat_data</code>).</li>
+<li>Apply <strong><code>OneHotEncoder</code></strong> to those columns.</li>
+<li>Compute the <strong>number of columns</strong> and <strong>memory usage</strong> for the encoded data.</li>
+</ol>
+<p>As you work through the cells, keep track of:</p>
+<ul>
+<li>How many columns do you start with?</li>
+<li>How many columns do you end up with after encoding?</li>
+<li>How many <strong>times larger</strong> is the memory usage after encoding?</li>
+</ul>
+<p>Try to write down your guesses before you run the code, and then compare them with the actual numbers.</p>
+<div id="4682bd41" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4efd0c7f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> OneHotEncoder(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    sparse_output<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    handle_unknown<span class="op">=</span><span class="st">'ignore'</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>encoder.set_output(transform<span class="op">=</span><span class="st">'pandas'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="763c2301" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># INSERT YOUR CODE HERE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e345b323" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ncols_after <span class="op">=</span> cat_data_encoded.shape[<span class="dv">1</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mem_after <span class="op">=</span> cat_data_encoded.memory_usage(deep<span class="op">=</span><span class="va">True</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="dv">1024</span><span class="op">**</span><span class="dv">2</span>  <span class="co"># MB</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="step-2.b-print-the-type-of-each" class="level3">
-<h3 class="anchored" data-anchor-id="step-2.b-print-the-type-of-each">Step 2.b print the type of each</h3>
-</section>
-<section id="step-2.c-identify-whether-the-target-is-categorical-or-numerical-whether-the-task-is-regression-or-classification" class="level3">
-<h3 class="anchored" data-anchor-id="step-2.c-identify-whether-the-target-is-categorical-or-numerical-whether-the-task-is-regression-or-classification">Step 2.c identify whether the target is categorical or numerical &amp; whether the task is regression or classification</h3>
-</section>
-<section id="step-3.-identify-the-number-of-samples-and-columns-of-both-the-data-matrix-and-the-target" class="level3">
-<h3 class="anchored" data-anchor-id="step-3.-identify-the-number-of-samples-and-columns-of-both-the-data-matrix-and-the-target">Step 3. Identify the number of samples and columns of both the data matrix and the target</h3>
-</section>
-<section id="step-4.-summarize-the-distribution-of-the-data-min-max-median-mean-and-standard-deviation" class="level3">
-<h3 class="anchored" data-anchor-id="step-4.-summarize-the-distribution-of-the-data-min-max-median-mean-and-standard-deviation">Step 4. Summarize the distribution of the data (min, max, median, mean, and standard deviation)</h3>
-</section>
-<section id="step-5.-plot-the-feature-vs-the-target" class="level3">
-<h3 class="anchored" data-anchor-id="step-5.-plot-the-feature-vs-the-target">Step 5. Plot the feature vs the target</h3>
-</section>
-<section id="step-6.-what-is-the-relationship-between-the-feature-and-the-target-increasing-or-decreasing-or-none" class="level3">
-<h3 class="anchored" data-anchor-id="step-6.-what-is-the-relationship-between-the-feature-and-the-target-increasing-or-decreasing-or-none">Step 6. What is the relationship between the feature and the target? (increasing or decreasing or none)</h3>
-</section>
-<section id="step-7.-initialize-a-linearregression-model" class="level3">
-<h3 class="anchored" data-anchor-id="step-7.-initialize-a-linearregression-model">Step 7. Initialize a <code>LinearRegression</code> model</h3>
-</section>
-<section id="step-8.-split-the-dataset-into-train-and-test-sets" class="level3">
-<h3 class="anchored" data-anchor-id="step-8.-split-the-dataset-into-train-and-test-sets">Step 8. Split the dataset into train and test sets</h3>
-</section>
-<section id="step-9.a-train-the-model-on-the-training-set" class="level3">
-<h3 class="anchored" data-anchor-id="step-9.a-train-the-model-on-the-training-set">Step 9.a Train the model on the training set</h3>
-</section>
-<section id="step-9.b-identify-the-learned-slope-and-the-y-intercept-of-the-model" class="level3">
-<h3 class="anchored" data-anchor-id="step-9.b-identify-the-learned-slope-and-the-y-intercept-of-the-model">Step 9.b Identify the learned slope and the y-intercept of the model</h3>
-</section>
-<section id="step-9.c-how-much-marks-do-we-get-per-1-hour-of-study" class="level3">
-<h3 class="anchored" data-anchor-id="step-9.c-how-much-marks-do-we-get-per-1-hour-of-study">Step 9.c how much marks do we get per 1 hour of study?</h3>
-</section>
-<section id="step-9.d-how-much-does-a-10-minutes-increase-of-study-time-adds-to-our-marks" class="level3">
-<h3 class="anchored" data-anchor-id="step-9.d-how-much-does-a-10-minutes-increase-of-study-time-adds-to-our-marks">Step 9.d how much does a 10 minutes increase of study time adds to our marks?</h3>
-</section>
-<section id="step-9.e-if-one-doesnt-study-at-all-how-much-marks-do-they-get" class="level3">
-<h3 class="anchored" data-anchor-id="step-9.e-if-one-doesnt-study-at-all-how-much-marks-do-they-get">Step 9.e if one doesn’t study at all, how much marks do they get?</h3>
-</section>
-<section id="step-10.-evaluate-the-model-on-the-test-set" class="level3">
-<h3 class="anchored" data-anchor-id="step-10.-evaluate-the-model-on-the-test-set">Step 10. Evaluate the model on the test set</h3>
-</section>
-<section id="step-11.-take-a-sample-of-three-rows-from-the-test-set-and-make-a-prediction-on-them-and-check-whether-they-match-the-true-label-or-not" class="level3">
-<h3 class="anchored" data-anchor-id="step-11.-take-a-sample-of-three-rows-from-the-test-set-and-make-a-prediction-on-them-and-check-whether-they-match-the-true-label-or-not">Step 11. Take a sample of three rows from the test set and make a prediction on them and check whether they match the true label or not</h3>
-</section>
-<section id="step-12.-plot-the-data-and-the-regression-line" class="level3">
-<h3 class="anchored" data-anchor-id="step-12.-plot-the-data-and-the-regression-line">Step 12. Plot the data and the regression line</h3>
+<section id="step-3-reflect-on-the-impact-of-one-hot-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-reflect-on-the-impact-of-one-hot-encoding">Step 3 — Reflect on the impact of one-hot encoding</h3>
+<p>Run the cell below to print the <strong>number of columns</strong> and <strong>memory usage</strong> before and after one-hot encoding.</p>
+<p>Then answer these questions in your own words (e.g., in a separate markdown cell or your notes):</p>
+<ul>
+<li>By what <strong>factor</strong> did the number of columns increase?</li>
+<li>By what <strong>factor</strong> did the memory usage increase?</li>
+<li>Why might this be a problem for datasets with even <strong>higher cardinality</strong> (more unique categories) or many more rows?</li>
+<li>How could parameters like <code>min_frequency</code> or <code>max_categories</code> in <code>OneHotEncoder</code> help mitigate this issue?</li>
+</ul>
+<p>Finally, compare your results to the summary in the <code>lab_encode</code> notebook. Do they roughly match what you saw there?</p>
+<div id="e01ced26" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns Before: </span><span class="sc">{</span>ncols_before<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns After: </span><span class="sc">{</span>ncols_after<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Memory Before: </span><span class="sc">{</span>mem_before<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Memory After: </span><span class="sc">{</span>mem_after<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
