@@ -220,38 +220,11 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="mean-squared-error-mse" class="slide level2">
-<h2>Mean Squared Error (MSE)</h2>
-<ul>
-<li><strong>Definition</strong>: average of squared differences between predictions and true values.</li>
-<li>Properties:
-<ul>
-<li>Penalizes <strong>large errors more strongly</strong> than small ones.</li>
-<li>Has the <strong>same scale as target squared</strong>, making it hard to interpret.</li>
-</ul></li>
-<li>In the notebook:
-<ul>
-<li>We compute MSE on <strong>train</strong> and <strong>test</strong> sets for a linear regression model.</li>
-</ul></li>
-</ul>
-<aside class="notes">
-<p>Point out that “996.9” or “2064.7” are hard to interpret without context: students should feel the friction of squared units and lack of direct business meaning.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="mean-absolute-error-mae" class="slide level2">
 <h2>Mean Absolute Error (MAE)</h2>
 <ul>
-<li><strong>Definition</strong>: average of absolute differences <span class="math inline">\(\vert y - \hat{y} \vert\)</span>.</li>
+<li><strong>Definition</strong>: average of absolute differences<br>
+<span class="math display">\[ \text{MAE} =  \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right| \in [0, \infty)\]</span>$</li>
 <li>Properties:
 <ul>
 <li>Same unit as the <strong>target</strong> (e.g., k$).</li>
@@ -279,7 +252,8 @@
 <section id="median-absolute-error" class="slide level2">
 <h2>Median Absolute Error</h2>
 <ul>
-<li><strong>Definition</strong>: median of absolute errors <span class="math inline">\(\vert y - \hat{y} \vert\)</span>.</li>
+<li><strong>Definition</strong>: median of absolute errors<br>
+<span class="math display">\[ \text{Med AE} = \text{median}(\left| y_i - \hat{y}_i \right|) \in [0, \infty)\]</span></li>
 <li>Properties:
 <ul>
 <li>Even more robust to <strong>outliers</strong> than MAE.</li>
@@ -304,16 +278,46 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="mean-squared-error-mse" class="slide level2">
+<h2>Mean Squared Error (MSE)</h2>
+<ul>
+<li><strong>Definition</strong>: average of squared differences between predictions and true values.<br>
+<span class="math display">\[ \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2  \in [0, \infty) \]</span></li>
+<li>Properties:
+<ul>
+<li>Penalizes <strong>large errors more strongly</strong> than small ones.</li>
+<li>Has the <strong>same scale as target squared</strong>, making it hard to interpret.</li>
+</ul></li>
+<li>In the notebook:
+<ul>
+<li>We compute MSE on <strong>train</strong> and <strong>test</strong> sets for a linear regression model.</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>Point out that “996.9” or “2064.7” are hard to interpret without context: students should feel the friction of squared units and lack of direct business meaning.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="r2-coefficient-of-determination" class="slide level2">
 <h2><span class="math inline">\(R^2\)</span>: Coefficient of Determination</h2>
 <ul>
-<li>Rescales MSE by the <strong>variance of the target</strong>.</li>
+<li>Rescales MSE by the <strong>variance of the target</strong><br>
+<span class="math display">\[ R^2 = 1 - \frac{\text{MSE}}{\sigma_{y}} \in (-\infty, 1]\]</span></li>
 <li><strong>Interpretation</strong>:
 <ul>
 <li>Proportion of target variance <strong>explained by the model</strong>.</li>
 <li><span class="math inline">\(R^2 = 1\)</span>: perfect predictions.</li>
 <li><span class="math inline">\(R^2 = 0\)</span>: same as predicting the mean of the target.</li>
-<li><span class="math inline">\(R^2 &lt; 0\)</span>: worse than predicting the mean.</li>
+<li><span class="math inline">\(R^2 &lt; 0\)</span>: worse than predicting the mean. (no limit to how worse!)</li>
 </ul></li>
 </ul>
 <aside class="notes">
@@ -387,19 +391,22 @@
 <section id="relative-error-mape" class="slide level2">
 <h2>Relative Error: MAPE</h2>
 <ul>
-<li><strong>Mean Absolute Percentage Error (MAPE)</strong>:
-<ul>
-<li>Average of <span class="math inline">\(\frac{\vert y - \hat{y} \vert}{\vert y \vert}\)</span> expressed as a percentage.</li>
-</ul></li>
-<li>Good when:
-<ul>
-<li>Stakeholders think in <strong>percent error</strong> instead of absolute units.</li>
-</ul></li>
-<li>Caveats:
-<ul>
-<li>Undefined or unstable when <strong>true values near zero</strong>.</li>
-</ul></li>
+<li><strong>Mean Absolute Percentage Error (MAPE)</strong> expressed as a percentage:<br>
+<span class="math display">\[ \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y_i} }{ y_i } \right| \in [0, \infty] \]</span></li>
+<li>Example: MAPE of <code>12%</code> implies an average accuracy of <code>88%</code> in our predictions.</li>
 </ul>
+<div class="columns">
+<div class="column">
+<h4 id="the-good">The Good</h4>
+<p>You can compare model performance across different datasets. It allows you to say, “I’m 5% off on sales for a small store and 5% off for a giant warehouse,” even though the dollar amounts are vastly different.</p>
+</div><div class="column">
+<h4 id="the-gotchas">The Gotchas</h4>
+<ul>
+<li><strong>Zero-division</strong>: undefined or unstable when true values near zero.</li>
+<li><strong>Asymmetry</strong>: penalizes over-predictions more than under-predictions.</li>
+</ul>
+</div></div>
+<!-- end columns -->
 <aside class="notes">
 <p>Connect to real-world KPIs: people often want “average % error” for revenue, demand, or sales forecasts, but students should remember the pitfalls around zeros and very small targets.</p>
 <style type="text/css">
@@ -416,23 +423,20 @@
 </section>
 <section id="visual-diagnostics-prediction-residual-plots" class="slide level2">
 <h2>Visual Diagnostics: Prediction &amp; Residual Plots</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
+
+<img data-src="../assets/res_vs_pred.png" class="r-stretch quarto-figure quarto-figure-center"><div class="columns">
+<div class="column">
 <ul>
-<li><strong>Left plot</strong>:
-<ul>
-<li>True values vs <strong>predicted values</strong>.</li>
-<li>Ideal: points along the <strong>diagonal</strong>.</li>
-</ul></li>
-<li><strong>Right plot</strong>:
-<ul>
-<li><strong>Residuals vs predicted</strong> values.</li>
-<li>Ideal: a <strong>cloud</strong> around zero with no clear pattern.</li>
-</ul></li>
+<li>Left: <strong>True</strong> values vs <strong>predicted</strong> values.</li>
+<li>Ideal: all points lie on the <strong>diagonal</strong>.</li>
 </ul>
-</div><div class="column" style="width:60%;">
-<p><a href="../assets/regression_metrics_pred_vs_true_and_residuals.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/regression_metrics_pred_vs_true_and_residuals.png"></a></p>
+</div><div class="column">
+<ul>
+<li>Right: <strong>Residuals</strong> vs <strong>predicted</strong> values.</li>
+<li>Ideal: all points lie on the <strong>zero-horizontal line</strong>.</li>
+</ul>
 </div></div>
+<!-- end columns -->
 <aside class="notes">
 <p>Use these two plots to show that our first model still has structure in the residuals—the “banana/smile” shape. That visual pattern indicates systematic under- and over-estimation at different target ranges.</p>
 <style type="text/css">
@@ -505,8 +509,6 @@
 </section>
 <section id="visual-diagnostics-after-target-transformation" class="slide level2">
 <h2>Visual Diagnostics After Target Transformation</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
 <ul>
 <li>After transforming the target:
 <ul>
@@ -515,10 +517,8 @@
 </ul></li>
 <li>The <strong>banana shape</strong> is largely gone.</li>
 </ul>
-</div><div class="column" style="width:60%;">
-<p><a href="../assets/regression_metrics_pred_vs_true_and_residuals_transformed_target.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="../assets/regression_metrics_pred_vs_true_and_residuals_transformed_target.png"></a></p>
-</div></div>
-<aside class="notes">
+
+<img data-src="../assets/regression_metrics_pred_vs_true_and_residuals_transformed_target.png" class="r-stretch quarto-figure quarto-figure-center"><aside class="notes">
 <p>Walk through both panels again and explicitly compare to the previous slide. Students should see a cleaner, more homogeneous cloud in the residual plot.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -565,19 +565,20 @@
 <ul>
 <li><strong>MSE / <span class="math inline">\(R^2\)</span></strong>:
 <ul>
-<li>Optimization-friendly, good for relative model comparison.</li>
+<li>Useful for comparing models against the same dataset.</li>
 </ul></li>
 <li><strong>MAE / median AE</strong>:
 <ul>
-<li>Interpretable in original units, robust to outliers.</li>
+<li>Interpretable in original units and robust to outliers.</li>
 </ul></li>
 <li><strong>MAPE</strong>:
 <ul>
-<li>Percentage-based metric, useful but fragile near zero.</li>
+<li>Business-friendly and useful across datasets.</li>
 </ul></li>
-<li><strong>Visual diagnostics</strong>:
+<li><strong>Prediction and residual plots</strong>:
 <ul>
-<li>Prediction and residual plots reveal patterns that metrics alone hide.</li>
+<li>Visual diagnostics that reveal patterns that metrics alone hide.</li>
+<li><em>Target transformation</em> shows a move from a banana shape to a more straight line shape</li>
 </ul></li>
 </ul>
 <aside class="notes">

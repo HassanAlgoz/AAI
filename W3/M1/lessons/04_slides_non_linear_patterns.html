@@ -234,8 +234,66 @@
           display:block!important;
       }</style></aside>
 </section>
+<section>
+<section id="non-linaer-relationships" class="title-slide slide level1 center">
+<h1>Non-linaer relationships</h1>
+<ul>
+<li>A <strong>non-linear relationship</strong> occurs when the change in the dependent variable (<span class="math inline">\(y\)</span>) is not strictly proportional (directly or inversely) to the change in the independent variable (<span class="math inline">\(x\)</span>).</li>
+<li>Graphically, this forms a curve rather than a straight line.</li>
+<li>In a linear relationship, the derivative (the slope) is constant. In a non-linear relationship, the slope changes at every point.
+<ul>
+<li><strong>Linear Equation:</strong> <span class="math inline">\(y = mx + b\)</span> (constant slope <span class="math inline">\(m\)</span>).</li>
+<li><strong>Non-linear Equation:</strong> May include exponents, logarithms, or trigonometric functions, such as:
+<ul>
+<li>Quadratic: <span class="math inline">\(y = ax^2 + bx + c\)</span></li>
+<li>Exponential: <span class="math inline">\(y = ab^x\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="linear-game-time-vs-points-scored" class="slide level2">
+<h2>1. Linear: Game Time vs Points Scored</h2>
+<p>One example of this might be minutes played in a basketball game vs.&nbsp;total points scored:</p>
+
+<img data-src="../assets/non-linear/01_linear.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="quadratic" class="slide level2">
+<h2>2. Quadratic</h2>
+<p>This typically forms a <strong>U-shape</strong> or inverted U-shape. A common example is <strong>weekly work hours vs.&nbsp;productivity</strong>: productivity increases up to a certain point, then drops due to fatigue.</p>
+
+<img data-src="../assets/non-linear/02_quadratic.png" class="r-stretch quarto-figure quarto-figure-center"><p>Other examples:</p>
+<ul>
+<li><strong>Kinetic Energy:</strong> Energy scales with the square of the velocity (<span class="math inline">\(E = \frac{1}{2}mv^2\)</span>).</li>
+<li><strong>Square Area:</strong> Area scales quadratically (<span class="math inline">\(A = s^2\)</span>).</li>
+<li><strong>Circle Area:</strong> Follows a quadratic relation (<span class="math inline">\(A = \pi r^2\)</span>).</li>
+</ul>
+</section>
+<section id="cubic" class="slide level2">
+<h2>3. Cubic</h2>
+<p>Characterized by an <strong>S-shape</strong> with two distinct inflection curves. This pattern frequently appears in:</p>
+
+<img data-src="../assets/non-linear/03_cubic.png" class="r-stretch quarto-figure quarto-figure-center"><p>Examples:</p>
+<ul>
+<li><strong>Balloon Volume:</strong> The relationship between a sphere’s volume and its radius is cubic (<span class="math inline">\(V = \frac{4}{3}\pi r^3\)</span>).</li>
+<li><strong>Thermodynamics:</strong> Commonly maps physical variables within this field.</li>
+</ul>
+</section>
+<section id="exponential" class="slide level2">
+<h2>4. Exponential</h2>
+<p>Here, the dependent variable grows at an accelerating rate. Clear examples include <strong>population growth</strong> or the <strong>rapid burst of bamboo growth</strong> following an initial slow phase.</p>
+
+<img data-src="../assets/non-linear/04_exponential.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="logarithmic" class="slide level2">
+<h2>5. Logarithmic</h2>
+<p>This features rapid initial growth that heavily slows over time or with increased inputs, illustrating the principle of <strong>diminishing returns</strong>.</p>
+
+<img data-src="../assets/non-linear/05_logarithmic.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
+<li>Example: In physics, the human ear’s response to sound intensity is logarithmic. Doubling the acoustic energy only produces a slight perceived increase in volume, rather than feeling twice as loud.</li>
+</ul>
+</section>
 <section id="a-synthetic-non-linear-dataset" class="slide level2">
 <h2>A synthetic non-linear dataset</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
 <li>We generate a <strong>1D input feature</strong> and a <strong>non-linear target</strong>:
 <ul>
@@ -247,26 +305,6 @@
 <li><code>input_feature</code></li>
 <li><code>target</code></li>
 </ul></li>
-</ul>
-<aside class="notes">
-<p>This controlled setup lets us know the ground-truth relationship (cubic) while still having randomness. It’s ideal for illustrating underfitting and improved models.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="visualizing-the-non-linear-pattern" class="slide level2">
-<h2>Visualizing the non-linear pattern</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<ul>
 <li>Scatter plot of <code>input_feature</code> vs <code>target</code> shows:
 <ul>
 <li>A <strong>curved</strong> trend, not a straight line.</li>
@@ -274,9 +312,10 @@
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><a href="../assets/non_linear_scatter_data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/non_linear_scatter_data.png"></a></p>
+<p><a href="../assets/non_linear_scatter_data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/non_linear_scatter_data.png"></a></p>
 </div></div>
 <aside class="notes">
+<p>This controlled setup lets us know the ground-truth relationship (cubic) while still having randomness. It’s ideal for illustrating underfitting and improved models.</p>
 <p>Encourage students to inspect the shape: a straight line will clearly miss some structure. This motivates feature engineering or non-linear models.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -303,7 +342,7 @@
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><a href="../assets/non_linear_linear_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="../assets/non_linear_linear_regression.png"></a></p>
+<p><a href="../assets/non_linear_linear_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../assets/non_linear_linear_regression.png"></a></p>
 </div></div>
 <aside class="notes">
 <p>Connect to the notion of <strong>underfitting</strong>: the model is too simple to capture the structure, even with perfect training. More data alone won’t fix a fundamentally mismatched model.</p>
@@ -319,46 +358,14 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="strategy-1-non-linear-models" class="slide level2">
-<h2>Strategy 1: Non-linear models</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
+<section id="non-linear-feature-engineering" class="slide level2">
+<h2>Non-linear feature engineering</h2>
 <ul>
-<li>One solution is to use <strong>non-linear estimators</strong> directly:
+<li>Another strategy: <strong>keep the model linear</strong>, but <strong>transform the features</strong>.
 <ul>
-<li><strong>Decision Trees</strong></li>
-<li><strong>Random Forests</strong></li>
-<li><strong>Support Vector Machines (SVMs)</strong> with non-linear kernels</li>
+<li><code>PolynomialFeatures(degree=3)</code>: <span class="math inline">\(( x^1, x^2, x^3, \dots )\)</span></li>
+<li><code>SplineTransformer(n_knots=5)</code>: split into ranges and create separate regressions</li>
 </ul></li>
-<li>These models can represent <strong>curved decision boundaries</strong> or non-linear regression functions.</li>
-</ul>
-</div><div class="column" style="width:40%;">
-<p><a href="../assets/non_linear_decision_tree.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/non_linear_decision_tree.png"></a></p>
-</div></div>
-<aside class="notes">
-<p>At this stage, keep the description high-level. The key idea is that some models are non-linear “by design” and can adapt flexibly to complex patterns.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="strategy-2-non-linear-feature-engineering" class="slide level2">
-<h2>Strategy 2: Non-linear feature engineering</h2>
-<ul>
-<li>Another strategy: <strong>keep the linear model</strong>, but <strong>transform the features</strong>.</li>
-<li>We create new features from the original input, e.g.:
-<ul>
-<li>Powers: ( x^2, x^3, )</li>
-<li>Piecewise basis functions (splines).</li>
-</ul></li>
-<li>Then we fit a <strong>linear model</strong> on these <strong>engineered features</strong>.</li>
 </ul>
 <aside class="notes">
 <p>Emphasize that a linear model on non-linear features can approximate curved functions. The model is still linear in the <strong>parameters</strong>, but non-linear in the <strong>original input</strong>.</p>
@@ -374,8 +381,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="polynomialfeatures-linearregression" class="slide level2">
-<h2>PolynomialFeatures + LinearRegression</h2>
+<section id="polynomialfeatures" class="slide level2">
+<h2>PolynomialFeatures</h2>
 <ul>
 <li>We use <code>PolynomialFeatures</code> to build powers of the input:</li>
 </ul>
@@ -422,7 +429,7 @@
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><a href="../assets/non_linear_polynomial_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/non_linear_polynomial_regression.png"></a></p>
+<p><a href="../assets/non_linear_polynomial_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../assets/non_linear_polynomial_regression.png"></a></p>
 </div></div>
 <aside class="notes">
 <p>Use side-by-side plots (or a sweep over degrees) to visually show underfitting vs overfitting. Reinforce the bias–variance trade-off.</p>
@@ -460,7 +467,7 @@
 <span id="cb2-8"><a></a>)</span>
 <span id="cb2-9"><a></a>model.fit(data, target)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:40%;">
-<p><a href="../assets/spline_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../assets/spline_regression.png"></a></p>
+<p><a href="../assets/spline_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../assets/spline_regression.png"></a></p>
 </div></div>
 <aside class="notes">
 <p>Explain that splines give more local control than a single global polynomial. We can capture curves that bend differently in different parts of the input range.</p>
@@ -493,7 +500,7 @@
 </ul></li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><a href="../assets/non_linear_spline_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/non_linear_spline_regression.png"></a></p>
+<p><a href="../assets/non_linear_spline_regression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="../assets/non_linear_spline_regression.png"></a></p>
 </div></div>
 <aside class="notes">
 <p>Encourage students to see both as feature engineering tools. Choice depends on problem, data range, and how much local flexibility is needed.</p>
@@ -509,25 +516,19 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="other-non-linear-models-overview" class="slide level2">
-<h2>Other non-linear models (overview)</h2>
+<section id="strategy-2-non-linear-models" class="slide level2">
+<h2>Strategy 2: Non-linear models</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
-<li><strong>Decision Trees:</strong>
-<ul>
-<li>Split the feature space into regions with simple predictions.</li>
-<li>Naturally non-linear and easy to visualize.</li>
-</ul></li>
-<li><strong>Random Forests / Gradient Boosting:</strong>
-<ul>
-<li>Ensembles of trees for stronger performance.</li>
-</ul></li>
-<li><strong>Support Vector Machines (SVMs):</strong>
-<ul>
-<li>With non-linear kernels (e.g.&nbsp;RBF), can learn complex boundaries.</li>
-</ul></li>
+<li>One solution is to use <strong>non-linear estimators</strong> directly. Things like: Decision Trees, Random Forests, SVMs</li>
+<li>Decision Tree Regressors automatically split features and averages it’s y values at that range</li>
 </ul>
+</div><div class="column" style="width:40%;">
+<p><a href="../assets/non_linear_decision_tree.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="../assets/non_linear_decision_tree.png"></a></p>
+</div></div>
 <aside class="notes">
-<p>This slide is a preview, not a deep dive. The goal is to position non-linear feature engineering alongside inherently non-linear estimators in the ML toolbox.</p>
+<p>At this stage, keep the description high-level. The key idea is that some models are non-linear “by design” and can adapt flexibly to complex patterns.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -546,13 +547,12 @@
 <li>Not all data is <strong>linearly</strong> related; curved patterns are common.</li>
 <li>We can address non-linearity in two main ways:
 <ul>
-<li>Use <strong>non-linear models</strong> (trees, SVMs, etc.).</li>
-<li>Use <strong>non-linear feature engineering</strong> (polynomials, splines) with linear models.</li>
-</ul></li>
-<li><code>PolynomialFeatures</code> and <code>SplineTransformer</code>:
+<li>Use <strong>non-linear models</strong> (e.g., Decision Tree).</li>
+<li>Use <strong>non-linear feature engineering</strong> (polynomials or splines) with linear models:
 <ul>
-<li>Expand a single input into richer feature sets.</li>
-<li>Let linear regression approximate complex functions.</li>
+<li><code>PolynomialFeatures</code>: <code>degree</code></li>
+<li><code>SplineTransformer</code>: <code>knots</code> and <code>degree</code></li>
+</ul></li>
 </ul></li>
 </ul>
 <aside class="notes">
@@ -570,7 +570,7 @@
       }</style></aside>
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

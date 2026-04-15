@@ -237,6 +237,8 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="module-1-linear-models">Module 1: Linear Models</h2>
 <section id="m1-1-introduction-to-ml" class="level3">
 <h3 class="anchored" data-anchor-id="m1-1-introduction-to-ml">M1-1: Introduction to ML</h3>
+<div class="columns">
+<div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Define <em>Machine Learning</em> and understand its utility</li>
@@ -246,10 +248,19 @@ window.Quarto = {
 <li>Recognize foundations and related fields</li>
 <li>Recognize the three main topics of ML</li>
 </ol>
-<p><strong>Materials:</strong> <a href="../W3/M1/lessons/01_slides_Intro_ML.html">[Slides]</a></p>
+</div><div class="column">
+<p><strong>Materials:</strong></p>
+<ul>
+<li><a href="../W3/M1/lessons/01_slides_Intro_ML.html">Slides: Introduction</a></li>
+</ul>
+</div>
+</div>
+<!-- end columns -->
 </section>
 <section id="m1-2-linear-models" class="level3">
 <h3 class="anchored" data-anchor-id="m1-2-linear-models">M1-2: Linear Models</h3>
+<div class="columns">
+<div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Given a DataFrame, split the feature columns from the target columns</li>
@@ -265,10 +276,11 @@ window.Quarto = {
 <li>Train a classifier (<code>LogisticRegression</code>) model</li>
 <li>Given a <code>DecisionBoundaryDisplay</code> distinguish between a classifier’s <code>predict</code> and <code>predict_proba</code> methods</li>
 </ol>
+</div><div class="column">
 <p><strong>Materials:</strong></p>
 <ul>
 <li><a href="../W3/M1/lessons/02_slides_linear_models.html">Slides: Linear Models</a></li>
-<li><a href="../W3/M1/lessons/03_lab_linear_models.html">[Lab: Linear Models]</a></li>
+<li><a href="../W3/M1/lessons/03_lab_linear_models.html">Lab: Linear Models</a></li>
 </ul>
 <p><strong>Resources</strong>:</p>
 <ul>
@@ -281,9 +293,14 @@ window.Quarto = {
 <li><a href="../W3/M1/exercises/ex2_reg.html">M1.Ex2: Model Experience vs Salary</a></li>
 </ul>
 </section>
+</div>
+</div>
+<!-- end columns -->
 </section>
 <section id="m1-3-non-linear-patterns" class="level3">
 <h3 class="anchored" data-anchor-id="m1-3-non-linear-patterns">M1-3: Non-linear Patterns</h3>
+<div class="columns">
+<div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Distinguish between linear and non-linear relationships.</li>
@@ -292,6 +309,7 @@ window.Quarto = {
 <li>Fit non-linear patterns using linear models with <code>SplineTransformer</code>.</li>
 <li>Recognize Decision Trees and Support Vector Machines as non-linear models.</li>
 </ol>
+</div><div class="column">
 <p><strong>Materials:</strong></p>
 <ul>
 <li><a href="../W3/M1/lessons/04_slides_non_linear_patterns.html">Slides: Non-linear patterns</a></li>
@@ -304,32 +322,16 @@ window.Quarto = {
 <li><a href="../W3/M1/exercises/ex4_non-linear.html">M1.Ex4: Modeling Non-linear Patterns</a></li>
 </ul>
 </section>
+</div>
+</div>
+<!-- end columns -->
 </section>
 </section>
 <section id="module-2-predictive-modeling-pipelines" class="level2">
 <h2 class="anchored" data-anchor-id="module-2-predictive-modeling-pipelines">Module 2: Predictive Modeling Pipelines</h2>
-<section id="m2-1-data-profiling-and-privacy" class="level3">
-<h3 class="anchored" data-anchor-id="m2-1-data-profiling-and-privacy">M2-1: Data Profiling and Privacy</h3>
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Define <em>data quality profiling</em> and why it matters</li>
-<li>Explain how profiling differs by <em>data type</em> (tabular, time-series, text, …)</li>
-<li>Describe how to handle <em>large datasets</em> (e.g., sampling)</li>
-<li>Use <em>dataset comparison</em> to track quality across versions</li>
-<li>Understand <em>data quality alerts</em> and turn them into next actions</li>
-<li>Understand why <strong>Data Privacy</strong> matters</li>
-<li>Given a dataset, indentify fields that count as PII directly and indirectly</li>
-<li>Given a dataset, apply techniques to protect sensitive data</li>
-</ol>
-<p><strong>Materials</strong>:</p>
-<ol type="1">
-<li><a href="../W3/M2/lessons/01_slides_data_quality_profiling.html">Slides 1</a></li>
-<li><a href="../W3/M2/lessons/02_slides_sensitive_data.html">Slides 2</a></li>
-</ol>
-</section>
-<section id="m2-2-pipelines" class="level3">
-<h3 class="anchored" data-anchor-id="m2-2-pipelines">M2-2: Pipelines</h3>
 <p>Goal: Build a Pipeline to handle preprocessing of both categorical and numerical features.</p>
+<div class="columns">
+<div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Identify causes of missing data</li>
@@ -346,6 +348,7 @@ window.Quarto = {
 <li>Distinguish between <code>fit</code>, <code>predict</code>, and <code>transform</code> methods</li>
 <li>Put together pieces of the <code>Pipeline</code> using objects like <code>ColumnTransformer</code></li>
 </ol>
+</div><div class="column">
 <p><strong>Materials:</strong></p>
 <ol type="1">
 <li><a href="../W3/M2/lessons/03_slides_pipeline.html">Slides: Pipelines</a>
@@ -359,8 +362,8 @@ window.Quarto = {
 <section id="exercises-2" class="level4">
 <h4 class="anchored" data-anchor-id="exercises-2">Exercises</h4>
 <ol type="1">
-<li><a href="M2/exercises/ex1_multi-reg.ipynb.ipynb">M2.Ex1: Advertising Revenue</a></li>
-<li><a href="M2/exercises/ex2_multi-reg.ipynb.ipynb">M2.Ex2: Fuel Efficiency</a></li>
+<li><a href="../W3/M2/exercises/ex1_multi-reg.html">M2.Ex1: Advertising Revenue</a></li>
+<li><a href="../W3/M2/exercises/ex2_multi-reg.html">M2.Ex2: Fuel Efficiency</a></li>
 </ol>
 <p><strong>Bonus</strong>:</p>
 <ol type="1">
@@ -368,31 +371,42 @@ window.Quarto = {
 <li><a href="../W3/M2/exercises/02_high-cardinality.html">High-cardinality categorical features</a></li>
 </ol>
 </section>
-</section>
+</div>
+</div>
+<!-- end columns -->
 </section>
 <section id="module-3-model-selection-and-evaluation" class="level2">
 <h2 class="anchored" data-anchor-id="module-3-model-selection-and-evaluation">Module 3: Model Selection and Evaluation</h2>
 <section id="m3-1-evaluation-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="m3-1-evaluation-metrics">M3-1: Evaluation Metrics</h3>
+<div class="columns">
+<div class="column">
 <p>Learning outcomes:</p>
+<p>In this lecture we learn to:</p>
 <ol type="1">
-<li>Distinguish between loss function and evaluation metric</li>
+<li>Distinguish <em>loss functions</em> from <em>evaluation metrics</em></li>
 <li>List 3 Regression Metrics and 3 Classification Metrics</li>
-<li>Given a model, verify it is actually learning from the data</li>
-<li>Explain why more data might not add any information to the model</li>
-<li>Suggest ways in which data would actually add information to the model</li>
-<li>Measure the scalability of the model</li>
-<li>Explain the utility of a validation split</li>
-<li>Tell whether a model is under-fitting or over-fitting; and explain why</li>
+<li>Establish a <em>baseline</em> for learning</li>
+<li>Measure the <em>scalability</em> of the model</li>
+<li>Explain why more data might not add any information to the model and suggest solution</li>
+<li>Detect <em>over-fitting</em> and <em>under-fitting</em> by estimating <em>generalization</em> performance</li>
+<li>Understand and use <em>cross-validation</em> properly</li>
+<li>Explain the utility of the <em>train/validation/test</em> splits</li>
 </ol>
+</div><div class="column">
 <p><strong>Materials:</strong></p>
 <ol type="1">
-<li><a href="../W3/M3/lessons/01_slides_evaluation.html">Slides</a></li>
-<li><a href="../W3/M3/lessons/02_lab_generalization.html">Lab</a></li>
+<li><a href="../W3/M3/lessons/01_slides_evaluation.html">Slides: Model Evaluation</a></li>
+<li><a href="../W3/M3/lessons/02_lab_generalization.html">Lab: Under-fitting and Over-fitting</a></li>
 </ol>
+</div>
+</div>
+<!-- end columns -->
 </section>
 <section id="m3-2-hyper-parameter-tuning" class="level3">
 <h3 class="anchored" data-anchor-id="m3-2-hyper-parameter-tuning">M3-2: Hyper-parameter Tuning</h3>
+<div class="columns">
+<div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Given Linear Regression or Decision Tree model, distinguish between it’s <em>parameters</em> and <em>hyper-parameters</em></li>
@@ -401,31 +415,41 @@ window.Quarto = {
 <li>Explain the difference between Grid Search and either Random Search or Bayesian Search</li>
 <li>Recognize the more efficient, model-specific cross-validations</li>
 <li>Explain the problem of data dependency and why sample grouping solves it</li>
-<li>Distinguish different cases to use <code>random_state</code> correctly to control randomness</li>
 </ol>
+</div><div class="column">
 <p><strong>Materials:</strong></p>
-<ol type="1">
-<li><a href="../W3/M3/lessons/03_hyper-parameter_tuning.html">Lab 1</a></li>
-<li><a href="../W3/M3/lessons/04_sample_grouping.html">Lab 2</a></li>
-<li><a href="../W3/M3/texts/text_controlling_randomness.html">Text</a></li>
-</ol>
+<ul>
+<li><a href="../W3/M3/lessons/03_hyper-parameter_tuning.html">Lab: Hyper-parameter Tuning</a></li>
+<li><a href="../W3/M3/lessons/04_sample_grouping.html">Lab: Sample Grouping</a></li>
+</ul>
+<p><strong>Extra:</strong></p>
+<ul>
+<li><a href="../W3/M3/texts/text_controlling_randomness.html">Text: Controlling Randomness</a><br>
+Distinguish different cases to use <code>random_state</code> correctly to control randomness</li>
+</ul>
+</div>
+</div>
+<!-- end columns -->
 </section>
 </section>
 <section id="module-4-regression-and-classification-metrics" class="level2">
 <h2 class="anchored" data-anchor-id="module-4-regression-and-classification-metrics">Module 4: Regression and Classification Metrics</h2>
 <section id="m4-1-regression-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="m4-1-regression-metrics">M4-1: Regression Metrics</h3>
+<div class="columns">
+<div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Explain why regression models need dedicated evaluation metrics.</li>
-<li>Interpret and compare MSE, (<span class="math inline">R^2</span>), MAE, median AE, and MAPE.</li>
-<li>Diagnose regression models visually using prediction and residual plots.</li>
-<li>Explain when a target transformation can improve model fit and metrics.</li>
+<li>Interpret and compare <em>MSE</em>, (<span class="math inline">R^2</span>), <em>MAE</em>, <em>median AE</em>, and <em>MAPE</em>.</li>
+<li>Diagnose regression models visually using <em>prediction</em> and <em>residual plots</em>.</li>
+<li>Explain when a <em>target transformation</em> can improve model fit and metrics.</li>
 </ol>
+</div><div class="column">
 <p><strong>Materials:</strong></p>
 <ul>
-<li><a href="../W3/M4/lessons/01_slides_regression_metrics.html">Slides</a></li>
-<li><a href="../W3/M4/lessons/02_lab_regression_metrics.html">Lab</a></li>
+<li><a href="../W3/M4/lessons/01_slides_regression_metrics.html">Slides: Regression Metrics</a></li>
+<li><a href="../W3/M4/lessons/02_lab_regression_metrics.html">Lab: Evaluation of Regression Models</a></li>
 </ul>
 <section id="exercises-3" class="level4">
 <h4 class="anchored" data-anchor-id="exercises-3">Exercises</h4>
@@ -433,6 +457,9 @@ window.Quarto = {
 <li><a href="../W3/M4/exercises/ex1_pycaret_regression.html">M4.Ex1: Housing Prices Model (PyCaret)</a></li>
 </ul>
 </section>
+</div>
+</div>
+<!-- end columns -->
 </section>
 <section id="m4-2-classification-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="m4-2-classification-metrics">M4-2: Classification Metrics</h3>
@@ -522,6 +549,25 @@ window.Quarto = {
 <ul>
 <li><a href="../W3/M5/lessons/06_lab_shap.html">[Lab]</a></li>
 </ul>
+</section>
+<section id="m5-4-data-profiling-and-privacy" class="level3">
+<h3 class="anchored" data-anchor-id="m5-4-data-profiling-and-privacy">M5-4: Data Profiling and Privacy</h3>
+<p>Learning outcomes:</p>
+<ol type="1">
+<li>Define <em>data quality profiling</em> and why it matters</li>
+<li>Explain how profiling differs by <em>data type</em> (tabular, time-series, text, …)</li>
+<li>Describe how to handle <em>large datasets</em> (e.g., sampling)</li>
+<li>Use <em>dataset comparison</em> to track quality across versions</li>
+<li>Understand <em>data quality alerts</em> and turn them into next actions</li>
+<li>Understand why <strong>Data Privacy</strong> matters</li>
+<li>Given a dataset, indentify fields that count as PII directly and indirectly</li>
+<li>Given a dataset, apply techniques to protect sensitive data</li>
+</ol>
+<p><strong>Materials</strong>:</p>
+<ol type="1">
+<li><a href="../W3/M5/lessons/07_slides_data_quality_profiling.html">Slides 1</a></li>
+<li><a href="../W3/M5/lessons/08_slides_sensitive_data.html">Slides 2</a></li>
+</ol>
 </section>
 </section>
 <section id="project" class="level2">

@@ -212,7 +212,7 @@
 <p>In this lecture we learn to:</p>
 <ol type="1">
 <li>Distinguish <strong>loss functions</strong> (training objective) from <strong>evaluation metrics</strong> (business/practical score)</li>
-<li>Verify that a model is <strong>learning</strong> by beating simple baselines</li>
+<li>Establish a baseline for <strong>learning</strong></li>
 <li>Understand when <strong>more data</strong> helps (and when it does not)</li>
 <li>Detect <strong>over-fitting vs under-fitting</strong> and reason about <strong>generalization</strong></li>
 <li>Estimate generalization with proper <strong>train/validation/test splits</strong> and <strong>cross-validation</strong></li>
@@ -236,7 +236,7 @@
 <ul>
 <li><strong>Loss</strong> (lower is better):
 <ul>
-<li>internal objective minimized during training</li>
+<li><strong>Internal objective minimized during training</strong></li>
 <li>examples:
 <ul>
 <li>MSE for <code>LinearRegression</code></li>
@@ -246,11 +246,11 @@
 </ul></li>
 <li><strong>Metrics</strong>:
 <ul>
-<li>used to evaluate performance after training</li>
+<li><strong>A quantity to evaluate the performance</strong> (usually after training)</li>
 <li>used to compare models from a practical/business perspective</li>
 <li>examples:
 <ul>
-<li>Regression: <code>R^2</code>, MSE, MAPE</li>
+<li>Regression: <span class="math inline">\(R^2\)</span>, MSE, MAPE</li>
 <li>Classification: Accuracy, Precision, Recall</li>
 </ul></li>
 </ul></li>
@@ -296,7 +296,7 @@
       }</style></aside>
 </section>
 <section id="how-to-verify-the-model-is-learning" class="slide level2">
-<h2>How to verify the model is learning</h2>
+<h2>How to verify the model is learning?</h2>
 <ul>
 <li>Core sanity check:
 <ul>
@@ -305,6 +305,7 @@
 </ul></li>
 <li>If it is not, common causes include:
 <ul>
+<li>wrong model</li>
 <li>unhelpful features</li>
 <li>wrong hyperparameters</li>
 <li>class imbalance issues</li>
@@ -332,7 +333,7 @@
 <li><code>most_frequent</code>: always predicts the most frequent training label</li>
 <li><code>stratified</code>: random predictions respecting the class distribution</li>
 </ul>
-<p>Key point: - in all cases, <code>predict()</code> <strong>ignores input features</strong></p>
+<p>Key point: in all cases, <code>predict()</code> <strong>ignores input features</strong></p>
 <aside class="notes">
 <p>Reinforce why baselines matter: they represent the performance you get without learning from the input. Your real model should beat them; otherwise, something is wrong (features, targets, or evaluation setup).</p>
 <style type="text/css">
@@ -406,6 +407,7 @@
 <li><strong>The model is capable</strong>: the learning algorithm can represent the real pattern</li>
 <li><strong>Data quality matters</strong>: avoid “garbage in - garbage out”</li>
 </ol>
+<p>Our goal is new information, not just more data points.</p>
 <aside class="notes">
 <p>Set expectations: collecting more data is an investment, not a guarantee. Performance improves only when at least one of these conditions is the limiting factor.</p>
 <style type="text/css">
@@ -422,20 +424,17 @@
 </section>
 <section id="more-data-works-when-it-fills-gaps" class="slide level2">
 <h2>More data works when it fills gaps</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
+<p>Figure below shows:</p>
 <ul>
-<li>Adding data in regions you already understand (“tails”) may not improve much</li>
-<li>You get the biggest benefit when new data covers <strong>missing/uncertain regions</strong></li>
+<li>Real curve (Blue)</li>
+<li>Model curve (Orange)</li>
+<li>Data points come from the real curve with a bit of <strong>noise</strong></li>
 </ul>
-</div><div class="column" style="width:60%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/adding_wrong_data_points.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure: blue is real, orange is model, points are data."><img data-src="../assets/adding_wrong_data_points.png" alt="Figure: blue is real, orange is model, points are data."></a></p>
-<figcaption>Figure: blue is real, orange is model, points are data.</figcaption>
-</figure>
-</div>
-</div></div>
+
+<img data-src="../assets/adding_wrong_data_points.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
+<li>Adding data in regions the model already learned won’t be much of a gain</li>
+<li>You get the biggest benefit when new data covers <strong>missing regions</strong></li>
+</ul>
 <aside class="notes">
 <p>Interpretation: the model’s weak generalization comes from regions it rarely sees during training (the “uncertain” middle). Adding points to the already-covered tails mostly reinforces what the model already assumes.</p>
 <style type="text/css">
@@ -452,26 +451,17 @@
 </section>
 <section id="more-data-may-fail-if-the-model-is-too-inflexible" class="slide level2">
 <h2>More data may fail if the model is too inflexible</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
+<p>Figure below shows:</p>
 <ul>
-<li>If your model class cannot represent the pattern:
-<ul>
-<li>adding more samples will not fix the mismatch</li>
-</ul></li>
-<li>Example idea:
-<ul>
-<li>trying to model a nonlinear curve with a straight-line model</li>
-</ul></li>
+<li>Model (sky blue)</li>
+<li>Left: points coming from a real, hidden curve</li>
+<li>Right: more points</li>
 </ul>
-</div><div class="column" style="width:60%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/inflexible_model.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure: blue is model, points are data."><img data-src="../assets/inflexible_model.png" alt="Figure: blue is model, points are data."></a></p>
-<figcaption>Figure: blue is model, points are data.</figcaption>
-</figure>
-</div>
-</div></div>
+
+<img data-src="../assets/inflexible_model.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
+<li>Model is <strong>inflexible</strong> to new knowledge. Adding more samples won’t inform a simplistic model.</li>
+<li>Here: we’re trying to model a nonlinear curve (complex) with a straight-line model (simple)</li>
+</ul>
 <aside class="notes">
 <p>Reinforce: if the model family cannot represent the true pattern, collecting more samples just makes the wrong bias more “confident.” The fix is to increase model capacity or add better features.</p>
 <style type="text/css">
@@ -809,7 +799,7 @@
 <li>In time-series, order matters</li>
 <li>Use strategies that preserve order:
 <ul>
-<li><code>TimeSeriesSplit</code></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html"><code>TimeSeriesSplit</code></a></li>
 </ul></li>
 <li>Often after model selection:
 <ul>
