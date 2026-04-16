@@ -34,7 +34,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2100c1438b0923e628a95dd080b2df1a.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2aa7c9d1fb3ff478ff456686071e1119.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -169,12 +169,8 @@
 <ul>
 <li>If you can measure it, you can improve it.</li>
 <li>Metrics help capture a business goal into a quantitative target.</li>
-<li>Metrics quantify the “gap” between:
-<ul>
-<li>a guessing model</li>
-<li>a perfect model</li>
-<li>progress over time</li>
-</ul></li>
+<li>Quantify progress over time:<br>
+baseline vs current vs perfect model.</li>
 <li>Different metrics imply different trade-offs, so they encode what you value.</li>
 </ul>
 </section>
@@ -184,13 +180,8 @@
 <li><strong>Accuracy</strong> is the fraction of correct predictions.</li>
 <li>Accuracy can look good even when the model fails at the rare class.</li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/classification_metrics_target_countplot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure: Imbalance"><img data-src="../assets/classification_metrics_target_countplot.png" alt="Figure: Imbalance"></a></p>
-<figcaption>Figure: Imbalance</figcaption>
-</figure>
-</div>
-<aside class="notes">
+
+<img data-src="../assets/classification_metrics_target_countplot.png" class="r-stretch quarto-figure quarto-figure-center"><aside class="notes">
 <p>Use accuracy as a sanity check, not as the only decision rule.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -214,43 +205,148 @@
 </ul>
 <p>Is accuracy a good metric for imbalanced data? No.</p>
 </section>
+<section id="predicted-vs-actual-classes" class="slide level2">
+<h2>Predicted vs Actual Classes</h2>
+
+<img data-src="../assets/classification_table.png" class="r-stretch quarto-figure quarto-figure-center"><p>All possible outcomes:</p>
+<ul>
+<li><strong>Correct</strong>:
+<ul>
+<li><strong>TP</strong>: True Positives</li>
+<li><strong>TN</strong>: True Negatives</li>
+</ul></li>
+<li><strong>Incorrect</strong>:
+<ul>
+<li><strong>FP</strong>: False Positives</li>
+<li><strong>FN</strong>: False Negatives</li>
+</ul></li>
+</ul>
+</section>
 <section id="point-metrics-confusion-matrix" class="slide level2">
 <h2>Point Metrics: Confusion Matrix</h2>
+<p><strong>Confusion Matrix</strong> where only the diagonals are <strong>Correct</strong> (TP and TN).</p>
+
+<img data-src="../assets/classification_metrics_confusion_matrix_logistic.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="confusion-matrix-dummy-classifiers" class="slide level2">
+<h2>Confusion Matrix: Dummy Classifiers</h2>
+
+<img data-src="../assets/classification_metrics_confusion_matrix_dummies.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="point-metrics" class="slide level2">
+<h2>Point Metrics</h2>
+<ul>
+<li><strong>Accuracy</strong> is the proportion of all classifications that were correct, whether positive or negative: <span class="math display">\[\frac{TP + TN}{\text{TP + TN + FP + FN}}\]</span></li>
+</ul>
+<div class="fragment">
+<p>However, when the dataset is <strong>imbalanced</strong> or where one kind of mistake (FN or FP) is <strong>more costly</strong> than the other (which is the case in most real-world applications) it’s better to optimize for one of the other metrics instead.</p>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column">
+<p><strong>Precision</strong> is the proportion of all the model’s positive classifications that are actually positive: <span class="math display">\[\frac{TP}{TP + FP}\]</span></p>
+</div><div class="column">
+<p><strong>Recall</strong> is the proportion of all actual positives that were classified correctly as positives: <span class="math display">\[\text{Recall} = \frac{TP}{TP + FN}\]</span></p>
+</div></div>
+<!-- end columns -->
+</div>
+<div class="fragment">
+<p>Precision and recall often show an inverse relationship:</p>
+<ul>
+<li>Precision improves as false positives decrease</li>
+<li>Recall improves when false negatives decrease</li>
+</ul>
+</div>
+</section>
+<section id="probability-near-the-decision-boundary" class="slide level2">
+<h2>Probability Near the Decision Boundary</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>Confusion matrices organize predictions into error types:</p>
 <ul>
-<li><strong>False Positives (FP):</strong> Predicted positive, actually negative</li>
-<li><strong>False Negatives (FN):</strong> Predicted negative, actually positive</li>
-</ul>
-<p>All possible outcomes:</p>
-<ul>
-<li><code>TP</code> (True Positives)</li>
-<li><code>TN</code> (True Negatives)</li>
-<li><code>FP</code> (False Positives)</li>
-<li><code>FN</code> (False Negatives)</li>
+<li>Logistic regression outputs probabilities (not hard labels) for each input.</li>
+<li>Near the decision boundary, probabilities are close to <code>0.5</code> (high uncertainty).</li>
+<li>Far from the boundary, probabilities are closer to <code>0</code> or <code>1</code> (more confident).</li>
 </ul>
 </div><div class="column" style="width:60%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/classification_metrics_confusion_matrix_logistic.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure: Confusion Matrix"><img data-src="../assets/classification_metrics_confusion_matrix_logistic.png" alt="Figure: Confusion Matrix"></a></p>
-<figcaption>Figure: Confusion Matrix</figcaption>
-</figure>
-</div>
+<p><a href="../../M1/assets/lab_logistic_decision_boundary_proba.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../../M1/assets/lab_logistic_decision_boundary_proba.png"></a></p>
 </div></div>
+</section>
+<section id="distance-near-the-decision-boundary" class="slide level2">
+<h2>Distance Near the Decision Boundary</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ul>
+<li>Signed distance from the decision boundary.</li>
+<li>Positive if on the positive side, negative if on the negative side.</li>
+<li>Zero means the point is exactly on the boundary.</li>
+</ul>
+</div><div class="column" style="width:60%;">
+<p><a href="../../M1/assets/lab_logistic_decision_boundary.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../../M1/assets/lab_logistic_decision_boundary.png"></a></p>
+</div></div>
+</section>
+<section id="thresholding-after-probability-and-distance" class="slide level2">
+<h2>Thresholding after: Probability and Distance</h2>
+<ul>
+<li>Models in <code>sklearn</code> can produce either: <strong>Probability</strong>, <strong>Distance</strong> or both.</li>
+<li><code>model.predict(X)</code> is the final “gate”; it uses a <strong>threshold</strong> for the <em>Positive</em> class:
+<ul>
+<li>default <code>0.5</code> for probability</li>
+<li>default <code>0.0</code> for distance</li>
+</ul></li>
+<li>A different threshold gives:
+<ul>
+<li>different predictions</li>
+<li>different performance</li>
+<li>different confusion matrix</li>
+</ul></li>
+</ul>
+</section>
+<section id="interactive-demo" class="slide level2">
+<h2>Interactive Demo</h2>
+<p><a href="../../../W3/M4/lessons/widget_threshold.html" class="center"><strong>Interactive Demo</strong>: Classifier Threshold effect on point and summary metrics</a></p>
 </section>
 <section id="point-metrics-summary" class="slide level2">
 <h2>Point Metrics Summary</h2>
-<p>Common metrics derived from <code>TP</code>, <code>TN</code>, <code>FP</code>, <code>FN</code>:</p>
-<ul>
-<li><strong>Accuracy:</strong> <code>(TP + TN) / (TP + TN + FP + FN)</code></li>
-<li><strong>Precision:</strong> <code>TP / (TP + FP)</code><br>
-Precision answers: “Of the predicted positives, how many were correct?”</li>
-<li><strong>Recall (Sensitivity):</strong> <code>TP / (TP + FN)</code><br>
-Recall answers: “Of the actual positives, how many did we find?”</li>
-<li><strong>Specificity:</strong> <code>TN / (TN + FP)</code></li>
-<li><strong>F1 score:</strong> <code>2TP / (2TP + FP + FN)</code> (hybrid when you need both)</li>
-</ul>
+<p>The following metrics are commonly used to assess the performance of classification models:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric</th>
+<th style="text-align: left;">Formula</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Accuracy</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\frac{TP + TN}{TP + TN + FP + FN}\)</span></td>
+<td style="text-align: left;">Overall performance of model</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Precision</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\frac{TP}{TP + FP}\)</span></td>
+<td style="text-align: left;">How accurate the positive predictions are</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Recall or Sensitivity</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\frac{TP}{TP + FN}\)</span></td>
+<td style="text-align: left;">Coverage of actual positive sample</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Specificity</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\frac{TN}{TN + FP}\)</span></td>
+<td style="text-align: left;">Coverage of actual negative sample</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>F1 score</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\frac{2TP}{2TP + FP + FN}\)</span></td>
+<td style="text-align: left;">Hybrid metric useful for unbalanced classes</td>
+</tr>
+</tbody>
+</table>
 <aside class="notes">
 <p>Precision-recall trade-off is not an accident; it is controlled by the decision rule (threshold).</p>
 <style type="text/css">
@@ -265,52 +361,6 @@ Recall answers: “Of the actual positives, how many did we find?”</li>
           display:block!important;
       }</style></aside>
 </section>
-<section id="confusion-matrix-dummy-classifiers" class="slide level2">
-<h2>Confusion Matrix: Dummy Classifiers</h2>
-<p><a href="../assets/classification_metrics_confusion_matrix_dummies.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/classification_metrics_confusion_matrix_dummies.png"></a></p>
-</section>
-<section id="thresholding-after-probability-and-distance" class="slide level2 scrollable">
-<h2>Thresholding after: Probability and Distance</h2>
-<p>A binary classifier produces a continuous value first, and <code>predict()</code> turns that number into a class using a threshold:</p>
-<ol type="1">
-<li><code>predict_proba()</code> thresholds a <strong>Probability</strong>:
-<ul>
-<li>positive if <code>P(positive) &gt; 0.5</code></li>
-</ul></li>
-<li><code>decision_function()</code> thresholds a <strong>Distance</strong> from the boundary:
-<ul>
-<li>positive if <code>score &gt; 0.0</code></li>
-</ul></li>
-</ol>
-<p>So <code>predict()</code> is the final “gate” that decides what errors you make.</p>
-<p><a href="../../../W3/M4/lessons/widget_threshold.html">Demo: Classifier Threshold effect on point and summary metrics</a>.</p>
-</section>
-<section id="probability-near-the-decision-boundary" class="slide level2">
-<h2>Probability Near the Decision Boundary</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<ul>
-<li>Logistic regression outputs probabilities (not hard labels) for each input.</li>
-<li>Near the decision boundary, probabilities are close to <code>0.5</code> (high uncertainty).</li>
-<li>Far from the boundary, probabilities are closer to <code>0</code> or <code>1</code> (more confident).</li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><a href="../../M1/assets/lab_logistic_decision_boundary_proba.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../../M1/assets/lab_logistic_decision_boundary_proba.png"></a></p>
-</div></div>
-</section>
-<section id="distance-near-the-decision-boundary" class="slide level2">
-<h2>Distance Near the Decision Boundary</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<ul>
-<li>Signed distance from the decision boundary.</li>
-<li>Positive if on the positive side, negative if on the negative side.</li>
-<li>Zero means the point is exactly on the boundary.</li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><a href="../../M1/assets/lab_logistic_decision_boundary.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../../M1/assets/lab_logistic_decision_boundary.png"></a></p>
-</div></div>
-</section>
 <section id="summary-metrics-pr-curve" class="slide level2">
 <h2>Summary Metrics: PR Curve</h2>
 <div class="columns">
@@ -324,7 +374,7 @@ Recall answers: “Of the actual positives, how many did we find?”</li>
 <li><strong>Average Precision (AP)</strong> is the area under the PR curve.</li>
 </ul>
 </div><div class="column" style="width:60%;">
-<p><a href="../assets/classification_metrics_precision_recall_curve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/classification_metrics_precision_recall_curve.png"></a></p>
+<p><a href="../assets/classification_metrics_precision_recall_curve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../assets/classification_metrics_precision_recall_curve.png"></a></p>
 </div></div>
 </section>
 <section id="summary-metrics-roc-curve" class="slide level2">
@@ -340,7 +390,7 @@ Recall answers: “Of the actual positives, how many did we find?”</li>
 <li><strong>ROC-AUC</strong> summarizes the whole curve into one number.</li>
 </ul>
 </div><div class="column" style="width:60%;">
-<p><a href="../assets/classification_metrics_roc_curve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../assets/classification_metrics_roc_curve.png"></a></p>
+<p><a href="../assets/classification_metrics_roc_curve.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../assets/classification_metrics_roc_curve.png"></a></p>
 </div></div>
 </section>
 <section id="comparing-classifiers" class="slide level2">
@@ -357,7 +407,7 @@ Recall answers: “Of the actual positives, how many did we find?”</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:60%;">
-<p><a href="../assets/classification_metrics_pr_curves_models.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../assets/classification_metrics_pr_curves_models.png"></a></p>
+<p><a href="../assets/classification_metrics_pr_curves_models.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../assets/classification_metrics_pr_curves_models.png"></a></p>
 </div></div>
 </section>
 <section id="summary-classification-metrics-toolkit" class="slide level2">

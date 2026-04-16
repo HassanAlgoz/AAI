@@ -100,7 +100,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2100c1438b0923e628a95dd080b2df1a.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2aa7c9d1fb3ff478ff456686071e1119.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -476,68 +476,6 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="model-scalability-can-the-model-learn-from-more-data" class="slide level2">
-<h2>Model scalability: can the model learn from more data?</h2>
-<ul>
-<li><strong>Learning curves</strong> show how performance changes as training size increases</li>
-<li>Typical intuition:
-<ul>
-<li>train score vs test score shape can reveal under-fitting, good-fit, or over-fitting</li>
-</ul></li>
-<li>A <strong>test-score plateau</strong> can indicate:
-<ul>
-<li>more data might not improve generalization anymore</li>
-</ul></li>
-</ul>
-<aside class="notes">
-<p>Reading learning curves: pay attention to whether the <em>gap</em> between train and test shrinks (variance reduction via more data) or whether both curves improve slowly (bias/under-fitting). When the test curve plateaus, new data often becomes diminishing returns.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="learning-curve" class="slide level2">
-<h2>Learning Curve</h2>
-<p><strong>Learning curves</strong> show the effect of adding more training samples.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="https://scikit-learn.org/stable/_images/sphx_glr_plot_learning_curve_001.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure: Learning Curve"><img data-src="https://scikit-learn.org/stable/_images/sphx_glr_plot_learning_curve_001.png" alt="Figure: Learning Curve"></a></p>
-<figcaption>Figure: Learning Curve</figcaption>
-</figure>
-</div>
-<p>Press <code>S</code> to open speaker notes.</p>
-<aside class="notes">
-<p>Left: naive Bayes classifier. Its shape can be found in more complex datasets very often:</p>
-<ul>
-<li>the training score is very high when using few samples for training and decreases when increasing the number of samples</li>
-<li>whereas the test score is very low at the beginning and then increases when adding samples.</li>
-<li>the training and test scores become more realistic when all the samples are used for training.</li>
-</ul>
-<p>Right: SVM classifier with RBF kernel.</p>
-<ul>
-<li>The training score remains high regardless of the size of the training set.</li>
-<li>On the other hand, the test score increases with the size of the training dataset.</li>
-<li>Indeed, it increases up to a point where it reaches a plateau.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="over-fitting-and-under-fitting" class="slide level2">
 <h2>Over-fitting and under-fitting</h2>
 <p>Both regression and classification models can:</p>
@@ -562,25 +500,16 @@
 </section>
 <section id="classification-under-fit-vs-optimal-vs-over-fit" class="slide level2">
 <h2>Classification: under-fit vs optimal vs over-fit</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<ul>
-<li>Under-fitting:
-<ul>
-<li>model cannot capture the pattern</li>
-</ul></li>
-<li>Over-fitting:
-<ul>
-<li>model captures noise and fails to generalize</li>
-</ul></li>
-<li>Optimal fit:
-<ul>
-<li>best balance between the two</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><a href="../assets/classification_under_optimal_overfitting.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/classification_under_optimal_overfitting.png"></a></p>
+
+<img data-src="../assets/classification_under_optimal_overfitting.png" class="r-stretch quarto-figure quarto-figure-center"><div class="columns">
+<div class="column center" style="width:33%;">
+<p>Model cannot capture the pattern.</p>
+</div><div class="column center" style="width:33%;">
+<p>Best balance between the two.</p>
+</div><div class="column center" style="width:33%;">
+<p>Model captures noise and fails to generalize.</p>
 </div></div>
+<!-- end columns -->
 <aside class="notes">
 <p>Frame this as “complexity vs generalization.” Under-fitting misses the real structure (too much bias). Over-fitting captures idiosyncrasies/noise (too much variance). The optimal region is the one that would perform best on unseen data.</p>
 <style type="text/css">
@@ -597,18 +526,16 @@
 </section>
 <section id="regression-under-fit-vs-optimal-vs-over-fit" class="slide level2">
 <h2>Regression: under-fit vs optimal vs over-fit</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<ul>
-<li>Visually:
-<ul>
-<li>under-fit curves are too “flat” or miss structure</li>
-<li>over-fit curves follow noise and swing too much</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><a href="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_001.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_001.png"></a></p>
+
+<img data-src="https://scikit-learn.org/stable/_images/sphx_glr_plot_underfitting_overfitting_001.png" class="r-stretch quarto-figure quarto-figure-center"><div class="columns">
+<div class="column center" style="width:33%;">
+<p>Model cannot capture the pattern.</p>
+</div><div class="column center" style="width:33%;">
+<p>Best balance between the two.</p>
+</div><div class="column center" style="width:33%;">
+<p>Model captures noise and fails to generalize.</p>
 </div></div>
+<!-- end columns -->
 <aside class="notes">
 <p>For regression, interpret “wiggliness” as capacity. Under-fit curves are too rigid and miss patterns; over-fit curves follow noise. The goal is not to minimize training error only, but to get the curve that extrapolates/generalizes best.</p>
 <style type="text/css">
@@ -623,14 +550,16 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="generalization" class="slide level2">
-<h2>Generalization</h2>
+<section id="bias-variance-tradeoff" class="slide level2">
+<h2>Bias-variance Tradeoff</h2>
+<div class="columns">
+<div class="column">
 <ul>
 <li><strong>Generalization</strong>:
 <ul>
 <li>how well a model fits data it has <strong>not seen during training</strong></li>
 </ul></li>
-<li>Bias vs Variance (sources of error):
+<li><a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">Bias vs Variance (sources of error)</a>:
 <ul>
 <li><strong>Bias</strong>: error from being too simple
 <ul>
@@ -643,6 +572,14 @@
 </ul></li>
 <li>A good model strikes a balance between both</li>
 </ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/bias-variance_tradeoff.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../assets/bias-variance_tradeoff.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</div></div>
+<!-- end columns -->
 <aside class="notes">
 <p>Give a one-sentence operational definition: generalization is performance on unseen data. Then map failures to bias (systematic under-explanation) and variance (sensitive over-adaptation).</p>
 <style type="text/css">
@@ -657,61 +594,15 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="train-validation-test-splits" class="slide level2">
-<h2>Train / Validation / Test splits</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<ul>
-<li><strong>Training set</strong>: fit parameters</li>
-<li><strong>Validation set</strong>: select intermediate models/hyperparameters</li>
-<li><strong>Testing set</strong>: final unbiased performance check</li>
-</ul>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Warning</strong></p>
-</div>
-<div class="callout-content">
-<p>If you use the <strong>testing set</strong> to make decisions, you effectively turn it into a validation set. Never let the model “see” test information.</p>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:60%;">
-<p><a href="../assets/train_validation_test.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/train_validation_test.png"></a></p>
-</div></div>
-<aside class="notes">
-<p>Delivery cue: show a “clean loop.” Train on training data, tune on validation, and keep the test set locked until the final evaluation. The warning is about leakage through decision-making.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="cross-validation-estimates-why-cv" class="slide level2">
-<h2>Cross-validation estimates (why CV?)</h2>
-<ul>
-<li>With a single train-test split:
-<ul>
-<li>if the test set is <strong>small</strong>, the estimate is unstable</li>
-</ul></li>
-<li>Cross-validation uses multiple splits and averages results</li>
-<li>CV uses two nested loops:
-<ul>
-<li><strong>Loop 1</strong>: choose hyperparameters</li>
-<li><strong>Loop 2</strong>:
+<section id="cross-validation-reliable-estimates" class="slide level2">
+<h2>Cross-validation: reliable estimates</h2>
+
+<img data-src="../assets/cv_k-fold.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
+<li>With a single train-test split: the error estimate is not reliable.</li>
+<li><strong>Cross-validation</strong> uses <strong>k-folds</strong> (splits) and averages results:
 <ul>
 <li>fit on training folds</li>
-<li>evaluate on validation fold</li>
-</ul></li>
+<li>test on validation fold</li>
 </ul></li>
 </ul>
 <aside class="notes">
@@ -728,23 +619,10 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="cv-as-robust-generalization-performance" class="slide level2">
-<h2>CV as “robust generalization performance”</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<ul>
-<li>Cross-validation reveals performance variability across splits</li>
-<li>Averaging across folds gives a more reliable estimate of:
-<ul>
-<li>over-fitting</li>
-<li>under-fitting</li>
-<li>generalization quality</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><a href="../assets/cv_generalization_performance_3_models.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../assets/cv_generalization_performance_3_models.png"></a></p>
-</div></div>
-<aside class="notes">
+<section id="comparing-models-more-reliably" class="slide level2">
+<h2>Comparing models more reliably</h2>
+
+<img data-src="../assets/error_gap_cv_5.png" class="r-stretch quarto-figure quarto-figure-center"><aside class="notes">
 <p>Point at the variability: if the “best” model also has consistently high test scores across folds, it’s a safer choice. Large swings across splits is a sign of sensitivity to the sampled data.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -758,29 +636,20 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="cross-validation-strategies-k-fold-vs-leave-p-out" class="slide level2">
-<h2>Cross-validation strategies: k-fold vs leave-p-out</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
+<section id="train-test-errors-gap" class="slide level2">
+<h2>Train-test Errors Gap</h2>
+
+<img data-src="../assets/model_analysis_subplots.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
+<li>x-axis maybe: model complexity, dataset size, or even training time.</li>
+<li>Gap analysis
 <ul>
-<li><strong>k-fold</strong>:
-<ul>
-<li>train on <code>k-1</code> folds</li>
-<li>validate on the remaining fold</li>
-<li>typically <code>k = 5</code> or <code>k = 10</code></li>
-</ul></li>
-<li><strong>Leave-p-out</strong>:
-<ul>
-<li>train on <code>n-p</code> samples</li>
-<li>validate on the remaining <code>p</code></li>
-<li>special case <code>p=1</code> is <strong>leave-one-out</strong></li>
+<li>Widening gap: over-fitting.</li>
+<li>Both high: under-fitting.</li>
+<li>Both low: perfect model (check if the data is representative of the real probelm).</li>
 </ul></li>
 </ul>
-</div><div class="column" style="width:60%;">
-<p><a href="../assets/cv_k-fold.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../assets/cv_k-fold.png"></a></p>
-</div></div>
 <aside class="notes">
-<p>Delivery angle: start with the default <code>k</code>-fold because it balances computation and robustness. Mention that leave-p-out is more “fine-grained” but can be costly as the dataset grows.</p>
+<p>Reading learning curves: pay attention to whether the <em>gap</em> between train and test shrinks (variance reduction via more data) or whether both curves improve slowly (bias/under-fitting). When the test curve plateaus, new data often becomes diminishing returns.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -793,22 +662,70 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="time-series-cross-validation" class="slide level2">
-<h2>Time-series cross-validation</h2>
-<ul>
-<li>In time-series, order matters</li>
-<li>Use strategies that preserve order:
-<ul>
-<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html"><code>TimeSeriesSplit</code></a></li>
-</ul></li>
-<li>Often after model selection:
-<ul>
-<li>train on the full dataset (including the test period)</li>
-<li>but do not perform further test-based decisions after that</li>
-</ul></li>
-</ul>
+<section id="train-validation-test-splits" class="slide level2">
+<h2>Train / Validation / Test splits</h2>
+
+<img data-src="../assets/train_validation_test.png" class="r-stretch quarto-figure quarto-figure-center"><div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Training set</strong>: fit parameters.</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Validation set</strong>: select intermediate models/hyperparameters.</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Testing set</strong>: final unbiased performance check.</p>
+</div></div>
+<!-- end columns -->
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>If you use the <strong>testing set</strong> to make decisions, you effectively turn it into a validation set. Never let the model “see” test information.</p>
+</div>
+</div>
+</div>
 <aside class="notes">
-<p>Delivery cue: the dataset is chronological, so “randomly shuffling” folds can leak future information. <code>TimeSeriesSplit</code> preserves order, and any final retraining on more data is for better estimates, not for re-tuning on the test period.</p>
+<p>Delivery cue: show a “clean loop.” Train on training data, tune on validation, and keep the test set locked until the final evaluation. The warning is about leakage through decision-making.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="learning-curve-model-scalability" class="slide level2">
+<h2>Learning Curve: model scalability</h2>
+<p><strong>Learning curves</strong> show whether models can scale to learn from more data.</p>
+<div class="columns">
+<div class="column">
+
+</div><div class="column">
+
+</div></div>
+<!-- end columns -->
+
+<img data-src="../assets/learning_curve.png" class="r-stretch quarto-figure quarto-figure-center"><p>Press <code>S</code> to open speaker notes.</p>
+<aside class="notes">
+<p>Left: naive Bayes classifier. Its shape can be found in more complex datasets very often:</p>
+<ul>
+<li>the training score is very high when using few samples for training and decreases when increasing the number of samples</li>
+<li>whereas the test score is very low at the beginning and then increases when adding samples.</li>
+<li>the training and test scores become more realistic when all the samples are used for training.</li>
+</ul>
+<p>Right: SVM classifier with RBF kernel.</p>
+<ul>
+<li>The training score remains high regardless of the size of the training set.</li>
+<li>On the other hand, the test score increases with the size of the training dataset.</li>
+<li>Indeed, it increases up to a point where it reaches a plateau.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;

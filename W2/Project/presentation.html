@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-2e481f85c67d8efbd012e62671b0d194.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -215,9 +215,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#check-for-errors-caused-by-out-of-order-cells" id="toc-check-for-errors-caused-by-out-of-order-cells" class="nav-link" data-scroll-target="#check-for-errors-caused-by-out-of-order-cells">Check for errors caused by out-of-order cells</a></li>
   </ul></li>
-  <li><a href="#managing-multi-notebook-projects" id="toc-managing-multi-notebook-projects" class="nav-link" data-scroll-target="#managing-multi-notebook-projects">Managing Multi-Notebook Projects</a></li>
   <li><a href="#extra-optional" id="toc-extra-optional" class="nav-link" data-scroll-target="#extra-optional">Extra (optional)</a>
   <ul class="collapse">
+  <li><a href="#managing-multi-notebook-projects" id="toc-managing-multi-notebook-projects" class="nav-link" data-scroll-target="#managing-multi-notebook-projects">Managing Multi-Notebook Projects</a></li>
   <li><a href="#annotate-every-aspect-of-your-plots" id="toc-annotate-every-aspect-of-your-plots" class="nav-link" data-scroll-target="#annotate-every-aspect-of-your-plots">Annotate every aspect of your plots</a></li>
   </ul></li>
   </ul>
@@ -473,8 +473,10 @@ The Restart and Run All Test serves as your primary reproducibility check. Regul
 After running top to bottom, the numbers in the brackets next to each cell should be in order (1, 2, 3…). Sequential numbers mean your notebook is clean, reliable, and easy for others to trust.</p>
 </section>
 </section>
-<section id="managing-multi-notebook-projects" class="level1">
-<h1>Managing Multi-Notebook Projects</h1>
+<section id="extra-optional" class="level1">
+<h1>Extra (optional)</h1>
+<section id="managing-multi-notebook-projects" class="level2">
+<h2 class="anchored" data-anchor-id="managing-multi-notebook-projects">Managing Multi-Notebook Projects</h2>
 <p>Complex data science projects often require multiple notebooks covering different aspects of analysis.</p>
 <p><strong>Project Directory Structure</strong>&nbsp;should separate notebooks by purpose and logical workflow stages. A well-organized project structure looks like:</p>
 <pre class="text"><code>project_name/
@@ -509,8 +511,6 @@ After running top to bottom, the numbers in the brackets next to each cell shoul
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> feature_engineering <span class="im">import</span> create_interaction_features, encode_categoricals</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note the: <code>sys.path.append('../src')</code> statement is what makes the subsequent imports possible. So it is necessary to have it in this order.</p>
 </section>
-<section id="extra-optional" class="level1">
-<h1>Extra (optional)</h1>
 <section id="annotate-every-aspect-of-your-plots" class="level2">
 <h2 class="anchored" data-anchor-id="annotate-every-aspect-of-your-plots">Annotate every aspect of your plots</h2>
 <p>Plots should have annotations everywhere. The goal is to make sure our plots are fully descriptive. In other words, they should be stand-alone, “readily interpreted”.</p>

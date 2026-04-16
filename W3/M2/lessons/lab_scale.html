@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-586d8b467a423d3386ef284acc2d2dc1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-2e481f85c67d8efbd012e62671b0d194.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -330,14 +330,17 @@ window.Quarto = {
 <p><span class="math display">x_\text{normalized} = \ln(x)</span></p>
 <p>As illustrated:</p>
 <p><a href="https://scikit-learn.org/stable/_images/sphx_glr_plot_transformed_target_001.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_transformed_target_001.png" class="img-fluid"></a></p>
-<p>Useful for data that follow a <strong>power-law distribution</strong>: a few very large values and many smaller ones.</p>
+<p>Remember that the log function is the inverse of the exponent function, as shown in the figure:</p>
+<p><a href="../assets/exponent_vs_log.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../assets/exponent_vs_log.png" class="img-fluid"></a></p>
+<p>Source: <a href="https://www.mathsisfun.com/algebra/exponents-logarithms.html">What is a Logarithm? MathIsFun</a></p>
+<p>Log-scaling is useful for data that follow a <strong>power-law distribution</strong>: a few very large values and many smaller ones.</p>
 <p><strong>Examples:</strong></p>
 <ul>
 <li><strong>City populations:</strong> if you rank cities by population, the largest city is often about twice the second, and three times the third (Zipf’s law). In the US, New York City (~8.3 million) is roughly twice the size of Los Angeles (~3.8 million).</li>
 <li><strong>Attention:</strong> a few movies/books get maybe 90% of the attention; the rest 10% is distributed to the vast majority.</li>
 </ul>
 <p>See <a href="https://scikit-learn.org/stable/auto_examples/compose/plot_transformed_target.html">Transforming the target variable</a>.</p>
-<div id="imports" class="cell" data-execution_count="6">
+<div id="imports" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -349,7 +352,7 @@ window.Quarto = {
 <section id="scaling-methods-on-an-exemplar-dataframe" class="level2">
 <h2 class="anchored" data-anchor-id="scaling-methods-on-an-exemplar-dataframe">Scaling methods on an exemplar DataFrame</h2>
 <p>Below we use one small DataFrame to illustrate <strong>min-max</strong>, <strong>standard (z-score)</strong>, and <strong>log</strong> scaling. The exemplar has columns on different scales (rooms 1–10, area 100–1000) and a skewed column (e.g.&nbsp;view_count) suited to log scaling.</p>
-<div id="exemplar-df" class="cell" data-execution_count="17">
+<div id="exemplar-df" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplar DataFrame: different scales and one skewed column</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Increase number of values using random generation (preserves ranges and skew)</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
@@ -360,7 +363,7 @@ window.Quarto = {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"view_count"</span>: np.clip(np.random.lognormal(<span class="dv">5</span>, <span class="fl">2.5</span>, size<span class="op">=</span>n).astype(<span class="bu">int</span>), <span class="dv">10</span>, <span class="dv">50000</span>),  <span class="co"># skewed (power-law-like)</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -447,7 +450,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="518ebdd1" class="cell" data-execution_count="18">
+<div id="518ebdd1" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of each numerical column</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="bu">len</span>(num_cols), figsize<span class="op">=</span>(<span class="dv">4</span> <span class="op">*</span> <span class="bu">len</span>(num_cols), <span class="dv">4</span>))</span>
@@ -462,7 +465,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="lab_scale_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="lab_scale_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="lab_scale_files/figure-html/cell-4-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="lab_scale_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -470,15 +473,17 @@ window.Quarto = {
 <section id="minmaxscaler-01-range" class="level3">
 <h3 class="anchored" data-anchor-id="minmaxscaler-01-range">MinMaxScaler (0–1 range)</h3>
 <p>Each column is scaled to [0, 1] using its min and max. Fit on the data, then transform.</p>
-<div id="minmax-code" class="cell" data-execution_count="19">
+<div id="minmax-code" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>scaler_minmax <span class="op">=</span> MinMaxScaler()</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>scaled_minmax <span class="op">=</span> scaler_minmax.fit_transform(df)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>scaled_minmax <span class="op">=</span> scaler_minmax.fit_transform(df[[<span class="st">'rooms'</span>, <span class="st">'area_sqm'</span>]])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_scaled <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    scaled_minmax,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>df.columns,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">'rooms'</span>, <span class="st">'area_sqm'</span>],</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>df.index,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df_scaled.describe().loc[[<span class="st">'min'</span>, <span class="st">'max'</span>, <span class="st">'mean'</span>, <span class="st">'std'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -488,80 +493,78 @@ window.Quarto = {
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">rooms</th>
 <th data-quarto-table-cell-role="th">area_sqm</th>
-<th data-quarto-table-cell-role="th">view_count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>0.666667</td>
-<td>0.692641</td>
-<td>0.038948</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>0.333333</td>
-<td>0.471861</td>
+<th data-quarto-table-cell-role="th">min</th>
+<td>0.000000</td>
 <td>0.000000</td>
 </tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>1.000000</td>
+<td>1.000000</td>
+</tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>0.777778</td>
-<td>0.586580</td>
-<td>0.005581</td>
+<th data-quarto-table-cell-role="th">mean</th>
+<td>0.492222</td>
+<td>0.464823</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>0.444444</td>
-<td>0.413420</td>
-<td>0.027245</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>0.666667</td>
-<td>0.523810</td>
-<td>0.003441</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">495</th>
-<td>0.000000</td>
-<td>0.311688</td>
-<td>0.009522</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">496</th>
-<td>0.666667</td>
-<td>0.435065</td>
-<td>0.002581</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">497</th>
-<td>0.666667</td>
-<td>0.391775</td>
-<td>0.022725</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">498</th>
-<td>0.888889</td>
-<td>0.718615</td>
-<td>0.095719</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">499</th>
-<td>0.222222</td>
-<td>0.502165</td>
-<td>0.011762</td>
+<th data-quarto-table-cell-role="th">std</th>
+<td>0.326795</td>
+<td>0.170411</td>
 </tr>
 </tbody>
 </table>
 
-<p>500 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<div id="54cd3981" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_scaled.sample(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">rooms</th>
+<th data-quarto-table-cell-role="th">area_sqm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">79</th>
+<td>0.888889</td>
+<td>0.785714</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">216</th>
+<td>0.777778</td>
+<td>0.577922</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145</th>
+<td>0.000000</td>
+<td>0.259740</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">39</th>
+<td>0.333333</td>
+<td>0.439394</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">481</th>
+<td>1.000000</td>
+<td>0.649351</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
@@ -569,15 +572,17 @@ window.Quarto = {
 <section id="standardscaler-z-score" class="level3">
 <h3 class="anchored" data-anchor-id="standardscaler-z-score">StandardScaler (z-score)</h3>
 <p>Each column is centered at 0 and scaled by its standard deviation.</p>
-<div id="standard-code" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>scaler_std <span class="op">=</span> StandardScaler()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>scaled_std <span class="op">=</span> scaler_std.fit_transform(df)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    scaled_std,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>df.columns,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>df.index,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div id="standard-code" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>scaler_std <span class="op">=</span> StandardScaler()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>scaled_std <span class="op">=</span> scaler_std.fit_transform(df[[<span class="st">'area_sqm'</span>]])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_scaled <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    scaled_std,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">'area_sqm'</span>],</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>df.index,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>df_scaled.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -585,94 +590,58 @@ window.Quarto = {
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">rooms</th>
 <th data-quarto-table-cell-role="th">area_sqm</th>
-<th data-quarto-table-cell-role="th">view_count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>0.534338</td>
-<td>1.338214</td>
-<td>-0.078202</td>
+<th data-quarto-table-cell-role="th">count</th>
+<td>5.000000e+02</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>-0.486690</td>
-<td>0.041347</td>
-<td>-0.324738</td>
+<th data-quarto-table-cell-role="th">mean</th>
+<td>1.172396e-16</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>0.874681</td>
-<td>0.715209</td>
-<td>-0.289410</td>
+<th data-quarto-table-cell-role="th">std</th>
+<td>1.001002e+00</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>-0.146347</td>
-<td>-0.301941</td>
-<td>-0.152276</td>
+<th data-quarto-table-cell-role="th">min</th>
+<td>-2.730388e+00</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>0.534338</td>
-<td>0.346492</td>
-<td>-0.302959</td>
+<th data-quarto-table-cell-role="th">25%</th>
+<td>-6.992654e-01</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
+<th data-quarto-table-cell-role="th">50%</th>
+<td>-3.153166e-03</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">495</th>
-<td>-1.507719</td>
-<td>-0.899517</td>
-<td>-0.264465</td>
+<th data-quarto-table-cell-role="th">75%</th>
+<td>6.516374e-01</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">496</th>
-<td>0.534338</td>
-<td>-0.174797</td>
-<td>-0.308404</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">497</th>
-<td>0.534338</td>
-<td>-0.429085</td>
-<td>-0.180893</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">498</th>
-<td>1.215024</td>
-<td>1.490786</td>
-<td>0.281157</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">499</th>
-<td>-0.827033</td>
-<td>0.219348</td>
-<td>-0.250283</td>
+<th data-quarto-table-cell-role="th">max</th>
+<td>3.143656e+00</td>
 </tr>
 </tbody>
 </table>
 
-<p>500 rows × 3 columns</p>
 </div>
 </div>
 </div>
+<p>Why are there negative values? because in this scale, the zero corresponds to the mean in the original scale.</p>
 </section>
 <section id="log-scaling" class="level3">
 <h3 class="anchored" data-anchor-id="log-scaling">Log scaling</h3>
 <p>Apply natural log to columns that are positive and skewed (e.g.&nbsp;<code>view_count</code>). Often we add 1 to avoid log(0): <span class="math inline">\ln(x + 1)</span>.</p>
 <div id="log-code" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log scale: use np.log1p(x) = log(1 + x) to handle zeros safely</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_log <span class="op">=</span> df.copy()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_log[<span class="st">"view_count_log"</span>] <span class="op">=</span> np.log1p(df[<span class="st">"view_count"</span>])</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>df_log[[<span class="st">"view_count"</span>, <span class="st">"view_count_log"</span>]].<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log scale: use np.log1p(x) = log(1 + x) to handle zeros safely</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df_log <span class="op">=</span> df.copy()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df_log[<span class="st">"view_count_log"</span>] <span class="op">=</span> np.log1p(df[<span class="st">"view_count"</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df_log[[<span class="st">"view_count"</span>, <span class="st">"view_count_log"</span>]].<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
@@ -749,25 +718,25 @@ window.Quarto = {
 </div>
 </div>
 <div id="2e34c083" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].hist(df[<span class="st">"view_count"</span>], bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Original view_count"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="st">"view_count"</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"Frequency"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].hist(df_log[<span class="st">"view_count_log"</span>], bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'salmon'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Log-scaled view_count"</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">"log(1 + view_count)"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylabel(<span class="st">"Frequency"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].hist(df[<span class="st">"view_count"</span>], bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Original view_count"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="st">"view_count"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].hist(df_log[<span class="st">"view_count_log"</span>], bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'salmon'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Log-scaled view_count"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">"log(1 + view_count)"</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="lab_scale_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="lab_scale_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="lab_scale_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="lab_scale_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
