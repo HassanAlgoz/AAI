@@ -1,6 +1,3 @@
-# Default SUB to empty if not provided
-SUB =
-
 preview:
 	quarto preview ./content
 
@@ -8,12 +5,12 @@ publish:
 	quarto publish gh-pages ./content --no-render
 
 clean:
-	rm -rf content/_freeze/$(SUB)
-	rm -rf content/_size/$(SUB)
-	rm -rf content/.quarto/_freeze$(SUB)
-	rm -rf content/.quarto/idx/$(SUB)
-	rm -rf content/_site/$(SUB)
-	rm -rf content/site_libs/$(SUB)
+	rm -rf content/_freeze
+	rm -rf content/_size
+	rm -rf content/.quarto/_freez
+	rm -rf content/.quarto/idx
+	rm -rf content/_site
+	rm -rf content/site_libs
 
 # restore:
 # 	git restore --staged --worktree content/ old/

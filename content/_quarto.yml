@@ -41,7 +41,7 @@ execute:
 
 format:
   html:
-    theme: [cosmo, assets/sdaia.scss, custom.scss]
+    theme: [cosmo, custom.scss]
     toc: true
     toc-depth: 3
     toc-title: "Contents"
@@ -50,7 +50,7 @@ format:
     mermaid-format: png
     
   revealjs:
-    theme: [default, assets/sdaia.scss, custom.scss]
+    theme: [default, custom.scss]
     
     mermaid:
       theme: default

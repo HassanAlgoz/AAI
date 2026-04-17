@@ -3,26 +3,9 @@ title: "Bootcamp Introduction"
 format: revealjs
 ---
 
-![](../assets/program_info.png){fig-align="center"}
+## Pedagogy
 
-
-## Schedule
-
-::: {.incremental}
-
-- **Course 1: Python**  
-    Build strong Python programming foundations to apply and integrate ML/DL/AI in software systems.
-- **Course 2: Applied Data Science**  
-    Calculate, analyze, visualize, interpret data and test hypothesis using Data Science.
-- **Course 3: Applied Machine Learning**  
-    Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
-- **Course 4: Applied Deep Learning**  
-    Use DL solution frameworks / libraries to apply AI to specific problems in vision and language.
-- **Course 5: Agentic AI**  
-    Develop, debug, evaluate deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
-- **Course 6: Agentic Engineering**  
-    Use today's best practices to accelerate software development in your codebase. Previously known as *Vibe Coding*.
-:::
+![Figure: Benjamin Franklin quote](../assets/tell_me_and_I_forget.png){fig-align="center"}
 
 ## Capstone Project
 
@@ -36,86 +19,14 @@ Tentative schedule:
 4. Phase 2 (end of week 7): progress presentation
 5. Final submission and evaluation (week 8)
 
-## Sessions and Break times
-
-- **Session 1**: 9:00 PM - 10:30 PM
-- 10 minutes break
-- **Session 2**: 10:45 PM - 12:00 PM
-- Lunch break 12:00 - 1:00 PM
-- **Session 3 (Labs and Exercises)**: 1:00 - 3:00 PM
-
-## Pedagogy
-
-![Figure: Benjamin Franklin quote](../assets/tell_me_and_I_forget.png){fig-align="center"}
-
 ## Learning Material
 
-1. **Slides**: concepts, mental models, connecting ideas, and discussion
-2. **Labs**: details, docs, debugging, and what-ifs
-3. **Exercises**: do it yourself
-
-## Submit your Work {#submit-your-work}
-
-Your GitHub repo is your **proof-of-work**. Open the repo [HassanAlgoz/B5](https://github.com/HassanAlgoz/B5/tree/main) then:
-
-::: {.incremental}
-1. Fork it from the GitHub website
-2. Clone it using VS Code locally
-3. Create a `student/` folder in which you will include:
-    - A `student/README.md` file with your full name in there
-    - **Exercises**
-    - **Projects**
-:::
-
-## Commit Exercises
-
-**Mandatory**: it is required that you follow this instruction to get graded:
-
-::: {.incremental}
-1. First, `git add` and `git commit` the exercise before solving it.
-2. Each subsequent commit must have
-    1. Course number
-    2. Module number
-    3. Exercise number or name
-    4. Question number or title
-3. Exercises are due end of day (11:59 PM)  
-    Make sure to `git push` before then
-::: 
-
-## Clean Commit Examples
-
-It is mandatory to follow this example:
-
-::: {.incremental}
-- **Execises**:
-    1. `C1 M2 Ex1: init` (1st exercise)
-    2. `C1 M2 Ex1: q1`   (question 1 solved)
-    2. `C1 M2 Ex1: q2`
-    2. `C1 M2 Ex2: init` (started 2nd exercise)
-- **Projects**:
-    1. `C1 Project: init`
-    2. `C1 Project: step 1. univariate analysis`
-    3. `C1 Project: step 2. pairplots`
-::: 
-
-## Frequent one-to-one check-ins
-
-By end of each day, we will have one-to-one check-ins with you (random selection):
-
-1. You will lose points if you did not commit (and push) exercise solution by end of yesterday
-2. You will lose points if your commits aren't clean
-
-If both of the above are good:
-
-1. You will be asked to open the laptop, show and explain your solutions to specific exercises
-2. You will be asked a few questions about the learning material covered so far
-
-## Evaluation
-
-1. **Weekly Quiz**: test your understanding
-2. **Weekly Project (individual)**: apply learned skills
-3. **Project Presentation**: on the day we start the next course (usually Sunday)  
-   Prepare to be asked during the presentation about your work.
+1. **Slides**: concepts, mental models, connecting ideas, and discussion.
+2. **Labs**: details, docs, debugging, and what-ifs.
+3. **Daily Exercises**: guided through step-by-step questions.
+4. **Weekly Projects**: goal to achieve using learned skills.
+5. **Quiz**: knowledge test.
+6. **Presentation**: express ability to communicate technically.
 
 ## Why Presentations?
 
@@ -128,17 +39,23 @@ If both of the above are good:
 - Your ability to communicate ideas is ultimately more critical to your success than the ideas themselves.
 :::
 
-## Bad Students
+
+## One-to-one check-ins
+
+Random selection:
+
+1. Show and explain your solutions to specific exercises
+2. Questions about the learning material covered so far
+
+## ❌️ Bad
 
 ::: {.incremental}
-1. Let AI handle everything
-2. Use someone else's work
-3. Skip content and not put in any effort
-4. Unaware of required work to be done
-5. Don't commit as per the instructions
+1. Let AI do the work
+2. Low attendance, come late, leave early
+3. No clue what work to be done today, tomorrow, and end of week.
 ::: 
 
-## Good Students
+## ✅️ Good
 
 ::: {.incremental}
 1. You are honest and consistent in putting in the required effort in class
