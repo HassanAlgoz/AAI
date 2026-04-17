@@ -10,8 +10,6 @@ wheels/
 .venv
 experimental/
 
-scratch/
-
 /.quarto/
 **/*.quarto_ipynb
 _site/
@@ -19,8 +17,14 @@ _site/
 _freeze/
 .jupyter_cache/
 site_libs/
-content/W2/M1/lessons/eur.ipynb
-content/W2/M1/lessons/scratch.ipynb
+.vscode/
+*.quarto*
 
 # Secrets
 .env
+
+# other
+TODO
+scratch/
+content/W2/M1/lessons/eur.ipynb
+content/W2/M1/lessons/scratch.ipynb
