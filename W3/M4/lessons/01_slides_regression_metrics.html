@@ -34,7 +34,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2aa7c9d1fb3ff478ff456686071e1119.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-83d60258e862cb5c4bd6ebabd122cf27.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -145,13 +145,84 @@
 <h2>Learning Objectives</h2>
 <p>In this lecture we learn to:</p>
 <ol type="1">
+<li>Distinguish <strong>loss functions</strong> (training objective) from <strong>evaluation metrics</strong> (business/practical score)</li>
 <li>Explain why regression models need dedicated evaluation metrics.</li>
-<li>Interpret and compare MSE, (<span class="math inline">\(R^2\)</span>), MAE, median AE, and MAPE.</li>
+<li>Interpret and compare MSE, (<span class="math inline">\(R^2\)</span>), MAE, median AE, and MAPE.3</li>
 <li>Diagnose regression models visually using prediction and residual plots.</li>
 <li>Explain when a target transformation can improve model fit and metrics.</li>
 </ol>
 <aside class="notes">
 <p>The core theme is that numerical targets open up a richer family of metrics and visual diagnostics than accuracy alone. We also highlight how poor choices or naïve baselines can mislead us, and how transformations can unlock better behavior.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="loss-function-vs-evaluation-metric" class="slide level2">
+<h2>Loss Function vs Evaluation Metric</h2>
+<div class="fragment">
+<ul>
+<li><strong>Loss</strong> (lower is better):
+<ul>
+<li><strong>Internal objective minimized during training</strong></li>
+<li>examples:
+<ul>
+<li>MSE for <code>LinearRegression</code></li>
+<li>Log Loss for <code>LogisticRegression</code></li>
+<li>Entropy for <code>DecisionTreeClassifier</code></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Metrics</strong>:
+<ul>
+<li><strong>A quantity to evaluate the performance</strong> (usually after training)</li>
+<li>used to compare models from a practical/business perspective</li>
+<li>examples:
+<ul>
+<li>Regression: <span class="math inline">\(R^2\)</span>, MSE, MAPE</li>
+<li>Classification: Accuracy, Precision, Recall</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>Emphasize the “two lenses” idea: loss is the optimizer’s target, but metrics are what we care about when deciding which model is better. Give a quick example that low loss doesn’t automatically mean the stakeholder-relevant errors are small.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="can-we-reuse-a-metric-as-a-loss" class="slide level2">
+<h2>Can we reuse a metric as a loss?</h2>
+<ul>
+<li><strong>Metric as loss?</strong>
+<ul>
+<li>only possible if the metric is <strong>differentiable</strong></li>
+</ul></li>
+<li><strong>Loss as metric?</strong>
+<ul>
+<li>sometimes useful only if it is <strong>meaningful to the business/problem</strong></li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>Use this as a rule of thumb: unless gradients exist (differentiability), training cannot directly optimize the metric. Conversely, we still report metrics that stakeholders can interpret.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -224,7 +295,7 @@
 <h2>Mean Absolute Error (MAE)</h2>
 <ul>
 <li><strong>Definition</strong>: average of absolute differences<br>
-<span class="math display">\[ \text{MAE} =  \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right| \in [0, \infty)\]</span>$</li>
+<span class="math display">\[ \text{MAE} =  \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right| \in [0, \infty)\]</span></li>
 <li>Properties:
 <ul>
 <li>Same unit as the <strong>target</strong> (e.g., k$).</li>
@@ -320,6 +391,19 @@
 <li><span class="math inline">\(R^2 &lt; 0\)</span>: worse than predicting the mean. (no limit to how worse!)</li>
 </ul></li>
 </ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>This is the default in sklearn when you call <code>.score()</code> for a regressor model.</p>
+</div>
+</div>
+</div>
 <aside class="notes">
 <p>Emphasize that <span class="math inline">\(R^2\)</span> supplies a dimensionless, relative notion of performance. Show that the default <code>score</code> for scikit-learn regressors is exactly this quantity.</p>
 <style type="text/css">
@@ -760,7 +844,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'fade',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

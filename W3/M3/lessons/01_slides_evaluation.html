@@ -100,7 +100,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2aa7c9d1fb3ff478ff456686071e1119.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-83d60258e862cb5c4bd6ebabd122cf27.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -211,7 +211,6 @@
 <h2>Learning Objectives</h2>
 <p>In this lecture we learn to:</p>
 <ol type="1">
-<li>Distinguish <strong>loss functions</strong> (training objective) from <strong>evaluation metrics</strong> (business/practical score)</li>
 <li>Establish a baseline for <strong>learning</strong></li>
 <li>Understand when <strong>more data</strong> helps (and when it does not)</li>
 <li>Detect <strong>over-fitting vs under-fitting</strong> and reason about <strong>generalization</strong></li>
@@ -219,70 +218,6 @@
 </ol>
 <aside class="notes">
 <p>Frame the lecture as a toolkit for evaluation: (1) what we optimize vs what we measure, (2) how to catch obvious failures early with baselines, and (3) how to estimate real-world performance without data leakage.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="loss-function-vs-evaluation-metric" class="slide level2">
-<h2>Loss Function vs Evaluation Metric</h2>
-<ul>
-<li><strong>Loss</strong> (lower is better):
-<ul>
-<li><strong>Internal objective minimized during training</strong></li>
-<li>examples:
-<ul>
-<li>MSE for <code>LinearRegression</code></li>
-<li>Log Loss for <code>LogisticRegression</code></li>
-<li>Entropy for <code>DecisionTreeClassifier</code></li>
-</ul></li>
-</ul></li>
-<li><strong>Metrics</strong>:
-<ul>
-<li><strong>A quantity to evaluate the performance</strong> (usually after training)</li>
-<li>used to compare models from a practical/business perspective</li>
-<li>examples:
-<ul>
-<li>Regression: <span class="math inline">\(R^2\)</span>, MSE, MAPE</li>
-<li>Classification: Accuracy, Precision, Recall</li>
-</ul></li>
-</ul></li>
-</ul>
-<aside class="notes">
-<p>Emphasize the “two lenses” idea: loss is the optimizer’s target, but metrics are what we care about when deciding which model is better. Give a quick example that low loss doesn’t automatically mean the stakeholder-relevant errors are small.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="can-we-reuse-a-metric-as-a-loss" class="slide level2">
-<h2>Can we reuse a metric as a loss?</h2>
-<ul>
-<li><strong>Metric as loss?</strong>
-<ul>
-<li>only possible if the metric is <strong>differentiable</strong></li>
-</ul></li>
-<li><strong>Loss as metric?</strong>
-<ul>
-<li>sometimes useful only if it is <strong>meaningful to the business/problem</strong></li>
-</ul></li>
-</ul>
-<aside class="notes">
-<p>Use this as a rule of thumb: unless gradients exist (differentiability), training cannot directly optimize the metric. Conversely, we still report metrics that stakeholders can interpret.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -333,7 +268,7 @@
 <li><code>most_frequent</code>: always predicts the most frequent training label</li>
 <li><code>stratified</code>: random predictions respecting the class distribution</li>
 </ul>
-<p>Key point: in all cases, <code>predict()</code> <strong>ignores input features</strong></p>
+<p>Key point: in all cases, <code>predict()</code> <strong>ignores input features</strong>.</p>
 <aside class="notes">
 <p>Reinforce why baselines matter: they represent the performance you get without learning from the input. Your real model should beat them; otherwise, something is wrong (features, targets, or evaluation setup).</p>
 <style type="text/css">
@@ -355,7 +290,7 @@
 <span id="cb1-3"><a></a>dummy_clf <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">"most_frequent"</span>)</span>
 <span id="cb1-4"><a></a>dummy_clf.fit(X_train, y_train)</span>
 <span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a><span class="bu">print</span>(<span class="st">"Dummy Classifier Score:"</span>, dummy_clf.score(X_test, y_test))</span>
+<span id="cb1-6"><a></a><span class="bu">print</span>(<span class="st">"   Dummy Classifier Score:"</span>, dummy_clf.score(X_test, y_test))</span>
 <span id="cb1-7"><a></a><span class="bu">print</span>(<span class="st">"Logistic Regression Score:"</span>, clf.score(X_test, y_test))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Your trained model should <strong>beat</strong> the dummy baseline</li>
@@ -384,7 +319,7 @@
 <li><code>quantile</code>: always predicts a user-provided quantile</li>
 <li><code>constant</code>: always predicts a provided constant value</li>
 </ul>
-<p>Key point: - these strategies ignore input features during <code>predict()</code></p>
+<p>Key point: these strategies ignore input features during <code>predict()</code>.</p>
 <aside class="notes">
 <p>Transition the baseline idea from classification to regression: the same logic applies—before trusting a model’s absolute score, confirm it beats a “predict the mean/median” strategy.</p>
 <style type="text/css">
@@ -449,8 +384,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="more-data-may-fail-if-the-model-is-too-inflexible" class="slide level2">
-<h2>More data may fail if the model is too inflexible</h2>
+<section id="more-data-may-fail-if-the-model-is-inflexible" class="slide level2">
+<h2>More data may fail if the model is inflexible</h2>
 <p>Figure below shows:</p>
 <ul>
 <li>Model (sky blue)</li>
@@ -622,7 +557,7 @@
 <section id="comparing-models-more-reliably" class="slide level2">
 <h2>Comparing models more reliably</h2>
 
-<img data-src="../assets/error_gap_cv_5.png" class="r-stretch quarto-figure quarto-figure-center"><aside class="notes">
+<img data-src="../assets/cross-validation_results.png" class="r-stretch quarto-figure quarto-figure-center"><aside class="notes">
 <p>Point at the variability: if the “best” model also has consistently high test scores across folds, it’s a safer choice. Large swings across splits is a sign of sensitivity to the sampled data.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -684,6 +619,19 @@
 </div>
 <div class="callout-content">
 <p>If you use the <strong>testing set</strong> to make decisions, you effectively turn it into a validation set. Never let the model “see” test information.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Another cross-validation procedure can be used with testing set. If you use CV in both train-validation split, and then again on testing set, you will have <span class="math inline">\(n \times m\)</span> fit-and-score runs; which needs a lot of compute. Hence, less people do this especially when the dataset is very big.</p>
 </div>
 </div>
 </div>
@@ -939,7 +887,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'fade',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

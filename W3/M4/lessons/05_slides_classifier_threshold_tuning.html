@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-2aa7c9d1fb3ff478ff456686071e1119.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-83d60258e862cb5c4bd6ebabd122cf27.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -166,10 +166,10 @@
 <p>Real decision-making often has asymmetric error costs.</p>
 <p>Example (medical screening):</p>
 <ul>
-<li><strong>Cost of False Negatives (FN)</strong> is higher than the cost of <strong>False Positives (FP)</strong>.</li>
-<li><strong>Priority:</strong> maximize <strong>Recall (Sensitivity)</strong>.</li>
-<li><strong>Trade-off:</strong> you accept lower Precision to reduce missed positives.</li>
+<li><strong>Cost</strong> of <span class="math inline">\(FN\)</span> is higher than the cost of <span class="math inline">\(FP\)</span>.</li>
 <li><strong>Strategy:</strong> shift the decision threshold <strong>below 0.5</strong> so more cases are predicted positive (more coverage, more false alarms).</li>
+<li><strong>Priority:</strong> maximize <strong>Recall</strong>.</li>
+<li><strong>Trade-off:</strong> you accept lower Precision to reduce missed positives.</li>
 </ul>
 </section>
 <section id="what-component-changes-when-we-tune" class="slide level2">
@@ -448,7 +448,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'fade',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

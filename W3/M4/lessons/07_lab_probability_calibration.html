@@ -74,10 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-2e481f85c67d8efbd012e62671b0d194.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -189,9 +193,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#what-is-probability-calibration" id="toc-what-is-probability-calibration" class="nav-link active" data-scroll-target="#what-is-probability-calibration">What is probability calibration?</a></li>
-  <li><a href="#why-calibrate" id="toc-why-calibrate" class="nav-link" data-scroll-target="#why-calibrate">Why calibrate?</a></li>
-  <li><a href="#how-calibration-curves-and-calibratedclassifiercv" id="toc-how-calibration-curves-and-calibratedclassifiercv" class="nav-link" data-scroll-target="#how-calibration-curves-and-calibratedclassifiercv">How: calibration curves and CalibratedClassifierCV</a></li>
+  <li><a href="#prediction-bias" id="toc-prediction-bias" class="nav-link active" data-scroll-target="#prediction-bias">Prediction Bias</a>
+  <ul class="collapse">
+  <li><a href="#effects-of-prediction-bias" id="toc-effects-of-prediction-bias" class="nav-link" data-scroll-target="#effects-of-prediction-bias">Effects of prediction bias</a></li>
+  <li><a href="#sources-of-prediction-bias" id="toc-sources-of-prediction-bias" class="nav-link" data-scroll-target="#sources-of-prediction-bias">Sources of prediction bias</a></li>
+  </ul></li>
+  <li><a href="#probability-calibration" id="toc-probability-calibration" class="nav-link" data-scroll-target="#probability-calibration">Probability calibration</a>
+  <ul class="collapse">
+  <li><a href="#effect-of-calibration-on-classifiers" id="toc-effect-of-calibration-on-classifiers" class="nav-link" data-scroll-target="#effect-of-calibration-on-classifiers">Effect of calibration on classifiers</a></li>
+  </ul></li>
+  <li><a href="#calibration-curve" id="toc-calibration-curve" class="nav-link" data-scroll-target="#calibration-curve">Calibration Curve</a></li>
   <li><a href="#complete-example-diabetes-dataset" id="toc-complete-example-diabetes-dataset" class="nav-link" data-scroll-target="#complete-example-diabetes-dataset">Complete example: Diabetes dataset</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="07_lab_probability_calibration.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -218,21 +229,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>What</strong> — <strong>Why</strong> — <strong>How</strong>, then a complete example (Diabetes dataset) with calibration and threshold tuning, and a workflow diagram.</p>
-<section id="what-is-probability-calibration" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-probability-calibration">What is probability calibration?</h2>
-<p>Many classifiers output <strong>predicted probabilities</strong> (e.g.&nbsp;via <code>predict_proba</code>), but those numbers are not always <strong>reliable as probabilities</strong>. For a <strong>well-calibrated</strong> classifier, when it predicts “positive with probability 0.8”, about 80% of those cases should actually be positive. <strong>Calibration</strong> adjusts the model’s scores so they can be interpreted as true confidence levels. Some models (e.g.&nbsp;<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">LogisticRegression</a>) tend to be reasonably well calibrated; others (e.g.&nbsp;tree-based ensembles, SVMs) often are not. scikit-learn’s <a href="https://scikit-learn.org/stable/modules/calibration.html">calibration module</a> lets you <strong>recalibrate</strong> a classifier or add probability estimates to models that don’t provide them (e.g.&nbsp;<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html">SGDClassifier</a>).</p>
+<section id="prediction-bias" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-bias">Prediction Bias</h2>
+<p>Calculating&nbsp;<strong>prediction bias</strong>&nbsp;is a quick check that can flag issues with the model or training data early on.</p>
+<p><em>Prediction Bias</em> is the difference between the mean of a model’s predictions and the mean of ground-truth labels. If a dataset contains 5% spam, the model should predict spam 5% of the time; matching means indicate zero prediction bias.</p>
+<p>In constrast, if the model instead predicts spam 30% of the time, then something is wrong.</p>
+<section id="effects-of-prediction-bias" class="level3">
+<h3 class="anchored" data-anchor-id="effects-of-prediction-bias">Effects of prediction bias</h3>
+<p>In applications where you use probabilities (e.g.&nbsp;cost-sensitive decisions, risk scores), biased prediction lead to <strong>inaccuracy in decision making</strong>.</p>
 </section>
-<section id="why-calibrate" class="level2">
-<h2 class="anchored" data-anchor-id="why-calibrate">Why calibrate?</h2>
+<section id="sources-of-prediction-bias" class="level3">
+<h3 class="anchored" data-anchor-id="sources-of-prediction-bias">Sources of prediction bias</h3>
+<p>Prediction bias can be caused by:</p>
+<ol type="1">
+<li>Feature selection</li>
+<li>Biased sampling for the training set</li>
+<li>Bugs in the model training pipeline</li>
+<li>Oversimplified models (e.g., strong regularization)</li>
+</ol>
+</section>
+</section>
+<section id="probability-calibration" class="level2">
+<h2 class="anchored" data-anchor-id="probability-calibration">Probability calibration</h2>
+<p><strong>Probability calibration</strong> is the process used to fix prediction bias and ensure that a model’s output probabilities reflect real-world likelihoods. A perfectly calibrated model inherently has zero prediction bias.</p>
+<section id="effect-of-calibration-on-classifiers" class="level3">
+<h3 class="anchored" data-anchor-id="effect-of-calibration-on-classifiers">Effect of calibration on classifiers</h3>
+<p><strong>Threshold tuning</strong> (e.g.&nbsp;with <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html"><code>TunedThresholdClassifierCV</code></a>) assumes that the numbers you threshold are meaningful. If “0.3” doesn’t correspond to ~30% chance of the positive class, the chosen threshold will be misleading.</p>
 <ul>
-<li><strong>Threshold tuning</strong> (e.g.&nbsp;with <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html"><code>TunedThresholdClassifierCV</code></a>) assumes that the numbers you threshold are meaningful. If “0.3” doesn’t correspond to ~30% chance of the positive class, the chosen threshold will be misleading.</li>
-<li><strong>Decision-making</strong>: In applications where you use probabilities (e.g.&nbsp;cost-sensitive decisions, risk scores), poorly calibrated probabilities lead to worse decisions.</li>
-<li><strong>Metrics</strong> like Brier score or log loss directly benefit from better-calibrated probabilities.</li>
+<li>Some models (e.g.&nbsp;<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">LogisticRegression</a>) tend to be reasonably well calibrated</li>
+<li>others (e.g.&nbsp;tree-based ensembles, SVMs) often are not.</li>
 </ul>
+<p>scikit-learn’s <a href="https://scikit-learn.org/stable/modules/calibration.html">calibration module</a> lets you <strong>recalibrate</strong> a classifier or add probability estimates to models that don’t provide them (e.g.&nbsp;<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html">SGDClassifier</a>).</p>
 </section>
-<section id="how-calibration-curves-and-calibratedclassifiercv" class="level2">
-<h2 class="anchored" data-anchor-id="how-calibration-curves-and-calibratedclassifiercv">How: calibration curves and CalibratedClassifierCV</h2>
+</section>
+<section id="calibration-curve" class="level2">
+<h2 class="anchored" data-anchor-id="calibration-curve">Calibration Curve</h2>
 <p><strong>Checking calibration</strong> — A <strong>calibration curve</strong> (reliability diagram) plots, for bins of predicted probability (x-axis), the <strong>fraction of positives</strong> in that bin (y-axis). On the diagonal, predicted probability matches actual frequency (well calibrated). Use <a href="https://scikit-learn.org/stable/modules/generated/sklearn.calibration.CalibrationDisplay.html">CalibrationDisplay.from_estimator</a> or <a href="https://scikit-learn.org/stable/modules/generated/sklearn.calibration.calibration_curve.html">calibration_curve</a>.</p>
 <p><strong>Recalibrating</strong> — <a href="https://scikit-learn.org/stable/modules/generated/sklearn.calibration.CalibratedClassifierCV.html">CalibratedClassifierCV</a> fits a <strong>calibrator</strong> that maps the base classifier’s scores to probabilities. The calibrator should be fit on data <strong>not</strong> used to train the base model (to avoid overfitting). Passing an integer or a CV splitter (e.g.&nbsp;<code>StratifiedKFold</code>) uses cross-validation: each fold trains a base model and a calibrator on held-out predictions.</p>
 </section>

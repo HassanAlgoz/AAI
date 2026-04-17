@@ -74,10 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-2e481f85c67d8efbd012e62671b0d194.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -284,7 +288,7 @@ window.Quarto = {
 <li>Train a classifier (<code>LogisticRegression</code>) model</li>
 <li>Given a <code>DecisionBoundaryDisplay</code> distinguish between a classifier’s <code>predict</code> and <code>predict_proba</code> methods</li>
 </ol>
-<div id="e30cf6ae" class="cell" data-execution_count="1">
+<div id="e30cf6ae" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -292,7 +296,7 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins_openml <span class="op">=</span> fetch_openml(name<span class="op">=</span><span class="st">"penguins"</span>, version<span class="op">=</span><span class="dv">1</span>, as_frame<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins_openml.frame</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="534731bb" class="cell" data-execution_count="2">
+<div id="534731bb" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
@@ -438,25 +442,25 @@ window.Quarto = {
 <li>one feature <span class="math inline">x</span>: <code>flipper_length_mm</code></li>
 <li>to predict the target <span class="math inline">y</span>: <code>body_mass_g</code></li>
 </ul>
-<div id="1a15e131" class="cell" data-execution_count="3">
+<div id="1a15e131" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>feature_name <span class="op">=</span> <span class="st">"flipper_length_mm"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>target_name <span class="op">=</span> <span class="st">"body_mass_g"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> penguins[[feature_name]]</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> penguins[target_name]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="3eded921" class="cell" data-execution_count="4">
+<div id="3eded921" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data.shape, target.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>((344, 1), (344,))</code></pre>
 </div>
 </div>
 <p>Since the LinearRegression model fitting assumes no missing values, we shall fill them with their means. In a later section, we talk about this issue in more details:</p>
-<div id="9acf51bc" class="cell" data-execution_count="5">
+<div id="9acf51bc" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'flipper_length_mm'</span>] <span class="op">=</span> data[<span class="st">'flipper_length_mm'</span>].fillna(data[<span class="st">'flipper_length_mm'</span>].mean())</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> target.fillna(target.mean())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="3a4b1b44" class="cell" data-execution_count="6">
+<div id="3a4b1b44" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
@@ -1203,7 +1207,7 @@ forceTheme('sk-container-id-1');</script>
 </div>
 </div>
 <p>The instance&nbsp;<code>linear_regression</code>&nbsp;stores the parameter values in the attributes&nbsp;<code>coef_</code>&nbsp;and&nbsp;<code>intercept_</code>. We can check what the optimal model found is:</p>
-<div id="5e0efbe4" class="cell" data-execution_count="9">
+<div id="5e0efbe4" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model.coef_[<span class="dv">0</span>].<span class="bu">round</span>(<span class="dv">2</span>), model.intercept_.<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(np.float64(49.69), np.float64(-5780.83))</code></pre>
@@ -1211,7 +1215,7 @@ forceTheme('sk-container-id-1');</script>
 </div>
 <p>This means the model learned: $ f(x) = 49.69 x -5780 $</p>
 <p>For any new <span class="math inline">x</span> (feature value; <code>flipper_length_mm</code>), the model can predict a <span class="math inline">\hat{y}</span> for it:</p>
-<div id="e69dd4d5" class="cell" data-execution_count="8">
+<div id="e69dd4d5" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model.predict([[<span class="dv">200</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/home/halgoz/work/AthkaX/ai-pros/public/content/W3/.venv/lib/python3.12/site-packages/sklearn/utils/validation.py:2691: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names
@@ -1223,7 +1227,7 @@ forceTheme('sk-container-id-1');</script>
 </div>
 <p>The model feeds the data like so: $ f(200) = 49.69 -5780 = 4156 $</p>
 <p>Let’s do this prediction for a range of values, to make a plot:</p>
-<div id="416da29a" class="cell" data-execution_count="14">
+<div id="416da29a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>flipper_length_range <span class="op">=</span> np.linspace(data.<span class="bu">min</span>(), data.<span class="bu">max</span>(), num<span class="op">=</span><span class="dv">300</span>)</span>
@@ -1238,7 +1242,7 @@ forceTheme('sk-container-id-1');</script>
 </div>
 </div>
 <p>We can use the weight and intercept to plot the model found using the scikit-learn.</p>
-<div id="57429e58" class="cell" data-execution_count="17">
+<div id="57429e58" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>predicted_body_mass <span class="op">=</span> model.predict(flipper_length_range)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>predicted_body_mass[:<span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -1275,7 +1279,7 @@ forceTheme('sk-container-id-1');</script>
 </div>
 </div>
 <p>Let’s measure the distances between the line and the points:</p>
-<div id="07aa6f8a" class="cell" data-execution_count="40">
+<div id="07aa6f8a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>inferred_body_mass <span class="op">=</span> model.predict(data)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>inferred_body_mass <span class="op">-</span> target</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="40">
@@ -1294,7 +1298,7 @@ Name: body_mass_g, Length: 344, dtype: float64</code></pre>
 </div>
 </div>
 <p>The error, is the avergae distance; also known as the <strong>mean absolute error</strong>:</p>
-<div id="43485586" class="cell" data-execution_count="80">
+<div id="43485586" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>model_error <span class="op">=</span> mean_absolute_error(target, inferred_body_mass)</span>
@@ -1309,7 +1313,7 @@ Name: body_mass_g, Length: 344, dtype: float64</code></pre>
 <h2 class="anchored" data-anchor-id="part-2-classification">Part 2: Classification</h2>
 <p>In regression, we saw that the target to be predicted is a continuous variable. In classification, the target is discrete (e.g.&nbsp;categorical).</p>
 <p>this time the task is to predict the penguin species using the culmen information. We also simplify our classification problem by selecting only 2 of the penguin species to solve a binary classification problem.</p>
-<div id="09900c3b" class="cell" data-execution_count="42">
+<div id="09900c3b" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the penguins dataset from OpenML</span></span>
@@ -1317,7 +1321,7 @@ Name: body_mass_g, Length: 344, dtype: float64</code></pre>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins_openml.frame</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Notice that we have three species. This makes it a multi-class classification problem. To make this a binary classification problem (for illustration purposes), we will only look at two species of penguins: <code>"Adelie"</code> and <code>"Chinstrap"</code>:</p>
-<div id="ff4c87bc" class="cell" data-execution_count="43">
+<div id="ff4c87bc" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> (</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    penguins.set_index(<span class="st">"species"</span>).loc[[<span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span>]].reset_index()</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -1328,13 +1332,13 @@ Name: body_mass_g, Length: 344, dtype: float64</code></pre>
 <li><span class="math inline">x_1</span>: <code>culmen_length_mm</code></li>
 <li><span class="math inline">x_2</span>: <code>culmen_depth_mm</code></li>
 </ul>
-<div id="a0ccbb42" class="cell" data-execution_count="44">
+<div id="a0ccbb42" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> [<span class="st">"culmen_length_mm"</span>, <span class="st">"culmen_depth_mm"</span>]</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>target_name <span class="op">=</span> <span class="st">"species"</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>data, target <span class="op">=</span> penguins[feature_names], penguins[target_name]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Again we’ll fill the values with their mean for now:</p>
-<div id="641f8ccc" class="cell" data-execution_count="45">
+<div id="641f8ccc" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feat <span class="kw">in</span> feature_names:</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    data[feat] <span class="op">=</span> data[feat].fillna(data[feat].mean())</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> target.fillna(target.mode()[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1352,9 +1356,8 @@ Name: body_mass_g, Length: 344, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Why use a train/test split?</strong> So far we have used the same data to fit the model and to evaluate it. That gives an overly optimistic view of performance: the model has already “seen” the answers during training. To get an honest estimate of how well the model will do on <strong>new, unseen data</strong>, we set aside part of the data as a <strong>test set</strong>. We fit the model only on the <strong>training set</strong> and evaluate it on the <strong>test set</strong>.</p>
-<p>That way, the test set acts as a stand-in for future data we don’t have yet.</p>
-<div id="a303886c" class="cell" data-execution_count="46">
+<p>The goal of ML is <em>generalization</em>, not <em>memorizing</em> the training data. A <strong>test set</strong> acts as a stand-in for unseen data:</p>
+<div id="a303886c" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
@@ -1456,7 +1459,7 @@ Name: body_mass_g, Length: 344, dtype: float64</code></pre>
 <li>However, the <strong>culmen depth</strong> is not helpful for predicting the penguin species.</li>
 </ul>
 <p>To fit a classification target, we use the <code>LogisticRegression</code> model to fit our data:</p>
-<div id="56800693" class="cell" data-execution_count="48">
+<div id="56800693" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression()</span>
@@ -2376,7 +2379,7 @@ forceTheme('sk-container-id-6');</script>
 </div>
 </div>
 <p>Likewise, the model can make predictions. For classification, <code>predict</code> returns the predicted class label:</p>
-<div id="8038944e" class="cell" data-execution_count="49">
+<div id="8038944e" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>predicted_species <span class="op">=</span> model.predict(X_test)</span>
@@ -2453,7 +2456,7 @@ forceTheme('sk-container-id-6');</script>
 </div>
 </div>
 <p>We can evaluate the classifier using <strong>accuracy</strong>: the fraction of correct predictions. We use the <strong>test set</strong> so the score reflects performance on unseen data.</p>
-<div id="3ef7749c" class="cell" data-execution_count="92">
+<div id="3ef7749c" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>np.mean(predicted_species <span class="op">==</span> y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2462,7 +2465,7 @@ forceTheme('sk-container-id-6');</script>
 </div>
 </div>
 <p>This is already available in the <code>sklearn.metrics</code> module with the function <code>accuracy_score</code>. Below we report both training and test accuracy:</p>
-<div id="1c5ef66e" class="cell" data-execution_count="93">
+<div id="1c5ef66e" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>train_accuracy <span class="op">=</span> accuracy_score(y_train, model.predict(X_train))</span>
