@@ -251,7 +251,9 @@ The Restart and Run All Test serves as your primary reproducibility check. Regul
 **Quick check:**  
 After running top to bottom, the numbers in the brackets next to each cell should be in order (1, 2, 3...). Sequential numbers mean your notebook is clean, reliable, and easy for others to trust.
 
-# Managing Multi-Notebook Projects
+# Extra (optional)
+
+## Managing Multi-Notebook Projects
 
 Complex data science projects often require multiple notebooks covering different aspects of analysis.
 
@@ -297,8 +299,6 @@ from feature_engineering import create_interaction_features, encode_categoricals
 
 Note the: `sys.path.append('../src')` statement is what makes the subsequent imports possible. So it is necessary to have it in this order.
 
-# Extra (optional)
-
 ## Annotate every aspect of your plots
 
 Plots should have annotations everywhere. The goal is to make sure our plots are fully descriptive. In other words, they should be stand-alone, "readily interpreted".
@@ -311,3 +311,4 @@ For each visualization provided within the notebook, we have to ensure that they
 - Units for each axis, e.g., "Temperature (Celsius)" on the y-axis label.
 
 For a nice tutorial on annotating plots using python, I recommend the [Matplotlib tutorial](https://github.com/rougier/matplotlib-tutorial).
+
