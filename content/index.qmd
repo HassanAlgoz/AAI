@@ -20,7 +20,7 @@ Welcome slides: [Introduction to Bootcamp](./W1/lessons/01_bootcamp_intro.qmd).
 - **Course 6: Agentic Engineering**  
     Maximize the use of *Vibe Coding* via best practices to accelerate software development in your codebase.
 
-**Duration**: 8 weeks.
+**Estimated Duration**: 8 weeks.
 
 ## Sessions and Break times
 
