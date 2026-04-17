@@ -25,18 +25,22 @@ The core theme is that numerical targets open up a richer family of metrics and 
 
 ## Loss Function vs Evaluation Metric
 
+::: {.fragment}
 - **Loss** (lower is better):
   - **Internal objective minimized during training**
   - examples:
     - MSE for `LinearRegression`
     - Log Loss for `LogisticRegression`
     - Entropy for `DecisionTreeClassifier`
+:::
+::: {.fragment}
 - **Metrics**:
   - **A quantity to evaluate the performance** (usually after training)
   - used to compare models from a practical/business perspective
   - examples:
     - Regression: $R^2$, MSE, MAPE
     - Classification: Accuracy, Precision, Recall
+:::
 
 :::: {.notes}
 Emphasize the “two lenses” idea: loss is the optimizer’s target, but metrics are what we care about when deciding which model is better. Give a quick example that low loss doesn’t automatically mean the stakeholder-relevant errors are small.
@@ -90,7 +94,7 @@ Draw a clear line between the loss used for optimization and the metrics we repo
 ## Mean Absolute Error (MAE)
 
 - **Definition**: average of absolute differences  
-    $$ \text{MAE} =  \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right| \in [0, \infty)$$$
+    $$ \text{MAE} =  \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right| \in [0, \infty)$$
 - Properties:
   - Same unit as the **target** (e.g., k$).
   - More robust than MSE to **large outliers**, but still mean-based.
@@ -144,6 +148,11 @@ Point out that “996.9” or “2064.7” are hard to interpret without context
   - $R^2 = 1$: perfect predictions.
   - $R^2 = 0$: same as predicting the mean of the target.
   - $R^2 < 0$: worse than predicting the mean. (no limit to how worse!)
+
+
+::: {.callout-note}
+This is the default in sklearn when you call `.score()` for a regressor model.
+:::
 
 ::::: {.notes}
 Emphasize that $R^2$ supplies a dimensionless, relative notion of performance. Show that the default `score` for scikit-learn regressors is exactly this quantity.

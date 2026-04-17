@@ -33,7 +33,7 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [Slides: Introduction](M1/lessons/01_slides_Intro_ML.qmd) (1 hour)
+- [🧬 Slides: Introduction](M1/lessons/01_slides_Intro_ML.qmd) (1 hour)
 :::
 :::
 <!-- end columns -->
@@ -60,8 +60,8 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [Slides: Linear Models](M1/lessons/02_slides_linear_models.qmd) (45m)
-- [Lab: Linear Models](M1/lessons/03_lab_linear_models.ipynb) (45m)
+- [🧬 Slides: Linear Models](M1/lessons/02_slides_linear_models.qmd) (45m)
+- [🔬 Lab: Linear Models](M1/lessons/03_lab_linear_models.ipynb) (45m)
 
 **Resources**:
 
@@ -69,8 +69,8 @@ Learning outcomes:
 
 #### Exercises
 
-- [M1.Ex1: Model Hours vs Marks](M1/exercises/ex1_reg.ipynb) (3hr)
-- [M1.Ex2: Model Experience vs Salary](M1/exercises/ex2_reg.ipynb) (30m)
+- [✍️ Model Hours vs Marks](M1/exercises/ex1_reg.ipynb) (3hr)
+- [✍️ Model Experience vs Salary](M1/exercises/ex2_reg.ipynb) (30m)
 :::
 :::
 <!-- end columns -->
@@ -90,13 +90,13 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [Slides: Non-linear patterns](M1/lessons/04_slides_non_linear_patterns.qmd) (25m)
-- [Lab: Non-linear patterns](M1/lessons/05_lab_non_linear_patterns.ipynb) (15m)
+- [🧬 Slides: Non-linear patterns](M1/lessons/04_slides_non_linear_patterns.qmd) (25m)
+- [🔬 Lab: Non-linear patterns](M1/lessons/05_lab_non_linear_patterns.ipynb) (15m)
 
 #### Exercises
 
-- [M1.Ex3: Iris Classification](M1/exercises/ex3_class.ipynb) (2hr)
-- [M1.Ex4: Modeling Non-linear Patterns](M1/exercises/ex4_non-linear.ipynb) (30m)
+- [✍️ Iris Classification](M1/exercises/ex3_class.ipynb) (2hr)
+- [✍️ Modeling Non-linear Patterns](M1/exercises/ex4_non-linear.ipynb) (30m)
 :::
 :::
 <!-- end columns -->
@@ -126,16 +126,16 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-1. [Lab: Handle Missing Values](M2/lessons/lab_impute.ipynb) (20m)
-2. [Lab: Scaling: Numerical Features](M2/lessons/lab_scale.ipynb) (20m)
-3. [Lab: Encoding: Cateogrical Features](M2/lessons/lab_encode.ipynb) (15m)
-4. [Slides: Pipelines](M2/lessons/03_slides_pipeline.qmd) (20m)
-5. [Lab: Pipelines](M2/lessons/04_lab_pipeline.ipynb) (10m)
+1. [🔬 Lab: Handle Missing Values](M2/lessons/lab_impute.ipynb) (20m)
+2. [🔬 Lab: Scaling: Numerical Features](M2/lessons/lab_scale.ipynb) (20m)
+3. [🔬 Lab: Encoding: Cateogrical Features](M2/lessons/lab_encode.ipynb) (15m)
+4. [🧬 Slides: Pipelines](M2/lessons/03_slides_pipeline.qmd) (20m)
+5. [🔬 Lab: Pipelines](M2/lessons/04_lab_pipeline.ipynb) (10m)
 
 #### Exercises
 
-1. [M2.Ex1: Advertising Revenue](M2/exercises/ex1_multi-reg.ipynb) (1hr)
-2. [M2.Ex2: Fuel Efficiency](M2/exercises/ex2_multi-reg.ipynb) (30m)
+1. [✍️ Advertising Revenue](M2/exercises/ex1_multi-reg.ipynb) (1hr)
+2. [✍️ Fuel Efficiency](M2/exercises/ex2_multi-reg.ipynb) (30m)
 
 **Bonus**:
 
@@ -169,8 +169,8 @@ In this lecture we learn to:
 ::: {.column}
 **Materials:**
 
-1. [Slides: Model Evaluation](M3/lessons/01_slides_evaluation.qmd)
-2. [Lab: Cross-validation](M3/lessons/02_cross-validation.ipynb)
+1. [🧬 Slides: Model Evaluation](M3/lessons/01_slides_evaluation.qmd)
+2. [🔬 Lab: Cross-validation](M3/lessons/02_cross-validation.ipynb)
 
 :::
 :::
@@ -194,7 +194,7 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [Lab: Hyper-parameter Tuning](M3/lessons/03_hyper-parameter_tuning.ipynb)
+- [🔬 Lab: Hyper-parameter Tuning](M3/lessons/03_hyper-parameter_tuning.ipynb)
 
 **Extra:**
 
@@ -222,12 +222,8 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [Slides: Regression Metrics](M4/lessons/01_slides_regression_metrics.qmd)
-- [Lab: Evaluation of Regression Models](M4/lessons/02_lab_regression_metrics.ipynb)
-
-#### Exercises
-
-- [M4.Ex1: Housing Prices Model (PyCaret)](M4/exercises/ex1_pycaret_regression.ipynb)
+- [🧬 Slides: Regression Metrics](M4/lessons/01_slides_regression_metrics.qmd)
+- [🔬 Lab: Evaluation of Regression Models](M4/lessons/02_lab_regression_metrics.ipynb)
 
 :::
 :::
@@ -247,19 +243,18 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [Slides: Classification Metrics](M4/lessons/03_slides_classification_metrics.qmd)
-- [Lab: Classification Metrics](M4/lessons/04_lab_classification_metrics.ipynb)
+- [🧬 Slides: Classification Metrics](M4/lessons/03_slides_classification_metrics.qmd)
+- [🔬 Lab: Classification Metrics](M4/lessons/04_lab_classification_metrics.ipynb)
 - [Widget: Classifier Threshold](M4/lessons/widget_threshold.qmd)
 :::
 :::
 <!-- end columns -->
 
 
-
-
-
 ### M4-3: Classifier Threshold Tuning
 
+::: {.columns}
+::: {.column}
 Learning outcomes:
 
 1. Distinguish cases where one should trade Recall for Precision and vice-versa
@@ -267,34 +262,43 @@ Learning outcomes:
 3. Given a classifier; tune the decision threshold to maximize either precision or recall
 4. Given a classifier and a specific ratio between $FN$ and $FP$; tune the decision threshold to optimize for that ratio
 5. Understand why probability calibration is important
-
+:::
+::: {.column}
 **Materials:**
 
-- [[Lab 1]](M4/lessons/06_lab_classifier_threshold_tuning.ipynb)
-- [[Lab 2]](M4/lessons/07_lab_probability_calibration.ipynb)
-
-#### Exercises
-
-- [M4.Ex2: Penguins Classification (PyCaret)](M4/exercises/ex2_pycaret_classification.ipynb)
+- [🔬 Lab: Classification Threshold Tuning](M4/lessons/06_lab_classifier_threshold_tuning.ipynb)
+- [🔬 Lab: Probability Calibration](M4/lessons/07_lab_probability_calibration.ipynb)
+:::
+:::
 
 ## Module 5: Decision Trees and Ensembles
 
 ### M5-1: Decision Trees
 
+
+::: {.columns}
+::: {.column}
 Learning outcomes:
 
 1. Explain how decision trees work for regression; two levels deep
 2. Explain how decision trees work for classification; two levels deep
 3. Explain how the maximum depth impacts generalization performance?
 4. Enumerate at least 2 advantages of decision trees
-
+:::
+::: {.column}
 **Materials:**
 
-- [[Slides]](M5/lessons/01_slides_trees.qmd)
-- [[Lab]](M5/lessons/02_lab_decision_trees.ipynb)
-
+- [🧬 Slides: Decision Trees](M5/lessons/01_slides_trees.qmd)
+- [🔬 Lab: Decision Trees](M5/lessons/02_lab_decision_trees.ipynb)
+:::
+:::
 
 ### M5-2: Ensemble Methods
+
+
+::: {.columns}
+
+::: {.column}
 
 Learning outcomes:
 
@@ -304,13 +308,45 @@ Learning outcomes:
 4. List at least 2 difference between bagging and boosting
 5. Rank the three boosting techniques (Ada Boost, Gradient Boosting, Histogram Gradient Boosting) in terms of accuracy and computational cost
 
+
+:::
+
+::: {.column}
+
 **Materials:**
 
-- [[Slides 1]](M5/lessons/03_slides_bagging.qmd)
-- [[Slides 2]](M5/lessons/04_slides_boosting.qmd)
-- [[Lab]](M5/lessons/05_lab_ensembles.ipynb)
+- [🧬 Slides: Bagging](M5/lessons/03_slides_bagging.qmd)
+- [🧬 Slides: Boosting](M5/lessons/04_slides_boosting.qmd)
+- [🔬 Lab: Ensembles](M5/lessons/05_lab_ensembles.ipynb)
 
-### M5-3: Explainable AI
+:::
+
+:::
+
+
+## Module 6: Auto Machine Learning
+
+### M6-1: Auto ML with PyCaret
+
+[**PyCaret**](https://pycaret.gitbook.io/docs) is an open-source, low-code machine learning library in Python that automates machine learning workflows. It is an end-to-end machine learning and model management tool that speeds up the experiment cycle exponentially and makes you more productive.
+
+In comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as [`scikit-learn`](https://scikit-learn.org/stable/), [`XGBoost`](https://xgboost.ai/), [`LightGBM`](https://lightgbm.readthedocs.io/en/stable/), [`CatBoost`](https://catboost.ai/), [`Optuna`](https://optuna.org/), [`Hyperopt`](https://hyperopt.github.io/hyperopt/), [`Ray`](https://www.ray.io/), and many more.
+
+Please watch this 13 minutes video (**PyCaret 2.3.6 NEW Features**) for a walkthrough:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Qr6Hu2t2gwY?si=tL_gGtzJ0psQVhKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+#### Exercises
+
+- [✍️ Housing Prices Model (PyCaret)](M4/exercises/ex1_pycaret_regression.ipynb)
+- [✍️ Penguins Classification (PyCaret)](M4/exercises/ex2_pycaret_classification.ipynb)
+
+### M6-2: Explainable AI
+
+
+::: {.columns}
+
+::: {.column}
 
 Learning outcomes:
 
@@ -321,11 +357,26 @@ Learning outcomes:
 5. Interpret a SHAP heatmap
 6. Zoom in on specific features to inspect their impact and support for specific SHAP-values
 
+
+:::
+
+::: {.column}
+
 **Materials:**
 
-- [[Lab]](M5/lessons/06_lab_shap.ipynb)
+- [🔬 Lab: SHAP](M6/lessons/06_lab_shap.ipynb)
 
-### M5-4: Data Profiling and Privacy
+:::
+
+:::
+
+
+### M6-3: Data Profiling and Privacy
+
+
+::: {.columns}
+
+::: {.column}
 
 Learning outcomes:
 
@@ -338,14 +389,24 @@ Learning outcomes:
 6. Given a dataset, indentify fields that count as PII directly and indirectly
 7. Given a dataset, apply techniques to protect sensitive data
 
+:::
+
+::: {.column}
+
+
 **Materials**:
 
-1. [Slides 1](M5/lessons/07_slides_data_quality_profiling.qmd)
-2. [Slides 2](M5/lessons/08_slides_sensitive_data.qmd)
+1. [🧬 Slides: Data Quality Profiling](M6/lessons/02_slides_data_quality_profiling.qmd)
+2. [🧬 Slides: Sensitive Data](M6/lessons/03_slides_sensitive_data.qmd)
+
+:::
+
+:::
+
 
 ## Project
 
-[**Project**](./Project/Project.qmd).
+[**🎯 Project**](./Project/Project.qmd).
 
 ## Resources
 

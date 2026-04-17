@@ -23,12 +23,12 @@ Tentative schedule:
 
 ## Learning Material
 
-1. **Slides**: concepts, mental models, connecting ideas, and discussion.
-2. **Labs**: details, docs, debugging, and what-ifs.
-3. **Daily Exercises**: guided through step-by-step questions.
-4. **Weekly Projects**: goal to achieve using learned skills.
-5. **Quiz**: knowledge test.
-6. **Presentation**: express ability to communicate technically.
+1. **🧬 Slides**: concepts, mental models, connecting ideas, and discussion.
+2. **🔬 Labs**: details, docs, debugging, and what-ifs.
+3. **✍️ Daily Exercises**: guided through step-by-step questions.
+4. **🎯 Weekly Projects**: goal to achieve using learned skills.
+5. **📝 Quiz**: knowledge test.
+6. **💬 Presentation**: express ability to communicate technically.
 
 ## Why Presentations?
 

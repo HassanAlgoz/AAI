@@ -27,10 +27,10 @@ Real decision-making often has asymmetric error costs.
 
 Example (medical screening):
 
-- **Cost of False Negatives (FN)** is higher than the cost of **False Positives (FP)**.
-- **Priority:** maximize **Recall (Sensitivity)**.
-- **Trade-off:** you accept lower Precision to reduce missed positives.
+- **Cost** of $FN$ is higher than the cost of $FP$.
 - **Strategy:** shift the decision threshold **below 0.5** so more cases are predicted positive (more coverage, more false alarms).
+- **Priority:** maximize **Recall**.
+- **Trade-off:** you accept lower Precision to reduce missed positives.
 
 ---
 

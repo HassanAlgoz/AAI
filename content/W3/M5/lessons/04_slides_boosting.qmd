@@ -205,12 +205,14 @@ when deciding how many stages to use.
 . . .
 
 **Traditional Boosting** (`sklearn.ensemble.AdaBoostClassifier`)
+
 - Mispredicted **samples are re-weighted** at each step
 - Can use any base model that accepts `sample_weight`
 
 . . .
 
 **Gradient Boosting** (`sklearn.ensemble.HistGradientBoostingClassifier`)
+
 - Each base model predicts the **negative error** of previous models
 - `sklearn` use decision trees as the base model
 
@@ -236,7 +238,7 @@ Therefore, each new tree in the ensemble tries to refine its predictions by spec
   - Fine for small data sets
   - Too slow for `n_samples` > 10,000
 
---
+. . .
 
 - `sklearn.ensemble.HistGradientBoostingClassifier`
   - Discretize numerical features (256 levels)

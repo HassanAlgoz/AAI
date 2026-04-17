@@ -9,8 +9,8 @@ project:
     - W1/
     - W2/
     - W3/
-    - W4/
-    - W5/
+    # - W4/
+    # - W5/
 
 website:
   navbar:
@@ -58,7 +58,7 @@ format:
 
     slide-number: c/t
     show-slide-number: all
-    transition: slide
+    transition: fade
     background-transition: fade
     chalkboard: true
     progress: true

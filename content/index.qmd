@@ -30,9 +30,6 @@ Welcome slides: [Introduction to Bootcamp](./W1/lessons/01_bootcamp_intro.qmd).
 - Lunch break 12:00 - 1:00 PM
 - **Session 3 (Labs and Exercises)**: 1:00 - 3:00 PM
 
-Welcome: [](./W1/lessons/01_bootcamp_intro.qmd).
-
-
 ## Classroom Communication
 
 - Join the [Google Classroom](https://classroom.google.com/h) for:  
