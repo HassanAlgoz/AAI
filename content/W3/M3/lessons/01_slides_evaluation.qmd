@@ -10,48 +10,13 @@ format:
 
 In this lecture we learn to:
 
-1. Distinguish **loss functions** (training objective) from **evaluation metrics** (business/practical score)
-2. Establish a baseline for **learning**
-3. Understand when **more data** helps (and when it does not)
-4. Detect **over-fitting vs under-fitting** and reason about **generalization**
-5. Estimate generalization with proper **train/validation/test splits** and **cross-validation**
+1. Establish a baseline for **learning**
+2. Understand when **more data** helps (and when it does not)
+3. Detect **over-fitting vs under-fitting** and reason about **generalization**
+4. Estimate generalization with proper **train/validation/test splits** and **cross-validation**
 
 :::: {.notes}
 Frame the lecture as a toolkit for evaluation: (1) what we optimize vs what we measure, (2) how to catch obvious failures early with baselines, and (3) how to estimate real-world performance without data leakage.
-::::
-
----
-
-## Loss Function vs Evaluation Metric
-
-- **Loss** (lower is better):
-  - **Internal objective minimized during training**
-  - examples:
-    - MSE for `LinearRegression`
-    - Log Loss for `LogisticRegression`
-    - Entropy for `DecisionTreeClassifier`
-- **Metrics**:
-  - **A quantity to evaluate the performance** (usually after training)
-  - used to compare models from a practical/business perspective
-  - examples:
-    - Regression: $R^2$, MSE, MAPE
-    - Classification: Accuracy, Precision, Recall
-
-:::: {.notes}
-Emphasize the “two lenses” idea: loss is the optimizer’s target, but metrics are what we care about when deciding which model is better. Give a quick example that low loss doesn’t automatically mean the stakeholder-relevant errors are small.
-::::
-
----
-
-## Can we reuse a metric as a loss?
-
-- **Metric as loss?**
-  - only possible if the metric is **differentiable**
-- **Loss as metric?**
-  - sometimes useful only if it is **meaningful to the business/problem**
-
-:::: {.notes}
-Use this as a rule of thumb: unless gradients exist (differentiability), training cannot directly optimize the metric. Conversely, we still report metrics that stakeholders can interpret.
 ::::
 
 ---
@@ -81,7 +46,7 @@ Deliver the mindset: if evaluation isn’t better than chance, don’t jump stra
 - `most_frequent`: always predicts the most frequent training label
 - `stratified`: random predictions respecting the class distribution
 
-Key point: in all cases, `predict()` **ignores input features**
+Key point: in all cases, `predict()` **ignores input features**.
 
 :::: {.notes}
 Reinforce why baselines matter: they represent the performance you get without learning from the input. Your real model should beat them; otherwise, something is wrong (features, targets, or evaluation setup).
@@ -97,7 +62,7 @@ from sklearn.dummy import DummyClassifier
 dummy_clf = DummyClassifier(strategy="most_frequent")
 dummy_clf.fit(X_train, y_train)
 
-print("Dummy Classifier Score:", dummy_clf.score(X_test, y_test))
+print("   Dummy Classifier Score:", dummy_clf.score(X_test, y_test))
 print("Logistic Regression Score:", clf.score(X_test, y_test))
 ```
 
@@ -119,8 +84,7 @@ In delivery, say: “first we establish a yardstick.” Then interpret the gap: 
 - `quantile`: always predicts a user-provided quantile
 - `constant`: always predicts a provided constant value
 
-Key point:
-- these strategies ignore input features during `predict()`
+Key point: these strategies ignore input features during `predict()`.
 
 :::: {.notes}
 Transition the baseline idea from classification to regression: the same logic applies—before trusting a model’s absolute score, confirm it beats a “predict the mean/median” strategy.
@@ -163,7 +127,7 @@ Interpretation: the model’s weak generalization comes from regions it rarely s
 
 ---
 
-## More data may fail if the model is too inflexible
+## More data may fail if the model is inflexible
 
 Figure below shows:
 
@@ -288,7 +252,7 @@ Say why CV exists: a single split can be misleading if the test fold happens to 
 
 ## Comparing models more reliably
 
-![](../assets/error_gap_cv_5.png){fig-align="center" .r-stretch}
+![](../assets/cross-validation_results.png){fig-align="center" .r-stretch}
 
 :::: {.notes}
 Point at the variability: if the “best” model also has consistently high test scores across folds, it’s a safer choice. Large swings across splits is a sign of sensitivity to the sampled data.
@@ -330,6 +294,10 @@ Reading learning curves: pay attention to whether the *gap* between train and te
 :::: {.callout-warning}
 If you use the **testing set** to make decisions, you effectively turn it into a validation set.
 Never let the model “see” test information.
+::::
+
+:::: {.callout-note}
+Another cross-validation procedure can be used with testing set. If you use CV in both train-validation split, and then again on testing set, you will have $n \times m$ fit-and-score runs; which needs a lot of compute. Hence, less people do this especially when the dataset is very big.
 ::::
 
 :::: {.notes}

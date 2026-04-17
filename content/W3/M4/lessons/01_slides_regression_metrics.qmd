@@ -10,14 +10,50 @@ format:
 
 In this lecture we learn to:
 
-1. Explain why regression models need dedicated evaluation metrics.
-2. Interpret and compare MSE, ($R^2$), MAE, median AE, and MAPE.
-3. Diagnose regression models visually using prediction and residual plots.
-4. Explain when a target transformation can improve model fit and metrics.
+1. Distinguish **loss functions** (training objective) from **evaluation metrics** (business/practical score)
+2. Explain why regression models need dedicated evaluation metrics.
+3. Interpret and compare MSE, ($R^2$), MAE, median AE, and MAPE.3
+4. Diagnose regression models visually using prediction and residual plots.
+5. Explain when a target transformation can improve model fit and metrics.
 
 ::::: {.notes}
 The core theme is that numerical targets open up a richer family of metrics and visual diagnostics than accuracy alone. We also highlight how poor choices or naïve baselines can mislead us, and how transformations can unlock better behavior.
 :::::
+
+---
+
+
+## Loss Function vs Evaluation Metric
+
+- **Loss** (lower is better):
+  - **Internal objective minimized during training**
+  - examples:
+    - MSE for `LinearRegression`
+    - Log Loss for `LogisticRegression`
+    - Entropy for `DecisionTreeClassifier`
+- **Metrics**:
+  - **A quantity to evaluate the performance** (usually after training)
+  - used to compare models from a practical/business perspective
+  - examples:
+    - Regression: $R^2$, MSE, MAPE
+    - Classification: Accuracy, Precision, Recall
+
+:::: {.notes}
+Emphasize the “two lenses” idea: loss is the optimizer’s target, but metrics are what we care about when deciding which model is better. Give a quick example that low loss doesn’t automatically mean the stakeholder-relevant errors are small.
+::::
+
+---
+
+## Can we reuse a metric as a loss?
+
+- **Metric as loss?**
+  - only possible if the metric is **differentiable**
+- **Loss as metric?**
+  - sometimes useful only if it is **meaningful to the business/problem**
+
+:::: {.notes}
+Use this as a rule of thumb: unless gradients exist (differentiability), training cannot directly optimize the metric. Conversely, we still report metrics that stakeholders can interpret.
+::::
 
 ---
 

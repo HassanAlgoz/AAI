@@ -170,7 +170,7 @@ In this lecture we learn to:
 **Materials:**
 
 1. [Slides: Model Evaluation](M3/lessons/01_slides_evaluation.qmd)
-2. [Lab: Under-fitting and Over-fitting](M3/lessons/02_lab_generalization.ipynb)
+2. [Lab: Cross-validation](M3/lessons/02_cross-validation.ipynb)
 
 :::
 :::
@@ -195,7 +195,6 @@ Learning outcomes:
 **Materials:**
 
 - [Lab: Hyper-parameter Tuning](M3/lessons/03_hyper-parameter_tuning.ipynb)
-- [Lab: Sample Grouping](M3/lessons/04_sample_grouping.ipynb)
 
 **Extra:**
 
