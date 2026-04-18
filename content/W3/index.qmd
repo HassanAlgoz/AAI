@@ -338,8 +338,8 @@ Please watch this 13 minutes video (**PyCaret 2.3.6 NEW Features**) for a walkth
 
 #### Exercises
 
-- [✍️ Housing Prices Model (PyCaret)](M4/exercises/ex1_pycaret_regression.ipynb)
-- [✍️ Penguins Classification (PyCaret)](M4/exercises/ex2_pycaret_classification.ipynb)
+- [✍️ Housing Prices Model (PyCaret)](M6/exercises/ex1_pycaret_regression.ipynb)
+- [✍️ Penguins Classification (PyCaret)](M6/exercises/ex2_pycaret_classification.ipynb)
 
 ### M6-2: Explainable AI
 
@@ -364,7 +364,7 @@ Learning outcomes:
 
 **Materials:**
 
-- [🔬 Lab: SHAP](M6/lessons/06_lab_shap.ipynb)
+- [🔬 Lab: SHAP](M6/lessons/01_lab_shap.ipynb)
 
 :::
 
