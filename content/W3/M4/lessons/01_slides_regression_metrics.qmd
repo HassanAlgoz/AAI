@@ -141,10 +141,10 @@ Point out that “996.9” or “2064.7” are hard to interpret without context
 
 ## $R^2$: Coefficient of Determination
 
-- Rescales MSE by the **variance of the target**  
+- Rescales MSE by the variance of the target:  
     $$ R^2 = 1 - \frac{\text{MSE}}{\sigma_{y}} \in (-\infty, 1]$$
 - **Interpretation**:
-  - Proportion of target variance **explained by the model**.
+  - Proportion of target variance explained by the model.
   - $R^2 = 1$: perfect predictions.
   - $R^2 = 0$: same as predicting the mean of the target.
   - $R^2 < 0$: worse than predicting the mean. (no limit to how worse!)

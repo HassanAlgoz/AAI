@@ -8,11 +8,10 @@ format:
 
 ## Problems with Decision Trees
 
-- Decision trees are powerful, but
-- they are prone to overfitting when they are deep
-- and underfitting when they are shallow
+- Deep trees overfit
+- Shallow trees underfit
 
-## Ensemble of tree-based models {.titlepage}
+## Ensemble of tree-based models
 
 Combine many decision trees into powerful models!
 
@@ -76,18 +75,6 @@ Here we have a classification task: separating circles from squares.
 ::::
 ::::
 
-:::: {.center}
-```python
-from sklearn.ensemble import BaggingClassifier
-from sklearn.ensemble import RandomForestClassifier
-```
-::::
-
-:::: {.notes}
-`BaggingClassifier`: This is a generic wrapper. You can pass it any algorithm—a Support Vector Machine, a Logistic Regression, or a Decision Tree. If you don't specify one, it defaults to a DecisionTreeClassifier.
-
-`RandomForestClassifier`: This is a specific implementation of bagging that is hard-coded to use Decision Trees. It is highly optimized for this specific use case.
-::::
 
 ## Bagging for classification
 
@@ -107,6 +94,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import BaggingClassifier
 from sklearn.ensemble import RandomForestClassifier
 ```
+::::
+
+
+:::: {.notes}
+`BaggingClassifier`: This is a generic wrapper. You can pass it any algorithm—a Support Vector Machine, a Logistic Regression, or a Decision Tree. If you don't specify one, it defaults to a DecisionTreeClassifier.
+
+`RandomForestClassifier`: This is a specific implementation of bagging that is hard-coded to use Decision Trees. It is highly optimized for this specific use case.
 ::::
 
 ## Bagging for regression
@@ -193,8 +187,8 @@ More trees mean longer to fit, slower to predict, and larger models to deploy.
 
 ## Take away
 
-**Bagging** and **random forests** fit trees **independently**:
+Random forests fit models independently:
 
-- each **deep tree overfits** individually  
-- averaging the tree predictions **reduces overfitting**
+- each deep model overfits individually  
+- averaging the tree predictions reduces overfitting
 
