@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
+
+  <title>Applied AI Bootcamp – ML Problem Framing</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-83d60258e862cb5c4bd6ebabd122cf27.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">ML Problem Framing</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="problem-framing" class="slide level2 scrollable">
+<h2>Problem Framing</h2>
+<p><strong>Problem framing</strong>&nbsp;is the process of analyzing a problem to isolate the individual elements that need to be addressed to solve it.</p>
+<p>Problem framing helps determine your project’s technical feasibility and provides a clear set of goals and success criteria. When considering an ML solution, effective problem framing can determine whether or not your product ultimately succeeds.</p>
+<p>At a high level, ML problem framing consists of two distinct steps:</p>
+<ol type="1">
+<li class="fragment">Determining whether ML is the right approach for solving a problem.</li>
+<li class="fragment">Framing the problem in ML terms.</li>
+</ol>
+</section>
+<section id="state-the-goal" class="slide level2">
+<h2>State the goal</h2>
+<ul>
+<li class="fragment">Begin by stating your goal in non-ML terms.</li>
+<li class="fragment">The goal is the answer to the question, “What am I trying to accomplish?”</li>
+</ul>
+<p>The following tables help you map specific <strong>applications + goals</strong> to <strong>ML Task</strong> ..</p>
+</section>
+<section id="supervised-ml" class="slide level2">
+<h2>Supervised ML</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Application</strong></th>
+<th><strong>Goal</strong></th>
+<th><strong>ML Task</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Navigation</td>
+<td>ETA prediction</td>
+<td>Regression</td>
+<td>Calculate the estimated time of arrival for a specific route.</td>
+</tr>
+<tr class="even">
+<td>Weather</td>
+<td>Rainfall forecast</td>
+<td>Regression</td>
+<td>Predict the expected rainfall volume for a given area.</td>
+</tr>
+<tr class="odd">
+<td>Revenue</td>
+<td>Sales forecasting</td>
+<td>Regression</td>
+<td>Calculate the expected sales revenue for a future period.</td>
+</tr>
+<tr class="even">
+<td>Drug Response</td>
+<td>Estimate efficacy</td>
+<td>Regression, Classification</td>
+<td>Evaluate the potential effectiveness of a medical treatment.</td>
+</tr>
+<tr class="odd">
+<td>Manufacturing</td>
+<td>Predict component failure</td>
+<td>Regression</td>
+<td>Estimate the remaining time before a specific machine component fails.</td>
+</tr>
+<tr class="even">
+<td>E-commerce</td>
+<td>Ad click likelihood</td>
+<td>Classification</td>
+<td>Determine the likelihood that a customer will click on a specific advertisement.</td>
+</tr>
+<tr class="odd">
+<td>Healthcare</td>
+<td>Readmission risk</td>
+<td>Classification</td>
+<td>Assess the probability of a patient returning to the hospital.</td>
+</tr>
+<tr class="even">
+<td>Cybersecurity</td>
+<td>Attack detection</td>
+<td>Classification</td>
+<td>Identify whether network activity constitutes a malicious attack.</td>
+</tr>
+<tr class="odd">
+<td>Real Estate</td>
+<td>Home valuation</td>
+<td>Regression</td>
+<td>Estimate the market value of a specific residential property.</td>
+</tr>
+<tr class="even">
+<td>Email</td>
+<td>Spam filtering</td>
+<td>Classification</td>
+<td>Categorize incoming messages as legitimate or unsolicited spam.</td>
+</tr>
+<tr class="odd">
+<td>HR</td>
+<td>Attrition risk</td>
+<td>Classification</td>
+<td>Determine the probability that an employee will leave the company.</td>
+</tr>
+<tr class="even">
+<td>Finance</td>
+<td>Fraud classification</td>
+<td>Classification</td>
+<td>Identify whether a specific financial transaction is fraudulent.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="unsupervised-ml" class="slide level2">
+<h2>Unsupervised ML</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Application</strong></th>
+<th><strong>Goal</strong></th>
+<th><strong>ML Task</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fraud</td>
+<td>Detect anomalies</td>
+<td>Isolation Forest, GMM</td>
+<td>Identify unusual data patterns indicating potential fraud.</td>
+</tr>
+<tr class="even">
+<td>Segmentation</td>
+<td>Group customers</td>
+<td>k-means, DBSCAN</td>
+<td>Group customers based on shared behaviors or traits.</td>
+</tr>
+<tr class="odd">
+<td>Visualization</td>
+<td>Simplify data</td>
+<td>Dimensionality Reduction</td>
+<td>Reduce dataset complexity for easier visual analysis.</td>
+</tr>
+<tr class="even">
+<td>Experiment Outcomes</td>
+<td>Pattern discovery</td>
+<td>Clustering</td>
+<td>Uncover hidden structures within experimental data.</td>
+</tr>
+<tr class="odd">
+<td>Efficiency</td>
+<td>Streamline features</td>
+<td>Dimensionality Reduction</td>
+<td>Remove redundant variables to improve model performance.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="deep-learning" class="slide level2">
+<h2>Deep Learning</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Application</strong></th>
+<th><strong>Goal</strong></th>
+<th><strong>ML Task</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Product Class</td>
+<td>Image classification</td>
+<td>Computer Vision</td>
+<td>Categorize items automatically based on visual features.</td>
+</tr>
+<tr class="even">
+<td>Tumor Detection</td>
+<td>Map brain tumors</td>
+<td>Computer Vision</td>
+<td>Identify and locate abnormal tissue in medical scans.</td>
+</tr>
+<tr class="odd">
+<td>Text/News</td>
+<td>Content flagging</td>
+<td>NLP</td>
+<td>Detect inappropriate or specific themes within text.</td>
+</tr>
+<tr class="even">
+<td>Summarization</td>
+<td>Condense text</td>
+<td>NLP</td>
+<td>Generate concise overviews of lengthy documents.</td>
+</tr>
+<tr class="odd">
+<td>Chatbots</td>
+<td>Conversational AI</td>
+<td>NLP</td>
+<td>Automate human-like dialogue for user interactions.</td>
+</tr>
+<tr class="even">
+<td>Voice</td>
+<td>Audio processing</td>
+<td>NLP</td>
+<td>Convert spoken language into actionable text.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clear-use-case-for-ml-12" class="slide level2">
+<h2>Clear use case for ML (1/2)</h2>
+<blockquote>
+<p>“To a man with a hammer, everything looks like a nail”</p>
+</blockquote>
+<ul>
+<li class="fragment">You don’t want to implement a complex ML solution when a simpler non-ML solution will work.
+<ul>
+<li class="fragment">Try solving the problem manually using a&nbsp;<em>Heuristic</em></li>
+<li class="fragment">Verify that your current non-ML solution is optimized</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Some view ML as a universal tool that can be applied to all problems. In reality, ML is a specialized tool suitable only for particular problems.</li>
+<li>A heuristic is a hunch, naive baseline or simple intuitive solution.</li>
+<li>For example, “With a heuristic, we achieved 86% accuracy. When we switched to a deep neural network, accuracy went up to 98%.”</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="clear-use-case-for-ml-22" class="slide level2">
+<h2>Clear use case for ML (2/2)</h2>
+<ul>
+<li class="fragment"><strong>Difference</strong>: How much better do you think an ML solution can be?</li>
+<li class="fragment"><strong>Cost</strong>: How expensive is the ML solution in both the short- and long-term?
+<ul>
+<li class="fragment">In some cases, it costs significantly more in terms of compute resources and time to implement ML</li>
+<li class="fragment">Note that small improvements can be justified in large systems.</li>
+</ul></li>
+<li class="fragment"><strong>Maintenance</strong>: How much maintenance will the solution require?
+<ul>
+<li class="fragment">In many cases, ML implementations need dedicated long-term maintenance.</li>
+</ul></li>
+<li class="fragment"><strong>Expertise</strong>: Does your product have the resources to support training or hiring people with ML expertise?</li>
+</ul>
+</section>
+<section id="the-art-of-data" class="slide level2">
+<h2>The ART of Data</h2>
+<ul>
+<li class="fragment"><strong>Available</strong>.
+<ul>
+<li class="fragment">Make sure all inputs are available at prediction time in the correct format.</li>
+<li class="fragment">If it will be difficult to obtain certain feature values at prediction time, omit those features from your datasets.</li>
+</ul></li>
+<li class="fragment"><strong>Representative</strong>.
+<ul>
+<li class="fragment">datasets should accurately reflect the events, user behaviors, and/or the phenomena of the real world being modeled.</li>
+<li class="fragment">Training on unrepresentative datasets can cause poor performance when the model is asked to make real-world predictions.</li>
+</ul></li>
+<li class="fragment"><strong>Trusted</strong>. Understand where your data will come from.
+<ul>
+<li class="fragment">Will the data be from trusted sources you control, like logs from your product</li>
+<li class="fragment">or will it be from sources you don’t have much insight into, like the output from another ML system?</li>
+</ul></li>
+</ul>
+</section>
+<section id="data-quantity-and-quality" class="slide level2">
+<h2>Data Quantity and Quality</h2>
+<ul>
+<li class="fragment"><strong>An Order of Magnitude</strong>:<br>
+As a starting point, your dataset should ideally have at least <span class="math inline">\(10\)</span> times (or <span class="math inline">\(100\)</span> times) more examples than the number of parameters in your model.</li>
+<li class="fragment"><strong>Simple Models, Large Data</strong>:<br>
+Google’s success with simple models on massive datasets highlights the power of data quantity.</li>
+<li class="fragment"><strong>Simple Tasks, Small Data</strong>:<br>
+For relatively straightforward problems, a small dataset might suffice. Complex tasks often require big data.</li>
+<li class="fragment"><strong>Quality Over Quantity</strong>:<br>
+While a large dataset is beneficial, the quality of features is equally important.</li>
+</ul>
+</section>
+<section id="feature-engineering-12" class="slide level2 scrollable">
+<h2>Feature Engineering (1/2)</h2>
+<p>Engineering features include selection, creation and transformation of data. Here are they key techniques that it includes:</p>
+<ol type="1">
+<li class="fragment"><strong>Create new variables</strong>
+<ul>
+<li class="fragment"><code>age</code> from <code>date_of_birth</code></li>
+<li class="fragment"><code>BMI</code> from <code>weight</code> and <code>height</code></li>
+<li class="fragment"><code>season</code> from <code>date</code> and <code>city</code></li>
+</ul></li>
+<li class="fragment"><strong>Discretize continuous variables</strong>
+<ul>
+<li class="fragment"><code>age_group</code> (e.g., 0-18, 19-35, 36-55, 56+) from <code>age</code></li>
+<li class="fragment"><code>weight_category</code> (e.g., &lt;50kg, 50-80kg, &gt;80kg) from <code>weight</code></li>
+<li class="fragment"><code>socioeconomic_class</code> (e.g., Low, Middle, High) from <code>income</code></li>
+</ul></li>
+<li class="fragment"><strong>Data Enrichment</strong>
+<ul>
+<li class="fragment">Appending <code>neighborhood_median_income</code> based on <code>zip_code</code></li>
+<li class="fragment">Adding <code>historical_weather</code> (e.g., “rainfall”, “temp”) based on <code>date</code> and <code>location</code></li>
+</ul></li>
+</ol>
+</section>
+<section id="feature-engineering-22" class="slide level2 scrollable">
+<h2>Feature Engineering (2/2)</h2>
+<ol start="4" type="1">
+<li class="fragment"><strong>Data Aggregation</strong>
+<ul>
+<li class="fragment"><code>monthly_total_spend</code> derived from daily transaction logs</li>
+<li class="fragment"><code>average_session_duration</code> grouped by <code>user_id</code> from raw click events</li>
+</ul></li>
+<li class="fragment"><strong>Handling Date-Time Variables</strong>:
+<ul>
+<li class="fragment">Feature Extraction: Extract relevant information from date-time variables, such as: <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, and time intervals.</li>
+<li class="fragment">Time-Based Features: Create features like:
+<ol type="1">
+<li class="fragment"><code>time_since_last_purchase</code> or<br>
+</li>
+<li class="fragment"><code>time_since_login</code>.</li>
+</ol></li>
+</ul></li>
+</ol>
+</section>
+<section id="predictive-power" class="slide level2">
+<h2>Predictive power</h2>
+<p>Some features will have more predictive power than others:</p>
+<ul>
+<li class="fragment">For example, in a weather dataset, features such as&nbsp;<code>cloud_coverage</code>,&nbsp;<code>temperature</code>, and&nbsp;<code>dew_point</code>&nbsp;would be better predictors of rain than&nbsp;<code>moon_phase</code>&nbsp;or&nbsp;<code>day_of_week</code>.</li>
+<li class="fragment">For the video app example, you could hypothesize that features such as&nbsp;<code>video_description</code>,&nbsp;<code>length</code>&nbsp;and&nbsp;<code>views</code>&nbsp;might be good predictors for which videos a user would want to watch.</li>
+</ul>
+<p>You can automate finding a feature’s predictive power by using algorithms such as&nbsp;<a href="https://wikipedia.org/wiki/Pearson_correlation_coefficient">Pearson correlation</a>,&nbsp;<a href="https://wikipedia.org/wiki/Adjusted_mutual_information">Adjusted mutual information (AMI)</a>, and&nbsp;<a href="https://wikipedia.org/wiki/Shapley_value#In_machine_learning">Shapley value</a>, which provide a numerical assessment for analyzing the predictive power of a feature.</p>
+</section>
+<section id="from-prediction-to-decision" class="slide level2">
+<h2>From prediction to decision</h2>
+<p>There’s no value in predicting something if you can’t turn the prediction into an action that helps users.</p>
+<p>For example:</p>
+<ul>
+<li class="fragment">A model that predicts whether it will rain should feed into a weather app.</li>
+<li class="fragment">A model that predicts the estimated time of arrival should feed into the customer app.</li>
+</ul>
+</section>
+<section id="classification" class="slide level2">
+<h2>Classification</h2>
+<p>A&nbsp;<strong>classification model</strong>&nbsp;predicts what category the input data belongs to, for example, whether an input should be classified as A, B, or C.</p>
+
+<img data-src="https://developers.google.com/static/machine-learning/problem-framing/images/classification-model.png" class="r-stretch quarto-figure quarto-figure-center" alt="A classification model is making predictions."><p class="caption">A classification model is making predictions.</p><p><strong>Figure 1.</strong>&nbsp;A classification model making predictions.</p>
+</section>
+<section id="from-classification-to-decision" class="slide level2">
+<h2>from classification to decision</h2>
+<p>Based on the model’s prediction, your app might make a decision. For example, if the prediction is category A, then do X; if the prediction is category B, then do, Y; if the prediction is category C, then do Z. In some cases, the prediction&nbsp;<em>is</em>&nbsp;the app’s output.</p>
+
+<img data-src="https://developers.google.com/static/machine-learning/problem-framing/images/class-product-code.png" class="r-stretch quarto-figure quarto-figure-center" alt="The product code uses model’s output to make a decision."><p class="caption">The product code uses model’s output to make a decision.</p><p><strong>Figure 2.</strong>&nbsp;A classification model’s output being used in the product code to make a decision.</p>
+</section>
+<section id="regression" class="slide level2">
+<h2>Regression</h2>
+<p>A&nbsp;<strong>regression model</strong>&nbsp;predicts a numerical value.</p>
+
+<img data-src="https://developers.google.com/static/machine-learning/problem-framing/images/regression-model.png" class="r-stretch quarto-figure quarto-figure-center" alt="A regression model is making a prediction."><p class="caption">A regression model is making a prediction.</p><p><strong>Figure 3.</strong>&nbsp;A regression model making a numeric prediction.</p>
+</section>
+<section id="from-regression-to-decision" class="slide level2">
+<h2>from regression to decision</h2>
+<p>Based on the model’s prediction, your app might make a decision. For example:</p>
+<ul>
+<li class="fragment">if the prediction falls within range A, do X;</li>
+<li class="fragment">if the prediction falls within range B, do Y;</li>
+<li class="fragment">if the prediction falls within range C, do Z.</li>
+<li class="fragment">In some cases, the prediction&nbsp;<em>is</em>&nbsp;the app’s output.</li>
+</ul>
+
+<img data-src="https://developers.google.com/static/machine-learning/problem-framing/images/regression-decision.png" class="r-stretch quarto-figure quarto-figure-center" alt="The product code uses the model’s output to make a decision."><p class="caption">The product code uses the model’s output to make a decision.</p><p><strong>Figure 4.</strong>&nbsp;A regression model’s output being used in the product code to make a decision.</p>
+</section>
+<section id="regression-vs.-classification-the-threshold-problem-12" class="slide level2">
+<h2>Regression vs.&nbsp;Classification: The Threshold Problem (1/2)</h2>
+<p>Consider the following scenario:</p>
+<p>You want to&nbsp;<a href="https://wikipedia.org/wiki/Cache_(computing)">cache</a>&nbsp;videos based on their predicted popularity. In other words, if your model predicts that a video will be popular, you want to quickly serve it to users. To do so, you’ll use the more effective and expensive cache. For other videos, you’ll use a different cache. Your caching criteria is the following:</p>
+<ul>
+<li class="fragment">If a video is predicted to get <code>50</code> or more views, you’ll use the expensive cache.</li>
+<li class="fragment">If a video is predicted to get between <code>30</code> and <code>50</code> views, you’ll use the cheap cache.</li>
+<li class="fragment">If the video is predicted to get less than <code>30</code> views, you won’t cache the video.</li>
+</ul>
+</section>
+<section id="regression-vs.-classification-the-threshold-problem-22" class="slide level2">
+<h2>Regression vs.&nbsp;Classification: The Threshold Problem (2/2)</h2>
+<ul>
+<li class="fragment"><strong>The Scenario:</strong> Predicting a numeric value (e.g., video views).</li>
+<li class="fragment"><strong>The Regression Blindspot:</strong> Loss functions are symmetric and ignore business rules.
+<ul>
+<li class="fragment"><em>Example:</em> If actual <code>views = 30</code>, predictions of <code>28</code> and <code>32</code> produce the <em>exact same loss</em>.</li>
+</ul></li>
+<li class="fragment"><strong>The Pivot:</strong> Regression models do not understand product-defined cutoffs.</li>
+<li class="fragment"><strong>The Solution:</strong> If app behavior changes drastically at a specific threshold, reframe the task as a <strong>Classification</strong> problem.</li>
+</ul>
+
+<img data-src="https://developers.google.com/static/machine-learning/problem-framing/images/training.png" class="r-stretch quarto-figure quarto-figure-center" alt="A model being trained and its loss evaluated."><p class="caption">A model being trained and its loss evaluated.</p><p><strong>Figure 5.</strong>&nbsp;Training a regression model.</p>
+<aside class="notes">
+<p>Regression models only see mathematical distance. If a video gets 30 views, being off by 2 (predicting 28 or 32) is penalized equally. However, your product might have a hard trigger that activates at exactly 30 views. Because regression is blind to this threshold, a minor numerical error can cause the wrong product behavior. If your app relies on a hard cutoff, don’t predict the exact number. Instead, classify the outcome: “Will it cross the 30-view threshold? Yes or No?”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="define-the-success-metrics" class="slide level2">
+<h2>Define the success metrics</h2>
+<p>Success metrics differ from the model’s evaluation metrics, like <strong>accuracy</strong>, <strong>precision</strong>, <strong>recall</strong>, or <strong>AUC</strong>.</p>
+<p>For example, the weather app’s success and failure metrics might be defined as the following:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 83%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Success</strong></td>
+<td>Users open the “Will it rain?” feature 50 percent more often than they did before.</td>
+</tr>
+<tr class="even">
+<td><strong>Failure</strong></td>
+<td>Users open the “Will it rain?” feature no more often than before.</td>
+</tr>
+</tbody>
+</table>
+<p>The video app metrics might be defined as the following:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 83%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Success</strong></td>
+<td>Users spend on average 20 percent more time on the site.</td>
+</tr>
+<tr class="even">
+<td><strong>Failure</strong></td>
+<td>Users spend on average no more time on site than before.</td>
+</tr>
+</tbody>
+</table>
+<p>Both cases are possible:</p>
+<ul>
+<li class="fragment">Case 1: high metric but fails criteria; <strong>Bad</strong>.</li>
+<li class="fragment">Case 2: low metric but meets success criteria; <strong>Good</strong>.</li>
+</ul>
+</section>
+<section id="good-now-vs-can-be-good-later" class="slide level2">
+<h2>Good now vs can be good later</h2>
+<p>Models may not meet success criteria today, but if they have potential of improvement, we can continue working on them.</p>
+
+<img data-src="./assets/performance_potential_quadrants.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="references" class="slide level2">
+<h2>References</h2>
+<ul>
+<li class="fragment">https://developers.google.com/machine-learning/problem-framing</li>
+</ul>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"},{"title":"Links","icon":"<i class=\"fas fa-link\"></i>","content":"<ul class=\"slide-menu-items\">\n  <li class=\"slide-menu-item\"><a href=\"/W1/\">Python</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W2/\">Applied Data Science</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W3/\">Applied Machine Learning</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W4/\">Agentic AI</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W5/\">Applied Deep Learning</a></li>\n</ul>\n"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+    (function() {
+      let previousOnload = window.onload;
+      window.onload = () => {
+        if (previousOnload) {
+          previousOnload();
+        }
+        lightboxQuarto.on('slide_before_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          const href = trigger.getAttribute('href');
+          if (href !== null) {
+            const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+            if (imgEl !== null) {
+              const srcAttr = imgEl.getAttribute("src");
+              if (srcAttr && srcAttr.startsWith("data:")) {
+                slideConfig.href = srcAttr;
+              }
+            }
+          } 
+        });
+      
+        lightboxQuarto.on('slide_after_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(slideNode);
+          }
+        });
+      
+      };
+      
+    })();
+              </script>
+    
+
+</body></html>

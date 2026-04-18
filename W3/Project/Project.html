@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Project – Applied AI Bootcamp</title>
+<title>Machine Learning Project – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Project</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Machine Learning Project</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,15 +147,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#deployment" id="toc-deployment" class="nav-link active" data-scroll-target="#deployment">Deployment</a></li>
+  <li><a href="#deliverable" id="toc-deliverable" class="nav-link" data-scroll-target="#deliverable">Deliverable</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project</h1>
+<h1 class="title">Machine Learning Project</h1>
 </div>
 
 
@@ -172,9 +179,42 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Pick a Kaggle competition and do it: <a href="https://www.kaggle.com/competitions">Link</a>.</p>
+<p>First, explore then select a dataset (see: <a href="../../W3/Project/datasets.html">datasets</a>).</p>
+<p>Follow <a href="../../W3/Project/ML_Problem_Framing.html">Machine Learning Problem Framing</a>:</p>
+<ol type="1">
+<li>State the goal
+<ul>
+<li>Current/non-ML solution</li>
+<li>Application, Goal, Description</li>
+<li>ML Task</li>
+</ul></li>
+<li>Clear use case for ML: Difference, Cost, Maintenance, and Expertise requirements.</li>
+<li>Does ART apply to the data?</li>
+<li>What is the quantity and quality of the data?</li>
+<li>What features have been engineered?</li>
+<li>Which features have the most predictive power?</li>
+<li>What is the prediction of the model, and how is the decision based on it?</li>
+<li>What are the model’s metrics?</li>
+<li>What are the success/failure criteria?</li>
+</ol>
+<section id="deployment" class="level2">
+<h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
+<ul>
+<li><a href="https://pycaret.gitbook.io/docs/get-started/functions/deploy#create_api">create_api</a><br>
+This function takes an input model and creates a POST <strong>API</strong> for inference. It only creates the API and doesn’t run it automatically.</li>
+<li><a href="https://pycaret.gitbook.io/docs/get-started/functions/deploy#create_docker">create_docker</a><br>
+This function creates a <code>Dockerfile</code> and requirements.txt for deploying API.</li>
+<li><a href="https://pycaret.gitbook.io/docs/get-started/functions/deploy#create_app">create_app</a><br>
+This function creates a basic <strong>gradio app</strong> for inference.</li>
+</ul>
+</section>
+<section id="deliverable" class="level2">
+<h2 class="anchored" data-anchor-id="deliverable">Deliverable</h2>
+<p>Git Repo with a <code>README.md</code> that includes the above key points.</p>
+<p>Include a “Usage” section on how to setup and use the trained model.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
