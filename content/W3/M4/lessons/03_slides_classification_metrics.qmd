@@ -94,12 +94,12 @@ However, when the dataset is **imbalanced** or where one kind of mistake (FN or 
 
 ::: {.columns}
 ::: {.column}
-**Precision** is the proportion of all the model's positive classifications that are actually positive:
-    $$\frac{TP}{TP + FP}$$  
-:::
-::: {.column}
 **Recall** is the proportion of all actual positives that were classified correctly as positives:
     $$\text{Recall} = \frac{TP}{TP + FN}$$
+:::
+::: {.column}
+**Precision** is the proportion of all the model's positive classifications that are actually positive:
+    $$\frac{TP}{TP + FP}$$  
 :::
 :::
 <!-- end columns -->
