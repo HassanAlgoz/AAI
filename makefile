@@ -7,8 +7,7 @@ publish:
 clean:
 	rm -rf content/_freeze
 	rm -rf content/_size
-	rm -rf content/.quarto/_freez
-	rm -rf content/.quarto/idx
+	rm -rf content/.quarto
 	rm -rf content/_site
 	rm -rf content/site_libs
 
