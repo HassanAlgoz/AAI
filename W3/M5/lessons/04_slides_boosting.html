@@ -424,18 +424,17 @@
 <p><strong>Traditional Boosting</strong> (<code>sklearn.ensemble.AdaBoostClassifier</code>)</p>
 <ul>
 <li>Mispredicted <strong>samples are re-weighted</strong> at each step</li>
-<li>Can use any base model that accepts <code>sample_weight</code></li>
+<li>Can use any model that accepts <code>sample_weight</code></li>
 </ul>
 </div>
 <div class="fragment">
 <p><strong>Gradient Boosting</strong> (<code>sklearn.ensemble.HistGradientBoostingClassifier</code>)</p>
 <ul>
-<li>Each base model predicts the <strong>negative error</strong> of previous models</li>
-<li><code>sklearn</code> use decision trees as the base model</li>
+<li>Each model predicts the <strong>negative error</strong> of previous models</li>
+<li>More flexible thanks to the use of cost functions (anb more performant)</li>
 </ul>
 </div>
 <div class="fragment">
-<p>In practice, gradient boosting is more flexible thanks to the use of cost functions and tend to exhibits better predictive performance than traditional boosting.</p>
 <aside class="notes">
 <p>Even if AdaBoost and GBDT are both boosting algorithms, they are different in nature:</p>
 <ul>

@@ -210,12 +210,11 @@
 <section id="problems-with-decision-trees" class="slide level2">
 <h2>Problems with Decision Trees</h2>
 <ul>
-<li>Decision trees are powerful, but</li>
-<li>they are prone to overfitting when they are deep</li>
-<li>and underfitting when they are shallow</li>
+<li>Deep trees overfit</li>
+<li>Shallow trees underfit</li>
 </ul>
 </section>
-<section id="ensemble-of-tree-based-models" class="slide level2 titlepage scrollable">
+<section id="ensemble-of-tree-based-models" class="slide level2 scrollable">
 <h2>Ensemble of tree-based models</h2>
 <p>Combine many decision trees into powerful models!</p>
 <ul>
@@ -288,6 +287,16 @@
 <p><a href="../assets/bagging_trees_predict.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../assets/bagging_trees_predict.svg" style="width:120.0%"></a></p>
 <p><a href="../assets/bagging_vote.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../assets/bagging_vote.svg" style="width:120.0%"></a></p>
 </div></div>
+</section>
+<section id="bagging-for-classification-3" class="slide level2">
+<h2>Bagging for classification</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><a href="../assets/bagging0_cross.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="../assets/bagging0_cross.svg" style="width:100.0%"></a></p>
+</div><div class="column" style="width:50%;">
+<p><a href="../assets/bagging_cross.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="../assets/bagging_cross.svg" style="width:120.0%"></a></p>
+<p><a href="../assets/bagging_trees_predict.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../assets/bagging_trees_predict.svg" style="width:120.0%"></a></p>
+</div></div>
 <div class="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> BaggingClassifier</span>
 <span id="cb1-2"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -306,20 +315,6 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section id="bagging-for-classification-3" class="slide level2">
-<h2>Bagging for classification</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><a href="../assets/bagging0_cross.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="../assets/bagging0_cross.svg" style="width:100.0%"></a></p>
-</div><div class="column" style="width:50%;">
-<p><a href="../assets/bagging_cross.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="../assets/bagging_cross.svg" style="width:120.0%"></a></p>
-<p><a href="../assets/bagging_trees_predict.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../assets/bagging_trees_predict.svg" style="width:120.0%"></a></p>
-</div></div>
-<div class="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> BaggingClassifier</span>
-<span id="cb2-2"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
 <section id="bagging-for-regression" class="slide level2">
 <h2>Bagging for regression</h2>
@@ -421,11 +416,11 @@ More trees mean longer to fit, slower to predict, and larger models to deploy.</
 </section>
 <section id="take-away" class="slide level2">
 <h2>Take away</h2>
-<p><strong>Bagging</strong> and <strong>random forests</strong> fit trees <strong>independently</strong>:</p>
+<p>Random forests fit models independently:</p>
 <ul>
-<li>each <strong>deep tree overfits</strong> individually<br>
+<li>each deep model overfits individually<br>
 </li>
-<li>averaging the tree predictions <strong>reduces overfitting</strong></li>
+<li>averaging the tree predictions reduces overfitting</li>
 </ul>
 
 

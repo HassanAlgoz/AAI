@@ -228,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Measure and compare</strong> the memory usage <em>after</em> encoding.</li>
 </ol>
 <p>As you go, pause after each step and write down what you <strong>expect</strong> to happen (e.g., <em>“I expect the number of columns to increase by about X”</em>), then check against the actual results.</p>
-<div id="4aa41d99" class="cell">
+<div id="4aa41d99" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/home/halgoz/work/udacity-c6/c6/content/modules/.venv/lib/python3.12/site-packages/sklearn/datasets/_openml.py:1035: UserWarning: Version 1 of dataset ames-housing is inactive, meaning that issues have been found in the dataset. Try using a newer version from this URL: https://openml.org/data/v1/download/20649135/ames-housing.arff
+<pre><code>/home/halgoz/work/AthkaX/ai-pros/public/content/W3/.venv/lib/python3.12/site-packages/sklearn/datasets/_openml.py:1035: UserWarning: Version 1 of dataset ames-housing is inactive, meaning that issues have been found in the dataset. Try using a newer version from this URL: https://openml.org/data/v1/download/20649135/ames-housing.arff
   warn(</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
@@ -393,10 +393,154 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>-93.638933</td>
 <td>42.060899</td>
 </tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2925</th>
+<td>Split_or_Multilevel</td>
+<td>Residential_Low_Density</td>
+<td>37</td>
+<td>7937</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Slightly_Irregular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>CulDSac</td>
+<td>...</td>
+<td>No_Pool</td>
+<td>Good_Privacy</td>
+<td>None</td>
+<td>0</td>
+<td>3</td>
+<td>2006</td>
+<td>WD</td>
+<td>Normal</td>
+<td>-93.604776</td>
+<td>41.988964</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2926</th>
+<td>One_Story_1946_and_Newer_All_Styles</td>
+<td>Residential_Low_Density</td>
+<td>0</td>
+<td>8885</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Slightly_Irregular</td>
+<td>Low</td>
+<td>AllPub</td>
+<td>Inside</td>
+<td>...</td>
+<td>No_Pool</td>
+<td>Minimum_Privacy</td>
+<td>None</td>
+<td>0</td>
+<td>6</td>
+<td>2006</td>
+<td>WD</td>
+<td>Normal</td>
+<td>-93.602680</td>
+<td>41.988314</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2927</th>
+<td>Split_Foyer</td>
+<td>Residential_Low_Density</td>
+<td>62</td>
+<td>10441</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Regular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Inside</td>
+<td>...</td>
+<td>No_Pool</td>
+<td>Minimum_Privacy</td>
+<td>Shed</td>
+<td>700</td>
+<td>7</td>
+<td>2006</td>
+<td>WD</td>
+<td>Normal</td>
+<td>-93.606847</td>
+<td>41.986510</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2928</th>
+<td>One_Story_1946_and_Newer_All_Styles</td>
+<td>Residential_Low_Density</td>
+<td>77</td>
+<td>10010</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Regular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Inside</td>
+<td>...</td>
+<td>No_Pool</td>
+<td>No_Fence</td>
+<td>None</td>
+<td>0</td>
+<td>4</td>
+<td>2006</td>
+<td>WD</td>
+<td>Normal</td>
+<td>-93.600190</td>
+<td>41.990921</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2929</th>
+<td>Two_Story_1946_and_Newer</td>
+<td>Residential_Low_Density</td>
+<td>74</td>
+<td>9627</td>
+<td>Pave</td>
+<td>No_Alley_Access</td>
+<td>Regular</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>Inside</td>
+<td>...</td>
+<td>No_Pool</td>
+<td>No_Fence</td>
+<td>None</td>
+<td>0</td>
+<td>11</td>
+<td>2006</td>
+<td>WD</td>
+<td>Normal</td>
+<td>-93.599996</td>
+<td>41.989265</td>
+</tr>
 </tbody>
 </table>
 
-<p>5 rows × 80 columns</p>
+<p>2930 rows × 80 columns</p>
 </div>
 </div>
 </div>
@@ -505,7 +649,7 @@ Data columns (total 80 columns):
  78  Longitude           2930 non-null   float64 
  79  Latitude            2930 non-null   float64 
 dtypes: category(46), float64(2), int64(32)
-memory usage: 913.1 KB</code></pre>
+memory usage: 913.2 KB</code></pre>
 </div>
 </div>
 <div id="48eec73e" class="cell" data-execution_count="3">
@@ -727,6 +871,311 @@ memory usage: 913.1 KB</code></pre>
 Columns After: 318
 Memory Before: 0.15 MB
 Memory After: 7.11 MB</code></pre>
+</div>
+</div>
+<div id="1770c2e6" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cat_data_encoded</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">MS_SubClass_Duplex_All_Styles_and_Ages</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_One_Story_1945_and_Older</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_One_Story_1946_and_Newer_All_Styles</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_One_Story_PUD_1946_and_Newer</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_One_Story_with_Finished_Attic_All_Ages</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_One_and_Half_Story_Finished_All_Ages</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_One_and_Half_Story_PUD_All_Ages</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_One_and_Half_Story_Unfinished_All_Ages</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_PUD_Multilevel_Split_Level_Foyer</th>
+<th data-quarto-table-cell-role="th">MS_SubClass_Split_Foyer</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Sale_Type_New</th>
+<th data-quarto-table-cell-role="th">Sale_Type_Oth</th>
+<th data-quarto-table-cell-role="th">Sale_Type_VWD</th>
+<th data-quarto-table-cell-role="th">Sale_Type_WD</th>
+<th data-quarto-table-cell-role="th">Sale_Condition_Abnorml</th>
+<th data-quarto-table-cell-role="th">Sale_Condition_AdjLand</th>
+<th data-quarto-table-cell-role="th">Sale_Condition_Alloca</th>
+<th data-quarto-table-cell-role="th">Sale_Condition_Family</th>
+<th data-quarto-table-cell-role="th">Sale_Condition_Normal</th>
+<th data-quarto-table-cell-role="th">Sale_Condition_Partial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2925</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2926</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2927</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2928</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2929</th>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>...</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>2930 rows × 318 columns</p>
+</div>
 </div>
 </div>
 
