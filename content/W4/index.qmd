@@ -8,7 +8,7 @@ format:
 
 | Day | Description | Materials | Assignment |
 | --- | ----------- | --------- | ---------- |
-|  1  | **Overview**<br/>Introduction: LangChain, LangGraph, LangSmith. | [[Lesson](./M1/00_intro.qmd)]<br/>[[Case Studies](./M1/case-studies.qmd)] | [[Assignment 1](./M1/assignment/01_case_studies_ex.qmd)] |
+|  1  | **Overview**<br/>Introduction: LangChain, LangGraph, LangSmith. | [[Lesson](./M1/00_intro_1.qmd)]<br/>[[Case Studies](./M1/case-studies.qmd)] | [[Assignment 1](./M1/assignment/01_case_studies_ex.qmd)] |
 |     | **Agents**<br/>Models, Messages, Prompts, Structured Output, Tools, and Internet Search. | [[Notebook](./M1/01_agents.ipynb)] | [[Assignment 2](./M1/assignment/02_create_agent.qmd)] |
 |     | **Sub Agents**<br/> Build a personal assistant with agents as tools. | [[Notebook](./M1/02_subagents.ipynb)] | [[Assignment 3](./M1/assignment/03_subagents.qmd)] |
 |  2  | **RAG Overview**<br/>Building a knowledge base. Retrieval pipeline and building blocks. RAG Architectures. | [[Lesson](./M1/03_retrieval.qmd)] |  |
