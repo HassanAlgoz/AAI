@@ -169,8 +169,8 @@ In this lecture we learn to:
 ::: {.column}
 **Materials:**
 
-1. [🧬 Slides: Model Evaluation](M3/lessons/01_slides_evaluation.qmd)
-2. [🔬 Lab: Cross-validation](M3/lessons/02_cross-validation.ipynb)
+1. [🧬 Slides: Model Evaluation](M3/lessons/01_slides_evaluation.qmd) (30m)
+2. [🔬 Lab: Cross-validation](M3/lessons/02_cross-validation.ipynb) (20m)
 
 :::
 :::
@@ -194,7 +194,7 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [🔬 Lab: Hyper-parameter Tuning](M3/lessons/03_hyper-parameter_tuning.ipynb)
+- [🔬 Lab: Hyper-parameter Tuning](M3/lessons/03_hyper-parameter_tuning.ipynb) (30m)
 
 **Extra:**
 
@@ -222,8 +222,8 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [🧬 Slides: Regression Metrics](M4/lessons/01_slides_regression_metrics.qmd)
-- [🔬 Lab: Evaluation of Regression Models](M4/lessons/02_lab_regression_metrics.ipynb)
+- [🧬 Slides: Regression Metrics](M4/lessons/01_slides_regression_metrics.qmd) (25m)
+- [🔬 Lab: Evaluation of Regression Models](M4/lessons/02_lab_regression_metrics.ipynb) (20m)
 
 :::
 :::
@@ -243,9 +243,9 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [🧬 Slides: Classification Metrics](M4/lessons/03_slides_classification_metrics.qmd)
-- [🔬 Lab: Classification Metrics](M4/lessons/04_lab_classification_metrics.ipynb)
-- [Widget: Classifier Threshold](M4/lessons/widget_threshold.qmd)
+- [🧬 Slides: Classification Metrics](M4/lessons/03_slides_classification_metrics.qmd) (30m)
+- [🔬 Lab: Classification Metrics](M4/lessons/04_lab_classification_metrics.ipynb) (10m)
+- [Widget: Classifier Threshold](M4/lessons/widget_threshold.qmd) (10m)
 :::
 :::
 <!-- end columns -->
@@ -259,15 +259,13 @@ Learning outcomes:
 
 1. Distinguish cases where one should trade Recall for Precision and vice-versa
 2. Identify the component that affects this trade-off in a fitted classifier (it is the classification threshold)
-3. Given a classifier; tune the decision threshold to maximize either precision or recall
-4. Given a classifier and a specific ratio between $FN$ and $FP$; tune the decision threshold to optimize for that ratio
-5. Understand why probability calibration is important
+3. Given a classifier; tune the decision threshold to optimize cost/objective function
+4. Understand why probability calibration is important
 :::
 ::: {.column}
 **Materials:**
 
-- [🔬 Lab: Classification Threshold Tuning](M4/lessons/06_lab_classifier_threshold_tuning.ipynb)
-- [🔬 Lab: Probability Calibration](M4/lessons/07_lab_probability_calibration.ipynb)
+- [🔬 Lab: Classification Threshold Tuning](M4/lessons/06_lab_classifier_threshold_tuning.ipynb) (10m)
 :::
 :::
 
@@ -288,8 +286,8 @@ Learning outcomes:
 ::: {.column}
 **Materials:**
 
-- [🧬 Slides: Decision Trees](M5/lessons/01_slides_trees.qmd)
-- [🔬 Lab: Decision Trees](M5/lessons/02_lab_decision_trees.ipynb)
+- [🧬 Slides: Decision Trees](M5/lessons/01_slides_trees.qmd) (15m)
+- [🔬 Lab: Decision Trees](M5/lessons/02_lab_decision_trees.ipynb) (10m)
 :::
 :::
 
@@ -315,9 +313,9 @@ Learning outcomes:
 
 **Materials:**
 
-- [🧬 Slides: Bagging](M5/lessons/03_slides_bagging.qmd)
-- [🧬 Slides: Boosting](M5/lessons/04_slides_boosting.qmd)
-- [🔬 Lab: Ensembles](M5/lessons/05_lab_ensembles.ipynb)
+- [🧬 Slides: Bagging](M5/lessons/03_slides_bagging.qmd) (10m)
+- [🧬 Slides: Boosting](M5/lessons/04_slides_boosting.qmd) (15m)
+- [🔬 Lab: Ensembles](M5/lessons/05_lab_ensembles.ipynb) (20m)
 
 :::
 
