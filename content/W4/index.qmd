@@ -6,11 +6,20 @@ format:
     toc: false
 ---
 
+### Reviewed sequence
+
+1. [Introduction](./M1/00_intro_1.qmd)
+2. [Models](./M1/01_models.ipynb)
+3. [LangGraph](./M1/02_workflows.ipynb)
+4. [Human-in-the-loop](./M1/03_human-in-the-loop.qmd)
+
+
+### TODO: this table is not in the right order
+
 | Day | Description | Materials | Assignment |
 | --- | ----------- | --------- | ---------- |
-|  1  | **Overview**<br/>Introduction: LangChain, LangGraph, LangSmith. | [[Lesson](./M1/00_intro_1.qmd)]<br/>[[Case Studies](./M1/case-studies.qmd)] | [[Assignment 1](./M1/assignment/01_case_studies_ex.qmd)] |
-|     | **Agents**<br/>Models, Messages, Prompts, Structured Output, Tools, and Internet Search. | [[Notebook](./M1/01_agents.ipynb)] | [[Assignment 2](./M1/assignment/02_create_agent.qmd)] |
-|     | **Sub Agents**<br/> Build a personal assistant with agents as tools. | [[Notebook](./M1/02_subagents.ipynb)] | [[Assignment 3](./M1/assignment/03_subagents.qmd)] |
+|     | **Agents**<br/>Models, Messages, Prompts, Structured Output, Tools, and Internet Search. | [[Notebook](./M1/04_agents.ipynb)] | [[Assignment 2](./M1/assignment/02_create_agent.qmd)] |
+|     | **Sub Agents**<br/> Build a personal assistant with agents as tools. | [[Notebook](./M1/05_subagents.ipynb)] | [[Assignment 3](./M1/assignment/03_subagents.qmd)] |
 |  2  | **RAG Overview**<br/>Building a knowledge base. Retrieval pipeline and building blocks. RAG Architectures. | [[Lesson](./M1/03_retrieval.qmd)] |  |
 |     | **Embeddings**<br/>What are embeddings and how do they compare similarity? | [[Notebook](./M1/04_embeddings.ipynb)] |  |
 |     | **Semantic Search**<br/>Indexing and retrival of documents based on meaning. | [[Notebook](./M1/05_semantic_search.ipynb)] | [[Assignment 4](./M1/assignment/04_semantic_search.qmd)] |

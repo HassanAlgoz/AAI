@@ -1,5 +1,6 @@
 ---
-title: "Thinking in LangGraph"
+title: "Human-in-the-loop"
+subtitle: "Use Case: Agent for Customer Support Emails"
 format: html
 ---
 
@@ -10,8 +11,6 @@ Imagine you need to automate a customer support email inbox. The system should:
 - Search relevant documentation to answer questions
 - Draft appropriate responses
 - Escalate complex or urgent issues to a human for review before sending
-
-Here is the complete implementation of this agent using the LangGraph [Functional API](https://docs.langchain.com/oss/python/langgraph/functional-api).
 
 ## The Agent Implementation
 
@@ -145,33 +144,16 @@ flowchart TD
     G --> H
 ```
 
-### Breaking work into discrete steps (`@task`)
-
-We wrapped distinct actions (like `classify_intent` and `search_documentation`) with the [`@task`](https://docs.langchain.com/oss/python/langgraph/functional-api#task) decorator. 
-
-**Why?**
-Tasks are independently observable and resilient. Decorating a function as a [`@task`](https://docs.langchain.com/oss/python/langgraph/functional-api#task) means LangGraph automatically tracks its execution, allowing you to easily add retry policies for transient network errors, or cache expensive LLM calls. If part of the workflow fails or gets interrupted, LangGraph will use the checkpointer to remember the results of previously completed tasks so they are not re-run.
-
-### Defining the control flow (`@entrypoint`)
-
-The [`@entrypoint`](https://docs.langchain.com/oss/python/langgraph/functional-api#entrypoint) acts as the orchestrator of your tasks. 
-
-**Why?**
-Instead of manually defining graph edges and nodes (as in older state-machine APIs), the Functional API lets you write standard Python control logic (`if/elif/else`). This makes routing decisions explicit and intuitive. The `checkpointer=InMemorySaver()` argument automatically persisting the state of the entrypoint and its tasks.
-
-### Wait for results before proceeding (`.result()`)
-
-Inside the entrypoint, we call `.result()` after executing each task (e.g., `classify_intent(...).result()`).
-
-**Why?**
-Tasks run asynchronously by default to support parallel execution (e.g., running multiple searches at once). Calling `.result()` blocks the workflow until that specific task is complete, ensuring the downstream functions have the necessary data to proceed.
-
 ### Keeping humans in the loop (`interrupt`)
 
-The `human_review` task uses the `interrupt()` function to pause the workflow.
+The `human_review` task uses the [`interrupt()`](https://docs.langchain.com/oss/python/langgraph/interrupts) function to pause the workflow.
 
-**Why?**
+**Why?**  
 When the code hits `interrupt()`, the entrypoint completely halts execution and saves everything to the checkpointer. It will pause indefinitely until a human provides the needed input. Once the input is supplied via a resume command, the workflow picks up *exactly* where it left off, avoiding the need to re-classify the email or regenerate the draft.
+
+### Rules of Interrupt
+
+See: [few important rules](https://docs.langchain.com/oss/python/langgraph/interrupts#rules-of-interrupts) to follow when working with interrupts to ensure they behave as expected.
 
 ## Running the Workflow
 
@@ -208,7 +190,7 @@ print(f"Workflow completed: {final_result}")
 
 Notice how we reuse the same `thread_id` in the `config`.
 
-**Why?**
+**Why?**  
 The `thread_id` links the separate invocations together. The checkpointer uses it to look up the paused execution state. Without it, the workflow wouldn't know which paused execution to resume.
 
 ## Handle errors appropriately
@@ -299,3 +281,7 @@ def send_reply(draft_response: str) -> None:
     except Exception:
         raise  # Surface unexpected errors
 ```
+
+## References
+
+- [Thinking in LangGraph](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph)
