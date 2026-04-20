@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction: What is Agentic AI? – Applied AI Bootcamp</title>
+<title>langsmith – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,6 +22,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -47,9 +82,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -129,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Introduction: What is Agentic AI?</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,292 +187,61 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#the-evolution-of-agents-from-llms" id="toc-the-evolution-of-agents-from-llms" class="nav-link active" data-scroll-target="#the-evolution-of-agents-from-llms">The Evolution of Agents from LLMs</a>
-  <ul class="collapse">
-  <li><a href="#function-calling-agents" id="toc-function-calling-agents" class="nav-link" data-scroll-target="#function-calling-agents">Function-calling Agents</a></li>
-  <li><a href="#choosing-between-models" id="toc-choosing-between-models" class="nav-link" data-scroll-target="#choosing-between-models">Choosing between models</a></li>
-  </ul></li>
-  <li><a href="#applications-of-agentic-ai" id="toc-applications-of-agentic-ai" class="nav-link" data-scroll-target="#applications-of-agentic-ai">Applications of Agentic AI</a></li>
-  <li><a href="#state-of-agentic-ai" id="toc-state-of-agentic-ai" class="nav-link" data-scroll-target="#state-of-agentic-ai">State of Agentic AI</a></li>
-  <li><a href="#agent-framework" id="toc-agent-framework" class="nav-link" data-scroll-target="#agent-framework">Agent Framework</a></li>
-  <li><a href="#agent-runtime" id="toc-agent-runtime" class="nav-link" data-scroll-target="#agent-runtime">Agent Runtime</a>
-  <ul class="collapse">
-  <li><a href="#rag-retrieval-augmented-generation" id="toc-rag-retrieval-augmented-generation" class="nav-link" data-scroll-target="#rag-retrieval-augmented-generation">RAG (Retrieval-Augmented generation)</a></li>
-  <li><a href="#agent-with-tools" id="toc-agent-with-tools" class="nav-link" data-scroll-target="#agent-with-tools">Agent with tools</a></li>
-  <li><a href="#multi-agent-system" id="toc-multi-agent-system" class="nav-link" data-scroll-target="#multi-agent-system">Multi-agent system</a></li>
-  </ul></li>
-  <li><a href="#agent-platform" id="toc-agent-platform" class="nav-link" data-scroll-target="#agent-platform">Agent Platform</a></li>
-  <li><a href="#what-about-deep-agents" id="toc-what-about-deep-agents" class="nav-link" data-scroll-target="#what-about-deep-agents">What about Deep Agents?</a></li>
-  <li><a href="#use-cases" id="toc-use-cases" class="nav-link" data-scroll-target="#use-cases">Use Cases</a>
-  <ul class="collapse">
-  <li><a href="#patterns" id="toc-patterns" class="nav-link" data-scroll-target="#patterns">Patterns</a></li>
-  </ul></li>
-  <li><a href="#key-takeways" id="toc-key-takeways" class="nav-link" data-scroll-target="#key-takeways">Key Takeways</a></li>
+  <li><a href="#langsmith-tracing" id="toc-langsmith-tracing" class="nav-link active" data-scroll-target="#langsmith-tracing">LangSmith (Tracing)</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="langsmith.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Introduction: What is Agentic AI?</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p><strong>Artificial Intelligence</strong> is a field of Computer Science, studying how to automate decision making.</p>
-<p><strong>Agentic AI</strong> is where autonomy of the system is at the level of dealing not just with structured tabular data, but with unstructured data such as natural language, speech, visual to inform their decision, in a growingly less supervised manner; and hence, autonomous.</p>
-<p>Specifically, today’s Agentic AI systems are driven by <strong>Large Language Models (LLMs)</strong>.</p>
-<section id="the-evolution-of-agents-from-llms" class="level2">
-<h2 class="anchored" data-anchor-id="the-evolution-of-agents-from-llms">The Evolution of Agents from LLMs</h2>
-<p><strong>Large Language Models (LLMs)</strong> are deep neural networks trained to model the most likely token given previous tokens.</p>
-<p>First application was: <strong>Translation</strong> (<a href="https://arxiv.org/abs/1706.03762">Paper: Attention is all you need</a>). Given an English sentence, the task is to generate the most likely Arabic equivalent. This is done word-by-word, by repeatedly predicting the next Arabic word, the original sentence plus all predicted words thus far.</p>
-<p>This technique was able to scale thanks to the <strong>Transformers</strong> architecture which is based on the concept of <strong>Attention</strong>, which learns the influence each previous token has in generating the next token, in the translation.</p>
-<pre><code>[
-    ("The meuseum is far to the right", "ال")
-    ("The meuseum is far to the right", "المتحف")
-    ("The meuseum is far to the right", "المتحف في")
-    ("The meuseum is far to the right", "المتحف في أقصى")
-    ("The meuseum is far to the right", "المتحف في أقصى ال")
-    ("The meuseum is far to the right", "المتحف في أقصى اليمين")
-]</code></pre>
-<p>Same concept applied more simply in <strong>Paraphrasing</strong>, <strong>Summarization</strong>, and even <strong>Question-Answering</strong>.</p>
-<p>Trained on back-and-forth <strong>Chat Conversations</strong>, models were able to mimic chat-like interactions.</p>
-<p>A hypothesis was proven at the time that <a href="https://huggingface.co/papers/2210.11416"><strong>Multi-task Model</strong></a> performs better than a single-task model. A more general idea is to train models to <strong>“Follow Instructions”</strong>. In which the user <strong>Prompts</strong> it to do any of the previously mentioned tasks, on-demand. Of course this needed lots of special <em>Data Curation</em>.</p>
-<p>One task was especially important: <strong>JSON mode</strong>: in which models produced their output in json format, such that it can be parsed easily by programs.</p>
-<p>Following that, an especially key development was the task of <strong>Tool Calling</strong>: in which a model is required to select from a set of Python funcition signatures (parameters, types, and docstrings) upon instruction. This is where <strong>Agents</strong> were born.</p>
-<p><a href="./assets/tool_calling_llms.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="./assets/tool_calling_llms.png" class="img-fluid"></a></p>
-<section id="function-calling-agents" class="level3">
-<h3 class="anchored" data-anchor-id="function-calling-agents">Function-calling Agents</h3>
-<p>An <strong>Agent</strong> is based on an LLM in the following sequence:</p>
-<ul>
-<li>program takes input from user</li>
-<li>program feeds this input + available tools, into the LLM</li>
-<li><strong>LLM generates</strong> text parsable as a tool call</li>
-<li>program parses the tool call</li>
-<li>program executes the tool (function)</li>
-<li>program feeds the output to the LLM</li>
-<li><strong>LLM generates</strong> output</li>
-<li>program prints this output to the user</li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure: Function Calling Steps | OpenAI"><img src="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="img-fluid figure-img" alt="Figure: Function Calling Steps | OpenAI"></a></p>
-<figcaption>Figure: Function Calling Steps | OpenAI</figcaption>
-</figure>
-</div>
-<p>See: <a href="https://developers.openai.com/api/docs/guides/function-calling">Guide &gt; Function Calling | OpenAI</a>.</p>
-</section>
-<section id="choosing-between-models" class="level3">
-<h3 class="anchored" data-anchor-id="choosing-between-models">Choosing between models</h3>
-<p>Quality, latency, price, and performance vary between models. Below are some tools to help you select the best one yourself:</p>
-<ul>
-<li>Humans vote for the best model on websites like <a href="https://arena.ai/">Arena.ai</a> using a blind approach to maintain fairness.</li>
-<li>You can also compare pricing, providers, and usage tends on <a href="https://openrouter.ai/models">OpenRouter.ai</a></li>
-<li>An automatic short list for models based on your priorities: <a href="https://artificialanalysis.ai/models/recommend">Model Recommendation | Artficial Analysis</a></li>
-</ul>
-</section>
-</section>
-<section id="applications-of-agentic-ai" class="level2">
-<h2 class="anchored" data-anchor-id="applications-of-agentic-ai">Applications of Agentic AI</h2>
-<p>What can Agentic AI do in the real-world?</p>
-<p>To answer this question, <a href="../../W4/M1/case-studies.html">we have summarized the five things agentic AI is all about</a>, by looking at 30+ case studies from companies of various backgrounds using the LangChain ecosystem. Notably:</p>
-<ol type="1">
-<li>Developer Productivity (high niche)</li>
-<li>Domain-Specific Copilots (a simplification of an overly complex system)</li>
-<li>Deep Research &amp; Multi-Hop RAG (highly structured intelligence report)</li>
-<li>Customer Support &amp; Triage (with a hand-off to human-in-the-loop)</li>
-<li>Messy Data Extraction &amp; Browser Automation (reading PDFs and scraping the internet)</li>
-</ol>
-</section>
-<section id="state-of-agentic-ai" class="level2">
-<h2 class="anchored" data-anchor-id="state-of-agentic-ai">State of Agentic AI</h2>
-<p>Reading the <a href="https://www.langchain.com/state-of-agent-engineering">State of Agent Engineering 2026</a>, “a survey of 1,300 professionals — from engineers and product managers to business leaders and executives — to uncover the state of AI agents.” could give you an idea of what’s going on in 2026 with Agentic AI. Notably:</p>
-<ol type="1">
-<li>It is being used in production by companies of different sizes</li>
-<li>Most usage is: “Customer Service” (26.5%), “Research &amp; Data Analysis” (24.4%), and “Internal Productivity” (17.7%).</li>
-<li>Biggest blockers being: “Quality of Outputs” (32.9%), “Latency / response time” (20.1%), and “Security and compliance” (16.0%)</li>
-</ol>
-</section>
-<section id="agent-framework" class="level2">
-<h2 class="anchored" data-anchor-id="agent-framework">Agent Framework</h2>
-<p><a href="https://docs.langchain.com/oss/python/langchain/overview">LangChain</a> organizes components into these main categories:</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 13%">
+<col style="width: 55%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Category</th>
+<th>Variable</th>
+<th>Required</th>
 <th>Purpose</th>
-<th>Key Components</th>
-<th>Use Cases</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong><a href="https://docs.langchain.com/oss/python/langchain/models">Models</a></strong></td>
-<td>AI reasoning and generation</td>
-<td>Chat models, LLMs, Embedding models</td>
-<td>Text generation, reasoning, semantic understanding</td>
+<td><code>LANGSMITH_API_KEY</code></td>
+<td>Optional</td>
+<td>Enables LangSmith tracing &amp; dashboard</td>
 </tr>
 <tr class="even">
-<td><strong><a href="https://docs.langchain.com/oss/python/langchain/tools">Tools</a></strong></td>
-<td>External capabilities</td>
-<td>APIs, databases, etc.</td>
-<td>Web search, data access, computations</td>
+<td><code>LANGSMITH_PROJECT</code></td>
+<td>Optional</td>
+<td>Names the LangSmith project for traces</td>
 </tr>
 <tr class="odd">
-<td><strong><a href="https://docs.langchain.com/oss/python/langchain/agents">Agents</a></strong></td>
-<td>Orchestration and reasoning</td>
-<td>ReAct agents, tool calling agents</td>
-<td>Nondeterministic workflows, decision making</td>
-</tr>
-<tr class="even">
-<td><strong><a href="https://docs.langchain.com/oss/python/langchain/short-term-memory">Memory</a></strong></td>
-<td>Context preservation</td>
-<td>Message history, custom state</td>
-<td>Conversations, stateful interactions</td>
-</tr>
-<tr class="odd">
-<td><strong><a href="https://docs.langchain.com/oss/python/integrations/retrievers">Retrievers</a></strong></td>
-<td>Information access</td>
-<td>Vector retrievers, web retrievers</td>
-<td>RAG, knowledge base search</td>
-</tr>
-<tr class="even">
-<td><strong><a href="https://docs.langchain.com/oss/python/integrations/document_loaders">Document processing</a></strong></td>
-<td>Data ingestion</td>
-<td>Loaders, splitters, transformers</td>
-<td>PDF processing, web scraping</td>
-</tr>
-<tr class="odd">
-<td><strong><a href="https://docs.langchain.com/oss/python/integrations/vectorstores">Vector Stores</a></strong></td>
-<td>Semantic search</td>
-<td>Chroma, Pinecone, FAISS</td>
-<td>Similarity search, embeddings storage</td>
+<td><code>LANGSMITH_TRACING_V2</code></td>
+<td>Optional</td>
+<td>Enables the newer LangSmith tracing mode</td>
 </tr>
 </tbody>
 </table>
-<p>Examples of other frameworks are:</p>
-<ul>
-<li>Vercel’s AI SDK</li>
-<li>CrewAI</li>
-<li>OpenAI Agents SDK</li>
-<li>Google ADK</li>
-<li>LlamaIndex</li>
-</ul>
-</section>
-<section id="agent-runtime" class="level2">
-<h2 class="anchored" data-anchor-id="agent-runtime">Agent Runtime</h2>
-<p>Runtimes manage state, and state transitions (orchestration). In other words, building, managing, and deploying long-running, stateful agents. Concretely, things like:</p>
-<ul>
-<li><strong>Control-flow</strong>: Step by step instructions, conditional execution, and loops.</li>
-<li><strong>Persistence</strong>: Thread-level and cross-thread persistence for state management.</li>
-<li><strong>Durable execution</strong>: Agents persist through failures and can run for extended periods, resuming from where they left off.</li>
-<li><strong>Streaming</strong>: Support for streaming workflows and responses.</li>
-<li><strong>Human-in-the-loop</strong>: Incorporate human oversight by inspecting and modifying agent state.</li>
-</ul>
-<p><a href="https://docs.langchain.com/oss/python/langgraph/overview">LangGraph</a> builds and runs the flowchart..</p>
-<p>Below are common flowcharts that makes software systems, agentic:</p>
-<section id="rag-retrieval-augmented-generation" class="level3">
-<h3 class="anchored" data-anchor-id="rag-retrieval-augmented-generation">RAG (Retrieval-Augmented generation)</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="00_intro_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="00_intro_files/figure-html/mermaid-figure-1.png" style="width:10.35in;height:1.09in" class="figure-img"></a></p>
+<section id="langsmith-tracing" class="level3">
+<h3 class="anchored" data-anchor-id="langsmith-tracing">LangSmith (Tracing)</h3>
+<p>Many of the applications you build with LangChain will contain multiple steps with multiple invocations of LLM calls. As these applications get more complex, it becomes crucial to be able to inspect what exactly is going on inside your chain or agent. The best way to do this is with <a href="https://smith.langchain.com/">LangSmith</a>.</p>
+<div id="5e37ccc2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"LANGSMITH_PROJECT"</span>] <span class="op">=</span> <span class="st">"my-first-project"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"LANGSMITH_TRACING_V2"</span>] <span class="op">=</span> <span class="st">"true"</span> <span class="co"># newer V2 tracing protocol</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p></p></figure><p></p>
+<div id="b408634a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"LANGSMITH_API_KEY"</span>] <span class="op">=</span> userdata.get(<span class="st">"LANGSMITH_API_KEY"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</div>
-</section>
-<section id="agent-with-tools" class="level3">
-<h3 class="anchored" data-anchor-id="agent-with-tools">Agent with tools</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="00_intro_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="00_intro_files/figure-html/mermaid-figure-3.png" style="width:9.43in;height:2.37in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="multi-agent-system" class="level3">
-<h3 class="anchored" data-anchor-id="multi-agent-system">Multi-agent system</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="00_intro_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="00_intro_files/figure-html/mermaid-figure-2.png" style="width:8.62in;height:3.26in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Other runtimes:</p>
-<ul>
-<li>Temporal</li>
-<li>Inngest</li>
-</ul>
-</section>
-</section>
-<section id="agent-platform" class="level2">
-<h2 class="anchored" data-anchor-id="agent-platform">Agent Platform</h2>
-<p><a href="https://langfuse.com/">LangFuse</a> (Open-source alternative to LangSmith): Traces, evals, prompt management and metrics to debug and improve your LLM application.</p>
-</section>
-<section id="what-about-deep-agents" class="level2">
-<h2 class="anchored" data-anchor-id="what-about-deep-agents">What about Deep Agents?</h2>
-<p>Deep Agents is LangChain’s relatively new high-level library that makes it easy to get started, but you quickly run into issues where you need more control.</p>
-<p>The reason people use frameworks is to control the undeterministic nature of LLMs. Deep Agents doesn’t help with that, it only makes the first 5 minutes easy.</p>
-</section>
-<section id="use-cases" class="level2">
-<h2 class="anchored" data-anchor-id="use-cases">Use Cases</h2>
-<p>In this course, we develop our skills to be able to tackle these reference Use Cases:</p>
-<ul>
-<li><a href="https://docs.langchain.com/oss/python/langchain/multi-agent/subagents-personal-assistant">Build a <strong>personal assistant</strong> with subagents</a></li>
-<li><a href="https://docs.langchain.com/oss/python/langchain/multi-agent/handoffs-customer-support">Build <strong>customer support</strong> with handoffs</a></li>
-<li><a href="https://docs.langchain.com/oss/python/langchain/multi-agent/router-knowledge-base">Build a <strong>multi-source knowledge base</strong> with routing</a></li>
-<li><a href="https://docs.langchain.com/oss/python/langchain/multi-agent/skills-sql-assistant">Build a <strong>SQL assistant</strong> with on-demand skills</a></li>
-</ul>
-<section id="patterns" class="level3">
-<h3 class="anchored" data-anchor-id="patterns">Patterns</h3>
-<p>Common patterns emerge from these skills; things like:</p>
-<ul>
-<li><a href="https://docs.langchain.com/oss/python/langgraph/agentic-rag">Agentic RAG</a></li>
-</ul>
-</section>
-</section>
-<section id="key-takeways" class="level2">
-<h2 class="anchored" data-anchor-id="key-takeways">Key Takeways</h2>
-<p>Agents are LLMs. LLMs are undeterministic. Agentic Engineering is about taming its hallucinations and shortcomings to make it actually work like a real piece of software.</p>
-<p>To do that we will use:</p>
-<ul>
-<li>LangChain: the framework.</li>
-<li>LangGraph: the runtime.</li>
-<li>LangSmith: the platform.</li>
-</ul>
-<p>Our main source would be the official LangChain docs:</p>
-<ul>
-<li><a href="https://docs.langchain.com/oss/python/concepts/products">Read More</a>.</li>
-<li><a href="https://chat.langchain.com/">Help: Chat with langchain docs</a></li>
-</ul>
 
 
 </section>
@@ -847,38 +648,6 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

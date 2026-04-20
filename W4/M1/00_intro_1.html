@@ -78,6 +78,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -160,6 +203,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#what-makes-ai-agentic" id="toc-what-makes-ai-agentic" class="nav-link" data-scroll-target="#what-makes-ai-agentic">What makes AI Agentic?</a></li>
   <li><a href="#the-evolution-of-agents-from-llms" id="toc-the-evolution-of-agents-from-llms" class="nav-link" data-scroll-target="#the-evolution-of-agents-from-llms">The Evolution of Agents from LLMs</a>
   <ul class="collapse">
+  <li><a href="#auto-regression" id="toc-auto-regression" class="nav-link" data-scroll-target="#auto-regression">Auto-regression</a></li>
+  <li><a href="#language-models" id="toc-language-models" class="nav-link" data-scroll-target="#language-models">Language Models</a></li>
   <li><a href="#function-calling-agents" id="toc-function-calling-agents" class="nav-link" data-scroll-target="#function-calling-agents">Function-calling Agents</a></li>
   </ul></li>
   <li><a href="#a.-agent-framework" id="toc-a.-agent-framework" class="nav-link" data-scroll-target="#a.-agent-framework">A. Agent Framework</a></li>
@@ -238,11 +283,52 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-makes-ai-agentic" class="level2">
 <h2 class="anchored" data-anchor-id="what-makes-ai-agentic">What makes AI Agentic?</h2>
 <p><strong>Artificial Intelligence</strong> is a field of Computer Science, studying how to automate decision making.</p>
-<p><strong>Agentic AI</strong> is where autonomy of the system is at the level of dealing not just with structured data, but with messy unstructured data like language, voice, and images, to inform automatic decision-making. This is growingly done in less supervised manner; and hence, more and more autonomous.</p>
+<p><strong>Agentic AI</strong> is where autonomy of the system is at the level of dealing not just with structured data, but with messy unstructured data like language, voice, and images, to inform automatic decision-making. This is growingly done in less supervised manner; and hence, more and more <strong>autonomous</strong>.</p>
 <p>Specifically, today’s Agentic AI systems are driven by LLMs.</p>
 </section>
 <section id="the-evolution-of-agents-from-llms" class="level2">
 <h2 class="anchored" data-anchor-id="the-evolution-of-agents-from-llms">The Evolution of Agents from LLMs</h2>
+<p><strong>Brain Teaser</strong>. Can you predict the missing part?</p>
+<ul>
+<li><span class="math inline">0, 10, 20, 30, 40, ?</span></li>
+<li><span class="math inline">5, 15, 25, 35, 45, ?</span></li>
+</ul>
+<p>Answers:</p>
+<ul>
+<li><span class="math inline">y = 10x</span></li>
+<li><span class="math inline">y = 5 + 10x</span></li>
+</ul>
+<section id="auto-regression" class="level3">
+<h3 class="anchored" data-anchor-id="auto-regression">Auto-regression</h3>
+<ul>
+<li><strong>Interpolation</strong> is predicting patterns within the range of the training data.<br>
+1, 2, <strong>?</strong>, 8, 16</li>
+<li><strong>Extrapolation</strong> is predicting patterns beyond the range of the training data.
+<ul>
+<li>1, 2, 3, <strong>?</strong></li>
+<li><strong>?</strong>, 4, 5, 6</li>
+</ul></li>
+<li><strong>Forecasting</strong> seasonal patterns (cycles), This could be daily, weekly, seasonal, …etc:<br>
+2, 2, 1, 2, 2, 1, 2, 2, <strong>?</strong>, <strong>?</strong></li>
+<li>The more data points we have, the more confidence we have:<br>
+1, 2, 3, 4, 5, 6, 7, 8, 9, <strong>?</strong></li>
+<li>The further the prediction, the less confident we get:<br>
+1, 2, 3, <strong>?, ?, ?, ?, ?, ?, ?</strong></li>
+</ul>
+<p><strong>Auto-regressive</strong> models are ones which feed on their outputs to generate a sequence of predictions: <span class="math inline">{y_1, y_2, \dots}</span></p>
+<p>The following is an example of auto-regression of three steps:</p>
+<ul>
+<li>step 0: 10, 20, 30, <strong>?</strong></li>
+<li>step 1: 10, 20, 30, <strong>40</strong>, <strong>?</strong></li>
+<li>step 2: 10, 20, 30, <strong>40</strong>, <strong>50</strong>, <strong>?</strong></li>
+<li>step 3: 10, 20, 30, <strong>40</strong>, <strong>50</strong>, <strong>60</strong></li>
+</ul>
+<p>Such models are used in Timeseries data like weather forcasting. The figure below shows an autoregressive model on timeseries data:</p>
+<p><a href="./assets/autoregression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="./assets/autoregression.png" class="img-fluid"></a></p>
+<p>Developers open-source models like <a href="https://huggingface.co/google/timesfm-2.5-200m-transformers">timesfm</a> since it is a very common task.</p>
+</section>
+<section id="language-models" class="level3">
+<h3 class="anchored" data-anchor-id="language-models">Language Models</h3>
 <p><strong>Large Language Models (LLMs)</strong> are deep neural networks trained to model the most likely token given previous tokens.</p>
 <p>First application was: <strong>Translation</strong> (<a href="https://arxiv.org/abs/1706.03762">Paper: Attention is all you need</a>). Given an English sentence, the task is to generate the most likely Arabic equivalent. This is done word-by-word, by repeatedly predicting the next Arabic word, the original sentence plus all predicted words thus far.</p>
 <p>This technique was able to scale thanks to the <strong>Transformers</strong> architecture which is based on the concept of <strong>Attention</strong>, which learns the influence each previous token has in generating the next token, in the translation.</p>
@@ -259,7 +345,9 @@ ul.task-list li input[type="checkbox"] {
 <p>A hypothesis was proven at the time that <a href="https://huggingface.co/papers/2210.11416"><strong>Multi-task Model</strong></a> performs better than a single-task model. A more general idea is to train models to <strong>“Follow Instructions”</strong>. In which the user <strong>Prompts</strong> it to do any of the previously mentioned tasks, on-demand. Of course this needed lots of special <em>Data Curation</em>.</p>
 <p>One task was especially important: <strong>JSON mode</strong>: in which models produced their output in json format, such that it can be parsed easily by programs.</p>
 <p>Following that, an especially key development was the task of <strong>Tool Calling</strong>: in which a model is required to select from a set of Python funcition signatures (parameters, types, and docstrings) upon instruction. This is where <strong>Agents</strong> were born.</p>
-<p><a href="./assets/tool_calling_llms.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="./assets/tool_calling_llms.png" class="img-fluid"></a></p>
+<p><a href="./assets/tool_calling_llms.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="./assets/tool_calling_llms.png" class="img-fluid"></a></p>
+<p><em>Note</em>: the terms <em>Reasoning</em>, <em>Thinking</em>, are just like the term <em>Intelligence</em>, not to be taken literally. See <a href="https://arxiv.org/pdf/2506.06941">The Illusion of Thinking | Apple</a>.</p>
+</section>
 <section id="function-calling-agents" class="level3">
 <h3 class="anchored" data-anchor-id="function-calling-agents">Function-calling Agents</h3>
 <p>An <strong>Agent</strong> is based on an LLM in the following sequence:</p>
@@ -275,7 +363,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure: Function Calling Steps | OpenAI"><img src="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="img-fluid figure-img" alt="Figure: Function Calling Steps | OpenAI"></a></p>
+<p><a href="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure: Function Calling Steps | OpenAI"><img src="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="img-fluid figure-img" alt="Figure: Function Calling Steps | OpenAI"></a></p>
 <figcaption>Figure: Function Calling Steps | OpenAI</figcaption>
 </figure>
 </div>

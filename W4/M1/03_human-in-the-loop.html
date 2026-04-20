@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Thinking in LangGraph – Applied AI Bootcamp</title>
+<title>Human-in-the-loop – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Thinking in LangGraph</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Human-in-the-loop</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -193,10 +193,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-agent-implementation" id="toc-the-agent-implementation" class="nav-link active" data-scroll-target="#the-agent-implementation">The Agent Implementation</a></li>
   <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How It Works</a>
   <ul class="collapse">
-  <li><a href="#breaking-work-into-discrete-steps-task" id="toc-breaking-work-into-discrete-steps-task" class="nav-link" data-scroll-target="#breaking-work-into-discrete-steps-task">Breaking work into discrete steps (<code>@task</code>)</a></li>
-  <li><a href="#defining-the-control-flow-entrypoint" id="toc-defining-the-control-flow-entrypoint" class="nav-link" data-scroll-target="#defining-the-control-flow-entrypoint">Defining the control flow (<code>@entrypoint</code>)</a></li>
-  <li><a href="#wait-for-results-before-proceeding-.result" id="toc-wait-for-results-before-proceeding-.result" class="nav-link" data-scroll-target="#wait-for-results-before-proceeding-.result">Wait for results before proceeding (<code>.result()</code>)</a></li>
   <li><a href="#keeping-humans-in-the-loop-interrupt" id="toc-keeping-humans-in-the-loop-interrupt" class="nav-link" data-scroll-target="#keeping-humans-in-the-loop-interrupt">Keeping humans in the loop (<code>interrupt</code>)</a></li>
+  <li><a href="#rules-of-interrupt" id="toc-rules-of-interrupt" class="nav-link" data-scroll-target="#rules-of-interrupt">Rules of Interrupt</a></li>
   </ul></li>
   <li><a href="#running-the-workflow" id="toc-running-the-workflow" class="nav-link" data-scroll-target="#running-the-workflow">Running the Workflow</a></li>
   <li><a href="#handle-errors-appropriately" id="toc-handle-errors-appropriately" class="nav-link" data-scroll-target="#handle-errors-appropriately">Handle errors appropriately</a>
@@ -206,6 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#user-fixable" id="toc-user-fixable" class="nav-link" data-scroll-target="#user-fixable">User-fixable</a></li>
   <li><a href="#unexpected" id="toc-unexpected" class="nav-link" data-scroll-target="#unexpected">Unexpected</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -214,7 +213,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Thinking in LangGraph</h1>
+<h1 class="title">Human-in-the-loop</h1>
+<p class="subtitle lead">Use Case: Agent for Customer Support Emails</p>
 </div>
 
 
@@ -239,7 +239,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Draft appropriate responses</li>
 <li>Escalate complex or urgent issues to a human for review before sending</li>
 </ul>
-<p>Here is the complete implementation of this agent using the LangGraph <a href="https://docs.langchain.com/oss/python/langgraph/functional-api">Functional API</a>.</p>
 <section id="the-agent-implementation" class="level2">
 <h2 class="anchored" data-anchor-id="the-agent-implementation">The Agent Implementation</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uuid</span>
@@ -358,31 +357,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="09_langgraph_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="09_langgraph_files/figure-html/mermaid-figure-1.png" style="width:5.14in;height:9.33in" class="figure-img"></a></p>
+<p><a href="03_human-in-the-loop_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="03_human-in-the-loop_files/figure-html/mermaid-figure-1.png" style="width:5.14in;height:9.33in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<section id="breaking-work-into-discrete-steps-task" class="level3">
-<h3 class="anchored" data-anchor-id="breaking-work-into-discrete-steps-task">Breaking work into discrete steps (<code>@task</code>)</h3>
-<p>We wrapped distinct actions (like <code>classify_intent</code> and <code>search_documentation</code>) with the <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#task"><code>@task</code></a> decorator.</p>
-<p><strong>Why?</strong> Tasks are independently observable and resilient. Decorating a function as a <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#task"><code>@task</code></a> means LangGraph automatically tracks its execution, allowing you to easily add retry policies for transient network errors, or cache expensive LLM calls. If part of the workflow fails or gets interrupted, LangGraph will use the checkpointer to remember the results of previously completed tasks so they are not re-run.</p>
-</section>
-<section id="defining-the-control-flow-entrypoint" class="level3">
-<h3 class="anchored" data-anchor-id="defining-the-control-flow-entrypoint">Defining the control flow (<code>@entrypoint</code>)</h3>
-<p>The <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#entrypoint"><code>@entrypoint</code></a> acts as the orchestrator of your tasks.</p>
-<p><strong>Why?</strong> Instead of manually defining graph edges and nodes (as in older state-machine APIs), the Functional API lets you write standard Python control logic (<code>if/elif/else</code>). This makes routing decisions explicit and intuitive. The <code>checkpointer=InMemorySaver()</code> argument automatically persisting the state of the entrypoint and its tasks.</p>
-</section>
-<section id="wait-for-results-before-proceeding-.result" class="level3">
-<h3 class="anchored" data-anchor-id="wait-for-results-before-proceeding-.result">Wait for results before proceeding (<code>.result()</code>)</h3>
-<p>Inside the entrypoint, we call <code>.result()</code> after executing each task (e.g., <code>classify_intent(...).result()</code>).</p>
-<p><strong>Why?</strong> Tasks run asynchronously by default to support parallel execution (e.g., running multiple searches at once). Calling <code>.result()</code> blocks the workflow until that specific task is complete, ensuring the downstream functions have the necessary data to proceed.</p>
-</section>
 <section id="keeping-humans-in-the-loop-interrupt" class="level3">
 <h3 class="anchored" data-anchor-id="keeping-humans-in-the-loop-interrupt">Keeping humans in the loop (<code>interrupt</code>)</h3>
-<p>The <code>human_review</code> task uses the <code>interrupt()</code> function to pause the workflow.</p>
-<p><strong>Why?</strong> When the code hits <code>interrupt()</code>, the entrypoint completely halts execution and saves everything to the checkpointer. It will pause indefinitely until a human provides the needed input. Once the input is supplied via a resume command, the workflow picks up <em>exactly</em> where it left off, avoiding the need to re-classify the email or regenerate the draft.</p>
+<p>The <code>human_review</code> task uses the <a href="https://docs.langchain.com/oss/python/langgraph/interrupts"><code>interrupt()</code></a> function to pause the workflow.</p>
+<p><strong>Why?</strong><br>
+When the code hits <code>interrupt()</code>, the entrypoint completely halts execution and saves everything to the checkpointer. It will pause indefinitely until a human provides the needed input. Once the input is supplied via a resume command, the workflow picks up <em>exactly</em> where it left off, avoiding the need to re-classify the email or regenerate the draft.</p>
+</section>
+<section id="rules-of-interrupt" class="level3">
+<h3 class="anchored" data-anchor-id="rules-of-interrupt">Rules of Interrupt</h3>
+<p>See: <a href="https://docs.langchain.com/oss/python/langgraph/interrupts#rules-of-interrupts">few important rules</a> to follow when working with interrupts to ensure they behave as expected.</p>
 </section>
 </section>
 <section id="running-the-workflow" class="level2">
@@ -415,7 +404,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>final_result <span class="op">=</span> email_workflow.invoke(human_response, config)</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Workflow completed: </span><span class="sc">{</span>final_result<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Notice how we reuse the same <code>thread_id</code> in the <code>config</code>.</p>
-<p><strong>Why?</strong> The <code>thread_id</code> links the separate invocations together. The checkpointer uses it to look up the paused execution state. Without it, the workflow wouldn’t know which paused execution to resume.</p>
+<p><strong>Why?</strong><br>
+The <code>thread_id</code> links the separate invocations together. The checkpointer uses it to look up the paused execution state. Without it, the workflow wouldn’t know which paused execution to resume.</p>
 </section>
 <section id="handle-errors-appropriately" class="level2">
 <h2 class="anchored" data-anchor-id="handle-errors-appropriately">Handle errors appropriately</h2>
@@ -527,9 +517,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        email_service.send(draft_response)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span>:</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span>  <span class="co"># Surface unexpected errors</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
-
 </section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph">Thinking in LangGraph</a></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
