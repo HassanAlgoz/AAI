@@ -23,7 +23,7 @@ At a high level, ML problem framing consists of two distinct steps:
 
 The following tables help you map specific **applications + goals** to **ML Task** ..
 
-## Supervised ML
+## Supervised ML (1/3)
 
 |**Application**|**Goal**|**ML Task**|**Description**|
 |---|---|---|---|
@@ -32,13 +32,23 @@ The following tables help you map specific **applications + goals** to **ML Task
 |Revenue|Sales forecasting|Regression|Calculate the expected sales revenue for a future period.|
 |Drug Response|Estimate efficacy|Regression, Classification|Evaluate the potential effectiveness of a medical treatment.|
 |Manufacturing|Predict component failure|Regression|Estimate the remaining time before a specific machine component fails.|
-|E-commerce|Ad click likelihood|Classification|Determine the likelihood that a customer will click on a specific advertisement.|
-|Healthcare|Readmission risk|Classification|Assess the probability of a patient returning to the hospital.|
+
+## Supervised ML (2/3)
+
+|**Application**|**Goal**|**ML Task**|**Description**|
+|---|---|---|---|
 |Cybersecurity|Attack detection|Classification|Identify whether network activity constitutes a malicious attack.|
 |Real Estate|Home valuation|Regression|Estimate the market value of a specific residential property.|
 |Email|Spam filtering|Classification|Categorize incoming messages as legitimate or unsolicited spam.|
 |HR|Attrition risk|Classification|Determine the probability that an employee will leave the company.|
-|Finance|Fraud classification|Classification|Identify whether a specific financial transaction is fraudulent.|
+|Finance|Fraud classification|Classification|Identify fraudulent transactions.|
+
+## Supervised ML (3/3)
+
+|**Application**|**Goal**|**ML Task**|**Description**|
+|---|---|---|---|
+|E-commerce|Ad click likelihood|Classification|Determine the likelihood that a customer will click on a specific advertisement.|
+|Healthcare|Readmission risk|Classification|Assess the probability of a patient returning to the hospital.|
 
 ## Unsupervised ML
 
@@ -58,8 +68,8 @@ The following tables help you map specific **applications + goals** to **ML Task
 Tumor Detection|Map brain tumors|Computer Vision|Identify and locate abnormal tissue in medical scans.|
 Text/News|Content flagging|NLP|Detect inappropriate or specific themes within text.|
 Summarization|Condense text|NLP|Generate concise overviews of lengthy documents.|
-Chatbots|Conversational AI|NLP|Automate human-like dialogue for user interactions.|
-Voice|Audio processing|NLP|Convert spoken language into actionable text.|
+Chatbots|Conversational AI|NLP|Automate dialogue interactions.|
+Voice|Audio processing|NLP|Transcribe speech.|
 
 ## Clear use case for ML (1/2)
 
