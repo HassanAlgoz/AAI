@@ -1,7 +1,7 @@
 ---
 title: "Human-in-the-loop"
 subtitle: "Use Case: Agent for Customer Support Emails"
-format: html
+format: revealjs
 ---
 
 Imagine you need to automate a customer support email inbox. The system should:
@@ -17,7 +17,7 @@ Imagine you need to automate a customer support email inbox. The system should:
 This implementation demonstrates several core concepts of the LangGraph Functional API. Here is the visual flow of how the code executes:
 
 ```{mermaid}
-flowchart TD
+flowchart LR
     START((Start)) --> B[classify_intent]
     B -->|question/feature| C[search_documentation]
     B -->|bug| D[track_bug]
@@ -32,22 +32,22 @@ flowchart TD
     G --> H
 ```
 
-## The Implementation
+# The Implementation
 
-### LLM
+## LLM
 
-```py
+``` py
 from langchain_openai import ChatOpenAI
 
 
 llm = ChatOpenAI(model="gpt-4o-mini")
 ```
 
-### Intent classifier
+## The Intent classifier
 
 Using structured output, we can make an intent classifier task like so:
 
-```python
+``` python
 from typing import Literal, TypedDict
 from langgraph.func import entrypoint, task
 
@@ -70,7 +70,7 @@ def classify_intent(email_content: str, sender_email: str) -> EmailClassificatio
     return structured_llm.invoke(prompt)
 ```
 
-### Three action tasks
+## The three action tasks
 
 Here we define three tasks:
 
@@ -78,7 +78,7 @@ Here we define three tasks:
 - `track_bug` (dummy)
 - `draft_response`
 
-```python
+``` python
 import uuid
 from langgraph.types import interrupt
 
@@ -118,11 +118,11 @@ def draft_response(email_content: str, classification: EmailClassification, cont
 
 For more about tasks, see: [When to use a task](https://docs.langchain.com/oss/python/langgraph/functional-api#when-to-use-a-task).
 
-### Human review
+## The human review
 
 The `human_review` task uses the [`interrupt()`](https://docs.langchain.com/oss/python/langgraph/interrupts) function to pause the workflow.
 
-```py
+``` py
 @task
 def human_review(draft: str, classification: EmailClassification):
     """Pause for human review and approval."""
@@ -135,19 +135,18 @@ def human_review(draft: str, classification: EmailClassification):
     return decision
 ```
 
-When the code hits `interrupt()`, the entrypoint completely halts execution and saves everything to the checkpointer. It will pause indefinitely until a human provides the needed input. Once the input is supplied via a **resume command**, the workflow picks up *exactly* where it left off, avoiding the need to re-classify the email or regenerate the draft.
+- When the code hits `interrupt()`, the entrypoint completely halts execution and saves everything to the checkpointer.
+- It will pause indefinitely until a human provides the needed input via a `Command(resume={...})`.
+- The workflow then picks up *exactly* where it left off (avoiding the need to re-classify the email or regenerate the draft).
+- See [Rules of Interrupt](https://docs.langchain.com/oss/python/langgraph/interrupts#rules-of-interrupts) to follow when working with interrupts to ensure they behave as expected.
 
-See [Rules of Interrupt](https://docs.langchain.com/oss/python/langgraph/interrupts#rules-of-interrupts) to follow when working with interrupts to ensure they behave as expected.
+## Workflow entrypoint
 
-### Workflow entrypoint
-
-Wire it all together with an entrypoint.
-
-You will usually want to pass a **checkpointer** to the `@entrypoint` decorator to enable persistence and use features like **human-in-the-loop**.
+- Wire it all together with an entrypoint.
+- Pass a `checkpointer` to the `@entrypoint` decorator to enable persistence and use features like **human-in-the-loop**.
 
 ```python
 from langgraph.checkpoint.memory import InMemorySaver
-
 
 checkpointer = InMemorySaver()
 
@@ -186,34 +185,41 @@ def email_workflow(inputs: dict) -> dict:
     return {"status": "sent", "final_response": draft}
 ```
 
-## Running the Workflow
+# Running the Workflow
 
 Let's see the agent in action with an urgent scenario.
 
-### Execution and pause for human input
+## Execution and pause for human input
 
 Using the [`@entrypoint`](https://docs.langchain.com/oss/python/langgraph/functional-api#entrypoint) yields a [`Pregel`](https://reference.langchain.com/python/langgraph/pregel/#langgraph.pregel.Pregel.stream) object that can be executed using the `invoke`, `ainvoke`, `stream`, and `astream` methods.
 
-```python
-# 1. Initialize the run
-initial_state = {
+1. Initialize the run:
+   
+``` python
+inputs = {
     "email_content": "I was charged twice for my subscription! This is urgent!",
     "sender_email": "customer@example.com"
 }
+```
 
-# 2. Run with a thread_id for persistence
+2. Run with a `thread_id` for persistence
+
+```python
 config = {"configurable": {"thread_id": "customer_123"}}
+```
 
-# 3. The graph will stop at the interrupt()
-result = email_workflow.invoke(initial_state, config)
+3. The graph will stop at the `interrupt()`
+
+```python
+result = email_workflow.invoke(inputs, config)
 print(f"Paused for human review: {result}")
 ```
 
-### Resuming
+## Resuming
 
 Resuming an execution after an [interrupt](https://reference.langchain.com/python/langgraph/types/interrupt) can be done by passing a **resume** value to the [`Command`](https://reference.langchain.com/python/langgraph/types/Command) primitive.
 
-```py
+``` py
 # Provide the human's decision using Command
 from langgraph.types import Command
 
@@ -229,24 +235,26 @@ final_result = email_workflow.invoke(human_response, config)
 print(f"Workflow completed: {final_result}")
 ```
 
-Notice how we reuse the same `thread_id` in the `config`. The `thread_id` links the separate invocations together. The checkpointer uses it to look up the paused execution state. Without it, the workflow wouldn't know which paused execution to resume.
+> Notice how we reuse the same `thread_id` in the `config`. The `thread_id` links the separate invocations together. The checkpointer uses it to look up the paused execution state. Without it, the workflow wouldn't know which paused execution to resume.
 
-## Handle errors appropriately
+# Error handling
 
-Different errors need different handling strategies:
+Different errors need different handling strategies.
 
-| Error Type                                                      | Who Fixes It       | Strategy                           | When to Use                                      |
-| --------------------------------------------------------------- | ------------------ | ---------------------------------- | ------------------------------------------------ |
-| Transient errors (network issues, rate limits)                  | System (automatic) | `RetryPolicy()`                    | Temporary failures that usually resolve on retry |
-| LLM-recoverable errors (tool failures, parsing issues)          | LLM                | Store error in state and loop back | LLM can see the error and adjust its approach    |
-| User-fixable errors (missing information, unclear instructions) | Human              | Pause with `interrupt()`           | Need user input to proceed                       |
-| Unexpected errors                                               | Developer          | Let them bubble up                 | Unknown issues that need debugging               |
+## Error handling
 
-### Transient errors
+| Error Type | Who Fixes It | Strategy | When to Use |
+|------------------------|---------------|---------------|------------------|
+| Transient errors (network issues, rate limits) | System (automatic) | `RetryPolicy()` | Temporary failures that usually resolve on retry |
+| LLM-recoverable errors (tool failures, parsing issues) | LLM | Store error in state and loop back | LLM can see the error and adjust its approach |
+| User-fixable errors (missing information, unclear instructions) | Human | Pause with `interrupt()` | Need user input to proceed |
+| Unexpected errors | Developer | Let them bubble up | Unknown issues that need debugging |
+
+## Transient errors
 
 Add a retry policy to automatically retry network issues and rate limits. The `@task` decorator makes this trivial to configure in the functional API:
 
-```python
+``` python
 from langgraph.func import task
 from langgraph.types import RetryPolicy
 
@@ -256,38 +264,11 @@ def search_documentation(classification: dict) -> list[str]:
     return search_api(classification)
 ```
 
-### LLM-recoverable
-
-Store the error in state and loop back so the LLM can see what went wrong and try again. The Functional API lets you handle this using standard Python `try/except` blocks inside your execution loop:
-
-```python
-from langgraph.func import entrypoint
-
-@entrypoint()
-def agent_workflow(messages: list) -> list:
-    for _ in range(5):
-        response = llm.invoke(messages)
-        messages.append(response)
-        
-        if not response.tool_calls:
-            return messages
-            
-        try:
-            # Attempt to execute the tool
-            result = run_tool(response.tool_calls[0])
-            messages.append({"role": "tool", "content": result})
-        except ToolError as e:
-            # Let the LLM see what went wrong and try again
-            messages.append({"role": "tool", "content": f"Tool error: {str(e)}"})
-            
-    return messages
-```
-
-### User-fixable
+## User-fixable
 
 Pause and collect information from the user when needed (like account IDs, order numbers, or clarifications). Because the Functional API pauses execution in-place, you don't need any complex state management to resume:
 
-```python
+``` python
 from langgraph.func import task
 from langgraph.types import interrupt
 
@@ -305,11 +286,11 @@ def lookup_customer_history(customer_id: str | None) -> dict:
     return fetch_customer_history(customer_id)
 ```
 
-### Unexpected
+## Unexpected
 
 Let them bubble up for debugging. Don't catch what you can't handle:
 
-```python
+``` python
 from langgraph.func import task
 
 @task
@@ -324,7 +305,7 @@ def send_reply(draft_response: str) -> None:
 
 To resume after an error, run the `entrypoint` with a `None` and the same **thread id** (config).This assumes that the underlying **error** has been resolved and execution can proceed successfully.
 
-```python
+``` python
 config = {
     "configurable": {
         "thread_id": "some_thread_id"

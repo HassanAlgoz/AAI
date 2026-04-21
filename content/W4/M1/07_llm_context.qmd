@@ -1,0 +1,111 @@
+---
+title: "LLM Context Management Strategies"
+format: html
+---
+
+## Longer conversations
+
+**Long conversations** pose a challenge to today's LLMs; a full history may not fit inside an LLM's context window, resulting in an context loss or errors. Even if your model supports the full context length, most LLMs still perform poorly over long contexts. They get "distracted" by stale or off-topic content, all while suffering from slower response times and higher costs.
+
+Common solutions are:
+
+1. **Trim messages**: Remove first or last N messages (before calling LLM)
+2. **Delete messages**: Remove messages from LangGraph state permanently
+3. **Summarize messages**: Summarize earlier messages in the history and replace them with a summary
+4. **Custom strategies**: Custom strategies (e.g., message filtering, etc.)
+
+Checkout: [Common patterns](https://docs.langchain.com/oss/python/langchain/short-term-memory#common-patterns) for more details.
+
+
+## 8. Manage message history
+
+As the agent progresses through steps, message history grows. Use [summarization middleware](https://docs.langchain.com/oss/python/langchain/short-term-memory#summarize-messages) to compress earlier messages while preserving conversational context:
+
+```python
+from langchain.agents import create_agent
+from langchain.agents.middleware import SummarizationMiddleware
+from langgraph.checkpoint.memory import InMemorySaver
+
+agent = create_agent(
+    model=model_nemotron3_nano,
+    tools=all_tools,
+    state_schema=SupportState,
+    middleware=[
+        apply_step_config,
+        SummarizationMiddleware(
+            model=model_nemotron3_nano,
+            trigger=("tokens", 4000),
+            keep=("messages", 10)
+        )
+    ],
+    checkpointer=InMemorySaver(),
+)
+```
+
+See the [short-term memory guide](https://docs.langchain.com/oss/python/langchain/short-term-memory) for other memory management techniques.
+
+## 9. Add the flexibility to go back and correct things
+
+Right now, the system is so rigid that we cannot undo or correct things. There is a reason why we have an undo (i.e., `ctrl + z`) functionality in almost all software. It is because humans make mistakes all the time.
+
+Some workflows need to allow users to return to previous steps to correct information (e.g., changing warranty status or issue classification). However, not all transitions make sense—for example, you typically can't go back once a refund has been processed. For this support workflow, we'll add tools to return to the warranty verification and issue classification steps.
+
+::: {.callout-tip}
+If your workflow requires arbitrary transitions between most steps, consider whether you need a structured workflow at all. This pattern works best when steps follow a clear sequential progression with occasional backwards transitions for corrections.
+:::
+Add "go back" tools to the resolution step:
+
+```python
+@tool
+def go_back_to_warranty() -> Command:
+    """Go back to warranty verification step."""
+    return Command(update={"current_step": "warranty_collector"})
+
+
+@tool
+def go_back_to_classification() -> Command:
+    """Go back to issue classification step."""
+    return Command(update={"current_step": "issue_classifier"})
+
+
+# Update the resolution_specialist configuration to include these tools
+STEP_CONFIG["resolution_specialist"]["tools"].extend([
+    go_back_to_warranty,
+    go_back_to_classification
+])
+```
+Update the resolution specialist's prompt to mention these tools:
+
+```python
+RESOLUTION_SPECIALIST_PROMPT = """You are a customer support agent helping with device issues.
+
+CURRENT STAGE: Resolution
+CUSTOMER INFO: Warranty status is {warranty_status}, issue type is {issue_type}
+
+At this step, you need to:
+1. For SOFTWARE issues: provide troubleshooting steps using provide_solution
+2. For HARDWARE issues:
+   - If IN WARRANTY: explain warranty repair process using provide_solution
+   - If OUT OF WARRANTY: escalate_to_human for paid repair options
+
+If the customer indicates any information was wrong, use:
+- go_back_to_warranty to correct warranty status
+- go_back_to_classification to correct issue type
+
+Be specific and helpful in your solutions."""
+
+```
+Now the agent can handle corrections:
+```python
+result = agent.invoke(
+    {"messages": [HumanMessage(
+        "Actually, I made a mistake - my device is out of warranty"
+    )]},
+    config
+)
+# Agent will call go_back_to_warranty and
+# restart the warranty verification step
+
+for msg in result['messages']:
+    msg.pretty_print()
+```

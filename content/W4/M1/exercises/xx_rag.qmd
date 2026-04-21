@@ -1,0 +1,8 @@
+---
+title: "Assignment 5: RAG Agent"
+format: html
+---
+
+Task 1 is to: apply the Load, Embed, Store, and Retrieve, just like [the lesson](../05_semantic_search.ipynb), but using other documents of your choice.
+
+Task 2 is to: implement a RAG Agent that can answer multi-step questions as in [the lesson](../06_RAG_agent.ipynb). Use a different data source than used in the previous assignment, and in any previous notebook.

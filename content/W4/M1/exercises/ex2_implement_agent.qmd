@@ -1,0 +1,121 @@
+---
+title: "Ex2: Implement an Agent"
+format: html
+---
+
+### Objective
+Learn to bridge the gap between Python functions and LLM logic. You will stringify function signatures, use structured output to "decide" on a tool, and execute that tool using LangGraph’s Functional API.
+
+---
+
+### Phase 1: The Tools & Schema
+
+We need a way for the LLM to talk back to us in a format we can parse. 
+
+**Task:** Complete the `ToolCall` schema so the LLM returns the name of the function and a dictionary of arguments.
+
+```python
+import inspect
+from pydantic import BaseModel, Field
+from typing import Dict, Any
+
+# Our available tools
+def add(a: int, b: int) -> int: return a + b
+def subtract(a: int, b: int) -> int: return a - b
+def multiply(a: int, b: int) -> int: return a * b
+def divide(a: int, b: int) -> float: return a / b
+
+tools = [add, subtract, multiply, divide]
+
+class ToolCall(BaseModel):
+    # HINT: Define a field for the function name and one for the arguments dictionary
+    tool_name: str = Field(description="________________")
+    arguments: Dict[str, Any] = Field(description="________________")
+```
+
+---
+
+### Phase 2: Stringification
+
+The LLM doesn't know these Python functions exist. We need to turn the function names and their parameters into a string for the System Prompt.
+
+**Task:** Use a list comprehension and `inspect.signature()` to create a newline-separated string of all functions in `tools`.
+
+```python
+# HINT: Loop through 'tools', get the name via .__name__ and the signature via inspect.signature()
+tool_signatures = "\n".join([
+    f"________________" 
+    for f in tools
+])
+
+print(f"Signatures provided to LLM:\n{tool_signatures}")
+```
+
+---
+
+### Phase 3: The Functional Graph
+
+Now, orchestrate the logic using LangGraph's Functional API. 
+
+**Task:** 1. Initialize the LLM with structured output.
+2. In the `calculator_agent`, map the LLM's string choice to the actual Python function.
+
+```python
+from langgraph.func import entrypoint, task
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import SystemMessage, HumanMessage
+
+# HINT: Use .with_structured_output() with your ToolCall model
+llm = ChatOpenAI(model="gpt-4o").________________(ToolCall)
+
+@task
+def get_tool_decision(query: str):
+    system_prompt = f"""
+    You are a math assistant. You have access to these tools:
+    {tool_signatures}
+    
+    Return the tool name and arguments required to solve the user's request.
+    """
+    return llm.invoke([
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=query)
+    ])
+
+@entrypoint()
+def calculator_agent(query: str):
+    # 1. Get the decision (ToolCall object) from the task
+    decision = get_tool_decision(query).result()
+    
+    # 2. Map the string name back to the function object
+    # HINT: Create a dict where keys are function names and values are the functions
+    tool_map = {f.__name__: f for f in tools}
+    
+    selected_func = tool_map[________________]
+    
+    # 3. Execute the function with the provided arguments
+    # HINT: Use dictionary unpacking (**)
+    return selected_func(________________)
+```
+
+---
+
+### Phase 4: Challenges
+
+#### Level 1: Basic Operations
+Test if the model can map a simple sentence to a single tool call.
+
+```python
+# Exercise: Invoke your agent with "What is 1232 multiplied by 7?"
+result = calculator_agent.invoke("________________")
+print(f"Result: {result}")
+```
+
+#### Level 2: Composed Logic
+The model only gets **one** tool call in this setup. Let's see how it handles a multi-step word problem.
+
+**Challenge Query:** *"I have 50 apples. I gave 12 to my neighbor and then split the remainder equally between my 2 siblings. How many does each sibling get? Use the division tool for the final answer."*
+
+**Discussion:**
+* Did the model perform the subtraction (50 - 12 = 38) internally?
+* Did it correctly pass `a=38, b=2` to the `divide` tool?
+* What happens if the problem requires *two* distinct tool calls (e.g., "Add 5 and 6, then multiply by 2")? This is why we eventually need **Loops** in LangGraph!

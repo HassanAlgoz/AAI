@@ -1,0 +1,131 @@
+
+
+## RAG architectures
+
+RAG can be implemented in multiple ways, depending on your system's needs. We outline each type in the sections below.
+
+| Architecture    | Description                                                                | Control   | Flexibility | Latency    | Example Use Case                                  |
+| --------------- | -------------------------------------------------------------------------- | --------- | ----------- | ---------- | ------------------------------------------------- |
+| **2-Step RAG**  | Retrieval always happens before generation. Simple and predictable         | ✅ High    | ❌ Low       | ⚡ Fast     | FAQs, documentation bots                          |
+| **Agentic RAG** | An LLM-powered agent decides *when* and *how* to retrieve during reasoning | ❌ Low     | ✅ High      | ⏳ Variable | Research assistants with access to multiple tools |
+| **Hybrid**      | Combines characteristics of both approaches with validation steps          | ⚖️ Medium | ⚖️ Medium   | ⏳ Variable | Domain-specific Q\&A with quality validation      |
+
+Note 1: **Latency**: Latency is generally more **predictable** in **2-Step RAG**, as the maximum number of LLM calls is known and capped.
+
+Note 2: real-world latency may also be **affected by the performance of retrieval steps**—such as API response times, network delays, or database queries—which can vary based on the tools and infrastructure in use.
+
+### A. 2-step RAG
+
+In **2-Step RAG**, the retrieval step is always executed before the generation step. This architecture is straightforward and predictable, making it suitable for many applications where the retrieval of relevant documents is a clear prerequisite for generating an answer.
+
+```{mermaid}
+graph LR
+    A[User Question] --> B["Retrieve Relevant Documents"]
+    B --> C["Generate Answer"]
+    C --> D[Return Answer to User]
+
+    %% Styling
+    classDef startend fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff
+    classDef process fill:#1976d2,stroke:#0d47a1,stroke-width:1.5px,color:#fff
+
+    class A,D startend
+    class B,C process
+```
+
+
+### B. Agentic RAG
+
+**Agentic Retrieval-Augmented Generation (RAG)** combines the strengths of Retrieval-Augmented Generation with agent-based reasoning. Instead of retrieving documents before answering, an agent (powered by an LLM) reasons step-by-step and decides **when** and **how** to retrieve information during the interaction.
+
+```{mermaid}
+graph TD
+    A[User Input / Question] --> B["Agent (LLM)"]
+    B --> C{Need external info?}
+    C -- Yes --> D["Search using tool(s)"]
+    D --> H{Enough to answer?}
+    H -- No --> B
+    H -- Yes --> I[Generate final answer]
+    C -- No --> I
+    I --> J[Return to user]
+
+    %% Dark-mode friendly styling
+    classDef startend fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff
+    classDef decision fill:#f9a825,stroke:#f57f17,stroke-width:2px,color:#000
+    classDef process fill:#1976d2,stroke:#0d47a1,stroke-width:1.5px,color:#fff
+
+    class A,J startend
+    class B,D,I process
+    class C,H decision
+```
+
+The only thing an agent needs to enable RAG behavior is access to one or more **tools** that can fetch external knowledge — such as documentation loaders, web APIs, or database queries.
+
+```python
+import requests
+from langchain.tools import tool
+from langchain.chat_models import init_chat_model
+from langchain.agents import create_agent
+
+
+@tool
+def fetch_url(url: str) -> str:
+    """Fetch text content from a URL"""
+    response = requests.get(url, timeout=10.0)
+    response.raise_for_status()
+    return response.text
+
+system_prompt = """\
+Use fetch_url when you need to fetch information from a web-page; quote relevant snippets.
+"""
+
+agent = create_agent(
+    model="claude-sonnet-4-5-20250929",
+    tools=[fetch_url], # A tool for retrieval
+    system_prompt=system_prompt,
+)
+```
+
+### C. Hybrid RAG
+
+Hybrid RAG combines characteristics of both 2-Step and Agentic RAG. It introduces intermediate steps such as query preprocessing, retrieval validation, and post-generation checks. These systems offer more flexibility than fixed pipelines while maintaining some control over execution.
+
+Typical components include:
+
+* **Query enhancement**: Modify the input question to improve retrieval quality.
+  - Rewrite unclear queries, generate multiple variations, or expand queries with additional context.
+* **Retrieval validation**: Evaluate whether retrieved documents are relevant and sufficient.
+  - If not, the system may refine the query and retrieve again.
+* **Answer validation**: Check the generated answer for accuracy, completeness, and alignment with source content.
+  - If needed, the system can regenerate or revise the answer.
+
+The architecture often supports multiple iterations between these steps:
+
+```{mermaid}
+graph TD
+    A[User Question] --> B[Query Enhancement]
+    B --> C[Retrieve Documents]
+    C --> D{Sufficient Info?}
+    D -- No --> E[Refine Query]
+    E --> C
+    D -- Yes --> F[Generate Answer]
+    F --> G{Answer Quality OK?}
+    G -- No --> H{Try Different Approach?}
+    H -- Yes --> E
+    H -- No --> I[Return Best Answer]
+    G -- Yes --> I
+    I --> J[Return to User]
+
+    classDef startend fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff
+    classDef decision fill:#f9a825,stroke:#f57f17,stroke-width:2px,color:#000
+    classDef process fill:#1976d2,stroke:#0d47a1,stroke-width:1.5px,color:#fff
+
+    class A,J startend
+    class B,C,E,F,I process
+    class D,G,H decision
+```
+
+This architecture is suitable for:
+
+* Applications with ambiguous or underspecified queries
+* Systems that require validation or quality control steps
+* Workflows involving multiple sources or iterative refinement

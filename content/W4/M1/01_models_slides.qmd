@@ -1,0 +1,369 @@
+---
+title: "Models"
+format:
+  revealjs:
+    incremental: false
+execute:
+  echo: true
+  eval: true
+---
+
+# Models {.center}
+
+::: {.callout-tip appearance="simple"}
+## Go to the lab
+
+- **[Interactive lab notebook](./01_models.ipynb)** — run all code here
+- **Exercise:** [Ex1: Models](./exercises/ex1_models.qmd)
+- **Colab (external repo):** [Open in Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/M1/01_models.ipynb)
+:::
+
+---
+
+## Environment setup
+
+### Install dependencies
+
+**A. On Colab?**
+
+```python
+%pip install -q langchain langchain_openai langchain_community
+```
+
+**B. Locally?**
+
+If using `uv` locally you can `uv sync` (provided you have the `pyproject.toml`).
+
+---
+
+## Environment variables
+
+| Variable             | Required | Purpose                                    |
+|----------------------|----------|--------------------------------------------|
+| `OPENROUTER_API_KEY` | Yes      | Authenticates requests to OpenRouter LLMs |
+
+**On Colab?** Store as Colab **Secrets** (key icon), names as above. Grant this notebook access.
+
+**Locally?** Use a `.env` file (in `.gitignore`); load with `python-dotenv`.
+
+::: {.callout-warning}
+API keys are secrets and shall [**never be exposed**](./never_expose_api_keys.qmd).
+:::
+
+---
+
+## Reading environment variables
+
+```python
+import os
+```
+
+```python
+try:
+    # In Colab? read from userdata (secrets)
+    from google.colab import userdata
+    ON_COLAB = True
+    os.environ["OPENROUTER_API_KEY"] = userdata.get("OPENROUTER_API_KEY")
+except ImportError:
+    # Load `.env` file (locally)
+    from dotenv import load_dotenv
+    load_dotenv(override=True)
+```
+
+---
+
+## OpenRouter
+
+[OpenRouter](https://openrouter.ai/) is the unified interface for LLMs.
+
+- One API for all models — change a string to switch models
+- Some models are free
+- Can help with regional restrictions
+
+Keys: [openrouter.ai/keys](https://openrouter.ai/keys)
+
+![OpenRouter — unified API](assets/open_router.png){.r-stretch fig-alt="Diagram of OpenRouter as a gateway to multiple LLM providers"}
+
+---
+
+## Basic usage
+
+1. **Standalone** — call models directly for generation, classification, extraction, etc.
+2. **With agents** — specify the model when creating an agent (*later in the course*)
+
+LangChain integrates many providers; this course uses [ChatOpenAI](https://docs.langchain.com/oss/python/integrations/chat/openai) pointed at OpenRouter.
+
+```python
+from langchain_openai import ChatOpenAI
+```
+
+```python
+# https://openrouter.ai/openai/gpt-5-nano
+model_gpt5_nano = ChatOpenAI(
+    model="openai/gpt-5-nano",
+    temperature=0,
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ.get("OPENROUTER_API_KEY"),
+)
+```
+
+---
+
+## Choosing between models
+
+**Quality**, **latency**, **price**, and **performance** vary.
+
+- [Arena.ai](https://arena.ai/) — blind human comparisons
+- [OpenRouter models](https://openrouter.ai/models) — pricing and trends
+- [Model recommendation | Artificial Analysis](https://artificialanalysis.ai/models/recommend)
+
+### Arabic-focused leaderboards
+
+- [OALL | Open Arabic LLM Leaderboard](https://huggingface.co/OALL)
+- [QIMMA leaderboard](https://huggingface.co/spaces/qimma/leaderboard)
+- [Arabic LLM Leaderboard | Silma](https://silma.ai/arabic-llm-leaderboard)
+- [Balsam benchmarks](https://benchmarks.ksaa.gov.sa/b/balsam?version=2)
+
+---
+
+## Model parameters
+
+
+::: {.columns}
+
+::: {.column}
+
+Common [LangChain chat model parameters](https://docs.langchain.com/oss/python/langchain/models#parameters):
+
+- `model` — model id
+- `max_tokens` — cap on response length
+- `temperature` — sampling randomness
+  - **Low (~0)** — deterministic, good for accuracy
+  - **High (~1)** — more variety, good for creativity
+
+
+:::
+
+::: {.column}
+
+![Low vs high temperature sampling](assets/temperature_1.png){fig-alt="Visualization of probability distributions for low vs high temperature"}
+
+:::
+
+:::
+
+---
+
+## Example: free model on OpenRouter
+
+Filtering for **free** models: [NVIDIA Nemotron-3 Nano](https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free)
+
+```python
+model_nemotron3_nano = ChatOpenAI(
+    model="nvidia/nemotron-3-nano-30b-a3b:free",
+    temperature=0,
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ.get("OPENROUTER_API_KEY"),
+)
+```
+
+---
+
+## Aside: running a model locally
+
+::: {.callout-note}
+LangChain can run models locally — privacy, custom weights, or cost.
+
+[Ollama](https://docs.langchain.com/oss/python/integrations/chat/ollama) is a simple path for chat models on your machine.
+
+On typical laptops (16–32 GB RAM), starting points for **tool-calling** models:
+
+- `lfm2.5-thinking:1.2b`
+- `granite4:3b` (or `granite4:1b` / `granite4:350m`)
+- `ministral-3:3b`
+
+Browse [ollama.com/models](https://ollama.com/models) with the **Tools** tag and small sizes (≤3B).
+:::
+
+---
+
+## Models' key methods
+
+Chat models subclass [Runnable](https://reference.langchain.com/python/langchain-core/runnables/base/Runnable):
+
+1. [`.invoke()`](https://docs.langchain.com/oss/python/langchain/models#invocation) — full response when generation finishes
+2. [`.stream()`](https://docs.langchain.com/oss/python/langchain/models#stream) — tokens/chunks as they arrive
+3. [`.batch()`](https://docs.langchain.com/oss/python/langchain/models#batch) — many inputs, parallelized
+
+How-to hub: [Chat models | LangChain](https://docs.langchain.com/oss/python/langchain/models)
+
+---
+
+## 1. `invoke()`
+
+Pass a string or a list of messages:
+
+```python
+message = model_nemotron3_nano_precise.invoke("what is Ramadan? make it super short")
+```
+
+Returns an `AIMessage`:
+
+```python
+print(message.content)
+```
+
+---
+
+## Messages
+
+**Messages** are the unit of context: input and output of the model.
+
+Each message has:
+
+- **Content** — text, images, audio, documents, …
+- **Metadata** — usage, ids, …
+- **Role** — [`SystemMessage`](https://docs.langchain.com/oss/python/langchain/messages#system-message), [`HumanMessage`](https://docs.langchain.com/oss/python/langchain/messages#human-message), [`AIMessage`](https://docs.langchain.com/oss/python/langchain/messages#ai-message), [`ToolMessage`](https://docs.langchain.com/oss/python/langchain/messages#tool-message)
+
+```python
+from langchain.messages import SystemMessage, HumanMessage, AIMessage
+
+system_prompt = SystemMessage("You always answer with 10 concise words, no more.")
+user_prompt = HumanMessage("How do I make an Agent in Python?")
+
+messages = [
+    system_prompt,
+    user_prompt,
+]
+response = model_nemotron3_nano_precise.invoke(messages)
+print(response.content)
+```
+
+---
+
+## Metadata: `usage_metadata`
+
+```python
+response.usage_metadata
+```
+
+---
+
+## Conversation history
+
+```python
+conversation = [
+    SystemMessage("You are a helpful assistant that translates English to Arabic."),
+    HumanMessage("Translate: I love programming."),
+    AIMessage("أحب البرمجة."),
+    HumanMessage("I love building applications.")
+]
+
+message = model_nemotron3_nano_precise.invoke(conversation)
+print(message.content)
+```
+
+---
+
+## 2. `stream()`
+
+`stream()` yields [`AIMessageChunk`](https://reference.langchain.com/python/langchain-core/messages/ai/AIMessageChunk) objects as they are produced.
+
+```python
+chunks = []
+for chunk in model_nemotron3_nano_precise.stream("what is Ramadan? keep it short, keep it simple."):
+    chunks.append(chunk)
+    print(chunk.text, end="", flush=True)
+```
+
+Slice some of them:
+
+```python
+for ch in chunks[50:60]:
+    print(ch.content)
+```
+
+More: [Streaming | LangChain](https://docs.langchain.com/oss/python/langchain/streaming)
+
+---
+
+## 3. `batch()`
+
+Independent prompts in one call — better throughput / cost characteristics when supported.
+
+```python
+responses = model_nemotron3_nano_precise.batch([
+    "What is the capital of Saudi Arabia?",
+    "What is 2 + 8",
+    "Is the sky blue or is it our perception? give a short and concise answer"
+])
+
+for response in responses:
+    print(response)
+```
+
+---
+
+## Structured output
+
+Ask for output matching a schema — easier parsing and downstream logic.
+
+[Pydantic models](https://docs.pydantic.dev/latest/concepts/models/#basic-model-usage) give validation, descriptions, nesting.
+
+```python
+from pydantic import BaseModel, Field
+
+class Movie(BaseModel):
+    """A movie with details."""
+    title: str = Field(..., description="The title of the movie")
+    year: int = Field(..., description="The year the movie was released")
+    director: str = Field(..., description="The director of the movie")
+    rating: float = Field(..., description="The movie's rating out of 10")
+```
+
+Configure LLM output with this structure:
+
+```python
+model_with_structure = model_nemotron3_nano_precise.with_structured_output(Movie)
+response = model_with_structure.invoke(
+    "Provide details about the movie Zootropolis"
+)
+
+print("Title:", response.title)
+print("Year:", response.year)
+print("Director:", response.director)
+print("Rating:", response.rating)
+```
+
+---
+
+## Example: refining a search query
+
+```python
+class SearchQuery(BaseModel):
+    search_query: str = Field(None, description="Query that is optimized web search.")
+    justification: str = Field(
+        None, description="Why this query is relevant to the user's request."
+    )
+
+structured_llm = model_nemotron3_nano_precise.with_structured_output(SearchQuery)
+```
+
+---
+
+## Why structured output?
+
+- **Cost**: the model doesn't generate extra text.
+- **Accuracy**: you get only what you want; no more, no less.
+- **Programming**: structre can be parsed and used in programs. Example: tool calling.
+
+[Structured output | LangChain](https://docs.langchain.com/oss/python/langchain/structured-output)
+
+---
+
+## Key takeaways
+
+- Three key methods for models: invoke, stream, and batch.
+- LLMs can be configured to responsd in a structured format
+
+**Next step:** open [`01_models.ipynb`](./01_models.ipynb) and run the cells.
