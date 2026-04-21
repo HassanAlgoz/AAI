@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>xx_agents – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../W4/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../W5/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#agents-in-langchain" id="toc-agents-in-langchain" class="nav-link active" data-scroll-target="#agents-in-langchain">Agents in LangChain</a>
+  <ul class="collapse">
+  <li><a href="#define-internet-search-tool" id="toc-define-internet-search-tool" class="nav-link" data-scroll-target="#define-internet-search-tool">Define Internet Search Tool</a>
+  <ul class="collapse">
+  <li><a href="#invoke-the-agent" id="toc-invoke-the-agent" class="nav-link" data-scroll-target="#invoke-the-agent">Invoke the agent</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="xx_agents.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p><a href="https://colab.research.google.com/github/HassanAlgoz/agentic-ai-systems/blob/main/Lessons/L01/01_agents.ipynb"><strong>Open In Colab</strong></a></p>
+<section id="agents-in-langchain" class="level1">
+<h1>Agents in LangChain</h1>
+<p>This quickstart takes you from a simple setup to a fully functional AI agent in just a few minutes.</p>
+<p>An <em>Agent</em> <strong>runs LLM + calls functions</strong> (tools) in a loop until a stop condition is met.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="./assets/agent_loop.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Agent Loop"><img src="./assets/agent_loop.png" class="img-fluid figure-img" alt="Agent Loop"></a></p>
+<figcaption>Agent Loop</figcaption>
+</figure>
+</div>
+<p>Effectively, they combine language models with tools to create systems that can reason about tasks, decide which tools to use, and iteratively work towards solutions.</p>
+<section id="define-internet-search-tool" class="level2">
+<h2 class="anchored" data-anchor-id="define-internet-search-tool">Define Internet Search Tool</h2>
+<p><a href="https://www.tavily.com/"><strong>Tavily</strong></a> is a search engine optimized for LLMs and RAG, aimed at efficient, quick, and persistent search results. As mentioned, it’s easy to sign up and offers a generous free tier.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">!pip</span> install tavily-python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="set-up-tavily-api-for-web-search-free" class="level4">
+<h4 class="anchored" data-anchor-id="set-up-tavily-api-for-web-search-free">Set up Tavily API for web search (Free)</h4>
+<ul>
+<li><p>Tavily Search API is a search engine optimized for LLMs and RAG, aimed at efficient, quick, and persistent search results.</p></li>
+<li><p>You can sign up for an API key <a href="https://tavily.com/">here</a>. It’s easy to sign up and offers a very generous free tier. Some lessons (in Module 4) will use Tavily.</p></li>
+<li><p>Add <code>TAVILY_API_KEY</code> to Colab Secrets (key icon in the left sidebar).</p></li>
+</ul>
+<div id="c0489c2f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tavily <span class="im">import</span> TavilyClient</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>tavily_client <span class="op">=</span> TavilyClient(api_key<span class="op">=</span>userdata.get(<span class="st">"TAVILY_API_KEY"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="1f66ab41" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> internet_search(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    query: <span class="bu">str</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    max_results: <span class="bu">int</span> <span class="op">=</span> <span class="dv">5</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    topic: Literal[<span class="st">"general"</span>, <span class="st">"news"</span>, <span class="st">"finance"</span>] <span class="op">=</span> <span class="st">"general"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    include_raw_content: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Run a web search"""</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tavily_client.search(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        query,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        max_results<span class="op">=</span>max_results,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        include_raw_content<span class="op">=</span>include_raw_content,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        topic<span class="op">=</span>topic,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="d2ad39fa" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> internet_search(<span class="st">"What is LangGraph?"</span>, max_results<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'query': 'What is LangGraph?',
+ 'follow_up_questions': None,
+ 'answer': None,
+ 'images': [],
+ 'results': [{'url': 'https://www.ibm.com/think/topics/langgraph',
+   'title': 'What is LangGraph? - IBM',
+   'content': 'LangGraph, created by LangChain, is an open source AI agent framework designed to build, deploy and manage complex generative AI agent workflows. At its core, LangGraph uses the power of graph-based architectures to model and manage the intricate relationships between various components of an AI agent workflow. LangGraph illuminates the processes within an AI workflow, allowing full transparency of the agent’s state. By combining these technologies with a set of APIs and tools, LangGraph provides users with a versatile platform for developing AI solutions and workflows including chatbots, state graphs and other agent-based systems. **Nodes**: In LangGraph, nodes represent individual components or agents within an AI workflow. LangGraph uses enhanced decision-making by modeling complex relationships between nodes, which means it uses AI agents to analyze their past actions and feedback.',
+   'score': 0.95539,
+   'raw_content': None},
+  {'url': 'https://www.datacamp.com/tutorial/langgraph-tutorial',
+   'title': 'LangGraph Tutorial: What Is LangGraph and How to Use It?',
+   'content': 'LangGraph is a library within the LangChain ecosystem that provides a framework for defining, coordinating, and executing multiple LLM agents (or chains) in a structured and efficient manner. By managing the flow of data and the sequence of operations, LangGraph allows developers to focus on the high-level logic of their applications rather than the intricacies of agent coordination. Whether you need a chatbot that can handle various types of user requests or a multi-agent system that performs complex tasks, LangGraph provides the tools to build exactly what you need. LangGraph significantly simplifies the development of complex LLM applications by providing a structured framework for managing state and coordinating agent interactions. LangGraph Studio is a visual development environment for LangChain’s LangGraph framework, simplifying the development of complex agentic applications built with LangChain components.',
+   'score': 0.942385,
+   'raw_content': None},
+  {'url': 'https://www.geeksforgeeks.org/machine-learning/what-is-langgraph/',
+   'title': 'What is LangGraph? - GeeksforGeeks',
+   'content': 'LangGraph is an open-source framework built by LangChain that streamlines the creation and management of AI agent workflows. At its core, LangGraph combines large language models (LLMs) with graph-based architectures allowing developers to map, organize and optimize how AI agents interact and make decisions. By treating workflows as interconnected nodes and edges, LangGraph offers a scalable, transparent and developer-friendly way to design advanced AI systems ranging from simple chatbots to multi-agent system. The diagram below shows how LangGraph structures its agent-based workflow using distinct tools and stages. By designing workflows, users combine multiple nodes into powerful, dynamic AI processes. * ****langgraph:**** Framework for building graph-based AI workflows. ### Step 6: Build LangGraph Workflow. * Build the workflow graph using LangGraph, adding nodes for classification and response, connecting them with edges and compiling the app. * Send each input through the workflow graph and returns the bot’s response, either a greeting or an AI-powered answer. + Machine Learning Interview Questions and Answers15+ min read.',
+   'score': 0.9393874,
+   'raw_content': None}],
+ 'response_time': 0.93,
+ 'request_id': '42d8adb7-c9b7-49b5-afcb-fc4749da5892'}</code></pre>
+</div>
+</div>
+<p><code>create_agent</code> provides a production-ready agent implementation.</p>
+<p>Note: <strong>Agents</strong> require <a href="https://openrouter.ai/models?fmt=cards&amp;supported_parameters=tools"><strong>a model that supports tool calling</strong></a>. Filtering <strong>Tool Calling</strong> models that are also <strong>Free</strong>, we select NVIDIA’s Nemotron-3:</p>
+<div id="52deb40f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>OPENROUTER_API_KEY <span class="op">=</span> os.environ.get(<span class="st">"OPENROUTER_API_KEY"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f1407def" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_openai <span class="im">import</span> ChatOpenAI</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>model_nemotron3_nano <span class="op">=</span> ChatOpenAI(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"nvidia/nemotron-3-nano-30b-a3b:free"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># OpenRouter instead of the default OpenAI API</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    base_url<span class="op">=</span><span class="st">"https://openrouter.ai/api/v1"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>OPENROUTER_API_KEY,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="065e6367" class="cell" data-execution_count="121">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_agent</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># System prompt to steer the agent to be an expert researcher</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>AGENT_PROMPT <span class="op">=</span> <span class="st">"""You are an expert researcher. Your job is to conduct thorough research and then write a polished report.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">You have access to an internet search tool as your primary means of gathering information.</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="st">Keep it short and concise.</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="st">## `internet_search`</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="st">Use this to run an internet search for a given query. You can specify the max number of results to return, the topic, and whether raw content should be included.</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_agent(</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model_nemotron3_nano,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[internet_search],</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span>AGENT_PROMPT</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="invoke-the-agent" class="level3">
+<h3 class="anchored" data-anchor-id="invoke-the-agent">Invoke the agent</h3>
+<div id="e633e4c7" class="cell" data-execution_count="122">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> agent.invoke({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        HumanMessage(<span class="st">"Explain agentic AI in a tweet"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="be1de6bd" class="cell" data-execution_count="123">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="123">
+<pre><code>{'messages': [HumanMessage(content='Explain agentic AI in a tweet', additional_kwargs={}, response_metadata={}, id='eb3b86d8-3111-4646-bd11-7f2b3d24e2cb'),
+  AIMessage(content='Agentic AI refers to AI systems that can autonomously set goals, plan, and act to achieve them without constant human input—think of AI agents that decide, adapt, and execute tasks like a digital personal assistant on steroids.', additional_kwargs={'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 916, 'prompt_tokens': 456, 'total_tokens': 1372, 'completion_tokens_details': {'accepted_prediction_tokens': None, 'audio_tokens': 0, 'reasoning_tokens': 651, 'rejected_prediction_tokens': None}, 'prompt_tokens_details': {'audio_tokens': 0, 'cached_tokens': 0}, 'cost': 0, 'is_byok': False, 'cost_details': {'upstream_inference_cost': 0, 'upstream_inference_prompt_cost': 0, 'upstream_inference_completions_cost': 0}}, 'model_provider': 'openai', 'model_name': 'nvidia/nemotron-3-nano-30b-a3b:free', 'system_fingerprint': None, 'id': 'gen-1771856080-ALnud8RDRnzK2VkU71XS', 'finish_reason': 'stop', 'logprobs': None}, id='lc_run--019c8ada-2c1c-7260-b40d-69d3d37a726b-0', tool_calls=[], invalid_tool_calls=[], usage_metadata={'input_tokens': 456, 'output_tokens': 916, 'total_tokens': 1372, 'input_token_details': {'audio': 0, 'cache_read': 0}, 'output_token_details': {'audio': 0, 'reasoning': 651}})]}</code></pre>
+</div>
+</div>
+<div id="eff95675" class="cell" data-execution_count="124">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the agent's response</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">"messages"</span>][<span class="op">-</span><span class="dv">1</span>].content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Agentic AI refers to AI systems that can autonomously set goals, plan, and act to achieve them without constant human input—think of AI agents that decide, adapt, and execute tasks like a digital personal assistant on steroids.</code></pre>
+</div>
+</div>
+<p>Let’s ask about something that needs search:</p>
+<div id="07cdc1d2" class="cell" data-execution_count="125">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> agent.invoke({</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        HumanMessage(<span class="st">"What is the difference between LangChain, LangGraph and LangSmith?"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="ed81815a" class="cell" data-execution_count="128">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="128">
+<pre><code>{'messages': [HumanMessage(content='What is the difference between LangChain, LangGraph and LangSmith?', additional_kwargs={}, response_metadata={}, id='7f8c9005-eb8e-4072-86e0-64dd26bec6a6'),
+  AIMessage(content='', additional_kwargs={'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 123, 'prompt_tokens': 462, 'total_tokens': 585, 'completion_tokens_details': {'accepted_prediction_tokens': None, 'audio_tokens': 0, 'reasoning_tokens': 66, 'rejected_prediction_tokens': None}, 'prompt_tokens_details': {'audio_tokens': 0, 'cached_tokens': 0}, 'cost': 0, 'is_byok': False, 'cost_details': {'upstream_inference_cost': 0, 'upstream_inference_prompt_cost': 0, 'upstream_inference_completions_cost': 0}}, 'model_provider': 'openai', 'model_name': 'nvidia/nemotron-3-nano-30b-a3b:free', 'system_fingerprint': None, 'id': 'gen-1771856086-8OPWhAITZng1xT0GmOTD', 'finish_reason': 'tool_calls', 'logprobs': None}, id='lc_run--019c8ada-45c5-7e13-8c63-b2bdba91d977-0', tool_calls=[{'name': 'internet_search', 'args': {'max_results': 5, 'topic': 'general', 'query': 'LangChain LangGraph LangSmith differences', 'include_raw_content': True}, 'id': 'call_8a3e988aa40842cd95601cea', 'type': 'tool_call'}], invalid_tool_calls=[], usage_metadata={'input_tokens': 462, 'output_tokens': 123, 'total_tokens': 585, 'input_token_details': {'audio': 0, 'cache_read': 0}, 'output_token_details': {'audio': 0, 'reasoning': 66}}),
+  ToolMessage(content='{"query": "LangChain LangGraph LangSmith differences", "follow_up_questions": null, "answer": null, "images": [], "results": [{"url": "https://dev.to/rajkundalia/langchain-vs-langgraph-vs-langsmith-understanding-the-ecosystem-3m5o", "title": "LangChain vs LangGraph vs LangSmith - DEV Community", "content": "* **LangChain** provides the foundational building blocks for creating LLM applications through modular components and a unified interface for working with different AI providers. * **LangGraph** extends this foundation with **stateful, graph-based orchestration** for complex multi-agent workflows requiring loops, branching, and persistent state. * **LangSmith** completes the picture by offering **observability, tracing, and evaluation** tools for debugging and monitoring LLM applications in production. * **LangGraph** when you need sophisticated state management and agent coordination. What began as simple prompt–response interactions has grown into **multi-step workflows** involving retrieval systems, tool usage, autonomous agents, and long-running processes. LangChain is the **core framework** for building LLM-powered applications. If your application doesn’t need complex branching or shared long-lived state, **LangChain is the right tool**. ## LangGraph: Stateful Agent Orchestration. | LangChain | Composition | Linear workflows, RAG, simple agents |. | LangGraph | Orchestration | Branching, loops, shared state, multi-agent |. LangFlow provides a **visual, drag-and-drop** interface for building LangChain workflows.", "score": 0.918838, "raw_content": " [Skip to content](#main-content)\\n\\n[Log in](https://dev.to/enter?signup_subforem=1)    [Create account](https://dev.to/enter?signup_subforem=1&amp;state=new-user)\\n\\n## DEV Community\\n\\n[Raj Kundalia](/rajkundalia)\\n\\nPosted on\\n\\n# LangChain vs LangGraph vs LangSmith: Understanding the Ecosystem\\n\\n[#langchain](/t/langchain) [#langsmith](/t/langsmith) [#langgraph](/t/langgraph)\\n\\n&gt; Building LLM apps isn’t just about prompts anymore.  \\n&gt;  It’s about **composition**, **orchestration**, and **observability**.\\n\\n---\\n\\n## TL;DR\\n\\n* **LangChain** provides the foundational building blocks for creating LLM applications through modular components and a unified interface for working with different AI providers.\\n* **LangGraph** extends this foundation with **stateful, graph-based orchestration** for complex multi-agent workflows requiring loops, branching, and persistent state.\\n* **LangSmith** completes the picture by offering **observability, tracing, and evaluation** tools for debugging and monitoring LLM applications in production.\\n\\n**Use:**\\n\\n* **LangChain** for straightforward chains and RAG systems\\n* **LangGraph** when you need sophisticated state management and agent coordination\\n* **LangSmith** throughout development and production for visibility into behavior\\n\\n### Hands-on GitHub Repositories\\n\\n* **LangChain RAG Project** → &lt;https://github.com/rajkundalia/langchain-rag-project&gt;\\n* **LangGraph Analyzer** → &lt;https://github.com/rajkundalia/langgraph-analyzer&gt;\\n* **LangSmith Learning** → &lt;https://github.com/rajkundalia/langsmith-learning&gt;\\n\\n---\\n\\n## Introduction\\n\\nThe landscape of LLM application development has evolved rapidly since 2022.\\n\\nWhat began as simple prompt–response interactions has grown into **multi-step workflows** involving retrieval systems, tool usage, autonomous agents, and long-running processes. This evolution introduced **new problems at each stage** of the development lifecycle.\\n\\n* **The composition problem** → How do you connect prompts, models, tools, and data?\\n* **The orchestration problem** → How do you manage branching, retries, loops, and shared state?\\n* **The observability problem** → How do you debug, evaluate, and monitor these systems?\\n\\nThe LangChain ecosystem emerged to address each layer:\\n\\n| Problem | Tool | Year |\\n| --- | --- | --- |\\n| Composition | LangChain | 2022 |\\n| Orchestration | LangGraph | 2024 |\\n| Observability | LangSmith | 2023–2024 |\\n\\nEach tool targets a **specific layer** in the LLM application stack.\\n\\n---\\n\\n## LangChain: The Foundation\\n\\nLangChain is the **core framework** for building LLM-powered applications.\\n\\nIts primary goal is abstraction: different LLM providers expose different APIs, capabilities, and quirks. LangChain hides these differences behind a **unified interface**.\\n\\n### Core Building Blocks\\n\\nLangChain is composed of modular, swappable components:\\n\\n* **Prompts** – Templates and structured inputs for models\\n* **Models** – OpenAI, Anthropic, Google, or local LLMs\\n* **Memory** – Conversation history and contextual state\\n* **Tools** – Function calls to external systems\\n* **Retrievers** – Vector databases and RAG pipelines\\n\\n---\\n\\n### LCEL: LangChain Expression Language\\n\\nWhat ties everything together is **LCEL**.\\n\\nLCEL introduces a **declarative, pipe-based syntax** for composing chains:\\n\\n```\\nprompt | model | output_parser \\n```\\n\\nInstead of writing imperative glue code, you describe **data flow**.\\n\\n### Why LCEL Matters\\n\\nLCEL enables:\\n\\n* Automatic async, streaming, and batch execution\\n* Built-in LangSmith tracing\\n* Parallel execution of independent steps\\n* A unified `Runnable` interface (`invoke`, `batch`, `stream`)\\n\\nThis makes chains **faster**, **cleaner**, and easier to reason about.\\n\\n---\\n\\n### Multi-Provider Support\\n\\nLangChain supports dozens of LLM providers and integrations.\\n\\nYou can switch providers by changing **one line of configuration**, enabling:\\n\\n* Vendor independence\\n* A/B testing across models\\n* Cost and latency optimization\\n\\n---\\n\\n### When LangChain Is Enough\\n\\nUse LangChain when your workflow is primarily:\\n\\n```\\nInput → Process → Output \\n```\\n\\nTypical use cases include:\\n\\n* Chatbots with memory\\n* RAG-based Q&amp;A systems\\n* Natural language → SQL generation\\n* Linear tool pipelines\\n\\nIf your application doesn’t need complex branching or shared long-lived state, **LangChain is the right tool**.\\n\\n## \\n\\n## LangGraph: Stateful Agent Orchestration\\n\\nLangGraph solves the **orchestration problem**.\\n\\nAs soon as your application needs to:\\n\\n* make decisions,\\n* loop,\\n* retry,\\n* or coordinate multiple agents, linear chains start to break down.\\n\\n---\\n\\n### Graph-Based Architecture\\n\\nLangGraph models your application as a **directed graph**:\\n\\n* **Nodes** → processing steps or agents\\n* **Edges** → execution flow between nodes\\n\\nThis enables patterns that are hard or impossible with chains:\\n\\n* Loops and retries\\n* Conditional branching\\n* Parallel execution\\n* Shared, persistent state\\n\\n---\\n\\n### State as a First-Class Concept\\n\\nEvery LangGraph workflow operates on a **shared state object**.\\n\\n* Nodes receive the current state\\n* They compute updates\\n* Updates are merged back into state\\n\\nThis allows multiple agents to collaborate naturally.\\n\\n**Example:**\\n\\n* Research agent gathers sources\\n* Fact-checking agent validates claims\\n* Synthesis agent produces the final answer\\n\\nAll without complex message passing.\\n\\n---\\n\\n### Conditional Routing\\n\\nLangGraph supports **conditional edges**.\\n\\nA function decides which node runs next based on runtime state:\\n\\n* Route customer queries to specialist agents\\n* Loop back when required information is missing\\n* Retry until success conditions are met\\n\\n---\\n\\n### Persistence &amp; Checkpointing\\n\\nLangGraph includes built-in **checkpointing**:\\n\\n* Persist state across restarts\\n* Resume long-running workflows\\n* Support human-in-the-loop pauses\\n* Enable time-travel debugging\\n\\nThis is critical for production-grade agent systems.\\n\\n---\\n\\n### Visualization Support\\n\\nLangGraph workflows are inspectable and exportable:\\n\\n* Mermaid diagrams for documentation\\n* PNG images for presentations\\n* ASCII graphs for terminal debugging\\n\\nThis makes complex agent systems **understandable and communicable**.\\n\\n---\\n\\n### When You Need LangGraph\\n\\nChoose LangGraph when you need:\\n\\n* Explicit shared state\\n* Runtime decision-making\\n* Retry and failure recovery\\n* Multi-agent coordination\\n* Long-running workflows\\n\\nA classic example is an **autonomous research agent** that iteratively searches, reads, verifies, and synthesizes information.\\n\\n## \\n\\n## LangSmith: The Observability Layer\\n\\nLangSmith answers the question:\\n\\n&gt; “What is my LLM application actually doing?”\\n\\nIt doesn’t build workflows — it **illuminates them**.\\n\\n---\\n\\n### Tracing Everything\\n\\nLangSmith captures full execution traces:\\n\\n* Prompts and responses\\n* Token usage and latency\\n* Component call stacks\\n* Errors and retries\\n\\nYou can drill down from:\\n\\n* a full workflow run → to a single LLM call.\\n\\nThis makes debugging *dramatically* easier.\\n\\n---\\n\\n### Evaluation &amp; Regression Testing\\n\\nLangSmith allows you to:\\n\\n* Create evaluation datasets\\n* Run structured tests\\n* Track quality metrics\\n* Compare prompts and models\\n\\nThis enables **regression testing** for LLM apps — a must-have for production systems.\\n\\n---\\n\\n### Production Monitoring\\n\\nIn production, LangSmith tracks:\\n\\n* Response times\\n* Error rates\\n* Token and cost trends\\n* Usage by workflow or user\\n\\nAlerts help you catch issues early and optimize costs.\\n\\n---\\n\\n### Framework-Agnostic\\n\\nWhile LangSmith integrates seamlessly with LangChain and LangGraph, it’s **not limited to them**.\\n\\nYou can instrument *any* LLM application with LangSmith.\\n\\n## \\n\\n## Quick Comparison\\n\\n| Tool | Solves | Use When |\\n| --- | --- | --- |\\n| LangChain | Composition | Linear workflows, RAG, simple agents |\\n| LangGraph | Orchestration | Branching, loops, shared state, multi-agent |\\n| LangSmith | Observability | Debugging, evaluation, production monitoring |\\n\\n## \\n\\n## The Broader Ecosystem\\n\\n### LangFlow\\n\\nLangFlow provides a **visual, drag-and-drop** interface for building LangChain workflows.\\n\\n* Great for prototyping\\n* Helpful for non-technical collaboration\\n* Often exported to code for production\\n\\n---\\n\\n### Model Context Protocol (MCP)\\n\\nMCP (by Anthropic) standardizes **tool and resource access** for LLMs.\\n\\n* Works at the tool/retriever layer\\n* Complements LangChain and LangGraph\\n* Reduces custom integration effort\\n* Framework-agnostic\\n\\nMCP does **not** replace orchestration tools — it enhances connectivity.\\n\\n---\\n\\n## Conclusion\\n\\nThe LangChain ecosystem is **layered, not competitive**.\\n\\n* **LangChain** builds the core logic\\n* **LangGraph** manages complex workflows\\n* **LangSmith** makes everything observable\\n\\nMost serious LLM applications will use **more than one** of these tools.\\n\\nStart simple, add complexity only when needed, and **never ship without observability**.\\n\\n---\\n\\n## Further Reading &amp; Resources\\n\\n* &lt;https://www.datacamp.com/tutorial/langchain-vs-langgraph-vs-langsmith-vs-langflow&gt;\\n* &lt;https://www.datacamp.com/tutorial/langgraph-tutorial&gt;\\n* &lt;https://www.datacamp.com/tutorial/langgraph-agents&gt;\\n* &lt;https://www.techvoot.com/blog/langchain-vs-langgraph-vs-langflow-vs-langsmith-2025&gt;\\n\\n**Video**  \\n &lt;https://www.youtube.com/watch?v=vJOGC8QJZJQ&gt;\\n\\n**Academy Finxter Series (Excellent Deep Dive)**\\n\\n* &lt;https://academy.finxter.com/langchain-langsmith-and-langgraph/&gt;\\n* &lt;https://academy.finxter.com/langsmith-and-writing-tools/&gt;\\n* &lt;https://academy.finxter.com/langgraph/&gt;\\n* &lt;https://academy.finxter.com/multi-agent-teams-preparation/&gt;\\n* &lt;https://academy.finxter.com/setting-up-our-multi-agent-team/&gt;\\n* &lt;https://academy.finxter.com/web-research-and-asynchronous-tools/&gt;\\n\\n## Top comments (0)\\n\\nSubscribe\\n\\nFor further actions, you may consider blocking this person and/or [reporting abuse](/report-abuse)\\n\\nWe\'re a place where coders share, stay up-to-date and grow their careers.\\n\\n[Log in](https://dev.to/enter?signup_subforem=1)   [Create account](https://dev.to/enter?signup_subforem=1&amp;state=new-user)\\n\\n "}, {"url": "https://medium.com/@anshuman4luv/langchain-vs-langgraph-vs-langflow-vs-langsmith-a-detailed-comparison-74bc0d7ddaa9", "title": "LangChain vs LangGraph vs LangFlow vs LangSmith - Medium", "content": "# LangChain vs LangGraph vs LangFlow vs LangSmith: A Detailed Comparison. In the rapidly evolving world of AI, building applications powered by advanced language models like GPT-4 or Llama 3 has become more accessible, thanks to frameworks like **LangChain**, **LangGraph**, **LangFlow**, and **LangSmith**. LangChain is an open-source framework designed to streamline the development of applications leveraging language models. * **Chains**: Link multiple tasks such as API calls, LLM queries, and data processing. LangGraph builds on LangChain’s capabilities, focusing on orchestrating complex, multi-agent interactions. * **Cyclical Workflows**: Support iterative processes where tasks feed back into earlier stages. Imagine building a task management assistant agent. LangGraph represents this as a graph where each action (e.g., add task, complete task, summarize) is a node. LangGraph’s flexibility allows dynamic routing and revisiting nodes, making it ideal for stateful, interactive systems. LangFlow: Visual Design for LLM Applications. LangSmith is a monitoring and testing tool for LLM applications in production. 2. **Choose LangGraph** for applications involving multiple agents with interdependent tasks.", "score": 0.915091, "raw_content": "[Sitemap](/sitemap/sitemap.xml)\\n\\n[Open in app](https://play.google.com/store/apps/details?id=com.medium.reader&amp;referrer=utm_source%3DmobileNavBar&amp;source=post_page---top_nav_layout_nav-----------------------------------------)\\n\\n[Sign in](/m/signin?operation=login&amp;redirect=https%3A%2F%2Fmedium.com%2F%40anshuman4luv%2Flangchain-vs-langgraph-vs-langflow-vs-langsmith-a-detailed-comparison-74bc0d7ddaa9&amp;source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\\n\\n[Search](/search?source=post_page---top_nav_layout_nav-----------------------------------------)\\n\\n[Sign in](/m/signin?operation=login&amp;redirect=https%3A%2F%2Fmedium.com%2F%40anshuman4luv%2Flangchain-vs-langgraph-vs-langflow-vs-langsmith-a-detailed-comparison-74bc0d7ddaa9&amp;source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\\n\\n# LangChain vs LangGraph vs LangFlow vs LangSmith: A Detailed Comparison\\n\\n[Anshuman](/@anshuman4luv?source=post_page---byline--74bc0d7ddaa9---------------------------------------)\\n\\n3 min read\\n\\n·\\n\\nJan 17, 2025\\n\\n--\\n\\nIn the rapidly evolving world of AI, building applications powered by advanced language models like GPT-4 or Llama 3 has become more accessible, thanks to frameworks like **LangChain**, **LangGraph**, **LangFlow**, and **LangSmith**. While these tools share some similarities, they cater to different aspects of AI application development. This guide provides a clear comparison to help you choose the right tool for your project.\\n\\n## 1. LangChain: The Backbone of LLM Workflows\\n\\nLangChain is an open-source framework designed to streamline the development of applications leveraging language models. It offers modular components to connect various tasks, enabling a seamless development experience.\\n\\n### Key Features:\\n\\n* **LLM Integration**: Compatible with both open-source and closed-source models.\\n* **Prompt Management**: Supports dynamic prompt creation and templating.\\n* **Chains**: Link multiple tasks such as API calls, LLM queries, and data processing.\\n* **Memory**: Store contextual information for personalized, long-term interactions.\\n* **Agents**: Implement decision-making logic for dynamic task execution.\\n* **Data Integration**: Connect external data sources via document loaders and vector databases.\\n\\n### Example Use Case:\\n\\nA customer service chatbot that:\\n\\n1. Uses llm (large language model) to generate responses.\\n2. Dynamically retrieves product information from a database.\\n3. Stores user interactions for continuity in future conversations.\\n\\n## 2. LangGraph: Coordinating Multi-Agent Workflows\\n\\nLangGraph builds on LangChain’s capabilities, focusing on orchestrating complex, multi-agent interactions. It’s particularly useful for applications requiring multiple components to collaborate intelligently.\\n\\n### Key Concepts:\\n\\n* **Nodes and Edges**: Define tasks (nodes) and their relationships (edges) in a graph structure.\\n* **State Management**: Share and update a global state across agents.\\n* **Cyclical Workflows**: Support iterative processes where tasks feed back into earlier stages.\\n\\n### Detailed Example:\\n\\nImagine building a task management assistant agent. The workflow involves processing user inputs to:\\n\\n1. Add tasks.\\n2. Complete tasks.\\n3. Summarize tasks.\\n\\nLangGraph represents this as a graph where each action (e.g., add task, complete task, summarize) is a node. The user input is processed in a central “Process Input” node, which routes the request to the appropriate action node. A **state component** maintains the task list across interactions:\\n\\n* The “Add Task” node adds tasks to the state.\\n* The “Complete Task” node updates the state to mark tasks as done.\\n* The “Summarize” node generates a report using an LLM based on the current state.\\n\\nLangGraph’s flexibility allows dynamic routing and revisiting nodes, making it ideal for stateful, interactive systems.\\n\\n### Ideal Use Case:\\n\\nA research assistant system where:\\n\\n1. One agent retrieves data.\\n2. Another analyzes it.\\n3. A third summarizes the findings.\\n\\nLangGraph’s graph-based architecture ensures smooth coordination and data flow.\\n\\n## 3. LangFlow: Visual Design for LLM Applications\\n\\nLangFlow simplifies the prototyping process by providing a visual, drag-and-drop interface to design and test workflows. It’s ideal for non-developers or teams aiming to rapidly iterate on ideas.\\n\\n### Key Features:\\n\\n* Visual workflow builder.\\n* Pre-configured components for common tasks.\\n* Integration with LangChain’s core functionalities.\\n\\n### Ideal Use Case:\\n\\nA prototype for a document summarization tool where:\\n\\n1. Users upload a document.\\n2. An LLM extracts key points.\\n3. Results are displayed in a user-friendly format.\\n\\nLangFlow allows teams to test workflows without extensive coding.\\n\\n## 4. LangSmith: Ensuring Reliability in Production\\n\\nLangSmith is a monitoring and testing tool for LLM applications in production. It helps developers ensure their systems are efficient, reliable, and cost-effective.\\n\\n### Key Features:\\n\\n* **Performance Metrics**: Track token usage, API latency, and error rates.\\n* **Error Logging**: Identify and debug issues in real-time.\\n* **Cost Optimization**: Monitor resource usage to minimize expenses.\\n\\n### Ideal Use Case:\\n\\nA customer support system handling high volumes of queries. LangSmith provides insights into:\\n\\n1. Token consumption trends.\\n2. Latency spikes during peak hours.\\n3. Error patterns affecting user experience.\\n\\n## Comparison Table\\n\\n## How to Choose the Right Tool\\n\\n1. **Start with LangChain** if your focus is on creating a robust LLM-powered application.\\n2. **Choose LangGraph** for applications involving multiple agents with interdependent tasks.\\n3. **Use LangFlow** for quick prototyping or collaborating with non-technical stakeholders.\\n4. **Implement LangSmith** when scaling applications to production to ensure reliability and cost-efficiency.\\n\\nBy leveraging these tools effectively, you can streamline your AI development process and focus on delivering impactful solutions.\\n\\n[## Written by Anshuman](/@anshuman4luv?source=post_page---post_author_info--74bc0d7ddaa9---------------------------------------)\\n\\n[42 followers](/@anshuman4luv/followers?source=post_page---post_author_info--74bc0d7ddaa9---------------------------------------)\\n\\n·[1 following](/@anshuman4luv/following?source=post_page---post_author_info--74bc0d7ddaa9---------------------------------------)\\n\\n## Responses (2)\\n\\n[Text to speech](https://speechify.com/medium?source=post_page-----74bc0d7ddaa9---------------------------------------)"}, {"url": "https://aws.plainenglish.io/langchain-vs-langgraph-vs-langsmith-vs-langflow-understanding-through-a-realtime-project-2c3efd1606e7", "title": "LangChain vs LangGraph vs LangSmith vs LangFlow", "content": "How They Work Together in One Project · LangChain is the code foundation. · LangGraph is the workflow controller. · LangSmith is the debug and", "score": 0.90432173, "raw_content": null}, {"url": "https://codebasics.io/blog/what-are-the-differences-between-langchain-langgraph-and-langsmith", "title": "LangChain vs LangGraph vs LangSmith: Which One Should You Use?", "content": "6. When Should You Use LangChain, LangGraph, or LangSmith? Whether you\'re designing a chatbot, building a multi-step agentic workflow, or deploying a production-grade AI product—choosing the correct tooling is more important. In this blog post, we deep dive into the three powerful tools LangChain vs LangGraph vs LangSmith which are frequently used together but serve distinctly different purposes. While LangChain and LangGraph help you build apps, LangSmith helps you understand and improve them in production. When Should You Use LangChain, LangGraph, or LangSmith? Choosing between LangChain, LangGraph, and LangSmith depends on your project\'s workflow complexity, debugging needs, and production scale. Watch this YouTube video that clearly explains how LangChain, LangGraph, and LangSmith fit into modern LLM app development. Yes. LangSmith seamlessly integrates with LangChain and LangGraph, providing monitoring and observability for both simple and complex workflows. While LangChain and LangGraph help you build apps, LangSmith is the best tool for observability and prompt evaluation in production.", "score": 0.8958969, "raw_content": "Transform Your Career in 2026  12-Month Gen AI &amp; DS Bootcamp. Live Mentorship, Real Projects, Real Skills.  [Explore Program!](https://codebasics.io/genai-bootcamp-3.0)\\n\\n[Explore Program!](https://codebasics.io/genai-bootcamp-3.0)\\n\\n# What Are the Differences Between LangChain, LangGraph, and LangSmith?\\n\\nAI &amp; Data Science\\n\\nAug 04, 2025 | By Codebasics Team\\n\\n### Table of Contents\\n\\n1. Introduction\\n\\n2. What is LangChain\\n\\n2.1 Key Features of the LangChain Framework\\n\\n3. What is LangGraph\\n\\n3.1 When LangGraph Stands Out\\n\\n4. What is LangSmith\\n\\n4.1 Why LangSmith is Essential\\n\\n5. LangChain vs LangGraph vs LangSmith – A Detailed Comparison\\n\\n6. When Should You Use LangChain, LangGraph, or LangSmith?\\n\\n7. Final Thoughts\\n\\n8. FAQs\\n\\n## 1. Introduction\\n\\nAs the development of the [Large Language Model](https://en.wikipedia.org/wiki/Large_language_model) (LLM) matures, developers and product teams are facing more complex challenges in building robust, scalable AI-powered applications. Whether you\'re designing a chatbot, building a multi-step agentic workflow, or deploying a production-grade AI product—choosing the correct tooling is more important.\\n\\nIn this blog post, we deep dive into the three powerful tools LangChain vs LangGraph vs LangSmith which are frequently used together but serve distinctly different purposes. If you’re unsure or wondering how to select the right tool for your project or how they work together then this guide is for you.\\n\\n## 2. What is LangChain?\\n\\n[LangChain](../../resources/langchain-crash-course) is presented as a Python-based framework that simplifies the creation of LLM-powered applications, particularly for straightforward, linear workflows where the LLM performs predefined tasks—such as question-answering, summarization, or document retrieval.\\n\\n### 2.1 Key Features of the LangChain Framework:\\n\\n* **Modularity**: Chains, tools, prompts, and memory are modularized for flexibility.\\n* **Ease of Use**: Ideal for developers building LLM apps with minimal agentic complexity.\\n* **Tool Integration**: Easily connects with APIs, vector stores, databases, and more.\\n* **Best For**: Chatbots, document Q&amp;A, SQL query generation, RAG pipelines.\\n\\n## 3. What is LangGraph?\\n\\nLangGraph is introduced as a more advanced, stateful, graph-based framework built on top of LangChain. It is designed to orchestrate complex, multi-step, stateful agentic workflows that involve autonomous decision-making, retries, and iterative processes, often represented as a graph.\\n\\n### 3.1 When LangGraph Stands Out:\\n\\n* **State Machines**: Constructs workflows as DAGs (Directed Acyclic Graphs).\\n* **Asynchronous Agent Support**: Enables multiple agents to collaborate or loop.\\n* **Advanced Control Flow**: Perfect for situations where you need feedback loops, branching logic, and retries.\\n* **Best For**: AI agents, autonomous systems, iterative planning, complex tools orchestration.\\n\\n## 4. What is LangSmith?\\n\\nLangSmith is a monitoring and debugging platform purpose-built for LLM applications. While LangChain and LangGraph help you build apps, LangSmith helps you understand and improve them in production.\\n\\n### 4.1 Why LangSmith is Essential:\\n\\n* **Tracing and Debugging**: Visualize how prompts, models, and chains interact.\\n* **Evaluation**: Use human or automated grading to test model performance.\\n* **Prompt Experiments**: Run A/B tests to optimize system prompts.\\n* **Best For**: Teams deploying apps at scale who need transparency and version control.\\n\\n## 5. LangChain vs LangGraph vs LangSmith – A Detailed Comparison\\n\\nHere is the detailed comparison of LangChain, LangGraph, and LangSmith:\\n\\n| **Feature** | **LangChain** | **LangGraph** | **LangSmith** |\\n| --- | --- | --- | --- |\\n| **Purpose** | Build linear LLM applications | Handle complex, stateful workflows | Debug, monitor, and evaluate LLM apps |\\n| **Ideal For** | Simple chatbots, Q&amp;A tools | Autonomous agents, iterative workflows | Production-grade observability |\\n| **Control Flow** | Sequential | Graph-based, branching &amp; looping | Not applicable (used for monitoring) |\\n| **Workflow Complexity** | Basic | Advanced | Not Applicable |\\n| **Agent Support** | Basic agent capabilities | Full agent support with state mgmt | Full support for agent monitoring |\\n| **Integration** | Python, JS, APIs, vector DBs | Built on LangChain, supports same | LangChain &amp; LangGraph compatible |\\n| **Deployment Focus** | Prototypes, MVPs | Production agents | Production debugging &amp; evaluation |\\n| **Visualization** | No | Partial (via LangSmith) | Full tracing and logs |\\n| **Evaluation Tools** | None | None | Prompt tests, metrics, user grading |\\n\\n## 6. When Should You Use LangChain, LangGraph, or LangSmith?\\n\\nChoosing between LangChain, LangGraph, and LangSmith depends on your project\'s workflow complexity, debugging needs, and production scale.\\n\\n**Use LangChain if:**\\n\\n* You\'re creating a simple chatbot, summarizing a document, or RAG system.\\n* You prefer simplicity and fast prototyping.\\n* Your use case doesn’t require advanced memory, loops, or retries.\\n\\n**Use LangGraph if:**\\n\\n* You need to create multi-agent, multi-step, or self-correcting workflows.\\n* Your LLM app requires state management and branching logic.\\n* You’re building production-grade agents or autonomous systems.\\n\\n**Use LangSmith if:**\\n\\n* You\'re ready to move to production and need visibility into what your app is doing.\\n* You want to evaluate different prompts, models, or tools.\\n* You\'re managing LLM behavior across teams or projects.\\n\\n[Watch this YouTube video](https://www.youtube.com/watch?v=vJOGC8QJZJQ) that clearly explains how LangChain, LangGraph, and LangSmith fit into modern LLM app development.\\n\\n## 7. Final Thoughts\\n\\nLangChain, LangGraph, and LangSmith aren’t competitors—they\'re complementary. Think of them as a [full-stack toolkit](https://www.geeksforgeeks.org/blogs/full-stack-development-tools/) for modern LLM app development:\\n\\n* LangChain helps you build.\\n* LangGraph helps you orchestrate.\\n* LangSmith helps you optimize.\\n\\nUnderstanding where each tool fits allows you to architect better, debug smarter, and scale faster.\\n\\n*Note: The features and comparisons mentioned are based on the capabilities of LangChain, LangGraph, and LangSmith as of July 2025. These tools are evolving quickly, so we recommend checking their official documentation for the most up-to-date information.*\\n\\n## FAQs\\n\\n**1. Can you use LangSmith with LangChain?**  \\nYes. LangSmith seamlessly integrates with LangChain and LangGraph, providing monitoring and observability for both simple and complex workflows.\\n\\n**2. Is LangGraph better than LangChain?**  \\nNot necessarily. LangGraph is more powerful for advanced workflows, but LangChain is easier and faster for simple applications. Choose based on your use case.\\n\\n**3. Which is best for production debugging: LangSmith vs others?**  \\nLangSmith is purpose-built for debugging and monitoring. While LangChain and LangGraph help you build apps, LangSmith is the best tool for observability and prompt evaluation in production.\\n\\n**4. Can LangChain be used for fine-tuning?**  \\nNo, LangChain is not for fine-tuning models. It\'s designed to build LLM applications, but fine-tuning is done using frameworks like Hugging Face or OpenAI\'s API.\\n\\n**5. Should I learn LangGraph instead of LangChain?**  \\nLearn LangChain if you need simple, linear workflows like chatbots or Q&amp;A systems. Learn LangGraph if you need more complex workflows with multi-step logic, decision-making, or autonomous agents. Start with LangChain, and move to LangGraph if your projects become more complex.\\n\\n#### Share With Friends\\n\\n[8 Must-Have Skills to Get a Data Analyst Job in 2024](/blog/8-must-have-skills-to-get-a-data-analyst-job) [How to Learn SQL and Python for Data Engineering: A Complete Step-by-Step Guide](/blog/how-to-learn-sql-and-python-for-data-engineering-a-complete-step-by-step-guide)\\n\\nIn Demand\\n\\nUS$291\\n\\n[Gen AI &amp; Data Science Bootcamp 3.0: With Practical Job Placement Support &amp; Virtual Internship](https://codebasics.io/bootcamps/gen-ai-data-science-bootcamp-with-virtual-internship)  [Become a high-paying AI-enabled Data Scientist by learning the secrets of the industry taught by data scientist hiring managers with 8+ years of international experience in data industry.](https://codebasics.io/bootcamps/gen-ai-data-science-bootcamp-with-virtual-internship)\\n\\n#### Categories\\n\\n* [Data Analysis](https://codebasics.io/blogs/data-analysis)\\n* [Talent Management](https://codebasics.io/blogs/talent-management)\\n* [AI &amp; Data Science](https://codebasics.io/blogs/ai-data-science66cec6148d22d)\\n* [Data Science](https://codebasics.io/blogs/data-science)\\n* [Deep Learning](https://codebasics.io/blogs/deep-learning)\\n* [Artificial Intelligence](https://codebasics.io/blogs/artificial-intelligence66629f6dc7fb7)\\n* [Python](https://codebasics.io/blogs/python)\\n* [Data Engineering](https://codebasics.io/blogs/data-engineering692ec50b6daa5)\\n* [Machine Learning](https://codebasics.io/blogs/machine-learning669f54cfb1cad)\\n* [Programming](https://codebasics.io/blogs/programming)\\n\\n#### Related Blogs\\n\\nFeb 11, 2026\\n\\n[How Gen AI Will Revolutionize Data Science in 2026](/blog/how-gen-ai-will-revolutionize-data-science-in-2026)\\n\\nMay 27, 2025\\n\\n[What is Agentic AI and How Does it Work?](/blog/what-is-agentic-ai-and-how-does-it-work)\\n\\nMay 20, 2025\\n\\n[How to Start an AI Career in 2025 – Roles &amp; Skills Explained](/blog/how-to-start-an-ai-career-in-2025-roles-skills-explained)\\n\\nMay 08, 2025\\n\\n[Model Context Protocol Explained: Streamlining AI Integration and Development](/blog/model-context-protocol-explained-streamlining-ai-integration-and-development)\\n\\nApr 23, 2025\\n\\n[AI Agents: The Ultimate Productivity Tool Revolutionizing Automation in 2025](/blog/ai-agents-the-ultimate-productivity-tool-revolutionizing-automation-in-2025)\\n\\nLearning knows no limits. Here’s to your journey of seamless learning. Pick your preferred course from the list of paid &amp; free resources.\\n\\nQuick Links\\n\\n* [Courses](https://codebasics.io/courses)\\n* [Blogs](https://codebasics.io/blogs)\\n* [Data Challenges](/challenges/resume-project-challenge)\\n* [Hire Talent](https://codebasics.io/hiring-partners)\\n* [Contact Us](https://codebasics.io/contact-us)\\n\\nHelp &amp; Support\\n\\n* [Refund Policy](https://codebasics.io/refund-policy)\\n* [Terms &amp; Conditions](https://codebasics.io/terms-and-conditions)\\n* [Privacy Policy](https://codebasics.io/privacy-policy)\\n* [Certificate Verification](https://codebasics.io/certificate_validation)\\n* [Business Inquiries](/cdn-cgi/l/email-protection#37175542445e5952444477545853525556445e5444195e58)\\n\\nCourse Topics\\n\\n* [AI &amp; Data Science](https://codebasics.io/categories/data-science)\\n* [Exploratory Data Analysis (EDA)](https://codebasics.io/categories/exploratory-data-analysis-eda)\\n* [Career Advice](https://codebasics.io/categories/career-advice)\\n* [Conversations](https://codebasics.io/categories/conversations)\\n* [Data Analysis](https://codebasics.io/categories/data-analysis)\\n\\n* [Deep Learning](https://codebasics.io/categories/deep-learning)\\n* [Julia](https://codebasics.io/categories/julia)\\n* [Jupyter Notebook](https://codebasics.io/categories/jupyter-notebook)\\n* [Machine Learning](https://codebasics.io/categories/machine-learning)\\n* [Matplotlib](https://codebasics.io/categories/matplotlib)\\n\\n© 2026 [Codebasics](https://codebasics.io). Owned and operated by LearnerX EdTech Private Limited.   \\n Technology partner:  [AtliQ Technologies](https://www.atliq.com/)\\n\\n##### Login\\n\\n[Log in with Google](https://codebasics.io/google)\\n\\n[Log in with Linkedin](https://codebasics.io/linkedin)\\n\\nDon\'t have an account? [Register Now!](https://codebasics.io/register)\\n\\nBy signing up, you agree to  \\n our [Terms and Conditions](https://codebasics.io/terms-and-conditions) and [Privacy Policy](https://codebasics.io/privacy-policy).\\n\\n[Talk to us](https://forms.office.com/r/0d6zvJeYa1 \\"Talk to us\\")  [Chat with us](https://wa.me/918977530886?text=Hi%20Codebasics!\\n\\n \\"Chat with us\\")\\n\\n "}, {"url": "https://www.reddit.com/r/Rag/comments/1mxs81z/finally_figured_out_the_langchain_vs_langgraph_vs/", "title": "Finally figured out the LangChain vs LangGraph vs LangSmith ...", "content": "# Finally figured out the LangChain vs LangGraph vs LangSmith confusion - here\'s what I learned. After weeks of being confused about when to use LangChain, LangGraph, or LangSmith (and honestly making some poor choices), I decided to dive deep and create a breakdown. The TLDR: They\'re not competitors - they\'re actually designed to work together, but each serves a very specific purpose that most tutorials don\'t explain clearly. 🔗 Full breakdown: LangSmith vs LangChain vs LangGraph The REAL Difference for Developers. The game-changer for me was understanding that you can (and often should) use them together. LangChain for the basics, LangGraph for complex flows, LangSmith to see what\'s actually happening under the hood. Anyone else been through this confusion? What\'s your go-to setup for production LLM apps? Would love to hear how others are structuring their GenAI projects - especially if you\'ve found better alternatives or have war stories about debugging LLM applications 😅.", "score": 0.8923472, "raw_content": "           \\n\\n  \\n            \\n   \\n\\n[Go to Rag](/r/Rag/)   \\n\\n[r/Rag](/r/Rag/)   •\\n\\n# Finally figured out the LangChain vs LangGraph vs LangSmith confusion - here\'s what I learned\\n\\nAfter weeks of being confused about when to use LangChain, LangGraph, or LangSmith (and honestly making some poor choices), I decided to dive deep and create a breakdown.\\n\\nThe TLDR: They\'re not competitors - they\'re actually designed to work together, but each serves a very specific purpose that most tutorials don\'t explain clearly.\\n\\n🔗 Full breakdown: [LangSmith vs LangChain vs LangGraph The REAL Difference for Developers](https://www.youtube.com/watch?v=DGxf0X1GdtQ)\\n\\nThe game-changer for me was understanding that you can (and often should) use them together. LangChain for the basics, LangGraph for complex flows, LangSmith to see what\'s actually happening under the hood.\\n\\nAnyone else been through this confusion? What\'s your go-to setup for production LLM apps?\\n\\nWould love to hear how others are structuring their GenAI projects - especially if you\'ve found better alternatives or have war stories about debugging LLM applications 😅\\n\\n          \\n\\n[Reddit Rules](https://www.redditinc.com/policies/content-policy)    [Privacy Policy](https://www.reddit.com/policies/privacy-policy)    [User Agreement](https://www.redditinc.com/policies/user-agreement)    [Your Privacy Choices](https://support.reddithelp.com/hc/articles/43980704794004)    [Accessibility](https://support.reddithelp.com/hc/sections/38303584022676-Accessibility)   [Reddit, Inc. © 2026. All rights reserved.](https://redditinc.com)\\n\\n                                    "}], "response_time": 5.43, "request_id": "54b07b6b-5d65-42aa-83ab-1694988b125d"}', name='internet_search', id='0380801e-3706-41ee-adad-e4593fbb87a6', tool_call_id='call_8a3e988aa40842cd95601cea'),
+  AIMessage(content='**LangChain\u202fvs\u202fLangGraph\u202fvs\u202fLangSmith – What They Do and When to Use Them**\n\n| Aspect | **LangChain** | **LangGraph** | **LangSmith** |\n|--------|---------------|---------------|---------------|\n| **Primary Goal** | Provide a **modular toolbox** for building LLM‑powered apps (prompts, models, memory, tools, RAG, etc.). | Add **stateful, graph‑based orchestration** for complex, multi‑step workflows that need branching, loops, retries, and shared state. | Offer **observability, tracing, evaluation, and monitoring** for any LLM application (especially those built with LangChain/LangGraph). |\n| **Core Concept** | **Chains** – linear pipelines of components (`prompt → model → parser`). | **Graphs** – nodes (steps/agents) and edges (control flow) that can loop, branch, and retain a mutable state. | **Traces** – full execution logs that let you drill from a workflow run down to a single LLM call, plus evaluation &amp; metrics. |\n| **Typical Use‑Cases** | • Simple chatbots, Q&amp;A, RAG pipelines&lt;br&gt;• Linear tool usage (e.g., fetch‑then‑summarize)&lt;br&gt;• Prototyping &amp; MVPs | • Multi‑agent systems&lt;br&gt;• Workflows with feedback loops, retries, or conditional routing&lt;br&gt;• Long‑running processes that need persistent state | • Debugging production pipelines&lt;br&gt;• A/B‑testing prompts/models&lt;br&gt;• Monitoring latency, cost, error rates&lt;br&gt;• Regression testing of LLM behavior |\n| **When to Choose It** | Your app fits a **straight‑through** flow and does not need complex state or branching. | You need **shared state, dynamic routing, or multi‑agent coordination** (e.g., research assistants, autonomous planners). | You are moving to **production** and need visibility, debugging, and evaluation capabilities. |\n| **Integration** | Works with any LLM provider via a unified interface. | Built on top of LangChain; can be used alongside it. | Agnostic – can instrument LangChain, LangGraph, or any custom LLM code. |\n| **Key Benefits** | • Rapid prototyping&lt;br&gt;• Vendor‑agnostic model switching&lt;br&gt;• Built‑in async/streaming via LCEL | • Explicit state management&lt;br&gt;• Conditional edges &amp; loops&lt;br&gt;• Persistence &amp; checkpointing for long‑running agents | • End‑to‑end tracing&lt;br&gt;• Prompt &amp; model evaluation tools&lt;br&gt;• Production‑grade monitoring &amp; alerting |\n\n### TL;DR Summary\n- **LangChain** = *building blocks* for basic LLM apps.  \n- **LangGraph** = *orchestrator* for sophisticated, stateful, multi‑agent workflows.  \n- **LangSmith** = *debugger &amp; observability layer* that makes those apps production‑ready.\n\nIn practice, a typical production stack uses **all three together**: build with LangChain, orchestrate complex flows with LangGraph, and monitor/evaluate everything with LangSmith.', additional_kwargs={'refusal': None}, response_metadata={'token_usage': {'completion_tokens': 722, 'prompt_tokens': 9878, 'total_tokens': 10600, 'completion_tokens_details': {'accepted_prediction_tokens': None, 'audio_tokens': 0, 'reasoning_tokens': 67, 'rejected_prediction_tokens': None}, 'prompt_tokens_details': {'audio_tokens': 0, 'cached_tokens': 0}, 'cost': 0, 'is_byok': False, 'cost_details': {'upstream_inference_cost': 0, 'upstream_inference_prompt_cost': 0, 'upstream_inference_completions_cost': 0}}, 'model_provider': 'openai', 'model_name': 'nvidia/nemotron-3-nano-30b-a3b:free', 'system_fingerprint': None, 'id': 'gen-1771856094-Dwpy8GjlZFprVUGX6Yh0', 'finish_reason': 'stop', 'logprobs': None}, id='lc_run--019c8ada-64de-7c50-b22f-0d0678c3c586-0', tool_calls=[], invalid_tool_calls=[], usage_metadata={'input_tokens': 9878, 'output_tokens': 722, 'total_tokens': 10600, 'input_token_details': {'audio': 0, 'cache_read': 0}, 'output_token_details': {'audio': 0, 'reasoning': 67}})]}</code></pre>
+</div>
+</div>
+<div id="0540d7d2" class="cell" data-execution_count="126">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(result[<span class="st">"messages"</span>][<span class="op">-</span><span class="dv">2</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="126">
+<pre><code>langchain_core.messages.tool.ToolMessage</code></pre>
+</div>
+</div>
+<div id="a7b2bb15" class="cell" data-execution_count="127">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the agent's response</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">"messages"</span>][<span class="op">-</span><span class="dv">1</span>].content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**LangChain vs LangGraph vs LangSmith – What They Do and When to Use Them**
+
+| Aspect | **LangChain** | **LangGraph** | **LangSmith** |
+|--------|---------------|---------------|---------------|
+| **Primary Goal** | Provide a **modular toolbox** for building LLM‑powered apps (prompts, models, memory, tools, RAG, etc.). | Add **stateful, graph‑based orchestration** for complex, multi‑step workflows that need branching, loops, retries, and shared state. | Offer **observability, tracing, evaluation, and monitoring** for any LLM application (especially those built with LangChain/LangGraph). |
+| **Core Concept** | **Chains** – linear pipelines of components (`prompt → model → parser`). | **Graphs** – nodes (steps/agents) and edges (control flow) that can loop, branch, and retain a mutable state. | **Traces** – full execution logs that let you drill from a workflow run down to a single LLM call, plus evaluation &amp; metrics. |
+| **Typical Use‑Cases** | • Simple chatbots, Q&amp;A, RAG pipelines&lt;br&gt;• Linear tool usage (e.g., fetch‑then‑summarize)&lt;br&gt;• Prototyping &amp; MVPs | • Multi‑agent systems&lt;br&gt;• Workflows with feedback loops, retries, or conditional routing&lt;br&gt;• Long‑running processes that need persistent state | • Debugging production pipelines&lt;br&gt;• A/B‑testing prompts/models&lt;br&gt;• Monitoring latency, cost, error rates&lt;br&gt;• Regression testing of LLM behavior |
+| **When to Choose It** | Your app fits a **straight‑through** flow and does not need complex state or branching. | You need **shared state, dynamic routing, or multi‑agent coordination** (e.g., research assistants, autonomous planners). | You are moving to **production** and need visibility, debugging, and evaluation capabilities. |
+| **Integration** | Works with any LLM provider via a unified interface. | Built on top of LangChain; can be used alongside it. | Agnostic – can instrument LangChain, LangGraph, or any custom LLM code. |
+| **Key Benefits** | • Rapid prototyping&lt;br&gt;• Vendor‑agnostic model switching&lt;br&gt;• Built‑in async/streaming via LCEL | • Explicit state management&lt;br&gt;• Conditional edges &amp; loops&lt;br&gt;• Persistence &amp; checkpointing for long‑running agents | • End‑to‑end tracing&lt;br&gt;• Prompt &amp; model evaluation tools&lt;br&gt;• Production‑grade monitoring &amp; alerting |
+
+### TL;DR Summary
+- **LangChain** = *building blocks* for basic LLM apps.  
+- **LangGraph** = *orchestrator* for sophisticated, stateful, multi‑agent workflows.  
+- **LangSmith** = *debugger &amp; observability layer* that makes those apps production‑ready.
+
+In practice, a typical production stack uses **all three together**: build with LangChain, orchestrate complex flows with LangGraph, and monitor/evaluate everything with LangSmith.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li>Three key methods for models: invoke, stream, and batch.</li>
+<li>LLMs can be configured to responsd in a structured format</li>
+<li>Agent = Model + Tools</li>
+<li>Models (LLMs) are the brain-power of agents</li>
+<li>Tools connect the LLM to the outside world.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

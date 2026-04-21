@@ -204,6 +204,9 @@ window.Quarto = {
   <li><a href="#the-evolution-of-agents-from-llms" id="toc-the-evolution-of-agents-from-llms" class="nav-link" data-scroll-target="#the-evolution-of-agents-from-llms">The Evolution of Agents from LLMs</a>
   <ul class="collapse">
   <li><a href="#auto-regression" id="toc-auto-regression" class="nav-link" data-scroll-target="#auto-regression">Auto-regression</a></li>
+  <li><a href="#the-tokenizer-playground" id="toc-the-tokenizer-playground" class="nav-link" data-scroll-target="#the-tokenizer-playground">## The Tokenizer Playground</a></li>
+  <li><a href="#the-role-of-attention" id="toc-the-role-of-attention" class="nav-link" data-scroll-target="#the-role-of-attention">The Role of Attention</a></li>
+  <li><a href="#context-length" id="toc-context-length" class="nav-link" data-scroll-target="#context-length">Context Length</a></li>
   <li><a href="#language-models" id="toc-language-models" class="nav-link" data-scroll-target="#language-models">Language Models</a></li>
   <li><a href="#function-calling-agents" id="toc-function-calling-agents" class="nav-link" data-scroll-target="#function-calling-agents">Function-calling Agents</a></li>
   </ul></li>
@@ -327,6 +330,37 @@ window.Quarto = {
 <p><a href="./assets/autoregression.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="./assets/autoregression.png" class="img-fluid"></a></p>
 <p>Developers open-source models like <a href="https://huggingface.co/google/timesfm-2.5-200m-transformers">timesfm</a> since it is a very common task.</p>
 </section>
+<section id="the-tokenizer-playground" class="level3">
+<h3 class="anchored" data-anchor-id="the-tokenizer-playground">## The Tokenizer Playground</h3>
+<p>You can <a href="https://agents-course-the-tokenizer-playground.static.hf.space">experiment with different tokenizers</a> (first step in this phase) in the interactive playground below:</p>
+<center>
+<iframe src="https://agents-course-the-tokenizer-playground.static.hf.space" frameborder="0" width="850" height="450">
+</iframe>
+</center>
+</section>
+<section id="the-role-of-attention" class="level3">
+<h3 class="anchored" data-anchor-id="the-role-of-attention">The Role of Attention</h3>
+<p>When predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence <em>“The capital of France is …”</em>, the words “France” and “capital” are crucial for determining that “Paris” should come next. This ability to focus on relevant information is what we call attention.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="./assets/AttentionSceneFinal.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="./assets/AttentionSceneFinal.gif" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+</figure>
+</div>
+<p>This involves many computationally intensive operations.</p>
+</section>
+<section id="context-length" class="level3">
+<h3 class="anchored" data-anchor-id="context-length">Context Length</h3>
+<ul>
+<li>The model should handle the 10,000th token just as reliably as the 100th.</li>
+<li>However, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="./assets/context_rot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="./assets/context_rot.png" class="r-stretch img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+</figure>
+</div>
+<p>Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. – (<a href="https://www.trychroma.com/research/context-rot">July 14, 2025 Context Rot | Chroma</a>)</p>
+</section>
 <section id="language-models" class="level3">
 <h3 class="anchored" data-anchor-id="language-models">Language Models</h3>
 <p><strong>Large Language Models (LLMs)</strong> are deep neural networks trained to model the most likely token given previous tokens.</p>
@@ -345,7 +379,7 @@ window.Quarto = {
 <p>A hypothesis was proven at the time that <a href="https://huggingface.co/papers/2210.11416"><strong>Multi-task Model</strong></a> performs better than a single-task model. A more general idea is to train models to <strong>“Follow Instructions”</strong>. In which the user <strong>Prompts</strong> it to do any of the previously mentioned tasks, on-demand. Of course this needed lots of special <em>Data Curation</em>.</p>
 <p>One task was especially important: <strong>JSON mode</strong>: in which models produced their output in json format, such that it can be parsed easily by programs.</p>
 <p>Following that, an especially key development was the task of <strong>Tool Calling</strong>: in which a model is required to select from a set of Python funcition signatures (parameters, types, and docstrings) upon instruction. This is where <strong>Agents</strong> were born.</p>
-<p><a href="./assets/tool_calling_llms.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="./assets/tool_calling_llms.png" class="img-fluid"></a></p>
+<p><a href="./assets/tool_calling_llms.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="./assets/tool_calling_llms.png" class="img-fluid"></a></p>
 <p><em>Note</em>: the terms <em>Reasoning</em>, <em>Thinking</em>, are just like the term <em>Intelligence</em>, not to be taken literally. See <a href="https://arxiv.org/pdf/2506.06941">The Illusion of Thinking | Apple</a>.</p>
 </section>
 <section id="function-calling-agents" class="level3">
@@ -363,7 +397,7 @@ window.Quarto = {
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure: Function Calling Steps | OpenAI"><img src="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="img-fluid figure-img" alt="Figure: Function Calling Steps | OpenAI"></a></p>
+<p><a href="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure: Function Calling Steps | OpenAI"><img src="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="img-fluid figure-img" alt="Figure: Function Calling Steps | OpenAI"></a></p>
 <figcaption>Figure: Function Calling Steps | OpenAI</figcaption>
 </figure>
 </div>

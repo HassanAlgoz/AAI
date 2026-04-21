@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>langgraph – Applied AI Bootcamp</title>
+<title>LangGraph – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">LangGraph</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,20 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#langgraph" id="toc-langgraph" class="nav-link active" data-scroll-target="#langgraph">LangGraph</a>
-  <ul class="collapse">
-  <li><a href="#predefined-code-paths" id="toc-predefined-code-paths" class="nav-link" data-scroll-target="#predefined-code-paths">Predefined Code Paths</a>
-  <ul class="collapse">
-  <li><a href="#sequential" id="toc-sequential" class="nav-link" data-scroll-target="#sequential">1. Sequential</a></li>
-  <li><a href="#parallel" id="toc-parallel" class="nav-link" data-scroll-target="#parallel">2. Parallel</a></li>
-  </ul></li>
-  <li><a href="#llm-directs-control-flow" id="toc-llm-directs-control-flow" class="nav-link" data-scroll-target="#llm-directs-control-flow">LLM Directs Control Flow</a>
-  <ul class="collapse">
-  <li><a href="#conditional" id="toc-conditional" class="nav-link" data-scroll-target="#conditional">3. Conditional</a></li>
-  <li><a href="#loop" id="toc-loop" class="nav-link" data-scroll-target="#loop">4. Loop</a></li>
-  <li><a href="#orchestrator-worker" id="toc-orchestrator-worker" class="nav-link" data-scroll-target="#orchestrator-worker">5. Orchestrator-Worker</a></li>
-  </ul></li>
-  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link" data-scroll-target="#environment-setup">Environment Setup</a>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link active" data-scroll-target="#environment-setup">Environment Setup</a>
   <ul class="collapse">
   <li><a href="#install-dependencies" id="toc-install-dependencies" class="nav-link" data-scroll-target="#install-dependencies">Install dependencies</a></li>
   <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables">Environment variables</a></li>
@@ -211,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#functional-api" id="toc-functional-api" class="nav-link" data-scroll-target="#functional-api">Functional API</a></li>
   <li><a href="#tasks-and-entrypoint" id="toc-tasks-and-entrypoint" class="nav-link" data-scroll-target="#tasks-and-entrypoint">Tasks and Entrypoint</a></li>
-  <li><a href="#sequential-1" id="toc-sequential-1" class="nav-link" data-scroll-target="#sequential-1">Sequential</a>
+  <li><a href="#sequential" id="toc-sequential" class="nav-link" data-scroll-target="#sequential">Sequential</a>
   <ul class="collapse">
   <li><a href="#synchronize-io-bound-ops-with-.result" id="toc-synchronize-io-bound-ops-with-.result" class="nav-link" data-scroll-target="#synchronize-io-bound-ops-with-.result">Synchronize I/O-bound ops with <code>.result()</code></a></li>
   <li><a href="#what-is-checkpointer" id="toc-what-is-checkpointer" class="nav-link" data-scroll-target="#what-is-checkpointer">What is <code>checkpointer</code>?</a></li>
@@ -219,107 +206,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#parallelization" id="toc-parallelization" class="nav-link" data-scroll-target="#parallelization">Parallelization</a></li>
   <li><a href="#routing" id="toc-routing" class="nav-link" data-scroll-target="#routing">Routing</a></li>
-  <li><a href="#orchestrator-worker-1" id="toc-orchestrator-worker-1" class="nav-link" data-scroll-target="#orchestrator-worker-1">Orchestrator-worker</a></li>
+  <li><a href="#orchestrator-worker" id="toc-orchestrator-worker" class="nav-link" data-scroll-target="#orchestrator-worker">Orchestrator-worker</a></li>
   <li><a href="#evaluator-optimizer" id="toc-evaluator-optimizer" class="nav-link" data-scroll-target="#evaluator-optimizer">Evaluator-optimizer</a></li>
-  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="02_langgraph.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">LangGraph</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<p><a href="https://colab.research.google.com/github/HassanAlgoz/agentic-ai-systems/blob/main/Lessons/L01/010_workflows.ipynb"><strong>Open In Colab</strong></a></p>
-<section id="langgraph" class="level1">
-<h1>LangGraph</h1>
-<p>This guide reviews common workflow and agent patterns.</p>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <ul>
-<li><strong>Workflows</strong> have predetermined code paths and are designed to operate in a certain order.</li>
-<li><strong>Agents</strong> are dynamic and define their own processes and tool usage (<em>discussed later</em>).</li>
+<li><a href="https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/M1/02_langgraph.ipynb"><strong>Open In Colab</strong></a></li>
 </ul>
-<section id="predefined-code-paths" class="level2">
-<h2 class="anchored" data-anchor-id="predefined-code-paths">Predefined Code Paths</h2>
-<section id="sequential" class="level3">
-<h3 class="anchored" data-anchor-id="sequential">1. Sequential</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="02_langgraph_files/figure-html/mermaid-figure-1.png" style="width:5.32in;height:0.57in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<hr>
-</section>
-<section id="parallel" class="level3">
-<h3 class="anchored" data-anchor-id="parallel">2. Parallel</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-10.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="02_langgraph_files/figure-html/mermaid-figure-10.png" style="width:3.87in;height:1.5in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<hr>
-</section>
-</section>
-<section id="llm-directs-control-flow" class="level2">
-<h2 class="anchored" data-anchor-id="llm-directs-control-flow">LLM Directs Control Flow</h2>
-<section id="conditional" class="level3">
-<h3 class="anchored" data-anchor-id="conditional">3. Conditional</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-9.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="02_langgraph_files/figure-html/mermaid-figure-9.png" style="width:5.78in;height:1.5in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<hr>
-</section>
-<section id="loop" class="level3">
-<h3 class="anchored" data-anchor-id="loop">4. Loop</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="02_langgraph_files/figure-html/mermaid-figure-8.png" style="width:7.33in;height:0.66in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<hr>
-</section>
-<section id="orchestrator-worker" class="level3">
-<h3 class="anchored" data-anchor-id="orchestrator-worker">5. Orchestrator-Worker</h3>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="02_langgraph_files/figure-html/mermaid-figure-7.png" style="width:8.12in;height:1.5in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>LangGraph offers several benefits when building agents and workflows, including <a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence</a>, <a href="https://docs.langchain.com/oss/python/langgraph/streaming">streaming</a>, and support for debugging as well as <a href="https://docs.langchain.com/oss/python/langgraph/deploy">deployment</a>.</p>
-</section>
-</section>
+<p><strong>LangGraph</strong> offers several benefits when building agents and workflows, including <a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence</a>, <a href="https://docs.langchain.com/oss/python/langgraph/streaming">streaming</a>, and support for debugging as well as <a href="https://docs.langchain.com/oss/python/langgraph/deploy">deployment</a>.</p>
+<p>This guide reviews common workflow patterns.</p>
 <section id="environment-setup" class="level2">
 <h2 class="anchored" data-anchor-id="environment-setup">Environment Setup</h2>
 <section id="install-dependencies" class="level3">
@@ -460,8 +378,8 @@ Warning
 <p>The entrance point that acts like the <code>main()</code> function of the program. It is decorated as <code>@entrypoint</code>.</p>
 <p>For more about tasks, see: <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#when-to-use-a-task">When to use a task</a>.</p>
 </section>
-<section id="sequential-1" class="level2">
-<h2 class="anchored" data-anchor-id="sequential-1">Sequential</h2>
+<section id="sequential" class="level2">
+<h2 class="anchored" data-anchor-id="sequential">Sequential</h2>
 <p>Prompt chaining is when each LLM call processes the output of the previous call. It’s often used for performing well-defined tasks that can be broken down into smaller, verifiable steps. Some examples include:</p>
 <ul>
 <li>Translating documents into different languages</li>
@@ -472,7 +390,7 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="02_langgraph_files/figure-html/mermaid-figure-6.png" style="width:10.26in;height:1.06in" class="figure-img"></a></p>
+<p><a href="02_langgraph_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="02_langgraph_files/figure-html/mermaid-figure-1.png" style="width:10.26in;height:1.06in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -618,7 +536,7 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="02_langgraph_files/figure-html/mermaid-figure-5.png" style="width:3.87in;height:1.5in" class="figure-img"></a></p>
+<p><a href="02_langgraph_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="02_langgraph_files/figure-html/mermaid-figure-5.png" style="width:3.87in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -708,7 +626,7 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="02_langgraph_files/figure-html/mermaid-figure-4.png" style="width:5.78in;height:1.5in" class="figure-img"></a></p>
+<p><a href="02_langgraph_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="02_langgraph_files/figure-html/mermaid-figure-4.png" style="width:5.78in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -793,8 +711,8 @@ Warning
 </div>
 </div>
 </section>
-<section id="orchestrator-worker-1" class="level2">
-<h2 class="anchored" data-anchor-id="orchestrator-worker-1">Orchestrator-worker</h2>
+<section id="orchestrator-worker" class="level2">
+<h2 class="anchored" data-anchor-id="orchestrator-worker">Orchestrator-worker</h2>
 <p>In an orchestrator-worker configuration, the orchestrator:</p>
 <ul>
 <li>Breaks down tasks into subtasks</li>
@@ -806,7 +724,7 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="02_langgraph_files/figure-html/mermaid-figure-3.png" style="width:8.12in;height:1.5in" class="figure-img"></a></p>
+<p><a href="02_langgraph_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="02_langgraph_files/figure-html/mermaid-figure-3.png" style="width:8.12in;height:1.5in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -908,7 +826,7 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_langgraph_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="02_langgraph_files/figure-html/mermaid-figure-2.png" style="width:7.33in;height:0.66in" class="figure-img"></a></p>
+<p><a href="02_langgraph_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="02_langgraph_files/figure-html/mermaid-figure-2.png" style="width:7.33in;height:0.66in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -1291,7 +1209,6 @@ During task with name 'optimizer_workflow' and id '25df4e96-6ecd-13dc-9d83-f5334
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

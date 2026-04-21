@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>semantic_search – Applied AI Bootcamp</title>
+<title>Indexing and Retrieval – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,6 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -161,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Indexing and Retrieval</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,9 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#semantic-search-indexing-and-retrieval" id="toc-semantic-search-indexing-and-retrieval" class="nav-link active" data-scroll-target="#semantic-search-indexing-and-retrieval">Semantic Search: Indexing and Retrieval</a>
-  <ul class="collapse">
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a>
   <ul class="collapse">
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   </ul></li>
@@ -202,20 +203,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vector-stores" id="toc-vector-stores" class="nav-link" data-scroll-target="#vector-stores">3. Vector stores</a></li>
   <li><a href="#retrievers" id="toc-retrievers" class="nav-link" data-scroll-target="#retrievers">4. Retrievers</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
-  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="05_semantic_search.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Indexing and Retrieval</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<p><a href="https://colab.research.google.com/github/HassanAlgoz/agentic-ai-systems/blob/main/Lessons/L01/05_semantic_search.ipynb"><strong>Open In Colab</strong></a></p>
-<section id="semantic-search-indexing-and-retrieval" class="level1">
-<h1>Semantic Search: Indexing and Retrieval</h1>
-<p><a href="https://docs.langchain.com/oss/python/langchain/knowledge-base">Source: Build a semantic search engine with LangChain | LangChain</a>.</p>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ul>
+<li><p><a href="https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/05_semantic_search.ipynb"><strong>Open In Colab</strong></a></p></li>
+<li><p><strong>RAG</strong> =</p>
+<ol type="1">
+<li><em>Retrieval</em>: find text relevant to answering the question</li>
+<li><em>Augmnetation</em>: concatenate it into the prompt</li>
+<li><em>Generation</em>: invoke the LLM</li>
+</ol></li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="05_semantic_search_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="05_semantic_search_files/figure-html/mermaid-figure-1.png" style="width:10.35in;height:1.09in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>Here we will build a search engine over a PDF document. This will allow us to retrieve passages in the PDF that are similar to an input query.</p>
 <p>This guide focuses on LangChain’s abstractions related to indexing and retrieval of text data:</p>
 <ul>
@@ -232,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol></li>
 <li><strong>Retrieval</strong> – Find relevant information based on user queries</li>
 </ol>
-<p>This <em>Relevant context</em> would later be augmented (added) into an LLM’s context window, allowing the LLM to answer questions based on data. The term for this kind of interaction is called: <strong>Retrieval Augmented Generation (RAG)</strong>.</p>
+<p>This <em>Relevant context</em> would later be augmented (added) into an LLM’s context window, allowing the LLM to answer questions based on data. The term for this kind of interaction is called: .</p>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <section id="installation" class="level3">
@@ -514,9 +547,14 @@ development set, newstest2013. We used beam search as described in the previous 
 <li><strong>Vector stores</strong> – Store and query embeddings (e.g.&nbsp;<code>InMemoryVectorStore</code>); support sync/async, by query or by vector, with or without scores, and <strong>MMR</strong> for diversity.</li>
 <li><strong>Retrievers</strong> – Use <code>vector_store.as_retriever()</code> with <code>search_type</code> (<code>"similarity"</code>, <code>"mmr"</code>, <code>"similarity_score_threshold"</code>) and <code>search_kwargs</code> (e.g.&nbsp;<code>k</code>) for easy integration into chains and RAG pipelines.</li>
 </ul>
-
-
 </section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://docs.langchain.com/oss/python/langchain/knowledge-base">Build a semantic search engine with LangChain | LangChain</a>.</li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -921,6 +959,38 @@ development set, newstest2013. We used beam search as described in the previous 
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
