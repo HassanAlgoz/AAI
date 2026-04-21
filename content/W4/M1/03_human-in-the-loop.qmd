@@ -12,26 +12,52 @@ Imagine you need to automate a customer support email inbox. The system should:
 - Draft appropriate responses
 - Escalate complex or urgent issues to a human for review before sending
 
-## The Agent Implementation
+## The Flowchart
 
-```python
-import uuid
-from typing import Literal, TypedDict
+This implementation demonstrates several core concepts of the LangGraph Functional API. Here is the visual flow of how the code executes:
+
+```{mermaid}
+flowchart TD
+    START((Start)) --> B[classify_intent]
+    B -->|question/feature| C[search_documentation]
+    B -->|bug| D[track_bug]
+    B -->|other| E[draft_response]
+    
+    C --> E
+    D --> E
+    
+    E --> F{High Urgency<br/>or Complex?}
+    F -->|Yes| G[human_review]
+    F -->|No| H((End / Send))
+    G --> H
+```
+
+## The Implementation
+
+### LLM
+
+```py
 from langchain_openai import ChatOpenAI
-from langgraph.func import entrypoint, task
-from langgraph.types import interrupt
-from langgraph.checkpoint.memory import InMemorySaver
+
 
 llm = ChatOpenAI(model="gpt-4o-mini")
+```
 
-# 1. Data Structures
+### Intent classifier
+
+Using structured output, we can make an intent classifier task like so:
+
+```python
+from typing import Literal, TypedDict
+from langgraph.func import entrypoint, task
+
+
 class EmailClassification(TypedDict):
     intent: Literal["question", "bug", "billing", "feature", "complex"]
     urgency: Literal["low", "medium", "high", "critical"]
     topic: str
     summary: str
 
-# 2. Define discrete tasks
 @task
 def classify_intent(email_content: str, sender_email: str) -> EmailClassification:
     """Use an LLM to categorize urgency and topic."""
@@ -42,6 +68,20 @@ def classify_intent(email_content: str, sender_email: str) -> EmailClassificatio
     From: {sender_email}
     """
     return structured_llm.invoke(prompt)
+```
+
+### Three action tasks
+
+Here we define three tasks:
+
+- `search_documentation` (dummy)
+- `track_bug` (dummy)
+- `draft_response`
+
+```python
+import uuid
+from langgraph.types import interrupt
+
 
 @task
 def search_documentation(classification: EmailClassification) -> list[str]:
@@ -74,7 +114,15 @@ def draft_response(email_content: str, classification: EmailClassification, cont
     - Address their specific concern
     """
     return llm.invoke(prompt).content
+```
 
+For more about tasks, see: [When to use a task](https://docs.langchain.com/oss/python/langgraph/functional-api#when-to-use-a-task).
+
+### Human review
+
+The `human_review` task uses the [`interrupt()`](https://docs.langchain.com/oss/python/langgraph/interrupts) function to pause the workflow.
+
+```py
 @task
 def human_review(draft: str, classification: EmailClassification):
     """Pause for human review and approval."""
@@ -85,8 +133,22 @@ def human_review(draft: str, classification: EmailClassification):
         "intent": classification.get('intent'),
     })
     return decision
+```
 
-# 3. Wire it all together with an entrypoint
+When the code hits `interrupt()`, the entrypoint completely halts execution and saves everything to the checkpointer. It will pause indefinitely until a human provides the needed input. Once the input is supplied via a **resume command**, the workflow picks up *exactly* where it left off, avoiding the need to re-classify the email or regenerate the draft.
+
+See [Rules of Interrupt](https://docs.langchain.com/oss/python/langgraph/interrupts#rules-of-interrupts) to follow when working with interrupts to ensure they behave as expected.
+
+### Workflow entrypoint
+
+Wire it all together with an entrypoint.
+
+You will usually want to pass a **checkpointer** to the `@entrypoint` decorator to enable persistence and use features like **human-in-the-loop**.
+
+```python
+from langgraph.checkpoint.memory import InMemorySaver
+
+
 checkpointer = InMemorySaver()
 
 @entrypoint(checkpointer=checkpointer)
@@ -124,40 +186,13 @@ def email_workflow(inputs: dict) -> dict:
     return {"status": "sent", "final_response": draft}
 ```
 
-## How It Works
-
-This implementation demonstrates several core concepts of the LangGraph Functional API. Here is the visual flow of how the code executes:
-
-```{mermaid}
-flowchart TD
-    START((Start)) --> B[classify_intent]
-    B -->|question/feature| C[search_documentation]
-    B -->|bug| D[track_bug]
-    B -->|other| E[draft_response]
-    
-    C --> E
-    D --> E
-    
-    E --> F{High Urgency<br/>or Complex?}
-    F -->|Yes| G[human_review]
-    F -->|No| H((End / Send))
-    G --> H
-```
-
-### Keeping humans in the loop (`interrupt`)
-
-The `human_review` task uses the [`interrupt()`](https://docs.langchain.com/oss/python/langgraph/interrupts) function to pause the workflow.
-
-**Why?**  
-When the code hits `interrupt()`, the entrypoint completely halts execution and saves everything to the checkpointer. It will pause indefinitely until a human provides the needed input. Once the input is supplied via a resume command, the workflow picks up *exactly* where it left off, avoiding the need to re-classify the email or regenerate the draft.
-
-### Rules of Interrupt
-
-See: [few important rules](https://docs.langchain.com/oss/python/langgraph/interrupts#rules-of-interrupts) to follow when working with interrupts to ensure they behave as expected.
-
 ## Running the Workflow
 
-Let's see the agent in action with an urgent scenario:
+Let's see the agent in action with an urgent scenario.
+
+### Execution and pause for human input
+
+Using the [`@entrypoint`](https://docs.langchain.com/oss/python/langgraph/functional-api#entrypoint) yields a [`Pregel`](https://reference.langchain.com/python/langgraph/pregel/#langgraph.pregel.Pregel.stream) object that can be executed using the `invoke`, `ainvoke`, `stream`, and `astream` methods.
 
 ```python
 # 1. Initialize the run
@@ -172,8 +207,14 @@ config = {"configurable": {"thread_id": "customer_123"}}
 # 3. The graph will stop at the interrupt()
 result = email_workflow.invoke(initial_state, config)
 print(f"Paused for human review: {result}")
+```
 
-# 4. Provide the human's decision using Command
+### Resuming
+
+Resuming an execution after an [interrupt](https://reference.langchain.com/python/langgraph/types/interrupt) can be done by passing a **resume** value to the [`Command`](https://reference.langchain.com/python/langgraph/types/Command) primitive.
+
+```py
+# Provide the human's decision using Command
 from langgraph.types import Command
 
 human_response = Command(
@@ -188,10 +229,7 @@ final_result = email_workflow.invoke(human_response, config)
 print(f"Workflow completed: {final_result}")
 ```
 
-Notice how we reuse the same `thread_id` in the `config`.
-
-**Why?**  
-The `thread_id` links the separate invocations together. The checkpointer uses it to look up the paused execution state. Without it, the workflow wouldn't know which paused execution to resume.
+Notice how we reuse the same `thread_id` in the `config`. The `thread_id` links the separate invocations together. The checkpointer uses it to look up the paused execution state. Without it, the workflow wouldn't know which paused execution to resume.
 
 ## Handle errors appropriately
 
@@ -199,7 +237,7 @@ Different errors need different handling strategies:
 
 | Error Type                                                      | Who Fixes It       | Strategy                           | When to Use                                      |
 | --------------------------------------------------------------- | ------------------ | ---------------------------------- | ------------------------------------------------ |
-| Transient errors (network issues, rate limits)                  | System (automatic) | `RetryPolicy()`                       | Temporary failures that usually resolve on retry |
+| Transient errors (network issues, rate limits)                  | System (automatic) | `RetryPolicy()`                    | Temporary failures that usually resolve on retry |
 | LLM-recoverable errors (tool failures, parsing issues)          | LLM                | Store error in state and loop back | LLM can see the error and adjust its approach    |
 | User-fixable errors (missing information, unclear instructions) | Human              | Pause with `interrupt()`           | Need user input to proceed                       |
 | Unexpected errors                                               | Developer          | Let them bubble up                 | Unknown issues that need debugging               |
@@ -280,6 +318,20 @@ def send_reply(draft_response: str) -> None:
         email_service.send(draft_response)
     except Exception:
         raise  # Surface unexpected errors
+```
+
+## Resuming after an error
+
+To resume after an error, run the `entrypoint` with a `None` and the same **thread id** (config).This assumes that the underlying **error** has been resolved and execution can proceed successfully.
+
+```python
+config = {
+    "configurable": {
+        "thread_id": "some_thread_id"
+    }
+}
+
+my_workflow.invoke(None, config)
 ```
 
 ## References
