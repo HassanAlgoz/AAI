@@ -1,6 +1,8 @@
 ---
 title: "Introduction: What is Agentic AI?"
-format: html
+format:
+    revealjs:
+        incremental: true
 ---
 
 ## State of Agentic AI
@@ -33,17 +35,13 @@ What does "Research & Data Analysis" and "Internal Productivity" mean? To answer
 
 For more, checkout [Case Studies | LangChain](https://docs.langchain.com/oss/python/langgraph/case-studies).
 
-## What makes AI Agentic?
+# The Evolution of Agents from LLMs
 
-**Artificial Intelligence** is a field of Computer Science, studying how to automate decision making.
+## First, a step back
 
-**Agentic AI** is where autonomy of the system is at the level of dealing not just with structured data, but with messy unstructured data like language, voice, and images, to inform automatic decision-making. This is growingly done in less supervised manner; and hence, more and more **autonomous**.
+## Prediction
 
-Specifically, today's Agentic AI systems are driven by LLMs.
-
-## The Evolution of Agents from LLMs
-
-**Brain Teaser**. Can you predict the missing part?
+**Prediction**. Can you predict the missing part?
 
 - $0, 10, 20, 30, 40, ?$
 - $5, 15, 25, 35, 45, ?$
@@ -53,7 +51,7 @@ Answers:
 - $y = 10x$
 - $y = 5 + 10x$
 
-### Auto-regression
+## Interpolation and Extrapolation
 
 - **Interpolation** is predicting patterns within the range of the training data.  
 	1, 2, **?**, 8, 16
@@ -67,6 +65,8 @@ Answers:
 - The further the prediction, the less confident we get:  
     1, 2, 3, **?, ?, ?, ?, ?, ?, ?**
 
+## Auto-regression
+
 **Auto-regressive** models are ones which feed on their outputs to generate a sequence of predictions: ${y_1, y_2, \dots}$
 
 The following is an example of auto-regression of three steps:
@@ -76,19 +76,59 @@ The following is an example of auto-regression of three steps:
 - step 2: 10, 20, 30, **40**, **50**, **?**
 - step 3: 10, 20, 30, **40**, **50**, **60**
 
+::: {.fragment}
+
 Such models are used in Timeseries data like weather forcasting. The figure below shows an autoregressive model on timeseries data:
 
-![](./assets/autoregression.png)
+![](./assets/autoregression.png){fig-align="center" .r-stretch}
 
-Developers open-source models like [timesfm](https://huggingface.co/google/timesfm-2.5-200m-transformers) since it is a very common task.
+:::
 
-### Language Models
+## Tokenization
+
+- **Language Models** first segment text into *tokens* and converts those into numbers before running a probabilstic model on them.
+- You can [experiment with different tokenizers](https://agents-course-the-tokenizer-playground.static.hf.space) (first step in this phase) in the interactive playground below:
+
+<center>
+<iframe
+	src="https://agents-course-the-tokenizer-playground.static.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
+</center>
+
+## Attention
+
+- When predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence *"The capital of France is ..."*, the words "France" and "capital" are crucial for determining that "Paris" should come next. This ability to focus on relevant information is what we call attention.
+
+::: {.fragment}
+
+![](./assets/AttentionSceneFinal.gif){fig-align="center"}
+
+This involves many computationally intensive operations.
+
+:::
+
+## Context
+
+- The model should handle the 10,000th token just as reliably as the 100th.
+- However, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.
+
+::: {.fragment}
+
+![](./assets/context_rot.png){fig-align="center" .r-stretch}
+
+Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. -- ([July 14, 2025 Context Rot | Chroma](https://www.trychroma.com/research/context-rot))
+:::
+
+## Language Models
 
 **Large Language Models (LLMs)** are deep neural networks trained to model the most likely token given previous tokens.
 
-First application was: **Translation** ([Paper: Attention is all you need](https://arxiv.org/abs/1706.03762)). Given an English sentence, the task is to generate the most likely Arabic equivalent. This is done word-by-word, by repeatedly predicting the next Arabic word, the original sentence plus all predicted words thus far.
+::: {.fragment}
 
-This technique was able to scale thanks to the **Transformers** architecture which is based on the concept of **Attention**, which learns the influence each previous token has in generating the next token, in the translation.
+First application was: **Translation** ([Paper: Attention is all you need](https://arxiv.org/abs/1706.03762)). Given an English sentence, the task is to generate the most likely Arabic equivalent. This is done word-by-word, by repeatedly predicting the next Arabic word, the original sentence plus all predicted words thus far.
 
 ```
 [
@@ -100,22 +140,38 @@ This technique was able to scale thanks to the **Transformers** architecture whi
     ("The meuseum is far to the right", "المتحف في أقصى اليمين")
 ]
 ```
+:::
 
-Same concept applied more simply in **Paraphrasing**, **Summarization**, and even **Question-Answering**.
+## from translation to other tasks
 
-Trained on back-and-forth **Chat Conversations**, models were able to mimic chat-like interactions.
+- This technique was able to scale thanks to the **Transformers** architecture which is based on the concept of **Attention**, which learns the influence each previous token has in generating the next token, in the translation.  
+  
+- Same concept applied more simply in **Paraphrasing**, **Summarization**, and even **Question-Answering**.
+  
+- Trained on back-and-forth **Chat Conversations**, models were able to mimic chat-like interactions.  
+  
+- A hypothesis was proven at the time that [**Multi-task Model**](https://huggingface.co/papers/2210.11416) performs better than a single-task model. A more general idea is to train models to **"Follow Instructions"**. In which the user **Prompts** it to do any of the previously mentioned tasks, on-demand. Of course this needed lots of special *Data Curation*.
+  
+- One task was especially important: **JSON mode**: in which models produced their output in json format, such that it can be parsed easily by programs.
 
-A hypothesis was proven at the time that [**Multi-task Model**](https://huggingface.co/papers/2210.11416) performs better than a single-task model. A more general idea is to train models to **"Follow Instructions"**. In which the user **Prompts** it to do any of the previously mentioned tasks, on-demand. Of course this needed lots of special *Data Curation*.
+## Tool Calling
 
-One task was especially important: **JSON mode**: in which models produced their output in json format, such that it can be parsed easily by programs.
+- Following that, an especially key development was the task of **Tool Calling**: in which a model is required to select from a set of Python funcition signatures (parameters, types, and docstrings) upon instruction. This is where **Agents** were born.
 
-Following that, an especially key development was the task of **Tool Calling**: in which a model is required to select from a set of Python funcition signatures (parameters, types, and docstrings) upon instruction. This is where **Agents** were born.
+::: {.fragment}
 
-![](./assets/tool_calling_llms.png)
+![](./assets/tool_calling_llms.png){.r-stretch fig-align="center"}
+
 
 *Note*: the terms *Reasoning*, *Thinking*, are just like the term *Intelligence*, not to be taken literally. See [The Illusion of Thinking | Apple](https://arxiv.org/pdf/2506.06941).
+:::
 
-### Function-calling Agents
+## Function-calling Agents
+
+
+::: {.columns}
+
+::: {.column .nonincremental}
 
 An **Agent** is based on an LLM in the following sequence:
 
@@ -128,13 +184,32 @@ An **Agent** is based on an LLM in the following sequence:
 - **LLM generates** output
 - program prints this output to the user
 
-![Figure: Function Calling Steps | OpenAI](https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png)
+:::
+
+::: {.column}
+
+![](https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png)
+
+:::
+
+:::
 
 See: [Guide > Function Calling | OpenAI](https://developers.openai.com/api/docs/guides/function-calling).
 
+
+## What makes AI Agentic?
+
+- **Artificial Intelligence** is a field of Computer Science, studying how to automate decision making.
+  
+- **Agentic AI** is
+    1. where autonomy of the system is at the level of dealing not just with structured data, but with messy unstructured data like language, voice, and images, to inform automatic decision-making.
+    2. This is growingly done in less supervised manner; and hence, more and more **autonomous**.
+  
+- Specifically, today's Agentic AI systems are driven by LLMs.
+
 ## A. Agent Framework
 
-Agent frameworks organizes components into these main categories:
+[LangChain](https://docs.langchain.com/oss/python/langchain/overview) is an agent framework that organizes components into these main categories:
 
 | Category                                                             | Purpose                     | Key Components                      | Use Cases                                          |
 | -------------------------------------------------------------------- | --------------------------- | ----------------------------------- | -------------------------------------------------- |
@@ -146,13 +221,11 @@ Agent frameworks organizes components into these main categories:
 | **[Document processing](https://docs.langchain.com/oss/python/integrations/document_loaders)** | Data ingestion              | Loaders, splitters, transformers    | PDF processing, web scraping                       |
 | **[Vector Stores](https://docs.langchain.com/oss/python/integrations/vectorstores)**           | Semantic search             | Chroma, Pinecone, FAISS             | Similarity search, embeddings storage              |
 
-[LangChain](https://docs.langchain.com/oss/python/langchain/overview) is the easy way to start building completely custom agents and applications powered by LLMs. With under 10 lines of code, you can connect to OpenAI, Anthropic, Google, and more.
-
 Alternative agent frameworks include: LlamaIndex, CrewAI, OpenAI Agents SDK, Google ADK.
 
 ## B. Agent Runtime
 
-Runtimes manage state and state transitions (orchestration). In other words, building, managing, and deploying long-running, stateful agents. Concretely, things like:
+Agent runtimes like [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview) manage state and state transitions (orchestration). In other words, building, managing, and deploying long-running, stateful agents. Concretely, things like:
 
 * **Control-flow**: Step by step instructions, conditional execution, and loops.
 * **Persistence**: Thread-level and cross-thread persistence for state management.
@@ -160,21 +233,20 @@ Runtimes manage state and state transitions (orchestration). In other words, bui
 * **Streaming**: Support for streaming workflows and responses.
 * **Human-in-the-loop**: Incorporate human oversight by inspecting and modifying agent state.
 
-[LangGraph](https://docs.langchain.com/oss/python/langgraph/overview) builds and runs the flowchart.
-
 ## C. Agent Platform
 
 [LangFuse](https://langfuse.com/) (Open-source alternative to LangSmith): Traces, evals, prompt management and metrics to debug and improve your LLM application.
 
 ## What about Deep Agents?
 
-**Deep Agents** is LangChain's relatively new high-level library that makes it easy to get started, but you quickly run into issues where you need more control. The reason people use frameworks is to control the undeterministic nature of LLMs. Deep Agents doesn't help with that, it only makes the first 5 minutes easy.
+- [**Deep Agents**](https://docs.langchain.com/oss/python/deepagents/overview) is LangChain's relatively new high-level library that makes it easy to get started.
+- but you quickly run into issues where you need more control.
+- The reason people use frameworks is to control the undeterministic nature of LLMs.
+- Deep Agents doesn't help with that, it only makes the first 5 minutes easy.
 
 ## Key Takeways
 
-Agents are LLMs. LLMs are undeterministic. Agentic Engineering is about taming its hallucinations and shortcomings to make it actually work like a real piece of software.
-
-To do that we will use:
+Agents are LLMs. LLMs are undeterministic. Agentic AI systems are about taming this model to make it actually work reliably. To do that we will use:
 
 - LangChain: the framework.
 - LangGraph: the runtime.
