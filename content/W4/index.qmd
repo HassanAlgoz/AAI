@@ -1,26 +1,27 @@
 ---
-title: "Index"
+title: "Agentic AI"
+subtitle: "Building LLM-based Agentic AI Systems"
+mermaid-format: svg
+toc-depth: 2
 format: 
   html:
     page-layout: full
-    toc: false
 ---
 
 ## Lessons
 
-### Models and Agents
-
-- [Introduction](./M1/00_intro.qmd)
-1. [Models](./M1/01_models.ipynb)
-2. [LangGraph](./M1/02_langgraph.ipynb)
-3. [Human-in-the-loop](./M1/03_human-in-the-loop.qmd)
-4. [Agent (and its loop)](./M1/04_agent.ipynb)
-   - Exercise: [Build a SQL agent](https://docs.langchain.com/oss/python/langchain/sql-agent).
-5. [State](./M1/05_state.ipynb)
+| \# | Lesson | Slides | Lab / Colab | Exercise |
+|---------------|---------------|---------------|---------------|---------------|
+| 0 | Introduction | [Slides](./M1/00_intro.qmd) |  |  |
+| 1 | Models | [Slides](./M1/01_models_slides.qmd) | [Lab](./M1/01_models.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/M1/01_models.ipynb)) | [Ex1: Models](./M1/exercises/ex1_models.qmd) |
+| 2 | LangGraph | [Slides](./M1/02_langgraph_slides.qmd) | [Lab](./M1/02_langgraph.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/M1/02_langgraph.ipynb)) | [Ex2: Implement Agent](./M1/exercises/ex2_implement_agent.qmd) |
+| 3 | Human-in-the-loop | [Human-in-the-loop](./M1/03_human-in-the-loop.qmd) |  |  |
+| 4 | Agent (and its loop) |  | [Agent (and its loop)](./M1/04_agent.ipynb) | [Build a SQL agent](https://docs.langchain.com/oss/python/langchain/sql-agent) |
+| 5 | State |  | [State](./M1/05_agent_state.ipynb) |  |
 
 ## [Need Help?](https://docs.langchain.com/oss/python/langchain/get-help)
 
-[Ask LangChain docs AI](https://chat.langchain.com/) or 
+[Ask LangChain docs AI](https://chat.langchain.com/) or
 
 Get help from fellow developers and the LangChain team through our active community channels.
 
