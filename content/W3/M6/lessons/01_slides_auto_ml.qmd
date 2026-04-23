@@ -1,0 +1,52 @@
+---
+title: "Auto ML"
+format:
+  revealjs:
+    incremental: true
+    slide-level: 2
+---
+
+## Auto ML with PyCaret (1/2)
+
+Please watch this 13 minutes video (**PyCaret 2.3.6 NEW Features**) for a walkthrough:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Qr6Hu2t2gwY?si=tL_gGtzJ0psQVhKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+**Bookmark this** [**PyCaret cheat-sheet**](https://pycaret.gitbook.io/docs/learn-pycaret/cheat-sheet).
+
+## Auto ML with PyCaret (2/2)
+
+[**PyCaret**](https://pycaret.gitbook.io/docs) is an [open-source](https://github.com/pycaret/pycaret), low-code machine learning library in Python that automates machine learning workflows. It is an end-to-end machine learning and model management tool that speeds up the experiment cycle exponentially and makes you more productive.
+
+In comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as [`scikit-learn`](https://scikit-learn.org/stable/), [`XGBoost`](https://xgboost.ai/), [`LightGBM`](https://lightgbm.readthedocs.io/en/stable/), [`CatBoost`](https://catboost.ai/), [`Optuna`](https://optuna.org/), [`Hyperopt`](https://hyperopt.github.io/hyperopt/), [`Ray`](https://www.ray.io/), and many more.
+
+## Auto ML with AutoGluon (recommended)
+
+- [AutoGluon > Tabular](https://auto.gluon.ai/stable/tutorials/tabular/index.html): With just a single call to `fit()`, you can achieve high accuracy in standard supervised learning tasks (both classification and regression), without dealing with cumbersome issues like data cleaning, feature engineering, hyperparameter optimization, model selection, etc.
+
+- [AutoGluon > How it Works](https://auto.gluon.ai/stable/tutorials/tabular/how-it-works.html): AutoGluon is different (than other AutoML solutions) because it doesn’t rely on HPO (Hyper-parameter optimization) to achieve great performance. It’s based on three main principles:
+    1. training a variety of **different models**
+    2. using **bagging** when training those models
+    3. **stack-ensembling** those models to combine their predictive power into a “super” model.
+
+## AutoGluon: What Models To Use?
+
+- One key part of this whole process is deciding which models to train and ensemble. Although ensembling, in general, is a very powerful technique; choosing the right models can be the difference between mediocre and excellent performance.
+  
+- To answer this question, we evaluated **1,310 models** on **200 distinct datasets** to compare the performance of different combinations of algorithms and hyperparameter configurations. The evaluation is available in this [repository](https://github.com/autogluon/tabrepo/tree/main).
+  
+- With the results of this extensive evaluation, we chose a set of pre-defined configurations to use in AutoGluon by default[[6]](https://auto.gluon.ai/stable/tutorials/tabular/how-it-works.html#id12) based on the desired performance (e.g. “best quality”, “medium quality”, etc.). These presets even define the order in which models should be trained to maximize the use of training time.
+
+
+## Visual IDEs for ML: Orange
+
+![](https://orangedatamining.com/_next/static/media/orange_illustration_landing.58a920f0.png){fig-align="center"}
+
+[orangedatamining.com](https://orangedatamining.com/)
+
+## Visual IDEs for ML: KNIME
+
+![](https://res.cloudinary.com/dry8rzbyx/image/fetch/s--fKNIcdcE--/f_auto/q_auto/c_scale,w_2556/https://www.knime.com/sites/default/files/public/2025-12/this-is-a-node.jpg){fig-align="center" .r-stretch}
+
+[knime.com](https://www.knime.com/)
+
