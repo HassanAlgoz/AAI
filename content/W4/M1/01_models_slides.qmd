@@ -15,7 +15,7 @@ execute:
 
 - **[Interactive lab notebook](./01_models.ipynb)** — run all code here
 - **Exercise:** [Ex1: Models](./exercises/ex1_models.qmd)
-- **Colab (external repo):** [Open in Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/M1/01_models.ipynb)
+- **Colab (external repo):** [Open in Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/01_models.ipynb)
 :::
 
 ---

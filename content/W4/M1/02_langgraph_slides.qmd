@@ -15,7 +15,7 @@ execute:
 
 - **[Interactive lab notebook](./02_langgraph.ipynb)** — run all code here
 - **Exercise:** [Ex2: Implement Agent](./exercises/ex2_implement_agent.qmd)
-- **Colab (external repo):** [Open in Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/M1/02_langgraph.ipynb)
+- **Colab (external repo):** [Open in Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/02_langgraph.ipynb)
 :::
 
 # Overview
