@@ -1054,49 +1054,49 @@
     "href": "W3/index.html#module-1-linear-models",
     "title": "Applied Machine Learning",
     "section": "Module 1: Linear Models",
-    "text": "Module 1: Linear Models\n\nM1-1: Introduction to ML\n\n\nLearning outcomes:\n\nDefine Machine Learning and understand its utility\nIdentify the two main tasks in Supervised ML\nIdentify the two parts of a Data Matrix\nDistinguish Features from Target\nRecognize foundations and related fields\nRecognize the three main topics of ML\n\n\nMaterials:\n\n🧬 Slides: Introduction (1 hour)\n\n\n\n\n\n\nM1-2: Linear Models\n\n\nLearning outcomes:\n\nGiven a DataFrame, split the feature columns from the target columns\nTrain a regressor (LinearRegression) model\nInspect the learned parameters of the model\nPredict the target for any feature value\nPlot the data scatter plot\nPlot the linear regression line on the same plot\nEstimate the model error\nGiven a (features-target) split, further split the data into (train-test)\nJustify having a held-out set for testing\nExplain what the stratify=target parameter does\nTrain a classifier (LogisticRegression) model\nGiven a DecisionBoundaryDisplay distinguish between a classifier’s predict and predict_proba methods\n\n\nMaterials:\n\n🧬 Slides: Linear Models (45m)\n🔬 Lab: Linear Models (45m)\n\nResources:\n\nhttps://scikit-learn.org/\n\n\nExercises\n\n✍️ Model Hours vs Marks (3hr)\n✍️ Model Experience vs Salary (30m)\n\n\n\n\n\n\n\nM1-3: Non-linear Patterns\n\n\nLearning outcomes:\n\nDistinguish between linear and non-linear relationships.\nFit non-linear patterns using non-linear models.\nFit non-linear patterns using linear models with PolynomialFeatures.\nFit non-linear patterns using linear models with SplineTransformer.\nRecognize Decision Trees and Support Vector Machines as non-linear models.\n\n\nMaterials:\n\n🧬 Slides: Non-linear patterns (25m)\n🔬 Lab: Non-linear patterns (15m)\n\n\nExercises\n\n✍️ Iris Classification (2hr)\n✍️ Modeling Non-linear Patterns (30m)"
+    "text": "Module 1: Linear Models\n\nM1-1: Introduction to ML\n\n\nLearning outcomes:\n\nDefine Machine Learning and understand its utility\nIdentify the two main tasks in Supervised ML\nIdentify the two parts of a Data Matrix\nDistinguish Features from Target\nRecognize foundations and related fields\nRecognize the three main topics of ML\n\n\nMaterials:\n\n🧬 Slides: Introduction (1 hour)\n\n\n\n\n\n\nM1-2: Linear Models\n\n\nLearning outcomes:\n\nGiven a DataFrame, split the feature columns from the target columns\nTrain a regressor (LinearRegression) model\nInspect the learned parameters of the model\nPredict the target for any feature value\nPlot the scatter plot and the regression line\nGiven a features-target split (X, y), further split it into train-test\nExplain why we split data into train-test splits, and why the test set is held-out\nExplain what the stratify=target parameter does\nTrain a classifier (LogisticRegression) model\nGiven a DecisionBoundaryDisplay distinguish between a classifier’s predict and predict_proba methods\n\n\nMaterials:\n\n🧬 Slides: Linear Models (45m)\n🔬 Lab: Linear Models (45m)\n\nResources:\n\nhttps://scikit-learn.org/\n\n\nExercises\n\n✍️ Model Hours vs Marks (3hr)\n✍️ Model Experience vs Salary (30m)\n\n\n\n\n\n\n\nM1-3: Non-linear Patterns\n\n\nLearning outcomes:\n\nDistinguish between linear and non-linear relationships.\nFit non-linear patterns using linear models with PolynomialFeatures.\nFit non-linear patterns using linear models with SplineTransformer.\nFit non-linear patterns using non-linear models (Decision Tree).\n\n\nMaterials:\n\n🧬 Slides: Non-linear patterns (25m)\n🔬 Lab: Non-linear patterns (15m)\n\n\nExercises\n\n✍️ Iris Classification (2hr)\n✍️ Modeling Non-linear Patterns (30m)"
   },
   {
     "objectID": "W3/index.html#module-2-predictive-modeling-pipelines",
     "href": "W3/index.html#module-2-predictive-modeling-pipelines",
     "title": "Applied Machine Learning",
     "section": "Module 2: Predictive Modeling Pipelines",
-    "text": "Module 2: Predictive Modeling Pipelines\nGoal: Build a Pipeline to handle preprocessing of both categorical and numerical features.\n\n\nLearning outcomes:\n\nIdentify causes of missing data\nApply KNNImputer to fill missing values; both numerical and categorical\nDetect errors where fit and transform are misused on the wrong set of data\nEnumerate the correct order of predictive modeling pipeline steps\nExplain the need for Feature Scaling in layman terms\nDistinguish between linear and non-linear scaling methods\nGiven a scaled dataset, use inverse_transform to show their original values\nDistinguish between OrdinalEncoder and OneHotEncoder\nShow why one-hot encoding could be a problem; and explain how to handle\nExplain why we split data into train-test splits\nList steps to avoid data leakage\nDistinguish between fit, predict, and transform methods\nPut together pieces of the Pipeline using objects like ColumnTransformer\n\n\nMaterials:\n\n🔬 Lab: Handle Missing Values (20m)\n🔬 Lab: Scaling: Numerical Features (20m)\n🔬 Lab: Encoding: Cateogrical Features (15m)\n🧬 Slides: Pipelines (20m)\n🔬 Lab: Pipelines (10m)\n\n\nExercises\n\n✍️ Advertising Revenue (1hr)\n✍️ Fuel Efficiency (30m)\n\nBonus:\n\nEffect of rescaling on a k-neighbors models (30m)\nHigh-cardinality categorical features (20m)"
+    "text": "Module 2: Predictive Modeling Pipelines\nGoal: Build a Pipeline to handle preprocessing of both categorical and numerical features.\n\n\nLearning outcomes:\n\nIdentify at least 2 causes of missing data\nApply KNNImputer to fill missing values; both numerical and categorical\nDebug errors where fit and transform are misused on the wrong set of data\nExplain the need for Feature Scaling in layman terms\nDistinguish between linear and non-linear scaling methods\nIdentify when to use non-linear scaling\nGiven a scaled dataset, use inverse_transform to show their original values\nDistinguish between OrdinalEncoder and OneHotEncoder\nUnderstand the memory problem of one-hot encoding; and explain the solution\nRecognize cases of data leakage\nExplain how a scikit-learn Pipeline helps avoid data leakage\nRecognize the function of each of: fit, transform, predict, and score methods\nUse ColumnTransformer to build a mixed-type pipeline that can handle both numerical and categorical features\n\n\nMaterials:\n\n🔬 Lab: Handle Missing Values (20m)\n🔬 Lab: Scaling: Numerical Features (20m)\n🔬 Lab: Encoding: Cateogrical Features (15m)\n🧬 Slides: Pipelines (20m)\n🔬 Lab: Pipelines (10m)\n\n\nExercises\n\n✍️ Advertising Revenue (1hr)\n✍️ Fuel Efficiency (30m)\n\nBonus:\n\nEffect of rescaling on a k-neighbors models (30m)\nHigh-cardinality categorical features (20m)"
   },
   {
     "objectID": "W3/index.html#module-3-model-selection-and-evaluation",
     "href": "W3/index.html#module-3-model-selection-and-evaluation",
     "title": "Applied Machine Learning",
     "section": "Module 3: Model Selection and Evaluation",
-    "text": "Module 3: Model Selection and Evaluation\n\nM3-1: Evaluation Metrics\n\n\nLearning outcomes:\nIn this lecture we learn to:\n\nDistinguish loss functions from evaluation metrics\nList 3 Regression Metrics and 3 Classification Metrics\nEstablish a baseline for learning\nMeasure the scalability of the model\nExplain why more data might not add any information to the model and suggest solution\nDetect over-fitting and under-fitting by estimating generalization performance\nUnderstand and use cross-validation properly\nExplain the utility of the train/validation/test splits\n\n\nMaterials:\n\n🧬 Slides: Model Evaluation (30m)\n🔬 Lab: Cross-validation (20m)\n\n\n\n\n\n\nM3-2: Hyper-parameter Tuning\n\n\nLearning outcomes:\n\nGiven Linear Regression or Decision Tree model, distinguish between it’s parameters and hyper-parameters\nRecognize the 5 elements of hyper-parameter search in scikit-learn\nExplain the process of hyper-parameter search; describing the role of each of the 5 elements\nExplain the difference between Grid Search and either Random Search or Bayesian Search\nRecognize the more efficient, model-specific cross-validations\nExplain the problem of data dependency and why sample grouping solves it\n\n\nMaterials:\n\n🔬 Lab: Hyper-parameter Tuning (30m)\n\nExtra:\n\nText: Controlling Randomness\nDistinguish different cases to use random_state correctly to control randomness"
+    "text": "Module 3: Model Selection and Evaluation\n\nM3-1: Evaluation Metrics\n\n\nLearning outcomes:\nIn this lecture we learn to:\n\nDetect over-fitting and under-fitting by estimating generalization performance\nEstablish a baseline for a model\nMeasure the scalability of the model\nIdentify other properties we need from a dataset besides quantity\nUse cross-validation and explain it’s inner-working\nRecognize that a new model is instantiated for each train-validation score\n\n\nMaterials:\n\n🧬 Slides: Model Evaluation (30m)\n🔬 Lab: Cross-validation (20m)\n\n\n\n\n\n\nM3-2: Hyper-parameter Tuning\n\n\nLearning outcomes:\n\nDistinguish betweeen parameters and hyper-parameters\n\nGiven linear regression model, identify it’s parameters and hyper-parameters\nGiven a decision tree model, identify it’s parameters and hyper-parameters\n\nExplain the full process of hyper-parameter search; describing the role of each of the 5 elements\nDistinguish between Grid Search and Random Search\n\n\nMaterials:\n\n🔬 Lab: Hyper-parameter Tuning (30m)\n\nExtra:\n\nText: Controlling Randomness\nDistinguish different cases to use random_state correctly to control randomness"
   },
   {
     "objectID": "W3/index.html#module-4-regression-and-classification-metrics",
     "href": "W3/index.html#module-4-regression-and-classification-metrics",
     "title": "Applied Machine Learning",
     "section": "Module 4: Regression and Classification Metrics",
-    "text": "Module 4: Regression and Classification Metrics\n\nM4-1: Regression Metrics\n\n\nLearning outcomes:\n\nExplain why regression models need dedicated evaluation metrics.\nInterpret and compare MSE, (R^2), MAE, median AE, and MAPE.\nDiagnose regression models visually using prediction and residual plots.\nExplain when a target transformation can improve model fit and metrics.\n\n\nMaterials:\n\n🧬 Slides: Regression Metrics (25m)\n🔬 Lab: Evaluation of Regression Models (20m)\n\n\n\n\n\n\nM4-2: Classification Metrics\n\n\nLearning outcomes:\n\nDistinguish between classification metrics on the basis of FP and FN\nGiven a confusion matrix; tell the performance of a classifier\nGiven a PR-curve or ROC-curve; be able to tell which classifier is better\nGiven a set of classifiers; evaluate and select the best one\n\n\nMaterials:\n\n🧬 Slides: Classification Metrics (30m)\n🔬 Lab: Classification Metrics (10m)\nWidget: Classifier Threshold (10m)\n\n\n\n\n\n\nM4-3: Classifier Threshold Tuning\n\n\nLearning outcomes:\n\nDistinguish cases where one should trade Recall for Precision and vice-versa\nIdentify the component that affects this trade-off in a fitted classifier (it is the classification threshold)\nGiven a classifier; tune the decision threshold to optimize cost/objective function\nUnderstand why probability calibration is important\n\n\nMaterials:\n\n🔬 Lab: Classification Threshold Tuning (10m)"
+    "text": "Module 4: Regression and Classification Metrics\n\nM4-1: Regression Metrics\n\n\nLearning outcomes:\n\nTell which of MAE and MSE are more sensitive to outliers and why\nRecgonize the range of each of: R^2-score and MAPE; and interpret their results in layman terms for a specific business domain\nInterpret a prediction plot and a residual plot; and recognize what action could be taken from these plots\nExplain when a target transformation may improve model fit and metrics.\n\n\nMaterials:\n\n🧬 Slides: Regression Metrics (25m)\n🔬 Lab: Evaluation of Regression Models (20m)\n\n\n\n\n\n\nM4-2: Classification Metrics\n\n\nLearning outcomes:\n\nGiven a confusion matrix; tell the performance of a classifier\nGiven a PR-curve or ROC-curve; be able to tell which classifier is better\nDistinguish between classification metrics on the basis of FP (Precision) and FN (Recall)\n\n\nMaterials:\n\n🧬 Slides: Classification Metrics (30m)\n🔬 Lab: Classification Metrics (10m)\nWidget: Classifier Threshold (10m)\n\n\n\n\n\n\nM4-3: Classifier Threshold Tuning\n\n\nLearning outcomes:\n\nRecognize the effect of moving the classifier threshold up and down\nGiven a classifier; tune the decision threshold to optimize a custom cost/objective function in terms of FP:FN ratio\n\n\nMaterials:\n\n🔬 Lab: Classification Threshold Tuning (10m)"
   },
   {
     "objectID": "W3/index.html#module-5-decision-trees-and-ensembles",
     "href": "W3/index.html#module-5-decision-trees-and-ensembles",
     "title": "Applied Machine Learning",
     "section": "Module 5: Decision Trees and Ensembles",
-    "text": "Module 5: Decision Trees and Ensembles\n\nM5-1: Decision Trees\n\n\nLearning outcomes:\n\nExplain how decision trees work for regression; two levels deep\nExplain how decision trees work for classification; two levels deep\nExplain how the maximum depth impacts generalization performance?\nEnumerate at least 2 advantages of decision trees\n\n\nMaterials:\n\n🧬 Slides: Decision Trees (15m)\n🔬 Lab: Decision Trees (10m)\n\n\n\n\n\nM5-2: Ensemble Methods\n\n\nLearning outcomes:\n\nDescribe the bagging ensemble method\nDescribe the boosting ensemble method\nRecognize which of the two methods a Random Forest is an instance of\nList at least 2 difference between bagging and boosting\nRank the three boosting techniques (Ada Boost, Gradient Boosting, Histogram Gradient Boosting) in terms of accuracy and computational cost\n\n\nMaterials:\n\n🧬 Slides: Bagging (10m)\n🧬 Slides: Boosting (15m)\n🔬 Lab: Ensembles (20m)"
+    "text": "Module 5: Decision Trees and Ensembles\n\nM5-1: Decision Trees\n\n\nLearning outcomes:\n\nRecognize at least 1 advantage of decision trees (simple to explain)\nExplain how decision trees work for regression (averaging)\nExplain how decision trees work for classification (voting)\nExplain how the maximum depth impacts generalization performance\n\n\nMaterials:\n\n🧬 Slides: Decision Trees (15m)\n🔬 Lab: Decision Trees (10m)\n\n\n\n\n\nM5-2: Ensemble Methods\n\n\nLearning outcomes:\n\nExplain what an Ensemble is in layman terms\nDescribe the process of Bagging in layman terms\nDescribe the process of Boosting in layman terms\nRecognize which of the two methods a Random Forest is an instance of\nIdentify at least 1 difference between Bagging and Boosting\n\n\nMaterials:\n\n🧬 Slides: Bagging (10m)\n🧬 Slides: Boosting (15m)\n🔬 Lab: Ensembles (20m)"
   },
   {
     "objectID": "W3/index.html#module-6-auto-machine-learning",
     "href": "W3/index.html#module-6-auto-machine-learning",
     "title": "Applied Machine Learning",
     "section": "Module 6: Auto Machine Learning",
-    "text": "Module 6: Auto Machine Learning\n\nM6-1: Auto ML with PyCaret\nPyCaret is an open-source, low-code machine learning library in Python that automates machine learning workflows. It is an end-to-end machine learning and model management tool that speeds up the experiment cycle exponentially and makes you more productive.\nIn comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as scikit-learn, XGBoost, LightGBM, CatBoost, Optuna, Hyperopt, Ray, and many more.\nPlease watch this 13 minutes video (PyCaret 2.3.6 NEW Features) for a walkthrough:\n\n\nBookmark this PyCaret cheat-sheet.\n\nExercises\n\n✍️ Housing Prices Model (PyCaret)\n✍️ Penguins Classification (PyCaret)\n\n\n\n\nM6-2: Explainable AI\n\n\nLearning outcomes:\n\nShow the impact (positive and negative) of features on individual predictions made by the model\nExplian the Waterfall Plot as visualized\nRank features by impact\nShow features that have infrequently high impact\nInterpret a SHAP heatmap\nZoom in on specific features to inspect their impact and support for specific SHAP-values\n\n\nMaterials:\n\n🔬 Lab: SHAP\n\n\n\n\n\nM6-3: Data Profiling and Privacy\n\n\nLearning outcomes:\n\nDefine data quality profiling and why it matters\nExplain how profiling differs by data type (tabular, time-series, text, …)\nDescribe how to handle large datasets (e.g., sampling)\nUse dataset comparison to track quality across versions\nUnderstand data quality alerts and turn them into next actions\nUnderstand why Data Privacy matters\nGiven a dataset, indentify fields that count as PII directly and indirectly\nGiven a dataset, apply techniques to protect sensitive data\n\n\nMaterials:\n\n🧬 Slides: Data Quality Profiling\n🧬 Slides: Sensitive Data"
+    "text": "Module 6: Auto Machine Learning\nMaterials:\n\n🧬 Slides: Auto ML with AutoGluon\n\n\nExercises\n\n✍️ Housing Prices Model\n✍️ Penguins Classification"
   },
   {
     "objectID": "W3/index.html#project",
     "href": "W3/index.html#project",
     "title": "Applied Machine Learning",
     "section": "Project",
-    "text": "Project\n🎯 Project Details."
+    "text": "Project\n🎯 Machine Learning Project Details."
   },
   {
     "objectID": "W3/index.html#resources",
@@ -3896,14 +3896,14 @@
     "href": "W3/Project/Project.html#deployment",
     "title": "Machine Learning Project",
     "section": "Deployment",
-    "text": "Deployment\n\ncreate_api\nThis function takes an input model and creates a POST API for inference. It only creates the API and doesn’t run it automatically.\ncreate_docker\nThis function creates a Dockerfile and requirements.txt for deploying API.\ncreate_app\nThis function creates a basic gradio app for inference."
+    "text": "Deployment\n\nAutoGluon (recommended)\nDeploying an AutoGluon model locally is straightforward because AutoGluon is designed to save its models directly to your local file system during training. To “deploy” it, you simply need to load that saved model artifact into a serving script—typically wrapping it in a lightweight API framework like FastAPI or Flask.\n# Replace this with the actual path to your AutoGluon model folder\nMODEL_PATH = \"AutogluonModels/ag-20230915_123456/\" \npredictor = TabularPredictor.load(MODEL_PATH)\n\n\nPyCaret\n\ncreate_api\nThis function takes an input model and creates a POST API for inference. It only creates the API and doesn’t run it automatically.\ncreate_docker\nThis function creates a Dockerfile and requirements.txt for deploying API.\ncreate_app\nThis function creates a basic gradio app for inference.\nconvert_model\nThis function transpiles the trained machine learning model’s decision function in different programming languages. such as Python, C, Java, Go, C#, etc. It is very useful if you want to deploy models into environments where you can’t install your normal Python stack to support model inference."
   },
   {
     "objectID": "W3/Project/Project.html#deliverable",
     "href": "W3/Project/Project.html#deliverable",
     "title": "Machine Learning Project",
     "section": "Deliverable",
-    "text": "Deliverable\nGit Repo with a README.md that includes the above key points.\nInclude a “Usage” section on how to setup and use the trained model."
+    "text": "Deliverable\ngit repo with a README.md which covers:\n\nthe key points above\ninclude a “Setup and Usage” section on how to setup and use the trained model"
   },
   {
     "objectID": "W3/M3/lessons/sample_grouping.html",
@@ -6830,5 +6830,82 @@
     "title": "State",
     "section": "Key Takeaways",
     "text": "Key Takeaways\nThe ToolRuntime instance gives agents access to runtime information via tools:\n\nrunetime.state: mutable conversation data (messages, custom fields) persisted with a checkpointer.\n\nUse InMemorySaver() for development; use a DB-backed checkpointer (e.g. PostgresSaver) in production.\nUse config={\"configurable\": {\"thread_id\": \"...\"}} to keep or resume a thread.\n\nCustom state: extend AgentState with extra fields:\n\nPass state_schema=CustomAgentState to create_agent().\nTools read state via runtime.state; the runtime parameter is not exposed to the model.\n\nUpdating state from tools:\n\nReturn a Command(update={...}) from a tool.\nInclude a ToolMessage with tool_call_id so the model sees the tool result.\n\n\n\nruntime.context: read-only config at invocation (e.g. user ID, session info).\n\nDefine a dataclass and pass it as context_schema to create_agent().\nProvide an instance via context=... when calling invoke().\nTools read it via runtime.context.\n\nconfig: e.g. thread_id to identify or resume a thread."
+  },
+  {
+    "objectID": "W3/index.html#auto-machine-learning",
+    "href": "W3/index.html#auto-machine-learning",
+    "title": "Applied Machine Learning",
+    "section": "Auto Machine Learning",
+    "text": "Auto Machine Learning\nUse AutoGluon instead of PyCaret.\nVisual IDEs for ML:\n\nOrange (Open-source)\nKNIME\n\n\nExercises\n\n✍️ Housing Prices Model\n✍️ Penguins Classification"
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-pycaret-12",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-pycaret-12",
+    "title": "Auto ML",
+    "section": "Auto ML with PyCaret (1/2)",
+    "text": "Auto ML with PyCaret (1/2)\nPlease watch this 13 minutes video (PyCaret 2.3.6 NEW Features) for a walkthrough:\n\n\nBookmark this PyCaret cheat-sheet."
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-pycaret-22",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-pycaret-22",
+    "title": "Auto ML",
+    "section": "Auto ML with PyCaret (2/2)",
+    "text": "Auto ML with PyCaret (2/2)\nPyCaret is an open-source, low-code machine learning library in Python that automates machine learning workflows. It is an end-to-end machine learning and model management tool that speeds up the experiment cycle exponentially and makes you more productive.\nIn comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as scikit-learn, XGBoost, LightGBM, CatBoost, Optuna, Hyperopt, Ray, and many more."
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-autogluon",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-autogluon",
+    "title": "Auto ML",
+    "section": "Auto ML with AutoGluon",
+    "text": "Auto ML with AutoGluon\n\nAutoGluon &gt; Tabular: With just a single call to fit(), you can achieve high accuracy in standard supervised learning tasks (both classification and regression), without dealing with cumbersome issues like data cleaning, feature engineering, hyperparameter optimization, model selection, etc.\nAutoGluon &gt; How it Works: AutoGluon is different (than other AutoML solutions) because it doesn’t rely on HPO (Hyper-parameter optimization) to achieve great performance. It’s based on three main principles:\n\ntraining a variety of different models\nusing bagging when training those models\nstack-ensembling those models to combine their predictive power into a “super” model."
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#autogluon-what-models-to-use",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#autogluon-what-models-to-use",
+    "title": "Auto ML",
+    "section": "AutoGluon: What Models To Use?",
+    "text": "AutoGluon: What Models To Use?\n\nOne key part of this whole process is deciding which models to train and ensemble. Although ensembling, in general, is a very powerful technique; choosing the right models can be the difference between mediocre and excellent performance.\nTo answer this question, we evaluated 1,310 models on 200 distinct datasets to compare the performance of different combinations of algorithms and hyperparameter configurations. The evaluation is available in this repository.\nWith the results of this extensive evaluation, we chose a set of pre-defined configurations to use in AutoGluon by default[6] based on the desired performance (e.g. “best quality”, “medium quality”, etc.). These presets even define the order in which models should be trained to maximize the use of training time."
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#visual-ides-for-ml",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#visual-ides-for-ml",
+    "title": "Auto ML",
+    "section": "Visual IDEs for ML",
+    "text": "Visual IDEs for ML\n\nOrange (Open-source)\nKNIME"
+  },
+  {
+    "objectID": "W4/data/HR/resume/271138332/prompt.html",
+    "href": "W4/data/HR/resume/271138332/prompt.html",
+    "title": "Applied AI Bootcamp",
+    "section": "",
+    "text": "i have used following prompt to chatGPT (Assuming i have provided the lookups as csv files)\nWe ll be parsing a CV and giving that data to the GPT as well.\nGenerate a JSON object with the candidate’s details extracted from the uploaded CV and tabular data.\n• Use the lookup tables I’ve provided to resolve IDs wherever applicable (nationality, country, city, university, major).\n• Always infer and include a likely gender (Male / Female) from the candidate’s name if it’s not explicitly stated; if you truly can’t infer it, leave gender as null.\n• If any other field is missing, leave it null.\n• Provide JSON only—don’t assume anything not clearly stated.\n\nThe JSON must contain:\n\nemail\n\nname (Arabic name if present)\n\ngender (Male / Female / null)\n\nname_eng (English name)\n\nphone (in international format exactly as in CV)\n\nnationality_new_id (ID if in lookup, otherwise nationality name)\n\ncountry_id (ID if in lookup, otherwise the country name)\n\ncity_new_id (ID if in lookup, otherwise the city name)\n\nbirth_date (YYYY-MM-DD)\n\nhas_bachelors (boolean)\n\nuniversity_id (ID or “Other”)\n\nother_university (name if “Other” selected)\n\nmajor_id\n\ntotal_experience_month\n\nfulltime_months_of_experience\n\nprogramming_languages (ID if in lookup, otherwise programming language name)\n\nspecializations (ID if in lookup, otherwise an empty list [])\n\nframeworks (ID if in lookup, otherwise frameworks name)\n\ntechnologies (ID if in lookup, otherwise technologies name)\nResult i got is\n{\n  \"email\": \"williamchao97@gmail.com\",\n  \"name\": null,\n  \"gender\": \"Male\",\n  \"name_eng\": \"William Chao\",\n  \"phone\": \"+1 6047268475\",\n  \"nationality_new_id\": 35,\n  \"country_id\": 38,\n  \"city_new_id\": \"Vancouver\",\n  \"birth_date\": null,\n  \"has_bachelors\": true,\n  \"university_id\": 1359,\n  \"other_university\": null,\n  \"major_id\": null,\n  \"total_experience_month\": 119,\n  \"fulltime_months_of_experience\": 119,\n  \"programming_languages\": [\"JavaScript\", \"TypeScript\", \"PHP\"],\n  \"specializations\": [],\n  \"frameworks\": [\"React\", \"Next.js\", \"Express.js\", \"Laravel\"],\n  \"technologies\": [\"Amazon AWS\", \"Kubernetes\", \"GraphQL\", \"Tailwind CSS\", \"MongoDB\", \"MySQL\", \"NoSQL\", \"RESTful API\", \"Docker\"]\n}"
+  },
+  {
+    "objectID": "W3/m6_index.html",
+    "href": "W3/m6_index.html",
+    "title": "Applied AI Bootcamp",
+    "section": "",
+    "text": "M6-2: Explainable AI\n\n\nLearning outcomes:\n\nShow the impact (positive and negative) of features on individual predictions made by the model\nExplian the Waterfall Plot as visualized\nRank features by impact\nShow features that have infrequently high impact\nInterpret a SHAP heatmap\nZoom in on specific features to inspect their impact and support for specific SHAP-values\n\n\nMaterials:\n\n🔬 Lab: SHAP\n\n\n\n\n\nM6-3: Data Profiling and Privacy\n\n\nLearning outcomes:\n\nDefine data quality profiling and why it matters\nExplain how profiling differs by data type (tabular, time-series, text, …)\nDescribe how to handle large datasets (e.g., sampling)\nUse dataset comparison to track quality across versions\nUnderstand data quality alerts and turn them into next actions\nUnderstand why Data Privacy matters\nGiven a dataset, indentify fields that count as PII directly and indirectly\nGiven a dataset, apply techniques to protect sensitive data\n\n\nMaterials:\n\n🧬 Slides: Data Quality Profiling\n🧬 Slides: Sensitive Data"
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#visual-ides-for-ml-orange",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#visual-ides-for-ml-orange",
+    "title": "Auto ML",
+    "section": "Visual IDEs for ML: Orange",
+    "text": "Visual IDEs for ML: Orange\n\n\n\n\n\norangedatamining.com"
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#visual-ides-for-ml-knime",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#visual-ides-for-ml-knime",
+    "title": "Auto ML",
+    "section": "Visual IDEs for ML: KNIME",
+    "text": "Visual IDEs for ML: KNIME\n\nknime.com"
+  },
+  {
+    "objectID": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-autogluon-recommended",
+    "href": "W3/M6/lessons/01_slides_auto_ml.html#auto-ml-with-autogluon-recommended",
+    "title": "Auto ML",
+    "section": "Auto ML with AutoGluon (recommended)",
+    "text": "Auto ML with AutoGluon (recommended)\n\nAutoGluon &gt; Tabular: With just a single call to fit(), you can achieve high accuracy in standard supervised learning tasks (both classification and regression), without dealing with cumbersome issues like data cleaning, feature engineering, hyperparameter optimization, model selection, etc.\nAutoGluon &gt; How it Works: AutoGluon is different (than other AutoML solutions) because it doesn’t rely on HPO (Hyper-parameter optimization) to achieve great performance. It’s based on three main principles:\n\ntraining a variety of different models\nusing bagging when training those models\nstack-ensembling those models to combine their predictive power into a “super” model."
   }
 ]

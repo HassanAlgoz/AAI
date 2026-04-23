@@ -202,7 +202,6 @@ window.Quarto = {
   <li><a href="#module-5-decision-trees-and-ensembles" id="toc-module-5-decision-trees-and-ensembles" class="nav-link" data-scroll-target="#module-5-decision-trees-and-ensembles">Module 5: Decision Trees and Ensembles</a></li>
   <li><a href="#module-6-auto-machine-learning" id="toc-module-6-auto-machine-learning" class="nav-link" data-scroll-target="#module-6-auto-machine-learning">Module 6: Auto Machine Learning</a></li>
   <li><a href="#project" id="toc-project" class="nav-link" data-scroll-target="#project">Project</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -273,11 +272,9 @@ window.Quarto = {
 <li>Train a regressor (<code>LinearRegression</code>) model</li>
 <li>Inspect the learned parameters of the model</li>
 <li>Predict the target for any feature value</li>
-<li>Plot the data scatter plot</li>
-<li>Plot the linear regression line on the same plot</li>
-<li>Estimate the model error</li>
-<li>Given a (features-target) split, further split the data into (train-test)</li>
-<li>Justify having a held-out set for testing</li>
+<li>Plot the scatter plot and the regression line</li>
+<li>Given a features-target split (X, y), further split it into train-test</li>
+<li>Explain why we split data into train-test splits, and why the test set is held-out</li>
 <li>Explain what the <code>stratify=target</code> parameter does</li>
 <li>Train a classifier (<code>LogisticRegression</code>) model</li>
 <li>Given a <code>DecisionBoundaryDisplay</code> distinguish between a classifier’s <code>predict</code> and <code>predict_proba</code> methods</li>
@@ -310,10 +307,9 @@ window.Quarto = {
 <p>Learning outcomes:</p>
 <ol type="1">
 <li>Distinguish between linear and non-linear relationships.</li>
-<li>Fit non-linear patterns using non-linear models.</li>
 <li>Fit non-linear patterns using linear models with <code>PolynomialFeatures</code>.</li>
 <li>Fit non-linear patterns using linear models with <code>SplineTransformer</code>.</li>
-<li>Recognize Decision Trees and Support Vector Machines as non-linear models.</li>
+<li>Fit non-linear patterns using non-linear models (Decision Tree).</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -340,19 +336,19 @@ window.Quarto = {
 <div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Identify causes of missing data</li>
+<li>Identify at least 2 causes of missing data</li>
 <li>Apply <code>KNNImputer</code> to fill missing values; both numerical and categorical</li>
-<li>Detect errors where <code>fit</code> and <code>transform</code> are misused on the wrong set of data</li>
-<li>Enumerate the correct order of predictive modeling pipeline steps</li>
+<li>Debug errors where <code>fit</code> and <code>transform</code> are misused on the wrong set of data</li>
 <li>Explain the need for <em>Feature Scaling</em> in layman terms</li>
 <li>Distinguish between linear and non-linear scaling methods</li>
+<li>Identify when to use non-linear scaling</li>
 <li>Given a scaled dataset, use <code>inverse_transform</code> to show their original values</li>
 <li>Distinguish between <code>OrdinalEncoder</code> and <code>OneHotEncoder</code></li>
-<li>Show why one-hot encoding could be a problem; and explain how to handle</li>
-<li>Explain why we split data into train-test splits</li>
-<li>List steps to avoid data leakage</li>
-<li>Distinguish between <code>fit</code>, <code>predict</code>, and <code>transform</code> methods</li>
-<li>Put together pieces of the <code>Pipeline</code> using objects like <code>ColumnTransformer</code></li>
+<li>Understand the memory problem of one-hot encoding; and explain the solution</li>
+<li>Recognize cases of data leakage</li>
+<li>Explain how a scikit-learn <code>Pipeline</code> helps avoid data leakage</li>
+<li>Recognize the function of each of: <code>fit</code>, <code>transform</code>, <code>predict</code>, and <code>score</code> methods</li>
+<li>Use <code>ColumnTransformer</code> to build a mixed-type pipeline that can handle both numerical and categorical features</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -388,14 +384,12 @@ window.Quarto = {
 <p>Learning outcomes:</p>
 <p>In this lecture we learn to:</p>
 <ol type="1">
-<li>Distinguish <em>loss functions</em> from <em>evaluation metrics</em></li>
-<li>List 3 Regression Metrics and 3 Classification Metrics</li>
-<li>Establish a <em>baseline</em> for learning</li>
-<li>Measure the <em>scalability</em> of the model</li>
-<li>Explain why more data might not add any information to the model and suggest solution</li>
 <li>Detect <em>over-fitting</em> and <em>under-fitting</em> by estimating <em>generalization</em> performance</li>
-<li>Understand and use <em>cross-validation</em> properly</li>
-<li>Explain the utility of the <em>train/validation/test</em> splits</li>
+<li>Establish a <em>baseline</em> for a model</li>
+<li>Measure the <em>scalability</em> of the model</li>
+<li>Identify other properties we need from a dataset besides quantity</li>
+<li>Use <em>cross-validation</em> and explain it’s inner-working</li>
+<li>Recognize that a new model is instantiated for each train-validation score</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -413,12 +407,13 @@ window.Quarto = {
 <div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Given Linear Regression or Decision Tree model, distinguish between it’s <em>parameters</em> and <em>hyper-parameters</em></li>
-<li>Recognize the 5 elements of hyper-parameter search in scikit-learn</li>
-<li>Explain the process of hyper-parameter search; describing the role of each of the 5 elements</li>
-<li>Explain the difference between Grid Search and either Random Search or Bayesian Search</li>
-<li>Recognize the more efficient, model-specific cross-validations</li>
-<li>Explain the problem of data dependency and why sample grouping solves it</li>
+<li>Distinguish betweeen <em>parameters</em> and <em>hyper-parameters</em>
+<ol type="1">
+<li>Given linear regression model, identify it’s <em>parameters</em> and <em>hyper-parameters</em></li>
+<li>Given a decision tree model, identify it’s <em>parameters</em> and <em>hyper-parameters</em></li>
+</ol></li>
+<li>Explain the full process of hyper-parameter search; describing the role of each of the 5 elements</li>
+<li>Distinguish between Grid Search and Random Search</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -443,10 +438,10 @@ Distinguish different cases to use <code>random_state</code> correctly to contro
 <div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Explain why regression models need dedicated evaluation metrics.</li>
-<li>Interpret and compare <em>MSE</em>, (<span class="math inline">R^2</span>), <em>MAE</em>, <em>median AE</em>, and <em>MAPE</em>.</li>
-<li>Diagnose regression models visually using <em>prediction</em> and <em>residual plots</em>.</li>
-<li>Explain when a <em>target transformation</em> can improve model fit and metrics.</li>
+<li>Tell which of MAE and MSE are more sensitive to outliers and why</li>
+<li>Recgonize the range of each of: <span class="math inline">R^2</span>-score and MAPE; and interpret their results in layman terms for a specific business domain</li>
+<li>Interpret a <em>prediction plot</em> and a <em>residual plot</em>; and recognize what action could be taken from these plots</li>
+<li>Explain when a <em>target transformation</em> may improve model fit and metrics.</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -464,10 +459,9 @@ Distinguish different cases to use <code>random_state</code> correctly to contro
 <div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Distinguish between classification metrics on the basis of <span class="math inline">FP</span> and <span class="math inline">FN</span></li>
 <li>Given a confusion matrix; tell the performance of a classifier</li>
 <li>Given a PR-curve or ROC-curve; be able to tell which classifier is better</li>
-<li>Given a set of classifiers; evaluate and select the best one</li>
+<li>Distinguish between classification metrics on the basis of <span class="math inline">FP</span> (Precision) and <span class="math inline">FN</span> (Recall)</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -486,10 +480,8 @@ Distinguish different cases to use <code>random_state</code> correctly to contro
 <div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Distinguish cases where one should trade Recall for Precision and vice-versa</li>
-<li>Identify the component that affects this trade-off in a fitted classifier (it is the classification threshold)</li>
-<li>Given a classifier; tune the decision threshold to optimize cost/objective function</li>
-<li>Understand why probability calibration is important</li>
+<li>Recognize the effect of moving the classifier threshold up and down</li>
+<li>Given a classifier; tune the decision threshold to optimize a custom cost/objective function in terms of <code>FP:FN</code> ratio</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -508,10 +500,10 @@ Distinguish different cases to use <code>random_state</code> correctly to contro
 <div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Explain how decision trees work for regression; two levels deep</li>
-<li>Explain how decision trees work for classification; two levels deep</li>
-<li>Explain how the maximum depth impacts generalization performance?</li>
-<li>Enumerate at least 2 advantages of decision trees</li>
+<li>Recognize at least 1 advantage of decision trees (simple to explain)</li>
+<li>Explain how decision trees work for regression (averaging)</li>
+<li>Explain how decision trees work for classification (voting)</li>
+<li>Explain how the maximum depth impacts generalization performance</li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -528,11 +520,11 @@ Distinguish different cases to use <code>random_state</code> correctly to contro
 <div class="column">
 <p>Learning outcomes:</p>
 <ol type="1">
-<li>Describe the bagging ensemble method</li>
-<li>Describe the boosting ensemble method</li>
+<li>Explain what an <em>Ensemble</em> is in layman terms</li>
+<li>Describe the process of <em>Bagging</em> in layman terms</li>
+<li>Describe the process of <em>Boosting</em> in layman terms</li>
 <li>Recognize which of the two methods a Random Forest is an instance of</li>
-<li>List at least 2 difference between bagging and boosting</li>
-<li>Rank the three boosting techniques (Ada Boost, Gradient Boosting, Histogram Gradient Boosting) in terms of accuracy and computational cost</li>
+<li>Identify at least 1 difference between <em>Bagging</em> and <em>Boosting</em></li>
 </ol>
 </div><div class="column">
 <p><strong>Materials:</strong></p>
@@ -547,79 +539,21 @@ Distinguish different cases to use <code>random_state</code> correctly to contro
 </section>
 <section id="module-6-auto-machine-learning" class="level2">
 <h2 class="anchored" data-anchor-id="module-6-auto-machine-learning">Module 6: Auto Machine Learning</h2>
-<section id="m6-1-auto-ml-with-pycaret" class="level3">
-<h3 class="anchored" data-anchor-id="m6-1-auto-ml-with-pycaret">M6-1: Auto ML with PyCaret</h3>
-<p><a href="https://pycaret.gitbook.io/docs"><strong>PyCaret</strong></a> is an <a href="https://github.com/pycaret/pycaret">open-source</a>, low-code machine learning library in Python that automates machine learning workflows. It is an end-to-end machine learning and model management tool that speeds up the experiment cycle exponentially and makes you more productive.</p>
-<p>In comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code></a>, <a href="https://xgboost.ai/"><code>XGBoost</code></a>, <a href="https://lightgbm.readthedocs.io/en/stable/"><code>LightGBM</code></a>, <a href="https://catboost.ai/"><code>CatBoost</code></a>, <a href="https://optuna.org/"><code>Optuna</code></a>, <a href="https://hyperopt.github.io/hyperopt/"><code>Hyperopt</code></a>, <a href="https://www.ray.io/"><code>Ray</code></a>, and many more.</p>
-<p>Please watch this 13 minutes video (<strong>PyCaret 2.3.6 NEW Features</strong>) for a walkthrough:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Qr6Hu2t2gwY?si=tL_gGtzJ0psQVhKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
-<p><strong>Bookmark this</strong> <a href="https://pycaret.gitbook.io/docs/learn-pycaret/cheat-sheet"><strong>PyCaret cheat-sheet</strong></a>.</p>
+<p><strong>Materials:</strong></p>
+<ul>
+<li><a href="../W3/M6/lessons/01_slides_auto_ml.html">🧬 Slides: Auto ML with AutoGluon</a></li>
+</ul>
 <section id="exercises-3" class="level4">
 <h4 class="anchored" data-anchor-id="exercises-3">Exercises</h4>
 <ul>
-<li><a href="../W3/M6/exercises/ex1_pycaret_regression.html">✍️ Housing Prices Model (PyCaret)</a></li>
-<li><a href="../W3/M6/exercises/ex2_pycaret_classification.html">✍️ Penguins Classification (PyCaret)</a></li>
+<li><a href="../W3/M6/exercises/ex1_pycaret_regression.html">✍️ Housing Prices Model</a></li>
+<li><a href="../W3/M6/exercises/ex2_pycaret_classification.html">✍️ Penguins Classification</a></li>
 </ul>
-</section>
-</section>
-<section id="m6-2-explainable-ai" class="level3">
-<h3 class="anchored" data-anchor-id="m6-2-explainable-ai">M6-2: Explainable AI</h3>
-<div class="columns">
-<div class="column">
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Show the impact (positive and negative) of features on individual predictions made by the model</li>
-<li>Explian the Waterfall Plot as visualized</li>
-<li>Rank features by impact</li>
-<li>Show features that have infrequently high impact</li>
-<li>Interpret a SHAP heatmap</li>
-<li>Zoom in on specific features to inspect their impact and support for specific SHAP-values</li>
-</ol>
-</div><div class="column">
-<p><strong>Materials:</strong></p>
-<ul>
-<li><a href="../W3/M6/lessons/01_lab_shap.html">🔬 Lab: SHAP</a></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="m6-3-data-profiling-and-privacy" class="level3">
-<h3 class="anchored" data-anchor-id="m6-3-data-profiling-and-privacy">M6-3: Data Profiling and Privacy</h3>
-<div class="columns">
-<div class="column">
-<p>Learning outcomes:</p>
-<ol type="1">
-<li>Define <em>data quality profiling</em> and why it matters</li>
-<li>Explain how profiling differs by <em>data type</em> (tabular, time-series, text, …)</li>
-<li>Describe how to handle <em>large datasets</em> (e.g., sampling)</li>
-<li>Use <em>dataset comparison</em> to track quality across versions</li>
-<li>Understand <em>data quality alerts</em> and turn them into next actions</li>
-<li>Understand why <strong>Data Privacy</strong> matters</li>
-<li>Given a dataset, indentify fields that count as PII directly and indirectly</li>
-<li>Given a dataset, apply techniques to protect sensitive data</li>
-</ol>
-</div><div class="column">
-<p><strong>Materials</strong>:</p>
-<ol type="1">
-<li><a href="../W3/M6/lessons/02_slides_data_quality_profiling.html">🧬 Slides: Data Quality Profiling</a></li>
-<li><a href="../W3/M6/lessons/03_slides_sensitive_data.html">🧬 Slides: Sensitive Data</a></li>
-</ol>
-</div>
-</div>
 </section>
 </section>
 <section id="project" class="level2">
 <h2 class="anchored" data-anchor-id="project">Project</h2>
-<p><a href="../W3/Project/Project.html"><strong>🎯 Project Details</strong></a>.</p>
-</section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<p>Visual IDEs for ML:</p>
-<ul>
-<li><a href="https://orangedatamining.com/">Orange</a> (Open-source)</li>
-<li><a href="https://www.knime.com/">KNIME</a></li>
-</ul>
+<p><a href="../W3/Project/Project.html"><strong>🎯 Machine Learning Project Details</strong></a>.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
