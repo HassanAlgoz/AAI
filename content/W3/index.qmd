@@ -9,11 +9,10 @@ toc-depth: 2
 By the end of this course, you should be able to: 
 
 1. Build **regression models** that use recorded data to estimate unknown data and make forecasts
-1. Build **classifier models** that can inform decision making in medical and business settings
-1. Build **reliable data pipelines** with robust pre-processing, post-processing with data quality and **privacy** in mind
-1. Analyze various **modeling issues** and **data quality issues**, debug them, and avoid blind-spots that fail many practitioners silently
-1. Apply **meta-learning** to search and automatically select the best model, from a set of models, for a given task
-1. Apply XAI to **explain model predictions** and feature importance using general methods that apply to all types of predictive models
+2. Build **classifier models** that can inform decision making in business or medical settings
+3. Evaluate and interpret various **metrics** and **visualizations** to take action on your data and models
+4. Understand what goes into building reliable data **pipelines**
+5. Use **Auto Machine Learning** and deploy your models to be used by others
 
 ## Module 1: Linear Models
 
