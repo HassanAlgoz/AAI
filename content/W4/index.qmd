@@ -10,7 +10,7 @@ format:
 
 # Course Modules
 
-## M1. Workflows with LLMs
+## M1. LLMs in Workflows
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
@@ -19,7 +19,7 @@ format:
 | 2 | [Workflows](./M1/lessons/02_workflows_slides.qmd) | [Lab](./M1/lessons/02_workflows.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/02_workflows.ipynb)) | |
 | 3 | [Human-in-the-loop](./M1/lessons/03_human-in-the-loop.qmd) |  |  |
 
-## M2. Multi-modal Models
+## M2. Processing Unstructured Business Data
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
@@ -28,22 +28,22 @@ format:
 |   | |  | [Ex3: Enrichment](./M2/exercises/ex3_enrichment.qmd) |
 |   | |  | [Ex4: ASR](./M2/exercises/ex4_ASR.qmd) |
 
-## M3. Live Models (RAG)
+## M3. Embeddings and RAG
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
 | 1 | [RAG](./M3/lessons/01_rag_pipeline.qmd) |  | |
 | 2 | Embeddings | [Lab](./M3/lessons/02_embeddings.ipynb) | |
 
-## M4. Complex Workflows (Agents)
+## M4. Agents
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
 | 1 | Agent (and its loop) | [Lab](./M4/lessons/01_agent.ipynb) | [Build a SQL agent](https://docs.langchain.com/oss/python/langchain/sql-agent) |
 | 2 | [Agentic RAG](./M4/lessons/02_agentic_rag.qmd) |  |  |  |
-| 3 | Stateful Agents |  | [Lab](./M4/lessons/03_agent_state.ipynb) |  |
-| 4 | Sub-agents Pattern |  | [Lab](./M4/lessons/04_subagents.ipynb) |  |
-| 5 | Finite-state Machine Pattern |  | [Lab](./M4/lessons/05_fsm_agent.ipynb) |  |
+| 3 | Sub-agents Pattern | [Lab](./M4/lessons/03_subagents.ipynb) |  |  |
+| 4 | Stateful Agents | [Lab](./M4/lessons/04_agent_state.ipynb) |  |  |
+| 5 | Finite-state Machine Pattern (FSM) | [Lab](./M4/lessons/05_fsm_agent.ipynb) |  |  |
 
 ## [Need Help?](https://docs.langchain.com/oss/python/langchain/get-help)
 
