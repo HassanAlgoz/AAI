@@ -1,0 +1,53 @@
+---
+title: "Project"
+format: html
+---
+
+## Social platforms
+
+The below document loaders allow you to load documents from different social media platforms.
+
+|Document Loader|API reference|
+|---|---|
+|[Twitter](https://docs.langchain.com/oss/python/integrations/document_loaders/twitter)|[`TwitterTweetLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/twitter/TwitterTweetLoader)|
+|[Reddit](https://docs.langchain.com/oss/python/integrations/document_loaders/reddit)|[`RedditPostsLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/reddit/RedditPostsLoader)|
+
+## Messaging services
+
+The below document loaders allow you to load data from different messaging platforms.
+
+|Document Loader|API reference|
+|---|---|
+|[Telegram](https://docs.langchain.com/oss/python/integrations/document_loaders/telegram)|[`TelegramChatFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/telegram/TelegramChatFileLoader)|
+|[WhatsApp](https://docs.langchain.com/oss/python/integrations/document_loaders/whatsapp_chat)|[`WhatsAppChatLoader`](https://reference.langchain.com/python/langchain-community/chat_loaders/whatsapp/WhatsAppChatLoader)|
+|[Discord](https://docs.langchain.com/oss/python/integrations/document_loaders/discord)|[`DiscordChatLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/discord/DiscordChatLoader)|
+|[Facebook Chat](https://docs.langchain.com/oss/python/integrations/document_loaders/facebook_chat)|[`FacebookChatLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/facebook_chat/FacebookChatLoader)|
+|[Mastodon](https://docs.langchain.com/oss/python/integrations/document_loaders/mastodon)|[`MastodonTootsLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/mastodon/MastodonTootsLoader)|
+
+## Productivity tools
+
+The below document loaders allow you to load data from commonly used productivity tools.
+
+|Document Loader|API reference|
+|---|---|
+|[Figma](https://docs.langchain.com/oss/python/integrations/document_loaders/figma)|[`FigmaFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/figma/FigmaFileLoader)|
+|[Notion](https://docs.langchain.com/oss/python/integrations/document_loaders/notion)|[`NotionDirectoryLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/notion/NotionDirectoryLoader)|
+|[Slack](https://docs.langchain.com/oss/python/integrations/document_loaders/slack)|[`SlackDirectoryLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/slack_directory/SlackDirectoryLoader)|
+|[Quip](https://docs.langchain.com/oss/python/integrations/document_loaders/quip)|[`QuipLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/quip/QuipLoader)|
+|[Trello](https://docs.langchain.com/oss/python/integrations/document_loaders/trello)|[`TrelloLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/trello/TrelloLoader)|
+|[Roam](https://docs.langchain.com/oss/python/integrations/document_loaders/roam)|[`RoamLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/roam/RoamLoader)|
+|[GitHub](https://docs.langchain.com/oss/python/integrations/document_loaders/github)|[`GithubFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/github/GithubFileLoader)|
+
+## Webpages (general)
+
+The below document loaders allow you to load webpages.
+
+|Document Loader|Description|Package/API|
+|---|---|---|
+|[RecursiveURL](https://docs.langchain.com/oss/python/integrations/document_loaders/recursive_url)|Recursively scrapes all child links from a root URL|Package|
+|[Sitemap](https://docs.langchain.com/oss/python/integrations/document_loaders/sitemap)|Scrapes all pages on a given sitemap|Package|
+|[Spider](https://docs.langchain.com/oss/python/integrations/document_loaders/spider)|Crawler and scraper that returns LLM-ready data|API|
+|[Firecrawl](https://docs.langchain.com/oss/python/integrations/document_loaders/firecrawl)|API service that can be deployed locally|API|
+|[Docling](https://docs.langchain.com/oss/python/integrations/document_loaders/docling)|Uses Docling to load and parse web pages|Package|
+|[Hyperbrowser](https://docs.langchain.com/oss/python/integrations/document_loaders/hyperbrowser)|Platform for running and scaling headless browsers, can be used to scrape/crawl any site|API|
+|[AgentQL](https://docs.langchain.com/oss/python/integrations/document_loaders/agentql)|Web interaction and structured data extraction from any web page using an AgentQL query or a Natural Language prompt|API|

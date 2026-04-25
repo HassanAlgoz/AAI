@@ -1,11 +1,11 @@
 ---
-title: "Retrieval Augmented Generation (RAG)"
+title: "RAG Pipeline"
 format: html
 ---
 
-One of the most powerful applications enabled by LLMs is sophisticated question-answering (Q\&A) chatbots. These are applications that can answer questions about specific source information.
+One of the most useful applications enabled by LLMs is sophisticated question-answering (Q\&A) chatbots. These are applications that can answer questions about specific source information.
 
-Large Language Models (LLMs) are powerful, but they have two key limitations:
+Large Language Models (LLMs) are useful, but they have two key limitations:
 
 * **Static knowledge** — their training data is frozen at a point in time.
 * **Finite context** — they can’t ingest entire corpora at once.
@@ -17,7 +17,7 @@ Large Language Models (LLMs) are powerful, but they have two key limitations:
   2. *Augmnetation*: concatenate it into the prompt
   3. *Generation*: invoke the LLM
 
-As shown below:
+A simple query -> retrieval -> augmentation -> generation workflow is shown below:
 
 ```{mermaid}
 graph LR
@@ -28,14 +28,10 @@ graph LR
     D --> E[Informed response]
 ```
 
-A pre-requisite is:
+The pre-requisite of implementing this is that we have "relevant data" accessible:
 
-1. We have "relevant data" accessible
-   1. Databases like: SQL, NoSQL, or Vector Database
-   2. APIs: internal or external
-2. We can trigger the call at the right time:
-   1. Always
-   2. Trust the LLM to do trigger the call at the right time
+1. Databases like: SQL, NoSQL, or Vector Database
+2. APIs: internal or external
 
 ## Building a knowledge base
 
@@ -53,9 +49,10 @@ A typical retrieval workflow looks like this:
 
 ```{mermaid}
 graph TD
-    %% Input processing
-    subgraph "📥 Input processing"
-        A[/Raw Data/] --> B[Loaders]
+    %% Text processing
+    A[/Texts/] --> B
+    subgraph "📥 Text processing"
+        B[Loaders]
         B --> B2[/Documents/]
         B2 --> C[Splitters]
         C --> D[/Chunks/]
@@ -63,26 +60,28 @@ graph TD
 
     %% Embedding & storage
     subgraph "🔢 Embedding & storage"
-        D --> E[Embedding models]
+        D --> E[Embedding model]
         E --> F[/Vectors/]
         F --> G[(Vector stores)]
     end
 
     %% Retrieval
+    H[/Query/] --> I
     subgraph "🔍 Retrieval"
-        H[/User Query/] --> I["Embedding models (same)"]
+        I["Embedding model"]
         I --> J[/Vector/]
         J --> K[Retrievers]
         K -- Vector --> G
         G -- Chunks --> K
-        K --> L[/Relevant context/]
+        K --> L[/Context/]
     end
 
     %% Generation
+    P[/Answer/]
     subgraph "Generation"
         L -- Augment --> O[LLM]
-        O --> P[/Answer/]
     end
+    O --> P
 ```
 
 Each component is modular: you can swap loaders, splitters, embeddings, or vector stores without rewriting the app’s logic.

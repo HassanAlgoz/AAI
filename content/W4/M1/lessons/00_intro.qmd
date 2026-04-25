@@ -80,7 +80,7 @@ The following is an example of auto-regression of three steps:
 
 Such models are used in Timeseries data like weather forcasting. The figure below shows an autoregressive model on timeseries data:
 
-![](./assets/autoregression.png){fig-align="center" .r-stretch}
+![](../assets/autoregression.png){fig-align="center" .r-stretch}
 
 :::
 
@@ -104,7 +104,7 @@ Such models are used in Timeseries data like weather forcasting. The figure belo
 
 ::: {.fragment}
 
-![](./assets/AttentionSceneFinal.gif){fig-align="center"}
+![](../assets/AttentionSceneFinal.gif){fig-align="center"}
 
 This involves many computationally intensive operations.
 
@@ -117,7 +117,7 @@ This involves many computationally intensive operations.
 
 ::: {.fragment}
 
-![](./assets/context_rot.png){fig-align="center" .r-stretch}
+![](../assets/context_rot.png){fig-align="center" .r-stretch}
 
 Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. -- ([July 14, 2025 Context Rot | Chroma](https://www.trychroma.com/research/context-rot))
 :::
@@ -160,7 +160,7 @@ First application was: **Translation** ([Paper: Attention is all you need](https
 
 ::: {.fragment}
 
-![](./assets/tool_calling_llms.png){.r-stretch fig-align="center"}
+![](../assets/tool_calling_llms.png){.r-stretch fig-align="center"}
 
 
 *Note*: the terms *Reasoning*, *Thinking*, are just like the term *Intelligence*, not to be taken literally. See [The Illusion of Thinking | Apple](https://arxiv.org/pdf/2506.06941).

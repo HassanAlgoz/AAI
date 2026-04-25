@@ -1,0 +1,18 @@
+---
+title: "M2.Ex3: Enrichment"
+format: html
+---
+
+Docling allows to [enrich the conversion pipeline](https://docling-project.github.io/docling/usage/enrichments/) with additional steps which process specific document components, e.g. code blocks, pictures, etc. The extra steps usually require extra models executions which may increase the processing time consistently. For this reason most enrichment models are disabled by default.
+
+## Task 1: Picture Classification
+
+The picture classification step classifies the `PictureItem` elements in the document with the `DocumentFigureClassifier` model. This model is specialized to understand the classes of pictures found in documents, e.g. different chart types, flow diagrams, logos, signatures, etc.
+
+Your task is to follow the example in [#Picture Classification](https://docling-project.github.io/docling/usage/enrichments/#picture-classification) to add it to your pipeline as an enrichment step.
+
+## Task 2: Picture Description
+
+The picture description step allows to annotate a picture with a vision model. This is also known as a "captioning" task.
+
+Your task is to follow the example in [#Picture description](https://docling-project.github.io/docling/usage/enrichments/#picture-description) to add it to your pipeline as an enrichment step.

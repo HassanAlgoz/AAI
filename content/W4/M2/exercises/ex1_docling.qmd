@@ -1,0 +1,26 @@
+---
+title: "M2.Ex1: Docling"
+format: html
+---
+
+## Task 1: Simple conversion
+
+Run the [Simple conversion](https://docling-project.github.io/docling/examples/minimal/) example on Colab.
+
+## Task 2: Custom conversion
+
+Go through the [Custom conversion](https://docling-project.github.io/docling/examples/custom_convert/) example on Colab.
+
+## Task 3: Batch conversion
+
+Go throgh the [Batch conversion](https://docling-project.github.io/docling/examples/batch_convert/) example on Colab.
+
+## Task 4: Multi-format conversion
+
+Go through the [Multi-format conversion](https://docling-project.github.io/docling/examples/run_with_formats/) example on Colab.
+
+## Task 5: Confidence Scores
+
+**Confidence grades** were introduced in [v2.34.0](https://github.com/docling-project/docling/releases/tag/v2.34.0) to help users understand how well a conversion performed and guide decisions about post-processing workflows. They are available in the [`confidence`](https://docling-project.github.io/docling/reference/document_converter/#docling.document_converter.ConversionResult.confidence) field of the [`ConversionResult`](https://docling-project.github.io/docling/reference/document_converter/#docling.document_converter.ConversionResult) object returned by the document converter.
+
+Your task is to look for the [Confidence Grades](https://docling-project.github.io/docling/concepts/confidence_scores/#scores-and-grades) and report them.

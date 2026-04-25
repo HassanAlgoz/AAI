@@ -1,4 +1,7 @@
-
+---
+title: "Retrieval Augmented Generation (RAG)"
+format: html
+---
 
 ## RAG architectures
 
@@ -35,18 +38,23 @@ graph LR
 
 ### B. Agentic RAG
 
-**Agentic Retrieval-Augmented Generation (RAG)** combines the strengths of Retrieval-Augmented Generation with agent-based reasoning. Instead of retrieving documents before answering, an agent (powered by an LLM) reasons step-by-step and decides **when** and **how** to retrieve information during the interaction.
+**Agentic RAG** means that an LLM gets to decide **when** and **how** to retrieve information during the interaction.
 
 ```{mermaid}
 graph TD
-    A[User Input / Question] --> B["Agent (LLM)"]
-    B --> C{Need external info?}
-    C -- Yes --> D["Search using tool(s)"]
-    D --> H{Enough to answer?}
-    H -- No --> B
-    H -- Yes --> I[Generate final answer]
-    C -- No --> I
-    I --> J[Return to user]
+    A["User Input (Question)"]
+    A --> B
+    subgraph "Agent"
+        direction TB
+        B["LLM"]
+        B --> C{Need external info?}
+        C -- Yes --> D["Search using tool(s)"]
+        D --> H{Enough to answer?}
+        H -- No --> B
+        H -- Yes --> I[Generate final answer]
+        C -- No --> I
+        I --> J[Return to user]
+    end
 
     %% Dark-mode friendly styling
     classDef startend fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#fff

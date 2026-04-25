@@ -1,5 +1,5 @@
 ---
-title: "Introduction: What is Agentic AI?"
+title: "Use Cases"
 format: html
 ---
 

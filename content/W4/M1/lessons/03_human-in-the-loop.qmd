@@ -1,16 +1,19 @@
 ---
 title: "Human-in-the-loop"
-subtitle: "Use Case: Agent for Customer Support Emails"
-format: revealjs
+subtitle: "Customer Support Emails Workflow"
+format:
+    revealjs:
+        incremental: false
 ---
 
-Imagine you need to automate a customer support email inbox. The system should:
-
-- Read incoming emails
-- Classify them by urgency and topic
-- Search relevant documentation to answer questions
-- Draft appropriate responses
-- Escalate complex or urgent issues to a human for review before sending
+- According to [State of Agent Engineering 2026](https://www.langchain.com/state-of-agent-engineering) survey, usage of AI in **Customer Service** was the highest (at 26.5%).
+  
+- Imagine you need to automate a customer support email inbox. The system should:
+    1. Read incoming emails
+    2. Classify them by urgency and topic
+    3. Search relevant documentation to answer questions
+    4. Draft appropriate responses
+    5. Escalate complex or urgent issues to a human for review before sending
 
 ## The Flowchart
 
@@ -19,7 +22,7 @@ This implementation demonstrates several core concepts of the LangGraph Function
 ```{mermaid}
 flowchart LR
     START((Start)) --> B[classify_intent]
-    B -->|question/feature| C[search_documentation]
+    B -->|question/feature| C[search docs]
     B -->|bug| D[track_bug]
     B -->|other| E[draft_response]
     
@@ -43,20 +46,29 @@ from langchain_openai import ChatOpenAI
 llm = ChatOpenAI(model="gpt-4o-mini")
 ```
 
-## The Intent classifier
+## The Intent classifier (1/2)
 
-Using structured output, we can make an intent classifier task like so:
+First define the output of this classifier:
 
 ``` python
 from typing import Literal, TypedDict
-from langgraph.func import entrypoint, task
-
 
 class EmailClassification(TypedDict):
     intent: Literal["question", "bug", "billing", "feature", "complex"]
     urgency: Literal["low", "medium", "high", "critical"]
     topic: str
     summary: str
+```
+
+## The Intent classifier (2/2)
+
+Secondly, we define the `classify_intent` function and wrap it in a `@task`:
+
+- inputs are: `email_content` and `sender_email`
+- output is: `EmailClassification` (structured)
+
+```python
+from langgraph.func import task
 
 @task
 def classify_intent(email_content: str, sender_email: str) -> EmailClassification:
@@ -64,17 +76,20 @@ def classify_intent(email_content: str, sender_email: str) -> EmailClassificatio
     structured_llm = llm.with_structured_output(EmailClassification)
     prompt = f"""
     Analyze this customer email and classify it:
-    Email: {email_content}
+    
     From: {sender_email}
+
+    Content:\n{email_content}
     """
-    return structured_llm.invoke(prompt)
+    result = structured_llm.invoke(prompt)
+    return result
 ```
 
 ## The three action tasks
 
 Here we define three tasks:
 
-- `search_documentation` (dummy)
+- `search_docs` (dummy)
 - `track_bug` (dummy)
 - `draft_response`
 
@@ -84,7 +99,7 @@ from langgraph.types import interrupt
 
 
 @task
-def search_documentation(classification: EmailClassification) -> list[str]:
+def search_docs(classification: EmailClassification) -> list[str]:
     """Search knowledge base for relevant information."""
     query = f"{classification.get('intent')} {classification.get('topic')}"
     # Dummy search results for demonstration
@@ -162,7 +177,7 @@ def email_workflow(inputs: dict) -> dict:
     # Gather context based on classification
     context = []
     if classification['intent'] in ['question', 'feature']:
-        context = search_documentation(classification).result()
+        context = search_docs(classification).result()
     elif classification['intent'] == 'bug':
         context = [track_bug(classification).result()]
         
@@ -187,7 +202,7 @@ def email_workflow(inputs: dict) -> dict:
 
 # Running the Workflow
 
-Let's see the agent in action with an urgent scenario.
+Let's see the workflow in action with an urgent scenario.
 
 ## Execution and pause for human input
 
@@ -259,7 +274,7 @@ from langgraph.func import task
 from langgraph.types import RetryPolicy
 
 @task(retry=RetryPolicy(max_attempts=3, initial_interval=1.0))
-def search_documentation(classification: dict) -> list[str]:
+def search_docs(classification: dict) -> list[str]:
     # Network calls to knowledge base
     return search_api(classification)
 ```

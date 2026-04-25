@@ -1,0 +1,71 @@
+---
+title: "M2.Ex2: Vision Language Models (VLMs)"
+format: html
+---
+
+## Vision Language Models
+
+A **Vision Language Model (VLM)** is an AI system built by combining a large language model (LLM) with a vision encoder, giving the LLM the ability to “see”.
+
+As such, the task it dubbed [Image-Text-to-Text](https://huggingface.co/models?pipeline_tag=image-text-to-text&sort=trending) on HuggingFace (shows `26,049` models). For examples see [Overview of Open-source Vision Language Models | HuggingFace Blog](https://huggingface.co/blog/vlms#overview-of-open-source-vision-language-models).
+
+
+## VLM Input-output
+
+Specifically:
+
+- Input: Image  & Text
+- Output: Text
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vlm/visual.jpg){fig-align="center" .r-stretch}
+
+::: {.callout-note}
+Some models also output bounding boxes (object localization) or pixel masks (image segmentation).
+:::
+
+
+## VLM Key Capabilities
+
+VLMs bridge perception and language. Models see pixels then speak:
+
+1. **Multimodal Learning**: this multiplies information (a picture is worth a thousand words).
+2. **Zero-shot**: you can ask anything about an image.
+3. **Everything can be an image**: a pdf, a web page, a word-document, a diagram.  This broadens functional scope.
+
+## Task 1: Information Extraction with a VLM
+
+Your task is to run and read the notebook to apply VLMs to extract **structured output** from visual documents.
+
+This example can be your starting point [VLM pipeline with GraniteDocling](https://docling-project.github.io/docling/examples/minimal_vlm_pipeline/) as well as this [Vision models Usage Page](https://docling-project.github.io/docling/usage/vision_models/).
+
+Note: A GPU is needed to run a VLM (locally on Colab or Remotely via [OpenRouter.ai](https://openrouter.ai/models?fmt=cards&input_modalities=image&max_price=0&output_modalities=text) or [HuggingFace](https://huggingface.co/blog/vlms#finding-the-right-vision-language-model)).
+
+[Colab: Information Extraction](https://colab.research.google.com/github/docling-project/docling/blob/main/docs/examples/extraction.ipynb#scrollTo=932f12cd).
+
+Input Examples:
+
+- `reciept.png`
+- `resume.pdf`
+- `form.docx`
+
+## Task 2: Arabic Document Processing
+
+[QARI-OCR](https://huggingface.co/NAMAA-Space/Qari-OCR-v0.3-VL-2B-Instruct) is a **Vision-language Model (VLM)** fine-tuned from `Qwen2-VL-2B-Instruct` to process Arabic documents.
+
+Key Features:
+
+- 📐 **Layout-Aware Recognition**: Preserves document structure with HTML/Markdown tags
+- 🔤 **Full Diacritics Support**: Accurate recognition of tashkeel (Arabic diacritical marks)
+- 📝 **Multi-Font Handling**: Trained on 12 diverse Arabic fonts (14px-100px)
+- 🎯 **Structure-First Design**: Optimized for documents with headers, body text, and complex layouts
+- ⚡ **Efficient Training**: Only 11 hours on single GPU with 10k samples
+- 🖼️ **Robust Performance**: Handles low-resolution and degraded images
+
+Your task is to use this model to process a folder of Arabic PDF documents, and extract information from them.
+
+Input example:
+
+- `reciept.png`
+- `some_email.jpg`
+- `my_resume.pdf`
+- `data/HR/applications/ar/` (folder)

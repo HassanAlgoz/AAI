@@ -1,5 +1,5 @@
 ---
-title: "Ex1: Models"
+title: "M1.Ex1: Models"
 format: html
 ---
 
@@ -50,7 +50,9 @@ try:
 
 ## Task 4: Data Extraction
 
-Use `.with_structured_output()` to have a model read a resume/CV (text file) and identify key data points such as: Candidate Name, Skills, Experience, ..etc.
+Use `.with_structured_output()` to have a model read a resume/CV and identify key data points such as: Candidate Name, Skills, Experience, ..etc.
+
+You will need to use a [pdf document loader as listed here](https://docs.langchain.com/oss/python/integrations/document_loaders#pdfs).
 
 ## Task 5: Tools
 
