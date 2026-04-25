@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>M1.Ex1: Models – Applied AI Bootcamp</title>
+<title>RAG Pipeline – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -82,6 +47,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -161,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M1.Ex1: Models</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">RAG Pipeline</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,11 +155,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#task-1-text-generation-temperature" id="toc-task-1-text-generation-temperature" class="nav-link active" data-scroll-target="#task-1-text-generation-temperature">Task 1: Text Generation Temperature</a></li>
-  <li><a href="#task-2-sentiment-analysis" id="toc-task-2-sentiment-analysis" class="nav-link" data-scroll-target="#task-2-sentiment-analysis">Task 2: Sentiment Analysis</a></li>
-  <li><a href="#task-3-categorization" id="toc-task-3-categorization" class="nav-link" data-scroll-target="#task-3-categorization">Task 3: Categorization</a></li>
-  <li><a href="#task-4-data-extraction" id="toc-task-4-data-extraction" class="nav-link" data-scroll-target="#task-4-data-extraction">Task 4: Data Extraction</a></li>
-  <li><a href="#task-5-tools" id="toc-task-5-tools" class="nav-link" data-scroll-target="#task-5-tools">Task 5: Tools</a></li>
+  <li><a href="#building-a-knowledge-base" id="toc-building-a-knowledge-base" class="nav-link active" data-scroll-target="#building-a-knowledge-base">Building a knowledge base</a></li>
+  <li><a href="#full-pipeline-from-data-ingestion-to-generation" id="toc-full-pipeline-from-data-ingestion-to-generation" class="nav-link" data-scroll-target="#full-pipeline-from-data-ingestion-to-generation">Full pipeline: from data ingestion to generation</a></li>
+  <li><a href="#building-blocks" id="toc-building-blocks" class="nav-link" data-scroll-target="#building-blocks">Building blocks</a>
+  <ul class="collapse">
+  <li><a href="#loaders" id="toc-loaders" class="nav-link" data-scroll-target="#loaders">1. Loaders</a></li>
+  <li><a href="#splitters" id="toc-splitters" class="nav-link" data-scroll-target="#splitters">2. Splitters</a></li>
+  <li><a href="#embedding-models" id="toc-embedding-models" class="nav-link" data-scroll-target="#embedding-models">3. Embedding Models</a></li>
+  <li><a href="#stores" id="toc-stores" class="nav-link" data-scroll-target="#stores">4. Stores</a></li>
+  <li><a href="#retrievers" id="toc-retrievers" class="nav-link" data-scroll-target="#retrievers">5. Retrievers</a></li>
+  </ul></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -200,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">M1.Ex1: Models</h1>
+<h1 class="title">RAG Pipeline</h1>
 </div>
 
 
@@ -217,68 +192,203 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="task-1-text-generation-temperature" class="level2">
-<h2 class="anchored" data-anchor-id="task-1-text-generation-temperature">Task 1: Text Generation Temperature</h2>
+<p>One of the most useful applications enabled by LLMs is sophisticated question-answering (Q&amp;A) chatbots. These are applications that can answer questions about specific source information.</p>
+<p>Large Language Models (LLMs) are useful, but they have two key limitations:</p>
+<ul>
+<li><strong>Static knowledge</strong> — their training data is frozen at a point in time.</li>
+<li><strong>Finite context</strong> — they can’t ingest entire corpora at once.</li>
+</ul>
+<p><strong>Retrieval Augmented Generation (RAG)</strong> addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.</p>
+<ul>
+<li>In short, <strong>RAG</strong> is a three step process:
 <ol type="1">
-<li>Setup an account at <a href="https://openrouter.ai/">OpenRouter.ai</a></li>
-<li>Set the <code>OPENROUTER_API_KEY</code></li>
-<li>Select an LLM a free model like: <code>"nvidia/nemotron-3-nano-30b-a3b:free"</code></li>
-<li>make a high-temperature model and a low-temperature one</li>
-<li>Ask both of them the same question and observe the answer</li>
-<li>Include a stylistic instruction like “make it short” or “say it backwards” or “be poetic in your response” or “use only emojis”</li>
-<li>Ask the model to format their answer as JSON</li>
+<li><em>Retrieval</em>: find text relevant to answering the question</li>
+<li><em>Augmnetation</em>: concatenate it into the prompt</li>
+<li><em>Generation</em>: invoke the LLM</li>
+</ol></li>
+</ul>
+<p>A simple query -&gt; retrieval -&gt; augmentation -&gt; generation workflow is shown below:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="01_rag_pipeline_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="01_rag_pipeline_files/figure-html/mermaid-figure-1.png" style="width:10.35in;height:1.09in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>The pre-requisite of implementing this is that we have “relevant data” accessible:</p>
+<ol type="1">
+<li>Databases like: SQL, NoSQL, or Vector Database</li>
+<li>APIs: internal or external</li>
 </ol>
+<section id="building-a-knowledge-base" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-knowledge-base">Building a knowledge base</h2>
+<p>A <strong>knowledge base</strong> is a repository of documents or structured data used during retrieval.</p>
+<p>If you already have a knowledge base (e.g., a SQL database, CRM, or internal documentation system), you <strong>do not</strong> need to rebuild it. We can have the system query it and supply the retrieved content as context to the LLM.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you need a custom knowledge base, you can use LangChain’s document loaders and vector stores to build one from your own data.</p>
+</div>
+</div>
 </section>
-<section id="task-2-sentiment-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="task-2-sentiment-analysis">Task 2: Sentiment Analysis</h2>
-<p>Step 1. Restrict the model to output exactly one of: <code>["positive", "neutral", "negative"]</code>.</p>
-<p>Hint: Use <code>.with_structured_output()</code> with Pydantic’s BaseModel subclass.</p>
-<p>Step 2. Give the model a model few sentences, and observe it’s output:</p>
-<pre class="text"><code># Positive
-"Kindness creates lasting joy."
-"Success rewards persistent effort."
-"I love Sunlight. It warms the skin."
-
-# Negative
-"Pessemestic all the time."
-"The storm caused damage!"
-
-# Neutral
-"The clock ticks steadily."</code></pre>
+<section id="full-pipeline-from-data-ingestion-to-generation" class="level2">
+<h2 class="anchored" data-anchor-id="full-pipeline-from-data-ingestion-to-generation">Full pipeline: from data ingestion to generation</h2>
+<p>A typical retrieval workflow looks like this:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="01_rag_pipeline_files/figure-html/mermaid-figure-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="01_rag_pipeline_files/figure-html/mermaid-figure-7.png" style="width:6.03in;height:14.66in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Each component is modular: you can swap loaders, splitters, embeddings, or vector stores without rewriting the app’s logic.</p>
 </section>
-<section id="task-3-categorization" class="level2">
-<h2 class="anchored" data-anchor-id="task-3-categorization">Task 3: Categorization</h2>
-<p>Restrict the model to give tags (multi-output): <code>["cars", "shopping", "sports", "study", "work"]</code>.</p>
-<p>try:</p>
-<pre class="text"><code>"That restoration looks incredible; you have a real talent for mechanics."
-"I found the perfect gift today! The staff was incredibly helpful."
-"Great game today! Your teamwork was the key to that victory."
-"Learning together helped me finally grasp these concepts. Thank you!"</code></pre>
+<section id="building-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="building-blocks">Building blocks</h2>
+<section id="loaders" class="level3">
+<h3 class="anchored" data-anchor-id="loaders">1. Loaders</h3>
+<p><a href="https://docs.langchain.com/oss/python/integrations/document_loaders">Document loaders</a> Ingest data from external sources (Google Drive, Slack, Notion, etc.), returning standardized <a href="https://reference.langchain.com/python/langchain-core/documents/base/Document"><code>Document</code></a> objects.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="01_rag_pipeline_files/figure-html/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="01_rag_pipeline_files/figure-html/mermaid-figure-6.png" style="width:7.74in;height:1.07in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
-<section id="task-4-data-extraction" class="level2">
-<h2 class="anchored" data-anchor-id="task-4-data-extraction">Task 4: Data Extraction</h2>
-<p>Use <code>.with_structured_output()</code> to have a model read a resume/CV and identify key data points such as: Candidate Name, Skills, Experience, ..etc.</p>
-<p>You will need to use a <a href="https://docs.langchain.com/oss/python/integrations/document_loaders#pdfs">pdf document loader as listed here</a>.</p>
+<section id="splitters" class="level3">
+<h3 class="anchored" data-anchor-id="splitters">2. Splitters</h3>
+<p><a href="https://docs.langchain.com/oss/python/integrations/splitters">Text splitters</a> Break large docs into smaller chunks that will be retrievable individually.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="01_rag_pipeline_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="01_rag_pipeline_files/figure-html/mermaid-figure-5.png" style="width:4.93in;height:2.43in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><strong>Why do we split?..</strong></p>
+<section id="a.-navigating-context-window-limits" class="level4">
+<h4 class="anchored" data-anchor-id="a.-navigating-context-window-limits">A. Navigating Context Window Limits</h4>
+<p>Even the most advanced Large Language Models (LLMs) have a <strong>context window</strong>—a maximum number of tokens (words/characters) they can “see” at one time.</p>
+<ul>
+<li><strong>The Problem:</strong> Many documents (legal contracts, technical manuals, books) are significantly larger than an LLM’s context window.</li>
+<li><strong>The Solution:</strong> By splitting a 500-page manual into 500-word chunks, an agent can “pull” only the relevant pieces into its memory to answer a specific query without hitting a technical ceiling.</li>
+</ul>
 </section>
-<section id="task-5-tools" class="level2">
-<h2 class="anchored" data-anchor-id="task-5-tools">Task 5: Tools</h2>
-<p>Step 1. Define 4 Python functions: <code>add(a, b)</code>, <code>subtract(a, b)</code>, <code>multiply(a, b)</code> and <code>divide(a, b)</code>.</p>
-<p>Step 2. Copy those functions and place them in one multi-line string. like so:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">You are a math assistant. You have access to these tools:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">def add(a, b):</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ...</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">Return the tool name and arguments required to solve the user's request.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Step 3. Define the following pydanic class:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ToolCall(BaseModel):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    tool_name: <span class="bu">str</span> <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"The name of the function to use"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    arguments: Dict[<span class="bu">str</span>, Any] <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"The parameters to pass"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Step 4. Use structured output to ask the model to answer any mathematical question like: <code>"what is two plus 5"</code></p>
-<p>Observe: can you see what this could be used for? Can you extend this idea further?</p>
+<section id="b.-reducing-lost-in-the-middle-phenomena" class="level4">
+<h4 class="anchored" data-anchor-id="b.-reducing-lost-in-the-middle-phenomena">B. Reducing “Lost in the Middle” Phenomena</h4>
+<p><a href="https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval">Research shows</a> that LLMs are best at recalling information located at the <strong>very beginning or the very end of a prompt</strong>. Information buried in the middle of a massive block of text is often ignored.</p>
+<p>By providing the agent with several <strong>small, concise chunks</strong>, you ensure the relevant information stays at the “top of mind” for the model, leading to <strong>higher reasoning accuracy</strong>.</p>
+</section>
+<section id="c.-cost-and-latency" class="level4">
+<h4 class="anchored" data-anchor-id="c.-cost-and-latency">C. Cost and Latency</h4>
+<p>Every token sent to an LLM costs money and takes time to process.</p>
+<ul>
+<li><strong>Efficiency:</strong> If an agent needs to know a specific date in a 100MB file, sending the whole file is expensive and slow.</li>
+<li><strong>Speed:</strong> Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price, allowing the agent to move through its task pipeline much faster.</li>
+</ul>
+</section>
+</section>
+<section id="embedding-models" class="level3">
+<h3 class="anchored" data-anchor-id="embedding-models">3. Embedding Models</h3>
+<p><a href="https://docs.langchain.com/oss/python/integrations/text_embedding">Embedding models</a> An embedding model turns text into a vector of numbers so that texts with similar meaning land close together in that vector space.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="01_rag_pipeline_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="01_rag_pipeline_files/figure-html/mermaid-figure-4.png" style="width:5.48in;height:2.9in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="stores" class="level3">
+<h3 class="anchored" data-anchor-id="stores">4. Stores</h3>
+<p><a href="https://docs.langchain.com/oss/python/integrations/vectorstores/">Vector stores</a> Specialized databases for storing and searching embeddings.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="01_rag_pipeline_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="01_rag_pipeline_files/figure-html/mermaid-figure-3.png" style="width:2.95in;height:2.43in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="retrievers" class="level3">
+<h3 class="anchored" data-anchor-id="retrievers">5. Retrievers</h3>
+<p><a href="https://docs.langchain.com/oss/python/integrations/retrievers/">Retrievers</a> A retriever is an interface that returns documents given an unstructured query.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="01_rag_pipeline_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="01_rag_pipeline_files/figure-html/mermaid-figure-2.png" style="width:3.24in;height:3.71in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li><strong>Retrieval solves two LLM limits</strong>:
+<ul>
+<li>Static (frozen) knowledge and finite context.</li>
+<li>Fetching relevant external information at query time is the foundation of <strong>RAG</strong> (Retrieval-Augmented Generation).</li>
+</ul></li>
+<li><strong>You don’t always need a new knowledge base</strong>:
+<ul>
+<li>If you already have one (SQL, CRM, docs), use it as a <strong>tool</strong> (Agentic RAG) or as fixed context (2-Step RAG).</li>
+<li>For custom data, use loaders and vector stores.</li>
+</ul></li>
+<li><strong>The retrieval pipeline is modular</strong>:
+<ul>
+<li><strong>Load</strong> (document loaders) → <strong>Split</strong> (text splitters) → <strong>Embed</strong> (embedding models) → <strong>Store</strong> (vector stores) → <strong>Retrieve</strong> (retrievers).</li>
+<li>You can swap any component without changing the rest of the app.</li>
+</ul></li>
+<li><strong>Splitting matters</strong> for:
+<ul>
+<li>Staying within context windows.</li>
+<li>Avoiding “lost in the middle” (LLMs recall start/end of input better).</li>
+<li>Lowering cost and latency.</li>
+</ul></li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>https://docs.langchain.com/oss/python/langchain/retrieval</li>
+</ul>
 
 
 </section>
@@ -685,6 +795,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

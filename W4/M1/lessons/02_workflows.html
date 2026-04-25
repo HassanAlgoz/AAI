@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>LangGraph – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W4/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W5/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">LangGraph</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link active" data-scroll-target="#environment-setup">Environment Setup</a>
+  <ul class="collapse">
+  <li><a href="#install-dependencies" id="toc-install-dependencies" class="nav-link" data-scroll-target="#install-dependencies">Install dependencies</a></li>
+  <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables">Environment variables</a></li>
+  <li><a href="#reading-environment-variables-in" id="toc-reading-environment-variables-in" class="nav-link" data-scroll-target="#reading-environment-variables-in">Reading environment variables in</a></li>
+  </ul></li>
+  <li><a href="#functional-api" id="toc-functional-api" class="nav-link" data-scroll-target="#functional-api">Functional API</a></li>
+  <li><a href="#tasks-and-entrypoint" id="toc-tasks-and-entrypoint" class="nav-link" data-scroll-target="#tasks-and-entrypoint">Tasks and Entrypoint</a></li>
+  <li><a href="#sequential" id="toc-sequential" class="nav-link" data-scroll-target="#sequential">Sequential</a>
+  <ul class="collapse">
+  <li><a href="#synchronize-io-bound-ops-with-.result" id="toc-synchronize-io-bound-ops-with-.result" class="nav-link" data-scroll-target="#synchronize-io-bound-ops-with-.result">Synchronize I/O-bound ops with <code>.result()</code></a></li>
+  <li><a href="#what-is-checkpointer" id="toc-what-is-checkpointer" class="nav-link" data-scroll-target="#what-is-checkpointer">What is <code>checkpointer</code>?</a></li>
+  <li><a href="#run-the-graph" id="toc-run-the-graph" class="nav-link" data-scroll-target="#run-the-graph">Run the graph</a></li>
+  </ul></li>
+  <li><a href="#parallelization" id="toc-parallelization" class="nav-link" data-scroll-target="#parallelization">Parallelization</a></li>
+  <li><a href="#routing" id="toc-routing" class="nav-link" data-scroll-target="#routing">Routing</a></li>
+  <li><a href="#orchestrator-worker" id="toc-orchestrator-worker" class="nav-link" data-scroll-target="#orchestrator-worker">Orchestrator-worker</a></li>
+  <li><a href="#evaluator-optimizer" id="toc-evaluator-optimizer" class="nav-link" data-scroll-target="#evaluator-optimizer">Evaluator-optimizer</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="02_workflows.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">LangGraph</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ul>
+<li><a href="https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/02_langgraph.ipynb"><strong>Open In Colab</strong></a></li>
+</ul>
+<p><strong>LangGraph</strong> offers several benefits when building workflows and agents including <a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence</a>, <a href="https://docs.langchain.com/oss/python/langgraph/streaming">streaming</a>, and support for debugging as well as <a href="https://docs.langchain.com/oss/python/langgraph/deploy">deployment</a>.</p>
+<p>This guide reviews common workflow patterns.</p>
+<section id="environment-setup" class="level2">
+<h2 class="anchored" data-anchor-id="environment-setup">Environment Setup</h2>
+<section id="install-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="install-dependencies">Install dependencies</h3>
+<section id="a.-on-colab" class="level4">
+<h4 class="anchored" data-anchor-id="a.-on-colab">A. on Colab?</h4>
+<div id="607bc3ab" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q langchain langchain_openai langchain_community</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/halgoz/work/AthkaX/ai-pros/public/content/W4/.venv/bin/python: No module named pip
+Note: you may need to restart the kernel to use updated packages.</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-locally" class="level4">
+<h4 class="anchored" data-anchor-id="b.-locally">B. Locally?</h4>
+<p>If using <code>uv</code> locally you can <code>uv sync</code> (provided you have the <code>pyproject.toml</code>).</p>
+</section>
+</section>
+<section id="environment-variables" class="level3">
+<h3 class="anchored" data-anchor-id="environment-variables">Environment variables</h3>
+<p>The following environment variables are used in this notebook:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 13%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Required</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>OPENROUTER_API_KEY</code></td>
+<td>Yes</td>
+<td>Authenticates requests to OpenRouter LLMs</td>
+</tr>
+</tbody>
+</table>
+<section id="on-colab" class="level4">
+<h4 class="anchored" data-anchor-id="on-colab">On Colab?</h4>
+<p>Store these as Colab <strong>Secrets</strong> (key icon in the left sidebar), using the variable names above (for example <code>OPENROUTER_API_KEY</code>). Grant this notebook access to the secrets so they can be read securely at runtime.</p>
+</section>
+<section id="locally" class="level4">
+<h4 class="anchored" data-anchor-id="locally">Locally?</h4>
+<p>Store these in a <code>.env</code> file in your project directory (which should be listed in <code>.gitignore</code> so it is never committed). The code below uses <code>python-dotenv</code> to load values from this file into environment variables at runtime.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>API Keys are secrets and thus <a href="../../../W4/M1/lessons/never_expose_api_keys.html"><strong>shall never be exposed</strong></a>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="reading-environment-variables-in" class="level3">
+<h3 class="anchored" data-anchor-id="reading-environment-variables-in">Reading environment variables in</h3>
+<div id="165e6abb" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="10880b8c" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># In Colab? read from userdata (secrets)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    ON_COLAB <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"OPENROUTER_API_KEY"</span>] <span class="op">=</span> userdata.get(<span class="st">"OPENROUTER_API_KEY"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load `.env` file (locally)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    load_dotenv(override<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4e6f508c" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_openai <span class="im">import</span> ChatOpenAI</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"nvidia/nemotron-3-nano-30b-a3b:free"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    base_url<span class="op">=</span><span class="st">"https://openrouter.ai/api/v1"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>os.environ.get(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="functional-api" class="level2">
+<h2 class="anchored" data-anchor-id="functional-api">Functional API</h2>
+<p>In this course we will stick to the <a href="https://docs.langchain.com/oss/python/langgraph/functional-api"><strong>Functional API</strong></a> as we have done in this notebook.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Functional API vs.&nbsp;Graph API
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For users who prefer a more declarative approach, LangGraph’s&nbsp;<a href="https://docs.langchain.com/oss/python/langgraph/graph-api">Graph API</a>&nbsp;allows you to define workflows using a Graph paradigm. Both APIs share the same underlying runtime, so you can use them together in the same application.</p>
+<p>Here are some key differences:</p>
+<ul>
+<li><strong>Control flow</strong>: The Functional API does not require thinking about graph structure. You can use standard Python constructs to define workflows. This will usually trim the amount of code you need to write.</li>
+<li><strong>Short-term memory</strong>: The&nbsp;<strong>GraphAPI</strong>&nbsp;requires declaring a&nbsp;<a href="https://docs.langchain.com/oss/python/langgraph/graph-api#state"><strong>State</strong></a>&nbsp;and may require defining&nbsp;<a href="https://docs.langchain.com/oss/python/langgraph/graph-api#reducers"><strong>reducers</strong></a>&nbsp;to manage updates to the graph state.&nbsp;<code>@entrypoint</code>&nbsp;and&nbsp;<code>@tasks</code>&nbsp;do not require explicit state management as their state is scoped to the function and is not shared across functions.</li>
+<li><strong>Checkpointing</strong>: Both APIs generate and use checkpoints. In the&nbsp;<strong>Graph API</strong>&nbsp;a new checkpoint is generated after every&nbsp;<a href="https://docs.langchain.com/oss/python/langgraph/graph-api">superstep</a>. In the&nbsp;<strong>Functional API</strong>, when tasks are executed, their results are saved to an existing checkpoint associated with the given entrypoint instead of creating a new checkpoint.</li>
+<li><strong>Visualization</strong>: The Graph API makes it easy to visualize the workflow as a graph which can be useful for debugging, understanding the workflow, and sharing with others. The Functional API does not support visualization as the graph is dynamically generated during runtime.</li>
+</ul>
+<p>For more details, see the <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#functional-api-vs-graph-api">Functional API vs.&nbsp;Graph API</a>.</p>
+</div>
+</div>
+</section>
+<section id="tasks-and-entrypoint" class="level2">
+<h2 class="anchored" data-anchor-id="tasks-and-entrypoint">Tasks and Entrypoint</h2>
+<p>There are three important concepts in LangGraph:</p>
+<ol type="1">
+<li><code>@task</code></li>
+<li><code>@entrypoint</code></li>
+<li><code>checkpointer</code></li>
+</ol>
+<p>Decorating a function as a <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#task"><code>@task</code></a> means LangGraph automatically tracks its execution, allowing you to:</p>
+<ol type="1">
+<li>easily add <strong>retry</strong> policies for transient network errors (since LLMs are usually accessed through the network)</li>
+<li>or <strong>resume</strong>; if part of the workflow
+<ol type="1">
+<li><strong>fails</strong></li>
+<li>or gets <strong>interrupted</strong>: human-in-the-loop is implemented using an <code>interrupt()</code> call (<em>discussed later</em>)</li>
+</ol></li>
+<li>or <strong>cache</strong> expensive LLM calls (since they are not cheap)</li>
+</ol>
+<p>The entrance point that acts like the <code>main()</code> function of the program. It is decorated as <code>@entrypoint</code>.</p>
+<p>For more about tasks, see: <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#when-to-use-a-task">When to use a task</a>.</p>
+</section>
+<section id="sequential" class="level2">
+<h2 class="anchored" data-anchor-id="sequential">Sequential</h2>
+<p>Prompt chaining is when each LLM call processes the output of the previous call. It’s often used for performing well-defined tasks that can be broken down into smaller, verifiable steps. Some examples include:</p>
+<ul>
+<li>Translating documents into different languages</li>
+<li>Verifying generated content for consistency</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="02_workflows_files/figure-html/mermaid-figure-1.png" style="width:10.26in;height:1.06in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Note the use of <code>@task</code> decorator for when the function has a call to an LLM via one of it’s key methods (<code>.invoke()</code> here) to persist it’s execution state when later run:</p>
+<div id="322e0a43" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.func <span class="im">import</span> task</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tasks</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_joke(topic: <span class="bu">str</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""First LLM call to generate initial joke"""</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a short joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> improve_joke(joke: <span class="bu">str</span>):</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Second LLM call to improve the joke"""</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Make this joke funnier by adding wordplay: </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> polish_joke(joke: <span class="bu">str</span>):</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Third LLM call for final polish"""</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Add a surprising twist to this joke: </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The following <code>check_punchline</code> is doesn’t have any LLM calls (or any I/O or long-running operations), so no <code>@task</code> decoration is needed:</p>
+<div id="f512ea71" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_punchline(joke: <span class="bu">str</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Gate function to check if the joke has a punchline"""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simple check - does the joke contain "?" or "!"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"?"</span> <span class="kw">in</span> joke <span class="kw">or</span> <span class="st">"!"</span> <span class="kw">in</span> joke:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Fail"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Pass"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Rule: <code>@task</code>-decorated functions cannot be run outside an <code>@entrypoint</code>-decorated function. This is to make sure we have a checkpointer to manage it’s state:</p>
+<div id="88e302c2" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.func <span class="im">import</span> entrypoint</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.checkpoint.memory <span class="im">import</span> MemorySaver</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Initialize the memory saver</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>memory_checkpointer <span class="op">=</span> MemorySaver()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Pass it into the entrypoint decorator</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>(checkpointer<span class="op">=</span>memory_checkpointer)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prompt_chaining_workflow(topic: <span class="bu">str</span>):</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    draft <span class="op">=</span> generate_joke(topic).result()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> check_punchline(draft) <span class="op">==</span> <span class="st">"Pass"</span>:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> draft</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    improved <span class="op">=</span> improve_joke(draft).result()</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    polished <span class="op">=</span> polish_joke(improved).result()</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> polished</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice two new things here:</p>
+<ol type="1">
+<li><code>checkpointer</code></li>
+<li><code>.result()</code></li>
+</ol>
+<section id="synchronize-io-bound-ops-with-.result" class="level3">
+<h3 class="anchored" data-anchor-id="synchronize-io-bound-ops-with-.result">Synchronize I/O-bound ops with <code>.result()</code></h3>
+<ul>
+<li>Calling a task returns a <a href="https://docs.python.org/3/library/asyncio-future.html"><em>Future Object</em></a> (like JavaScript promises), an asynchronous construct, which runs separately from the current thread.</li>
+<li>We can choose a synchronization point by calling <code>.result()</code>; which awaits the return of the running task (<em>that promised to return in the future</em>).</li>
+</ul>
+</section>
+<section id="what-is-checkpointer" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-checkpointer">What is <code>checkpointer</code>?</h3>
+<ul>
+<li><strong>Checkpointers</strong> enable&nbsp;<a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence</a>&nbsp;in LangGraph, allowing workflows to save and resume state across interactions.</li>
+<li>Example: it is used to remember the results of previously completed <strong>tasks</strong> so they are not re-run if when the graph is later resumed.</li>
+</ul>
+<p>Since sessions could span minutes, hours, and perhaps days before the user resumes their conversation, it can also be saved in a database. Let’s see an example with Postgres here:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.checkpoint.postgres <span class="im">import</span> PostgresSaver</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> psycopg_pool <span class="im">import</span> ConnectionPool</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Set up the connection pool and PostgresSaver</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>DB_URI <span class="op">=</span> <span class="st">"postgresql://user:password@localhost:5432/my_database"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>pool <span class="op">=</span> ConnectionPool(conninfo<span class="op">=</span>DB_URI)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>postgres_checkpointer <span class="op">=</span> PostgresSaver(pool)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>postgres_checkpointer.setup() <span class="co"># Creates the required LangGraph tables if they don't exist</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Pass the configured postgres checkpointer into the entrypoint</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>(checkpointer<span class="op">=</span>postgres_checkpointer)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prompt_chaining_workflow(topic: <span class="bu">str</span>):</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span> <span class="co"># ..etc.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Checkout: <a href="https://docs.langchain.com/oss/python/integrations/checkpointers/index">Checkpointer integrations</a> where you can see how to save to <strong>Postgres</strong> among other databases.</p>
+</section>
+<section id="run-the-graph" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-graph">Run the graph</h3>
+<ul>
+<li>Now we can use one of <code>Runnable</code>’s key methods: <code>.stream()</code> using the entrypoint defined above</li>
+<li>We use <a href="https://reference.langchain.com/python/langchain-core/runnables/config/RunnableConfig/configurable"><code>RunnableConfig.configurable</code></a> to specify a <code>thread_id</code> which is used to namespace the memory for the interaction separate from other interactions in this <code>checkpointer</code>.</li>
+</ul>
+<div id="370bb91b" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> {<span class="st">"configurable"</span>: {<span class="st">"thread_id"</span>: <span class="dv">1</span>}}</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> prompt_chaining_workflow.stream(<span class="st">"cats"</span>, config<span class="op">=</span>config, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'generate_joke': 'Why did the cat siton the computer?  \nBecause it wanted to keep an eye on the mouse!'}
+
+
+{'improve_joke': ''}
+
+
+{'polish_joke': 'Sure thing! Here’s a classic setup with a surprise ending that flips the whole thing on its head:\n\n**Joke:**  \n*Why don’t scientists trust atoms?*\n\n**Twist:**  *Because they make up everything… and then they *actually* start a union to demand better working conditions!*  \n\n---\n\n**How the twist works:**  \n1. **Setup** – The punchline plays on the familiar word‑play “make up” (i.e., atoms are the building blocks of matter).  \n2. **Surprise** – Instead of stopping at the pun, we add a second layer: atoms are personified as workers who unionize.  3. **Extra surprise** – The union’s demands are absurdly specific (“better working conditions” for subatomic particles), turning a simple chemistry joke into a mini‑satire about labor rights—something you definitely don’t see coming!  Feel free to swap in any other punchline you have in mind, and I can add a twist that catches the listener off‑guard. Just drop the original joke here, and I’ll give it the surprise makeover!'}
+
+
+{'prompt_chaining_workflow': 'Sure thing! Here’s a classic setup with a surprise ending that flips the whole thing on its head:\n\n**Joke:**  \n*Why don’t scientists trust atoms?*\n\n**Twist:**  *Because they make up everything… and then they *actually* start a union to demand better working conditions!*  \n\n---\n\n**How the twist works:**  \n1. **Setup** – The punchline plays on the familiar word‑play “make up” (i.e., atoms are the building blocks of matter).  \n2. **Surprise** – Instead of stopping at the pun, we add a second layer: atoms are personified as workers who unionize.  3. **Extra surprise** – The union’s demands are absurdly specific (“better working conditions” for subatomic particles), turning a simple chemistry joke into a mini‑satire about labor rights—something you definitely don’t see coming!  Feel free to swap in any other punchline you have in mind, and I can add a twist that catches the listener off‑guard. Just drop the original joke here, and I’ll give it the surprise makeover!'}
+
+</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Checkpointing keeps your place:</strong>&nbsp;the checkpointer writes the exact graph state so you can resume later, even when in an error state.</li>
+<li><strong><code>thread_id</code>&nbsp;is your pointer:</strong>&nbsp;set&nbsp;<code>config={"configurable": {"thread_id": ...}}</code>&nbsp;to tell the checkpointer which state to load.</li>
+</ul>
+</section>
+</section>
+<section id="parallelization" class="level2">
+<h2 class="anchored" data-anchor-id="parallelization">Parallelization</h2>
+<p>With parallelization, LLMs work simultaneously on a task. This is either done by running multiple independent subtasks at the same time, or running the same task multiple times to check for different outputs. Parallelization is commonly used to:</p>
+<ul>
+<li>Split up subtasks and run them in parallel, which increases speed</li>
+<li>Run tasks multiple times to check for different outputs, which increases confidence</li>
+</ul>
+<p>Some examples include:</p>
+<ul>
+<li>Running one subtask that processes a document for keywords, and a second subtask to check for formatting errors</li>
+<li>Running a task multiple times that scores a document for accuracy based on different criteria, like the number of citations, the number of sources used, and the quality of the sources</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="02_workflows_files/figure-html/mermaid-figure-5.png" style="width:3.87in;height:1.5in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div id="675b32f7" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_1(topic: <span class="bu">str</span>):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""First LLM call to generate initial joke"""</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_2(topic: <span class="bu">str</span>):</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Second LLM call to generate story"""</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a story about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_3(topic):</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Third LLM call to generate poem"""</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a poem about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> aggregator(topic, joke, story, poem):</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Combine the joke and story into a single output"""</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">=</span> <span class="ss">f"Here's a story, joke, and poem about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">!</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"STORY:</span><span class="ch">\n</span><span class="sc">{</span>story<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"JOKE:</span><span class="ch">\n</span><span class="sc">{</span>joke<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"POEM:</span><span class="ch">\n</span><span class="sc">{</span>poem<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> combined</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f4ecf63e" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build workflow</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parallel_workflow(topic: <span class="bu">str</span>):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Kick off three tasks in parallel</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    joke_fut <span class="op">=</span> call_llm_1(topic)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    story_fut <span class="op">=</span> call_llm_2(topic)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    poem_fut <span class="op">=</span> call_llm_3(topic)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Synchronize: await each task to complete</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    joke <span class="op">=</span> joke_fut.result()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    story <span class="op">=</span> story_fut.result()</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    poem <span class="op">=</span> poem_fut.result()</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use aggregator task</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> aggregator(topic, joke, story, poem)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="84dcfe53" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> {<span class="st">"configurable"</span>: {<span class="st">"thread_id"</span>: <span class="dv">2</span>}}</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> parallel_workflow.stream(<span class="st">"cats"</span>, config<span class="op">=</span>config, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'call_llm_1': 'Here\'s a purr-fectly simple cat joke for you:\n\n&gt; **Why did the cat get kicked out of the library?**  \n&gt; *Because it kept knocking over the books and saying, "I’m not lazy—I’m in **purr-fect** mode!"*  \n\n*(Bonus groan: It’s not lazy… it’s just *purr*-fessionally conserving energy.)* 😸'}
+
+
+{'call_llm_3': '**Whiskers inthe Moonlight**\n\nIn shadows where the night wind sighs,  \nA silent paws‑step, soft as sighs,  \nA tail that curls around the dark,  \nA secret world that only cats embark.\n\nTheir eyes—two lanterns, amber bright,  \nReflect the stars that fade from light;  \nThey watch the world with quiet grace,  \nAnd hold the universe in that small space.\n\nA stretch, a yawn, a sudden leap—  \nThey turn the ordinary into deep,  A puddle, box, or sunlit floor,  \nEach moment sparks a feline lore.\n\nWith velvet paws they claim the throne,  \nYet purrs are offered, not alone;  \nA gentle hum that mends the soul,  \nA lullaby that makes us whole.\n\nSo here’s to cats—both myth and fact—  \nThe quiet guardians of the back,  \nWho teach us how to move, to rest,  \nTo love the world, and be our best.  \n\n*May their soft paws forever tread  \nUpon the pages of our heads.*'}
+
+
+{'call_llm_2': '**The Midnight Library**\n\nWhen the townclock struck twelve, the old brick library on Willow Street fell silent—except for the soft rustle of pages and the occasional flicker of a candle. The librarian, Mrs. Penelope Whitmore, had long since retired, but the building kept its own rhythm, humming with stories that refused to stay bound.\n\nOne moonlit night, a sleek tabby named **Mira** slipped through the cracked back door. She was no ordinary stray; she carried an air of quiet authority, her amber eyes reflecting the glow of the streetlamp outside. Mira had been drawn to the library by a scent—a faint, sweet perfume of old paper and ink—that seemed to whisper her name.\n\nShe padded across the polished wooden floor, her paws silent on the worn rugs. The shelves stretched like towering trees, each one laden with books of every size and hue. As she approached a particularly dusty corner, a faint glow pulsed from behind a row of encyclopedias. Curious, Mira nudged the books aside, revealing a hidden alcove.\n\nInside the alcove lay a massive, leather‑bound tome titled **“The Chronicle of Whiskers.”** Its pages were blank, but as Mira brushed her tail against the cover, ink began to swirl and form words. The story that unfurled was not just any tale—it was the secret history of the library itself, written by the cats who had guarded it for centuries.\n\nAccording to the chronicle, the library was built atop an ancient ley line, a conduit of magical energy that fed the imagination of any creature that entered. Long ago, a council of wise cats—Sir Pounce, Lady Whisk, and the enigmatic Archivist—had sworn to protect the knowledge within, ensuring that only those with pure curiosity could access it. They taught the library’s books to whisper their secrets to those who listened with open hearts.\n\nMira’s whiskers twitched as she read the next passage: *“When the moon is full and the wind sings through the rafters, a cat of midnight may enter the hidden chamber. There, the stories of the world will be revealed, and the keeper of tales may choose a single story to bring into the waking world.”* The words glowed brighter, and a soft, melodic purr resonated through the stone walls.\n\nAt that moment, a faint rustle came from the far end of the library. A silver-furred cat, older and more regal than any Mira had ever seen, stepped into the light. His eyes were like twin moons, and his fur shimmered with flecks of starlight. He introduced himself as **Lord Marmalade**, the current Archivist and the last living descendant of the original council.\n\n“Ah, Mira,” he said, his voice a blend of gravel and honey, “you have been chosen. The library has waited for a cat with a heart brave enough to carry its stories beyond these walls.”\n\nMira felt a surge of purpose. She leapt onto the ancient oak desk and placed her paw upon the open page of the chronicle. As she did, the ink swirled faster, forming a vortex of light that rose like a comet. From the vortex spilled a cascade of stories—tales of daring mice, distant galaxies, forgotten love letters, and songs sung by wind‑chimes in forgotten kingdoms.\n\nLord Marmalade explained that Mira could take one of these stories into the world above, but only if she could find a human who would listen with an open mind. He warned her that most people dismissed the magic of cats, seeing them only as pets or pests. Yet, he believed that a single story, told with sincerity, could change a heart.\n\nWith a flick of her tail, Mira chose a story about a young girl named **Elise**, who lived in a small town much like Willow Street. Elise loved to read, but her parents wanted her to become a baker. One night, she discovered an old, dusty book in the attic—a book about a cat who could travel through time. The cat, named **Chronos**, taught Elise to see the world not as a series of chores, but as a tapestry of possibilities.\n\nMira’s eyes widened. She realized that the story she held could bridge the gap between the secret library and the ordinary world. She leapt onto the windowsill, the moonlight catching her fur, and felt a gentle tug—an invitation to step through the veil between worlds.\n\nShe emerged onto the cobblestone street, the library’s doors closing behind her with a soft click. The night was still, but the air hummed with possibility. Mira padded toward a small bakery with a sign that read **“Sweet Whiskers’ Pastries.”** Inside, a young woman named Elise was kneading dough, her hands moving with practiced grace.\n\nMira leapt onto the counter, her paws landing softly on a bowl of flour. She stared into Elise’s eyes, and for a moment, the world seemed to pause. Then, with a gentle nudge of her head, she pushed a small, leather‑bound book toward Elise. The cover bore the title **“Chronicles of Whiskers.”**\n\nElise opened it, and the pages glowed faintly. As she read, the story of Chronos and the time‑traveling cat unfolded, filling her mind with wonder. She felt a sudden surge of inspiration, and her hands began to shape the dough into whimsical shapes—tiny cats, stars, and moons. When the pastries were baked and sold the next day, people whispered that they tasted like magic.\n\nWord spread, and soon the bakery became a haven for dreamers and storytellers. Children would gather around Elise, begging for the tale of Chronos, while adults found themselves remembering forgotten dreams. The library on Willow Street, though unseen, thrummed with quiet satisfaction. Its guardians—both feline and human—had found a new way to share their stories.\n\nMira, having fulfilled her purpose, slipped back into the night, her silhouette disappearing into the moonlit alley. She knew her journey was never truly over; the library would always need a keeper, a storyteller, a bridge between worlds. And somewhere, in the hush of midnight, a soft purr echoed through the stacks, promising that as long as there were cats with curious hearts, stories would never truly be lost.\n\n*And so, the Midnight Library continued to whisper its secrets to those who dared to listen, its shelves forever alive with the purrs of cats and the rustle of pages, waiting for the next curious soul to turn the page.*'}
+
+
+{'parallel_workflow': &lt;Future at 0x7abb0cbe1d60 state=pending&gt;}
+
+
+{'aggregator': 'Here\'s a story, joke, and poem about cats!\n\nSTORY:\n**The Midnight Library**\n\nWhen the townclock struck twelve, the old brick library on Willow Street fell silent—except for the soft rustle of pages and the occasional flicker of a candle. The librarian, Mrs. Penelope Whitmore, had long since retired, but the building kept its own rhythm, humming with stories that refused to stay bound.\n\nOne moonlit night, a sleek tabby named **Mira** slipped through the cracked back door. She was no ordinary stray; she carried an air of quiet authority, her amber eyes reflecting the glow of the streetlamp outside. Mira had been drawn to the library by a scent—a faint, sweet perfume of old paper and ink—that seemed to whisper her name.\n\nShe padded across the polished wooden floor, her paws silent on the worn rugs. The shelves stretched like towering trees, each one laden with books of every size and hue. As she approached a particularly dusty corner, a faint glow pulsed from behind a row of encyclopedias. Curious, Mira nudged the books aside, revealing a hidden alcove.\n\nInside the alcove lay a massive, leather‑bound tome titled **“The Chronicle of Whiskers.”** Its pages were blank, but as Mira brushed her tail against the cover, ink began to swirl and form words. The story that unfurled was not just any tale—it was the secret history of the library itself, written by the cats who had guarded it for centuries.\n\nAccording to the chronicle, the library was built atop an ancient ley line, a conduit of magical energy that fed the imagination of any creature that entered. Long ago, a council of wise cats—Sir Pounce, Lady Whisk, and the enigmatic Archivist—had sworn to protect the knowledge within, ensuring that only those with pure curiosity could access it. They taught the library’s books to whisper their secrets to those who listened with open hearts.\n\nMira’s whiskers twitched as she read the next passage: *“When the moon is full and the wind sings through the rafters, a cat of midnight may enter the hidden chamber. There, the stories of the world will be revealed, and the keeper of tales may choose a single story to bring into the waking world.”* The words glowed brighter, and a soft, melodic purr resonated through the stone walls.\n\nAt that moment, a faint rustle came from the far end of the library. A silver-furred cat, older and more regal than any Mira had ever seen, stepped into the light. His eyes were like twin moons, and his fur shimmered with flecks of starlight. He introduced himself as **Lord Marmalade**, the current Archivist and the last living descendant of the original council.\n\n“Ah, Mira,” he said, his voice a blend of gravel and honey, “you have been chosen. The library has waited for a cat with a heart brave enough to carry its stories beyond these walls.”\n\nMira felt a surge of purpose. She leapt onto the ancient oak desk and placed her paw upon the open page of the chronicle. As she did, the ink swirled faster, forming a vortex of light that rose like a comet. From the vortex spilled a cascade of stories—tales of daring mice, distant galaxies, forgotten love letters, and songs sung by wind‑chimes in forgotten kingdoms.\n\nLord Marmalade explained that Mira could take one of these stories into the world above, but only if she could find a human who would listen with an open mind. He warned her that most people dismissed the magic of cats, seeing them only as pets or pests. Yet, he believed that a single story, told with sincerity, could change a heart.\n\nWith a flick of her tail, Mira chose a story about a young girl named **Elise**, who lived in a small town much like Willow Street. Elise loved to read, but her parents wanted her to become a baker. One night, she discovered an old, dusty book in the attic—a book about a cat who could travel through time. The cat, named **Chronos**, taught Elise to see the world not as a series of chores, but as a tapestry of possibilities.\n\nMira’s eyes widened. She realized that the story she held could bridge the gap between the secret library and the ordinary world. She leapt onto the windowsill, the moonlight catching her fur, and felt a gentle tug—an invitation to step through the veil between worlds.\n\nShe emerged onto the cobblestone street, the library’s doors closing behind her with a soft click. The night was still, but the air hummed with possibility. Mira padded toward a small bakery with a sign that read **“Sweet Whiskers’ Pastries.”** Inside, a young woman named Elise was kneading dough, her hands moving with practiced grace.\n\nMira leapt onto the counter, her paws landing softly on a bowl of flour. She stared into Elise’s eyes, and for a moment, the world seemed to pause. Then, with a gentle nudge of her head, she pushed a small, leather‑bound book toward Elise. The cover bore the title **“Chronicles of Whiskers.”**\n\nElise opened it, and the pages glowed faintly. As she read, the story of Chronos and the time‑traveling cat unfolded, filling her mind with wonder. She felt a sudden surge of inspiration, and her hands began to shape the dough into whimsical shapes—tiny cats, stars, and moons. When the pastries were baked and sold the next day, people whispered that they tasted like magic.\n\nWord spread, and soon the bakery became a haven for dreamers and storytellers. Children would gather around Elise, begging for the tale of Chronos, while adults found themselves remembering forgotten dreams. The library on Willow Street, though unseen, thrummed with quiet satisfaction. Its guardians—both feline and human—had found a new way to share their stories.\n\nMira, having fulfilled her purpose, slipped back into the night, her silhouette disappearing into the moonlit alley. She knew her journey was never truly over; the library would always need a keeper, a storyteller, a bridge between worlds. And somewhere, in the hush of midnight, a soft purr echoed through the stacks, promising that as long as there were cats with curious hearts, stories would never truly be lost.\n\n*And so, the Midnight Library continued to whisper its secrets to those who dared to listen, its shelves forever alive with the purrs of cats and the rustle of pages, waiting for the next curious soul to turn the page.*\n\nJOKE:\nHere\'s a purr-fectly simple cat joke for you:\n\n&gt; **Why did the cat get kicked out of the library?**  \n&gt; *Because it kept knocking over the books and saying, "I’m not lazy—I’m in **purr-fect** mode!"*  \n\n*(Bonus groan: It’s not lazy… it’s just *purr*-fessionally conserving energy.)* 😸\n\nPOEM:\n**Whiskers inthe Moonlight**\n\nIn shadows where the night wind sighs,  \nA silent paws‑step, soft as sighs,  \nA tail that curls around the dark,  \nA secret world that only cats embark.\n\nTheir eyes—two lanterns, amber bright,  \nReflect the stars that fade from light;  \nThey watch the world with quiet grace,  \nAnd hold the universe in that small space.\n\nA stretch, a yawn, a sudden leap—  \nThey turn the ordinary into deep,  A puddle, box, or sunlit floor,  \nEach moment sparks a feline lore.\n\nWith velvet paws they claim the throne,  \nYet purrs are offered, not alone;  \nA gentle hum that mends the soul,  \nA lullaby that makes us whole.\n\nSo here’s to cats—both myth and fact—  \nThe quiet guardians of the back,  \nWho teach us how to move, to rest,  \nTo love the world, and be our best.  \n\n*May their soft paws forever tread  \nUpon the pages of our heads.*'}
+
+</code></pre>
+</div>
+</div>
+</section>
+<section id="routing" class="level2">
+<h2 class="anchored" data-anchor-id="routing">Routing</h2>
+<p>Routing workflows process inputs and then directs them to context-specific tasks. This allows you to define specialized flows for complex tasks. For example, a workflow built to answer product related questions might process the type of question first, and then route the request to specific processes for pricing, refunds, returns, etc.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="02_workflows_files/figure-html/mermaid-figure-4.png" style="width:5.78in;height:1.5in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Notice we wiill be using <em>Structured Ouptut</em> to achieve this:</p>
+<div id="fc17ddad" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing_extensions <span class="im">import</span> Literal</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.messages <span class="im">import</span> HumanMessage, SystemMessage</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schema for structured output to use as routing logic</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Route(BaseModel):</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    step: Literal[<span class="st">"poem"</span>, <span class="st">"story"</span>, <span class="st">"joke"</span>] <span class="op">=</span> Field(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">None</span>, description<span class="op">=</span><span class="st">"The next step in the routing process"</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Augment the LLM with schema for structured output</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>router <span class="op">=</span> llm.with_structured_output(Route)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_router(input_: <span class="bu">str</span>):</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Route the input to the appropriate node"""</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Run the augmented LLM with structured output to serve as routing logic</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    decision <span class="op">=</span> router.invoke(</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>            SystemMessage(</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>                content<span class="op">=</span><span class="st">"Route the input to story, joke, or poem based on the user's request."</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>            HumanMessage(content<span class="op">=</span>input_),</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decision.step</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="0ecad264" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_1(input_: <span class="bu">str</span>):</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a story"""</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(input_)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_2(input_: <span class="bu">str</span>):</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a joke"""</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(input_)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_3(input_: <span class="bu">str</span>):</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a poem"""</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(input_)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4442a688" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create workflow</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> router_workflow(input_: <span class="bu">str</span>):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    next_step <span class="op">=</span> llm_call_router(input_)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> next_step <span class="op">==</span> <span class="st">"story"</span>:</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> llm_call_1</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> next_step <span class="op">==</span> <span class="st">"joke"</span>:</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> llm_call_2</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> next_step <span class="op">==</span> <span class="st">"poem"</span>:</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> llm_call_3</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> llm_call(input_).result()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4b1c0d73" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> router_workflow.stream(<span class="st">"Tell me a joke about cats"</span>, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'llm_call_2': 'Here\'s a classiccat joke for you—short, sweet, and purr-fectly punny:  \n\n&gt; **Why did the cat sit on the computer?**  \n&gt; *Because it wanted to keep an eye on the mouse!* 😸  *(Bonus: The cat was just trying to "click" the mouse... but it’s a *cat* joke, so it’s *purr*-fectly logical.)*  \n\nHope that gives you a little *purr*-sonal chuckle! 🐾'}
+
+
+{'router_workflow': 'Here\'s a classiccat joke for you—short, sweet, and purr-fectly punny:  \n\n&gt; **Why did the cat sit on the computer?**  \n&gt; *Because it wanted to keep an eye on the mouse!* 😸  *(Bonus: The cat was just trying to "click" the mouse... but it’s a *cat* joke, so it’s *purr*-fectly logical.)*  \n\nHope that gives you a little *purr*-sonal chuckle! 🐾'}
+
+</code></pre>
+</div>
+</div>
+</section>
+<section id="orchestrator-worker" class="level2">
+<h2 class="anchored" data-anchor-id="orchestrator-worker">Orchestrator-worker</h2>
+<p>In an orchestrator-worker configuration, the orchestrator:</p>
+<ul>
+<li>Breaks down tasks into subtasks</li>
+<li>Delegates subtasks to workers</li>
+<li>Synthesizes worker outputs into a final result</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="02_workflows_files/figure-html/mermaid-figure-3.png" style="width:8.12in;height:1.5in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Orchestrator-worker workflows provide more flexibility and are often used when subtasks cannot be predefined the way they can with <a href="#parallelization">parallelization</a>. This is common with workflows that write code or need to update content across multiple files. For example, a workflow that needs to update installation instructions for multiple Python libraries across an unknown number of documents might use this pattern.</p>
+<div id="8c852277" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Schema for structured output to use in planning</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Section(BaseModel):</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    name: <span class="bu">str</span> <span class="op">=</span> Field(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"Name for this section of the report."</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    description: <span class="bu">str</span> <span class="op">=</span> Field(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"Brief overview of the main topics and concepts to be covered in this section."</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Sections(BaseModel):</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    sections: List[Section] <span class="op">=</span> Field(</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"Sections of the report."</span>,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Augment the LLM with schema for structured output</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>planner <span class="op">=</span> llm.with_structured_output(Sections)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cf6572cd" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> orchestrator(topic: <span class="bu">str</span>):</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Orchestrator that generates a plan for the report"""</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate queries</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    report_sections <span class="op">=</span> planner.invoke(</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>            SystemMessage(content<span class="op">=</span><span class="st">"Generate a plan for the report."</span>),</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            HumanMessage(content<span class="op">=</span><span class="ss">f"Here is the report topic: </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> report_sections.sections</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call(section: Section):</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Worker writes a section of the report"""</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate section</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>            SystemMessage(content<span class="op">=</span><span class="st">"Write a report section."</span>),</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>            HumanMessage(</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>                content<span class="op">=</span><span class="ss">f"Here is the section name: </span><span class="sc">{</span>section<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> and description: </span><span class="sc">{</span>section<span class="sc">.</span>description<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Write the updated section to completed sections</span></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> synthesizer(completed_sections: <span class="bu">list</span>[<span class="bu">str</span>]):</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Synthesize full report from sections"""</span></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>    final_report <span class="op">=</span> <span class="st">"</span><span class="ch">\n\n</span><span class="st">---</span><span class="ch">\n\n</span><span class="st">"</span>.join(completed_sections)</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> final_report</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c60687cf" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> orchestrator_worker(topic: <span class="bu">str</span>):</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    sections <span class="op">=</span> orchestrator(topic).result()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    section_futures <span class="op">=</span> [llm_call(section) <span class="cf">for</span> section <span class="kw">in</span> sections]</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    final_report <span class="op">=</span> synthesizer(</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        [section_fut.result() <span class="cf">for</span> section_fut <span class="kw">in</span> section_futures]</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    ).result()</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> final_report</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="b96679d0" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>report <span class="op">=</span> orchestrator_worker.invoke(<span class="st">"Create a report on LLM scaling laws"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="79b53bc3" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Markdown</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Markdown(report[:<span class="dv">200</span>] <span class="op">+</span> <span class="st">'... (*truncated*)'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="33">
+<p><strong>Executive Summary</strong></p>
+<p>This report synthesizes the results of a comprehensive analysis of <em>[subject/area]</em>, highlighting critical insights, emerging trends, and actionable opportunities. The key findi… (<em>truncated</em>)</p>
+</div>
+</div>
+</section>
+<section id="evaluator-optimizer" class="level2">
+<h2 class="anchored" data-anchor-id="evaluator-optimizer">Evaluator-optimizer</h2>
+<p>In evaluator-optimizer workflows, one LLM call creates a response and the other evaluates that response. If the evaluator or a <a href="https://docs.langchain.com/oss/python/langgraph/interrupts">human-in-the-loop</a> determines the response needs refinement, feedback is provided and the response is recreated. This loop continues until an acceptable response is generated.</p>
+<p>Evaluator-optimizer workflows are commonly used when there’s particular success criteria for a task, but iteration is required to meet that criteria. For example, there’s not always a perfect match when translating text between two languages. It might take a few iterations to generate a translation with the same meaning across the two languages.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="02_workflows_files/figure-html/mermaid-figure-2.png" style="width:7.33in;height:0.66in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div id="c67b59ab" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.func <span class="im">import</span> entrypoint, task</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="d9065a01" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schema for structured output to use in evaluation</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Feedback(BaseModel):</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    grade: Literal[<span class="st">"funny"</span>, <span class="st">"not funny"</span>] <span class="op">=</span> Field(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"Decide if the joke is funny or not."</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    feedback: <span class="bu">str</span> <span class="op">=</span> Field(</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"If the joke is not funny, provide feedback on how to improve it."</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Augment the LLM with schema for structured output</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>evaluator <span class="op">=</span> llm.with_structured_output(Feedback)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodes</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_generator(topic: <span class="bu">str</span>, feedback: Feedback):</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""LLM generates a joke"""</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> feedback:</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        msg <span class="op">=</span> llm.invoke(</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"Write a joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss"> but take into account the feedback: </span><span class="sc">{</span>feedback<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>        msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_evaluator(joke: <span class="bu">str</span>):</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""LLM evaluates the joke"""</span></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>    feedback <span class="op">=</span> evaluator.invoke(<span class="ss">f"Grade the joke </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> feedback</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="64d9ee15" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> optimizer_workflow(topic: <span class="bu">str</span>):</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    feedback <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        joke <span class="op">=</span> llm_call_generator(topic, feedback).result()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        feedback <span class="op">=</span> llm_call_evaluator(joke).result()</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> feedback.grade <span class="op">==</span> <span class="st">"funny"</span>:</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> joke</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f107b0dd" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> optimizer_workflow.stream(<span class="st">"mouse"</span>, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'llm_call_generator': 'Here\'s a clean, classic mouse jokewith a twist:\n\n&gt; A mouse walks into a bar.  \n&gt; The bartender says, *"We don’t serve mice here."*  &gt; The mouse replies,  \n&gt; **"Good thing I’m not a cat then!"**  \n\n*(The punchline? The mouse is *not* a cat—so he’s not the one who’s supposed to be scared of the bar… or the cat! 😄)*  \n\nHope that gives you a little chuckle! 🐭'}
+
+
+{'llm_call_evaluator': Feedback(grade='not funny', feedback='The joke is a bit weak. The setup is a classic bar‑walk‑in line, but the punchline relies on a vague wordplay that isn’t very clear. The twist about the mouse not being a cat is more of a non‑sequitur than a genuine punchline, and the explanation adds more confusion than humor. It might get a chuckle from a very young audience, but most adults will find it under‑whelming. To improve it, focus on a tighter punchline that ties the mouse’s fear of the cat to the bar setting, or use a more unexpected twist that lands more directly.')}
+
+
+{'llm_call_generator': 'A mouse walksinto a bar, sees a cat behind the counter, and whispers, “I’m just here for the cheese — don’t worry, I left my cheese at home because the cat’s on the menu!”'}
+
+</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">LengthFinishReasonError</span>                   Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[37]</span><span class="ansi-green-fg">, line 2</span>
+<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># Invoke</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> step <span style="font-weight:bold;color:rgb(0,135,0)">in</span> optimizer_workflow.stream(<span class="ansi-yellow-fg">"mouse"</span>, stream_mode=<span class="ansi-yellow-fg">"updates"</span>):
+<span class="ansi-green-fg">      3</span>     print(step)
+<span class="ansi-green-fg">      4</span>     print(<span class="ansi-yellow-fg">"\n"</span>)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/main.py:2759</span>, in <span class="ansi-cyan-fg">Pregel.stream</span><span class="ansi-blue-fg">(self, input, config, context, stream_mode, print_mode, output_keys, interrupt_before, interrupt_after, durability, subgraphs, debug, version, **kwargs)</span>
+<span class="ansi-green-fg">   2757</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> task <span style="font-weight:bold;color:rgb(175,0,255)">in</span> loop.match_cached_writes():
+<span class="ansi-green-fg">   2758</span>     loop.output_writes(task.id, task.writes, cached=<span style="font-weight:bold;color:rgb(0,135,0)">True</span>)
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">2759</span> <span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">for</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">_</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(175,0,255)" class="ansi-yellow-bg">in</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">runner</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">tick</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   2760</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">for</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(175,0,255)" class="ansi-yellow-bg">in</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">loop</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">tasks</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">values</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">if</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(175,0,255)" class="ansi-yellow-bg">not</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">writes</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   2761</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">timeout</span><span class="ansi-yellow-bg">=</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">step_timeout</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   2762</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">get_waiter</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">get_waiter</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   2763</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">schedule_task</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">loop</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">accept_push</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   2764</span> <span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">:</span>
+<span class="ansi-green-fg">   2765</span> <span class="ansi-yellow-bg">    </span><span style="font-style:italic;color:rgb(95,135,135)" class="ansi-yellow-bg"># emit output</span>
+<span class="ansi-green-fg">   2766</span> <span class="ansi-yellow-bg">    </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">yield from</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">_output</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   2767</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">stream_mode</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   2768</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">print_mode</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   2774</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">_state_mapper</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   2775</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   2776</span> loop.after_tick()
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/_runner.py:258</span>, in <span class="ansi-cyan-fg">PregelRunner.tick</span><span class="ansi-blue-fg">(self, tasks, reraise, timeout, retry_policy, get_waiter, schedule_task)</span>
+<span class="ansi-green-fg">    256</span> <span style="font-style:italic;color:rgb(95,135,135)"># panic on failure or timeout</span>
+<span class="ansi-green-fg">    257</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">258</span>     <span class="ansi-yellow-bg">_panic_or_proceed</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    259</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">futures</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">done</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">union</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">f</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">for</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">f</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(175,0,255)" class="ansi-yellow-bg">in</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">futures</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">items</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">if</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(175,0,255)" class="ansi-yellow-bg">is</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(175,0,255)" class="ansi-yellow-bg">not</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">None</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    260</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">panic</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">reraise</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    261</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    262</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">Exception</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
+<span class="ansi-green-fg">    263</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> tb := exc.__traceback__:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/_runner.py:520</span>, in <span class="ansi-cyan-fg">_panic_or_proceed</span><span class="ansi-blue-fg">(futs, timeout_exc_cls, panic)</span>
+<span class="ansi-green-fg">    518</span>                 interrupts.append(exc)
+<span class="ansi-green-fg">    519</span>             <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> fut <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(175,0,255)">in</span> SKIP_RERAISE_SET:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">520</span>                 <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> exc
+<span class="ansi-green-fg">    521</span> <span style="font-style:italic;color:rgb(95,135,135)"># raise combined interrupts</span>
+<span class="ansi-green-fg">    522</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> interrupts:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/_executor.py:80</span>, in <span class="ansi-cyan-fg">BackgroundExecutor.done</span><span class="ansi-blue-fg">(self, task)</span>
+<span class="ansi-green-fg">     78</span> <span style="font-style:italic" class="ansi-yellow-fg">"""Remove the task from the tasks dict when it's done."""</span>
+<span class="ansi-green-fg">     79</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">80</span>     <span class="ansi-yellow-bg">task</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">result</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">     81</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> GraphBubbleUp:
+<span class="ansi-green-fg">     82</span>     <span style="font-style:italic;color:rgb(95,135,135)"># This exception is an interruption signal, not an error</span>
+<span class="ansi-green-fg">     83</span>     <span style="font-style:italic;color:rgb(95,135,135)"># so we don't want to re-raise it on exit</span>
+<span class="ansi-green-fg">     84</span>     <span style="color:rgb(0,135,0)">self</span>.tasks.pop(task)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:449</span>, in <span class="ansi-cyan-fg">Future.result</span><span class="ansi-blue-fg">(self, timeout)</span>
+<span class="ansi-green-fg">    447</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> CancelledError()
+<span class="ansi-green-fg">    448</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> <span style="color:rgb(0,135,0)">self</span>._state == FINISHED:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">449</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">__get_result</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    451</span> <span style="color:rgb(0,135,0)">self</span>._condition.wait(timeout)
+<span class="ansi-green-fg">    453</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">self</span>._state <span style="font-weight:bold;color:rgb(175,0,255)">in</span> [CANCELLED, CANCELLED_AND_NOTIFIED]:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:401</span>, in <span class="ansi-cyan-fg">Future.__get_result</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-fg">    399</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">self</span>._exception:
+<span class="ansi-green-fg">    400</span>     <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">401</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="color:rgb(0,135,0)">self</span>._exception
+<span class="ansi-green-fg">    402</span>     <span style="font-weight:bold;color:rgb(0,135,0)">finally</span>:
+<span class="ansi-green-fg">    403</span>         <span style="font-style:italic;color:rgb(95,135,135)"># Break a reference cycle with the exception in self._exception</span>
+<span class="ansi-green-fg">    404</span>         <span style="color:rgb(0,135,0)">self</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py:59</span>, in <span class="ansi-cyan-fg">_WorkItem.run</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-fg">     56</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span>
+<span class="ansi-green-fg">     58</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">59</span>     result = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">fn</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">     60</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
+<span class="ansi-green-fg">     61</span>     <span style="color:rgb(0,135,0)">self</span>.future.set_exception(exc)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/_retry.py:126</span>, in <span class="ansi-cyan-fg">run_with_retry</span><span class="ansi-blue-fg">(task, retry_policy, configurable)</span>
+<span class="ansi-green-fg">    124</span>     task.writes.clear()
+<span class="ansi-green-fg">    125</span>     <span style="font-style:italic;color:rgb(95,135,135)"># run the task</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">126</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">task</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">proc</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">invoke</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">task</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">input</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    127</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> ParentCommand <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
+<span class="ansi-green-fg">    128</span>     ns: <span style="color:rgb(0,135,0)">str</span> = config[CONF][CONFIG_KEY_CHECKPOINT_NS]
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/_internal/_runnable.py:656</span>, in <span class="ansi-cyan-fg">RunnableSeq.invoke</span><span class="ansi-blue-fg">(self, input, config, **kwargs)</span>
+<span class="ansi-green-fg">    654</span>     <span style="font-style:italic;color:rgb(95,135,135)"># run in context</span>
+<span class="ansi-green-fg">    655</span>     <span style="font-weight:bold;color:rgb(0,135,0)">with</span> set_config_context(config, run) <span style="font-weight:bold;color:rgb(0,135,0)">as</span> context:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">656</span>         <span style="color:rgb(0,135,0)">input</span> = <span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">run</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">step</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">invoke</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">input</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    657</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    658</span>     <span style="color:rgb(0,135,0)">input</span> = step.invoke(<span style="color:rgb(0,135,0)">input</span>, config)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/_internal/_runnable.py:400</span>, in <span class="ansi-cyan-fg">RunnableCallable.invoke</span><span class="ansi-blue-fg">(self, input, config, **kwargs)</span>
+<span class="ansi-green-fg">    398</span>         run_manager.on_chain_end(ret)
+<span class="ansi-green-fg">    399</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">400</span>     ret = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">func</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    401</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">self</span>.recurse <span style="font-weight:bold;color:rgb(175,0,255)">and</span> <span style="color:rgb(0,135,0)">isinstance</span>(ret, Runnable):
+<span class="ansi-green-fg">    402</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> ret.invoke(<span style="color:rgb(0,135,0)">input</span>, config)
+
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[36]</span><span class="ansi-green-fg">, line 6</span>, in <span class="ansi-cyan-fg">optimizer_workflow</span><span class="ansi-blue-fg">(topic)</span>
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span> optimizer_workflow(topic: str):
+<span class="ansi-green-fg">      3</span>     feedback = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
+<span class="ansi-green-fg">      4</span>     <span style="font-weight:bold;color:rgb(0,135,0)">while</span> <span style="font-weight:bold;color:rgb(0,135,0)">True</span>:
+<span class="ansi-green-fg">      5</span>         joke = llm_call_generator(topic, feedback).result()
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">6</span>         feedback = llm_call_evaluator(joke).result()
+<span class="ansi-green-fg">      7</span>         <span style="font-weight:bold;color:rgb(0,135,0)">if</span> feedback.grade == <span class="ansi-yellow-fg">"funny"</span>:
+<span class="ansi-green-fg">      8</span>             <span style="font-weight:bold;color:rgb(0,135,0)">break</span>
+<span class="ansi-green-fg">      9</span> 
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:456</span>, in <span class="ansi-cyan-fg">Future.result</span><span class="ansi-blue-fg">(self, timeout)</span>
+<span class="ansi-green-fg">    454</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> CancelledError()
+<span class="ansi-green-fg">    455</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> <span style="color:rgb(0,135,0)">self</span>._state == FINISHED:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">456</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">__get_result</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    457</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    458</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">TimeoutError</span>()
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:401</span>, in <span class="ansi-cyan-fg">Future.__get_result</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-fg">    399</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">self</span>._exception:
+<span class="ansi-green-fg">    400</span>     <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">401</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="color:rgb(0,135,0)">self</span>._exception
+<span class="ansi-green-fg">    402</span>     <span style="font-weight:bold;color:rgb(0,135,0)">finally</span>:
+<span class="ansi-green-fg">    403</span>         <span style="font-style:italic;color:rgb(95,135,135)"># Break a reference cycle with the exception in self._exception</span>
+<span class="ansi-green-fg">    404</span>         <span style="color:rgb(0,135,0)">self</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/_executor.py:80</span>, in <span class="ansi-cyan-fg">BackgroundExecutor.done</span><span class="ansi-blue-fg">(self, task)</span>
+<span class="ansi-green-fg">     78</span> <span style="font-style:italic" class="ansi-yellow-fg">"""Remove the task from the tasks dict when it's done."""</span>
+<span class="ansi-green-fg">     79</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">80</span>     <span class="ansi-yellow-bg">task</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">result</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">     81</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> GraphBubbleUp:
+<span class="ansi-green-fg">     82</span>     <span style="font-style:italic;color:rgb(95,135,135)"># This exception is an interruption signal, not an error</span>
+<span class="ansi-green-fg">     83</span>     <span style="font-style:italic;color:rgb(95,135,135)"># so we don't want to re-raise it on exit</span>
+<span class="ansi-green-fg">     84</span>     <span style="color:rgb(0,135,0)">self</span>.tasks.pop(task)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:449</span>, in <span class="ansi-cyan-fg">Future.result</span><span class="ansi-blue-fg">(self, timeout)</span>
+<span class="ansi-green-fg">    447</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> CancelledError()
+<span class="ansi-green-fg">    448</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> <span style="color:rgb(0,135,0)">self</span>._state == FINISHED:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">449</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">__get_result</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    451</span> <span style="color:rgb(0,135,0)">self</span>._condition.wait(timeout)
+<span class="ansi-green-fg">    453</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">self</span>._state <span style="font-weight:bold;color:rgb(175,0,255)">in</span> [CANCELLED, CANCELLED_AND_NOTIFIED]:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py:401</span>, in <span class="ansi-cyan-fg">Future.__get_result</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-fg">    399</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">self</span>._exception:
+<span class="ansi-green-fg">    400</span>     <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">401</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="color:rgb(0,135,0)">self</span>._exception
+<span class="ansi-green-fg">    402</span>     <span style="font-weight:bold;color:rgb(0,135,0)">finally</span>:
+<span class="ansi-green-fg">    403</span>         <span style="font-style:italic;color:rgb(95,135,135)"># Break a reference cycle with the exception in self._exception</span>
+<span class="ansi-green-fg">    404</span>         <span style="color:rgb(0,135,0)">self</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/.local/share/uv/python/cpython-3.12.8-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py:59</span>, in <span class="ansi-cyan-fg">_WorkItem.run</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-fg">     56</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span>
+<span class="ansi-green-fg">     58</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">59</span>     result = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">fn</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">     60</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
+<span class="ansi-green-fg">     61</span>     <span style="color:rgb(0,135,0)">self</span>.future.set_exception(exc)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/_executor.py:223</span>, in <span class="ansi-cyan-fg">next_tick</span><span class="ansi-blue-fg">(fn, *args, **kwargs)</span>
+<span class="ansi-green-fg">    221</span> <span style="font-style:italic" class="ansi-yellow-fg">"""A function that yields control to other threads before running another function."""</span>
+<span class="ansi-green-fg">    222</span> time.sleep(<span class="ansi-green-fg">0</span>)
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">223</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">fn</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/pregel/_retry.py:126</span>, in <span class="ansi-cyan-fg">run_with_retry</span><span class="ansi-blue-fg">(task, retry_policy, configurable)</span>
+<span class="ansi-green-fg">    124</span>     task.writes.clear()
+<span class="ansi-green-fg">    125</span>     <span style="font-style:italic;color:rgb(95,135,135)"># run the task</span>
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">126</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">task</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">proc</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">invoke</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">task</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">input</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    127</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> ParentCommand <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
+<span class="ansi-green-fg">    128</span>     ns: <span style="color:rgb(0,135,0)">str</span> = config[CONF][CONFIG_KEY_CHECKPOINT_NS]
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/_internal/_runnable.py:656</span>, in <span class="ansi-cyan-fg">RunnableSeq.invoke</span><span class="ansi-blue-fg">(self, input, config, **kwargs)</span>
+<span class="ansi-green-fg">    654</span>     <span style="font-style:italic;color:rgb(95,135,135)"># run in context</span>
+<span class="ansi-green-fg">    655</span>     <span style="font-weight:bold;color:rgb(0,135,0)">with</span> set_config_context(config, run) <span style="font-weight:bold;color:rgb(0,135,0)">as</span> context:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">656</span>         <span style="color:rgb(0,135,0)">input</span> = <span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">run</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">step</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">invoke</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">input</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    657</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    658</span>     <span style="color:rgb(0,135,0)">input</span> = step.invoke(<span style="color:rgb(0,135,0)">input</span>, config)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langgraph/_internal/_runnable.py:400</span>, in <span class="ansi-cyan-fg">RunnableCallable.invoke</span><span class="ansi-blue-fg">(self, input, config, **kwargs)</span>
+<span class="ansi-green-fg">    398</span>         run_manager.on_chain_end(ret)
+<span class="ansi-green-fg">    399</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">400</span>     ret = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">func</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    401</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">self</span>.recurse <span style="font-weight:bold;color:rgb(175,0,255)">and</span> <span style="color:rgb(0,135,0)">isinstance</span>(ret, Runnable):
+<span class="ansi-green-fg">    402</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> ret.invoke(<span style="color:rgb(0,135,0)">input</span>, config)
+
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[35]</span><span class="ansi-green-fg">, line 31</span>, in <span class="ansi-cyan-fg">llm_call_evaluator</span><span class="ansi-blue-fg">(joke)</span>
+<span class="ansi-green-fg">     28</span> @task
+<span class="ansi-green-fg">     29</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span> llm_call_evaluator(joke: str):
+<span class="ansi-green-fg">     30</span>     <span class="ansi-yellow-fg">"""LLM evaluates the joke"""</span>
+<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">31</span>     feedback = evaluator.invoke(f"Grade the joke {joke}")
+<span class="ansi-green-fg">     32</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> feedback
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_core/runnables/base.py:3155</span>, in <span class="ansi-cyan-fg">RunnableSequence.invoke</span><span class="ansi-blue-fg">(self, input, config, **kwargs)</span>
+<span class="ansi-green-fg">   3153</span> <span style="font-weight:bold;color:rgb(0,135,0)">with</span> set_config_context(config) <span style="font-weight:bold;color:rgb(0,135,0)">as</span> context:
+<span class="ansi-green-fg">   3154</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> i == <span class="ansi-green-fg">0</span>:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">3155</span>         input_ = <span class="ansi-yellow-bg">context</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">run</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">step</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">invoke</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">input_</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   3156</span>     <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">   3157</span>         input_ = context.run(step.invoke, input_, config)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_core/runnables/base.py:5695</span>, in <span class="ansi-cyan-fg">RunnableBindingBase.invoke</span><span class="ansi-blue-fg">(self, input, config, **kwargs)</span>
+<span class="ansi-green-fg">   5688</span> <span style="color:rgb(175,0,255)">@override</span>
+<span class="ansi-green-fg">   5689</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">invoke</span>(
+<span class="ansi-green-fg">   5690</span>     <span style="color:rgb(0,135,0)">self</span>,
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   5693</span>     **kwargs: Any | <span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
+<span class="ansi-green-fg">   5694</span> ) -&gt; Output:
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">5695</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">bound</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">invoke</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   5696</span> <span class="ansi-yellow-bg">        </span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">input</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   5697</span> <span class="ansi-yellow-bg">        </span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_merge_configs</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   5698</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">{</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">}</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   5699</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py:455</span>, in <span class="ansi-cyan-fg">BaseChatModel.invoke</span><span class="ansi-blue-fg">(self, input, config, stop, **kwargs)</span>
+<span class="ansi-green-fg">    441</span> <span style="color:rgb(175,0,255)">@override</span>
+<span class="ansi-green-fg">    442</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">invoke</span>(
+<span class="ansi-green-fg">    443</span>     <span style="color:rgb(0,135,0)">self</span>,
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    448</span>     **kwargs: Any,
+<span class="ansi-green-fg">    449</span> ) -&gt; AIMessage:
+<span class="ansi-green-fg">    450</span>     config = ensure_config(config)
+<span class="ansi-green-fg">    451</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> cast(
+<span class="ansi-green-fg">    452</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">AIMessage</span><span class="ansi-yellow-fg">"</span>,
+<span class="ansi-green-fg">    453</span>         cast(
+<span class="ansi-green-fg">    454</span>             <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">ChatGeneration</span><span class="ansi-yellow-fg">"</span>,
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">455</span>             <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">generate_prompt</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    456</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">[</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_convert_input</span><span class="ansi-yellow-bg">(</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">input</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    457</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    458</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">callbacks</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">callbacks</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    459</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">tags</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">tags</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    460</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">metadata</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">metadata</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    461</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">run_name</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">get</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">run_name</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    462</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">run_id</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">config</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">pop</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">run_id</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">None</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    463</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    464</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">)</span>.generations[<span class="ansi-green-fg">0</span>][<span class="ansi-green-fg">0</span>],
+<span class="ansi-green-fg">    465</span>         ).message,
+<span class="ansi-green-fg">    466</span>     )
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py:1198</span>, in <span class="ansi-cyan-fg">BaseChatModel.generate_prompt</span><span class="ansi-blue-fg">(self, prompts, stop, callbacks, **kwargs)</span>
+<span class="ansi-green-fg">   1189</span> <span style="color:rgb(175,0,255)">@override</span>
+<span class="ansi-green-fg">   1190</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">generate_prompt</span>(
+<span class="ansi-green-fg">   1191</span>     <span style="color:rgb(0,135,0)">self</span>,
+<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1195</span>     **kwargs: Any,
+<span class="ansi-green-fg">   1196</span> ) -&gt; LLMResult:
+<span class="ansi-green-fg">   1197</span>     prompt_messages = [p.to_messages() <span style="font-weight:bold;color:rgb(0,135,0)">for</span> p <span style="font-weight:bold;color:rgb(175,0,255)">in</span> prompts]
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1198</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">generate</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">prompt_messages</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">callbacks</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">callbacks</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py:1005</span>, in <span class="ansi-cyan-fg">BaseChatModel.generate</span><span class="ansi-blue-fg">(self, messages, stop, callbacks, tags, metadata, run_name, run_id, **kwargs)</span>
+<span class="ansi-green-fg">   1002</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> i, m <span style="font-weight:bold;color:rgb(175,0,255)">in</span> <span style="color:rgb(0,135,0)">enumerate</span>(input_messages):
+<span class="ansi-green-fg">   1003</span>     <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
+<span class="ansi-green-fg">   1004</span>         results.append(
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1005</span>             <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_generate_with_cache</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   1006</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">m</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1007</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1008</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">run_manager</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">run_managers</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">i</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">if</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">run_managers</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">else</span><span class="ansi-yellow-bg"> </span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">None</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1009</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">   1010</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1011</span>         )
+<span class="ansi-green-fg">   1012</span>     <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> e:
+<span class="ansi-green-fg">   1013</span>         <span style="font-weight:bold;color:rgb(0,135,0)">if</span> run_managers:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py:1310</span>, in <span class="ansi-cyan-fg">BaseChatModel._generate_with_cache</span><span class="ansi-blue-fg">(self, messages, stop, run_manager, **kwargs)</span>
+<span class="ansi-green-fg">   1308</span>     result = generate_from_stream(<span style="color:rgb(0,135,0)">iter</span>(chunks))
+<span class="ansi-green-fg">   1309</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> inspect.signature(<span style="color:rgb(0,135,0)">self</span>._generate).parameters.get(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">run_manager</span><span class="ansi-yellow-fg">"</span>):
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1310</span>     result = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_generate</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">   1311</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">messages</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">stop</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">run_manager</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">run_manager</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span>
+<span class="ansi-green-fg">   1312</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1313</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">   1314</span>     result = <span style="color:rgb(0,135,0)">self</span>._generate(messages, stop=stop, **kwargs)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_openai/chat_models/base.py:1507</span>, in <span class="ansi-cyan-fg">BaseChatOpenAI._generate</span><span class="ansi-blue-fg">(self, messages, stop, run_manager, **kwargs)</span>
+<span class="ansi-green-fg">   1505</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> raw_response <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span> <span style="font-weight:bold;color:rgb(175,0,255)">and</span> <span style="color:rgb(0,135,0)">hasattr</span>(raw_response, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">http_response</span><span class="ansi-yellow-fg">"</span>):
+<span class="ansi-green-fg">   1506</span>         e.response = raw_response.http_response  <span style="font-style:italic;color:rgb(95,135,135)"># type: ignore[attr-defined]</span>
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1507</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> e
+<span class="ansi-green-fg">   1508</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> (
+<span class="ansi-green-fg">   1509</span>     <span style="color:rgb(0,135,0)">self</span>.include_response_headers
+<span class="ansi-green-fg">   1510</span>     <span style="font-weight:bold;color:rgb(175,0,255)">and</span> raw_response <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
+<span class="ansi-green-fg">   1511</span>     <span style="font-weight:bold;color:rgb(175,0,255)">and</span> <span style="color:rgb(0,135,0)">hasattr</span>(raw_response, <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">headers</span><span class="ansi-yellow-fg">"</span>)
+<span class="ansi-green-fg">   1512</span> ):
+<span class="ansi-green-fg">   1513</span>     generation_info = {<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">headers</span><span class="ansi-yellow-fg">"</span>: <span style="color:rgb(0,135,0)">dict</span>(raw_response.headers)}
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/langchain_openai/chat_models/base.py:1477</span>, in <span class="ansi-cyan-fg">BaseChatOpenAI._generate</span><span class="ansi-blue-fg">(self, messages, stop, run_manager, **kwargs)</span>
+<span class="ansi-green-fg">   1473</span>     payload.pop(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">stream</span><span class="ansi-yellow-fg">"</span>)
+<span class="ansi-green-fg">   1474</span>     raw_response = (
+<span class="ansi-green-fg">   1475</span>         <span style="color:rgb(0,135,0)">self</span>.root_client.chat.completions.with_raw_response.parse(**payload)
+<span class="ansi-green-fg">   1476</span>     )
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1477</span>     response = <span class="ansi-yellow-bg">raw_response</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">parse</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1478</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> <span style="color:rgb(0,135,0)">self</span>._use_responses_api(payload):
+<span class="ansi-green-fg">   1479</span>     original_schema_obj = kwargs.get(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">response_format</span><span class="ansi-yellow-fg">"</span>)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/openai/_legacy_response.py:139</span>, in <span class="ansi-cyan-fg">LegacyAPIResponse.parse</span><span class="ansi-blue-fg">(self, to)</span>
+<span class="ansi-green-fg">    137</span> parsed = <span style="color:rgb(0,135,0)">self</span>._parse(to=to)
+<span class="ansi-green-fg">    138</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> is_given(<span style="color:rgb(0,135,0)">self</span>._options.post_parser):
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">139</span>     parsed = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">_options</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">post_parser</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">parsed</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    141</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(parsed, BaseModel):
+<span class="ansi-green-fg">    142</span>     add_request_id(parsed, <span style="color:rgb(0,135,0)">self</span>.request_id)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py:185</span>, in <span class="ansi-cyan-fg">Completions.parse.&lt;locals&gt;.parser</span><span class="ansi-blue-fg">(raw_completion)</span>
+<span class="ansi-green-fg">    184</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">parser</span>(raw_completion: ChatCompletion) -&gt; ParsedChatCompletion[ResponseFormatT]:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">185</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">_parse_chat_completion</span><span class="ansi-yellow-bg">(</span>
+<span class="ansi-green-fg">    186</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">response_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">response_format</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    187</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chat_completion</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">raw_completion</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    188</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">input_tools</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chat_completion_tools</span><span class="ansi-yellow-bg">,</span>
+<span class="ansi-green-fg">    189</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/work/AthkaX/ai-pros/public/content/W4/.venv/lib/python3.12/site-packages/openai/lib/_parsing/_completions.py:100</span>, in <span class="ansi-cyan-fg">parse_chat_completion</span><span class="ansi-blue-fg">(response_format, input_tools, chat_completion)</span>
+<span class="ansi-green-fg">     98</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> choice <span style="font-weight:bold;color:rgb(175,0,255)">in</span> chat_completion.choices:
+<span class="ansi-green-fg">     99</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> choice.finish_reason == <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">length</span><span class="ansi-yellow-fg">"</span>:
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">100</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> LengthFinishReasonError(completion=chat_completion)
+<span class="ansi-green-fg">    102</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> choice.finish_reason == <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">content_filter</span><span class="ansi-yellow-fg">"</span>:
+<span class="ansi-green-fg">    103</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> ContentFilterFinishReasonError()
+
+<span class="ansi-red-fg">LengthFinishReasonError</span>: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=65536, prompt_tokens=63, total_tokens=65599, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=0, reasoning_tokens=84, rejected_prediction_tokens=None, image_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0, cache_write_tokens=0, video_tokens=0), cost=0, is_byok=False, cost_details={'upstream_inference_cost': 0, 'upstream_inference_prompt_cost': 0, 'upstream_inference_completions_cost': 0})
+During task with name 'llm_call_evaluator' and id '59e75625-2dec-ca72-3fbe-e7c20a10701e'
+During task with name 'optimizer_workflow' and id '25df4e96-6ecd-13dc-9d83-f5334f15eec4'</pre>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>

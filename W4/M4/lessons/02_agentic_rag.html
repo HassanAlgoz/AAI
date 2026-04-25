@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>M1.Ex1: Models – Applied AI Bootcamp</title>
+<title>Retrieval Augmented Generation (RAG) – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,6 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -161,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M1.Ex1: Models</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Retrieval Augmented Generation (RAG)</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,11 +190,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#task-1-text-generation-temperature" id="toc-task-1-text-generation-temperature" class="nav-link active" data-scroll-target="#task-1-text-generation-temperature">Task 1: Text Generation Temperature</a></li>
-  <li><a href="#task-2-sentiment-analysis" id="toc-task-2-sentiment-analysis" class="nav-link" data-scroll-target="#task-2-sentiment-analysis">Task 2: Sentiment Analysis</a></li>
-  <li><a href="#task-3-categorization" id="toc-task-3-categorization" class="nav-link" data-scroll-target="#task-3-categorization">Task 3: Categorization</a></li>
-  <li><a href="#task-4-data-extraction" id="toc-task-4-data-extraction" class="nav-link" data-scroll-target="#task-4-data-extraction">Task 4: Data Extraction</a></li>
-  <li><a href="#task-5-tools" id="toc-task-5-tools" class="nav-link" data-scroll-target="#task-5-tools">Task 5: Tools</a></li>
+  <li><a href="#rag-architectures" id="toc-rag-architectures" class="nav-link active" data-scroll-target="#rag-architectures">RAG architectures</a>
+  <ul class="collapse">
+  <li><a href="#a.-2-step-rag" id="toc-a.-2-step-rag" class="nav-link" data-scroll-target="#a.-2-step-rag">A. 2-step RAG</a></li>
+  <li><a href="#b.-agentic-rag" id="toc-b.-agentic-rag" class="nav-link" data-scroll-target="#b.-agentic-rag">B. Agentic RAG</a></li>
+  <li><a href="#c.-hybrid-rag" id="toc-c.-hybrid-rag" class="nav-link" data-scroll-target="#c.-hybrid-rag">C. Hybrid RAG</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -200,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">M1.Ex1: Models</h1>
+<h1 class="title">Retrieval Augmented Generation (RAG)</h1>
 </div>
 
 
@@ -217,70 +221,149 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="task-1-text-generation-temperature" class="level2">
-<h2 class="anchored" data-anchor-id="task-1-text-generation-temperature">Task 1: Text Generation Temperature</h2>
-<ol type="1">
-<li>Setup an account at <a href="https://openrouter.ai/">OpenRouter.ai</a></li>
-<li>Set the <code>OPENROUTER_API_KEY</code></li>
-<li>Select an LLM a free model like: <code>"nvidia/nemotron-3-nano-30b-a3b:free"</code></li>
-<li>make a high-temperature model and a low-temperature one</li>
-<li>Ask both of them the same question and observe the answer</li>
-<li>Include a stylistic instruction like “make it short” or “say it backwards” or “be poetic in your response” or “use only emojis”</li>
-<li>Ask the model to format their answer as JSON</li>
-</ol>
+<section id="rag-architectures" class="level2">
+<h2 class="anchored" data-anchor-id="rag-architectures">RAG architectures</h2>
+<p>RAG can be implemented in multiple ways, depending on your system’s needs. We outline each type in the sections below.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 44%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 5%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Architecture</th>
+<th>Description</th>
+<th>Control</th>
+<th>Flexibility</th>
+<th>Latency</th>
+<th>Example Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>2-Step RAG</strong></td>
+<td>Retrieval always happens before generation. Simple and predictable</td>
+<td>✅ High</td>
+<td>❌ Low</td>
+<td>⚡ Fast</td>
+<td>FAQs, documentation bots</td>
+</tr>
+<tr class="even">
+<td><strong>Agentic RAG</strong></td>
+<td>An LLM-powered agent decides <em>when</em> and <em>how</em> to retrieve during reasoning</td>
+<td>❌ Low</td>
+<td>✅ High</td>
+<td>⏳ Variable</td>
+<td>Research assistants with access to multiple tools</td>
+</tr>
+<tr class="odd">
+<td><strong>Hybrid</strong></td>
+<td>Combines characteristics of both approaches with validation steps</td>
+<td>⚖️ Medium</td>
+<td>⚖️ Medium</td>
+<td>⏳ Variable</td>
+<td>Domain-specific Q&amp;A with quality validation</td>
+</tr>
+</tbody>
+</table>
+<p>Note 1: <strong>Latency</strong>: Latency is generally more <strong>predictable</strong> in <strong>2-Step RAG</strong>, as the maximum number of LLM calls is known and capped.</p>
+<p>Note 2: real-world latency may also be <strong>affected by the performance of retrieval steps</strong>—such as API response times, network delays, or database queries—which can vary based on the tools and infrastructure in use.</p>
+<section id="a.-2-step-rag" class="level3">
+<h3 class="anchored" data-anchor-id="a.-2-step-rag">A. 2-step RAG</h3>
+<p>In <strong>2-Step RAG</strong>, the retrieval step is always executed before the generation step. This architecture is straightforward and predictable, making it suitable for many applications where the retrieval of relevant documents is a clear prerequisite for generating an answer.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_agentic_rag_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="02_agentic_rag_files/figure-html/mermaid-figure-1.png" style="width:10.28in;height:0.98in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
-<section id="task-2-sentiment-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="task-2-sentiment-analysis">Task 2: Sentiment Analysis</h2>
-<p>Step 1. Restrict the model to output exactly one of: <code>["positive", "neutral", "negative"]</code>.</p>
-<p>Hint: Use <code>.with_structured_output()</code> with Pydantic’s BaseModel subclass.</p>
-<p>Step 2. Give the model a model few sentences, and observe it’s output:</p>
-<pre class="text"><code># Positive
-"Kindness creates lasting joy."
-"Success rewards persistent effort."
-"I love Sunlight. It warms the skin."
-
-# Negative
-"Pessemestic all the time."
-"The storm caused damage!"
-
-# Neutral
-"The clock ticks steadily."</code></pre>
+<section id="b.-agentic-rag" class="level3">
+<h3 class="anchored" data-anchor-id="b.-agentic-rag">B. Agentic RAG</h3>
+<p><strong>Agentic RAG</strong> means that an LLM gets to decide <strong>when</strong> and <strong>how</strong> to retrieve information during the interaction.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_agentic_rag_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="02_agentic_rag_files/figure-html/mermaid-figure-3.png" style="width:4.76in;height:11.33in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>The only thing an agent needs to enable RAG behavior is access to one or more <strong>tools</strong> that can fetch external knowledge — such as documentation loaders, web APIs, or database queries.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.tools <span class="im">import</span> tool</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chat_models <span class="im">import</span> init_chat_model</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_agent</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fetch_url(url: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Fetch text content from a URL"""</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(url, timeout<span class="op">=</span><span class="fl">10.0</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    response.raise_for_status()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.text</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"""</span><span class="op">\</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">Use fetch_url when you need to fetch information from a web-page; quote relevant snippets.</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_agent(</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-5-20250929"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[fetch_url], <span class="co"># A tool for retrieval</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span>system_prompt,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="task-3-categorization" class="level2">
-<h2 class="anchored" data-anchor-id="task-3-categorization">Task 3: Categorization</h2>
-<p>Restrict the model to give tags (multi-output): <code>["cars", "shopping", "sports", "study", "work"]</code>.</p>
-<p>try:</p>
-<pre class="text"><code>"That restoration looks incredible; you have a real talent for mechanics."
-"I found the perfect gift today! The staff was incredibly helpful."
-"Great game today! Your teamwork was the key to that victory."
-"Learning together helped me finally grasp these concepts. Thank you!"</code></pre>
-</section>
-<section id="task-4-data-extraction" class="level2">
-<h2 class="anchored" data-anchor-id="task-4-data-extraction">Task 4: Data Extraction</h2>
-<p>Use <code>.with_structured_output()</code> to have a model read a resume/CV and identify key data points such as: Candidate Name, Skills, Experience, ..etc.</p>
-<p>You will need to use a <a href="https://docs.langchain.com/oss/python/integrations/document_loaders#pdfs">pdf document loader as listed here</a>.</p>
-</section>
-<section id="task-5-tools" class="level2">
-<h2 class="anchored" data-anchor-id="task-5-tools">Task 5: Tools</h2>
-<p>Step 1. Define 4 Python functions: <code>add(a, b)</code>, <code>subtract(a, b)</code>, <code>multiply(a, b)</code> and <code>divide(a, b)</code>.</p>
-<p>Step 2. Copy those functions and place them in one multi-line string. like so:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">You are a math assistant. You have access to these tools:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">def add(a, b):</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ...</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">Return the tool name and arguments required to solve the user's request.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Step 3. Define the following pydanic class:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ToolCall(BaseModel):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    tool_name: <span class="bu">str</span> <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"The name of the function to use"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    arguments: Dict[<span class="bu">str</span>, Any] <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"The parameters to pass"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Step 4. Use structured output to ask the model to answer any mathematical question like: <code>"what is two plus 5"</code></p>
-<p>Observe: can you see what this could be used for? Can you extend this idea further?</p>
+<section id="c.-hybrid-rag" class="level3">
+<h3 class="anchored" data-anchor-id="c.-hybrid-rag">C. Hybrid RAG</h3>
+<p>Hybrid RAG combines characteristics of both 2-Step and Agentic RAG. It introduces intermediate steps such as query preprocessing, retrieval validation, and post-generation checks. These systems offer more flexibility than fixed pipelines while maintaining some control over execution.</p>
+<p>Typical components include:</p>
+<ul>
+<li><strong>Query enhancement</strong>: Modify the input question to improve retrieval quality.
+<ul>
+<li>Rewrite unclear queries, generate multiple variations, or expand queries with additional context.</li>
+</ul></li>
+<li><strong>Retrieval validation</strong>: Evaluate whether retrieved documents are relevant and sufficient.
+<ul>
+<li>If not, the system may refine the query and retrieve again.</li>
+</ul></li>
+<li><strong>Answer validation</strong>: Check the generated answer for accuracy, completeness, and alignment with source content.
+<ul>
+<li>If needed, the system can regenerate or revise the answer.</li>
+</ul></li>
+</ul>
+<p>The architecture often supports multiple iterations between these steps:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_agentic_rag_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="02_agentic_rag_files/figure-html/mermaid-figure-2.png" style="width:5.91in;height:14.46in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>This architecture is suitable for:</p>
+<ul>
+<li>Applications with ambiguous or underspecified queries</li>
+<li>Systems that require validation or quality control steps</li>
+<li>Workflows involving multiple sources or iterative refinement</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -685,6 +768,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

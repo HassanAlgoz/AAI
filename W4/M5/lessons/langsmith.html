@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>M1.Ex1: Models – Applied AI Bootcamp</title>
+<title>langsmith – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -161,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M1.Ex1: Models</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,98 +187,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#task-1-text-generation-temperature" id="toc-task-1-text-generation-temperature" class="nav-link active" data-scroll-target="#task-1-text-generation-temperature">Task 1: Text Generation Temperature</a></li>
-  <li><a href="#task-2-sentiment-analysis" id="toc-task-2-sentiment-analysis" class="nav-link" data-scroll-target="#task-2-sentiment-analysis">Task 2: Sentiment Analysis</a></li>
-  <li><a href="#task-3-categorization" id="toc-task-3-categorization" class="nav-link" data-scroll-target="#task-3-categorization">Task 3: Categorization</a></li>
-  <li><a href="#task-4-data-extraction" id="toc-task-4-data-extraction" class="nav-link" data-scroll-target="#task-4-data-extraction">Task 4: Data Extraction</a></li>
-  <li><a href="#task-5-tools" id="toc-task-5-tools" class="nav-link" data-scroll-target="#task-5-tools">Task 5: Tools</a></li>
+  <li><a href="#langsmith-tracing" id="toc-langsmith-tracing" class="nav-link active" data-scroll-target="#langsmith-tracing">LangSmith (Tracing)</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="langsmith.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">M1.Ex1: Models</h1>
+
+
+
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 13%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Required</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LANGSMITH_API_KEY</code></td>
+<td>Optional</td>
+<td>Enables LangSmith tracing &amp; dashboard</td>
+</tr>
+<tr class="even">
+<td><code>LANGSMITH_PROJECT</code></td>
+<td>Optional</td>
+<td>Names the LangSmith project for traces</td>
+</tr>
+<tr class="odd">
+<td><code>LANGSMITH_TRACING_V2</code></td>
+<td>Optional</td>
+<td>Enables the newer LangSmith tracing mode</td>
+</tr>
+</tbody>
+</table>
+<section id="langsmith-tracing" class="level3">
+<h3 class="anchored" data-anchor-id="langsmith-tracing">LangSmith (Tracing)</h3>
+<p>Many of the applications you build with LangChain will contain multiple steps with multiple invocations of LLM calls. As these applications get more complex, it becomes crucial to be able to inspect what exactly is going on inside your chain or agent. The best way to do this is with <a href="https://smith.langchain.com/">LangSmith</a>.</p>
+<div id="5e37ccc2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"LANGSMITH_PROJECT"</span>] <span class="op">=</span> <span class="st">"my-first-project"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"LANGSMITH_TRACING_V2"</span>] <span class="op">=</span> <span class="st">"true"</span> <span class="co"># newer V2 tracing protocol</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="task-1-text-generation-temperature" class="level2">
-<h2 class="anchored" data-anchor-id="task-1-text-generation-temperature">Task 1: Text Generation Temperature</h2>
-<ol type="1">
-<li>Setup an account at <a href="https://openrouter.ai/">OpenRouter.ai</a></li>
-<li>Set the <code>OPENROUTER_API_KEY</code></li>
-<li>Select an LLM a free model like: <code>"nvidia/nemotron-3-nano-30b-a3b:free"</code></li>
-<li>make a high-temperature model and a low-temperature one</li>
-<li>Ask both of them the same question and observe the answer</li>
-<li>Include a stylistic instruction like “make it short” or “say it backwards” or “be poetic in your response” or “use only emojis”</li>
-<li>Ask the model to format their answer as JSON</li>
-</ol>
-</section>
-<section id="task-2-sentiment-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="task-2-sentiment-analysis">Task 2: Sentiment Analysis</h2>
-<p>Step 1. Restrict the model to output exactly one of: <code>["positive", "neutral", "negative"]</code>.</p>
-<p>Hint: Use <code>.with_structured_output()</code> with Pydantic’s BaseModel subclass.</p>
-<p>Step 2. Give the model a model few sentences, and observe it’s output:</p>
-<pre class="text"><code># Positive
-"Kindness creates lasting joy."
-"Success rewards persistent effort."
-"I love Sunlight. It warms the skin."
-
-# Negative
-"Pessemestic all the time."
-"The storm caused damage!"
-
-# Neutral
-"The clock ticks steadily."</code></pre>
-</section>
-<section id="task-3-categorization" class="level2">
-<h2 class="anchored" data-anchor-id="task-3-categorization">Task 3: Categorization</h2>
-<p>Restrict the model to give tags (multi-output): <code>["cars", "shopping", "sports", "study", "work"]</code>.</p>
-<p>try:</p>
-<pre class="text"><code>"That restoration looks incredible; you have a real talent for mechanics."
-"I found the perfect gift today! The staff was incredibly helpful."
-"Great game today! Your teamwork was the key to that victory."
-"Learning together helped me finally grasp these concepts. Thank you!"</code></pre>
-</section>
-<section id="task-4-data-extraction" class="level2">
-<h2 class="anchored" data-anchor-id="task-4-data-extraction">Task 4: Data Extraction</h2>
-<p>Use <code>.with_structured_output()</code> to have a model read a resume/CV and identify key data points such as: Candidate Name, Skills, Experience, ..etc.</p>
-<p>You will need to use a <a href="https://docs.langchain.com/oss/python/integrations/document_loaders#pdfs">pdf document loader as listed here</a>.</p>
-</section>
-<section id="task-5-tools" class="level2">
-<h2 class="anchored" data-anchor-id="task-5-tools">Task 5: Tools</h2>
-<p>Step 1. Define 4 Python functions: <code>add(a, b)</code>, <code>subtract(a, b)</code>, <code>multiply(a, b)</code> and <code>divide(a, b)</code>.</p>
-<p>Step 2. Copy those functions and place them in one multi-line string. like so:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>system_prompt <span class="op">=</span> <span class="st">"""</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">You are a math assistant. You have access to these tools:</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">def add(a, b):</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ...</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">Return the tool name and arguments required to solve the user's request.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Step 3. Define the following pydanic class:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ToolCall(BaseModel):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    tool_name: <span class="bu">str</span> <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"The name of the function to use"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    arguments: Dict[<span class="bu">str</span>, Any] <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"The parameters to pass"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Step 4. Use structured output to ask the model to answer any mathematical question like: <code>"what is two plus 5"</code></p>
-<p>Observe: can you see what this could be used for? Can you extend this idea further?</p>
+<div id="b408634a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"LANGSMITH_API_KEY"</span>] <span class="op">=</span> userdata.get(<span class="st">"LANGSMITH_API_KEY"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
