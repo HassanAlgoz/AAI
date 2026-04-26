@@ -34,7 +34,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-83d60258e862cb5c4bd6ebabd122cf27.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-ca7ff45dca864c8748a423b2ddb238b8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -150,106 +150,130 @@
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
 <ul>
-<li>1 Introduction</li>
-<li>2 Getting Started</li>
-<li>3 Processing pipeline
+<li class="fragment">1 Introduction</li>
+<li class="fragment">2 Getting Started</li>
+<li class="fragment">3 Processing pipeline
 <ul>
-<li>3.1 PDF backends</li>
-<li>3.2 Al models</li>
-<li>3.3 Assembly</li>
-<li>3.4 Extensibility</li>
+<li class="fragment">3.1 PDF backends</li>
+<li class="fragment">3.2 Al models</li>
+<li class="fragment">3.3 Assembly</li>
+<li class="fragment">3.4 Extensibility</li>
 </ul></li>
-<li>4 Performance</li>
-<li>5 Applications</li>
-<li>6 Future work and contributions</li>
+<li class="fragment">4 Performance</li>
+<li class="fragment">5 Applications</li>
+<li class="fragment">6 Future work and contributions</li>
 </ul>
 </section>
 <section id="introduction" class="slide level2">
 <h2>1 Introduction</h2>
 <ul>
-<li>Converting PDF documents is traditionally challenging due to format variability, weak standardization, and a lack of structural metadata.</li>
-<li>The rise of LLMs and Retrieval-Augmented Generation (RAG) has increased the demand for extracting rich content from PDFs.</li>
-<li>Docling bridges the gap between proprietary solutions and open-source tools.</li>
-<li>It is an efficient, locally-run Python library powered by specialized AI models for layout analysis and table structure recognition.</li>
+<li class="fragment">Converting PDF documents is traditionally challenging due to: <strong>format variability</strong>, <strong>weak standardization</strong>, and a <strong>lack of structural metadata</strong>.</li>
+<li class="fragment">The rise of LLMs and Retrieval-Augmented Generation (RAG) has increased the demand for extracting rich content from PDFs.</li>
+<li class="fragment">Docling bridges the gap between proprietary solutions and open-source tools.</li>
+<li class="fragment">It is an efficient, locally-run Python library powered by specialized AI models for layout analysis and table structure recognition.
+<ul>
+<li class="fragment">Scroll to the <strong>Features</strong> section at the bottom of <a href="https://www.docling.ai/#features">this page</a> and click on the interactive figure buttons to see the output of docling in details.</li>
+</ul></li>
 </ul>
+</section>
+<section id="features-we-want" class="slide level2 scrollable">
+<h2>Features we want</h2>
+<ol type="1">
+<li class="fragment">🗂️ Parsing of&nbsp;<a href="https://docling-project.github.io/docling/usage/supported_formats/">multiple document formats</a>&nbsp;incl.&nbsp;PDF, DOCX, PPTX, XLSX, HTML, WAV, MP3, WebVTT, images (PNG, TIFF, JPEG, …), LaTeX, plain text, and more</li>
+<li class="fragment">📑 Advanced PDF understanding incl.&nbsp;page layout, reading order, table structure, code, formulas, image classification, and more<br>
+</li>
+<li class="fragment">✂️ Hybrid chunking: tokenization-aware refinements on top of document-based hierarchical chunking (especially useful for RAG)</li>
+<li class="fragment">👓 Support of several Visual Language Models (<a href="https://huggingface.co/ibm-granite/granite-docling-258M">GraniteDocling</a>)</li>
+<li class="fragment">🎙️ Audio support with Automatic Speech Recognition (ASR) models</li>
+<li class="fragment">🔒 Local execution capabilities for sensitive data and air-gapped environments</li>
+</ol>
 </section>
 <section id="getting-started" class="slide level2">
 <h2>2 Getting Started</h2>
 <ul>
-<li>The <a href="https://www.docling.ai/"><code>docling</code> package</a> can be easily installed directly from PyPI.</li>
-<li>It allows users to convert PDF documents from local files, URLs, or binary streams into JSON or Markdown formats.</li>
-<li>Required model assets are automatically cached locally from Hugging Face on the first run.</li>
-<li>Pipeline features, such as OCR and thread budgeting, can be customized for batch or interactive modes.</li>
+<li class="fragment">The <a href="https://www.docling.ai/"><code>docling</code> package</a> can be easily installed directly from PyPI.</li>
+<li class="fragment">It allows users to convert PDF documents from local files, URLs, or binary streams into JSON or Markdown formats.</li>
+<li class="fragment">Required model assets are automatically cached locally from Hugging Face on the first run.</li>
+<li class="fragment">Pipeline features, such as OCR and thread budgeting, can be customized for batch or interactive modes.</li>
 </ul>
-<p>Scroll to the <strong>Features</strong> section at the bottom of <a href="https://www.docling.ai/#features">this page</a> and click on the interactive figure buttons to see the output of docling in details.</p>
 </section>
 <section id="processing-pipeline" class="slide level2">
 <h2>3 Processing pipeline</h2>
 <ul>
-<li>Docling utilizes a linear sequence of operations for each document.</li>
-<li><strong>Parsing:</strong> A PDF backend extracts text tokens, coordinates, and renders bitmap images of each page.</li>
-<li><strong>AI Models:</strong> Specialized models extract layout and table structures independently per page.</li>
-<li><strong>Assembly:</strong> Results are aggregated, post-processed for metadata and reading order, and serialized into the final output format.</li>
+<li class="fragment">Docling utilizes a linear sequence of operations for each document.</li>
+<li class="fragment"><strong>Parsing:</strong> A PDF backend extracts text tokens, coordinates, and renders bitmap images of each page.</li>
+<li class="fragment"><strong>AI Models:</strong> Specialized models extract layout and table structures independently per page.</li>
+<li class="fragment"><strong>Assembly:</strong> Results are aggregated, post-processed for metadata and reading order, and serialized into the final output format.</li>
 </ul>
-
-<img data-src="../assets/docling_pipeline.png" class="r-stretch quarto-figure quarto-figure-center" alt="Figure 1: Sketch of Docling’s default processing pipeline. The inner part of the model pipeline is easily customizable and extensible."><p class="caption">Figure 1: Sketch of Docling’s default processing pipeline. The inner part of the model pipeline is easily customizable and extensible.</p></section>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/docling_pipeline.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 1: Sketch of Docling’s default processing pipeline. The inner part of the model pipeline is easily customizable and extensible."><img data-src="../assets/docling_pipeline.png" class="r-stretch quarto-figure quarto-figure-center" alt="Figure 1: Sketch of Docling’s default processing pipeline. The inner part of the model pipeline is easily customizable and extensible."></a></p>
+</figure>
+</div>
+<figcaption>Figure 1: Sketch of Docling’s default processing pipeline. The inner part of the model pipeline is easily customizable and extensible.</figcaption>
+</figure>
+</div>
+</div>
+</section>
 <section id="pdf-backends" class="slide level2">
 <h2>3.1 PDF backends</h2>
 <ul>
-<li>Backends must retrieve geometric text coordinates and render visual representations of pages.</li>
-<li>The default backend is <code>docling-parse</code>, a custom-built parser based on the low-level <code>qpdf</code> library.</li>
-<li>An alternative backend relying on <code>pypdfium</code> is provided as a backup for handling specific font encoding issues.</li>
+<li class="fragment">Backends must retrieve geometric text coordinates and render visual representations of pages.</li>
+<li class="fragment">The default backend is <code>docling-parse</code>, a custom-built parser based on the low-level <code>qpdf</code> library.</li>
+<li class="fragment">An alternative backend relying on <code>pypdfium</code> is provided as a backup for handling specific font encoding issues.</li>
 </ul>
 </section>
 <section id="al-models" class="slide level2">
 <h2>3.2 Al models</h2>
 <ul>
-<li><strong>Layout Analysis:</strong> Utilizes an RT-DETR based object-detector trained on DocLayNet to predict bounding boxes for paragraphs, tables, figures, and other elements.</li>
-<li><strong>Table Structure Recognition:</strong> Uses TableFormer to recover logical row and column structures, handling complex layouts like spanning cells and absent borders.</li>
-<li><strong>OCR:</strong> Optional EasyOCR integration is available to transcribe scanned PDFs or bitmap images.</li>
+<li class="fragment"><strong>Layout Analysis:</strong> Utilizes an <a href="https://arxiv.org/abs/2304.08069">RT-DETR</a> based object-detector trained on <a href="https://arxiv.org/abs/2206.01062">DocLayNet</a> to predict bounding boxes for paragraphs, tables, figures, and other elements.</li>
+<li class="fragment"><strong>Table Structure Recognition:</strong> Uses <a href="https://arxiv.org/abs/2203.00274">TableFormer</a> to recover logical row and column structures, handling complex layouts like spanning cells and absent borders.</li>
+<li class="fragment"><strong>OCR:</strong> Optional <a href="https://github.com/JaidedAI/EasyOCR">EasyOCR</a> integration is available to transcribe scanned PDFs or bitmap images.</li>
 </ul>
 </section>
 <section id="assembly" class="slide level2">
 <h2>3.3 Assembly</h2>
 <ul>
-<li>Predictions from all pages are consolidated into a structured datatype defined in <code>docling-core</code>.</li>
-<li>A post-processing model augments the document by detecting the language and correcting the reading order.</li>
-<li>The system matches figures with captions and extracts metadata like titles, authors, and references before serializing to JSON or Markdown.</li>
+<li class="fragment">Predictions from all pages are consolidated into a <a href="https://docling-project.github.io/docling/concepts/docling_document/">structured datatype</a> defined in <code>docling-core</code>.</li>
+<li class="fragment">A post-processing model augments the document by detecting the language and correcting the reading order.</li>
+<li class="fragment">The system matches figures with captions and extracts metadata like titles, authors, and references before <a href="https://docling-project.github.io/docling/concepts/serialization/"><em>serializing</em></a> to JSON or Markdown.</li>
 </ul>
 </section>
 <section id="extensibility" class="slide level2">
 <h2>3.4 Extensibility</h2>
 <ul>
-<li>The model pipeline is designed to be easily extensible by subclassing <code>BaseModelPipeline</code>.</li>
-<li>Users can completely customize the chain of operations, adding new models or replacing default ones.</li>
-<li>Custom pipeline classes can be passed as arguments during document conversion.</li>
-<li>Implementations must satisfy the Python Callable interface to augment page predictions.</li>
+<li class="fragment">The model pipeline is designed to be easily extensible by subclassing <code>BaseModelPipeline</code>.</li>
+<li class="fragment">Users can completely customize the chain of operations, adding new models or replacing default ones.</li>
+<li class="fragment">Custom pipeline classes can be passed as arguments during document conversion.</li>
+<li class="fragment">Implementations must satisfy the Python Callable interface to augment page predictions.</li>
 </ul>
 </section>
 <section id="performance" class="slide level2">
 <h2>4 Performance</h2>
 <ul>
-<li>Docling is highly efficient and capable of running entirely on standard commodity hardware.</li>
-<li>On an Apple M3 Max utilizing 16 threads, Docling achieves a throughput of 1.34 pages per second with the native backend.</li>
-<li>Using the <code>pypdfium</code> backend requires less memory and is faster, but compromises table structure recovery quality.</li>
-<li>GPU acceleration support via ONNX and PyTorch runtimes is currently in progress.</li>
+<li class="fragment">Docling is highly efficient and capable of running entirely on standard commodity hardware.</li>
+<li class="fragment">On an Apple M3 Max utilizing 16 threads, Docling achieves a throughput of <code>1.34</code> pages per second with the native backend.</li>
+<li class="fragment">Using the <code>pypdfium</code> backend requires less memory and is faster, but compromises table structure recovery quality.</li>
+<li class="fragment">GPU acceleration support.</li>
 </ul>
 </section>
 <section id="applications" class="slide level2">
 <h2>5 Applications</h2>
 <ul>
-<li>Docling provides a robust foundation for enterprise search, passage retrieval, and knowledge extraction pipelines.</li>
-<li>For generative AI and RAG, the companion package <code>quackling</code> enables document-native vector embedding and chunking.</li>
-<li>It integrates seamlessly with popular LLM frameworks like LlamaIndex.</li>
-<li>Docling is also utilized within the IBM Data Prep Kit to build large-scale multimodal training datasets.</li>
+<li class="fragment">Docling provides a robust foundation for enterprise search, passage retrieval, and <strong>knowledge extraction pipelines</strong>.</li>
+<li class="fragment">For generative AI and RAG, document-native vector embedding and chunking.</li>
+<li class="fragment">It <a href="https://docling-project.github.io/docling/integrations/">integrates</a> seamlessly with popular LLM frameworks like LangChain.</li>
 </ul>
 </section>
 <section id="future-work-and-contributions" class="slide level2">
-<h2>6 Future work and contributions</h2>
+<h2>6 <del>Future</del> work and contributions</h2>
 <ul>
-<li>The core roadmap includes adding dedicated models for figure-classification, equation-recognition, and code-recognition.</li>
-<li>Ongoing work will optimize GPU acceleration and improve the native PDF backend.</li>
-<li>The project is open-source under the MIT license, and community contributions for new features and models are actively encouraged.</li>
+<li class="fragment"><a href="https://docling-project.github.io/docling/usage/enrichments/">Dedicated models</a> for figure-classification, equation-recognition, and code-recognition.</li>
+<li class="fragment">Optimized GPU acceleration and improved native PDF backend.</li>
+<li class="fragment"><a href="https://github.com/docling-project/docling">Open-source</a> under the MIT license, and community contributions for new features and models are actively encouraged.</li>
 </ul>
 
 

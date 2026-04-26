@@ -204,8 +204,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#what-is-checkpointer" id="toc-what-is-checkpointer" class="nav-link" data-scroll-target="#what-is-checkpointer">What is <code>checkpointer</code>?</a></li>
   <li><a href="#run-the-graph" id="toc-run-the-graph" class="nav-link" data-scroll-target="#run-the-graph">Run the graph</a></li>
   </ul></li>
-  <li><a href="#parallelization" id="toc-parallelization" class="nav-link" data-scroll-target="#parallelization">Parallelization</a></li>
   <li><a href="#routing" id="toc-routing" class="nav-link" data-scroll-target="#routing">Routing</a></li>
+  <li><a href="#parallelization" id="toc-parallelization" class="nav-link" data-scroll-target="#parallelization">Parallelization</a></li>
   <li><a href="#orchestrator-worker" id="toc-orchestrator-worker" class="nav-link" data-scroll-target="#orchestrator-worker">Orchestrator-worker</a></li>
   <li><a href="#evaluator-optimizer" id="toc-evaluator-optimizer" class="nav-link" data-scroll-target="#evaluator-optimizer">Evaluator-optimizer</a></li>
   </ul>
@@ -385,17 +385,6 @@ Warning
 <li>Translating documents into different languages</li>
 <li>Verifying generated content for consistency</li>
 </ul>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="02_workflows_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="02_workflows_files/figure-html/mermaid-figure-1.png" style="width:10.26in;height:1.06in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
 <p>Note the use of <code>@task</code> decorator for when the function has a call to an LLM via one of it’s key methods (<code>.invoke()</code> here) to persist it’s execution state when later run:</p>
 <div id="322e0a43" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.func <span class="im">import</span> task</span>
@@ -432,6 +421,17 @@ Warning
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Pass"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Rule: <code>@task</code>-decorated functions cannot be run outside an <code>@entrypoint</code>-decorated function. This is to make sure we have a checkpointer to manage it’s state:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="02_workflows_files/figure-html/mermaid-figure-1.png" style="width:10.26in;height:1.06in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <div id="88e302c2" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.func <span class="im">import</span> entrypoint</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.checkpoint.memory <span class="im">import</span> MemorySaver</span>
@@ -519,6 +519,100 @@ Warning
 </ul>
 </section>
 </section>
+<section id="routing" class="level2">
+<h2 class="anchored" data-anchor-id="routing">Routing</h2>
+<p>Routing workflows process inputs and then directs them to context-specific tasks. This allows you to define specialized flows for complex tasks. For example, a workflow built to answer product related questions might process the type of question first, and then route the request to specific processes for pricing, refunds, returns, etc.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="02_workflows_files/figure-html/mermaid-figure-5.png" style="width:4.61in;height:2.43in" class="figure-img"></a></p>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Notice we wiill be using <em>Structured Ouptut</em> to achieve this:</p>
+<div id="fc17ddad" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing_extensions <span class="im">import</span> Literal</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.messages <span class="im">import</span> HumanMessage, SystemMessage</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schema for structured output to use as routing logic</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Routes(BaseModel):</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    step: Literal[<span class="st">"poem"</span>, <span class="st">"story"</span>, <span class="st">"joke"</span>] <span class="op">=</span> Field(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">None</span>, description<span class="op">=</span><span class="st">"The next step in the routing process"</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Augment the LLM with schema for structured output</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>router <span class="op">=</span> llm.with_structured_output(Routes)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_router(input_: <span class="bu">str</span>):</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Route the input to the appropriate node"""</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Run the augmented LLM with structured output to serve as routing logic</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    decision <span class="op">=</span> router.invoke(</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>            SystemMessage(</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Route the input to story, joke, or poem based on the user's request."</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>            HumanMessage(input_),</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decision.step</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="0ecad264" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> story_llm(input_: <span class="bu">str</span>):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a story"""</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(input_)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> joke_llm(input_: <span class="bu">str</span>):</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a joke"""</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(input_)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poem_llm(input_: <span class="bu">str</span>):</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a poem"""</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(input_)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4442a688" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create workflow</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> router_workflow(input_: <span class="bu">str</span>):</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    next_step <span class="op">=</span> llm_call_router(input_)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> next_step <span class="op">==</span> <span class="st">"story"</span>:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> story_llm</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> next_step <span class="op">==</span> <span class="st">"joke"</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> joke_llm</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> next_step <span class="op">==</span> <span class="st">"poem"</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> poem_llm</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm_call(input_).result()</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4b1c0d73" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> router_workflow.stream(<span class="st">"Tell me a joke about cats"</span>, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'llm_call_2': 'Here\'s a classiccat joke for you—short, sweet, and purr-fectly punny:  \n\n&gt; **Why did the cat sit on the computer?**  \n&gt; *Because it wanted to keep an eye on the mouse!* 😸  *(Bonus: The cat was just trying to "click" the mouse... but it’s a *cat* joke, so it’s *purr*-fectly logical.)*  \n\nHope that gives you a little *purr*-sonal chuckle! 🐾'}
+
+
+{'router_workflow': 'Here\'s a classiccat joke for you—short, sweet, and purr-fectly punny:  \n\n&gt; **Why did the cat sit on the computer?**  \n&gt; *Because it wanted to keep an eye on the mouse!* 😸  *(Bonus: The cat was just trying to "click" the mouse... but it’s a *cat* joke, so it’s *purr*-fectly logical.)*  \n\nHope that gives you a little *purr*-sonal chuckle! 🐾'}
+
+</code></pre>
+</div>
+</div>
+</section>
 <section id="parallelization" class="level2">
 <h2 class="anchored" data-anchor-id="parallelization">Parallelization</h2>
 <p>With parallelization, LLMs work simultaneously on a task. This is either done by running multiple independent subtasks at the same time, or running the same task multiple times to check for different outputs. Parallelization is commonly used to:</p>
@@ -536,69 +630,69 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_workflows_files/figure-html/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="02_workflows_files/figure-html/mermaid-figure-5.png" style="width:3.87in;height:1.5in" class="figure-img"></a></p>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="02_workflows_files/figure-html/mermaid-figure-4.png" style="width:4.01in;height:2.43in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<div id="675b32f7" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_1(topic: <span class="bu">str</span>):</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""First LLM call to generate initial joke"""</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_2(topic: <span class="bu">str</span>):</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Second LLM call to generate story"""</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a story about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_3(topic):</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Third LLM call to generate poem"""</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a poem about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> aggregator(topic, joke, story, poem):</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Combine the joke and story into a single output"""</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">=</span> <span class="ss">f"Here's a story, joke, and poem about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">!</span><span class="ch">\n\n</span><span class="ss">"</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"STORY:</span><span class="ch">\n</span><span class="sc">{</span>story<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"JOKE:</span><span class="ch">\n</span><span class="sc">{</span>joke<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"POEM:</span><span class="ch">\n</span><span class="sc">{</span>poem<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> combined</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c90f553a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_1(topic: <span class="bu">str</span>):</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""First LLM call to generate initial joke"""</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_2(topic: <span class="bu">str</span>):</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Second LLM call to generate story"""</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a story about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> call_llm_3(topic):</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Third LLM call to generate poem"""</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a poem about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> aggregator(topic, joke, story, poem):</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Combine the joke and story into a single output"""</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">=</span> <span class="ss">f"Here's a story, joke, and poem about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">!</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"STORY:</span><span class="ch">\n</span><span class="sc">{</span>story<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"JOKE:</span><span class="ch">\n</span><span class="sc">{</span>joke<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">+=</span> <span class="ss">f"POEM:</span><span class="ch">\n</span><span class="sc">{</span>poem<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> combined</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="f4ecf63e" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build workflow</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parallel_workflow(topic: <span class="bu">str</span>):</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Kick off three tasks in parallel</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    joke_fut <span class="op">=</span> call_llm_1(topic)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    story_fut <span class="op">=</span> call_llm_2(topic)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    poem_fut <span class="op">=</span> call_llm_3(topic)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Synchronize: await each task to complete</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    joke <span class="op">=</span> joke_fut.result()</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    story <span class="op">=</span> story_fut.result()</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    poem <span class="op">=</span> poem_fut.result()</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use aggregator task</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> aggregator(topic, joke, story, poem)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c1a413b0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build workflow</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parallel_workflow(topic: <span class="bu">str</span>):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Kick off three tasks in parallel</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    joke_fut <span class="op">=</span> call_llm_1(topic)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    story_fut <span class="op">=</span> call_llm_2(topic)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    poem_fut <span class="op">=</span> call_llm_3(topic)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Synchronize: await each task to complete</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    joke <span class="op">=</span> joke_fut.result()</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    story <span class="op">=</span> story_fut.result()</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    poem <span class="op">=</span> poem_fut.result()</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use aggregator task</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> aggregator(topic, joke, story, poem)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="84dcfe53" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> {<span class="st">"configurable"</span>: {<span class="st">"thread_id"</span>: <span class="dv">2</span>}}</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> parallel_workflow.stream(<span class="st">"cats"</span>, config<span class="op">=</span>config, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e2738b9b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> {<span class="st">"configurable"</span>: {<span class="st">"thread_id"</span>: <span class="dv">2</span>}}</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> parallel_workflow.stream(<span class="st">"cats"</span>, config<span class="op">=</span>config, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'call_llm_1': 'Here\'s a purr-fectly simple cat joke for you:\n\n&gt; **Why did the cat get kicked out of the library?**  \n&gt; *Because it kept knocking over the books and saying, "I’m not lazy—I’m in **purr-fect** mode!"*  \n\n*(Bonus groan: It’s not lazy… it’s just *purr*-fessionally conserving energy.)* 😸'}
 
@@ -618,99 +712,6 @@ Warning
 </div>
 </div>
 </section>
-<section id="routing" class="level2">
-<h2 class="anchored" data-anchor-id="routing">Routing</h2>
-<p>Routing workflows process inputs and then directs them to context-specific tasks. This allows you to define specialized flows for complex tasks. For example, a workflow built to answer product related questions might process the type of question first, and then route the request to specific processes for pricing, refunds, returns, etc.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<p><a href="02_workflows_files/figure-html/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="02_workflows_files/figure-html/mermaid-figure-4.png" style="width:5.78in;height:1.5in" class="figure-img"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Notice we wiill be using <em>Structured Ouptut</em> to achieve this:</p>
-<div id="fc17ddad" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing_extensions <span class="im">import</span> Literal</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.messages <span class="im">import</span> HumanMessage, SystemMessage</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Schema for structured output to use as routing logic</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Route(BaseModel):</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    step: Literal[<span class="st">"poem"</span>, <span class="st">"story"</span>, <span class="st">"joke"</span>] <span class="op">=</span> Field(</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">None</span>, description<span class="op">=</span><span class="st">"The next step in the routing process"</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Augment the LLM with schema for structured output</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>router <span class="op">=</span> llm.with_structured_output(Route)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_router(input_: <span class="bu">str</span>):</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Route the input to the appropriate node"""</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Run the augmented LLM with structured output to serve as routing logic</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    decision <span class="op">=</span> router.invoke(</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>            SystemMessage(</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>                content<span class="op">=</span><span class="st">"Route the input to story, joke, or poem based on the user's request."</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>            ),</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>            HumanMessage(content<span class="op">=</span>input_),</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decision.step</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="0ecad264" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_1(input_: <span class="bu">str</span>):</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a story"""</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(input_)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_2(input_: <span class="bu">str</span>):</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a joke"""</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(input_)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> llm_call_3(input_: <span class="bu">str</span>):</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Write a poem"""</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(input_)</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="4442a688" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create workflow</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> router_workflow(input_: <span class="bu">str</span>):</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    next_step <span class="op">=</span> llm_call_router(input_)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> next_step <span class="op">==</span> <span class="st">"story"</span>:</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> llm_call_1</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> next_step <span class="op">==</span> <span class="st">"joke"</span>:</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> llm_call_2</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> next_step <span class="op">==</span> <span class="st">"poem"</span>:</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        llm_call <span class="op">=</span> llm_call_3</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> llm_call(input_).result()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="4b1c0d73" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> router_workflow.stream(<span class="st">"Tell me a joke about cats"</span>, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(step)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>{'llm_call_2': 'Here\'s a classiccat joke for you—short, sweet, and purr-fectly punny:  \n\n&gt; **Why did the cat sit on the computer?**  \n&gt; *Because it wanted to keep an eye on the mouse!* 😸  *(Bonus: The cat was just trying to "click" the mouse... but it’s a *cat* joke, so it’s *purr*-fectly logical.)*  \n\nHope that gives you a little *purr*-sonal chuckle! 🐾'}
-
-
-{'router_workflow': 'Here\'s a classiccat joke for you—short, sweet, and purr-fectly punny:  \n\n&gt; **Why did the cat sit on the computer?**  \n&gt; *Because it wanted to keep an eye on the mouse!* 😸  *(Bonus: The cat was just trying to "click" the mouse... but it’s a *cat* joke, so it’s *purr*-fectly logical.)*  \n\nHope that gives you a little *purr*-sonal chuckle! 🐾'}
-
-</code></pre>
-</div>
-</div>
-</section>
 <section id="orchestrator-worker" class="level2">
 <h2 class="anchored" data-anchor-id="orchestrator-worker">Orchestrator-worker</h2>
 <p>In an orchestrator-worker configuration, the orchestrator:</p>
@@ -724,7 +725,7 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_workflows_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="02_workflows_files/figure-html/mermaid-figure-3.png" style="width:8.12in;height:1.5in" class="figure-img"></a></p>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="02_workflows_files/figure-html/mermaid-figure-3.png" style="width:6.07in;height:4.28in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -754,15 +755,15 @@ Warning
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Augment the LLM with schema for structured output</span></span>
 <span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>planner <span class="op">=</span> llm.with_structured_output(Sections)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cf6572cd" class="cell" data-execution_count="22">
+<div id="cf6572cd" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> orchestrator(topic: <span class="bu">str</span>):</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Orchestrator that generates a plan for the report"""</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate queries</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    report_sections <span class="op">=</span> planner.invoke(</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>            SystemMessage(content<span class="op">=</span><span class="st">"Generate a plan for the report."</span>),</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            HumanMessage(content<span class="op">=</span><span class="ss">f"Here is the report topic: </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>            SystemMessage(<span class="st">"Generate a plan for the report."</span>),</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            HumanMessage(<span class="ss">f"Here is the report topic: </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>),</span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        ]</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
@@ -774,17 +775,17 @@ Warning
 <span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Worker writes a section of the report"""</span></span>
 <span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate section</span></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> llm.invoke(</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> llm.invoke(</span>
 <span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>            SystemMessage(content<span class="op">=</span><span class="st">"Write a report section."</span>),</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>            SystemMessage(<span class="st">"Write a report section."</span>),</span>
 <span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>            HumanMessage(</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>                content<span class="op">=</span><span class="ss">f"Here is the section name: </span><span class="sc">{</span>section<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> and description: </span><span class="sc">{</span>section<span class="sc">.</span>description<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"Here is the section name: </span><span class="sc">{</span>section<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> and description: </span><span class="sc">{</span>section<span class="sc">.</span>description<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>            ),</span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>        ]</span>
 <span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Write the updated section to completed sections</span></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result.content</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> msg.content</span>
 <span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="at">@task</span></span>
@@ -826,7 +827,7 @@ Warning
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<p><a href="02_workflows_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="02_workflows_files/figure-html/mermaid-figure-2.png" style="width:7.33in;height:0.66in" class="figure-img"></a></p>
+<p><a href="02_workflows_files/figure-html/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="02_workflows_files/figure-html/mermaid-figure-2.png" style="width:2.32in;height:4.38in" class="figure-img"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -837,14 +838,14 @@ Warning
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langgraph.func <span class="im">import</span> entrypoint, task</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="d9065a01" class="cell" data-execution_count="35">
+<div id="d9065a01" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schema for structured output to use in evaluation</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Feedback(BaseModel):</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    grade: Literal[<span class="st">"funny"</span>, <span class="st">"not funny"</span>] <span class="op">=</span> Field(</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"Decide if the joke is funny or not."</span>,</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    feedback: <span class="bu">str</span> <span class="op">=</span> Field(</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"If the joke is not funny, provide feedback on how to improve it."</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">"If the joke is not funny, provide feedback on how to improve it. If it is funny, do not say anything (empty string)"</span>,</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -871,17 +872,19 @@ Warning
 <span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>    feedback <span class="op">=</span> evaluator.invoke(<span class="ss">f"Grade the joke </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> feedback</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="64d9ee15" class="cell" data-execution_count="36">
+<div id="64d9ee15" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="at">@entrypoint</span>()</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> optimizer_workflow(topic: <span class="bu">str</span>):</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    feedback <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        joke <span class="op">=</span> llm_call_generator(topic, feedback).result()</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        feedback <span class="op">=</span> llm_call_evaluator(joke).result()</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> feedback.grade <span class="op">==</span> <span class="st">"funny"</span>:</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> joke</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    tries <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> tries <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        joke <span class="op">=</span> llm_call_generator(topic, feedback).result()</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        feedback <span class="op">=</span> llm_call_evaluator(joke).result()</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        tries <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> feedback.grade <span class="op">==</span> <span class="st">"funny"</span>:</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> joke</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="f107b0dd" class="cell" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invoke</span></span>

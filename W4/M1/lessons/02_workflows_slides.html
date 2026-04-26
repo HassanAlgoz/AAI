@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – LangGraph</title>
+  <title>Applied AI Bootcamp – Workflows</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -201,163 +201,14 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">LangGraph</h1>
+  <h1 class="title">Workflows</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
+<section>
 <section id="langgraph" class="title-slide slide level1 center">
-<h1>LangGraph</h1>
-<div class="callout callout-tip callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Go to the lab</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li><strong><a href="./02_langgraph.ipynb">Interactive lab notebook</a></strong> — run all code here</li>
-<li><strong>Exercise:</strong> <a href="./exercises/ex2_implement_agent.qmd">Ex2: Implement Agent</a></li>
-<li><strong>Colab (external repo):</strong> <a href="https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/02_langgraph.ipynb">Open in Colab</a></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-
-<section>
-<section id="overview" class="title-slide slide level1 center">
-<h1>Overview</h1>
-
-</section>
-<section id="sequential" class="slide level2">
-<h2>1. Sequential</h2>
-<div class="cell" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a></a>flowchart LR</span>
-<span id="cb1-2"><a></a>    Input([Input])</span>
-<span id="cb1-3"><a></a>    LLM1[[LLM Call 1]]</span>
-<span id="cb1-4"><a></a>    LLM2[[LLM Call 2]]</span>
-<span id="cb1-5"><a></a>    Output([Output])</span>
-<span id="cb1-6"><a></a></span>
-<span id="cb1-7"><a></a>    Input --&gt; LLM1 --&gt; LLM2 --&gt; Output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="02_workflows_slides_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="02_workflows_slides_files/figure-revealjs/mermaid-figure-1.png" style="width:5.32in;height:0.57in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="parallel" class="slide level2">
-<h2>2. Parallel</h2>
-<div class="cell" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a></a>flowchart LR</span>
-<span id="cb2-2"><a></a>    Input([Input])</span>
-<span id="cb2-3"><a></a>    LLM1[[LLM Call A]]</span>
-<span id="cb2-4"><a></a>    LLM2[[LLM Call B]]</span>
-<span id="cb2-5"><a></a>    Output1([Output A])</span>
-<span id="cb2-6"><a></a>    Output2([Output B])</span>
-<span id="cb2-7"><a></a></span>
-<span id="cb2-8"><a></a>    Input --&gt; LLM1 --&gt; Output1</span>
-<span id="cb2-9"><a></a>    Input --&gt; LLM2 --&gt; Output2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="02_workflows_slides_files/figure-revealjs/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="02_workflows_slides_files/figure-revealjs/mermaid-figure-6.png" style="width:3.87in;height:1.5in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="llm-directs-control-flow" class="slide level2">
-<h2>LLM Directs Control Flow</h2>
-</section>
-<section id="conditional" class="slide level2">
-<h2>3. Conditional</h2>
-<div class="cell" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>flowchart LR</span>
-<span id="cb3-2"><a></a>    Input([Input])</span>
-<span id="cb3-3"><a></a>    Router[[Router LLM]]</span>
-<span id="cb3-4"><a></a>    LLM_A[[LLM A]]</span>
-<span id="cb3-5"><a></a>    LLM_B[[LLM B]]</span>
-<span id="cb3-6"><a></a>    Output_A([Output A])</span>
-<span id="cb3-7"><a></a>    Output_B([Output B])</span>
-<span id="cb3-8"><a></a></span>
-<span id="cb3-9"><a></a>    Input --&gt; Router</span>
-<span id="cb3-10"><a></a>    Router -- Route A --&gt; LLM_A --&gt; Output_A</span>
-<span id="cb3-11"><a></a>    Router -- Route B --&gt; LLM_B --&gt; Output_B</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="02_workflows_slides_files/figure-revealjs/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="02_workflows_slides_files/figure-revealjs/mermaid-figure-5.png" style="width:5.78in;height:1.5in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="loop" class="slide level2">
-<h2>4. Loop</h2>
-<div class="cell" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a></a>flowchart LR</span>
-<span id="cb4-2"><a></a>    Input([Input])</span>
-<span id="cb4-3"><a></a>    Generator[[Generator LLM]]</span>
-<span id="cb4-4"><a></a>    Evaluator[[Evaluator LLM]]</span>
-<span id="cb4-5"><a></a>    Output([Final Output])</span>
-<span id="cb4-6"><a></a></span>
-<span id="cb4-7"><a></a>    Input --&gt; Generator --&gt; Evaluator</span>
-<span id="cb4-8"><a></a>    Evaluator -- Accept --&gt; Output</span>
-<span id="cb4-9"><a></a>    Evaluator -- Revise --&gt; Generator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="02_workflows_slides_files/figure-revealjs/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="02_workflows_slides_files/figure-revealjs/mermaid-figure-4.png" style="width:7.33in;height:0.66in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="orchestrator-worker" class="slide level2">
-<h2>5. Orchestrator-Worker</h2>
-<div class="cell" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a></a>flowchart LR</span>
-<span id="cb5-2"><a></a>    Input([Input])</span>
-<span id="cb5-3"><a></a>    Orchestrator[[Orchestrator LLM]]</span>
-<span id="cb5-4"><a></a>    Worker1[[Worker LLM 1]]</span>
-<span id="cb5-5"><a></a>    Worker2[[Worker LLM 2]]</span>
-<span id="cb5-6"><a></a>    Synthesizer[[Synthesizer LLM]]</span>
-<span id="cb5-7"><a></a>    Output([Output])</span>
-<span id="cb5-8"><a></a></span>
-<span id="cb5-9"><a></a>    Input --&gt; Orchestrator</span>
-<span id="cb5-10"><a></a>    Orchestrator --&gt; Worker1</span>
-<span id="cb5-11"><a></a>    Orchestrator --&gt; Worker2</span>
-<span id="cb5-12"><a></a>    Worker1 --&gt; Synthesizer</span>
-<span id="cb5-13"><a></a>    Worker2 --&gt; Synthesizer</span>
-<span id="cb5-14"><a></a>    Synthesizer --&gt; Output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="02_workflows_slides_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="02_workflows_slides_files/figure-revealjs/mermaid-figure-3.png" style="width:8.12in;height:1.5in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="langgraph-1" class="title-slide slide level1 center">
 <h1>LangGraph</h1>
 <p><strong>LangGraph</strong> offers several benefits when building agents and workflows, including <a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence</a>, <a href="https://docs.langchain.com/oss/python/langgraph/streaming">streaming</a>, and support for debugging as well as <a href="https://docs.langchain.com/oss/python/langgraph/deploy">deployment</a>.</p>
 </section>
@@ -365,21 +216,21 @@
 <h2>Tasks and Entrypoint</h2>
 <p>There are three important concepts in LangGraph:</p>
 <ol type="1">
-<li><code>@task</code></li>
-<li><code>@entrypoint</code></li>
-<li><code>checkpointer</code></li>
+<li class="fragment"><code>@task</code></li>
+<li class="fragment"><code>@entrypoint</code></li>
+<li class="fragment"><code>checkpointer</code></li>
 </ol>
 <div class="fragment">
 <p>Decorating a function as a <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#task"><code>@task</code></a> means LangGraph automatically tracks its execution, allowing you to:</p>
 </div>
 <ol type="1">
-<li>easily add <strong>retry</strong> policies for transient network errors (since LLMs are usually accessed through the network)</li>
-<li>or <strong>resume</strong>; if part of the workflow
+<li class="fragment">easily add <strong>retry</strong> policies for transient network errors (since LLMs are usually accessed through the network)</li>
+<li class="fragment">or <strong>resume</strong>; if part of the workflow
 <ol type="1">
-<li><strong>fails</strong></li>
-<li>or gets <strong>interrupted</strong>: human-in-the-loop is implemented using an <code>interrupt()</code> call (<em>discussed later</em>)</li>
+<li class="fragment"><strong>fails</strong></li>
+<li class="fragment">or gets <strong>interrupted</strong>: human-in-the-loop is implemented using an <code>interrupt()</code> call (<em>discussed later</em>)</li>
 </ol></li>
-<li>or <strong>cache</strong> expensive LLM calls (since they are not cheap)</li>
+<li class="fragment">or <strong>cache</strong> expensive LLM calls (since they are not cheap)</li>
 </ol>
 <div class="fragment">
 <p>The entrance point that acts like the <code>main()</code> function of the program. It is decorated as <code>@entrypoint</code>.</p>
@@ -388,32 +239,21 @@
 <p>For more about tasks, see: <a href="https://docs.langchain.com/oss/python/langgraph/functional-api#when-to-use-a-task">When to use a task</a>.</p>
 </div>
 </section>
-<section id="sequential-1" class="slide level2">
+<section id="sequential" class="slide level2">
 <h2>Sequential</h2>
 <div class="fragment">
 <p>Prompt chaining is when each LLM call processes the output of the previous call. It’s often used for performing well-defined tasks that can be broken down into smaller, verifiable steps. Some examples include:</p>
 </div>
 <ul>
-<li>Translating documents into different languages</li>
-<li>Verifying generated content for consistency</li>
+<li class="fragment">Translating documents into different languages</li>
+<li class="fragment">Verifying generated content for consistency</li>
 </ul>
 <div class="cell" data-layout-align="default">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a></a>flowchart LR</span>
-<span id="cb6-2"><a></a>    Input([Input])</span>
-<span id="cb6-3"><a></a>    LLM1[[generate_joke]]</span>
-<span id="cb6-4"><a></a>    Gate[[check_punchline]]</span>
-<span id="cb6-5"><a></a>    Output([Output])</span>
-<span id="cb6-6"><a></a>    LLM2[[improve_joke]]</span>
-<span id="cb6-7"><a></a>    LLM3[[polish_joke]]</span>
-<span id="cb6-8"><a></a></span>
-<span id="cb6-9"><a></a>    Input --&gt; LLM1 --&gt; Gate</span>
-<span id="cb6-10"><a></a>    Gate -- Pass --&gt; Output</span>
-<span id="cb6-11"><a></a>    Gate -- Fail --&gt; LLM2 --&gt; LLM3 --&gt; Output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="02_workflows_slides_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="02_workflows_slides_files/figure-revealjs/mermaid-figure-2.png" style="width:10.26in;height:1.06in"></a></p>
+<p><a href="02_workflows_slides_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="02_workflows_slides_files/figure-revealjs/mermaid-figure-1.png" style="width:10.26in;height:1.06in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -423,118 +263,115 @@
 <section id="sequential-tasks" class="slide level2">
 <h2>Sequential: Tasks</h2>
 <p>Note the use of <code>@task</code> decorator for when the function has a call to an LLM via one of it’s key methods (<code>.invoke()</code> here) to persist it’s execution state when later run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> langgraph.func <span class="im">import</span> task</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a><span class="at">@task</span></span>
-<span id="cb7-4"><a></a><span class="kw">def</span> generate_joke(topic: <span class="bu">str</span>):</span>
-<span id="cb7-5"><a></a>    <span class="co">"""First LLM call to generate initial joke"""</span></span>
-<span id="cb7-6"><a></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a short joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-7"><a></a>    <span class="cf">return</span> msg.content</span>
-<span id="cb7-8"><a></a></span>
-<span id="cb7-9"><a></a><span class="at">@task</span></span>
-<span id="cb7-10"><a></a><span class="kw">def</span> improve_joke(joke: <span class="bu">str</span>):</span>
-<span id="cb7-11"><a></a>    <span class="co">"""Second LLM call to improve the joke"""</span></span>
-<span id="cb7-12"><a></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Make this joke funnier by adding wordplay: </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-13"><a></a>    <span class="cf">return</span> msg.content</span>
-<span id="cb7-14"><a></a></span>
-<span id="cb7-15"><a></a><span class="at">@task</span></span>
-<span id="cb7-16"><a></a><span class="kw">def</span> polish_joke(joke: <span class="bu">str</span>):</span>
-<span id="cb7-17"><a></a>    <span class="co">"""Third LLM call for final polish"""</span></span>
-<span id="cb7-18"><a></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Add a surprising twist to this joke: </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-19"><a></a>    <span class="cf">return</span> msg.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> langgraph.func <span class="im">import</span> task</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a><span class="at">@task</span></span>
+<span id="cb1-4"><a></a><span class="kw">def</span> generate_joke(topic: <span class="bu">str</span>):</span>
+<span id="cb1-5"><a></a>    <span class="co">"""First LLM call to generate initial joke"""</span></span>
+<span id="cb1-6"><a></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Write a short joke about </span><span class="sc">{</span>topic<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-7"><a></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a><span class="at">@task</span></span>
+<span id="cb1-10"><a></a><span class="kw">def</span> improve_joke(joke: <span class="bu">str</span>):</span>
+<span id="cb1-11"><a></a>    <span class="co">"""Second LLM call to improve the joke"""</span></span>
+<span id="cb1-12"><a></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Make this joke funnier by adding wordplay: </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-13"><a></a>    <span class="cf">return</span> msg.content</span>
+<span id="cb1-14"><a></a></span>
+<span id="cb1-15"><a></a><span class="at">@task</span></span>
+<span id="cb1-16"><a></a><span class="kw">def</span> polish_joke(joke: <span class="bu">str</span>):</span>
+<span id="cb1-17"><a></a>    <span class="co">"""Third LLM call for final polish"""</span></span>
+<span id="cb1-18"><a></a>    msg <span class="op">=</span> llm.invoke(<span class="ss">f"Add a surprising twist to this joke: </span><span class="sc">{</span>joke<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-19"><a></a>    <span class="cf">return</span> msg.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sequential-non-task" class="slide level2">
 <h2>Sequential: Non-task</h2>
 <p>The following <code>check_punchline</code> is doesn’t have any LLM calls (or any I/O or long-running operations), so no <code>@task</code> decoration is needed:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="kw">def</span> check_punchline(joke: <span class="bu">str</span>):</span>
-<span id="cb8-2"><a></a>    <span class="co">"""Gate function to check if the joke has a punchline"""</span></span>
-<span id="cb8-3"><a></a>    <span class="co"># Simple check - does the joke contain "?" or "!"</span></span>
-<span id="cb8-4"><a></a>    <span class="cf">if</span> <span class="st">"?"</span> <span class="kw">in</span> joke <span class="kw">or</span> <span class="st">"!"</span> <span class="kw">in</span> joke:</span>
-<span id="cb8-5"><a></a>        <span class="cf">return</span> <span class="st">"Fail"</span></span>
-<span id="cb8-6"><a></a></span>
-<span id="cb8-7"><a></a>    <span class="cf">return</span> <span class="st">"Pass"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="kw">def</span> check_punchline(joke: <span class="bu">str</span>):</span>
+<span id="cb2-2"><a></a>    <span class="co">"""Gate function to check if the joke has a punchline"""</span></span>
+<span id="cb2-3"><a></a>    <span class="co"># Simple check - does the joke contain "?" or "!"</span></span>
+<span id="cb2-4"><a></a>    <span class="cf">if</span> <span class="st">"?"</span> <span class="kw">in</span> joke <span class="kw">or</span> <span class="st">"!"</span> <span class="kw">in</span> joke:</span>
+<span id="cb2-5"><a></a>        <span class="cf">return</span> <span class="st">"Fail"</span></span>
+<span id="cb2-6"><a></a></span>
+<span id="cb2-7"><a></a>    <span class="cf">return</span> <span class="st">"Pass"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="sequential-entrypoint" class="slide level2 scrollable">
 <h2>Sequential: Entrypoint</h2>
 <p>Rule: <code>@task</code>-decorated functions cannot be run outside an <code>@entrypoint</code>-decorated function. This is to make sure we have a checkpointer to manage it’s state:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> langgraph.func <span class="im">import</span> entrypoint</span>
-<span id="cb9-2"><a></a><span class="im">from</span> langgraph.checkpoint.memory <span class="im">import</span> MemorySaver</span>
-<span id="cb9-3"><a></a></span>
-<span id="cb9-4"><a></a><span class="co"># 1. Initialize the memory saver</span></span>
-<span id="cb9-5"><a></a>memory_checkpointer <span class="op">=</span> MemorySaver()</span>
-<span id="cb9-6"><a></a></span>
-<span id="cb9-7"><a></a><span class="co"># 2. Pass it into the entrypoint decorator</span></span>
-<span id="cb9-8"><a></a><span class="at">@entrypoint</span>(checkpointer<span class="op">=</span>memory_checkpointer)</span>
-<span id="cb9-9"><a></a><span class="kw">def</span> prompt_chaining_workflow(topic: <span class="bu">str</span>):</span>
-<span id="cb9-10"><a></a>    draft <span class="op">=</span> generate_joke(topic).result()</span>
-<span id="cb9-11"><a></a>    <span class="cf">if</span> check_punchline(draft) <span class="op">==</span> <span class="st">"Pass"</span>:</span>
-<span id="cb9-12"><a></a>        <span class="cf">return</span> draft</span>
-<span id="cb9-13"><a></a></span>
-<span id="cb9-14"><a></a>    improved <span class="op">=</span> improve_joke(draft).result()</span>
-<span id="cb9-15"><a></a>    polished <span class="op">=</span> polish_joke(improved).result()</span>
-<span id="cb9-16"><a></a>    <span class="cf">return</span> polished</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> langgraph.func <span class="im">import</span> entrypoint</span>
+<span id="cb3-2"><a></a><span class="im">from</span> langgraph.checkpoint.memory <span class="im">import</span> MemorySaver</span>
+<span id="cb3-3"><a></a></span>
+<span id="cb3-4"><a></a><span class="co"># 1. Initialize the memory saver</span></span>
+<span id="cb3-5"><a></a>memory_checkpointer <span class="op">=</span> MemorySaver()</span>
+<span id="cb3-6"><a></a></span>
+<span id="cb3-7"><a></a><span class="co"># 2. Pass it into the entrypoint decorator</span></span>
+<span id="cb3-8"><a></a><span class="at">@entrypoint</span>(checkpointer<span class="op">=</span>memory_checkpointer)</span>
+<span id="cb3-9"><a></a><span class="kw">def</span> prompt_chaining_workflow(topic: <span class="bu">str</span>):</span>
+<span id="cb3-10"><a></a>    draft <span class="op">=</span> generate_joke(topic).result()</span>
+<span id="cb3-11"><a></a>    <span class="cf">if</span> check_punchline(draft) <span class="op">==</span> <span class="st">"Pass"</span>:</span>
+<span id="cb3-12"><a></a>        <span class="cf">return</span> draft</span>
+<span id="cb3-13"><a></a></span>
+<span id="cb3-14"><a></a>    improved <span class="op">=</span> improve_joke(draft).result()</span>
+<span id="cb3-15"><a></a>    polished <span class="op">=</span> polish_joke(improved).result()</span>
+<span id="cb3-16"><a></a>    <span class="cf">return</span> polished</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Notice two new things here:</p>
 <ol type="1">
-<li><code>checkpointer</code></li>
-<li><code>.result()</code></li>
+<li class="fragment"><code>checkpointer</code></li>
+<li class="fragment"><code>.result()</code></li>
 </ol>
 </section>
 <section id="synchronize-io-bound-ops-with-.result" class="slide level2">
 <h2>Synchronize I/O-bound ops with <code>.result()</code></h2>
 <ul>
-<li>Calling a task returns a <a href="https://docs.python.org/3/library/asyncio-future.html"><em>Future Object</em></a> (like JavaScript promises), an asynchronous construct, which runs separately from the current thread.</li>
-<li>We can choose a synchronization point by calling <code>.result()</code>; which awaits the return of the running task (<em>that promised to return in the future</em>).</li>
+<li class="fragment">Calling a task returns a <a href="https://docs.python.org/3/library/asyncio-future.html"><em>Future Object</em></a> (like JavaScript promises), an asynchronous construct, which runs separately from the current thread.</li>
+<li class="fragment">We can choose a synchronization point by calling <code>.result()</code>; which awaits the return of the running task (<em>that promised to return in the future</em>).</li>
 </ul>
 </section>
 <section id="what-is-checkpointer" class="slide level2">
 <h2>What is <code>checkpointer</code>?</h2>
 <ul>
-<li><strong>Checkpointers</strong> enable&nbsp;<a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence</a>&nbsp;in LangGraph, allowing agents to save and resume state across interactions.</li>
-<li>Example: it is used to remember the results of previously completed <strong>tasks</strong> so they are not re-run if when the graph is later resumed.</li>
-<li>Since sessions could span minutes, hours, and perhaps days before the user resumes their conversation, it can also be saved in a database.</li>
-<li>Checkout: <a href="https://docs.langchain.com/oss/python/integrations/checkpointers/index">Checkpointer integrations</a> where you can see how to save to <strong>Postgres</strong> among other databases.</li>
+<li class="fragment"><strong>Checkpointers</strong> enable&nbsp;<a href="https://docs.langchain.com/oss/python/langgraph/persistence">persistence</a>&nbsp;in LangGraph, allowing agents to save and resume state across interactions.</li>
+<li class="fragment">Example: it is used to remember the results of previously completed <strong>tasks</strong> so they are not re-run if when the graph is later resumed.</li>
+<li class="fragment">Since sessions could span minutes, hours, and perhaps days before the user resumes their conversation, it can also be saved in a database.</li>
+<li class="fragment">Checkout: <a href="https://docs.langchain.com/oss/python/integrations/checkpointers/index">Checkpointer integrations</a> where you can see how to save to <strong>Postgres</strong> among other databases.</li>
 </ul>
 </section>
 <section id="save-graph-state-to-postgres-database" class="slide level2">
 <h2>Save graph state to Postgres database</h2>
 <p>Let’s see an example with Postgres here:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> langgraph.checkpoint.postgres <span class="im">import</span> PostgresSaver</span>
-<span id="cb10-2"><a></a><span class="im">from</span> psycopg_pool <span class="im">import</span> ConnectionPool</span>
-<span id="cb10-3"><a></a></span>
-<span id="cb10-4"><a></a><span class="co"># 1. Set up the connection pool and PostgresSaver</span></span>
-<span id="cb10-5"><a></a>DB_URI <span class="op">=</span> <span class="st">"postgresql://user:password@localhost:5432/my_database"</span></span>
-<span id="cb10-6"><a></a>pool <span class="op">=</span> ConnectionPool(conninfo<span class="op">=</span>DB_URI)</span>
-<span id="cb10-7"><a></a></span>
-<span id="cb10-8"><a></a>postgres_checkpointer <span class="op">=</span> PostgresSaver(pool)</span>
-<span id="cb10-9"><a></a>postgres_checkpointer.setup() <span class="co"># Creates the required LangGraph tables if they don't exist</span></span>
-<span id="cb10-10"><a></a></span>
-<span id="cb10-11"><a></a><span class="co"># 2. Pass the configured postgres checkpointer into the entrypoint</span></span>
-<span id="cb10-12"><a></a><span class="at">@entrypoint</span>(checkpointer<span class="op">=</span>postgres_checkpointer)</span>
-<span id="cb10-13"><a></a><span class="kw">def</span> prompt_chaining_workflow(topic: <span class="bu">str</span>):</span>
-<span id="cb10-14"><a></a>    <span class="cf">pass</span> <span class="co"># ..etc.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<h3 id="run-the-graph">Run the graph</h3>
-<ul>
-<li>Now we can use one of <code>Runnable</code>’s key methods: <code>.stream()</code> using the entrypoint defined above</li>
-<li>We use <a href="https://reference.langchain.com/python/langchain-core/runnables/config/RunnableConfig/configurable"><code>RunnableConfig.configurable</code></a> to specify a <code>thread_id</code> which is used to namespace the memory for the interaction separate from other interactions in this <code>checkpointer</code>.</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>config <span class="op">=</span> {<span class="st">"configurable"</span>: {<span class="st">"thread_id"</span>: <span class="dv">1</span>}}</span>
-<span id="cb11-2"><a></a></span>
-<span id="cb11-3"><a></a><span class="co"># Invoke</span></span>
-<span id="cb11-4"><a></a><span class="cf">for</span> step <span class="kw">in</span> prompt_chaining_workflow.stream(</span>
-<span id="cb11-5"><a></a>    <span class="st">"cats"</span>, config<span class="op">=</span>config, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
-<span id="cb11-6"><a></a>    <span class="bu">print</span>(step)</span>
-<span id="cb11-7"><a></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> langgraph.checkpoint.postgres <span class="im">import</span> PostgresSaver</span>
+<span id="cb4-2"><a></a><span class="im">from</span> psycopg_pool <span class="im">import</span> ConnectionPool</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a><span class="co"># 1. Set up the connection pool and PostgresSaver</span></span>
+<span id="cb4-5"><a></a>DB_URI <span class="op">=</span> <span class="st">"postgresql://user:password@localhost:5432/my_database"</span></span>
+<span id="cb4-6"><a></a>pool <span class="op">=</span> ConnectionPool(conninfo<span class="op">=</span>DB_URI)</span>
+<span id="cb4-7"><a></a></span>
+<span id="cb4-8"><a></a>postgres_checkpointer <span class="op">=</span> PostgresSaver(pool)</span>
+<span id="cb4-9"><a></a>postgres_checkpointer.setup() <span class="co"># Creates the required LangGraph tables if they don't exist</span></span>
+<span id="cb4-10"><a></a></span>
+<span id="cb4-11"><a></a><span class="co"># 2. Pass the configured postgres checkpointer into the entrypoint</span></span>
+<span id="cb4-12"><a></a><span class="at">@entrypoint</span>(checkpointer<span class="op">=</span>postgres_checkpointer)</span>
+<span id="cb4-13"><a></a><span class="kw">def</span> prompt_chaining_workflow(topic: <span class="bu">str</span>):</span>
+<span id="cb4-14"><a></a>    <span class="cf">pass</span> <span class="co"># ..etc.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="key-takeways" class="slide level2">
-<h2>Key Takeways</h2>
+<section id="run-the-graph" class="slide level2">
+<h2>Run the graph</h2>
 <ul>
-<li><strong>Checkpointing keeps your place:</strong>&nbsp;the checkpointer writes the exact graph state so you can resume later, even when in an error state.</li>
-<li><strong><code>thread_id</code>&nbsp;is your pointer:</strong>&nbsp;set&nbsp;<code>config={"configurable": {"thread_id": ...}}</code>&nbsp;to tell the checkpointer which state to load.</li>
+<li class="fragment">Now we can use one of <code>Runnable</code>’s key methods: <code>.stream()</code> using the entrypoint defined above</li>
+<li class="fragment">We use <a href="https://reference.langchain.com/python/langchain-core/runnables/config/RunnableConfig/configurable"><code>RunnableConfig.configurable</code></a> to specify a <code>thread_id</code> which is used to namespace the memory for the interaction separate from other interactions in this <code>checkpointer</code>.</li>
 </ul>
-<p><strong>Next step:</strong> open <a href="./02_langgraph.ipynb"><code>02_langgraph.ipynb</code></a> and run the cells.</p>
-
-
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>config <span class="op">=</span> {<span class="st">"configurable"</span>: {<span class="st">"thread_id"</span>: <span class="dv">1</span>}}</span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a><span class="co"># Invoke</span></span>
+<span id="cb5-4"><a></a><span class="cf">for</span> step <span class="kw">in</span> prompt_chaining_workflow.stream(</span>
+<span id="cb5-5"><a></a>    <span class="st">"cats"</span>, config<span class="op">=</span>config, stream_mode<span class="op">=</span><span class="st">"updates"</span>):</span>
+<span id="cb5-6"><a></a>    <span class="bu">print</span>(step)</span>
+<span id="cb5-7"><a></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
+<section id="end" class="title-slide slide level1 center">
+<h1>End</h1>
+
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
