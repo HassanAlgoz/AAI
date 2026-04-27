@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>M2.Ex3: Enrichment – Applied AI Bootcamp</title>
+<title>Docling Concepts – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -47,6 +47,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -126,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M2.Ex3: Enrichment</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Docling Concepts</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,17 +155,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#task-1-picture-classification" id="toc-task-1-picture-classification" class="nav-link active" data-scroll-target="#task-1-picture-classification">Task 1: Picture Classification</a></li>
-  <li><a href="#task-2-picture-description" id="toc-task-2-picture-description" class="nav-link" data-scroll-target="#task-2-picture-description">Task 2: Picture Description</a></li>
+  <li><a href="#architecture" id="toc-architecture" class="nav-link active" data-scroll-target="#architecture">Architecture</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="02_docling.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">M2.Ex3: Enrichment</h1>
+<h1 class="title">Docling Concepts</h1>
 </div>
 
 
@@ -179,16 +181,22 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Docling allows to <a href="https://docling-project.github.io/docling/usage/enrichments/">enrich the conversion pipeline</a> with additional steps which process specific document components, e.g.&nbsp;code blocks, pictures, etc. The extra steps usually require extra models executions which may increase the processing time consistently. For this reason most enrichment models are disabled by default.</p>
-<section id="task-1-picture-classification" class="level2">
-<h2 class="anchored" data-anchor-id="task-1-picture-classification">Task 1: Picture Classification</h2>
-<p>The picture classification step classifies the&nbsp;<code>PictureItem</code>&nbsp;elements in the document with the&nbsp;<code>DocumentFigureClassifier</code>&nbsp;model. This model is specialized to understand the classes of pictures found in documents, e.g.&nbsp;different chart types, flow diagrams, logos, signatures, etc.</p>
-<p>Your task is to follow the example in <a href="https://docling-project.github.io/docling/usage/enrichments/#picture-classification">#Picture Classification</a> to add it to your pipeline as an enrichment step.</p>
-</section>
-<section id="task-2-picture-description" class="level2">
-<h2 class="anchored" data-anchor-id="task-2-picture-description">Task 2: Picture Description</h2>
-<p>The picture description step allows to annotate a picture with a vision model. This is also known as a “captioning” task.</p>
-<p>Your task is to follow the example in <a href="https://docling-project.github.io/docling/usage/enrichments/#picture-description">#Picture description</a> to add it to your pipeline as an enrichment step.</p>
+<ul>
+<li><a href="https://docling-project.github.io/docling/concepts/architecture/">Architecture</a></li>
+<li><a href="https://docling-project.github.io/docling/concepts/docling_document/">Docling Document</a></li>
+<li><a href="https://docling-project.github.io/docling/concepts/serialization/">Serialization</a></li>
+</ul>
+<p><a href="https://docling-project.github.io/docling/"><strong>Docling</strong></a> converts messy documents into structured data and simplifies downstream document and AI processing by detecting tables, formulas, reading order, OCR, and much more.</p>
+<p><a href="https://docling-project.github.io/docling/assets/docling_processing.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://docling-project.github.io/docling/assets/docling_processing.png" class="img-fluid"></a></p>
+<section id="architecture" class="level1">
+<h1>Architecture</h1>
+<p><a href="https://docling-project.github.io/docling/assets/docling_arch.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://docling-project.github.io/docling/assets/docling_arch.png" class="img-fluid"></a></p>
+<p>In a nutshell, Docling’s architecture is outlined in the diagram above.</p>
+<p>For each document format, the document converter knows:</p>
+<ol type="1">
+<li>which format-specific <strong>backend</strong> to employ for parsing the document</li>
+<li>which <strong>pipeline</strong> to use for orchestrating the execution</li>
+</ol>
 
 
 </section>
@@ -595,6 +603,38 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – RAG Pipeline</title>
+  <title>Applied AI Bootcamp – Embeddings</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -135,200 +135,150 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">RAG Pipeline</h1>
+  <h1 class="title">Embeddings</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section class="slide level2 scrollable">
-
-<p>One of the most useful applications enabled by LLMs is sophisticated question-answering (Q&amp;A) chatbots. These are applications that can answer questions about specific source information.</p>
-<ul>
-<li class="fragment">Large Language Models (LLMs) are useful, but they have two key limitations:
-<ul>
-<li class="fragment"><strong>Static knowledge</strong> — their training data is frozen at a point in time.</li>
-<li class="fragment"><strong>Finite context</strong> — they can’t ingest entire corpora at once.</li>
-</ul></li>
-<li class="fragment"><strong>Retrieval Augmented Generation (RAG)</strong> addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.</li>
-<li class="fragment">In short, <strong>RAG</strong> is a three step process:
-<ol type="1">
-<li class="fragment"><em>Retrieval</em>: find text relevant to answering the question</li>
-<li class="fragment"><em>Augmnetation</em>: concatenate it into the prompt</li>
-<li class="fragment"><em>Generation</em>: invoke the LLM</li>
-</ol></li>
-</ul>
-</section>
-<section id="rag-flowchart" class="slide level2">
-<h2>RAG Flowchart</h2>
-<p>A simple query -&gt; retrieval -&gt; augmentation -&gt; generation workflow is shown below:</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="01_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="01_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" style="width:10.35in;height:1.09in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="building-a-knowledge-base" class="slide level2 scrollable">
-<h2>Building a knowledge base</h2>
-<ul>
-<li class="fragment">A <strong>knowledge base</strong> is a repository of documents or structured data used during retrieval.</li>
-<li class="fragment">The pre-requisite of implementing this is that we have “relevant data” accessible:
-<ol type="1">
-<li class="fragment">Databases like: SQL, NoSQL, or Vector Database</li>
-<li class="fragment">APIs: internal or external</li>
-</ol></li>
-</ul>
-</section>
-<section id="full-pipeline-from-data-ingestion-to-generation" class="slide level2">
-<h2>Full pipeline: from data ingestion to generation</h2>
-<p>A typical retrieval workflow looks like this:</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="01_rag_pipeline_files/figure-revealjs/mermaid-figure-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="01_rag_pipeline_files/figure-revealjs/mermaid-figure-7.png" style="width:6.03in;height:14.66in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Each component is modular: you can swap loaders, splitters, embeddings, or vector stores without rewriting the app’s logic.</p>
-</section>
 <section>
-<section id="building-blocks" class="title-slide slide level1 center">
-<h1>Building blocks</h1>
+<section id="embeddings" class="title-slide slide level1 center">
+<h1>Embeddings</h1>
+<ul>
+<li class="fragment"><strong>Embeddings</strong> are numerical representations of real-world data - text, images, audio, videos, anything.</li>
+<li class="fragment"><strong>Embedding Models</strong> are deep learning models which encode these inputs into vectors.</li>
+</ul>
+</section>
+<section id="distributional-hypothesis" class="slide level2">
+<h2>Distributional Hypothesis</h2>
+<blockquote>
+<p>“You shall know a word by the company it keeps.” — J.R. Firth, 1957</p>
+</blockquote>
+<p>Here’s the key insight: <strong>words that appear near similar words have similar meanings.</strong></p>
+</section>
+<section id="polysemy-example-apple" class="slide level2 scrollable">
+<h2>Polysemy Example: “Apple”</h2>
+<p>A word may have different meanings based on it’s context.</p>
+<p><strong>Fruit</strong>:</p>
+<ol type="1">
+<li class="fragment">I picked a red ___ from the tree in the backyard.</li>
+<li class="fragment">The planted seeds in the orchard produced several ___ trees.</li>
+<li class="fragment">___ are my favorite type of fruit.</li>
+</ol>
+<p><strong>Technology</strong>:</p>
+<ol type="1">
+<li class="fragment">I mainly use my ___ iPhone to make phone calls.</li>
+<li class="fragment">The ___ MacBook Pro is a computer with a powerful processor.</li>
+<li class="fragment">I use an ___ computer to write emails and create documents.</li>
+</ol>
+</section>
+<section id="words-as-vectors" class="slide level2">
+<h2>Words as Vectors</h2>
+<p>An embedding model may represent these two meanings using two dimensions:</p>
 
-</section>
-<section id="loaders" class="slide level2">
-<h2>1. Loaders</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/document_loaders">Document loaders</a> Ingest data from external sources (Google Drive, Slack, Notion, etc.), returning standardized <a href="https://reference.langchain.com/python/langchain-core/documents/base/Document"><code>Document</code></a> objects.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="01_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="01_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" style="width:7.74in;height:1.07in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="splitters" class="slide level2">
-<h2>2. Splitters</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/splitters">Text splitters</a> Break large docs into smaller chunks that will be retrievable individually.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="01_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="01_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" style="width:4.93in;height:2.43in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p><strong>Why do we split?..</strong></p>
-</section>
-<section id="a.-navigating-context-window-limits" class="slide level2">
-<h2>A. Navigating Context Window Limits</h2>
-<p>Even the most advanced Large Language Models (LLMs) have a <strong>context window</strong>—a maximum number of tokens (words/characters) they can “see” at one time.</p>
+<img data-src="../assets/word_polysemy.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="vectors-and-relationships-between-words" class="slide level2">
+<h2>Vectors and relationships between words</h2>
+
+<img data-src="../assets/king_queen_man_woman.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
+<li class="fragment">One dimension might represent “Gender”:
 <ul>
-<li class="fragment"><strong>The Problem:</strong> Many documents (legal contracts, technical manuals, books) are significantly larger than an LLM’s context window.</li>
-<li class="fragment"><strong>The Solution:</strong> By splitting a 500-page manual into 500-word chunks, an agent can “pull” only the relevant pieces into its memory to answer a specific query without hitting a technical ceiling.</li>
-</ul>
-</section>
-<section id="b.-reducing-lost-in-the-middle-phenomena" class="slide level2">
-<h2>B. Reducing “Lost in the Middle” Phenomena</h2>
-<p><a href="https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval">Research shows</a> that LLMs are best at recalling information located at the <strong>very beginning or the very end of a prompt</strong>. Information buried in the middle of a massive block of text is often ignored.</p>
-<p>By providing the agent with several <strong>small, concise chunks</strong>, you ensure the relevant information stays at the “top of mind” for the model, leading to <strong>higher reasoning accuracy</strong>.</p>
-</section>
-<section id="c.-cost-and-latency" class="slide level2">
-<h2>C. Cost and Latency</h2>
-<p>Every token sent to an LLM costs money and takes time to process.</p>
-<ul>
-<li class="fragment"><strong>Efficiency:</strong> If an agent needs to know a specific date in a 100MB file, sending the whole file is expensive and slow.</li>
-<li class="fragment"><strong>Speed:</strong> Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price, allowing the agent to move through its task pipeline much faster.</li>
-</ul>
-</section>
-<section id="embedding-models" class="slide level2">
-<h2>3. Embedding Models</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/text_embedding">Embedding models</a> An embedding model turns text into a vector of numbers so that texts with similar meaning land close together in that vector space.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="01_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="01_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" style="width:5.48in;height:2.9in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="stores" class="slide level2">
-<h2>4. Stores</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/vectorstores/">Vector stores</a> Specialized databases for storing and searching embeddings.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="01_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="01_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" style="width:2.95in;height:2.43in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="retrievers" class="slide level2">
-<h2>5. Retrievers</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/retrievers/">Retrievers</a> A retriever is an interface that returns documents given an unstructured query.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="01_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="01_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" style="width:3.24in;height:3.71in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="key-takeaways" class="slide level2">
-<h2>Key Takeaways</h2>
-<ul>
-<li class="fragment"><strong>Retrieval solves two LLM limits</strong>:
-<ul>
-<li class="fragment">Static (frozen) knowledge and finite context.</li>
-<li class="fragment">Fetching relevant external information at query time is the foundation of <strong>RAG</strong> (Retrieval-Augmented Generation).</li>
+<li class="fragment">positive for female</li>
+<li class="fragment">negative for male</li>
 </ul></li>
-<li class="fragment"><strong>The retrieval pipeline is modular</strong>:
+<li class="fragment">Another might represent “Royalty”:
 <ul>
-<li class="fragment"><strong>Load</strong> (document loaders) → <strong>Split</strong> (text splitters) → <strong>Embed</strong> (embedding models) → <strong>Store</strong> (vector stores) → <strong>Retrieve</strong> (retrievers).</li>
-<li class="fragment">You can swap any component without changing the rest of the app.</li>
-</ul></li>
-<li class="fragment"><strong>Splitting matters</strong> for:
-<ul>
-<li class="fragment">Staying within context windows.</li>
-<li class="fragment">Avoiding “lost in the middle” (LLMs recall start/end of input better).</li>
-<li class="fragment">Lowering cost and latency.</li>
+<li class="fragment">High for both King &amp; Queen</li>
+<li class="fragment">low for both Man &amp; Woman</li>
 </ul></li>
 </ul>
+<div class="fragment">
+<p>Mathematical relationships:</p>
+<p><span class="math display">\[\vec{\text{King}} - \vec{\text{Man}} + \vec{\text{Woman}} \approx \vec{\text{Queen}}\]</span></p>
+</div>
 </section>
-<section id="references" class="slide level2">
-<h2>References</h2>
+<section id="embeddings-capture-syntactic-semantic-and-other-relationships" class="slide level2">
+<h2>Embeddings Capture Syntactic, Semantic, and other Relationships</h2>
+<p>When visualized in 2D, embeddings show clear structure:</p>
+
+<img data-src="../assets/semantic_syntactic.jpg" class="r-stretch quarto-figure quarto-figure-center"><p><span class="math display">\[\vec{\text{Walking}} - \vec{\text{Walk}} + \vec{\text{Swim}} \approx \vec{\text{Swimming}}\]</span> <em>Embedding models</em> learn these dimensions automatically from data. We don’t manually specify what each dimension means.</p>
+</section>
+<section id="similarity-metrics" class="slide level2 scrollable">
+<h2>Similarity Metrics</h2>
+<p>Similarity metrics between two vectors can be:</p>
+<ol type="1">
+<li class="fragment"><strong>Eucledian Distance</strong> measured by the straight line between the two points</li>
+<li class="fragment"><strong>Cosine of the Angle</strong> between the two vectors, when they are imagined as pointed lines from the origin onto the points in the space</li>
+</ol>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/sim_metrics.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/sim_metrics.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="cosine-similarity" class="slide level2">
+<h2>Cosine Similarity</h2>
+<p><strong>Cosine Similarity</strong> measures the angle between two vectors (word embeddings):</p>
 <ul>
-<li class="fragment">https://docs.langchain.com/oss/python/langchain/retrieval</li>
+<li class="fragment">It ranges from -1 to 1</li>
+<li class="fragment"><strong>1.0</strong> = vectors point in the same direction (<strong>~same</strong>)</li>
+<li class="fragment"><strong>0.0</strong> = vectors are perpendicular (<strong>no relationship / indifference</strong>)</li>
+<li class="fragment"><strong>-1.0</strong> = vectors point in opposite directions (<strong>~opposite</strong>)</li>
 </ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/cosine_similarity_3_cases.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../assets/cosine_similarity_3_cases.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+<p><span class="math display">\[\vec{\text{France}} - \vec{\text{Paris}} \approx \vec{\text{Rome}} - \vec{\text{Italy}}\]</span></p>
+</div>
+</section>
+<section id="sentence-embeddings" class="slide level2">
+<h2>Sentence Embeddings</h2>
+<p><strong>BERT</strong> is an embedding model for a complete sentence.</p>
+
+<img data-src="../assets/BERT.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="multi-modal-embeddings" class="slide level2">
+<h2>Multi-modal Embeddings</h2>
+<ul>
+<li class="fragment">Beyond words, sentences, or even full pages or documents..</li>
+<li class="fragment">encode, images, audio, or <strong>any type of data</strong> into vectors</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/multi-modal_embedding.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Multi-modal vectors sharing the same embedding space"><img data-src="../assets/multi-modal_embedding.png" class="r-stretch quarto-figure quarto-figure-center" alt="Multi-modal vectors sharing the same embedding space"></a></p>
+</figure>
+</div>
+<figcaption>Multi-modal vectors sharing the same embedding space</figcaption>
+</figure>
+</div>
+</div>
+<ul>
+<li class="fragment">Image-search: vectors for an <strong>image</strong> of a bird and it’s <strong>name</strong>, should be similar</li>
+<li class="fragment">Voice-search: vectors for a <strong>sound</strong> of a bird chirping, and it’s <strong>species</strong> should be similar</li>
+<li class="fragment">Q&amp;A: vectors for a <strong>question</strong> and the <strong>document containing an answer</strong> should be similar</li>
+</ul>
+</section>
+<section id="applications-of-embedding-models" class="slide level2">
+<h2>Applications of Embedding Models</h2>
+<p>Embeddings are commonly used for:</p>
+<ul>
+<li class="fragment"><strong>Search</strong> (where results are ranked by relevance to a query string)</li>
+<li class="fragment"><strong>Clustering</strong> (where text strings are grouped by similarity)</li>
+<li class="fragment"><strong>Recommendations</strong> (where items with related text strings are recommended)</li>
+<li class="fragment"><strong>Anomaly</strong> detection (where outliers with little relatedness are identified)</li>
+<li class="fragment"><strong>Diversity</strong> measurement (where similarity distributions are analyzed)</li>
+<li class="fragment"><strong>Classification</strong> (where text strings are classified by their most similar label)</li>
+</ul>
+<div class="fragment">
+<p>See: <a href="https://openrouter.ai/docs/api-reference/embeddings">Embeddings | OpenRouter</a> and <a href="https://developers.openai.com/api/docs/guides/embeddings">Guides &gt; Embeddings | OpenAI</a></p>
+</div>
 
 
 </section></section>

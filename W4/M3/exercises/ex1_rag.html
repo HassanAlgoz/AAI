@@ -44,9 +44,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -147,8 +147,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#task-1-rag-with-docling-and-langchain" id="toc-task-1-rag-with-docling-and-langchain" class="nav-link active" data-scroll-target="#task-1-rag-with-docling-and-langchain">Task 1: RAG with Docling and LangChain</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -172,10 +178,17 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Task 1 is to: apply the Load, Embed, Store, and Retrieve, just like <a href="../05_semantic_search.ipynb">the lesson</a>, but using other documents of your choice.</p>
-<p>Task 2 is to: implement a RAG Agent that can answer multi-step questions as in <a href="../06_RAG_agent.ipynb">the lesson</a>. Use a different data source than used in the previous assignment, and in any previous notebook.</p>
+<section id="task-1-rag-with-docling-and-langchain" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-rag-with-docling-and-langchain">Task 1: RAG with Docling and LangChain</h2>
+<ul>
+<li>Reproduce <a href="https://docling-project.github.io/docling/examples/rag_langchain/">this example</a>.</li>
+<li>Notice the use of <code>HybridChunker</code>.</li>
+<li>In the “RAG” section, replace <code>HuggingFaceEndpoint</code> with a LangChain Model.</li>
+<li>Use LangGraph Functional API Workflow instead of bare procedural code</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
