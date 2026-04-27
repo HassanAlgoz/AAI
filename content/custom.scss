@@ -42,6 +42,18 @@ $code-block-border-color: #dbe2ea;
 $code-color: $text;
 $code-block-font-size: 0.78em;
 
+// Inline-code 
+$code-bg: $code-block-bg;
+$code-color: $text;
+$code-border-color: $code-block-border-color;
+$code-border-width: 0.2rem;
+$code-border-radius: 0.4rem;
+$code-padding: 0.2rem 0.4rem;
+$code-font-size: 0.90em;
+$code-font-family: $font-family-monospace;
+$code-font-weight: normal;
+$code-line-height: 1.2;
+
 // Blockquotes
 $blockquote-border-color: $custom-teal;
 

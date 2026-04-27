@@ -6,45 +6,43 @@ format:
         incremental: false
 ---
 
-- According to [State of Agent Engineering 2026](https://www.langchain.com/state-of-agent-engineering) survey, usage of AI in **Customer Service** was the highest (at 26.5%).
-  
-- Imagine you need to automate a customer support email inbox. The system should:
-    1. Read incoming emails
-    2. Classify them by urgency and topic
-    3. Search relevant documentation to answer questions
-    4. Draft appropriate responses
-    5. Escalate complex or urgent issues to a human for review before sending
+Imagine you need to **automate a customer support email inbox**. The system should:
 
-## The Flowchart
+::: {.columns}
 
-This implementation demonstrates several core concepts of the LangGraph Functional API. Here is the visual flow of how the code executes:
+::: {.column}
 
+
+1. **Read** incoming emails
+2. **Classify** them by urgency and topic
+3. **Search** relevant documentation to answer questions
+4. **Draft** appropriate responses
+5. **Escalate** complex or urgent issues to a human for review before sending
+
+:::
+
+::: {.column}
 ```{mermaid}
-flowchart LR
-    START((Start)) --> B[classify_intent]
-    B -->|question/feature| C[search docs]
-    B -->|bug| D[track_bug]
-    B -->|other| E[draft_response]
+flowchart TD
+    START((Start)) --> B["classify_intent (LLM)"]
+    B -->|question/feature| C["search docs (API)"]
+    B -->|bug| D["track_bug (API)"]
+    B -->|other| E["draft_response (LLM)"]
     
     C --> E
     D --> E
     
-    E --> F{High Urgency<br/>or Complex?}
-    F -->|Yes| G[human_review]
+    E --> F["Urgent or Complex? (LLM)"]
+    F -->|Yes| G["human_review (Interrupt)"]
     F -->|No| H((End / Send))
     G --> H
 ```
 
+:::
+
+:::
+
 # The Implementation
-
-## LLM
-
-``` py
-from langchain_openai import ChatOpenAI
-
-
-llm = ChatOpenAI(model="gpt-4o-mini")
-```
 
 ## The Intent classifier (1/2)
 
@@ -158,7 +156,7 @@ def human_review(draft: str, classification: EmailClassification):
 ## Workflow entrypoint
 
 - Wire it all together with an entrypoint.
-- Pass a `checkpointer` to the `@entrypoint` decorator to enable persistence and use features like **human-in-the-loop**.
+- `checkpointer` enables **human-in-the-loop**.
 
 ```python
 from langgraph.checkpoint.memory import InMemorySaver

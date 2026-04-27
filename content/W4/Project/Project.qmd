@@ -14,15 +14,17 @@ The below document loaders allow you to load documents from different social med
 
 ## Messaging services
 
+- [Bots: An introduction for developers | Telegram](https://core.telegram.org/bots)
+- [Discord Developer Platform](https://docs.discord.com/developers/intro)
+
 The below document loaders allow you to load data from different messaging platforms.
 
 |Document Loader|API reference|
 |---|---|
 |[Telegram](https://docs.langchain.com/oss/python/integrations/document_loaders/telegram)|[`TelegramChatFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/telegram/TelegramChatFileLoader)|
-|[WhatsApp](https://docs.langchain.com/oss/python/integrations/document_loaders/whatsapp_chat)|[`WhatsAppChatLoader`](https://reference.langchain.com/python/langchain-community/chat_loaders/whatsapp/WhatsAppChatLoader)|
 |[Discord](https://docs.langchain.com/oss/python/integrations/document_loaders/discord)|[`DiscordChatLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/discord/DiscordChatLoader)|
-|[Facebook Chat](https://docs.langchain.com/oss/python/integrations/document_loaders/facebook_chat)|[`FacebookChatLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/facebook_chat/FacebookChatLoader)|
 |[Mastodon](https://docs.langchain.com/oss/python/integrations/document_loaders/mastodon)|[`MastodonTootsLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/mastodon/MastodonTootsLoader)|
+|[WhatsApp](https://docs.langchain.com/oss/python/integrations/document_loaders/whatsapp_chat)|[`WhatsAppChatLoader`](https://reference.langchain.com/python/langchain-community/chat_loaders/whatsapp/WhatsAppChatLoader)|
 
 ## Productivity tools
 
@@ -30,15 +32,19 @@ The below document loaders allow you to load data from commonly used productivit
 
 |Document Loader|API reference|
 |---|---|
-|[Figma](https://docs.langchain.com/oss/python/integrations/document_loaders/figma)|[`FigmaFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/figma/FigmaFileLoader)|
+|[GitHub](https://docs.langchain.com/oss/python/integrations/document_loaders/github)|[`GithubFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/github/GithubFileLoader)|
 |[Notion](https://docs.langchain.com/oss/python/integrations/document_loaders/notion)|[`NotionDirectoryLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/notion/NotionDirectoryLoader)|
 |[Slack](https://docs.langchain.com/oss/python/integrations/document_loaders/slack)|[`SlackDirectoryLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/slack_directory/SlackDirectoryLoader)|
-|[Quip](https://docs.langchain.com/oss/python/integrations/document_loaders/quip)|[`QuipLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/quip/QuipLoader)|
 |[Trello](https://docs.langchain.com/oss/python/integrations/document_loaders/trello)|[`TrelloLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/trello/TrelloLoader)|
+|[Quip](https://docs.langchain.com/oss/python/integrations/document_loaders/quip)|[`QuipLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/quip/QuipLoader)|
 |[Roam](https://docs.langchain.com/oss/python/integrations/document_loaders/roam)|[`RoamLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/roam/RoamLoader)|
-|[GitHub](https://docs.langchain.com/oss/python/integrations/document_loaders/github)|[`GithubFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/github/GithubFileLoader)|
+|[Figma](https://docs.langchain.com/oss/python/integrations/document_loaders/figma)|[`FigmaFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/figma/FigmaFileLoader)|
 
 ## Webpages (general)
+
+- [FireCrawl](https://docs.firecrawl.dev/introduction)
+- [ScrapingBee](https://www.scrapingbee.com/)
+- [Olostep](https://www.olostep.com/)
 
 The below document loaders allow you to load webpages.
 

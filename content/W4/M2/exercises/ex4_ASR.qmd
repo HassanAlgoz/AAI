@@ -15,4 +15,6 @@ LangChain offers three integrations with YouTube:
 
 However, feel free to use any PyPi package, even if not listed in the LangChain integrations.
 
+See: [YouTube Data API](https://developers.google.com/youtube/v3).
+
 Note: you should handle the case for when the **video has no transcription**, by running [Docling's ASR Pipeline](https://docling-project.github.io/docling/usage/processing_audio_media/).
