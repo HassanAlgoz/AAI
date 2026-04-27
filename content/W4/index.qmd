@@ -34,8 +34,9 @@ See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/dat
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
-| 1 | [RAG](./M3/lessons/01_rag_pipeline.qmd) |  | |
-| 2 | Embeddings | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) | |
+| 1 | [Embeddings](./M3/lessons/01_embeddings_slides.qmd) | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) | |
+| 2 | [Simple RAG](./M3/lessons/03_rag.ipynb) |  | |
+| 3 | [RAG Pipeline](./M3/lessons/04_rag_pipeline.qmd) |  | [Ex1: RAG](./M3/exercises/ex1_rag.qmd) |
 
 ## M4. Agents
 

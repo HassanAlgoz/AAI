@@ -1,21 +1,22 @@
 ---
 title: "RAG Pipeline"
-format: html
+format:
+  revealjs:
+    incremental: true
 ---
 
 One of the most useful applications enabled by LLMs is sophisticated question-answering (Q\&A) chatbots. These are applications that can answer questions about specific source information.
 
-Large Language Models (LLMs) are useful, but they have two key limitations:
-
-* **Static knowledge** — their training data is frozen at a point in time.
-* **Finite context** — they can’t ingest entire corpora at once.
-
-**Retrieval Augmented Generation (RAG)** addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.
-
-- In short, **RAG** is a three step process:
+* Large Language Models (LLMs) are useful, but they have two key limitations:
+  * **Static knowledge** — their training data is frozen at a point in time.
+  * **Finite context** — they can’t ingest entire corpora at once.
+* **Retrieval Augmented Generation (RAG)** addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.
+* In short, **RAG** is a three step process:
   1. *Retrieval*: find text relevant to answering the question
   2. *Augmnetation*: concatenate it into the prompt
   3. *Generation*: invoke the LLM
+
+## RAG Flowchart
 
 A simple query -> retrieval -> augmentation -> generation workflow is shown below:
 
@@ -28,20 +29,12 @@ graph LR
     D --> E[Informed response]
 ```
 
-The pre-requisite of implementing this is that we have "relevant data" accessible:
-
-1. Databases like: SQL, NoSQL, or Vector Database
-2. APIs: internal or external
-
 ## Building a knowledge base
 
-A **knowledge base** is a repository of documents or structured data used during retrieval.
-
-If you already have a knowledge base (e.g., a SQL database, CRM, or internal documentation system), you **do not** need to rebuild it. We can have the system query it and supply the retrieved content as context to the LLM.
-
-::: {.callout-note}
-If you need a custom knowledge base, you can use LangChain’s document loaders and vector stores to build one from your own data.
-:::
+* A **knowledge base** is a repository of documents or structured data used during retrieval.
+* The pre-requisite of implementing this is that we have "relevant data" accessible:
+  1. Databases like: SQL, NoSQL, or Vector Database
+  2. APIs: internal or external
 
 ## Full pipeline: from data ingestion to generation
 
@@ -86,9 +79,9 @@ graph TD
 
 Each component is modular: you can swap loaders, splitters, embeddings, or vector stores without rewriting the app’s logic.
 
-## Building blocks
+# Building blocks
 
-### 1. Loaders
+## 1. Loaders
 
 [Document loaders](https://docs.langchain.com/oss/python/integrations/document_loaders) Ingest data from external sources (Google Drive, Slack, Notion, etc.), returning standardized [`Document`](https://reference.langchain.com/python/langchain-core/documents/base/Document) objects.
 
@@ -99,7 +92,7 @@ flowchart LR
   L --> A[/Documents/]
 ```
 
-### 2. Splitters
+## 2. Splitters
 
 [Text splitters](https://docs.langchain.com/oss/python/integrations/splitters) Break large docs into smaller chunks that will be retrievable individually.
 
@@ -113,27 +106,27 @@ flowchart LR
 
 **Why do we split?..**
 
-#### A. Navigating Context Window Limits
+## A. Navigating Context Window Limits
 
 Even the most advanced Large Language Models (LLMs) have a **context window**—a maximum number of tokens (words/characters) they can "see" at one time.
 
 - **The Problem:** Many documents (legal contracts, technical manuals, books) are significantly larger than an LLM's context window.
 - **The Solution:** By splitting a 500-page manual into 500-word chunks, an agent can "pull" only the relevant pieces into its memory to answer a specific query without hitting a technical ceiling.
 
-#### B. Reducing "Lost in the Middle" Phenomena
+## B. Reducing "Lost in the Middle" Phenomena
 
 [Research shows](https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval) that LLMs are best at recalling information located at the **very beginning or the very end of a prompt**. Information buried in the middle of a massive block of text is often ignored.
 
 By providing the agent with several **small, concise chunks**, you ensure the relevant information stays at the "top of mind" for the model, leading to **higher reasoning accuracy**.
 
-#### C. Cost and Latency
+## C. Cost and Latency
 
 Every token sent to an LLM costs money and takes time to process.
 
 - **Efficiency:** If an agent needs to know a specific date in a 100MB file, sending the whole file is expensive and slow.
 - **Speed:** Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price, allowing the agent to move through its task pipeline much faster.
 
-### 3. Embedding Models
+## 3. Embedding Models
 
 [Embedding models](https://docs.langchain.com/oss/python/integrations/text_embedding) An embedding model turns text into a vector of numbers so that texts with similar meaning land close together in that vector space.
 
@@ -147,7 +140,7 @@ flowchart LR
   C3[/Chunk 3/] --> D3 --> E3[/Vector 3/]
 ```
 
-### 4. Stores
+## 4. Stores
 
 [Vector stores](https://docs.langchain.com/oss/python/integrations/vectorstores/) Specialized databases for storing and searching embeddings.
 
@@ -159,7 +152,7 @@ flowchart LR
     E3[/Vector 3/] --> S
 ```
 
-### 5. Retrievers
+## 5. Retrievers
 
 [Retrievers](https://docs.langchain.com/oss/python/integrations/retrievers/) A retriever is an interface that returns documents given an unstructured query.
 
@@ -177,9 +170,6 @@ flowchart LR
 * **Retrieval solves two LLM limits**:
   - Static (frozen) knowledge and finite context.
   - Fetching relevant external information at query time is the foundation of **RAG** (Retrieval-Augmented Generation).
-* **You don't always need a new knowledge base**:
-  - If you already have one (SQL, CRM, docs), use it as a **tool** (Agentic RAG) or as fixed context (2-Step RAG).
-  - For custom data, use loaders and vector stores.
 * **The retrieval pipeline is modular**:
   - **Load** (document loaders) → **Split** (text splitters) → **Embed** (embedding models) → **Store** (vector stores) → **Retrieve** (retrievers).
   - You can swap any component without changing the rest of the app.

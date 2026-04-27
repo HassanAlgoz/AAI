@@ -3,6 +3,9 @@ title: "M3.Ex1: RAG Agent"
 format: html
 ---
 
-Task 1 is to: apply the Load, Embed, Store, and Retrieve, just like [the lesson](../05_semantic_search.ipynb), but using other documents of your choice.
+## Task 1: RAG with Docling and LangChain
 
-Task 2 is to: implement a RAG Agent that can answer multi-step questions as in [the lesson](../06_RAG_agent.ipynb). Use a different data source than used in the previous assignment, and in any previous notebook.
+- Reproduce [this example](https://docling-project.github.io/docling/examples/rag_langchain/).
+- Notice the use of `HybridChunker`.
+- In the "RAG" section, replace `HuggingFaceEndpoint` with a LangChain Model.
+- Use LangGraph Functional API Workflow instead of bare procedural code
