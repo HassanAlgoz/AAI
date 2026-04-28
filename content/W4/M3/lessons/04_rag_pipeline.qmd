@@ -5,30 +5,6 @@ format:
     incremental: true
 ---
 
-One of the most useful applications enabled by LLMs is sophisticated question-answering (Q\&A) chatbots. These are applications that can answer questions about specific source information.
-
-* Large Language Models (LLMs) are useful, but they have two key limitations:
-  * **Static knowledge** — their training data is frozen at a point in time.
-  * **Finite context** — they can’t ingest entire corpora at once.
-* **Retrieval Augmented Generation (RAG)** addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.
-* In short, **RAG** is a three step process:
-  1. *Retrieval*: find text relevant to answering the question
-  2. *Augmnetation*: concatenate it into the prompt
-  3. *Generation*: invoke the LLM
-
-## RAG Flowchart
-
-A simple query -> retrieval -> augmentation -> generation workflow is shown below:
-
-```{mermaid}
-graph LR
-    A[User question] --> B[Retriever]
-    B --> C[Relevant docs]
-    C --> D[Chat model]
-    A --> D
-    D --> E[Informed response]
-```
-
 ## Building a knowledge base
 
 * A **knowledge base** is a repository of documents or structured data used during retrieval.
@@ -106,25 +82,21 @@ flowchart LR
 
 **Why do we split?..**
 
-## A. Navigating Context Window Limits
+## A. Hard Limit: Context Window
 
-Even the most advanced Large Language Models (LLMs) have a **context window**—a maximum number of tokens (words/characters) they can "see" at one time.
+- Many documents (legal contracts, technical manuals, books) are significantly larger than any LLM's processing window
+- Practical limits are often much less than theoretical limits.
+- By splitting a 500-page manual, we can selectively retrieve relevant context to answer a specific query.
 
-- **The Problem:** Many documents (legal contracts, technical manuals, books) are significantly larger than an LLM's context window.
-- **The Solution:** By splitting a 500-page manual into 500-word chunks, an agent can "pull" only the relevant pieces into its memory to answer a specific query without hitting a technical ceiling.
+## B. Soft Limit: "Lost in the Middle" Phenomena
 
-## B. Reducing "Lost in the Middle" Phenomena
-
-[Research shows](https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval) that LLMs are best at recalling information located at the **very beginning or the very end of a prompt**. Information buried in the middle of a massive block of text is often ignored.
-
-By providing the agent with several **small, concise chunks**, you ensure the relevant information stays at the "top of mind" for the model, leading to **higher reasoning accuracy**.
+[Amazon Science Research shows](https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval) that LLMs are best at recalling information located at the very beginning or the very end of a prompt; **but not when it is buried in the middle of a massive block of text**.
 
 ## C. Cost and Latency
 
-Every token sent to an LLM costs money and takes time to process.
-
-- **Efficiency:** If an agent needs to know a specific date in a 100MB file, sending the whole file is expensive and slow.
-- **Speed:** Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price, allowing the agent to move through its task pipeline much faster.
+- Say we want to know a specific date in a 100MB file, sending the whole file is expensive and slow.
+- Every token sent to an LLM costs **money** and takes **time** to process.
+- Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price.
 
 ## 3. Embedding Models
 
@@ -164,6 +136,66 @@ flowchart LR
     R --> C2[/Chunk 8/]
     R --> C3[/Chunk 62/]
 ```
+
+## Embeddings + Keywords Search
+
+- Search engines don't just rely on embeddings.
+- [ChromaDB](https://docs.trychroma.com/docs/overview/introduction) supports Full-text and Regex Search alongside embeddings.
+- **Hybrid search** combines keyword and semantic search to improve search relevance.
+- [Reciprocal rank fusion (RRF)](https://plg.uwaterloo.ca/%7Egvcormac/cormacksigir09-rrf.pdf) is a method for combining multiple result sets with different relevance indicators into a single result set.
+
+## Chunking
+
+Starting from a `DoclingDocument`, there are in principle two possible chunking approaches:
+
+1. exporting the `DoclingDocument` to Markdown (or similar format) and then performing user-defined chunking as a post-processing step, or
+2. **using native Docling chunkers**, i.e. operating directly on the `DoclingDocument`
+
+This section is about the latter, i.e. using native Docling chunkers. For an example of using approach (1) check out e.g. [this recipe](https://docling-project.github.io/docling/examples/rag_langchain/) looking at the Markdown export mode.
+
+## Hierarchical Chunker
+
+The `HierarchicalChunker` implementation uses the document structure information from the [`DoclingDocument`](https://docling-project.github.io/docling/concepts/docling_document/) to create one chunk for each individual detected document element, by default only merging together list items (can be opted out via param `merge_list_items`). It also takes care of attaching all relevant document metadata, including headers and captions.
+
+## Hybrid Chunker
+
+```python
+from docling.chunking import HybridChunker
+```
+
+- Apply tokenization-aware refinements on top of document-based hierarchical chunking.
+- Control how table headers are handled:
+  - **`repeat_table_header`** (default: `True`): When enabled, table headers are repeated at the beginning of each chunk when a table spans multiple chunks.
+  - **`omit_header_on_overflow`** (default: `False`): for handling wide tables.
+
+## Docling Loader using Hybrid Chunking
+
+`HybridChunker` should be aligned to the embedding model tokenizer
+
+```python
+from docling.chunking import HybridChunker
+from langchain_docling.loader import ExportType
+
+embed_model_id = "sentence-transformers/all-MiniLM-L6-v2"
+tokenizer = HuggingFaceTokenizer(
+  tokenizer=AutoTokenizer.from_pretrained(embed_model_id)
+)
+
+converter = DocumentConverter(...)
+
+loader = DoclingLoader(
+    file_path=file_path,
+    converter=converter,
+    export_type=ExportType.DOC_CHUNKS,
+    chunker=HybridChunker(tokenizer=tokenizer),
+)
+```
+
+## Context expansion
+
+- Relevant chunks may lack information necessary for producing a fully grounded response.
+- Docling's preserves document structure!
+- Key idea: **include adjacent chunks (from the same section) before generating the final answer.
 
 ## Key Takeaways
 

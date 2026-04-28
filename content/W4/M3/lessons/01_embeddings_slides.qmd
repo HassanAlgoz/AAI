@@ -5,10 +5,40 @@ format:
     incremental: true
 ---
 
-# Embeddings
+# RAG: Retrieval Augmented Generation
+
+One of the most useful applications enabled by LLMs is sophisticated question-answering (Q\&A) chatbots. These are applications that can answer questions about specific source information.
+
+* Large Language Models (LLMs) are useful, but they have two key limitations:
+  * **Static knowledge** — their training data is frozen at a point in time.
+  * **Finite context** — they can’t ingest entire corpora at once.
+* **Retrieval Augmented Generation (RAG)** addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.
+* In short, **RAG** is a three step process:
+  1. *Retrieval*: find text relevant to answering the question
+  2. *Augmnetation*: concatenate it into the prompt
+  3. *Generation*: invoke the LLM
+
+## Embeddings
 
 - **Embeddings** are numerical representations of real-world data - text, images, audio, videos, anything.
 - **Embedding Models** are deep learning models which encode these inputs into vectors.
+
+## Applications of Embedding Models
+
+Embeddings are commonly used for:
+
+- **Search** (where results are ranked by relevance to a query string)
+- **Clustering** (where text strings are grouped by similarity)
+- **Recommendations** (where items with related text strings are recommended)
+- **Anomaly** detection (where outliers with little relatedness are identified)
+- **Diversity** measurement (where similarity distributions are analyzed)
+- **Classification** (where text strings are classified by their most similar label)
+
+::: {.fragment}
+
+See: [Embeddings | OpenRouter](https://openrouter.ai/docs/api-reference/embeddings) and [Guides > Embeddings | OpenAI](https://developers.openai.com/api/docs/guides/embeddings)
+
+:::
 
 ## Distributional Hypothesis
 
@@ -116,23 +146,6 @@ $$\vec{\text{France}} - \vec{\text{Paris}} \approx \vec{\text{Rome}} - \vec{\tex
 - Voice-search: vectors for a **sound** of a bird chirping, and it's **species** should be similar
 - Q&A: vectors for a **question** and the **document containing an answer** should be similar
 
-## Applications of Embedding Models
-
-Embeddings are commonly used for:
-
-- **Search** (where results are ranked by relevance to a query string)
-- **Clustering** (where text strings are grouped by similarity)
-- **Recommendations** (where items with related text strings are recommended)
-- **Anomaly** detection (where outliers with little relatedness are identified)
-- **Diversity** measurement (where similarity distributions are analyzed)
-- **Classification** (where text strings are classified by their most similar label)
-
-::: {.fragment}
-
-See: [Embeddings | OpenRouter](https://openrouter.ai/docs/api-reference/embeddings) and [Guides > Embeddings | OpenAI](https://developers.openai.com/api/docs/guides/embeddings)
-
-:::
-
 ## LangChain Embeddings Interface
 
 - Embedding models transform raw text—such as a sentence, paragraph, or tweet—into a fixed-length vector of numbers that captures its **semantic meaning**.
@@ -145,27 +158,23 @@ LangChain provides a standard in erface for text embedding models (e.g., OpenAI,
 - `embed_documents(texts: List[str]) → List[List[float]]`: Embeds a list of documents.
 - `embed_query(text: str) → List[float]`: Embeds a single query.
 
+## Select an Embedding Model
+
+* See [embedding models](https://openrouter.ai/models?fmt=cards&output_modalities=embeddings) on OpenRouter.ai
+* And [OpenRouter Embeddings API](https://openrouter.ai/docs/api-reference/embeddings) on how to use them
+
 ## LangChain Vector Stores Interface
 
 ```{mermaid}
 flowchart LR
+    D["📄 Documents"]
+    S["🔢 Vector store"]
+    Q["❓ Query text"]
+    R["📄 Top-k results"]
 
-    subgraph "📥 Indexing phase (store)"
-        A[📄 Documents] --> B[🔢 Embedding model]
-        B --> C[🔘 Embedding vectors]
-        C --> D[(Vector store)]
-    end
-
-    subgraph "📤 Query phase (retrieval)"
-        E[❓ Query text] --> F[🔢 Embedding model]
-        F --> G[🔘 Query vector]
-        G --> H[🔍 Similarity search]
-        H --> D
-        D --> I[📄 Top-k results]
-    end
-
-    classDef process fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#1E3A8A
-    class A,B,C,D,E,F,G,H,I process
+    D -->|add| S
+    Q -->|search| S
+    S -->|retrieve| R
 ```
 
 LangChain provides a unified interface for [vector stores](https://docs.langchain.com/oss/python/integrations/vectorstores), allowing you to:
@@ -180,13 +189,13 @@ This abstraction lets you switch between different implementations without alter
 
 :::
 
-## Vector Database
-
-![](../assets/vector_db.png){.r-stretch fig-align="center"}
-
 ## Vector Search: Filtered Nearest Neighbors
 
 ![](../assets/vector_db_query.png){.r-stretch fig-align="center"}
+
+## Vector Database
+
+![](../assets/vector_db.png){.r-stretch fig-align="center"}
 
 ## LangChain Retrievers Interface
 
