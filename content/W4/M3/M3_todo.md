@@ -1,9 +1,0 @@
-- [RAG with LangChain](https://docling-project.github.io/docling/examples/rag_langchain/)
-  - Must included discussion on [Chunking](https://docling-project.github.io/docling/concepts/chunking/)
-      - It is hierarchical
-      - And tokenization-aware (for the specific embedding model to be used)
-      - The most logical I have ever seen so far.
-  - ASR (markdown):
-      - Use Case: [searchable meeting archives](https://docling-project.github.io/docling/usage/processing_audio_media/#a-practical-use-case-searchable-meeting-archives)
-  - [Context expansion](https://docling-project.github.io/docling/examples/rag_opensearch/#context-expansion)
-  - [Opensearch & RRF](https://docling-project.github.io/docling/examples/rag_opensearch/#hybrid-search-retrieval-with-rrf)
