@@ -8,6 +8,7 @@ dependencies = [
     "bs4>=0.0.2",
     "ddgs>=9.10.0",
     "deepagents>=0.4.1",
+    "docling>=2.91.0",
     "huggingface-hub>=0.36.2",
     "langchain>=1.2.10",
     "langchain-community>=0.4.1",

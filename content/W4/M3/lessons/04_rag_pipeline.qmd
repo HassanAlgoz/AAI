@@ -146,16 +146,15 @@ flowchart LR
 
 ## Chunking
 
-Starting from a `DoclingDocument`, there are in principle two possible chunking approaches:
+Two possible chunking approaches:
 
-1. exporting the `DoclingDocument` to Markdown (or similar format) and then performing user-defined chunking as a post-processing step, or
-2. **using native Docling chunkers**, i.e. operating directly on the `DoclingDocument`
-
-This section is about the latter, i.e. using native Docling chunkers. For an example of using approach (1) check out e.g. [this recipe](https://docling-project.github.io/docling/examples/rag_langchain/) looking at the Markdown export mode.
+1. chunk the `DoclingDocument` itself
+2. export `DoclingDocument` to Markdown then chunk as a post-processing step
 
 ## Hierarchical Chunker
 
-The `HierarchicalChunker` implementation uses the document structure information from the [`DoclingDocument`](https://docling-project.github.io/docling/concepts/docling_document/) to create one chunk for each individual detected document element, by default only merging together list items (can be opted out via param `merge_list_items`). It also takes care of attaching all relevant document metadata, including headers and captions.
+- The `HierarchicalChunker` implementation uses the document structure information from the [`DoclingDocument`](https://docling-project.github.io/docling/concepts/docling_document/) to create one chunk for each individual detected document element.
+- It also takes care of attaching all relevant document metadata, including headers and captions.
 
 ## Hybrid Chunker
 
@@ -195,7 +194,7 @@ loader = DoclingLoader(
 
 - Relevant chunks may lack information necessary for producing a fully grounded response.
 - Docling's preserves document structure!
-- Key idea: **include adjacent chunks (from the same section) before generating the final answer.
+- Key idea: include adjacent chunks (from the same section) before generating the final answer.
 
 ## Key Takeaways
 
