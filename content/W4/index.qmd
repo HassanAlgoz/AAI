@@ -36,14 +36,14 @@ See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/dat
 |---------------|---------------|---------------|---------------|
 | 1 | [Embeddings](./M3/lessons/01_embeddings_slides.qmd) | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) | |
 | 2 | [Simple RAG](./M3/lessons/03_rag.ipynb) |  | |
-| 3 | [RAG Pipeline](./M3/lessons/04_rag_pipeline.qmd) |  | [Ex1: RAG](./M3/exercises/ex1_rag.qmd) |
+| 3 | [RAG Pipeline](./M3/lessons/04_rag_pipeline.qmd) | [Lab](./M3/lessons/05_rag_docling.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/05_rag_docling.ipynb)) | [Ex1: RAG](./M3/exercises/ex1_rag.qmd) |
 
 ## M4. Agents
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
 | 1 | Agent (and its loop) | [Lab](./M4/lessons/01_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/01_agent.ipynb)) | [Build a SQL agent](https://docs.langchain.com/oss/python/langchain/sql-agent) |
-| 2 | [Agentic RAG](./M4/lessons/02_agentic_rag.qmd) |  |  |  |
+| 2 | [Agentic Search](https://docs.trychroma.com/guides/build/agentic-search) |  |  |  |
 | 3 | Sub-agents Pattern | [Lab](./M4/lessons/03_subagents.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/03_subagents.ipynb)) |  |  |
 | 4 | Stateful Agents | [Lab](./M4/lessons/04_agent_state.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/04_agent_state.ipynb)) |  |  |
 | 5 | Finite-state Machine Pattern (FSM) | [Lab](./M4/lessons/05_fsm_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/05_fsm_agent.ipynb)) |  |  |

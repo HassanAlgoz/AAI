@@ -3,9 +3,12 @@ title: "M3.Ex1: RAG Agent"
 format: html
 ---
 
-## Task 1: RAG with Docling and LangChain
+## Task 1: RAG
 
-- Reproduce [this example](https://docling-project.github.io/docling/examples/rag_langchain/).
-- Notice the use of `HybridChunker`.
-- In the "RAG" section, replace `HuggingFaceEndpoint` with a LangChain Model.
-- Use LangGraph Functional API Workflow instead of bare procedural code
+Make RAG to have a Question-answering LLM on a dataset like:
+
+- a playlist of YouTube videos (or one long)
+- or a list of pdf/pptx presentations (or one long)
+- ...etc
+
+Example: [A practical use case: searchable meeting archives](https://docling-project.github.io/docling/usage/processing_audio_media/#a-practical-use-case-searchable-meeting-archives).
