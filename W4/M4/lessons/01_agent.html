@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-ab6aaec8acc8d2ed85312d327bde3cce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -200,8 +200,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#invoke-the-agent" id="toc-invoke-the-agent" class="nav-link" data-scroll-target="#invoke-the-agent">Invoke the <code>agent</code></a></li>
   <li><a href="#toolkits" id="toc-toolkits" class="nav-link" data-scroll-target="#toolkits">Toolkits</a></li>
-  <li><a href="#mcp-servers" id="toc-mcp-servers" class="nav-link" data-scroll-target="#mcp-servers">MCP Servers</a></li>
-  <li><a href="#skills" id="toc-skills" class="nav-link" data-scroll-target="#skills">Skills</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01_agent.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -492,13 +490,6 @@ In practice, a typical production stack uses **all three together**: build with 
 <li><a href="https://docs.langchain.com/oss/python/integrations/tools#code-interpreter">Code interpreter</a></li>
 <li><a href="https://docs.langchain.com/oss/python/integrations/tools#all-tools-and-toolkits">others</a></li>
 </ul>
-</section>
-<section id="mcp-servers" class="level2">
-<h2 class="anchored" data-anchor-id="mcp-servers">MCP Servers</h2>
-</section>
-<section id="skills" class="level2">
-<h2 class="anchored" data-anchor-id="skills">Skills</h2>
-<p><a href="https://youtu.be/mYSRn6PC1mc?si=hMLxU49UhM6HsHkQ&amp;t=3655">Agent -&gt; Skills -&gt; MCP Server -&gt; Tools</a>. <strong>Putting it together:</strong> When a user submits a query, the agent identifies the relevant <strong>Skill</strong>. This skill directs the agent to use specific <strong>Tools</strong> exposed by the <strong>MCP Server</strong>. The agent orchestrates these tools, processes the data, and iterates until the research goal is met, ensuring a reliable and modular end-to-end workflow (1:04:30-1:05:43).</p>
 </section>
 <section id="key-takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>

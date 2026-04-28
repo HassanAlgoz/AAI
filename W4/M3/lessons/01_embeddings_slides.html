@@ -142,12 +142,45 @@
 
 </section>
 <section>
-<section id="embeddings" class="title-slide slide level1 center">
-<h1>Embeddings</h1>
+<section id="rag-retrieval-augmented-generation" class="title-slide slide level1 center scrollable">
+<h1>RAG: Retrieval Augmented Generation</h1>
+<p>One of the most useful applications enabled by LLMs is sophisticated question-answering (Q&amp;A) chatbots. These are applications that can answer questions about specific source information.</p>
+<ul>
+<li class="fragment">Large Language Models (LLMs) are useful, but they have two key limitations:
+<ul>
+<li class="fragment"><strong>Static knowledge</strong> — their training data is frozen at a point in time.</li>
+<li class="fragment"><strong>Finite context</strong> — they can’t ingest entire corpora at once.</li>
+</ul></li>
+<li class="fragment"><strong>Retrieval Augmented Generation (RAG)</strong> addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.</li>
+<li class="fragment">In short, <strong>RAG</strong> is a three step process:
+<ol type="1">
+<li class="fragment"><em>Retrieval</em>: find text relevant to answering the question</li>
+<li class="fragment"><em>Augmnetation</em>: concatenate it into the prompt</li>
+<li class="fragment"><em>Generation</em>: invoke the LLM</li>
+</ol></li>
+</ul>
+</section>
+<section id="embeddings" class="slide level2">
+<h2>Embeddings</h2>
 <ul>
 <li class="fragment"><strong>Embeddings</strong> are numerical representations of real-world data - text, images, audio, videos, anything.</li>
 <li class="fragment"><strong>Embedding Models</strong> are deep learning models which encode these inputs into vectors.</li>
 </ul>
+</section>
+<section id="applications-of-embedding-models" class="slide level2">
+<h2>Applications of Embedding Models</h2>
+<p>Embeddings are commonly used for:</p>
+<ul>
+<li class="fragment"><strong>Search</strong> (where results are ranked by relevance to a query string)</li>
+<li class="fragment"><strong>Clustering</strong> (where text strings are grouped by similarity)</li>
+<li class="fragment"><strong>Recommendations</strong> (where items with related text strings are recommended)</li>
+<li class="fragment"><strong>Anomaly</strong> detection (where outliers with little relatedness are identified)</li>
+<li class="fragment"><strong>Diversity</strong> measurement (where similarity distributions are analyzed)</li>
+<li class="fragment"><strong>Classification</strong> (where text strings are classified by their most similar label)</li>
+</ul>
+<div class="fragment">
+<p>See: <a href="https://openrouter.ai/docs/api-reference/embeddings">Embeddings | OpenRouter</a> and <a href="https://developers.openai.com/api/docs/guides/embeddings">Guides &gt; Embeddings | OpenAI</a></p>
+</div>
 </section>
 <section id="distributional-hypothesis" class="slide level2">
 <h2>Distributional Hypothesis</h2>
@@ -265,21 +298,6 @@
 <li class="fragment">Q&amp;A: vectors for a <strong>question</strong> and the <strong>document containing an answer</strong> should be similar</li>
 </ul>
 </section>
-<section id="applications-of-embedding-models" class="slide level2">
-<h2>Applications of Embedding Models</h2>
-<p>Embeddings are commonly used for:</p>
-<ul>
-<li class="fragment"><strong>Search</strong> (where results are ranked by relevance to a query string)</li>
-<li class="fragment"><strong>Clustering</strong> (where text strings are grouped by similarity)</li>
-<li class="fragment"><strong>Recommendations</strong> (where items with related text strings are recommended)</li>
-<li class="fragment"><strong>Anomaly</strong> detection (where outliers with little relatedness are identified)</li>
-<li class="fragment"><strong>Diversity</strong> measurement (where similarity distributions are analyzed)</li>
-<li class="fragment"><strong>Classification</strong> (where text strings are classified by their most similar label)</li>
-</ul>
-<div class="fragment">
-<p>See: <a href="https://openrouter.ai/docs/api-reference/embeddings">Embeddings | OpenRouter</a> and <a href="https://developers.openai.com/api/docs/guides/embeddings">Guides &gt; Embeddings | OpenAI</a></p>
-</div>
-</section>
 <section id="langchain-embeddings-interface" class="slide level2">
 <h2>LangChain Embeddings Interface</h2>
 <ul>
@@ -294,6 +312,13 @@
 <li class="fragment"><code>embed_query(text: str) → List[float]</code>: Embeds a single query.</li>
 </ul>
 </section>
+<section id="select-an-embedding-model" class="slide level2">
+<h2>Select an Embedding Model</h2>
+<ul>
+<li class="fragment">See <a href="https://openrouter.ai/models?fmt=cards&amp;output_modalities=embeddings">embedding models</a> on OpenRouter.ai</li>
+<li class="fragment">And <a href="https://openrouter.ai/docs/api-reference/embeddings">OpenRouter Embeddings API</a> on how to use them</li>
+</ul>
+</section>
 <section id="langchain-vector-stores-interface" class="slide level2">
 <h2>LangChain Vector Stores Interface</h2>
 <div class="cell" data-layout-align="default">
@@ -301,7 +326,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="01_embeddings_slides_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="01_embeddings_slides_files/figure-revealjs/mermaid-figure-1.png" style="width:15.11in;height:3.15in"></a></p>
+<p><a href="01_embeddings_slides_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="01_embeddings_slides_files/figure-revealjs/mermaid-figure-1.png" style="width:7.62in;height:1.81in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -317,14 +342,14 @@
 <p>This abstraction lets you switch between different implementations without altering your application logic.</p>
 </div>
 </section>
-<section id="vector-database" class="slide level2">
-<h2>Vector Database</h2>
-
-<img data-src="../assets/vector_db.png" class="r-stretch quarto-figure quarto-figure-center"></section>
 <section id="vector-search-filtered-nearest-neighbors" class="slide level2">
 <h2>Vector Search: Filtered Nearest Neighbors</h2>
 
 <img data-src="../assets/vector_db_query.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="vector-database" class="slide level2">
+<h2>Vector Database</h2>
+
+<img data-src="../assets/vector_db.png" class="r-stretch quarto-figure quarto-figure-center"></section>
 <section id="langchain-retrievers-interface" class="slide level2">
 <h2>LangChain Retrievers Interface</h2>
 <p>A <a href="https://docs.langchain.com/oss/python/integrations/retrievers">Retriever</a> accept a string query as input and return a list of&nbsp;<a href="https://reference.langchain.com/python/langchain-core/documents/base/Document"><code>Document</code></a>&nbsp;objects as output.</p>

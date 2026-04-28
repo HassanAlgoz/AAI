@@ -33,6 +33,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-ca7ff45dca864c8748a423b2ddb238b8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -141,39 +207,6 @@
 </div>
 
 </section>
-<section class="slide level2 scrollable">
-
-<p>One of the most useful applications enabled by LLMs is sophisticated question-answering (Q&amp;A) chatbots. These are applications that can answer questions about specific source information.</p>
-<ul>
-<li class="fragment">Large Language Models (LLMs) are useful, but they have two key limitations:
-<ul>
-<li class="fragment"><strong>Static knowledge</strong> — their training data is frozen at a point in time.</li>
-<li class="fragment"><strong>Finite context</strong> — they can’t ingest entire corpora at once.</li>
-</ul></li>
-<li class="fragment"><strong>Retrieval Augmented Generation (RAG)</strong> addresses these problems by fetching relevant out-of-training knowledge, and injecting it into the prompt before invoking the LLM, guiding the answer with context-specific information.</li>
-<li class="fragment">In short, <strong>RAG</strong> is a three step process:
-<ol type="1">
-<li class="fragment"><em>Retrieval</em>: find text relevant to answering the question</li>
-<li class="fragment"><em>Augmnetation</em>: concatenate it into the prompt</li>
-<li class="fragment"><em>Generation</em>: invoke the LLM</li>
-</ol></li>
-</ul>
-</section>
-<section id="rag-flowchart" class="slide level2">
-<h2>RAG Flowchart</h2>
-<p>A simple query -&gt; retrieval -&gt; augmentation -&gt; generation workflow is shown below:</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" style="width:10.35in;height:1.09in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
 <section id="building-a-knowledge-base" class="slide level2 scrollable">
 <h2>Building a knowledge base</h2>
 <ul>
@@ -193,7 +226,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-7.png" style="width:6.03in;height:14.66in"></a></p>
+<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" style="width:6.03in;height:14.66in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -214,7 +247,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" style="width:7.74in;height:1.07in"></a></p>
+<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" style="width:7.74in;height:1.07in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -229,7 +262,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" style="width:4.93in;height:2.43in"></a></p>
+<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" style="width:4.93in;height:2.43in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -237,25 +270,24 @@
 </div>
 <p><strong>Why do we split?..</strong></p>
 </section>
-<section id="a.-navigating-context-window-limits" class="slide level2">
-<h2>A. Navigating Context Window Limits</h2>
-<p>Even the most advanced Large Language Models (LLMs) have a <strong>context window</strong>—a maximum number of tokens (words/characters) they can “see” at one time.</p>
+<section id="a.-hard-limit-context-window" class="slide level2">
+<h2>A. Hard Limit: Context Window</h2>
 <ul>
-<li class="fragment"><strong>The Problem:</strong> Many documents (legal contracts, technical manuals, books) are significantly larger than an LLM’s context window.</li>
-<li class="fragment"><strong>The Solution:</strong> By splitting a 500-page manual into 500-word chunks, an agent can “pull” only the relevant pieces into its memory to answer a specific query without hitting a technical ceiling.</li>
+<li class="fragment">Many documents (legal contracts, technical manuals, books) are significantly larger than any LLM’s processing window</li>
+<li class="fragment">Practical limits are often much less than theoretical limits.</li>
+<li class="fragment">By splitting a 500-page manual, we can selectively retrieve relevant context to answer a specific query.</li>
 </ul>
 </section>
-<section id="b.-reducing-lost-in-the-middle-phenomena" class="slide level2">
-<h2>B. Reducing “Lost in the Middle” Phenomena</h2>
-<p><a href="https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval">Research shows</a> that LLMs are best at recalling information located at the <strong>very beginning or the very end of a prompt</strong>. Information buried in the middle of a massive block of text is often ignored.</p>
-<p>By providing the agent with several <strong>small, concise chunks</strong>, you ensure the relevant information stays at the “top of mind” for the model, leading to <strong>higher reasoning accuracy</strong>.</p>
+<section id="b.-soft-limit-lost-in-the-middle-phenomena" class="slide level2">
+<h2>B. Soft Limit: “Lost in the Middle” Phenomena</h2>
+<p><a href="https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval">Amazon Science Research shows</a> that LLMs are best at recalling information located at the very beginning or the very end of a prompt; <strong>but not when it is buried in the middle of a massive block of text</strong>.</p>
 </section>
 <section id="c.-cost-and-latency" class="slide level2">
 <h2>C. Cost and Latency</h2>
-<p>Every token sent to an LLM costs money and takes time to process.</p>
 <ul>
-<li class="fragment"><strong>Efficiency:</strong> If an agent needs to know a specific date in a 100MB file, sending the whole file is expensive and slow.</li>
-<li class="fragment"><strong>Speed:</strong> Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price, allowing the agent to move through its task pipeline much faster.</li>
+<li class="fragment">Say we want to know a specific date in a 100MB file, sending the whole file is expensive and slow.</li>
+<li class="fragment">Every token sent to an LLM costs <strong>money</strong> and takes <strong>time</strong> to process.</li>
+<li class="fragment">Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price.</li>
 </ul>
 </section>
 <section id="embedding-models" class="slide level2">
@@ -266,7 +298,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" style="width:5.48in;height:2.9in"></a></p>
+<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" style="width:5.48in;height:2.9in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -281,7 +313,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" style="width:2.95in;height:2.43in"></a></p>
+<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" style="width:2.95in;height:2.43in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -296,12 +328,76 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" style="width:3.24in;height:3.71in"></a></p>
+<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" style="width:3.24in;height:3.71in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
+</section>
+<section id="embeddings-keywords-search" class="slide level2">
+<h2>Embeddings + Keywords Search</h2>
+<ul>
+<li class="fragment">Search engines don’t just rely on embeddings.</li>
+<li class="fragment"><a href="https://docs.trychroma.com/docs/overview/introduction">ChromaDB</a> supports Full-text and Regex Search alongside embeddings.</li>
+<li class="fragment"><strong>Hybrid search</strong> combines keyword and semantic search to improve search relevance.</li>
+<li class="fragment"><a href="https://plg.uwaterloo.ca/%7Egvcormac/cormacksigir09-rrf.pdf">Reciprocal rank fusion (RRF)</a>&nbsp;is a method for combining multiple result sets with different relevance indicators into a single result set.</li>
+</ul>
+</section>
+<section id="chunking" class="slide level2 scrollable">
+<h2>Chunking</h2>
+<p>Two possible chunking approaches:</p>
+<ol type="1">
+<li class="fragment">chunk the <code>DoclingDocument</code> itself</li>
+<li class="fragment">export <code>DoclingDocument</code>&nbsp;to Markdown then chunk as a post-processing step</li>
+</ol>
+</section>
+<section id="hierarchical-chunker" class="slide level2">
+<h2>Hierarchical Chunker</h2>
+<ul>
+<li class="fragment">The&nbsp;<code>HierarchicalChunker</code>&nbsp;implementation uses the document structure information from the&nbsp;<a href="https://docling-project.github.io/docling/concepts/docling_document/"><code>DoclingDocument</code></a>&nbsp;to create one chunk for each individual detected document element.</li>
+<li class="fragment">It also takes care of attaching all relevant document metadata, including headers and captions.</li>
+</ul>
+</section>
+<section id="hybrid-chunker" class="slide level2">
+<h2>Hybrid Chunker</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> docling.chunking <span class="im">import</span> HybridChunker</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">Apply tokenization-aware refinements on top of document-based&nbsp;hierarchical&nbsp;chunking.</li>
+<li class="fragment">Control how table headers are handled:
+<ul>
+<li class="fragment"><strong><code>repeat_table_header</code></strong>&nbsp;(default:&nbsp;<code>True</code>): When enabled, table headers are repeated at the beginning of each chunk when a table spans multiple chunks.</li>
+<li class="fragment"><strong><code>omit_header_on_overflow</code></strong>&nbsp;(default:&nbsp;<code>False</code>): for handling wide tables.</li>
+</ul></li>
+</ul>
+</section>
+<section id="docling-loader-using-hybrid-chunking" class="slide level2">
+<h2>Docling Loader using Hybrid Chunking</h2>
+<p><code>HybridChunker</code> should be aligned to the embedding model tokenizer</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> docling.chunking <span class="im">import</span> HybridChunker</span>
+<span id="cb2-2"><a></a><span class="im">from</span> langchain_docling.loader <span class="im">import</span> ExportType</span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a>embed_model_id <span class="op">=</span> <span class="st">"sentence-transformers/all-MiniLM-L6-v2"</span></span>
+<span id="cb2-5"><a></a>tokenizer <span class="op">=</span> HuggingFaceTokenizer(</span>
+<span id="cb2-6"><a></a>  tokenizer<span class="op">=</span>AutoTokenizer.from_pretrained(embed_model_id)</span>
+<span id="cb2-7"><a></a>)</span>
+<span id="cb2-8"><a></a></span>
+<span id="cb2-9"><a></a>converter <span class="op">=</span> DocumentConverter(...)</span>
+<span id="cb2-10"><a></a></span>
+<span id="cb2-11"><a></a>loader <span class="op">=</span> DoclingLoader(</span>
+<span id="cb2-12"><a></a>    file_path<span class="op">=</span>file_path,</span>
+<span id="cb2-13"><a></a>    converter<span class="op">=</span>converter,</span>
+<span id="cb2-14"><a></a>    export_type<span class="op">=</span>ExportType.DOC_CHUNKS,</span>
+<span id="cb2-15"><a></a>    chunker<span class="op">=</span>HybridChunker(tokenizer<span class="op">=</span>tokenizer),</span>
+<span id="cb2-16"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="context-expansion" class="slide level2">
+<h2>Context expansion</h2>
+<ul>
+<li class="fragment">Relevant chunks may lack information necessary for producing a fully grounded response.</li>
+<li class="fragment">Docling’s preserves document structure!</li>
+<li class="fragment">Key idea: include adjacent chunks (from the same section) before generating the final answer.</li>
+</ul>
 </section>
 <section id="key-takeaways" class="slide level2">
 <h2>Key Takeaways</h2>
