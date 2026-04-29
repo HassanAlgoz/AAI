@@ -42,7 +42,7 @@ See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/dat
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
-| 1 | Agent (and its loop) | [Lab](./M4/lessons/01_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/01_agent.ipynb)) | [Build a SQL agent](https://docs.langchain.com/oss/python/langchain/sql-agent) |
+| 1 | [Agents](./M4/lessons/01_agents_slides.qmd) | [Lab](./M4/lessons/01_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/01_agent.ipynb)) | [Build a SQL agent](https://docs.langchain.com/oss/python/langchain/sql-agent) |
 | 2 | [Agentic Search](https://docs.trychroma.com/guides/build/agentic-search) |  |  |  |
 | 3 | Sub-agents Pattern | [Lab](./M4/lessons/03_subagents.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/03_subagents.ipynb)) |  |  |
 | 4 | Stateful Agents | [Lab](./M4/lessons/04_agent_state.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/04_agent_state.ipynb)) |  |  |
