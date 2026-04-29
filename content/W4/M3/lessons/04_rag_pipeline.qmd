@@ -148,8 +148,32 @@ flowchart LR
 
 Two possible chunking approaches:
 
-1. chunk the `DoclingDocument` itself
-2. export `DoclingDocument` to Markdown then chunk as a post-processing step
+
+::: {.fragment}
+1. Using [`docling.chunking`](https://docling-project.github.io/docling/concepts/chunking/) acts on the `DoclingDocument` object itself. Trades speed for accuracy.
+
+```{mermaid}
+graph LR
+    subgraph "DoclingDocument"
+        A["Hierarchical"] --> B["Hybrid"]
+    end
+```
+:::
+
+
+::: {.fragment}
+2. Using [langchain_text_splitters](https://docs.langchain.com/oss/python/integrations/splitters)  on the raw text. Trades accuracy for speed.
+
+```{mermaid}
+graph LR
+  subgraph "Text"
+    Recursive
+    Markdown
+    HTML
+    JSON
+  end
+```
+:::
 
 ## Hierarchical Chunker
 
