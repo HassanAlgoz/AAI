@@ -18,6 +18,43 @@ One of the most useful applications enabled by LLMs is sophisticated question-an
   2. *Augmnetation*: concatenate it into the prompt
   3. *Generation*: invoke the LLM
 
+## Keyword Search: Inverted Index
+
+![](../assets/inverted_index.png){.r-stretch fig-align="center"}
+
+## LangChain Retrievers Interface
+
+A [Retriever](https://docs.langchain.com/oss/python/integrations/retrievers) accept a string query as input and return a list of [`Document`](https://reference.langchain.com/python/langchain-core/documents/base/Document) objects as output.
+
+::: {.fragment}
+
+Retrievers can be created from vector stores, but are also broad enough to include [Wikipedia search](https://docs.langchain.com/oss/python/integrations/retrievers/wikipedia) and [Amazon Kendra](https://docs.langchain.com/oss/python/integrations/retrievers/amazon_kendra_retriever).
+
+```{mermaid}
+flowchart LR
+    D["📄 Documents"]
+    S["🔢 Knowledgebase"]
+    Q["❓ Query text"]
+    R["📄 Top-k results"]
+
+    D -->|add| S
+    Q -->|search| S
+    S -->|retrieve| R
+```
+
+## RAG Workflow
+
+A simple RAG from question to answer, is shown below:
+
+```{mermaid}
+graph LR
+    A[Question] --> B[Retriever]
+    B --> C[/Relevant docs/]
+    C --> D[LLM]
+    A --> D
+    D --> E[Answer]
+```
+
 ## Embeddings
 
 - **Embeddings** are numerical representations of real-world data - text, images, audio, videos, anything.
@@ -197,12 +234,3 @@ This abstraction lets you switch between different implementations without alter
 
 ![](../assets/vector_db.png){.r-stretch fig-align="center"}
 
-## LangChain Retrievers Interface
-
-A [Retriever](https://docs.langchain.com/oss/python/integrations/retrievers) accept a string query as input and return a list of [`Document`](https://reference.langchain.com/python/langchain-core/documents/base/Document) objects as output.
-
-::: {.fragment}
-
-Retrievers can be created from vector stores, but are also broad enough to include [Wikipedia search](https://docs.langchain.com/oss/python/integrations/retrievers/wikipedia) and [Amazon Kendra](https://docs.langchain.com/oss/python/integrations/retrievers/amazon_kendra_retriever).
-
-:::
