@@ -198,6 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#update-state" id="toc-update-state" class="nav-link" data-scroll-target="#update-state">Update state</a></li>
   </ul></li>
   <li><a href="#runtime-context" id="toc-runtime-context" class="nav-link" data-scroll-target="#runtime-context">Runtime Context</a></li>
+  <li><a href="#dynamic-model-selection" id="toc-dynamic-model-selection" class="nav-link" data-scroll-target="#dynamic-model-selection">Dynamic model selection</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="04_agent_state.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -653,6 +654,43 @@ Let me know if you'd like additional details! 😊
 </div>
 </div>
 </div>
+</section>
+<section id="dynamic-model-selection" class="level2">
+<h2 class="anchored" data-anchor-id="dynamic-model-selection">Dynamic model selection</h2>
+<p>Dynamic models are selected at&nbsp;runtime&nbsp;based on the current&nbsp;state&nbsp;and context. This enables sophisticated routing logic and cost optimization.</p>
+<p>To use a dynamic model, create middleware using the&nbsp;<a href="https://reference.langchain.com/python/langchain/agents/middleware/types/wrap_model_call"><code>@wrap_model_call</code></a>&nbsp;decorator that modifies the model in the request.</p>
+<p><a href="https://docs.langchain.com/oss/python/langchain/middleware/overview"><strong>Middleware</strong></a> allows registering code to be executed in-between steps:</p>
+<ul>
+<li>before/after agent call</li>
+<li>before/after model call</li>
+<li>before/after tool call</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_openai <span class="im">import</span> ChatOpenAI</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_agent</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents.middleware <span class="im">import</span> wrap_model_call, ModelRequest, ModelResponse</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>basic_model <span class="op">=</span> ChatOpenAI(model<span class="op">=</span><span class="st">"gpt-5.4-mini"</span>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>advanced_model <span class="op">=</span> ChatOpenAI(model<span class="op">=</span><span class="st">"gpt-5.4"</span>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="at">@wrap_model_call</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dynamic_model_selection(request: ModelRequest, handler) <span class="op">-&gt;</span> ModelResponse:</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Choose model based on conversation complexity."""</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    message_count <span class="op">=</span> <span class="bu">len</span>(request.state[<span class="st">"messages"</span>])</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> message_count <span class="op">&gt;</span> <span class="dv">10</span>:</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Use an advanced model for longer conversations</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> advanced_model</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> basic_model</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> handler(request.override(model<span class="op">=</span>model))</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_agent(</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>basic_model,  <span class="co"># Default model</span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>tools,</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>    middleware<span class="op">=</span>[dynamic_model_selection] <span class="co"># MIDDLEWARE</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="key-takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>

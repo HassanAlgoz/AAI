@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Agent – Applied AI Bootcamp</title>
+<title>Agents in LangChain – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,9 +82,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -164,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Agent</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Agents in LangChain</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,16 +187,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#tools" id="toc-tools" class="nav-link active" data-scroll-target="#tools">Tools</a></li>
-  <li><a href="#define-internet-search-tool" id="toc-define-internet-search-tool" class="nav-link" data-scroll-target="#define-internet-search-tool">Define Internet Search Tool</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link active" data-scroll-target="#tools">Tools</a>
+  <ul class="collapse">
+  <li><a href="#web-search-via-tavily-api-free-quota" id="toc-web-search-via-tavily-api-free-quota" class="nav-link" data-scroll-target="#web-search-via-tavily-api-free-quota">Web search via Tavily API (free quota)</a></li>
+  </ul></li>
+  <li><a href="#define-internet_search-tool" id="toc-define-internet_search-tool" class="nav-link" data-scroll-target="#define-internet_search-tool">Define <code>internet_search</code> tool</a>
+  <ul class="collapse">
+  <li><a href="#run-the-search-function" id="toc-run-the-search-function" class="nav-link" data-scroll-target="#run-the-search-function">Run the search function</a></li>
+  </ul></li>
   <li><a href="#create-agent-with-tools" id="toc-create-agent-with-tools" class="nav-link" data-scroll-target="#create-agent-with-tools">Create Agent (with tools)</a>
   <ul class="collapse">
   <li><a href="#model-the-non-deterministic-program" id="toc-model-the-non-deterministic-program" class="nav-link" data-scroll-target="#model-the-non-deterministic-program">1. Model: the non-deterministic program</a></li>
   <li><a href="#system-prompt-natural-language-instructions" id="toc-system-prompt-natural-language-instructions" class="nav-link" data-scroll-target="#system-prompt-natural-language-instructions">2. System prompt: natural language instructions</a></li>
   <li><a href="#the-agent-class-instance" id="toc-the-agent-class-instance" class="nav-link" data-scroll-target="#the-agent-class-instance">3. The <code>agent</code> class instance</a></li>
   </ul></li>
-  <li><a href="#invoke-the-agent" id="toc-invoke-the-agent" class="nav-link" data-scroll-target="#invoke-the-agent">Invoke the <code>agent</code></a></li>
-  <li><a href="#toolkits" id="toc-toolkits" class="nav-link" data-scroll-target="#toolkits">Toolkits</a></li>
+  <li><a href="#running-the-agent" id="toc-running-the-agent" class="nav-link" data-scroll-target="#running-the-agent">Running the <code>Agent</code></a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01_agent.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
@@ -209,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Agent</h1>
+<h1 class="title">Agents in LangChain</h1>
 </div>
 
 
@@ -226,41 +228,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>An <strong>Agent</strong> runs a loop between a deterministic and a non-deterministic program:</p>
-<ol type="1">
-<li>Our Python code is a deterministic program which expects structured inputs to function</li>
-<li>The LLM is a non-deterministic program which can handle natural language and other unstructured inputs</li>
-</ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To have the two work together, the LLM has to have the minimum function of structuring it’s outputs as proper inputs to the Python program.</p>
-</div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../assets/agent_loop.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Agent Loop"><img src="../assets/agent_loop.png" class="img-fluid figure-img" alt="Agent Loop"></a></p>
-<figcaption>Agent Loop</figcaption>
-</figure>
-</div>
 <section id="tools" class="level2">
 <h2 class="anchored" data-anchor-id="tools">Tools</h2>
-<p>Tools extend what&nbsp;<a href="https://docs.langchain.com/oss/python/langchain/agents">agents</a>&nbsp;can do—letting them fetch real-time data, execute code, query external databases, and take actions in the world.</p>
-<p>Under the hood, tools are callable functions with well-defined inputs and outputs that get passed to a&nbsp;<a href="https://docs.langchain.com/oss/python/langchain/models">chat model</a>. The model decides when to invoke a tool based on the conversation context, and what input arguments to provide.</p>
-</section>
-<section id="define-internet-search-tool" class="level2">
-<h2 class="anchored" data-anchor-id="define-internet-search-tool">Define Internet Search Tool</h2>
+<section id="web-search-via-tavily-api-free-quota" class="level3">
+<h3 class="anchored" data-anchor-id="web-search-via-tavily-api-free-quota">Web search via Tavily API (free quota)</h3>
 <p><a href="https://www.tavily.com/"><strong>Tavily</strong></a> is a search engine optimized for LLMs and RAG, aimed at efficient, quick, and persistent search results. As mentioned, it’s easy to sign up and offers a generous free tier.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">!pip</span> install tavily-python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="set-up-tavily-api-for-web-search-free" class="level4">
-<h4 class="anchored" data-anchor-id="set-up-tavily-api-for-web-search-free">Set up Tavily API for web search (Free)</h4>
+<div id="2bcbb9a9" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install tavily<span class="op">-</span>python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ul>
 <li><p>Tavily Search API is a search engine optimized for LLMs and RAG, aimed at efficient, quick, and persistent search results.</p></li>
 <li><p>You can sign up for an API key <a href="https://tavily.com/">here</a>. It’s easy to sign up and offers a very generous free tier. Some lessons (in Module 4) will use Tavily.</p></li>
@@ -272,6 +247,10 @@ Tip
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>tavily_client <span class="op">=</span> TavilyClient(api_key<span class="op">=</span>userdata.get(<span class="st">"TAVILY_API_KEY"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+</section>
+<section id="define-internet_search-tool" class="level2">
+<h2 class="anchored" data-anchor-id="define-internet_search-tool">Define <code>internet_search</code> tool</h2>
 <div id="1f66ab41" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -290,6 +269,8 @@ Tip
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        topic<span class="op">=</span>topic,</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<section id="run-the-search-function" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-search-function">Run the search function</h3>
 <div id="d2ad39fa" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What's the timeline of how the AI industry has evolved over the past 10 years?"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> internet_search(question, max_results<span class="op">=</span><span class="dv">3</span>)</span>
@@ -371,24 +352,6 @@ Tip
 </section>
 <section id="the-agent-class-instance" class="level3">
 <h3 class="anchored" data-anchor-id="the-agent-class-instance">3. The <code>agent</code> class instance</h3>
-<p>Many models have been trained to <strong>format their output in JSON</strong> and stop immediatly. This is done for parsability by deterministic programs like Python code:</p>
-<ol type="1">
-<li>Output stops after generating JSON</li>
-<li>Python (<code>agent</code> class instance) parses this output</li>
-<li>It indicates calling a specific function with specific arguments</li>
-<li>Python calls the function and passess the arguments and assigns it to a variable</li>
-<li>Check for stop condition</li>
-<li>Python append the value as a string to the prompt</li>
-<li>Python re-triggeres the LLM with this result</li>
-<li>.. repeat (loop)</li>
-</ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure: Function Calling Steps | OpenAI"><img src="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" height="600" alt="Figure: Function Calling Steps | OpenAI" class="figure-img"></a></p>
-<figcaption>Figure: Function Calling Steps | OpenAI</figcaption>
-</figure>
-</div>
-<p>See: <a href="https://developers.openai.com/api/docs/guides/function-calling">Guide &gt; Function Calling | OpenAI</a>.</p>
 <div id="065e6367" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_agent</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -400,12 +363,16 @@ Tip
 </div>
 </section>
 </section>
-<section id="invoke-the-agent" class="level2">
-<h2 class="anchored" data-anchor-id="invoke-the-agent">Invoke the <code>agent</code></h2>
+<section id="running-the-agent" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-agent">Running the <code>Agent</code></h2>
+<ul>
+<li>Case 1: a question that needs grounding via <code>internet_search</code></li>
+<li>Case 2: a question that can be answered without using <code>internet_search</code></li>
+</ul>
 <div id="e633e4c7" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_core.messages <span class="im">import</span> HumanMessage</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What's the timeline of how the AI industry has evolved over the past 10 years?"</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> agent.invoke({</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        HumanMessage(question)</span>
@@ -428,11 +395,12 @@ Tip
 </div>
 <p>Let’s ask about something that needs search:</p>
 <div id="07cdc1d2" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> agent.invoke({</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        HumanMessage(<span class="st">"What's the difference between a Model and an Agent?"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What's the timeline of how the AI industry has evolved over the past 10 years?"</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> agent.invoke({</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        HumanMessage(question)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="ed81815a" class="cell" data-execution_count="128">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -472,24 +440,15 @@ Tip
 In practice, a typical production stack uses **all three together**: build with LangChain, orchestrate complex flows with LangGraph, and monitor/evaluate everything with LangSmith.</code></pre>
 </div>
 </div>
-</section>
-<section id="toolkits" class="level2">
-<h2 class="anchored" data-anchor-id="toolkits">Toolkits</h2>
-<p>A <strong>toolkit</strong> is a collection of tools meant to be used together.</p>
-<p>Each tools within a toolkit is designed to be called by a model:</p>
-<ul>
-<li>their inputs are designed to be generated by models</li>
-<li>their outputs are designed to be passed back to models</li>
-</ul>
-<p>See <a href="https://docs.langchain.com/oss/python/integrations/tools">Tool integrations</a> which cover ready-made tools for various things like:</p>
-<ul>
-<li><a href="https://docs.langchain.com/oss/python/integrations/tools#search">Search</a></li>
-<li><a href="https://docs.langchain.com/oss/python/integrations/tools#productivity">Productivity</a></li>
-<li><a href="https://docs.langchain.com/oss/python/integrations/tools#web-browsing">Web browsing</a></li>
-<li><a href="https://docs.langchain.com/oss/python/integrations/tools#database">Database</a></li>
-<li><a href="https://docs.langchain.com/oss/python/integrations/tools#code-interpreter">Code interpreter</a></li>
-<li><a href="https://docs.langchain.com/oss/python/integrations/tools#all-tools-and-toolkits">others</a></li>
-</ul>
+<div id="b6a82f9e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Case 2: a question that can be answered without using `internet_search`</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"If you reverse the word hippocampus, what do you get?"</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> agent.invoke({</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"messages"</span>: [</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        HumanMessage(question)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="key-takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
@@ -904,38 +863,6 @@ In practice, a typical production stack uses **all three together**: build with 
   });
   </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

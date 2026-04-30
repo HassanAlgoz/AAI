@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – RAG Pipeline</title>
+  <title>Applied AI Bootcamp – Agents</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -201,258 +201,249 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">RAG Pipeline</h1>
+  <h1 class="title">Agents</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="building-a-knowledge-base" class="slide level2 scrollable">
-<h2>Building a knowledge base</h2>
-<ul>
-<li class="fragment">A <strong>knowledge base</strong> is a repository of documents or structured data used during retrieval.</li>
-<li class="fragment">The pre-requisite of implementing this is that we have “relevant data” accessible:
-<ol type="1">
-<li class="fragment">Databases like: SQL, NoSQL, or Vector Database</li>
-<li class="fragment">APIs: internal or external</li>
-</ol></li>
-</ul>
-</section>
-<section id="full-pipeline-from-data-ingestion-to-generation" class="slide level2">
-<h2>Full pipeline: from data ingestion to generation</h2>
-<p>A typical retrieval workflow looks like this:</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-1.png" style="width:6.03in;height:14.66in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Each component is modular: you can swap loaders, splitters, embeddings, or vector stores without rewriting the app’s logic.</p>
-</section>
 <section>
-<section id="building-blocks" class="title-slide slide level1 center">
-<h1>Building blocks</h1>
-
-</section>
-<section id="loaders" class="slide level2">
-<h2>1. Loaders</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/document_loaders">Document loaders</a> Ingest data from external sources (Google Drive, Slack, Notion, etc.), returning standardized <a href="https://reference.langchain.com/python/langchain-core/documents/base/Document"><code>Document</code></a> objects.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-8.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-8.png" style="width:7.74in;height:1.07in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="splitters" class="slide level2">
-<h2>2. Splitters</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/splitters">Text splitters</a> Break large docs into smaller chunks that will be retrievable individually.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-7.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-7.png" style="width:4.93in;height:2.43in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p><strong>Why do we split?..</strong></p>
-</section>
-<section id="a.-hard-limit-context-window" class="slide level2">
-<h2>A. Hard Limit: Context Window</h2>
-<ul>
-<li class="fragment">Many documents (legal contracts, technical manuals, books) are significantly larger than any LLM’s processing window</li>
-<li class="fragment">Practical limits are often much less than theoretical limits.</li>
-<li class="fragment">By splitting a 500-page manual, we can selectively retrieve relevant context to answer a specific query.</li>
-</ul>
-</section>
-<section id="b.-soft-limit-lost-in-the-middle-phenomena" class="slide level2">
-<h2>B. Soft Limit: “Lost in the Middle” Phenomena</h2>
-<p><a href="https://www.amazon.science/publications/context-length-alone-hurts-llm-performance-despite-perfect-retrieval">Amazon Science Research shows</a> that LLMs are best at recalling information located at the very beginning or the very end of a prompt; <strong>but not when it is buried in the middle of a massive block of text</strong>.</p>
-</section>
-<section id="c.-cost-and-latency" class="slide level2">
-<h2>C. Cost and Latency</h2>
-<ul>
-<li class="fragment">Say we want to know a specific date in a 100MB file, sending the whole file is expensive and slow.</li>
-<li class="fragment">Every token sent to an LLM costs <strong>money</strong> and takes <strong>time</strong> to process.</li>
-<li class="fragment">Sending three 500-token chunks is nearly instantaneous and costs a fraction of the price.</li>
-</ul>
-</section>
-<section id="embedding-models" class="slide level2">
-<h2>3. Embedding Models</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/text_embedding">Embedding models</a> An embedding model turns text into a vector of numbers so that texts with similar meaning land close together in that vector space.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-6.png" style="width:5.48in;height:2.9in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="stores" class="slide level2">
-<h2>4. Stores</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/vectorstores/">Vector stores</a> Specialized databases for storing and searching embeddings.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-5.png" style="width:2.95in;height:2.43in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="retrievers" class="slide level2">
-<h2>5. Retrievers</h2>
-<p><a href="https://docs.langchain.com/oss/python/integrations/retrievers/">Retrievers</a> A retriever is an interface that returns documents given an unstructured query.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-4.png" style="width:3.24in;height:3.71in"></a></p>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="embeddings-keywords-search" class="slide level2">
-<h2>Embeddings + Keywords Search</h2>
-<ul>
-<li class="fragment">Search engines don’t just rely on embeddings.</li>
-<li class="fragment"><a href="https://docs.trychroma.com/docs/overview/introduction">ChromaDB</a> supports Full-text and Regex Search alongside embeddings.</li>
-<li class="fragment"><strong>Hybrid search</strong> combines keyword and semantic search to improve search relevance.</li>
-<li class="fragment"><a href="https://plg.uwaterloo.ca/%7Egvcormac/cormacksigir09-rrf.pdf">Reciprocal rank fusion (RRF)</a>&nbsp;is a method for combining multiple result sets with different relevance indicators into a single result set.</li>
-</ul>
-</section>
-<section id="chunking" class="slide level2 scrollable">
-<h2>Chunking</h2>
-<p>Two possible chunking approaches:</p>
-<div class="fragment">
+<section id="agent" class="title-slide slide level1 center scrollable">
+<h1>Agent</h1>
+<p>An <strong>Agent</strong> runs a loop between a deterministic and a non-deterministic program:</p>
 <ol type="1">
-<li class="fragment">Using <a href="https://docling-project.github.io/docling/concepts/chunking/"><code>docling.chunking</code></a> acts on the <code>DoclingDocument</code> object itself. Trades speed for accuracy.</li>
+<li class="fragment">Our Python code is a deterministic program which expects structured inputs to function</li>
+<li class="fragment">The LLM is a non-deterministic program which can handle natural language and other unstructured inputs</li>
 </ol>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-3.png" style="width:2.43in;height:2.85in"></a></p>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p></p></figure><p></p>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>To have the two work together, the LLM has to have the minimum function of structuring it’s outputs as proper inputs to the Python program.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="fragment">
-<ol start="2" type="1">
-<li class="fragment">Using <a href="https://docs.langchain.com/oss/python/integrations/splitters">langchain_text_splitters</a> on the raw text. Trades accuracy for speed.</li>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/agent_loop.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Agent Loop"><img data-src="../assets/agent_loop.png" class="r-stretch quarto-figure quarto-figure-center" alt="Agent Loop"></a></p>
+</figure>
+</div>
+<figcaption>Agent Loop</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="react-loop" class="slide level2">
+<h2>ReAct Loop</h2>
+
+<img data-src="../assets/Reason_plus_Action.png" class="r-stretch quarto-figure quarto-figure-center" alt="ReAct: synergizing reasoning and acting in language models | 2023"><p class="caption"><a href="https://arxiv.org/pdf/2210.03629">ReAct: synergizing reasoning and acting in language models | 2023</a></p></section>
+<section id="tools" class="slide level2">
+<h2>Tools</h2>
+<div class="fragment">
+<p>Tools extend what&nbsp;<a href="https://docs.langchain.com/oss/python/langchain/agents">agents</a>&nbsp;can do—letting them fetch real-time data, execute code, query external databases, and take actions in the world.</p>
+</div>
+<div class="fragment">
+<p>Under the hood, tools are callable functions with well-defined inputs and outputs that get passed to a&nbsp;<a href="https://docs.langchain.com/oss/python/langchain/models">chat model</a>. The model decides when to invoke a tool based on the conversation context, and what input arguments to provide.</p>
+</div>
+</section>
+<section id="agent-vs-llm" class="slide level2 scrollable">
+<h2>Agent vs LLM</h2>
+<p>An LLM is confined to its text box. You ask a question, it gives an answer, and it stops. It cannot independently take action in the real world. The <code>Agent</code> class in Python extends LLMs with:</p>
+<ol type="1">
+<li class="fragment">the ability to interact with external environments via <strong>Tools</strong>
+<ol type="1">
+<li class="fragment"><strong>Action</strong>
+<ul>
+<li class="fragment">parsed from it’s JSON output (tool + arguments).</li>
+<li class="fragment">executed by the Python env: (calling APIs, sending emails, ..etc.).</li>
+</ul></li>
+<li class="fragment"><strong>Observation</strong> generate observation tokens based on the return value.</li>
+</ol></li>
+<li class="fragment"><strong>Memory</strong>: maintain state of:
+<ul>
+<li class="fragment">generated text so far</li>
+<li class="fragment">results from tool calls</li>
+<li class="fragment">it’s own observations on that</li>
+</ul></li>
+<li class="fragment"><strong>Autonomy</strong> means the runtime continues to loop; recognizing errors and self-correct, until the goal is achieved.</li>
 </ol>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<p><a href="04_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="04_rag_pipeline_files/figure-revealjs/mermaid-figure-2.png" style="width:7.2in;height:1.51in"></a></p>
+</section>
+<section id="tool-calling" class="slide level2 scrollable">
+<h2>Tool-calling</h2>
+<p>Many models have been trained to <strong>format their output in JSON</strong> and stop immediatly. This is done for parsability by deterministic programs like Python code:</p>
+<div class="columns">
+<div class="column">
+<ol type="1">
+<li class="fragment">Output stops after generating JSON</li>
+<li class="fragment">Python (<code>Agent</code> class instance) parses this output</li>
+<li class="fragment">It indicates calling a specific function with specific arguments</li>
+<li class="fragment">Python calls the function and passess the arguments and assigns it to a variable</li>
+<li class="fragment">Check for stop condition</li>
+<li class="fragment">Python append the value as a string to the prompt</li>
+<li class="fragment">Python re-triggeres the LLM with this result</li>
+<li class="fragment">.. repeat (loop)</li>
+</ol>
+</div><div class="column">
+<p><a href="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="https://cdn.openai.com/API/docs/images/function-calling-diagram-steps.png"></a></p>
+<p>See: <a href="https://developers.openai.com/api/docs/guides/function-calling">Guide &gt; Function Calling | OpenAI</a>.</p>
+</div></div>
+</section>
+<section id="creating-an-agent" class="slide level2 scrollable">
+<h2>Creating an Agent</h2>
+<p>Define three things:</p>
+<ol type="1">
+<li class="fragment">LLM (model)</li>
+<li class="fragment">Prompt</li>
+<li class="fragment">Tools</li>
+</ol>
+<div class="fragment">
+<p>Then pass them to the <code>create_agent</code> function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_agent</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a>agent <span class="op">=</span> create_agent(</span>
+<span id="cb1-4"><a></a>    model<span class="op">=</span>model_nemotron3_nano, <span class="co"># Program (non-deterministic)</span></span>
+<span id="cb1-5"><a></a>    tools<span class="op">=</span>[internet_search],    <span class="co"># I/O (deterministic)</span></span>
+<span id="cb1-6"><a></a>    system_prompt<span class="op">=</span>AGENT_PROMPT  <span class="co"># Instructions (natural language)</span></span>
+<span id="cb1-7"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p></p></figure><p></p>
+</section>
+<section id="run-the-agent" class="slide level2">
+<h2>Run the Agent</h2>
+<p><code>Agent</code> is a <code>Runnable</code>; having <code>invoke</code>, <code>stream</code>, and <code>batch</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> langchain_core.messages <span class="im">import</span> HumanMessage</span>
+<span id="cb2-2"><a></a></span>
+<span id="cb2-3"><a></a>question <span class="op">=</span> <span class="st">"What's the timeline of how the AI industry has evolved over the past 10 years?"</span></span>
+<span id="cb2-4"><a></a>result <span class="op">=</span> agent.invoke({ <span class="st">"messages"</span>: [HumanMessage(question)] })</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="agent-prompt" class="slide level2">
+<h2>Agent Prompt</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>AGENT_PROMPT <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb3-2"><a></a><span class="st">    Role: You are an expert researcher. Your job is to conduct thorough research and then write a polished report.</span></span>
+<span id="cb3-3"><a></a><span class="st">    Style: Keep it short and concise.</span></span>
+<span id="cb3-4"><a></a><span class="st">    Tools: You have access to an `internet_search` tool as your primary means of gathering information.</span></span>
+<span id="cb3-5"><a></a></span>
+<span id="cb3-6"><a></a><span class="st">    ## Tool: `internet_search`</span></span>
+<span id="cb3-7"><a></a></span>
+<span id="cb3-8"><a></a><span class="st">    - Usage: Use this to run an internet search for a given query.</span></span>
+<span id="cb3-9"><a></a><span class="st">    - Parameters: You can specify the max number of results to return, the topic, and whether raw content should be included.</span></span>
+<span id="cb3-10"><a></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-tools" class="slide level2">
+<h2>Create tools</h2>
+<p>The simplest way to create a tool is with the&nbsp;<a href="https://reference.langchain.com/python/langchain-core/tools/convert/tool"><code>@tool</code></a>&nbsp;decorator. By default, the function’s docstring becomes the tool’s description that helps the model understand when to use it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> langchain.tools <span class="im">import</span> tool</span>
+<span id="cb4-2"><a></a></span>
+<span id="cb4-3"><a></a><span class="at">@tool</span></span>
+<span id="cb4-4"><a></a><span class="kw">def</span> search_database(query: <span class="bu">str</span>, limit: <span class="bu">int</span> <span class="op">=</span> <span class="dv">10</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb4-5"><a></a>    <span class="co">"""Search the customer database for records matching the query.</span></span>
+<span id="cb4-6"><a></a></span>
+<span id="cb4-7"><a></a><span class="co">    Args:</span></span>
+<span id="cb4-8"><a></a><span class="co">        query: Search terms to look for</span></span>
+<span id="cb4-9"><a></a><span class="co">        limit: Maximum number of results to return</span></span>
+<span id="cb4-10"><a></a><span class="co">    """</span></span>
+<span id="cb4-11"><a></a>    <span class="cf">return</span> <span class="ss">f"Found </span><span class="sc">{</span>limit<span class="sc">}</span><span class="ss"> results for '</span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">'"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Type hints are&nbsp;<strong>required</strong>&nbsp;as they define the tool’s input schema. The docstring should be informative and concise to help the model understand the tool’s purpose.</p>
+</section>
+<section id="customize-tool-name-and-description" class="slide level2">
+<h2>Customize tool name and description</h2>
+<p>The&nbsp;<a href="https://docs.langchain.com/oss/python/langchain/tools#create-tools">tool decorator</a>&nbsp;can be used to customize tool <code>names</code>, <code>description</code>, <code>schema</code> of arguments, and other properties:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="at">@tool</span>(</span>
+<span id="cb5-2"><a></a>    <span class="st">"calculator"</span>,</span>
+<span id="cb5-3"><a></a>    description<span class="op">=</span><span class="st">"Performs arithmetic calculations. Use this for any math problems."</span>)</span>
+<span id="cb5-4"><a></a><span class="kw">def</span> calc(expression: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb5-5"><a></a>    <span class="co">"""Evaluate mathematical expressions."""</span></span>
+<span id="cb5-6"><a></a>    <span class="cf">return</span> <span class="bu">str</span>(<span class="bu">eval</span>(expression))</span>
+<span id="cb5-7"><a></a></span>
+<span id="cb5-8"><a></a><span class="bu">print</span>(calc.name)  <span class="co"># calculator</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="define-tool-input-schema" class="slide level2">
+<h2>Define tool input schema</h2>
+<p>Schema as Pydantic class:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field</span>
+<span id="cb6-2"><a></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a><span class="kw">class</span> WeatherInput(BaseModel):</span>
+<span id="cb6-5"><a></a>    <span class="co">"""Input for weather queries."""</span></span>
+<span id="cb6-6"><a></a>    location: <span class="bu">str</span> <span class="op">=</span> Field(description<span class="op">=</span><span class="st">"City name or coordinates"</span>)</span>
+<span id="cb6-7"><a></a>    units: Literal[<span class="st">"celsius"</span>, <span class="st">"fahrenheit"</span>] <span class="op">=</span> Field(</span>
+<span id="cb6-8"><a></a>        default<span class="op">=</span><span class="st">"celsius"</span>,</span>
+<span id="cb6-9"><a></a>        description<span class="op">=</span><span class="st">"Temperature unit preference"</span></span>
+<span id="cb6-10"><a></a>    )</span>
+<span id="cb6-11"><a></a>    include_forecast: <span class="bu">bool</span> <span class="op">=</span> Field(</span>
+<span id="cb6-12"><a></a>        default<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb6-13"><a></a>        description<span class="op">=</span><span class="st">"Include 5-day forecast"</span></span>
+<span id="cb6-14"><a></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tool:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="at">@tool</span>(args_schema<span class="op">=</span>WeatherInput)</span>
+<span id="cb7-2"><a></a><span class="kw">def</span> get_weather(location: <span class="bu">str</span>, units: <span class="bu">str</span> <span class="op">=</span> <span class="st">"celsius"</span>, include_forecast: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb7-3"><a></a>    <span class="co">"""Get current weather and optional forecast."""</span></span>
+<span id="cb7-4"><a></a>    temp <span class="op">=</span> <span class="dv">22</span> <span class="cf">if</span> units <span class="op">==</span> <span class="st">"celsius"</span> <span class="cf">else</span> <span class="dv">72</span></span>
+<span id="cb7-5"><a></a>    result <span class="op">=</span> <span class="ss">f"Current weather in </span><span class="sc">{</span>location<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>temp<span class="sc">}</span><span class="ss"> degrees </span><span class="sc">{</span>units[<span class="dv">0</span>]<span class="sc">.</span>upper()<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb7-6"><a></a>    <span class="cf">if</span> include_forecast:</span>
+<span id="cb7-7"><a></a>        result <span class="op">+=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">Next 5 days: Sunny"</span></span>
+<span id="cb7-8"><a></a>    <span class="cf">return</span> result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="toolkits" class="slide level2">
+<h2>Toolkits</h2>
+<div class="fragment">
+<p>A <strong>toolkit</strong> is a collection of tools meant to be used together.</p>
 </div>
+<div class="fragment">
+<p>Each tools within a toolkit is designed to be called by a model:</p>
 </div>
+<ul>
+<li class="fragment">their inputs are designed to be generated by models</li>
+<li class="fragment">their outputs are designed to be passed back to models</li>
+</ul>
+<div class="fragment">
+<p>See <a href="https://docs.langchain.com/oss/python/integrations/tools">Tool integrations</a> which cover ready-made tools for various things like:</p>
 </div>
+<ul>
+<li class="fragment"><a href="https://docs.langchain.com/oss/python/integrations/tools#search">Search</a></li>
+<li class="fragment"><a href="https://docs.langchain.com/oss/python/integrations/tools#productivity">Productivity</a></li>
+<li class="fragment"><a href="https://docs.langchain.com/oss/python/integrations/tools#web-browsing">Web browsing</a></li>
+<li class="fragment"><a href="https://docs.langchain.com/oss/python/integrations/tools#database">Database</a></li>
+<li class="fragment"><a href="https://docs.langchain.com/oss/python/integrations/tools#code-interpreter">Code interpreter</a></li>
+<li class="fragment"><a href="https://docs.langchain.com/oss/python/integrations/tools#all-tools-and-toolkits">others</a></li>
+</ul>
+</section></section>
+<section>
+<section id="agentic-search-systems" class="title-slide slide level1 center scrollable">
+<h1>Agentic Search Systems</h1>
+<ul>
+<li class="fragment">Build agents that iteratively search and refine results to answer complex queries.</li>
+<li class="fragment">Instead of executing a single query and hoping for the best, let’s use the LLM to break down a user query and iteratively search for information needed to generate an answer:</li>
+</ul>
+<ol type="1">
+<li class="fragment"><strong>Plan</strong>&nbsp;- Break down complex queries into a sequence of retrieval steps</li>
+<li class="fragment"><strong>Execute</strong>&nbsp;- Perform targeted searches across Chroma collections or using other tools</li>
+<li class="fragment"><strong>Evaluate</strong>&nbsp;- Assess whether the retrieved information answers the question or identifies gaps</li>
+<li class="fragment"><strong>Iterate</strong>&nbsp;- Refine the plan and repeats steps 2-3 based on what it has learned so far</li>
+<li class="fragment"><strong>Synthesize</strong>&nbsp;- Combine information from multiple retrievals to form a comprehensive answer</li>
+</ol>
+</section>
+<section id="applications-of-agentic-search" class="slide level2">
+<h2>Applications of Agentic Search</h2>
+<p><strong>Agentic search is the technique that powers most production AI applications</strong>.</p>
+<ul>
+<li class="fragment">Customer support AI agents navigate product documentation, past ticket resolutions, and company knowledge bases, while dynamically adjusting their search based on specific use cases.</li>
+<li class="fragment">Coding assistants search across documentation, code repositories, and issue trackers to help developers solve problems.</li>
+<li class="fragment">Legal assistants search across case law databases, statutes, regulatory documents, and internal firm precedents.</li>
+<li class="fragment">Medical AI systems query across clinical guides, research papers, patient records, and drug databases to support medical reasoning.</li>
+</ul>
+<div class="fragment">
+<p><a href="https://docs.trychroma.com/guides/build/agentic-search">Agentic Search | ChromaDB</a></p>
 </div>
-</section>
-<section id="hierarchical-chunker" class="slide level2">
-<h2>Hierarchical Chunker</h2>
-<ul>
-<li class="fragment">The&nbsp;<code>HierarchicalChunker</code>&nbsp;implementation uses the document structure information from the&nbsp;<a href="https://docling-project.github.io/docling/concepts/docling_document/"><code>DoclingDocument</code></a>&nbsp;to create one chunk for each individual detected document element.</li>
-<li class="fragment">It also takes care of attaching all relevant document metadata, including headers and captions.</li>
-</ul>
-</section>
-<section id="hybrid-chunker" class="slide level2">
-<h2>Hybrid Chunker</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> docling.chunking <span class="im">import</span> HybridChunker</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li class="fragment">Apply tokenization-aware refinements on top of document-based&nbsp;hierarchical&nbsp;chunking.</li>
-<li class="fragment">Control how table headers are handled:
-<ul>
-<li class="fragment"><strong><code>repeat_table_header</code></strong>&nbsp;(default:&nbsp;<code>True</code>): When enabled, table headers are repeated at the beginning of each chunk when a table spans multiple chunks.</li>
-<li class="fragment"><strong><code>omit_header_on_overflow</code></strong>&nbsp;(default:&nbsp;<code>False</code>): for handling wide tables.</li>
-</ul></li>
-</ul>
-</section>
-<section id="docling-loader-using-hybrid-chunking" class="slide level2">
-<h2>Docling Loader using Hybrid Chunking</h2>
-<p><code>HybridChunker</code> should be aligned to the embedding model tokenizer</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> docling.chunking <span class="im">import</span> HybridChunker</span>
-<span id="cb2-2"><a></a><span class="im">from</span> langchain_docling.loader <span class="im">import</span> ExportType</span>
-<span id="cb2-3"><a></a></span>
-<span id="cb2-4"><a></a>embed_model_id <span class="op">=</span> <span class="st">"sentence-transformers/all-MiniLM-L6-v2"</span></span>
-<span id="cb2-5"><a></a>tokenizer <span class="op">=</span> HuggingFaceTokenizer(</span>
-<span id="cb2-6"><a></a>  tokenizer<span class="op">=</span>AutoTokenizer.from_pretrained(embed_model_id)</span>
-<span id="cb2-7"><a></a>)</span>
-<span id="cb2-8"><a></a></span>
-<span id="cb2-9"><a></a>converter <span class="op">=</span> DocumentConverter(...)</span>
-<span id="cb2-10"><a></a></span>
-<span id="cb2-11"><a></a>loader <span class="op">=</span> DoclingLoader(</span>
-<span id="cb2-12"><a></a>    file_path<span class="op">=</span>file_path,</span>
-<span id="cb2-13"><a></a>    converter<span class="op">=</span>converter,</span>
-<span id="cb2-14"><a></a>    export_type<span class="op">=</span>ExportType.DOC_CHUNKS,</span>
-<span id="cb2-15"><a></a>    chunker<span class="op">=</span>HybridChunker(tokenizer<span class="op">=</span>tokenizer),</span>
-<span id="cb2-16"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="context-expansion" class="slide level2">
-<h2>Context expansion</h2>
-<ul>
-<li class="fragment">Relevant chunks may lack information necessary for producing a fully grounded response.</li>
-<li class="fragment">Docling’s preserves document structure!</li>
-<li class="fragment">Key idea: include adjacent chunks (from the same section) before generating the final answer.</li>
-</ul>
-</section>
-<section id="key-takeaways" class="slide level2">
-<h2>Key Takeaways</h2>
-<ul>
-<li class="fragment"><strong>Retrieval solves two LLM limits</strong>:
-<ul>
-<li class="fragment">Static (frozen) knowledge and finite context.</li>
-<li class="fragment">Fetching relevant external information at query time is the foundation of <strong>RAG</strong> (Retrieval-Augmented Generation).</li>
-</ul></li>
-<li class="fragment"><strong>The retrieval pipeline is modular</strong>:
-<ul>
-<li class="fragment"><strong>Load</strong> (document loaders) → <strong>Split</strong> (text splitters) → <strong>Embed</strong> (embedding models) → <strong>Store</strong> (vector stores) → <strong>Retrieve</strong> (retrievers).</li>
-<li class="fragment">You can swap any component without changing the rest of the app.</li>
-</ul></li>
-<li class="fragment"><strong>Splitting matters</strong> for:
-<ul>
-<li class="fragment">Staying within context windows.</li>
-<li class="fragment">Avoiding “lost in the middle” (LLMs recall start/end of input better).</li>
-<li class="fragment">Lowering cost and latency.</li>
-</ul></li>
-</ul>
-</section>
-<section id="references" class="slide level2">
-<h2>References</h2>
-<ul>
-<li class="fragment">https://docs.langchain.com/oss/python/langchain/retrieval</li>
-</ul>
 
 
 </section></section>

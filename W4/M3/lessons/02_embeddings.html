@@ -320,10 +320,10 @@ Warning
 </section>
 <section id="reading-environment-variables-in" class="level3">
 <h3 class="anchored" data-anchor-id="reading-environment-variables-in">Reading environment variables in</h3>
-<div id="304136a7" class="cell">
+<div id="304136a7" class="cell" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="553351bd" class="cell">
+<div id="553351bd" class="cell" data-execution_count="39">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># In Colab? read from userdata (secrets)</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
@@ -342,7 +342,7 @@ Warning
 <li>See <a href="https://openrouter.ai/models?fmt=cards&amp;output_modalities=embeddings">embedding models</a> on OpenRouter.ai</li>
 <li>And <a href="https://openrouter.ai/docs/api-reference/embeddings">OpenRouter Embeddings API</a> on how to use them</li>
 </ul>
-<div id="aec733c2" class="cell">
+<div id="aec733c2" class="cell" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://openrouter.ai/docs/api/reference/embeddings</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -368,7 +368,7 @@ Warning
 <section id="calculate-similarity-scores" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-similarity-scores">Calculate similarity scores</h2>
 <p>This example embeds some variations on the pangram, <code>The quick brown fox jumps over the lazy dog</code>, including spelling mistakes and shortenings of the phrase. Another pangram and a somewhat unrelated phrase have been included for comparison.</p>
-<div id="3a01b0ed" class="cell" data-execution_count="5">
+<div id="3a01b0ed" class="cell" data-execution_count="41">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>texts <span class="op">=</span> [</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'The quick brown fox jumps over the lazy dog.'</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'The quick rbown fox jumps over the lazy dog.'</span>,</span>
@@ -380,21 +380,26 @@ Warning
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'The five boxing wizards jump quickly.'</span>,</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Unrelated text, also for comparison:</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et hendrerit massa. Sed pulvinar, nisi a lobortis sagittis, neque risus gravida dolor, in porta dui odio vel purus.'</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Arabic texts</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"يقفز الثعلب البني السريع فوق الكلب الكسول."</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"التعليم هو مفتاح التقدم."</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"السلام عليكم ورحمة الله وبركاته."</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"اللغة العربية لغة غنية وجميلة."</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="0a744e3c" class="cell" data-execution_count="6">
+<div id="0a744e3c" class="cell" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> embed(texts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="5c629f47" class="cell" data-execution_count="20">
+<div id="5c629f47" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="36adca33-7c82-43f3-e517-20200677f881" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Count:"</span>, <span class="bu">len</span>(embeddings))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Dimensions (Size):"</span>, <span class="bu">len</span>(embeddings[<span class="dv">0</span>][<span class="st">"embedding"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Count: 8
+<pre><code>Count: 12
 Dimensions (Size): 2048</code></pre>
 </div>
 </div>
 <p>Define a short helper function that will make it easier to display longer embedding texts in our visualisation.</p>
-<div id="efd11ae0" class="cell" data-execution_count="21">
+<div id="efd11ae0" class="cell" data-execution_count="44">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> truncate(t: <span class="bu">str</span>, limit: <span class="bu">int</span> <span class="op">=</span> <span class="dv">50</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Truncate labels to fit on the chart."""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(t) <span class="op">&gt;</span> limit:</span>
@@ -407,22 +412,22 @@ Dimensions (Size): 2048</code></pre>
 <p>A similarity score of two embedding vectors can be obtained by calculating their inner product. If <span class="math inline">\mathbf{u}</span> is the first embedding vector, and <span class="math inline">\mathbf{v}</span> the second, this is <span class="math inline">\mathbf{u}^T \mathbf{v}</span>. As the API provides embedding vectors that are normalised to unit length, this is also the <strong>cosine similarity</strong>.</p>
 <p>This score can be computed across all embeddings through the matrix self-multiplication: <code>df @ df.T</code>.</p>
 <p>Note that the range from 0.0 (completely dissimilar) to 1.0 (completely similar) is depicted in the heatmap from light (0.0) to dark (1.0).</p>
-<div id="b4425cbe" class="cell">
+<div id="b4425cbe" class="cell" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install -U -q pandas seaborn matplotlib</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="17cc1827" class="cell">
+<div id="17cc1827" class="cell" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="aebf1ea9" class="cell" data-execution_count="25">
+<div id="aebf1ea9" class="cell" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the embeddings in a dataframe.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame([e[<span class="st">"embedding"</span>] <span class="cf">for</span> e <span class="kw">in</span> embeddings], index<span class="op">=</span>truncated_texts)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the similarity calculation</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> df <span class="op">@</span> df.T</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="21d91a77" class="cell" data-execution_count="40">
+<div id="21d91a77" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:814}}" data-outputid="4484088c-6115-49cb-e686-491f0bc7c7d6" data-execution_count="48">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw!</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.figure(figsize=(10, 8))</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(sim, annot<span class="op">=</span><span class="va">True</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">"Greens"</span>)</span>
@@ -437,7 +442,7 @@ Dimensions (Size): 2048</code></pre>
 </div>
 </div>
 <p>You can see the scores for a particular term directly by looking it up in the dataframe.</p>
-<div id="2ee2ab81" class="cell" data-execution_count="24">
+<div id="2ee2ab81" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="505f1c90-9ef8-454d-90bf-3fc1335bb8d1" data-execution_count="49">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sim[<span class="st">'The quick brown fox jumps over the lazy dog.'</span>].sort_values(ascending<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The quick brown fox jumps over the lazy dog.          1.000861
@@ -447,7 +452,11 @@ brown fox jumping over dog                            0.608608
 teh fast fox jumps over the slow woofer.              0.521211
 fox &gt; dog                                             0.421878
 The five boxing wizards jump quickly.                 0.350881
+يقفز الثعلب البني السريع فوق الكلب الكسول.            0.307906
 Lorem ipsum dolor sit amet, consectetur adipisc...    0.170421
+اللغة العربية لغة غنية وجميلة.                        0.123573
+السلام عليكم ورحمة الله وبركاته.                      0.103363
+التعليم هو مفتاح التقدم.                              0.103237
 Name: The quick brown fox jumps over the lazy dog., dtype: float64</code></pre>
 </div>
 </div>
