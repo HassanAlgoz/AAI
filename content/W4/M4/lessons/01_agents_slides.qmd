@@ -13,13 +13,17 @@ An **Agent** runs a loop between a deterministic and a non-deterministic program
 1. Our Python code is a deterministic program which expects structured inputs to function
 2. The LLM is a non-deterministic program which can handle natural language and other unstructured inputs
 
-::: {.callout-tip}
-
+::: {.callout-tip .fragment}
 To have the two work together, the LLM has to have the minimum function of structuring it's outputs as proper inputs to the Python program.
-
 :::
-![Agent Loop](../assets/agent_loop.png)
 
+::: {.fragment}
+![Agent Loop](../assets/agent_loop.png){.r-stretch fig-align="center"}
+:::
+
+## ReAct Loop
+
+![[ReAct: synergizing reasoning and acting in language models | 2023](https://arxiv.org/pdf/2210.03629)](../assets/Reason_plus_Action.png){.r-stretch fig-align="center"}
 
 ## Tools
 
@@ -30,51 +34,6 @@ Tools extend what [agents](https://docs.langchain.com/oss/python/langchain/agen
 ::: {.fragment}
 Under the hood, tools are callable functions with well-defined inputs and outputs that get passed to a [chat model](https://docs.langchain.com/oss/python/langchain/models). The model decides when to invoke a tool based on the conversation context, and what input arguments to provide.
 :::
-
-
-## Creating an Agent
-
-Define three things:
-
-1. LLM (model)
-2. Prompt
-3. Tools
-
-Then pass them to the `create_agent` function:
-
-```python
-from langchain.agents import create_agent
-
-agent = create_agent(
-    model=model_nemotron3_nano, # Program (non-deterministic)
-    tools=[internet_search],    # I/O (deterministic)
-    system_prompt=AGENT_PROMPT  # Instructions (natural language)
-)
-```
-
-## Run the Agent
-
-```python
-from langchain_core.messages import HumanMessage
-
-question = "What's the timeline of how the AI industry has evolved over the past 10 years?"
-result = agent.invoke({ "messages": [HumanMessage(question)] })
-```
-
-## Agent Prompt
-
-```python
-AGENT_PROMPT = """
-    Role: You are an expert researcher. Your job is to conduct thorough research and then write a polished report.
-    Style: Keep it short and concise.
-    Tools: You have access to an `internet_search` tool as your primary means of gathering information.
-
-    ## Tool: `internet_search`
-
-    - Usage: Use this to run an internet search for a given query.
-    - Parameters: You can specify the max number of results to return, the topic, and whether raw content should be included.
-"""
-```
 
 ## Agent vs LLM
 
@@ -120,6 +79,58 @@ See: [Guide > Function Calling | OpenAI](https://developers.openai.com/api/docs/
 
 :::
 
+## Creating an Agent
+
+Define three things:
+
+1. LLM (model)
+2. Prompt
+3. Tools
+
+
+::: {.fragment}
+
+Then pass them to the `create_agent` function:
+
+```python
+from langchain.agents import create_agent
+
+agent = create_agent(
+    model=model_nemotron3_nano, # Program (non-deterministic)
+    tools=[internet_search],    # I/O (deterministic)
+    system_prompt=AGENT_PROMPT  # Instructions (natural language)
+)
+```
+
+:::
+
+## Run the Agent
+
+`Agent` is a `Runnable`; having `invoke`, `stream`, and `batch`.
+
+```python
+from langchain_core.messages import HumanMessage
+
+question = "What's the timeline of how the AI industry has evolved over the past 10 years?"
+result = agent.invoke({ "messages": [HumanMessage(question)] })
+```
+
+## Agent Prompt
+
+```python
+AGENT_PROMPT = """
+    Role: You are an expert researcher. Your job is to conduct thorough research and then write a polished report.
+    Style: Keep it short and concise.
+    Tools: You have access to an `internet_search` tool as your primary means of gathering information.
+
+    ## Tool: `internet_search`
+
+    - Usage: Use this to run an internet search for a given query.
+    - Parameters: You can specify the max number of results to return, the topic, and whether raw content should be included.
+"""
+```
+
+
 ## Create tools
 
 The simplest way to create a tool is with the [`@tool`](https://reference.langchain.com/python/langchain-core/tools/convert/tool) decorator. By default, the function’s docstring becomes the tool’s description that helps the model understand when to use it:
@@ -142,7 +153,7 @@ Type hints are **required** as they define the tool’s input schema. The docs
 
 ## Customize tool name and description
 
-The [tool decorator](https://docs.langchain.com/oss/python/langchain/tools#create-tools) can be used to customize tool `names`, `description`, argument `schema`s, and other properties:
+The [tool decorator](https://docs.langchain.com/oss/python/langchain/tools#create-tools) can be used to customize tool `names`, `description`, `schema` of arguments, and other properties:
 
 ```python
 @tool(
@@ -156,6 +167,8 @@ print(calc.name)  # calculator
 ```
 
 ## Define tool input schema
+
+Schema as Pydantic class:
 
 ```python
 from pydantic import BaseModel, Field
@@ -172,7 +185,11 @@ class WeatherInput(BaseModel):
         default=False,
         description="Include 5-day forecast"
     )
+```
 
+Tool:
+
+```python
 @tool(args_schema=WeatherInput)
 def get_weather(location: str, units: str = "celsius", include_forecast: bool = False) -> str:
     """Get current weather and optional forecast."""
@@ -215,7 +232,7 @@ See [Tool integrations](https://docs.langchain.com/oss/python/integrations/tools
 
 1. **Plan** - Break down complex queries into a sequence of retrieval steps
 2. **Execute** - Perform targeted searches across Chroma collections or using other tools
-3. **Evaluate** - Assesse whether the retrieved information answers the question or identifies gaps
+3. **Evaluate** - Assess whether the retrieved information answers the question or identifies gaps
 4. **Iterate** - Refine the plan and repeats steps 2-3 based on what it has learned so far
 5. **Synthesize** - Combine information from multiple retrievals to form a comprehensive answer
 
@@ -223,9 +240,11 @@ See [Tool integrations](https://docs.langchain.com/oss/python/integrations/tools
 
 **Agentic search is the technique that powers most production AI applications**.
 
-- Customer support AI agents **navigate product documentation, past ticket resolutions, and company knowledge bases**, while dynamically adjusting their search based on specific use cases.
-- Coding assistants search **across documentation, code repositories, and issue trackers** to help developers solve problems.
-- Legal assistants search **across case law databases, statutes, regulatory documents, and internal firm precedents**.
-- Medical AI systems query **across clinical guides, research papers, patient records, and drug databases** to support medical reasoning.
+- Customer support AI agents navigate product documentation, past ticket resolutions, and company knowledge bases, while dynamically adjusting their search based on specific use cases.
+- Coding assistants search across documentation, code repositories, and issue trackers to help developers solve problems.
+- Legal assistants search across case law databases, statutes, regulatory documents, and internal firm precedents.
+- Medical AI systems query across clinical guides, research papers, patient records, and drug databases to support medical reasoning.
 
-[Agentic Search | ChromaDB](https://docs.trychroma.com/guides/build/agentic-search)
+::: {.fragment}
+See [Agentic Search | ChromaDB](https://docs.trychroma.com/guides/build/agentic-search).
+:::
