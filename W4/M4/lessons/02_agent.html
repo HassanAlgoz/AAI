@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Agents in LangChain – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W4/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W5/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Agents in LangChain</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link active" data-scroll-target="#environment-setup">Environment Setup</a>
+  <ul class="collapse">
+  <li><a href="#install-dependencies" id="toc-install-dependencies" class="nav-link" data-scroll-target="#install-dependencies">Install dependencies</a></li>
+  <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables">Environment variables</a></li>
+  <li><a href="#reading-environment-variables-in" id="toc-reading-environment-variables-in" class="nav-link" data-scroll-target="#reading-environment-variables-in">Reading environment variables in</a></li>
+  </ul></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a>
+  <ul class="collapse">
+  <li><a href="#web-search-via-tavily-api-free-quota" id="toc-web-search-via-tavily-api-free-quota" class="nav-link" data-scroll-target="#web-search-via-tavily-api-free-quota">Web search via Tavily API (free quota)</a></li>
+  </ul></li>
+  <li><a href="#define-internet_search-tool" id="toc-define-internet_search-tool" class="nav-link" data-scroll-target="#define-internet_search-tool">Define <code>internet_search</code> tool</a>
+  <ul class="collapse">
+  <li><a href="#run-the-search-function" id="toc-run-the-search-function" class="nav-link" data-scroll-target="#run-the-search-function">Run the search function</a></li>
+  </ul></li>
+  <li><a href="#create-agent-with-tools" id="toc-create-agent-with-tools" class="nav-link" data-scroll-target="#create-agent-with-tools">Create Agent (with tools)</a>
+  <ul class="collapse">
+  <li><a href="#model-the-non-deterministic-program" id="toc-model-the-non-deterministic-program" class="nav-link" data-scroll-target="#model-the-non-deterministic-program">1. Model: the non-deterministic program</a></li>
+  <li><a href="#system-prompt-natural-language-instructions" id="toc-system-prompt-natural-language-instructions" class="nav-link" data-scroll-target="#system-prompt-natural-language-instructions">2. System prompt: natural language instructions</a></li>
+  <li><a href="#the-agent-class-instance" id="toc-the-agent-class-instance" class="nav-link" data-scroll-target="#the-agent-class-instance">3. The <code>agent</code> class instance</a></li>
+  </ul></li>
+  <li><a href="#running-the-agent" id="toc-running-the-agent" class="nav-link" data-scroll-target="#running-the-agent">Running the <code>Agent</code></a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="02_agent.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Agents in LangChain</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="environment-setup" class="level2">
+<h2 class="anchored" data-anchor-id="environment-setup">Environment Setup</h2>
+<section id="install-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="install-dependencies">Install dependencies</h3>
+<section id="a.-on-colab" class="level4">
+<h4 class="anchored" data-anchor-id="a.-on-colab">A. on Colab?</h4>
+<div id="8b1fa199" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>q langchain langchain_openai langchain_community</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="b.-locally" class="level4">
+<h4 class="anchored" data-anchor-id="b.-locally">B. Locally?</h4>
+<p>If using <code>uv</code> locally you can <code>uv sync</code> (provided you have the <code>pyproject.toml</code>).</p>
+</section>
+</section>
+<section id="environment-variables" class="level3">
+<h3 class="anchored" data-anchor-id="environment-variables">Environment variables</h3>
+<p>The following environment variables are used in this notebook:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 13%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Required</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>OPENROUTER_API_KEY</code></td>
+<td>Yes</td>
+<td>Authenticates requests to OpenRouter LLMs</td>
+</tr>
+</tbody>
+</table>
+<section id="on-colab" class="level4">
+<h4 class="anchored" data-anchor-id="on-colab">On Colab?</h4>
+<p>Store these as Colab <strong>Secrets</strong> (key icon in the left sidebar), using the variable names above (for example <code>OPENROUTER_API_KEY</code>). Grant this notebook access to the secrets so they can be read securely at runtime.</p>
+</section>
+<section id="locally" class="level4">
+<h4 class="anchored" data-anchor-id="locally">Locally?</h4>
+<p>Store these in a <code>.env</code> file in your project directory (which should be listed in <code>.gitignore</code> so it is never committed). The code below uses <code>python-dotenv</code> to load values from this file into environment variables at runtime.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>API Keys are secrets and thus <a href="./never_expose_api_keys.qmd"><strong>shall never be exposed</strong></a>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="reading-environment-variables-in" class="level3">
+<h3 class="anchored" data-anchor-id="reading-environment-variables-in">Reading environment variables in</h3>
+<div id="efa61667" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f5df38a0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># In Colab? read from userdata (secrets)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    ON_COLAB <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    os.environ[<span class="st">"OPENROUTER_API_KEY"</span>] <span class="op">=</span> userdata.get(<span class="st">"OPENROUTER_API_KEY"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load `.env` file (locally)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    load_dotenv(override<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="tools" class="level2">
+<h2 class="anchored" data-anchor-id="tools">Tools</h2>
+<section id="web-search-via-tavily-api-free-quota" class="level3">
+<h3 class="anchored" data-anchor-id="web-search-via-tavily-api-free-quota">Web search via Tavily API (free quota)</h3>
+<p><a href="https://www.tavily.com/"><strong>Tavily</strong></a> is a search engine optimized for LLMs and RAG, aimed at efficient, quick, and persistent search results. As mentioned, it’s easy to sign up and offers a generous free tier.</p>
+<div id="2bcbb9a9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="342059f3-8146-4f37-89d9-386aae5e27ff" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install tavily<span class="op">-</span>python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: tavily-python in /usr/local/lib/python3.12/dist-packages (0.7.24)
+Requirement already satisfied: requests in /usr/local/lib/python3.12/dist-packages (from tavily-python) (2.33.1)
+Requirement already satisfied: tiktoken&gt;=0.5.1 in /usr/local/lib/python3.12/dist-packages (from tavily-python) (0.12.0)
+Requirement already satisfied: httpx in /usr/local/lib/python3.12/dist-packages (from tavily-python) (0.28.1)
+Requirement already satisfied: regex&gt;=2022.1.18 in /usr/local/lib/python3.12/dist-packages (from tiktoken&gt;=0.5.1-&gt;tavily-python) (2025.11.3)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;tavily-python) (3.4.7)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;tavily-python) (3.13)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.26 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;tavily-python) (2.5.0)
+Requirement already satisfied: certifi&gt;=2023.5.7 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;tavily-python) (2026.4.22)
+Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx-&gt;tavily-python) (4.13.0)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx-&gt;tavily-python) (1.0.9)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*-&gt;httpx-&gt;tavily-python) (0.16.0)
+Requirement already satisfied: typing_extensions&gt;=4.5 in /usr/local/lib/python3.12/dist-packages (from anyio-&gt;httpx-&gt;tavily-python) (4.15.0)</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Tavily Search API is a search engine optimized for LLMs and RAG, aimed at efficient, quick, and persistent search results.</p></li>
+<li><p>You can sign up for an API key <a href="https://tavily.com/">here</a>. It’s easy to sign up and offers a very generous free tier. Some lessons (in Module 4) will use Tavily.</p></li>
+<li><p>Add <code>TAVILY_API_KEY</code> to Colab Secrets (key icon in the left sidebar).</p></li>
+</ul>
+<div id="c0489c2f" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tavily <span class="im">import</span> TavilyClient</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>tavily_client <span class="op">=</span> TavilyClient(api_key<span class="op">=</span>userdata.get(<span class="st">"TAVILY_API_KEY"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="define-internet_search-tool" class="level2">
+<h2 class="anchored" data-anchor-id="define-internet_search-tool">Define <code>internet_search</code> tool</h2>
+<div id="1f66ab41" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.tools <span class="im">import</span> tool</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">@tool</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> internet_search(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    query: <span class="bu">str</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    max_results: <span class="bu">int</span> <span class="op">=</span> <span class="dv">5</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    topic: Literal[<span class="st">"general"</span>, <span class="st">"news"</span>, <span class="st">"finance"</span>] <span class="op">=</span> <span class="st">"general"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    include_raw_content: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Run a web search"""</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tavily_client.search(</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        query,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        max_results<span class="op">=</span>max_results,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        include_raw_content<span class="op">=</span>include_raw_content,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        topic<span class="op">=</span>topic,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="run-the-search-function" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-search-function">Run the search function</h3>
+<div id="d2ad39fa" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="98c7d6c5-e587-4ba5-caa8-e222755601bf" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What's the timeline of how the AI industry has evolved over the past 10 years?"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> internet_search.invoke(question, max_results<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>{'query': "What's the timeline of how the AI industry has evolved over the past 10 years?",
+ 'follow_up_questions': None,
+ 'answer': None,
+ 'images': [],
+ 'results': [{'url': 'https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence',
+   'title': 'Timeline of artificial intelligence - Wikipedia',
+   'content': '*   [(Top)](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#). *   [3.2 1950s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1950s). *   [3.3 1960s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1960s). *   [3.4 1970s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1970s). *   [3.5 1980s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1980s). *   [3.6 1990s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1990s). *   [4.1 2000s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#2000s). *   [4.2 2010s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#2010s). *   [4.3 2020s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#2020s). *   [5 See also](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#See_also). *   [9 Further reading](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#Further_reading). *   [Read](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence). *   [Read](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-107)**Fisher, Adam (18 September 2013). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-120)**Tegmark, Max. **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-122)**Hassabis, Demis (27 January 2016). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-123)**Ormerod, David. **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-128)**["World\'s Go Player Ratings"](http://www.goratings.org/). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-133)**Greenemeier, Larry (18 October 2017). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-135)**Sample, Ian (23 April 2018). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-136)**Pierson, David (2018). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-137)**Sample, Ian (2019). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-139)**Sample, Ian (2 December 2018). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-141)**Thompson, Derek (8 December 2022). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-142)**Scharth, Marcel (5 December 2022). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-143)**Rachini, Mouhamad (15 December 2022). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-148)**Milmo, Dan (2 December 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-149)**Vincent, James (16 January 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-153)**Belfield, Haydn (25 March 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-157)**Elias, Jennifer (31 January 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-158)**Elias, Jennifer (February 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-159)**Ortiz, Sabrina (29 March 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-163)**Edwards, Benj (30 May 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-164)**Queen, Jack (10 July 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-165)**Bogle, Ariel (24 August 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-170)**Morrison, Sara (31 October 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-172)**Milmo, Dan (3 November 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-176)**Dillet, Romain (6 February 2025). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-180)**Dillet, Romain (11 February 2025). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-181)**Milmo, Dan (11 February 2025).',
+   'score': 0.80698997,
+   'raw_content': None},
+  {'url': 'https://www.rigb.org/explore-science/explore/blog/10-ai-milestones-last-10-years',
+   'title': '10 AI milestones of the last 10 years | Royal Institution',
+   'content': 'Generative Adversarial Networks (GANs) were the key technological innovation which would eventually enable realistic-looking AI-generated images and videos. Sophia, a humanoid robot developed by Hanson Robotics, is said to combine cutting edge technology in robotics and AI in a way that “personifies our dreams for the future of AI.” Sophia combines vision algorithms, that process visual inputs from its camera eyes, with speech algorithms that employ natural language processing to process and produce speech, to create a human-like impression. ## Milestone 3: The AI audio generator WaveNet is launched (2016). In 2016, this all changed when Google DeepMind launched WaveNet. WaveNet is an AI voice-generator which uses a ‘generator’ algorithm, similar to that found in a GAN. The way Transformers extract and generate meaning from patterns would become central to the technology used in subsequent AI breakthroughs like AlphaFold and large language models. In the same year, DALL-E 2, a text-to-image generative AI model, and GitHub Copilot, a code writing assistant, among others, were released to similarly sceptical but enthusiastic receptions.',
+   'score': 0.7467494,
+   'raw_content': None},
+  {'url': 'https://www.grammarly.com/blog/ai/ai-history/',
+   'title': 'AI History: An Artificial Intelligence Timeline - Grammarly',
+   'content': '## What is AI? The origin of AI dates back to the 1950s, when researchers began exploring whether machines could simulate human intelligence using logic, rules, and early computing systems. **Key takeaway**: The first AI winter showed that getting computers to replicate human thought is far more complex than early researchers anticipated—and that progress in AI depends on both realistic expectations and technological readiness. In the 1990s, AI shifted toward machine learning, as researchers began building systems that inferred patterns from data instead of relying on hand-coded rules. **Key takeaway**: Deep learning unlocked major advances in vision, speech, and language—and early models like GPT set the stage for the modern AI systems you use today. At the same time, researchers continue to explore artificial general intelligence (AGI), which refers to AI systems that can learn and reason across many tasks, not just one. After two periods of slowed progress known as AI winters, the field evolved from rule-based expert systems to today’s machine learning and generative systems.',
+   'score': 0.6959795,
+   'raw_content': None},
+  {'url': 'https://timspark.com/blog/the-journey-of-ai-evolution/',
+   'title': 'The AI Evolution: Past, Present &amp; Future [2026 Update] - Timspark',
+   'content': '[![Image 9: Infographic section titled \'AI by Underlying Technology\' presenting six categories in rectangular boxes with icons: Machine Learning (ML), Deep Learning (DL), Natural Language Processing (NLP), Computer Vision, Robotics, and Expert Systems.](blob:http://localhost/4da71aa155974f3da0aa37eda106c338)](https://timspark.com/wp-content/uploads/2024/07/Software-Project-Failure-Statistics-4.webp "Infographic section titled \'AI by Capability\' showing three categories: Artificial Narrow Intelligence (ANI), Artificial General Intelligence (AGI), and Artificial Superintelligence (ASI), each represented in a clean box with icons of human-like faces."). [![Image 11: Infographic section titled \'AI by Underlying Technology\' presenting six categories in rectangular boxes with icons: Machine Learning (ML), Deep Learning (DL), Natural Language Processing (NLP), Computer Vision, Robotics, and Expert Systems.](blob:http://localhost/4da71aa155974f3da0aa37eda106c338)](https://timspark.com/wp-content/uploads/2024/07/Software-Project-Failure-Statistics-2.webp "Infographic section titled \'AI by Functionality\' with four categories in bordered boxes: Reactive Machine AI, Limited Memory AI, Theory of Mind AI, and Self-Aware AI, each paired with simple computer and chip icons."). Timspark is ready to guide you on this journey with our [AI development services](https://timspark.com/services/artificial-intelligence-software-development) – whether you need to develop a custom AI solution or strengthen your team with AI expertise.',
+   'score': 0.6350646,
+   'raw_content': None},
+  {'url': 'https://www.coursera.org/articles/history-of-ai',
+   'title': 'The History of AI: A Timeline of Artificial Intelligence | Coursera',
+   'content': "[Google AI Essentials specialization Beginner level · 1 month(s) Skills you'll build: AI Integrations, AI literacy, Critical Thinking, Generative AI, Google Gemini, Google Sheets, Innovation, Model Training, Prompt Patterns, Artificial Intelligence and Machine Learning (AI/ML), AI Enablement, Machine Learning, Prompt Engineering, Content Creation, LLM Application, Large Language Modeling, Analysis, Strategic Thinking, Data Security, AI Security, Social Impact, Gemini, Business Workflow Analysis, Responsible AI, Google Workspace, Complex Problem Solving, Operational Efficiency, Productivity Software 4.8 (21,192 ratings)](https://www.coursera.org/specializations/ai-essentials-google). [IBM AI Foundations for Business specialization Beginner level · 1 month(s) Skills you'll build: AI Enablement, AI Integrations, AI literacy, AI Product Strategy, Big Data, Cloud Computing, Data Analysis, Data Architecture, Data Literacy, Data Mining, Data Science, Decision Intelligence, Enterprise Architecture, Generative AI, Generative Model Architectures, Information Architecture, Leadership, LLM Application, Responsible AI, Strategic Decision-Making, Natural Language Processing, Robotics, Risk Mitigation, Deep Learning, Machine Learning, Digital Transformation, Data-Driven Decision-Making, Artificial Intelligence, Data Management, Innovation, Analytics, Model Deployment, Business Technologies 4.7 (99,586 ratings)](https://www.coursera.org/specializations/ibm-ai-foundations-for-business).",
+   'score': 0.54361504,
+   'raw_content': None}],
+ 'response_time': 0.0,
+ 'request_id': 'cd6e7ae5-2cc5-45c8-a82e-bfd356c8954e'}</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="create-agent-with-tools" class="level2">
+<h2 class="anchored" data-anchor-id="create-agent-with-tools">Create Agent (with tools)</h2>
+<p>The <a href="https://reference.langchain.com/python/langchain/agents/factory/create_agent"><code>create_agent</code></a> factory function provides a production-ready <strong>agent implementation</strong>. It creates an agent graph that calls tools in a loop until a stopping condition is met.</p>
+<p><a href="https://github.com/langchain-ai/langchain/blob/fb6ab993a73180538f6cca876b3c85d46c08845f/libs/langchain_v1/langchain/agents/factory.py#L691">View source code on GitHub</a>.</p>
+<section id="model-the-non-deterministic-program" class="level3">
+<h3 class="anchored" data-anchor-id="model-the-non-deterministic-program">1. Model: the non-deterministic program</h3>
+<p>Since agents require <a href="https://openrouter.ai/models?fmt=cards&amp;supported_parameters=tools"><strong>a model that supports tool calling</strong></a>. Filtering <strong>Tool Calling</strong> models that are also <strong>Free</strong>, we select NVIDIA’s Nemotron-3:</p>
+<div id="f1407def" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_openai <span class="im">import</span> ChatOpenAI</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>model_nemotron3_nano <span class="op">=</span> ChatOpenAI(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"nvidia/nemotron-3-nano-30b-a3b:free"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># OpenRouter instead of the default OpenAI API</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    base_url<span class="op">=</span><span class="st">"https://openrouter.ai/api/v1"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>os.environ.get(<span class="st">"OPENROUTER_API_KEY"</span>),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="system-prompt-natural-language-instructions" class="level3">
+<h3 class="anchored" data-anchor-id="system-prompt-natural-language-instructions">2. System prompt: natural language instructions</h3>
+<ul>
+<li>LLMs were tuned to prioritize <strong>System prompt</strong> over user messages.
+<ul>
+<li><strong>prompt injection attack</strong> happens when they don’t.</li>
+</ul></li>
+<li>LLMs have been trained on many styles of instruction to do various text output generation.</li>
+</ul>
+<div id="7198a588" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> textwrap <span class="im">import</span> dedent</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>AGENT_PROMPT <span class="op">=</span> dedent(<span class="st">"""</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">    Role: You are an expert researcher. Your job is to conduct thorough research and then write a polished report.</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">    Style: Keep it short and concise.</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">    Tools: You have access to an `internet_search` tool as your primary means of gathering information.</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">    Context: the date now is 2026-04-30</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ## Tool: `internet_search`</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">    - Usage: Use this to run an internet search for a given query.</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="st">    - Parameters: You can specify the max number of results to return, the topic, and whether raw content should be included.</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Notice that without adding <code>Context: the date now is 2026-04-30</code> the model thinks it is in <code>2024</code>! (which is the last training cut-off point).</li>
+<li>We might want to make this a tool-call, instead of inserting it into the prompt hard-coded like this.</li>
+</ul>
+<p>See <a href="https://docs.langchain.com/langsmith/prompt-engineering-concepts">Prompt engineering concepts</a> for more details.</p>
+</section>
+<section id="the-agent-class-instance" class="level3">
+<h3 class="anchored" data-anchor-id="the-agent-class-instance">3. The <code>agent</code> class instance</h3>
+<div id="065e6367" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_agent</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_agent(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>model_nemotron3_nano, <span class="co"># Program (non-deterministic)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    tools<span class="op">=</span>[internet_search],    <span class="co"># I/O (deterministic)</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    system_prompt<span class="op">=</span>AGENT_PROMPT  <span class="co"># Instructions (natural language)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="67c386d4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>agent</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="running-the-agent" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-agent">Running the <code>Agent</code></h2>
+<ul>
+<li>Case 1: a question that can be answered without using <code>internet_search</code>.</li>
+<li>Case 2: a question that needs grounding via <code>internet_search</code>.</li>
+</ul>
+<div id="e633e4c7" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.messages <span class="im">import</span> HumanMessage</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What are the four seasons?"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> []</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> agent.stream(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"messages"</span>: [HumanMessage(question)]},</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    stream_mode<span class="op">=</span><span class="st">"values"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    steps.append(step)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    step[<span class="st">"messages"</span>][<span class="op">-</span><span class="dv">1</span>].pretty_print()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> steps[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="be1de6bd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:945}}" data-outputid="ce9bd9c8-8623-40f8-b6b8-62a74cf36056" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rich <span class="im">import</span> <span class="bu">print</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span>
+    <span style="color: #008000; text-decoration-color: #008000">'messages'</span>: <span style="font-weight: bold">[</span>
+        <span style="color: #800080; text-decoration-color: #800080; font-weight: bold">HumanMessage</span><span style="font-weight: bold">(</span>
+            <span style="color: #808000; text-decoration-color: #808000">content</span>=<span style="color: #008000; text-decoration-color: #008000">'What are the four seasons?'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">additional_kwargs</span>=<span style="font-weight: bold">{}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">response_metadata</span>=<span style="font-weight: bold">{}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">id</span>=<span style="color: #008000; text-decoration-color: #008000">'03f82589-1be2-46ac-b776-1c2437297a4a'</span>
+        <span style="font-weight: bold">)</span>,
+        <span style="color: #800080; text-decoration-color: #800080; font-weight: bold">AIMessage</span><span style="font-weight: bold">(</span>
+            <span style="color: #808000; text-decoration-color: #808000">content</span>=<span style="color: #008000; text-decoration-color: #008000">'The four seasons are **spring, summer, autumn (fall), and winter**. Each season marks distinct</span>
+<span style="color: #008000; text-decoration-color: #008000">changes in weather, daylight, and ecological activity throughout the year.'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">additional_kwargs</span>=<span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'refusal'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">response_metadata</span>=<span style="font-weight: bold">{</span>
+                <span style="color: #008000; text-decoration-color: #008000">'token_usage'</span>: <span style="font-weight: bold">{</span>
+                    <span style="color: #008000; text-decoration-color: #008000">'completion_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">165</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'prompt_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">471</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'total_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">636</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'completion_tokens_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'accepted_prediction_tokens'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'audio_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'reasoning_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">150</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'rejected_prediction_tokens'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'image_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'prompt_tokens_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'audio_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'cached_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'cache_write_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'video_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'is_byok'</span>: <span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'cost_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_prompt_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_completions_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>
+                <span style="font-weight: bold">}</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'model_provider'</span>: <span style="color: #008000; text-decoration-color: #008000">'openai'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'model_name'</span>: <span style="color: #008000; text-decoration-color: #008000">'nvidia/nemotron-3-nano-30b-a3b:free'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'system_fingerprint'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'id'</span>: <span style="color: #008000; text-decoration-color: #008000">'gen-1777535330-nafjXuOIZQRmSF1vaWeK'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'finish_reason'</span>: <span style="color: #008000; text-decoration-color: #008000">'stop'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'logprobs'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>
+            <span style="font-weight: bold">}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">id</span>=<span style="color: #008000; text-decoration-color: #008000">'lc_run--019ddd5c-a933-76d2-a4df-b03942d7ed18-0'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">tool_calls</span>=<span style="font-weight: bold">[]</span>,
+            <span style="color: #808000; text-decoration-color: #808000">invalid_tool_calls</span>=<span style="font-weight: bold">[]</span>,
+            <span style="color: #808000; text-decoration-color: #808000">usage_metadata</span>=<span style="font-weight: bold">{</span>
+                <span style="color: #008000; text-decoration-color: #008000">'input_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">471</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'output_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">165</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'total_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">636</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'input_token_details'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'audio'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008000; text-decoration-color: #008000">'cache_read'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">}</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'output_token_details'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'audio'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008000; text-decoration-color: #008000">'reasoning'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">150</span><span style="font-weight: bold">}</span>
+            <span style="font-weight: bold">}</span>
+        <span style="font-weight: bold">)</span>
+    <span style="font-weight: bold">]</span>
+<span style="font-weight: bold">}</span>
+</pre>
+</div>
+</div>
+<div id="eff95675" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:49}}" data-outputid="fcd1af05-cb73-49a4-c8e5-18eb7c8639c6" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Each streaming step pretty_prints the latest message (including the final reply).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">The four seasons are **spring, summer, autumn <span style="font-weight: bold">(</span>fall<span style="font-weight: bold">)</span>, and winter**. Each season marks distinct changes in weather, 
+daylight, and ecological activity throughout the year.
+</pre>
+</div>
+</div>
+<p>Let’s ask about something that needs search:</p>
+<div id="07cdc1d2" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What's the timeline of how the AI industry has evolved over the past 10 years?"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>steps <span class="op">=</span> []</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> agent.stream(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"messages"</span>: [HumanMessage(question)]},</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    stream_mode<span class="op">=</span><span class="st">"values"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    steps.append(step)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    step[<span class="st">"messages"</span>][<span class="op">-</span><span class="dv">1</span>].pretty_print()</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> steps[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="ed81815a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="9cc74db1-2104-4017-db6c-470b1be45468" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span>
+    <span style="color: #008000; text-decoration-color: #008000">'messages'</span>: <span style="font-weight: bold">[</span>
+        <span style="color: #800080; text-decoration-color: #800080; font-weight: bold">HumanMessage</span><span style="font-weight: bold">(</span>
+            <span style="color: #808000; text-decoration-color: #808000">content</span>=<span style="color: #008000; text-decoration-color: #008000">"What's the timeline of how the AI industry has evolved over the past 10 years?"</span>,
+            <span style="color: #808000; text-decoration-color: #808000">additional_kwargs</span>=<span style="font-weight: bold">{}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">response_metadata</span>=<span style="font-weight: bold">{}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">id</span>=<span style="color: #008000; text-decoration-color: #008000">'0ecf6806-e0b6-42af-ac42-00f9e2344b67'</span>
+        <span style="font-weight: bold">)</span>,
+        <span style="color: #800080; text-decoration-color: #800080; font-weight: bold">AIMessage</span><span style="font-weight: bold">(</span>
+            <span style="color: #808000; text-decoration-color: #808000">content</span>=<span style="color: #008000; text-decoration-color: #008000">''</span>,
+            <span style="color: #808000; text-decoration-color: #808000">additional_kwargs</span>=<span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'refusal'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">response_metadata</span>=<span style="font-weight: bold">{</span>
+                <span style="color: #008000; text-decoration-color: #008000">'token_usage'</span>: <span style="font-weight: bold">{</span>
+                    <span style="color: #008000; text-decoration-color: #008000">'completion_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">429</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'prompt_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">502</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'total_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">931</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'completion_tokens_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'accepted_prediction_tokens'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'audio_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'reasoning_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">311</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'rejected_prediction_tokens'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'image_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'prompt_tokens_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'audio_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'cached_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'cache_write_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'video_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'is_byok'</span>: <span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'cost_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_prompt_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_completions_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>
+                <span style="font-weight: bold">}</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'model_provider'</span>: <span style="color: #008000; text-decoration-color: #008000">'openai'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'model_name'</span>: <span style="color: #008000; text-decoration-color: #008000">'nvidia/nemotron-3-nano-30b-a3b:free'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'system_fingerprint'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'id'</span>: <span style="color: #008000; text-decoration-color: #008000">'gen-1777535650-9RD4JmYBWc8Dzk7bohcH'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'finish_reason'</span>: <span style="color: #008000; text-decoration-color: #008000">'tool_calls'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'logprobs'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>
+            <span style="font-weight: bold">}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">id</span>=<span style="color: #008000; text-decoration-color: #008000">'lc_run--019ddd61-8bdd-7ba1-b68a-c868f5b7c283-0'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">tool_calls</span>=<span style="font-weight: bold">[</span>
+                <span style="font-weight: bold">{</span>
+                    <span style="color: #008000; text-decoration-color: #008000">'name'</span>: <span style="color: #008000; text-decoration-color: #008000">'internet_search'</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'args'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'max_results'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'topic'</span>: <span style="color: #008000; text-decoration-color: #008000">'general'</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'query'</span>: <span style="color: #008000; text-decoration-color: #008000">'AI industry evolution timeline 2016 2026'</span>
+                    <span style="font-weight: bold">}</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'id'</span>: <span style="color: #008000; text-decoration-color: #008000">'call_1511273933444f6cac554dba'</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'type'</span>: <span style="color: #008000; text-decoration-color: #008000">'tool_call'</span>
+                <span style="font-weight: bold">}</span>
+            <span style="font-weight: bold">]</span>,
+            <span style="color: #808000; text-decoration-color: #808000">invalid_tool_calls</span>=<span style="font-weight: bold">[]</span>,
+            <span style="color: #808000; text-decoration-color: #808000">usage_metadata</span>=<span style="font-weight: bold">{</span>
+                <span style="color: #008000; text-decoration-color: #008000">'input_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">502</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'output_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">429</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'total_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">931</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'input_token_details'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'audio'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008000; text-decoration-color: #008000">'cache_read'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">}</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'output_token_details'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'audio'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008000; text-decoration-color: #008000">'reasoning'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">311</span><span style="font-weight: bold">}</span>
+            <span style="font-weight: bold">}</span>
+        <span style="font-weight: bold">)</span>,
+        <span style="color: #800080; text-decoration-color: #800080; font-weight: bold">ToolMessage</span><span style="font-weight: bold">(</span>
+            <span style="color: #808000; text-decoration-color: #808000">content</span>=<span style="color: #008000; text-decoration-color: #008000">'{"query": "AI industry evolution timeline 2016 2026", "follow_up_questions": null, "answer": </span>
+<span style="color: #008000; text-decoration-color: #008000">null, "images": [], "results": [{"url": "https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence", </span>
+<span style="color: #008000; text-decoration-color: #008000">"title": "Timeline of artificial intelligence - Wikipedia", "content": "*   </span>
+<span style="color: #008000; text-decoration-color: #008000">[(Top)](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#). *   [3.2 </span>
+<span style="color: #008000; text-decoration-color: #008000">1950s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1950s). *   [3.3 </span>
+<span style="color: #008000; text-decoration-color: #008000">1960s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1960s). *   [3.4 </span>
+<span style="color: #008000; text-decoration-color: #008000">1970s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1970s). *   [3.5 </span>
+<span style="color: #008000; text-decoration-color: #008000">1980s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1980s). *   [3.6 </span>
+<span style="color: #008000; text-decoration-color: #008000">1990s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#1990s). *   [4.1 </span>
+<span style="color: #008000; text-decoration-color: #008000">2000s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#2000s). *   [4.2 </span>
+<span style="color: #008000; text-decoration-color: #008000">2010s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#2010s). *   [4.3 </span>
+<span style="color: #008000; text-decoration-color: #008000">2020s](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#2020s). *   [5 See </span>
+<span style="color: #008000; text-decoration-color: #008000">also](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#See_also). *   [9 Further </span>
+<span style="color: #008000; text-decoration-color: #008000">reading](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#Further_reading). *   </span>
+<span style="color: #008000; text-decoration-color: #008000">[Read](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence). *   </span>
+<span style="color: #008000; text-decoration-color: #008000">[Read](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence). </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-107)**Fisher, Adam (18 September </span>
+<span style="color: #008000; text-decoration-color: #008000">2013). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-120)**Tegmark, Max. </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-122)**Hassabis, Demis (27 January </span>
+<span style="color: #008000; text-decoration-color: #008000">2016). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-123)**Ormerod, David. </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-128)**[\\"World\'s Go Player </span>
+<span style="color: #008000; text-decoration-color: #008000">Ratings\\"](http://www.goratings.org/). </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-133)**Greenemeier, Larry (18 </span>
+<span style="color: #008000; text-decoration-color: #008000">October 2017). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-135)**Sample, Ian </span>
+<span style="color: #008000; text-decoration-color: #008000">(23 April 2018). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-136)**Pierson, </span>
+<span style="color: #008000; text-decoration-color: #008000">David (2018). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-137)**Sample, Ian </span>
+<span style="color: #008000; text-decoration-color: #008000">(2019). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-139)**Sample, Ian (2 </span>
+<span style="color: #008000; text-decoration-color: #008000">December 2018). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-141)**Thompson, </span>
+<span style="color: #008000; text-decoration-color: #008000">Derek (8 December 2022). </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-142)**Scharth, Marcel (5 December </span>
+<span style="color: #008000; text-decoration-color: #008000">2022). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-143)**Rachini, Mouhamad (15</span>
+<span style="color: #008000; text-decoration-color: #008000">December 2022). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-148)**Milmo, Dan </span>
+<span style="color: #008000; text-decoration-color: #008000">(2 December 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-149)**Vincent, </span>
+<span style="color: #008000; text-decoration-color: #008000">James (16 January 2023). </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-153)**Belfield, Haydn (25 March </span>
+<span style="color: #008000; text-decoration-color: #008000">2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-157)**Elias, Jennifer (31 </span>
+<span style="color: #008000; text-decoration-color: #008000">January 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-158)**Elias, </span>
+<span style="color: #008000; text-decoration-color: #008000">Jennifer (February 2023). </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-159)**Ortiz, Sabrina (29 March </span>
+<span style="color: #008000; text-decoration-color: #008000">2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-163)**Edwards, Benj (30 May</span>
+<span style="color: #008000; text-decoration-color: #008000">2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-164)**Queen, Jack (10 July </span>
+<span style="color: #008000; text-decoration-color: #008000">2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-165)**Bogle, Ariel (24 </span>
+<span style="color: #008000; text-decoration-color: #008000">August 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-170)**Morrison, Sara</span>
+<span style="color: #008000; text-decoration-color: #008000">(31 October 2023). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-172)**Milmo, </span>
+<span style="color: #008000; text-decoration-color: #008000">Dan (3 November 2023). </span>
+<span style="color: #008000; text-decoration-color: #008000">**[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-176)**Dillet, Romain (6 February </span>
+<span style="color: #008000; text-decoration-color: #008000">2025). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-180)**Dillet, Romain (11 </span>
+<span style="color: #008000; text-decoration-color: #008000">February 2025). **[^](https://en.wikipedia.org/wiki/Timeline_of_artificial_intelligence#cite_ref-181)**Milmo, Dan </span>
+<span style="color: #008000; text-decoration-color: #008000">(11 February 2025).", "score": 0.8016413, "raw_content": null}, {"url": </span>
+<span style="color: #008000; text-decoration-color: #008000">"https://www.linkedin.com/pulse/ai-transformation-2026-26-predictions-redefining-cx-ex-saltz-gulko-twspf", "title":</span>
+<span style="color: #008000; text-decoration-color: #008000">"AI Transformation 2026: 26 Predictions Redefining CX, EX, Design ...", "content": "In the realms of design and </span>
+<span style="color: #008000; text-decoration-color: #008000">innovation, generative [AI and advanced </span>
+<span style="color: #008000; text-decoration-color: #008000">analytics](https://www.linkedin.com/redir/redirect?url=https%3A%2F%2Fwww%2Emckinsey%2Ecom%2Findustries%2Ffinancial-</span>
+<span style="color: #008000; text-decoration-color: #008000">services%2Fhow-we-help-clients%2Fhow-a-uae-bank-transformed-to-lead-with-ai-and-advanced-analytics&amp;urlhash=qXzV&amp;trk</span>
+<span style="color: #008000; text-decoration-color: #008000">=article-ssr-frontend-pulse_little-text-block) are accelerating creativity – turning data into design insights and </span>
+<span style="color: #008000; text-decoration-color: #008000">speeding up R&amp;D from concept to market. That pressure will drive rapid innovation in the next few years, turning </span>
+<span style="color: #008000; text-decoration-color: #008000">today’s experimental [AR/AI demos into commonplace aspects of CX and product </span>
+<span style="color: #008000; text-decoration-color: #008000">design](https://www.linkedin.com/redir/redirect?url=https%3A%2F%2Fwww%2Eeglobalis%2Ecom%2Fthe-transformative-power-</span>
+<span style="color: #008000; text-decoration-color: #008000">of-ai-in-physical-product-design-enhancing-creativity-and-customer-experience%2F&amp;urlhash=SuAj&amp;trk=article-ssr-front</span>
+<span style="color: #008000; text-decoration-color: #008000">end-pulse_little-text-block) by 2026. For instance, generative AI can propose hundreds of [product design </span>
+<span style="color: #008000; text-decoration-color: #008000">variations](https://www.linkedin.com/redir/redirect?url=https%3A%2F%2Fwww%2Eeglobalis%2Ecom%2Fthe-transformative-po</span>
+<span style="color: #008000; text-decoration-color: #008000">wer-of-ai-in-physical-product-design-enhancing-creativity-and-customer-experience%2F&amp;urlhash=SuAj&amp;trk=article-ssr-f</span>
+<span style="color: #008000; text-decoration-color: #008000">rontend-pulse_little-text-block) or formulations at the click of a button, and digital twin simulations (virtual </span>
+<span style="color: #008000; text-decoration-color: #008000">models of physical products or processes) can test those variations in hours, pinpointing the most promising </span>
+<span style="color: #008000; text-decoration-color: #008000">options without costly real-world trials. Industry analysts forecast that over the next few years, these </span>
+<span style="color: #008000; text-decoration-color: #008000">differences will compound: the AI leaders are not standing still – they are moving into advanced techniques (like </span>
+<span style="color: #008000; text-decoration-color: #008000">multi-modal AI, [real-time </span>
+<span style="color: #008000; text-decoration-color: #008000">personalization](https://www.linkedin.com/redir/redirect?url=https%3A%2F%2Fwww%2Emckinsey%2Ecom%2Fcapabilities%2Fgr</span>
+<span style="color: #008000; text-decoration-color: #008000">owth-marketing-and-sales%2Four-insights%2Funlocking-the-next-frontier-of-personalized-marketing&amp;urlhash=hxPx&amp;trk=ar</span>
+<span style="color: #008000; text-decoration-color: #008000">ticle-ssr-frontend-pulse_little-text-block), autonomous decisioning) and continually learning, while laggards may </span>
+<span style="color: #008000; text-decoration-color: #008000">still be trying to get basic predictive analytics in place.", "score": 0.80014634, "raw_content": null}, {"url": </span>
+<span style="color: #008000; text-decoration-color: #008000">"https://www.bighuman.com/blog/history-of-artificial-intelligence", "title": "How Long Has AI Been Around: The </span>
+<span style="color: #008000; text-decoration-color: #008000">History of AI from 1920 to 2026 | Big Human", "content": "He described it as “the science and engineering of making</span>
+<span style="color: #008000; text-decoration-color: #008000">intelligent machines,” relating it to “using computers to understand human intelligence.” This definition is the </span>
+<span style="color: #008000; text-decoration-color: #008000">basis for how we characterize AI today: the theory and process of training computers to perform complex tasks that </span>
+<span style="color: #008000; text-decoration-color: #008000">usually require human input, enabling machines to simulate and even improve human capabilities. The following </span>
+<span style="color: #008000; text-decoration-color: #008000">timeline of artificial intelligence delves into its most significant developments in the last 120-plus years, from </span>
+<span style="color: #008000; text-decoration-color: #008000">the first programmable computer to the establishment of AI as a formal discipline with legal regulations. While AI </span>
+<span style="color: #008000; text-decoration-color: #008000">experts are in high demand, some of the world’s biggest proponents of artificial intelligence regulation are the </span>
+<span style="color: #008000; text-decoration-color: #008000">scientists and engineers who contributed to its rise. * **2024:** World governing bodies called for stricter AI </span>
+<span style="color: #008000; text-decoration-color: #008000">regulations.The European Union instituted the Artificial Intelligence Act to monitor AI usage. AI is already </span>
+<span style="color: #008000; text-decoration-color: #008000">ingrained in many of our devices, so interactions between mankind and artificial intelligence will only become more</span>
+<span style="color: #008000; text-decoration-color: #008000">commonplace —\xa0both at home and in the workplace.", "score": 0.7443038, "raw_content": null}, {"url": </span>
+<span style="color: #008000; text-decoration-color: #008000">"https://www.demicco.com/ai-timeline/", "title": "AI Timeline: A Visual Journey Through Artificial Intelligence", </span>
+<span style="color: #008000; text-decoration-color: #008000">"content": "# AI Timeline: A Visual Journey Through Artificial Intelligence. You’ll find not only the headline </span>
+<span style="color: #008000; text-decoration-color: #008000">releases (GPT-4o, Claude, Gemini, Llama, GPT-5) but also some of the lesser known supporting cast that makes AI </span>
+<span style="color: #008000; text-decoration-color: #008000">valuable—open-source projects, evaluation bodies, policy milestones, and industry adoption in automation and </span>
+<span style="color: #008000; text-decoration-color: #008000">manufacturing. * **Balance of frontier and open ecosystems**, plus the testers and standards (MLPerf, LMSYS, MTEB, </span>
+<span style="color: #008000; text-decoration-color: #008000">AI Index) that help separate hype from progress. Alan Turing’s paper ‘Computing Machinery and Intelligence’ frames </span>
+<span style="color: #008000; text-decoration-color: #008000">the modern AI debate and introduces the Imitation Game. ## Meta Releases Llama 3 (8B/70B) and Expands Meta AI. The </span>
+<span style="color: #008000; text-decoration-color: #008000">EU AI Act becomes law; obligations phase in through 2025–2027, including GPAI model duties. Google introduces </span>
+<span style="color: #008000; text-decoration-color: #008000">Gemini 2.0 Pro Experimental with a 2M‑token context window via AI Studio and Vertex AI. ## OpenAI Launches GPT‑5 </span>
+<span style="color: #008000; text-decoration-color: #008000">(ChatGPT Default). ## Perplexity Rolls Out AI Video Generation (Pro/Max). Perplexity begins rolling out integrated </span>
+<span style="color: #008000; text-decoration-color: #008000">AI video generation to Pro and Max subscribers as a research visualization tool.", "score": 0.7352811, </span>
+<span style="color: #008000; text-decoration-color: #008000">"raw_content": null}, {"url": "https://timspark.com/blog/the-journey-of-ai-evolution/", "title": "The AI Evolution:</span>
+<span style="color: #008000; text-decoration-color: #008000">Past, Present &amp; Future [2026 Update] - Timspark", "content": "[![Image 9: Infographic section titled \'AI by </span>
+<span style="color: #008000; text-decoration-color: #008000">Underlying Technology\' presenting six categories in rectangular boxes with icons: Machine Learning (ML), Deep </span>
+<span style="color: #008000; text-decoration-color: #008000">Learning (DL), Natural Language Processing (NLP), Computer Vision, Robotics, and Expert </span>
+<span style="color: #008000; text-decoration-color: #008000">Systems.](blob:http://localhost/4da71aa155974f3da0aa37eda106c338)](https://timspark.com/wp-content/uploads/2024/07/</span>
+<span style="color: #008000; text-decoration-color: #008000">Software-Project-Failure-Statistics-4.webp \\"Infographic section titled \'AI by Capability\' showing three </span>
+<span style="color: #008000; text-decoration-color: #008000">categories: Artificial Narrow Intelligence (ANI), Artificial General Intelligence (AGI), and Artificial </span>
+<span style="color: #008000; text-decoration-color: #008000">Superintelligence (ASI), each represented in a clean box with icons of human-like faces.\\"). [![Image 11: </span>
+<span style="color: #008000; text-decoration-color: #008000">Infographic section titled \'AI by Underlying Technology\' presenting six categories in rectangular boxes with </span>
+<span style="color: #008000; text-decoration-color: #008000">icons: Machine Learning (ML), Deep Learning (DL), Natural Language Processing (NLP), Computer Vision, Robotics, and</span>
+<span style="color: #008000; text-decoration-color: #008000">Expert </span>
+<span style="color: #008000; text-decoration-color: #008000">Systems.](blob:http://localhost/4da71aa155974f3da0aa37eda106c338)](https://timspark.com/wp-content/uploads/2024/07/</span>
+<span style="color: #008000; text-decoration-color: #008000">Software-Project-Failure-Statistics-2.webp \\"Infographic section titled \'AI by Functionality\' with four </span>
+<span style="color: #008000; text-decoration-color: #008000">categories in bordered boxes: Reactive Machine AI, Limited Memory AI, Theory of Mind AI, and Self-Aware AI, each </span>
+<span style="color: #008000; text-decoration-color: #008000">paired with simple computer and chip icons.\\"). Timspark is ready to guide you on this journey with our [AI </span>
+<span style="color: #008000; text-decoration-color: #008000">development services](https://timspark.com/services/artificial-intelligence-software-development) – whether you </span>
+<span style="color: #008000; text-decoration-color: #008000">need to develop a custom AI solution or strengthen your team with AI expertise.", "score": 0.7325349, </span>
+<span style="color: #008000; text-decoration-color: #008000">"raw_content": null}], "response_time": 0.81, "request_id": "567bc39e-274f-49f6-bac9-b1d887b1581e"}'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">name</span>=<span style="color: #008000; text-decoration-color: #008000">'internet_search'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">id</span>=<span style="color: #008000; text-decoration-color: #008000">'778d6bc1-dad3-49d4-bc76-922e757ea01c'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">tool_call_id</span>=<span style="color: #008000; text-decoration-color: #008000">'call_1511273933444f6cac554dba'</span>
+        <span style="font-weight: bold">)</span>,
+        <span style="color: #800080; text-decoration-color: #800080; font-weight: bold">AIMessage</span><span style="font-weight: bold">(</span>
+            <span style="color: #808000; text-decoration-color: #808000">content</span>=<span style="color: #008000; text-decoration-color: #008000">'**AIIndustry Evolution (2016‑2026) – Concise Timeline**\n\n| Year | Milestone | Impact </span>
+<span style="color: #008000; text-decoration-color: #008000">|\n|------|-----------|--------|\n| **2016** | *AlphaGo* (DeepMind) defeats Lee\u202fSedol; reinforcement‑learning </span>
+<span style="color: #008000; text-decoration-color: #008000">breakthroughs. | First high‑profile demonstration of AI surpassing human experts in complex tasks. |\n| **2017** | </span>
+<span style="color: #008000; text-decoration-color: #008000">*AlphaGo\u202fZero* and *OpenAI Dota\u202f2* bots; BERT language model released. | Rapid progress in self‑learning </span>
+<span style="color: #008000; text-decoration-color: #008000">algorithms and contextual language understanding. |\n| **2018** | GPT‑1 introduced; AI research community expands </span>
+<span style="color: #008000; text-decoration-color: #008000">with transformer architectures. | Foundations for today’s large‑scale language models. |\n| **2019** | GPT‑2 </span>
+<span style="color: #008000; text-decoration-color: #008000">(1.5\u202fB parameters) released; AI begins to be integrated into consumer products. | Scaling of generative text </span>
+<span style="color: #008000; text-decoration-color: #008000">models; early commercial AI services. |\n| **2020** | GPT‑3 (175\u202fB parameters) launched; AI used for drug </span>
+<span style="color: #008000; text-decoration-color: #008000">discovery, remote work tools during COVID‑19. | Massive model scale drives new capabilities across industries. |\n|</span>
+<span style="color: #008000; text-decoration-color: #008000">**2021‑2022** | DALL‑E\u202f2, Stable Diffusion, and other multimodal generators appear; EU AI Act proposal; Meta’s</span>
+<span style="color: #008000; text-decoration-color: #008000">Llama series released. | Generative art and multimodal AI become mainstream; regulatory dialogue begins. |\n| </span>
+<span style="color: #008000; text-decoration-color: #008000">**2023** | GPT‑4 and multi‑modal models (text\u202f+\u202fimage) released; EU AI Act adopted (phased implementation</span>
+<span style="color: #008000; text-decoration-color: #008000">2024‑2027). | Consolidation of foundation models; first binding AI regulations. |\n| **2024** | EU AI Act enters </span>
+<span style="color: #008000; text-decoration-color: #008000">force; stricter compliance requirements for high‑risk AI; AI governance frameworks mature. | Industry shifts toward</span>
+<span style="color: #008000; text-decoration-color: #008000">responsible AI deployment and standards. |\n| **2025** | 2\u202fM‑token context windows (e.g., Gemini\u202f2.0 </span>
+<span style="color: #008000; text-decoration-color: #008000">Pro); AI‑driven product‑design tools (generative design, digital twins) become common; AI Index and evaluation </span>
+<span style="color: #008000; text-decoration-color: #008000">benchmarks (MLPerf, LMSYS) widely adopted. | AI moves from experimentation to production‑scale, enabling real‑time </span>
+<span style="color: #008000; text-decoration-color: #008000">personalization and autonomous decisioning. |\n| **2026** | Forecasts (LinkedIn, McKinsey) predict: &lt;br&gt;• </span>
+<span style="color: #008000; text-decoration-color: #008000">Generative AI embedded in CX/UX design, product development, and marketing. &lt;br&gt;• Real‑time personalization and </span>
+<span style="color: #008000; text-decoration-color: #008000">autonomous decisioning mainstream. &lt;br&gt;• Leaders exploit multi‑modal, self‑learning systems; laggards still on </span>
+<span style="color: #008000; text-decoration-color: #008000">basic predictive analytics. | The industry reaches a “AI‑first” era where AI is a core driver of innovation and </span>
+<span style="color: #008000; text-decoration-color: #008000">competitive advantage. |\n\n**Key Takeaways**\n\n- **2016‑2020:** Breakthroughs in deep learning and massive </span>
+<span style="color: #008000; text-decoration-color: #008000">language models set the technical foundation.  \n- **2021‑2023:** Generative and multimodal AI emerge; regulatory </span>
+<span style="color: #008000; text-decoration-color: #008000">frameworks (EU AI Act) begin to shape the landscape.  \n- **2024‑2026:** AI becomes embedded in everyday products </span>
+<span style="color: #008000; text-decoration-color: #008000">and services, driven by advanced analytics, real‑time personalization, and autonomous systems, while compliance and</span>
+<span style="color: #008000; text-decoration-color: #008000">standards mature.  \n\n*Sources: Wikipedia timeline of AI, LinkedIn “AI Transformation\u202f2026” predictions, </span>
+<span style="color: #008000; text-decoration-color: #008000">Big\u202fHuman AI history blog, Demicco AI timeline, Timspark AI evolution infographic.*'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">additional_kwargs</span>=<span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'refusal'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span><span style="font-weight: bold">}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">response_metadata</span>=<span style="font-weight: bold">{</span>
+                <span style="color: #008000; text-decoration-color: #008000">'token_usage'</span>: <span style="font-weight: bold">{</span>
+                    <span style="color: #008000; text-decoration-color: #008000">'completion_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1611</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'prompt_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3887</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'total_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5498</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'completion_tokens_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'accepted_prediction_tokens'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'audio_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'reasoning_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">761</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'rejected_prediction_tokens'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'image_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'prompt_tokens_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'audio_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'cached_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'cache_write_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'video_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'is_byok'</span>: <span style="color: #ff0000; text-decoration-color: #ff0000; font-style: italic">False</span>,
+                    <span style="color: #008000; text-decoration-color: #008000">'cost_details'</span>: <span style="font-weight: bold">{</span>
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_prompt_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>,
+                        <span style="color: #008000; text-decoration-color: #008000">'upstream_inference_completions_cost'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>
+                    <span style="font-weight: bold">}</span>
+                <span style="font-weight: bold">}</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'model_provider'</span>: <span style="color: #008000; text-decoration-color: #008000">'openai'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'model_name'</span>: <span style="color: #008000; text-decoration-color: #008000">'nvidia/nemotron-3-nano-30b-a3b:free'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'system_fingerprint'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'id'</span>: <span style="color: #008000; text-decoration-color: #008000">'gen-1777535655-WUG7dkR7iivIptSILHMN'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'finish_reason'</span>: <span style="color: #008000; text-decoration-color: #008000">'stop'</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'logprobs'</span>: <span style="color: #800080; text-decoration-color: #800080; font-style: italic">None</span>
+            <span style="font-weight: bold">}</span>,
+            <span style="color: #808000; text-decoration-color: #808000">id</span>=<span style="color: #008000; text-decoration-color: #008000">'lc_run--019ddd61-9c50-7711-9e43-e4c1e7686ebb-0'</span>,
+            <span style="color: #808000; text-decoration-color: #808000">tool_calls</span>=<span style="font-weight: bold">[]</span>,
+            <span style="color: #808000; text-decoration-color: #808000">invalid_tool_calls</span>=<span style="font-weight: bold">[]</span>,
+            <span style="color: #808000; text-decoration-color: #808000">usage_metadata</span>=<span style="font-weight: bold">{</span>
+                <span style="color: #008000; text-decoration-color: #008000">'input_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3887</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'output_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1611</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'total_tokens'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5498</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'input_token_details'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'audio'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008000; text-decoration-color: #008000">'cache_read'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">}</span>,
+                <span style="color: #008000; text-decoration-color: #008000">'output_token_details'</span>: <span style="font-weight: bold">{</span><span style="color: #008000; text-decoration-color: #008000">'audio'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008000; text-decoration-color: #008000">'reasoning'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">761</span><span style="font-weight: bold">}</span>
+            <span style="font-weight: bold">}</span>
+        <span style="font-weight: bold">)</span>
+    <span style="font-weight: bold">]</span>
+<span style="font-weight: bold">}</span>
+</pre>
+</div>
+</div>
+<div id="a7b2bb15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:625}}" data-outputid="34433b04-53e9-4b1c-b2e6-163be1c33a80" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Each streaming step pretty_prints the latest message (including the final reply).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">**AIIndustry Evolution <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2016</span>‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2026</span><span style="font-weight: bold">)</span> – Concise Timeline**
+
+| Year | Milestone | Impact |
+|------|-----------|--------|
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2016</span>** | *AlphaGo* <span style="font-weight: bold">(</span>DeepMind<span style="font-weight: bold">)</span> defeats Lee Sedol; reinforcement‑learning breakthroughs. | First high‑profile 
+demonstration of AI surpassing human experts in complex tasks. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2017</span>** | *AlphaGo Zero* and *OpenAI Dota <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>* bots; BERT language model released. | Rapid progress in 
+self‑learning algorithms and contextual language understanding. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2018</span>** | GPT‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span> introduced; AI research community expands with transformer architectures. | Foundations for 
+today’s large‑scale language models. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2019</span>** | GPT‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span> <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.5</span> B parameters<span style="font-weight: bold">)</span> released; AI begins to be integrated into consumer products. | Scaling of 
+generative text models; early commercial AI services. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2020</span>** | GPT‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">175</span> B parameters<span style="font-weight: bold">)</span> launched; AI used for drug discovery, remote work tools during COVID‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">19</span>. | 
+Massive model scale drives new capabilities across industries. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2021</span>‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2022</span>** | DALL‑E <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>, Stable Diffusion, and other multimodal generators appear; EU AI Act proposal; Meta’s 
+Llama series released. | Generative art and multimodal AI become mainstream; regulatory dialogue begins. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2023</span>** | GPT‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span> and multi‑modal models <span style="font-weight: bold">(</span>text + image<span style="font-weight: bold">)</span> released; EU AI Act adopted <span style="font-weight: bold">(</span>phased implementation 
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2024</span>‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2027</span><span style="font-weight: bold">)</span>. | Consolidation of foundation models; first binding AI regulations. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2024</span>** | EU AI Act enters force; stricter compliance requirements for high‑risk AI; AI governance frameworks 
+mature. | Industry shifts toward responsible AI deployment and standards. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2025</span>** | <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span> M‑token context windows <span style="font-weight: bold">(</span>e.g., Gemini <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2.0</span> Pro<span style="font-weight: bold">)</span>; AI‑driven product‑design tools <span style="font-weight: bold">(</span>generative design, 
+digital twins<span style="font-weight: bold">)</span> become common; AI Index and evaluation benchmarks <span style="font-weight: bold">(</span>MLPerf, LMSYS<span style="font-weight: bold">)</span> widely adopted. | AI moves from 
+experimentation to production‑scale, enabling real‑time personalization and autonomous decisioning. |
+| **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2026</span>** | Forecasts <span style="font-weight: bold">(</span>LinkedIn, McKinsey<span style="font-weight: bold">)</span> predict: <span style="font-weight: bold">&lt;</span><span style="color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold">br</span><span style="color: #000000; text-decoration-color: #000000">&gt;• Generative AI embedded in CX/UX design, product </span>
+<span style="color: #000000; text-decoration-color: #000000">development, and marketing. &lt;br&gt;• Real‑time personalization and autonomous decisioning mainstream. &lt;br</span><span style="font-weight: bold">&gt;</span>• Leaders 
+exploit multi‑modal, self‑learning systems; laggards still on basic predictive analytics. | The industry reaches a 
+“AI‑first” era where AI is a core driver of innovation and competitive advantage. |
+
+**Key Takeaways**
+
+- **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2016</span>‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2020</span>:** Breakthroughs in deep learning and massive language models set the technical foundation.  
+- **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2021</span>‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2023</span>:** Generative and multimodal AI emerge; regulatory frameworks <span style="font-weight: bold">(</span>EU AI Act<span style="font-weight: bold">)</span> begin to shape the 
+landscape.  
+- **<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2024</span>‑<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2026</span>:** AI becomes embedded in everyday products and services, driven by advanced analytics, real‑time 
+personalization, and autonomous systems, while compliance and standards mature.  
+
+*Sources: Wikipedia timeline of AI, LinkedIn “AI Transformation <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2026</span>” predictions, Big Human AI history blog, 
+Demicco AI timeline, Timspark AI evolution infographic.*
+</pre>
+</div>
+</div>
+</section>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
+<p>Add the following tool to the mix, such that the agent can now what time is it, without us having to hard-code it into it’s system prompt.</p>
+<div id="e6e628eb" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_current_datetime() <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return the current date and time in ISO 8601 format.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Use this when the user refers to a date or time in a relative manner.</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Examples:</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - "in 2 days?</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">    - "next thursday?"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - "next week at 2pm?"</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> datetime.now().isoformat()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4f5f0507" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1. Add the get_current_datetime tool to the agent</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2. Make up a question that requires a reference to the current time/date or both.</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3. Run the agent and see if it can answer the question correctly.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li>Agent = Model + Tools</li>
+<li>Models (LLMs) are the brain-power of agents</li>
+<li>Tools connect the LLM to the outside world.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

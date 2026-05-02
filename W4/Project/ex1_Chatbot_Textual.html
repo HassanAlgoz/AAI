@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>LangSmith – Applied AI Bootcamp</title>
+<title>M4.Ex2: RAG Chatbot with LangGraph using the MVC Pattern and Textual UI – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,27 +26,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -85,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Applied AI Bootcamp</span>
     </a>
   </div>
@@ -96,23 +96,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../W1/"> 
+    <a class="nav-link" href="../../W1/"> 
 <span class="menu-text">Python</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../W2/"> 
+    <a class="nav-link" href="../../W2/"> 
 <span class="menu-text">DS</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../W3/"> 
+    <a class="nav-link" href="../../W3/"> 
 <span class="menu-text">ML</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../W4/"> 
+    <a class="nav-link" href="../../W4/"> 
 <span class="menu-text">Agentic</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../W5/"> 
+    <a class="nav-link" href="../../W5/"> 
 <span class="menu-text">DL</span></a>
   </li>  
 </ul>
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">LangSmith</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M4.Ex2: RAG Chatbot with LangGraph using the MVC Pattern and Textual UI</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,15 +147,25 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#part-1-run-it" id="toc-part-1-run-it" class="nav-link active" data-scroll-target="#part-1-run-it">Part 1: Run it</a></li>
+  <li><a href="#part-2-understanding-the-codebase" id="toc-part-2-understanding-the-codebase" class="nav-link" data-scroll-target="#part-2-understanding-the-codebase">Part 2: Understanding the codebase</a></li>
+  <li><a href="#part-3-slight-modification" id="toc-part-3-slight-modification" class="nav-link" data-scroll-target="#part-3-slight-modification">Part 3: Slight modification</a></li>
+  <li><a href="#part-4-loading-and-ingesting-documents-into-the-vector-store" id="toc-part-4-loading-and-ingesting-documents-into-the-vector-store" class="nav-link" data-scroll-target="#part-4-loading-and-ingesting-documents-into-the-vector-store">Part 4: Loading and ingesting documents into the vector store</a></li>
+  <li><a href="#part-5-adding-retrieval-agumentation-generation-rag" id="toc-part-5-adding-retrieval-agumentation-generation-rag" class="nav-link" data-scroll-target="#part-5-adding-retrieval-agumentation-generation-rag">Part 5: Adding Retrieval-agumentation-generation (RAG)</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">LangSmith</h1>
+<h1 class="title">M4.Ex2: RAG Chatbot with LangGraph using the MVC Pattern and Textual UI</h1>
 </div>
 
 
@@ -172,20 +182,51 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>LLM Engineering Platform:</p>
+<p>Goal: follow the example in <a href="https://github.com/HassanAlgoz/langgraph-mvc">this repo</a> to build a command-line interface, to chat with your Agent.</p>
+<section id="part-1-run-it" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-run-it">Part 1: Run it</h2>
+<p>Step 1. Clone the repo locally on your PC.</p>
+<p>Step 2. Command <code>uv sync</code> inside the repo to install the required dependencies.</p>
+<p>Step 3. <code>cp .env.example .env</code> and fill it with your secrets.</p>
+<p>Step 4. Command <code>uv run main.py</code> which will open an interactive chatbot in your terminal.</p>
+</section>
+<section id="part-2-understanding-the-codebase" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-understanding-the-codebase">Part 2: Understanding the codebase</h2>
 <ul>
-<li><a href="https://langfuse.com/watch-demo">LangFuse</a>
-<ul>
-<li><a href="https://langfuse.com/guides/videos/run-langfuse-locally">Run LangFuse Locally</a></li>
-</ul></li>
+<li>M: <code>model.py</code> includes the workflow</li>
+<li>VC: <code>view.py</code> includes UI logic and reading/updating the model</li>
+<li><code>main.py</code> is the app’s entrypoint, where we put everything together</li>
+<li><code>config.py</code> ensures we have set all environment variables</li>
+<li><code>services/llm.py</code> is the openrouter provider for LLMs</li>
 </ul>
-<p>Deploy:</p>
+</section>
+<section id="part-3-slight-modification" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-slight-modification">Part 3: Slight modification</h2>
 <ul>
-<li><a href="https://deepchat.dev/">DeepChat</a></li>
-<li><a href="https://docs.chainlit.io/deploy/overview">ChainLit</a></li>
+<li>Change the model being used in: <code>.env</code></li>
+<li>Change anything about the UI at: <code>view.py</code></li>
 </ul>
+</section>
+<section id="part-4-loading-and-ingesting-documents-into-the-vector-store" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-loading-and-ingesting-documents-into-the-vector-store">Part 4: Loading and ingesting documents into the vector store</h2>
+<p>Implement some python scripts in a new <code>scripts/</code> folder to:</p>
+<ol type="1">
+<li><strong>Load</strong> the documents (using Docling loaders or LangChain’s integrations).</li>
+<li><strong>Ingest</strong> the documents, embedded, into the ChromaDB vector store.</li>
+</ol>
+</section>
+<section id="part-5-adding-retrieval-agumentation-generation-rag" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-adding-retrieval-agumentation-generation-rag">Part 5: Adding Retrieval-agumentation-generation (RAG)</h2>
+<ol type="1">
+<li>Adding ChromaDB (new external service) belongs in a new file at: <code>services/db.py</code></li>
+<li>You’d also need to update <code>.env</code> because you don’t want to hard-code stuff</li>
+<li>Then, you would want to ensure it is read in <code>config.py</code></li>
+<li>Update <code>main.py</code> to instantiate a database singleton (connection manager) and pass it to the workflow’s constructor</li>
+<li>The workflow inside <code>model.py</code> would need to be updated to implement a full RAG</li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
