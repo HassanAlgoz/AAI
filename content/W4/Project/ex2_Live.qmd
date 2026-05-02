@@ -1,0 +1,38 @@
+---
+title: "M4.Ex3: Going Live on the Web or Messsaging Platforms"
+format: html
+---
+
+Chatbot can be available through many frontends. **Choose one** of the tasks below..
+
+## Task A: Telegram Bot
+
+Goal: make your Agent accessible via Telegram.
+
+- [Bots: An introduction for developers | Telegram](https://core.telegram.org/bots)
+- [Telegram](https://docs.langchain.com/oss/python/integrations/document_loaders/telegram)[`TelegramChatFileLoader`](https://reference.langchain.com/python/langchain-community/document_loaders/telegram/TelegramChatFileLoader)
+
+or [Discord](https://docs.discord.com/developers/intro).
+
+## Task B: ChainLit
+
+Goal: make your Agent accessible via web browsers.
+
+### Python-based libraries
+
+- [chainlit](https://docs.chainlit.io/integrations/langchain).
+
+### JS-based libraries
+
+- [reachat](https://reachat.dev/docs)
+- [deep-chat](https://github.com/OvidijusParsiunas/deep-chat/tree/main)
+- [ChatUI | alibaba](https://github.com/alibaba/ChatUI)
+- [LlamaIndex ChatUI](https://ui.llamaindex.ai/)
+
+## Task C: Build and deploy agentic workflows visually
+
+- [Lang flow](https://docs.langflow.org/)
+- [Flowise AI](https://flowiseai.com/)
+- [n8n](https://n8n.io/ai-agents/)
+- [Voice Flow](https://www.voiceflow.com/)
+- [Angie](https://elementor.com/products/angie-ai-for-wordpress/)

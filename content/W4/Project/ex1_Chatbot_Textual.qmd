@@ -1,0 +1,44 @@
+---
+title: "M4.Ex2: RAG Chatbot with LangGraph using the MVC Pattern and Textual UI"
+format: html
+---
+
+Goal: follow the example in [this repo](https://github.com/HassanAlgoz/langgraph-mvc) to build a command-line interface, to chat with your Agent.
+
+## Part 1: Run it
+
+Step 1. Clone the repo locally on your PC.
+
+Step 2. Command `uv sync` inside the repo to install the required dependencies.
+
+Step 3. `cp .env.example .env` and fill it with your secrets.
+
+Step 4. Command `uv run main.py` which will open an interactive chatbot in your terminal.
+
+## Part 2: Understanding the codebase
+
+- M: `model.py` includes the workflow
+- VC: `view.py` includes UI logic and reading/updating the model
+- `main.py` is the app's entrypoint, where we put everything together
+- `config.py` ensures we have set all environment variables
+- `services/llm.py` is the openrouter provider for LLMs
+
+## Part 3: Slight modification
+
+- Change the model being used in: `.env`
+- Change anything about the UI at: `view.py`
+
+## Part 4: Loading and ingesting documents into the vector store
+
+Implement some python scripts in a new `scripts/` folder to:
+
+1. **Load** the documents (using Docling loaders or LangChain's integrations).
+2. **Ingest** the documents, embedded, into the ChromaDB vector store.
+
+## Part 5: Adding Retrieval-agumentation-generation (RAG)
+
+1. Adding ChromaDB (new external service) belongs in a new file at: `services/db.py`
+2. You'd also need to update `.env` because you don't want to hard-code stuff
+3. Then, you would want to ensure it is read in `config.py`
+4. Update `main.py` to instantiate a database singleton (connection manager) and pass it to the workflow's constructor
+5. The workflow inside `model.py` would need to be updated to implement a full RAG

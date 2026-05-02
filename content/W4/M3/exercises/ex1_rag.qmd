@@ -12,3 +12,21 @@ Make RAG to have a Question-answering LLM on a dataset like:
 - ...etc
 
 Example: [A practical use case: searchable meeting archives](https://docling-project.github.io/docling/usage/processing_audio_media/#a-practical-use-case-searchable-meeting-archives).
+
+## Task 2: Vector Store
+
+Goal: Replace the `InMemoryVectorStore` in the previous RAG Pipeline with ChromaDB instead.
+
+Step 1. Make persistent [ChromaDB](https://docs.trychroma.com/docs/overview/introduction) vector store on disk.
+
+Step 2. Ingest the documents into the vector store.
+
+Step 3. Query the documents by embeddings to find similar ones.
+
+Step 4. Verify the database is kept when you restart the program, and that they embedding are not re-computed again.
+
+## Task 3: Embedding Visualization
+
+Goal: use [this visualization notebook](../M3/lessons/visualizations.ipynb) as a reference, to apply it on your dataset and see the clusters of texts.
+
+Note: you don't have to signup to their cloud.

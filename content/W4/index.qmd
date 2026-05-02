@@ -34,7 +34,7 @@ See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/dat
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
-| 1 | [Embeddings](./M3/lessons/01_embeddings_slides.qmd) | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) | |
+| 1 | [Embeddings](./M3/lessons/01_embeddings_slides.qmd) | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) |  |
 | 2 | [Simple RAG](./M3/lessons/03_rag.ipynb) |  | |
 | 3 | [RAG Pipeline](./M3/lessons/04_rag_pipeline.qmd) | [Lab](./M3/lessons/05_rag_docling.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/05_rag_docling.ipynb)) | [Ex1: RAG](./M3/exercises/ex1_rag.qmd) |
 
@@ -48,6 +48,15 @@ See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/dat
 | 3 | Stateful Agent | [Lab](./M4/lessons/05_stateful_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/05_stateful_agent.ipynb)) |  |  |
 | 4 | Sub-agents Pattern | [Lab](./M4/lessons/06_subagents.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/06_subagents.ipynb)) |  |  |
 
+## Exercises
+
+| \# | Lesson | Lab | Exercise |
+|---------------|---------------|---------------|---------------|
+|   | |  | [M3.Ex1 Task 2: Persistent Vector Store with ChromaDB](./M3/exercises/ex1_rag.qmd#task-2-vector-store) |
+|   | |  | [M3.Ex1 Task 3: Analyze Embeddings](./M3/exercises/ex1_rag.qmd#task-3-embedding-visualization) |
+|   | |  | [Ex3: Build RAG Chatbot with Textual UI](./Project/ex1_Chatbot_Textual.qmd) |
+|   | |  | [Ex4: Going Live (Web or Messsaging Platforms)](./Project/ex2_Live.qmd) |
+
 ## [Need Help?](https://docs.langchain.com/oss/python/langchain/get-help)
 
 [Ask LangChain docs AI](https://chat.langchain.com/) or
@@ -56,10 +65,3 @@ Get help from fellow developers and the LangChain team through our active commun
 
 - [Community Forum](https://forum.langchain.com/): Ask questions, share solutions, and discuss best practices
 - [Community Slack](https://www.langchain.com/join-community): Connect with other builders and get quick help
-
-## Resources
-
-Build workflows visually:
-
-- https://docs.langflow.org/
-- https://flowiseai.com/
