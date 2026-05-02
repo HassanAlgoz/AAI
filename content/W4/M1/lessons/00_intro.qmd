@@ -117,7 +117,7 @@ This involves many computationally intensive operations.
 
 ::: {.fragment}
 
-![](../assets/context_rot.png){fig-align="center" .r-stretch}
+![](../../M1/assets/context_rot.png){fig-align="center" .r-stretch}
 
 Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. -- ([July 14, 2025 Context Rot | Chroma](https://www.trychroma.com/research/context-rot))
 :::
