@@ -27,6 +27,6 @@ Step 4. Verify the database is kept when you restart the program, and that they 
 
 ## Task 3: Embedding Visualization
 
-Goal: use [this visualization notebook](../M3/lessons/visualizations.ipynb) as a reference, to apply it on your dataset and see the clusters of texts.
+Goal: use [this visualization notebook](../lessons/visualizations.ipynb) as a reference, to apply it on your dataset and see the clusters of texts.
 
 Note: you don't have to signup to their cloud.

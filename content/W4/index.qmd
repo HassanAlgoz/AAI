@@ -44,9 +44,9 @@ See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/dat
 |---------------|---------------|---------------|---------------|
 | 1 | [Agents](./M4/lessons/01_agents_slides.qmd) | [Lab: Agent with internet search](./M4/lessons/02_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/02_agent.ipynb)) | |
 |   |   | [Lab: Agent with SQL Toolkit](./M4/lessons/03_build_sql_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/03_build_sql_agent.ipynb)) | |
-| 2 | Agentic Search | [Lab](./M4/lessons/04_agentic_search.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/04_agentic_search.ipynb)) |  |  |
+| 2 | Sub-agents Pattern | [Lab](./M4/lessons/06_subagents.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/06_subagents.ipynb)) |  |  |
 | 3 | Stateful Agent | [Lab](./M4/lessons/05_stateful_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/05_stateful_agent.ipynb)) |  |  |
-| 4 | Sub-agents Pattern | [Lab](./M4/lessons/06_subagents.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/06_subagents.ipynb)) |  |  |
+| 4 | Agentic Search | [Lab](./M4/lessons/04_agentic_search.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/04_agentic_search.ipynb)) |  |  |
 
 ## Exercises
 
