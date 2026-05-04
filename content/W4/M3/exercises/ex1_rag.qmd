@@ -24,9 +24,3 @@ Step 2. Ingest the documents into the vector store.
 Step 3. Query the documents by embeddings to find similar ones.
 
 Step 4. Verify the database is kept when you restart the program, and that they embedding are not re-computed again.
-
-## Task 3: Embedding Visualization
-
-Goal: use [this visualization notebook](../lessons/visualizations.ipynb) as a reference, to apply it on your dataset and see the clusters of texts.
-
-Note: you don't have to signup to their cloud.
