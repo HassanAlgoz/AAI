@@ -2769,7 +2769,7 @@
     "href": "W4/TODO.html",
     "title": "Applied AI Bootcamp",
     "section": "",
-    "text": "LLM Engineering Platform: LangFuse\n\nRun LangFuse Locally\n\nTODO: M3/06_visualizations.ipyb notebook using an open dataset from HF\n\nWorthy of exploration:\nsmolagents pydantic-ai DSPy"
+    "text": "Cost estimate\nM3/06_visualizations.ipynb Use a dataset from HF notebook using an open dataset from HF\nI need to understand how this works: Streaming\nLLM Engineering Platform: LangFuse\n\nRun LangFuse Locally\n\n\nWorthy of exploration:\npydantic-ai smolagents (no json, just Python code + Python runtime) DSPy the only good idea is optimizers (for prompts).\nhttps://huggingface.co/spaces/omarelshehy/NAMAA-Saudi-Voice"
   },
   {
     "objectID": "W4/Project/use-cases.html",
@@ -3091,7 +3091,7 @@
     "href": "W4/index.html",
     "title": "Agentic AI",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n0\nIntroduction\n\n\n\n\n1\nModels\nLab (Colab)\nEx1: Models\n\n\n2\nWorkflows\nLab (Colab)\n\n\n\n3\nHuman-in-the-loop\n\n\n\n\n\n\n\n\n\n\n\n#\nLesson\nLab\nExercise\n\n\n\n\n1\nDocling Technical Report\n\nEx1: Docling\n\n\n\n\n\nEx2: VLM\n\n\n\n\n\nEx3: Enrichment\n\n\n\n\n\nEx4: ASR\n\n\n\nSee: tests/data for testing data.\n\n\n\n\n\n\n#\nLesson\nLab\nExercise\n\n\n\n\n1\nEmbeddings\nLab (Colab)\n\n\n\n2\nSimple RAG\n\n\n\n\n3\nRAG Pipeline\nLab (Colab)\nEx1: RAG\n\n\n\n\n\n\n\n\n\n#\nLesson\nLab\nExercise\n\n\n\n\n1\nAgents\nLab: Agent with internet search (Colab)\n\n\n\n\n\nLab: Agent with SQL Toolkit (Colab)\n\n\n\n2\nSub-agents Pattern\nLab (Colab)\n\n\n\n3\nStateful Agent\nLab (Colab)\n\n\n\n4\nAgentic RAG\nLab (Colab)\n\n\n\n\n\n\n\n\n\n\n#\nLesson\nLab\nExercise\n\n\n\n\n\n\n\nEx1: Build RAG Chatbot with Textual UI\n\n\n\n\n\nEx2: Going Live (Web or Messsaging Platforms)\n\n\n\nTo debug RAG Pipelines’ Retrieval step, see: Embeddings Visualizer.\n\n\n\nAsk LangChain docs AI or\nGet help from fellow developers and the LangChain team through our active community channels.\n\nCommunity Forum: Ask questions, share solutions, and discuss best practices\nCommunity Slack: Connect with other builders and get quick help"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n0\nIntroduction\n\n\n\n\n1\nModels\nLab (Colab)\nEx1: Models\n\n\n2\nWorkflows\nLab (Colab)\n\n\n\n3\nHuman-in-the-loop\n\n\n\n\n\n\n\n\n\n\n\n#\nLesson\nLab\nExercise\n\n\n\n\n1\nDocling Technical Report\n\nEx1: Docling\n\n\n\n\n\nEx2: VLM\n\n\n\n\n\nEx3: Enrichment\n\n\n\n\n\nEx4: ASR\n\n\n\nSee: tests/data for various inputs to play around with Docling.\n\n\n\n\n\n\n#\nLesson\nLab\nExercise\n\n\n\n\n1\nEmbeddings\nLab (Colab)\n\n\n\n2\nSimple RAG\n\n\n\n\n3\nRAG Pipeline\nLab (Colab)\nEx1: RAG\n\n\n\n\nComprehensive Exploration of RAG Applications\nTo debug RAG Pipelines’ Retrieval step, see: Embeddings Visualizer.\n\n\n\n\n\n\n\n#\nLesson\nLab\nExercise\n\n\n\n\n1\nAgents\nLab: Agent with internet search (Colab)\n\n\n\n\n\nLab: Agent with SQL Toolkit (Colab)\n\n\n\n2\nSub-agents Pattern\nLab (Colab)\n\n\n\n3\nStateful Agent\nLab (Colab)\n\n\n\n4\nAgentic RAG\nLab (Colab)\n\n\n\n\n\n\nEx1: Going Live with Chatbots on Multiple Frontends"
   },
   {
     "objectID": "W4/index.html#m1.-llms-in-workflows",
@@ -3105,28 +3105,28 @@
     "href": "W4/index.html#m2.-processing-unstructured-business-data",
     "title": "Agentic AI",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nDocling Technical Report\n\nEx1: Docling\n\n\n\n\n\nEx2: VLM\n\n\n\n\n\nEx3: Enrichment\n\n\n\n\n\nEx4: ASR\n\n\n\nSee: tests/data for testing data."
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nDocling Technical Report\n\nEx1: Docling\n\n\n\n\n\nEx2: VLM\n\n\n\n\n\nEx3: Enrichment\n\n\n\n\n\nEx4: ASR\n\n\n\nSee: tests/data for various inputs to play around with Docling."
   },
   {
     "objectID": "W4/index.html#m3.-embeddings-and-rag",
     "href": "W4/index.html#m3.-embeddings-and-rag",
     "title": "Agentic AI",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nEmbeddings\nLab (Colab)\n\n\n\n2\nSimple RAG\n\n\n\n\n3\nRAG Pipeline\nLab (Colab)\nEx1: RAG"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nEmbeddings\nLab (Colab)\n\n\n\n2\nSimple RAG\n\n\n\n\n3\nRAG Pipeline\nLab (Colab)\nEx1: RAG\n\n\n\n\nComprehensive Exploration of RAG Applications\nTo debug RAG Pipelines’ Retrieval step, see: Embeddings Visualizer."
   },
   {
     "objectID": "W4/index.html#m4.-agents",
     "href": "W4/index.html#m4.-agents",
     "title": "Agentic AI",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nAgents\nLab: Agent with internet search (Colab)\n\n\n\n\n\nLab: Agent with SQL Toolkit (Colab)\n\n\n\n2\nSub-agents Pattern\nLab (Colab)\n\n\n\n3\nStateful Agent\nLab (Colab)\n\n\n\n4\nAgentic RAG\nLab (Colab)"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nAgents\nLab: Agent with internet search (Colab)\n\n\n\n\n\nLab: Agent with SQL Toolkit (Colab)\n\n\n\n2\nSub-agents Pattern\nLab (Colab)\n\n\n\n3\nStateful Agent\nLab (Colab)\n\n\n\n4\nAgentic RAG\nLab (Colab)\n\n\n\n\n\n\nEx1: Going Live with Chatbots on Multiple Frontends"
   },
   {
     "objectID": "W4/index.html#exercises",
     "href": "W4/index.html#exercises",
     "title": "Agentic AI",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n\n\n\nEx1: Build RAG Chatbot with Textual UI\n\n\n\n\n\nEx2: Going Live (Web or Messsaging Platforms)\n\n\n\nTo debug RAG Pipelines’ Retrieval step, see: Embeddings Visualizer."
+    "text": "#\nLesson\nLab\nExercise"
   },
   {
     "objectID": "W4/index.html#need-help",
@@ -3589,5 +3589,236 @@
     "title": "Visualizing Embedding Spaces",
     "section": "Using Visualizations for Data Analysis",
     "text": "Using Visualizations for Data Analysis\nTo start analyzing our dataset, we can submit some queries and visualize them on the same space. Let’s query for questions about account deletion, and see what records we get back\n\naccount_deletion_query = \"questions about account deletion\"\n\naccount_deletion_records = collection.query(\n    query_texts=[account_deletion_query], \n    include=[\"documents\", \"embeddings\"],\n    n_results=5\n)\n\nfor doc in account_deletion_records[\"documents\"][0]:\n    print(f\"{doc}\\n\")\n\nI’m trying to downgrade from the Pro plan and completely cancel my subscription before the next renewal, but the Cancel button in the billing settings is greyed out. Could you walk me through the exact steps to terminate the account and confirm whether my stored projects will be deleted or just archived?\n\nI need to cancel my Pro subscription before it renews next week, but the cancel button in my account settings is greyed out. If I delete my workspace, will that automatically stop the subscription, and will I still have read-only access to my notes afterward?\n\nI’m trying to cancel my subscription before the next billing date, but I can’t find the option in the account settings. Is there a specific place to request cancellation and will I still have access to my projects until the end of the current cycle?\n\nI’m trying to cancel my Team Plus subscription, but the billing page only shows options to upgrade or pause the plan. If I complete the cancellation, will my projects be deleted right away or will I keep access until the current cycle ends?\n\nI’m trying to cancel my subscription before the renewal date but the option in Account Settings just keeps looping me back to the dashboard. Can you explain the exact steps to finalize the cancellation and confirm that I won’t be billed next cycle?\n\n\n\n\nPlotting Queries\nLet’s visualize this query and the results in our embedding space. We will create a function that produces the plot of our embedding space, sets the query to be a red X, and the results of the query as empty green circles:\n\nfrom chromadb import QueryResult\n\ndef plot_query(query: str, records: QueryResult) -&gt; None:\n    query_embedding = embedding.embed_query(query)\n    \n    retrieved_embeddings = records['embeddings'][0]\n    \n    projected_query_embedding = project_embeddings(\n        [query_embedding], umap_transform\n    )\n    \n    projected_retrieved_embeddings = project_embeddings(\n        retrieved_embeddings,\n        umap_transform\n    )\n\n    # Plot the projected query and retrieved documents in the embedding space\n    plt.figure()\n    plt.scatter(\n      projected_dataset_embeddings[:, 0], \n      projected_dataset_embeddings[:, 1], \n      s=10, color='gray'\n    )\n    \n    plt.scatter(\n      projected_query_embedding[:, 0], \n      projected_query_embedding[:, 1], \n      s=150, marker='X', color='r'\n    )\n    \n    plt.scatter(\n      projected_retrieved_embeddings[:, 0], \n      projected_retrieved_embeddings[:, 1], \n      s=100, facecolors='none', edgecolors='g'\n    )\n    \n    plt.gca().set_aspect('equal', 'datalim')\n    plt.title(f'{query}')\n    plt.axis('off')\n\n\nplot_query(account_deletion_query, account_deletion_records)\n\n100%|█████████████████████████████████████████████| 1/1 [00:00&lt;00:00, 95.55it/s]\n100%|████████████████████████████████████████████| 5/5 [00:00&lt;00:00, 218.20it/s]\n\n\n\n\n\n\n\n\n\nBy the records and the visualization, we can see that one of our clusters is clearly about subscription cancellation. This also suggests that the retrieval for queries about cancellation are “tight”. Our dataset has good cover for this topic.\nWe can also try a very general query like I need help with something:\n\ngeneral_query = \"I need help with something\"\n\ngeneral_query_records = collection.query(\n    query_texts=[general_query], \n    include=[\"documents\", \"embeddings\"],\n    n_results=5\n)\n\nfor doc in general_query_records[\"documents\"][0]:\n    print(f\"{doc}\\n\")\n\nplot_query(general_query, general_query_records)\n\nI clicked “Forgot Password” and got the email, but the link opens a blank page instead of the reset form. I’m locked out of my account with a project deadline in a few hours—can you help me get a new password?\n\nI requested a password reset yesterday, but the email link never showed up in my inbox or spam folder. Can you help me regain access to my workspace so I don’t lose the tasks and notes I have due today?\n\nI’m on the free tier of your productivity suite and need to upgrade to the Team Pro plan, but I’m worried about how the change will affect my existing projects and shared workspaces. Can you walk me through the upgrade steps and confirm whether I can roll back or adjust seats later if our budget changes?\n\nI clicked “Forgot Password” twice today, but the reset email never shows up in my inbox or spam folder. Can you help me get a new link so I can log back in and finish syncing my project boards?\n\nI’m trying to switch from the free tier to the Pro plan so I can unlock the automation workflows, but I get a “payment method not supported” error every time I submit my card. Can you walk me through what I need to do to complete the upgrade without losing my existing projects and shared folders?\n\n100%|████████████████████████████████████████████| 1/1 [00:00&lt;00:00, 109.18it/s]\n100%|████████████████████████████████████████████| 5/5 [00:00&lt;00:00, 223.95it/s]\n\n\n\n\n\n\n\n\n\nWe can see that the results are spread across the embedding space, and a simple retrieval pass for such query will not give an LLM enough information. In such cases, we often need to resort to more sophisticated methods like agentic search, asking for user clarification, etc.\n\n\nIdenitfying Gaps\nVisualizing the space is also helpful for identifying gaps in our data. For example, when we issue the query is your platform GDPR compliant:\n\ngdpr_query = \"Is your platform GDPR compliant\"\n\ngdpr_query_records = collection.query(\n    query_texts=[gdpr_query], \n    include=[\"documents\", \"embeddings\"],\n    n_results=5\n)\n\nfor doc in gdpr_query_records[\"documents\"][0]:\n    print(f\"{doc}\\n\")\n\nplot_query(gdpr_query, gdpr_query_records)\n\nI’m integrating your platform into our internal dashboard and the public API docs still reference v2 endpoints, but the sandbox only returns responses for v3. Could you clarify where I can find the updated schema and examples for creating recurring tasks via v3, and whether the OAuth scopes have changed?\n\nI’m integrating our internal dashboard with your productivity platform, but the API documentation still references the deprecated v1 endpoints and glosses over how OAuth refresh tokens are handled. Can you provide updated guidance on token refresh flow and confirm whether the new v2 endpoints support the same rate limits?\n\nI’m trying to connect your platform with our Jira instance, but the webhook keeps failing and I’m not seeing any detailed error logs. Can you walk me through the correct authentication steps and any required permissions so our existing projects will sync properly?\n\nYour platform automatically renewed my Pro subscription yesterday even though I disabled auto-renew weeks ago. I'd like to request a full refund for the unexpected charge and to confirm that my projects will remain intact if I revert to the free plan.\n\nI’m on the free Basic plan of your TaskHub platform and want to switch to the Pro tier, but I’m unsure how my existing boards, automation rules, and connected Slack workspace will be handled during the upgrade. Can you walk me through the steps and let me know if there’s any downtime or hidden fees involved?\n\n100%|████████████████████████████████████████████| 1/1 [00:00&lt;00:00, 141.51it/s]\n100%|████████████████████████████████████████████| 5/5 [00:00&lt;00:00, 244.61it/s]\n\n\n\n\n\n\n\n\n\nHere we can see that not only the results are irrelevant and scattered across the space, the query itself lands in an empty region in the space. This means that we don’t have coverage for queries of this kind.\n\n\nIdentifying Clusters\nThe visualization can help us identify the clusters in our data. We can see that there are roughly 12 clusters in this space. Let’s use scikit-learn to find them:\n\nfrom sklearn.cluster import KMeans\n\n# Cluster the projected 2D embeddings\nn_clusters = 12\nkmeans = KMeans(n_clusters=n_clusters, random_state=0).fit(projected_dataset_embeddings)\nlabels = kmeans.labels_\ncentroids = kmeans.cluster_centers_\n\nNext, we can take each embedding from our projected space and match it to the document from our dataset it represents. Then, since we have the clusters figured out, we can take a sample of 5 documents from each cluster, and let an LLM produce a category label for each cluster.\n\nfrom openai import OpenAI\n\n# Get cluster labels from LLM\nopenai_client = OpenAI(api_key=openai_key)\ndocuments = records[\"documents\"]\ncluster_names = []\n\nfor cluster_id in range(n_clusters):\n    cluster_docs = [doc for i, doc in enumerate(documents) if labels[i] == cluster_id][:5]\n    response = openai_client.chat.completions.create(\n        model=\"gpt-4o\",\n        messages=[{\n            \"role\": \"user\",\n            \"content\": f\"Give a 2-3 word category name for these customer support messages. The category name should be as specific as possible like billing, docs, etc. Reply with ONLY the category name.\\n\\n{cluster_docs}\"\n        }]\n    )\n    cluster_names.append(response.choices[0].message.content.strip())\n\nFinally, we can visualize the space with the labeled clusters:\n\n# Plot with labels\nplt.figure(figsize=(12, 8))\n\n# Scatter points colored by cluster\nplt.scatter(\n  projected_dataset_embeddings[:, 0],\n  projected_dataset_embeddings[:, 1],\n  c=labels,\n  cmap='tab10',\n  s=10,\n  alpha=0.7\n)\n\n# Add labels at centroids\nfor i, (centroid, name) in enumerate(zip(centroids, cluster_names)):\n  plt.annotate(\n      name,\n      centroid,\n      fontsize=7,\n      fontweight='bold',\n      ha='center',\n      bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8)\n  )\n\nplt.gca().set_aspect('equal', 'datalim')\nplt.title('Customer Support Topics')\nplt.axis('off')\n\n(np.float64(-6.513811683654785),\n np.float64(17.91141757965088),\n np.float64(-6.976258444786072),\n np.float64(14.565848994255067))"
+  },
+  {
+    "objectID": "W3/index.html",
+    "href": "W3/index.html",
+    "title": "Applied Machine Learning",
+    "section": "",
+    "text": "By the end of this course, you should be able to:"
+  },
+  {
+    "objectID": "W3/index.html#module-1-linear-models",
+    "href": "W3/index.html#module-1-linear-models",
+    "title": "Applied Machine Learning",
+    "section": "Module 1: Linear Models",
+    "text": "Module 1: Linear Models\n\nM1-1: Introduction to ML\n\n\nLearning outcomes:\n\nDefine Machine Learning and understand its utility\nIdentify the two main tasks in Supervised ML\nIdentify the two parts of a Data Matrix\nDistinguish Features from Target\nRecognize foundations and related fields\nRecognize the three main topics of ML\n\n\nMaterials:\n\n🧬 Slides: Introduction (1 hour)\n\n\n\n\n\n\nM1-2: Linear Models\n\n\nLearning outcomes:\n\nGiven a DataFrame, split the feature columns from the target columns\nTrain a regressor (LinearRegression) model\nInspect the learned parameters of the model\nPredict the target for any feature value\nPlot the scatter plot and the regression line\nGiven a features-target split (X, y), further split it into train-test\nExplain why we split data into train-test splits, and why the test set is held-out\nExplain what the stratify=target parameter does\nTrain a classifier (LogisticRegression) model\nGiven a DecisionBoundaryDisplay distinguish between a classifier’s predict and predict_proba methods\n\n\nMaterials:\n\n🧬 Slides: Linear Models (45m)\n🔬 Lab: Linear Models (45m)\n\nResources:\n\nhttps://scikit-learn.org/\n\n\nExercises\n\n✍️ Model Hours vs Marks (3hr)\n✍️ Model Experience vs Salary (30m)\n\n\n\n\n\n\n\nM1-3: Non-linear Patterns\n\n\nLearning outcomes:\n\nDistinguish between linear and non-linear relationships.\nFit non-linear patterns using linear models with PolynomialFeatures.\nFit non-linear patterns using linear models with SplineTransformer.\nFit non-linear patterns using non-linear models (Decision Tree).\n\n\nMaterials:\n\n🧬 Slides: Non-linear patterns (25m)\n🔬 Lab: Non-linear patterns (15m)\n\n\nExercises\n\n✍️ Iris Classification (2hr)\n✍️ Modeling Non-linear Patterns (30m)"
+  },
+  {
+    "objectID": "W3/index.html#module-2-predictive-modeling-pipelines",
+    "href": "W3/index.html#module-2-predictive-modeling-pipelines",
+    "title": "Applied Machine Learning",
+    "section": "Module 2: Predictive Modeling Pipelines",
+    "text": "Module 2: Predictive Modeling Pipelines\nGoal: Build a Pipeline to handle preprocessing of both categorical and numerical features.\n\n\nLearning outcomes:\n\nIdentify at least 2 causes of missing data\nApply KNNImputer to fill missing values; both numerical and categorical\nDebug errors where fit and transform are misused on the wrong set of data\nExplain the need for Feature Scaling in layman terms\nDistinguish between linear and non-linear scaling methods\nIdentify when to use non-linear scaling\nGiven a scaled dataset, use inverse_transform to show their original values\nDistinguish between OrdinalEncoder and OneHotEncoder\nUnderstand the memory problem of one-hot encoding; and explain the solution\nRecognize cases of data leakage\nExplain how a scikit-learn Pipeline helps avoid data leakage\nRecognize the function of each of: fit, transform, predict, and score methods\nUse ColumnTransformer to build a mixed-type pipeline that can handle both numerical and categorical features\n\n\nMaterials:\n\n🔬 Lab: Handle Missing Values (20m)\n🔬 Lab: Scaling: Numerical Features (20m)\n🔬 Lab: Encoding: Cateogrical Features (15m)\n🧬 Slides: Pipelines (20m)\n🔬 Lab: Pipelines (10m)\n\n\nExercises\n\n✍️ Advertising Revenue (1hr)\n✍️ Fuel Efficiency (30m)\n\nBonus:\n\nEffect of rescaling on a k-neighbors models (30m)\nHigh-cardinality categorical features (20m)"
+  },
+  {
+    "objectID": "W3/index.html#module-3-model-selection-and-evaluation",
+    "href": "W3/index.html#module-3-model-selection-and-evaluation",
+    "title": "Applied Machine Learning",
+    "section": "Module 3: Model Selection and Evaluation",
+    "text": "Module 3: Model Selection and Evaluation\n\nM3-1: Evaluation Metrics\n\n\nLearning outcomes:\nIn this lecture we learn to:\n\nDetect over-fitting and under-fitting by estimating generalization performance\nEstablish a baseline for a model\nMeasure the scalability of the model\nIdentify other properties we need from a dataset besides quantity\nUse cross-validation and explain it’s inner-working\nRecognize that a new model is instantiated for each train-validation score\n\n\nMaterials:\n\n🧬 Slides: Model Evaluation (30m)\n🔬 Lab: Cross-validation (20m)\n\n\n\n\n\n\nM3-2: Hyper-parameter Tuning\n\n\nLearning outcomes:\n\nDistinguish betweeen parameters and hyper-parameters\n\nGiven linear regression model, identify it’s parameters and hyper-parameters\nGiven a decision tree model, identify it’s parameters and hyper-parameters\n\nExplain the full process of hyper-parameter search; describing the role of each of the 5 elements\nDistinguish between Grid Search and Random Search\n\n\nMaterials:\n\n🔬 Lab: Hyper-parameter Tuning (30m)\n\nExtra:\n\nText: Controlling Randomness\nDistinguish different cases to use random_state correctly to control randomness"
+  },
+  {
+    "objectID": "W3/index.html#module-4-regression-and-classification-metrics",
+    "href": "W3/index.html#module-4-regression-and-classification-metrics",
+    "title": "Applied Machine Learning",
+    "section": "Module 4: Regression and Classification Metrics",
+    "text": "Module 4: Regression and Classification Metrics\n\nM4-1: Regression Metrics\n\n\nLearning outcomes:\n\nTell which of MAE and MSE are more sensitive to outliers and why\nRecgonize the range of each of: R^2-score and MAPE; and interpret their results in layman terms for a specific business domain\nInterpret a prediction plot and a residual plot; and recognize what action could be taken from these plots\nExplain when a target transformation may improve model fit and metrics.\n\n\nMaterials:\n\n🧬 Slides: Regression Metrics (25m)\n🔬 Lab: Evaluation of Regression Models (20m)\n\n\n\n\n\n\nM4-2: Classification Metrics\n\n\nLearning outcomes:\n\nGiven a confusion matrix; tell the performance of a classifier\nGiven a PR-curve or ROC-curve; be able to tell which classifier is better\nDistinguish between classification metrics on the basis of FP (Precision) and FN (Recall)\n\n\nMaterials:\n\n🧬 Slides: Classification Metrics (30m)\n🔬 Lab: Classification Metrics (10m)\nWidget: Classifier Threshold (10m)\n\n\n\n\n\n\nM4-3: Classifier Threshold Tuning\n\n\nLearning outcomes:\n\nRecognize the effect of moving the classifier threshold up and down\nGiven a classifier; tune the decision threshold to optimize a custom cost/objective function in terms of FP:FN ratio\n\n\nMaterials:\n\n🔬 Lab: Classification Threshold Tuning (10m)"
+  },
+  {
+    "objectID": "W3/index.html#module-5-decision-trees-and-ensembles",
+    "href": "W3/index.html#module-5-decision-trees-and-ensembles",
+    "title": "Applied Machine Learning",
+    "section": "Module 5: Decision Trees and Ensembles",
+    "text": "Module 5: Decision Trees and Ensembles\n\nM5-1: Decision Trees\n\n\nLearning outcomes:\n\nRecognize at least 1 advantage of decision trees (simple to explain)\nExplain how decision trees work for regression (averaging)\nExplain how decision trees work for classification (voting)\nExplain how the maximum depth impacts generalization performance\n\n\nMaterials:\n\n🧬 Slides: Decision Trees (15m)\n🔬 Lab: Decision Trees (10m)\n\n\n\n\n\nM5-2: Ensemble Methods\n\n\nLearning outcomes:\n\nExplain what an Ensemble is in layman terms\nDescribe the process of Bagging in layman terms\nDescribe the process of Boosting in layman terms\nRecognize which of the two methods a Random Forest is an instance of\nIdentify at least 1 difference between Bagging and Boosting\n\n\nMaterials:\n\n🧬 Slides: Bagging (10m)\n🧬 Slides: Boosting (15m)\n🔬 Lab: Ensembles (20m)"
+  },
+  {
+    "objectID": "W3/index.html#module-6-auto-machine-learning",
+    "href": "W3/index.html#module-6-auto-machine-learning",
+    "title": "Applied Machine Learning",
+    "section": "Module 6: Auto Machine Learning",
+    "text": "Module 6: Auto Machine Learning\nMaterials:\n\n🧬 Slides: Auto ML with AutoGluon\n\n\nExercises\n\n✍️ Housing Prices Model\n✍️ Penguins Classification"
+  },
+  {
+    "objectID": "W3/index.html#project",
+    "href": "W3/index.html#project",
+    "title": "Applied Machine Learning",
+    "section": "Project",
+    "text": "Project\n🎯 Machine Learning Project Details."
+  },
+  {
+    "objectID": "W3/index.html#references",
+    "href": "W3/index.html#references",
+    "title": "Applied Machine Learning",
+    "section": "References",
+    "text": "References\n\nCS129: Applied ML | Standford\nScikit-learn MOOC\nHands-on ML | Aurélien Geron\nInterpretable Machine Learning"
+  },
+  {
+    "objectID": "W4/Project/ex1_Chatbot_Frontends.html",
+    "href": "W4/Project/ex1_Chatbot_Frontends.html",
+    "title": "M4.Ex1: Going Live with Chatbots on Multiple Frontends",
+    "section": "",
+    "text": "Goal: build a frontend to chat with your Agent."
+  },
+  {
+    "objectID": "W4/Project/ex1_Chatbot_Frontends.html#task-1.-clone-setup-and-run",
+    "href": "W4/Project/ex1_Chatbot_Frontends.html#task-1.-clone-setup-and-run",
+    "title": "M4.Ex1: Going Live with Chatbots on Multiple Frontends",
+    "section": "Task 1. Clone, Setup and Run",
+    "text": "Task 1. Clone, Setup and Run\nFollow the instructions in this repo."
+  },
+  {
+    "objectID": "W4/Project/ex1_Chatbot_Frontends.html#task-2.-loading-and-ingesting-documents-into-the-vector-store",
+    "href": "W4/Project/ex1_Chatbot_Frontends.html#task-2.-loading-and-ingesting-documents-into-the-vector-store",
+    "title": "M4.Ex1: Going Live with Chatbots on Multiple Frontends",
+    "section": "Task 2. Loading and ingesting documents into the vector store",
+    "text": "Task 2. Loading and ingesting documents into the vector store\nImplement some python scripts in a new scripts/ folder to:\n\nLoad the documents (using Docling loaders or LangChain’s integrations).\nIngest the documents, embedded, into the ChromaDB vector store."
+  },
+  {
+    "objectID": "W4/Project/ex1_Chatbot_Frontends.html#task-3.-adding-retrieval-agumentation-generation-rag",
+    "href": "W4/Project/ex1_Chatbot_Frontends.html#task-3.-adding-retrieval-agumentation-generation-rag",
+    "title": "M4.Ex1: Going Live with Chatbots on Multiple Frontends",
+    "section": "Task 3. Adding Retrieval-agumentation-generation (RAG)",
+    "text": "Task 3. Adding Retrieval-agumentation-generation (RAG)\n\nAdding ChromaDB (new external service) belongs in a new file at: services/db.py\nYou’d also need to update .env because you don’t want to hard-code stuff\nThen, you would want to ensure it is read in config.py\nUpdate main.py to instantiate a database singleton (connection manager) and pass it to the workflow’s constructor\nThe workflow inside model.py would need to be updated to implement a full RAG"
+  },
+  {
+    "objectID": "W4/M4/lessons/graphapi.html",
+    "href": "W4/M4/lessons/graphapi.html",
+    "title": "Applied AI Bootcamp",
+    "section": "",
+    "text": "# Graph API: Clear visualization of decision paths\nfrom langgraph.graph import StateGraph, START, END\nfrom typing import Literal, TypedDict\n\nclass AgentState(TypedDict):\n    messages: list\n    current_tool: str\n    retry_count: int\n\ndef call_llm_node(state):\n    state['messages']\n    pass\n\ndef search_node(state):\n    state['retry_count'] += 1\n    pass\n\ndef should_continue(state) -&gt; Literal[\"process_search\", \"call_llm\", END]:\n    if state[\"retry_count\"] &gt; 3:\n        return END\n    elif state[\"current_tool\"] == \"search\":\n        return \"process_search\"\n    else:\n        return \"call_llm\"\n\nworkflow = StateGraph(AgentState)\n\nworkflow.add_node(\"call_llm\", call_llm_node)\nworkflow.add_node(\"process_search\", search_node)\n\n# Add start node: connect START to call_llm node\nworkflow.add_edge(START, \"call_llm\")\n\nworkflow.add_conditional_edges(\"call_llm\", should_continue)\n\ngraph = workflow.compile()\n\n\nfrom IPython.display import Image, display\n\n# Generate and display the Mermaid graph as a PNG image inline\npng_bytes = graph.get_graph().draw_mermaid_png()\ndisplay(Image(data=png_bytes))"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#keyword-search-inverted-index",
+    "href": "W4/M3/lessons/01_rag_slides.html#keyword-search-inverted-index",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Keyword Search: Inverted Index",
+    "text": "Keyword Search: Inverted Index"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#langchain-retrievers-interface",
+    "href": "W4/M3/lessons/01_rag_slides.html#langchain-retrievers-interface",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "LangChain Retrievers Interface",
+    "text": "LangChain Retrievers Interface\nA Retriever accept a string query as input and return a list of Document objects as output.\n\nRetrievers can be created from vector stores, but are also broad enough to include Wikipedia search and Amazon Kendra.\n\n\n\n\n\n\n\n\n\n\n\n\nRAG Workflow\nA simple RAG from question to answer, is shown below:\n\n\n\n\n\n\n\n\n\n\n\n\n\nEmbeddings\n\nEmbeddings are numerical representations of real-world data - text, images, audio, videos, anything.\nEmbedding Models are deep learning models which encode these inputs into vectors.\n\n\n\nApplications of Embedding Models\nEmbeddings are commonly used for:\n\nSearch (where results are ranked by relevance to a query string)\nClustering (where text strings are grouped by similarity)\nRecommendations (where items with related text strings are recommended)\nAnomaly detection (where outliers with little relatedness are identified)\nDiversity measurement (where similarity distributions are analyzed)\nClassification (where text strings are classified by their most similar label)\n\n\nSee: Embeddings | OpenRouter and Guides &gt; Embeddings | OpenAI\n\n\n\nDistributional Hypothesis\n\n“You shall know a word by the company it keeps.” — J.R. Firth, 1957\n\nHere’s the key insight: words that appear near similar words have similar meanings.\n\n\nPolysemy Example: “Apple”\nA word may have different meanings based on it’s context.\nFruit:\n\nI picked a red ___ from the tree in the backyard.\nThe planted seeds in the orchard produced several ___ trees.\n___ are my favorite type of fruit.\n\nTechnology:\n\nI mainly use my ___ iPhone to make phone calls.\nThe ___ MacBook Pro is a computer with a powerful processor.\nI use an ___ computer to write emails and create documents.\n\n\n\nWords as Vectors\nAn embedding model may represent these two meanings using two dimensions:\n\n\n\n\n\n\n\nVectors and relationships between words\n\n\n\n\n\n\nOne dimension might represent “Gender”:\n\npositive for female\nnegative for male\n\nAnother might represent “Royalty”:\n\nHigh for both King & Queen\nlow for both Man & Woman\n\n\n\nMathematical relationships:\n\\[\\vec{\\text{King}} - \\vec{\\text{Man}} + \\vec{\\text{Woman}} \\approx \\vec{\\text{Queen}}\\]\n\n\n\nEmbeddings Capture Syntactic, Semantic, and other Relationships\nWhen visualized in 2D, embeddings show clear structure:\n\n\n\n\n\n\\[\\vec{\\text{Walking}} - \\vec{\\text{Walk}} + \\vec{\\text{Swim}} \\approx \\vec{\\text{Swimming}}\\] Embedding models learn these dimensions automatically from data. We don’t manually specify what each dimension means.\n\n\nSimilarity Metrics\nSimilarity metrics between two vectors can be:\n\nEucledian Distance measured by the straight line between the two points\nCosine of the Angle between the two vectors, when they are imagined as pointed lines from the origin onto the points in the space\n\n\n\n\n\n\n\n\n\n\nCosine Similarity\nCosine Similarity measures the angle between two vectors (word embeddings):\n\nIt ranges from -1 to 1\n1.0 = vectors point in the same direction (~same)\n0.0 = vectors are perpendicular (no relationship / indifference)\n-1.0 = vectors point in opposite directions (~opposite)\n\n\n\n\n\n\n\n\\[\\vec{\\text{France}} - \\vec{\\text{Paris}} \\approx \\vec{\\text{Rome}} - \\vec{\\text{Italy}}\\]\n\n\n\nSentence Embeddings\nBERT is an embedding model for a complete sentence.\n\n\n\n\n\n\n\nMulti-modal Embeddings\n\nBeyond words, sentences, or even full pages or documents..\nencode, images, audio, or any type of data into vectors\n\n\n\n\n\n\n\n\n\nMulti-modal vectors sharing the same embedding space\n\n\n\n\nImage-search: vectors for an image of a bird and it’s name, should be similar\nVoice-search: vectors for a sound of a bird chirping, and it’s species should be similar\nQ&A: vectors for a question and the document containing an answer should be similar\n\n\n\nLangChain Embeddings Interface\n\nEmbedding models transform raw text—such as a sentence, paragraph, or tweet—into a fixed-length vector of numbers that captures its semantic meaning.\nThese vectors allow machines to compare and search text based on meaning rather than exact words.\n\n\nLangChain provides a standard in erface for text embedding models (e.g., OpenAI, Cohere, Hugging Face) via the Embeddings interface.Two main methods are available:\n\n\nembed_documents(texts: List[str]) → List[List[float]]: Embeds a list of documents.\nembed_query(text: str) → List[float]: Embeds a single query.\n\n\n\nSelect an Embedding Model\n\nSee embedding models on OpenRouter.ai\nAnd OpenRouter Embeddings API on how to use them\n\n\n\nLangChain Vector Stores Interface\n\n\n\n\n\n\n\n\n\n\n\nLangChain provides a unified interface for vector stores, allowing you to:\n\nadd_documents - Add documents to the store.\ndelete - Remove stored documents by ID.\nsimilarity_search - Query for semantically similar documents.\n\n\nThis abstraction lets you switch between different implementations without altering your application logic.\n\n\n\nVector Search: Filtered Nearest Neighbors\n\n\n\n\n\n\n\nVector Database"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#rag-workflow",
+    "href": "W4/M3/lessons/01_rag_slides.html#rag-workflow",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "RAG Workflow",
+    "text": "RAG Workflow\nA simple RAG from question to answer, is shown below:"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#embeddings",
+    "href": "W4/M3/lessons/01_rag_slides.html#embeddings",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Embeddings",
+    "text": "Embeddings\n\nEmbeddings are numerical representations of real-world data - text, images, audio, videos, anything.\nEmbedding Models are deep learning models which encode these inputs into vectors."
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#applications-of-embedding-models",
+    "href": "W4/M3/lessons/01_rag_slides.html#applications-of-embedding-models",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Applications of Embedding Models",
+    "text": "Applications of Embedding Models\nEmbeddings are commonly used for:\n\nSearch (where results are ranked by relevance to a query string)\nClustering (where text strings are grouped by similarity)\nRecommendations (where items with related text strings are recommended)\nAnomaly detection (where outliers with little relatedness are identified)\nDiversity measurement (where similarity distributions are analyzed)\nClassification (where text strings are classified by their most similar label)\n\n\nSee: Embeddings | OpenRouter and Guides &gt; Embeddings | OpenAI"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#distributional-hypothesis",
+    "href": "W4/M3/lessons/01_rag_slides.html#distributional-hypothesis",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Distributional Hypothesis",
+    "text": "Distributional Hypothesis\n\n“You shall know a word by the company it keeps.” — J.R. Firth, 1957\n\nHere’s the key insight: words that appear near similar words have similar meanings."
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#polysemy-example-apple",
+    "href": "W4/M3/lessons/01_rag_slides.html#polysemy-example-apple",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Polysemy Example: “Apple”",
+    "text": "Polysemy Example: “Apple”\nA word may have different meanings based on it’s context.\nFruit:\n\nI picked a red ___ from the tree in the backyard.\nThe planted seeds in the orchard produced several ___ trees.\n___ are my favorite type of fruit.\n\nTechnology:\n\nI mainly use my ___ iPhone to make phone calls.\nThe ___ MacBook Pro is a computer with a powerful processor.\nI use an ___ computer to write emails and create documents."
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#words-as-vectors",
+    "href": "W4/M3/lessons/01_rag_slides.html#words-as-vectors",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Words as Vectors",
+    "text": "Words as Vectors\nAn embedding model may represent these two meanings using two dimensions:"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#vectors-and-relationships-between-words",
+    "href": "W4/M3/lessons/01_rag_slides.html#vectors-and-relationships-between-words",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Vectors and relationships between words",
+    "text": "Vectors and relationships between words\n\n\n\n\n\n\nOne dimension might represent “Gender”:\n\npositive for female\nnegative for male\n\nAnother might represent “Royalty”:\n\nHigh for both King & Queen\nlow for both Man & Woman\n\n\n\nMathematical relationships:\n\\[\\vec{\\text{King}} - \\vec{\\text{Man}} + \\vec{\\text{Woman}} \\approx \\vec{\\text{Queen}}\\]"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#embeddings-capture-syntactic-semantic-and-other-relationships",
+    "href": "W4/M3/lessons/01_rag_slides.html#embeddings-capture-syntactic-semantic-and-other-relationships",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Embeddings Capture Syntactic, Semantic, and other Relationships",
+    "text": "Embeddings Capture Syntactic, Semantic, and other Relationships\nWhen visualized in 2D, embeddings show clear structure:\n\n\n\n\n\n\\[\\vec{\\text{Walking}} - \\vec{\\text{Walk}} + \\vec{\\text{Swim}} \\approx \\vec{\\text{Swimming}}\\] Embedding models learn these dimensions automatically from data. We don’t manually specify what each dimension means."
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#similarity-metrics",
+    "href": "W4/M3/lessons/01_rag_slides.html#similarity-metrics",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Similarity Metrics",
+    "text": "Similarity Metrics\nSimilarity metrics between two vectors can be:\n\nEucledian Distance measured by the straight line between the two points\nCosine of the Angle between the two vectors, when they are imagined as pointed lines from the origin onto the points in the space"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#cosine-similarity",
+    "href": "W4/M3/lessons/01_rag_slides.html#cosine-similarity",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Cosine Similarity",
+    "text": "Cosine Similarity\nCosine Similarity measures the angle between two vectors (word embeddings):\n\nIt ranges from -1 to 1\n1.0 = vectors point in the same direction (~same)\n0.0 = vectors are perpendicular (no relationship / indifference)\n-1.0 = vectors point in opposite directions (~opposite)\n\n\n\n\n\n\n\n\\[\\vec{\\text{France}} - \\vec{\\text{Paris}} \\approx \\vec{\\text{Rome}} - \\vec{\\text{Italy}}\\]"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#sentence-embeddings",
+    "href": "W4/M3/lessons/01_rag_slides.html#sentence-embeddings",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Sentence Embeddings",
+    "text": "Sentence Embeddings\nBERT is an embedding model for a complete sentence."
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#multi-modal-embeddings",
+    "href": "W4/M3/lessons/01_rag_slides.html#multi-modal-embeddings",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Multi-modal Embeddings",
+    "text": "Multi-modal Embeddings\n\nBeyond words, sentences, or even full pages or documents..\nencode, images, audio, or any type of data into vectors\n\n\n\n\n\n\n\n\n\nMulti-modal vectors sharing the same embedding space\n\n\n\n\nImage-search: vectors for an image of a bird and it’s name, should be similar\nVoice-search: vectors for a sound of a bird chirping, and it’s species should be similar\nQ&A: vectors for a question and the document containing an answer should be similar"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#langchain-embeddings-interface",
+    "href": "W4/M3/lessons/01_rag_slides.html#langchain-embeddings-interface",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "LangChain Embeddings Interface",
+    "text": "LangChain Embeddings Interface\n\nEmbedding models transform raw text—such as a sentence, paragraph, or tweet—into a fixed-length vector of numbers that captures its semantic meaning.\nThese vectors allow machines to compare and search text based on meaning rather than exact words.\n\n\nLangChain provides a standard in erface for text embedding models (e.g., OpenAI, Cohere, Hugging Face) via the Embeddings interface.Two main methods are available:\n\n\nembed_documents(texts: List[str]) → List[List[float]]: Embeds a list of documents.\nembed_query(text: str) → List[float]: Embeds a single query."
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#select-an-embedding-model",
+    "href": "W4/M3/lessons/01_rag_slides.html#select-an-embedding-model",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Select an Embedding Model",
+    "text": "Select an Embedding Model\n\nSee embedding models on OpenRouter.ai\nAnd OpenRouter Embeddings API on how to use them"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#langchain-vector-stores-interface",
+    "href": "W4/M3/lessons/01_rag_slides.html#langchain-vector-stores-interface",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "LangChain Vector Stores Interface",
+    "text": "LangChain Vector Stores Interface\n\n\n\n\n\n\n\n\n\n\n\nLangChain provides a unified interface for vector stores, allowing you to:\n\nadd_documents - Add documents to the store.\ndelete - Remove stored documents by ID.\nsimilarity_search - Query for semantically similar documents.\n\n\nThis abstraction lets you switch between different implementations without altering your application logic."
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#vector-search-filtered-nearest-neighbors",
+    "href": "W4/M3/lessons/01_rag_slides.html#vector-search-filtered-nearest-neighbors",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Vector Search: Filtered Nearest Neighbors",
+    "text": "Vector Search: Filtered Nearest Neighbors"
+  },
+  {
+    "objectID": "W4/M3/lessons/01_rag_slides.html#vector-database",
+    "href": "W4/M3/lessons/01_rag_slides.html#vector-database",
+    "title": "RAG: Retrieval Augmented Generation",
+    "section": "Vector Database",
+    "text": "Vector Database"
   }
 ]
