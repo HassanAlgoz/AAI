@@ -28,15 +28,18 @@ format:
 |   | |  | [Ex3: Enrichment](./M2/exercises/ex3_enrichment.qmd) |
 |   | |  | [Ex4: ASR](./M2/exercises/ex4_ASR.qmd) |
 
-See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/data) for testing data.
+See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/data) for various inputs to play around with Docling.
 
 ## M3. Embeddings and RAG
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
-| 1 | [Embeddings](./M3/lessons/01_embeddings_slides.qmd) | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) |  |
+| 1 | [Embeddings](./M3/lessons/01_rag_slides.qmd) | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) |  |
 | 2 | [Simple RAG](./M3/lessons/03_rag.ipynb) |  | |
 | 3 | [RAG Pipeline](./M3/lessons/04_rag_pipeline.qmd) | [Lab](./M3/lessons/05_rag_docling.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/05_rag_docling.ipynb)) | [Ex1: RAG](./M3/exercises/ex1_rag.qmd) |
+
+- [Comprehensive Exploration of RAG Applications](https://github.com/bragai/bRAG-langchain/tree/main)
+- To debug RAG Pipelines' Retrieval step, see: [Embeddings Visualizer](https://github.com/chroma-core/chroma-cookbooks/blob/master/embeddings-visualizer/visualizations.ipynb).
 
 ## M4. Agents
 
@@ -47,21 +50,4 @@ See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/dat
 | 2 | Sub-agents Pattern | [Lab](./M4/lessons/06_subagents.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/06_subagents.ipynb)) |  |  |
 | 3 | Stateful Agent | [Lab](./M4/lessons/05_stateful_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/05_stateful_agent.ipynb)) |  |  |
 | 4 | Agentic RAG | [Lab](./M4/lessons/04_agentic_rag.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/04_agentic_rag.ipynb)) |  |  |
-
-## Exercises
-
-| \# | Lesson | Lab | Exercise |
-|---------------|---------------|---------------|---------------|
-|   | |  | [Ex1: Build RAG Chatbot with Textual UI](./Project/ex1_Chatbot_Textual.qmd) |
-|   | |  | [Ex2: Going Live (Web or Messsaging Platforms)](./Project/ex2_Live.qmd) |
-
-To debug RAG Pipelines' Retrieval step, see: [Embeddings Visualizer](https://github.com/chroma-core/chroma-cookbooks/blob/master/embeddings-visualizer/visualizations.ipynb).
-
-## [Need Help?](https://docs.langchain.com/oss/python/langchain/get-help)
-
-[Ask LangChain docs AI](https://chat.langchain.com/) or
-
-Get help from fellow developers and the LangChain team through our active community channels.
-
-- [Community Forum](https://forum.langchain.com/): Ask questions, share solutions, and discuss best practices
-- [Community Slack](https://www.langchain.com/join-community): Connect with other builders and get quick help
+|   | |  | [Ex1: Going Live with Chatbots on Multiple Frontends](./Project/ex1_Chatbot_Frontends.qmd) |

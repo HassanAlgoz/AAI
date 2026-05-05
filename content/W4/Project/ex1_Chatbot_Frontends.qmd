@@ -1,0 +1,25 @@
+---
+title: "M4.Ex1: Going Live with Chatbots on Multiple Frontends"
+format: html
+---
+
+Goal: build a frontend to chat with your Agent.
+
+## Task 1. Clone, Setup and Run
+
+Follow the instructions in [this repo](https://github.com/HassanAlgoz/chatbot).
+
+## Task 2. Loading and ingesting documents into the vector store
+
+Implement some python scripts in a new `scripts/` folder to:
+
+1. **Load** the documents (using Docling loaders or LangChain's integrations).
+2. **Ingest** the documents, embedded, into the ChromaDB vector store.
+
+## Task 3. Adding Retrieval-agumentation-generation (RAG)
+
+1. Adding ChromaDB (new external service) belongs in a new file at: `services/db.py`
+2. You'd also need to update `.env` because you don't want to hard-code stuff
+3. Then, you would want to ensure it is read in `config.py`
+4. Update `main.py` to instantiate a database singleton (connection manager) and pass it to the workflow's constructor
+5. The workflow inside `model.py` would need to be updated to implement a full RAG

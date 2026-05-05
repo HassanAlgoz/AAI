@@ -1,11 +1,9 @@
 ---
-title: "Embeddings"
+title: "RAG: Retrieval Augmented Generation"
 format:
   revealjs:
     incremental: true
 ---
-
-# RAG: Retrieval Augmented Generation
 
 One of the most useful applications enabled by LLMs is sophisticated question-answering (Q\&A) chatbots. These are applications that can answer questions about specific source information.
 
