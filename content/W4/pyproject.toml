@@ -18,16 +18,20 @@ dependencies = [
     "langgraph>=1.1.10",
     "langgraph-checkpoint-sqlite>=3.0.3",
     "langgraph-cli[inmem]>=0.4.12",
+    "librosa>=0.11.0",
     "matplotlib>=3.10.8",
     "openai>=2.21.0",
     "pandas>=3.0.1",
+    "pydub>=0.25.1",
     "pypdf>=6.7.1",
     "python-dotenv>=1.2.2",
     "rapidfuzz>=3.14.5",
     "seaborn>=0.13.2",
+    "sentence-transformers>=5.4.1",
     "tavily-python>=0.7.21",
     "textual>=8.2.5",
     "typer>=0.21.2",
+    "yt-dlp>=2026.3.17",
 ]
 
 [dependency-groups]

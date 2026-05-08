@@ -1,17 +1,35 @@
 ---
-title: "M3.Ex1: RAG Agent"
+title: "M3.Ex1: Speech RAG"
 format: html
 ---
 
-## Task 1: RAG
+Goal: implement RAG system on speech data.
 
-Make RAG to have a Question-answering LLM on a dataset like:
+Method: first convert from speech to text, then do simple text RAG.
+
+A practical use case: [searchable meeting archives](https://docling-project.github.io/docling/usage/processing_audio_media/#a-practical-use-case-searchable-meeting-archives).
+
+## Task 1: From Speech to Text (STT)
+
+Step 1. Load YouTube Playlist.
 
 - a playlist of YouTube videos (or one long)
-- or a list of pdf/pptx presentations (or one long)
-- ...etc
 
-Example: [A practical use case: searchable meeting archives](https://docling-project.github.io/docling/usage/processing_audio_media/#a-practical-use-case-searchable-meeting-archives).
+Step 2. Run a transcription (STT) like OpenAI Whisper on the audio file to generate the text.
+
+Note: if you run into problems with the STT model. Try a list of pdf/pptx presentations (or one long). When you finish the sub-sequent steps, you can get back to fix this one.
+
+LangChain offers three integrations with YouTube:
+
+- [~~YoutubeLoaderDL integration~~](https://docs.langchain.com/oss/python/integrations/document_loaders/yt_dlp) ([GitHub Issue](https://github.com/langchain-ai/docs/issues/3883))
+- [YouTube audio integration](https://docs.langchain.com/oss/python/integrations/document_loaders/youtube_audio)
+- [YouTube transcripts integration](https://docs.langchain.com/oss/python/integrations/document_loaders/youtube_transcript)
+
+However, feel free to use any PyPi package, even if not listed in the LangChain integrations.
+
+You might go for [Docling's ASR Pipeline](https://docling-project.github.io/docling/usage/processing_audio_media/) for For consistency with other pipeilines.
+
+Want to go further with the exercise? Explore the [YouTube Data API](https://developers.google.com/youtube/v3).
 
 ## Task 2: Vector Store
 
