@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>YouTube RAG – Applied AI Bootcamp</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Applied AI Bootcamp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W1/"> 
+<span class="menu-text">Python</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W2/"> 
+<span class="menu-text">DS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W3/"> 
+<span class="menu-text">ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W4/"> 
+<span class="menu-text">Agentic</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../W5/"> 
+<span class="menu-text">DL</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">YouTube RAG</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="YouTube RAG.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">YouTube RAG</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="cell-2" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip <span class="op">-</span>qqq install langchain_community</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_community.document_loaders.blob_loaders.youtube_audio <span class="im">import</span> (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    YoutubeAudioLoader,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_community.document_loaders.generic <span class="im">import</span> GenericLoader</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_community.document_loaders.parsers.audio <span class="im">import</span> (</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    OpenAIWhisperParser,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    OpenAIWhisperParserLocal,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set a flag to switch between local and remote parsing</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># change this to True if you want to use local parsing</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>local <span class="op">=</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-5" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> userdata</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'OPENAI_API_KEY'</span>] <span class="op">=</span> userdata.get(<span class="st">'OPENAI_API_KEY'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># from dotenv import load_dotenv</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># load_dotenv()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'OPENROUTER_API_KEY'</span>] <span class="op">=</span> userdata.get(<span class="st">'OPENROUTER_API_KEY'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:16,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778056613010,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="5489cfaf-5c23-4554-df40-d9e6bc7c3cac">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(os.environ[<span class="st">'OPENROUTER_API_KEY'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>73</code></pre>
+</div>
+</div>
+<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:13125,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778055597300,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="e0dcbb93-8113-44d3-9b50-fd357a68999b">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install yt_dlp pydub librosa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: yt_dlp in /usr/local/lib/python3.12/dist-packages (2026.3.17)
+Requirement already satisfied: pydub in /usr/local/lib/python3.12/dist-packages (0.25.1)
+Requirement already satisfied: librosa in /usr/local/lib/python3.12/dist-packages (0.11.0)
+Requirement already satisfied: audioread&gt;=2.1.9 in /usr/local/lib/python3.12/dist-packages (from librosa) (3.1.0)
+Requirement already satisfied: numba&gt;=0.51.0 in /usr/local/lib/python3.12/dist-packages (from librosa) (0.60.0)
+Requirement already satisfied: numpy&gt;=1.22.3 in /usr/local/lib/python3.12/dist-packages (from librosa) (2.0.2)
+Requirement already satisfied: scipy&gt;=1.6.0 in /usr/local/lib/python3.12/dist-packages (from librosa) (1.16.3)
+Requirement already satisfied: scikit-learn&gt;=1.1.0 in /usr/local/lib/python3.12/dist-packages (from librosa) (1.6.1)
+Requirement already satisfied: joblib&gt;=1.0 in /usr/local/lib/python3.12/dist-packages (from librosa) (1.5.3)
+Requirement already satisfied: decorator&gt;=4.3.0 in /usr/local/lib/python3.12/dist-packages (from librosa) (4.4.2)
+Requirement already satisfied: soundfile&gt;=0.12.1 in /usr/local/lib/python3.12/dist-packages (from librosa) (0.13.1)
+Requirement already satisfied: pooch&gt;=1.1 in /usr/local/lib/python3.12/dist-packages (from librosa) (1.9.0)
+Requirement already satisfied: soxr&gt;=0.3.2 in /usr/local/lib/python3.12/dist-packages (from librosa) (1.0.0)
+Requirement already satisfied: typing_extensions&gt;=4.1.1 in /usr/local/lib/python3.12/dist-packages (from librosa) (4.15.0)
+Requirement already satisfied: lazy_loader&gt;=0.1 in /usr/local/lib/python3.12/dist-packages (from librosa) (0.5)
+Requirement already satisfied: msgpack&gt;=1.0 in /usr/local/lib/python3.12/dist-packages (from librosa) (1.1.2)
+Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from lazy_loader&gt;=0.1-&gt;librosa) (26.1)
+Requirement already satisfied: llvmlite&lt;0.44,&gt;=0.43.0dev0 in /usr/local/lib/python3.12/dist-packages (from numba&gt;=0.51.0-&gt;librosa) (0.43.0)
+Requirement already satisfied: platformdirs&gt;=2.5.0 in /usr/local/lib/python3.12/dist-packages (from pooch&gt;=1.1-&gt;librosa) (4.9.6)
+Requirement already satisfied: requests&gt;=2.19.0 in /usr/local/lib/python3.12/dist-packages (from pooch&gt;=1.1-&gt;librosa) (2.33.1)
+Requirement already satisfied: threadpoolctl&gt;=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn&gt;=1.1.0-&gt;librosa) (3.6.0)
+Requirement already satisfied: cffi&gt;=1.0 in /usr/local/lib/python3.12/dist-packages (from soundfile&gt;=0.12.1-&gt;librosa) (2.0.0)
+Requirement already satisfied: pycparser in /usr/local/lib/python3.12/dist-packages (from cffi&gt;=1.0-&gt;soundfile&gt;=0.12.1-&gt;librosa) (3.0)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (3.4.7)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (3.13)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.26 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (2.5.0)
+Requirement already satisfied: certifi&gt;=2023.5.7 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.19.0-&gt;pooch&gt;=1.1-&gt;librosa) (2026.4.22)</code></pre>
+</div>
+</div>
+<div id="cell-9" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Brian Will YouTube Playlist about Programming</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># urls = [</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     "https://www.youtube.com/playlist?list=PL7141DE955793D3F0"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ]</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # Directory to save audio files</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># save_dir = "./YouTube"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># # Transcribe the videos to text</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># if local:</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     loader = GenericLoader(</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#         YoutubeAudioLoader(urls, save_dir),</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">#         OpenAIWhisperParserLocal()</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># else:</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     loader = GenericLoader(</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#         YoutubeAudioLoader(urls, save_dir),</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#         OpenAIWhisperParser()</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># docs = loader.load()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:13842,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778055611149,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="78fe3aeb-23e1-413e-ff43-1be5b2323280">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install langchain_huggingface</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: langchain_huggingface in /usr/local/lib/python3.12/dist-packages (1.2.2)
+Requirement already satisfied: huggingface-hub&lt;2.0.0,&gt;=0.33.4 in /usr/local/lib/python3.12/dist-packages (from langchain_huggingface) (1.11.0)
+Requirement already satisfied: langchain-core&lt;2.0.0,&gt;=1.2.31 in /usr/local/lib/python3.12/dist-packages (from langchain_huggingface) (1.3.3)
+Requirement already satisfied: tokenizers&lt;1.0.0,&gt;=0.19.1 in /usr/local/lib/python3.12/dist-packages (from langchain_huggingface) (0.22.2)
+Requirement already satisfied: filelock&gt;=3.10.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (3.29.0)
+Requirement already satisfied: fsspec&gt;=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (2025.3.0)
+Requirement already satisfied: hf-xet&lt;2.0.0,&gt;=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (1.4.3)
+Requirement already satisfied: httpx&lt;1,&gt;=0.23.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (0.28.1)
+Requirement already satisfied: packaging&gt;=20.9 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (26.1)
+Requirement already satisfied: pyyaml&gt;=5.1 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (6.0.3)
+Requirement already satisfied: tqdm&gt;=4.42.1 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (4.67.3)
+Requirement already satisfied: typer in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (0.24.2)
+Requirement already satisfied: typing-extensions&gt;=4.1.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (4.15.0)
+Requirement already satisfied: jsonpatch&lt;2.0.0,&gt;=1.33.0 in /usr/local/lib/python3.12/dist-packages (from langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (1.33)
+Requirement already satisfied: langchain-protocol&gt;=0.0.10 in /usr/local/lib/python3.12/dist-packages (from langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (0.0.15)
+Requirement already satisfied: langsmith&lt;1.0.0,&gt;=0.3.45 in /usr/local/lib/python3.12/dist-packages (from langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (0.7.34)
+Requirement already satisfied: pydantic&lt;3.0.0,&gt;=2.7.4 in /usr/local/lib/python3.12/dist-packages (from langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (2.12.3)
+Requirement already satisfied: tenacity!=8.4.0,&lt;10.0.0,&gt;=8.1.0 in /usr/local/lib/python3.12/dist-packages (from langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (9.1.4)
+Requirement already satisfied: uuid-utils&lt;1.0,&gt;=0.12.0 in /usr/local/lib/python3.12/dist-packages (from langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (0.14.1)
+Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx&lt;1,&gt;=0.23.0-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (4.13.0)
+Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx&lt;1,&gt;=0.23.0-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (2026.4.22)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx&lt;1,&gt;=0.23.0-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (1.0.9)
+Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx&lt;1,&gt;=0.23.0-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (3.13)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*-&gt;httpx&lt;1,&gt;=0.23.0-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (0.16.0)
+Requirement already satisfied: jsonpointer&gt;=1.9 in /usr/local/lib/python3.12/dist-packages (from jsonpatch&lt;2.0.0,&gt;=1.33.0-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (3.1.1)
+Requirement already satisfied: orjson&gt;=3.9.14 in /usr/local/lib/python3.12/dist-packages (from langsmith&lt;1.0.0,&gt;=0.3.45-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (3.11.8)
+Requirement already satisfied: requests-toolbelt&gt;=1.0.0 in /usr/local/lib/python3.12/dist-packages (from langsmith&lt;1.0.0,&gt;=0.3.45-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (1.0.0)
+Requirement already satisfied: requests&gt;=2.0.0 in /usr/local/lib/python3.12/dist-packages (from langsmith&lt;1.0.0,&gt;=0.3.45-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (2.33.1)
+Requirement already satisfied: xxhash&gt;=3.0.0 in /usr/local/lib/python3.12/dist-packages (from langsmith&lt;1.0.0,&gt;=0.3.45-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (3.6.0)
+Requirement already satisfied: zstandard&gt;=0.23.0 in /usr/local/lib/python3.12/dist-packages (from langsmith&lt;1.0.0,&gt;=0.3.45-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (0.25.0)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic&lt;3.0.0,&gt;=2.7.4-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic&lt;3.0.0,&gt;=2.7.4-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (2.41.4)
+Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic&lt;3.0.0,&gt;=2.7.4-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (0.4.2)
+Requirement already satisfied: click&gt;=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (8.3.3)
+Requirement already satisfied: shellingham&gt;=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (1.5.4)
+Requirement already satisfied: rich&gt;=12.3.0 in /usr/local/lib/python3.12/dist-packages (from typer-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (13.9.4)
+Requirement already satisfied: annotated-doc&gt;=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (0.0.4)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.0.0-&gt;langsmith&lt;1.0.0,&gt;=0.3.45-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (3.4.7)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.26 in /usr/local/lib/python3.12/dist-packages (from requests&gt;=2.0.0-&gt;langsmith&lt;1.0.0,&gt;=0.3.45-&gt;langchain-core&lt;2.0.0,&gt;=1.2.31-&gt;langchain_huggingface) (2.5.0)
+Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich&gt;=12.3.0-&gt;typer-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (4.0.0)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich&gt;=12.3.0-&gt;typer-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (2.20.0)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py&gt;=2.2.0-&gt;rich&gt;=12.3.0-&gt;typer-&gt;huggingface-hub&lt;2.0.0,&gt;=0.33.4-&gt;langchain_huggingface) (0.1.2)</code></pre>
+</div>
+</div>
+<p>Let’s look for cached models, because our connection isn’t good:</p>
+<div id="cell-12" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls <span class="op">~/</span>.cache<span class="op">/</span>huggingface<span class="op">/</span>hub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>models--bert-base-uncased
+models--cross-encoder--ms-marco-MiniLM-L-6-v2
+models--sentence-transformers--all-MiniLM-L6-v2
+models--sentence-transformers--all-mpnet-base-v2
+version.txt</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># !uv add sentence-transformers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:3467,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778055614617,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="71287e6f-deb1-4308-e514-e1891686c090" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_huggingface <span class="im">import</span> HuggingFaceEmbeddings</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> HuggingFaceEmbeddings(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span><span class="st">"sentence-transformers/all-MiniLM-L6-v2"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading weights: 100%|██████████| 103/103 [00:00&lt;00:00, 513.21it/s]</code></pre>
+</div>
+</div>
+<div id="cell-15" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from langchain_openai import OpenAIEmbeddings</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># embeddings = OpenAIEmbeddings()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:13,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778055614640,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="86f5ca56-1676-4b55-a522-0be255dca86b">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use pathlib to glob all .txt files in the 'transcriptions' folder</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>txt_files <span class="op">=</span> <span class="bu">list</span>(Path(<span class="st">'transcriptions'</span>).glob(<span class="st">'*.txt'</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>txt_files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>[PosixPath('transcriptions/Programming Languages - (part 7 of 7).txt'),
+ PosixPath('transcriptions/Programming Languages - (part 5 of 7).txt'),
+ PosixPath('transcriptions/Programming Languages - (part 3 of 7).txt'),
+ PosixPath('transcriptions/Programming Languages - (part 2 of 7).txt'),
+ PosixPath('transcriptions/Programming Languages - (part 4 of 7).txt'),
+ PosixPath('transcriptions/Programming Languages - (part 6 of 7).txt'),
+ PosixPath('transcriptions/Programming Languages - (part 1 of 7).txt')]</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:56,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778055614698,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="c269d16c-aec3-4ae7-8824-763683728aa8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_community.document_loaders.text <span class="im">import</span> TextLoader</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> []</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> txt_files:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    loader <span class="op">=</span> TextLoader(p)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    docs.extend(loader.load())</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>[Document(metadata={'source': 'transcriptions/Programming Languages - (part 7 of 7).txt'}, page_content="There are basically two reasons why one language might be more efficient than another. The first reason is that some languages provide more direct control over what precisely goes on in the machine. Having precise control is certainly no guarantee that the programmer will find optimal solutions, but with enough time and effort, good programmers can generally optimize more than even the best compilers and interpreters. The second reason a language might be more efficient than another is that it introduces less overhead. Automatic memory management, for example, requires work, work which must be intermingled amongst the programmer's own code, and hence introduces overhead. Interpretation itself also introduces overhead, as the instructions which read and execute the programmer's source code themselves consume time and memory. Dynamic, strongly-typed languages also introduce overhead, because every time an operation is performed, the types of the operands must be checked. So high-level languages which use automatic memory management, interpretation, and dynamic typing all introduce overhead, and so generally perform worse than languages which use manual memory management, compilation, and static typing. So code written in Perl, Python, Ruby, and JavaScript generally performs worse than the functionally equivalent code written in C, C++, and Objective-C. In the middle, we have languages like Java and C Sharp, which both feature automatic memory management, but use a hybrid of static and dynamic typing, and a combination of compilation and interpretation. So what kind of performance differences are we talking about? Well, that varies greatly depending upon what the code does, and of course depending upon how well we write the code. In the average case, code written in the slower languages, like JavaScript or Python, runs probably 10 to 100 times slower than the equivalent code written in C or C++. In many cases, however, the performance difference may be negligible. For tasks in which the CPU spends much of its time waiting for input-output devices, like when reading data off a hard drive, the time the CPU spends actually executing code may account for a trivial part of the overall performance. By analogy, if it takes 16 hours to fly to Australia, a 40-minute walk to the hotel doesn't really add much travel time compared to a 10-minute drive. As for memory usage, again overhead is added by automatic memory management, interpretation, and dynamic typing. The interpreter itself, of course, consumes memory as the program runs, and garbage collection and dynamic typing both require storing additional metadata about the objects in our code. Garbage collectors, for example, usually work by counting the number of references to each object, and these reference counts take up some amount of memory. Aside from this overhead, the more direct control of memory which programmers exercise in languages like C and C++ allows programmers to minimize their usage of memory in ways they simply can't using languages like Python or JavaScript. Now what about portability? What is it about a language that allows you to run your code on different platforms without extra work for each platform? Portability comes down to basically four issues. First, different makes of processor generally have different instruction sets, and the machine code written for one instruction set doesn't work for another, so the assembly program written for an x86 processor, of course, doesn't run on an ARM processor. Second, different operating systems have different system calls and different APIs for invoking those system calls. Third, not all computers have processors, operating systems, and input-output devices with the same capabilities. Thirdly then, our code cannot make use of capabilities which a system we wish to run it on doesn't have. And fourth, because of the first three reasons, library code doesn't necessarily run on all platforms. If a library which our code needs doesn't work on a platform, then our code won't work on that platform either. So now, how do we write a program to run on different platforms without writing separate versions of the program for each platform? Well the first issue, differing instruction sets, is pretty much solved by using any language other than assembly. To run on multiple operating systems, we can avoid invoking system calls directly and instead use a library as intermediary. Instead of directly invoking system calls, we invoke library code which invokes those system calls for us, and so it's left up to the library to make the right calls. The library itself, of course, must have different code for each operating system, but by using the library, our own code can be the same for all platforms. Differences in capabilities, however, quite often simply have no workaround. For example, if a target platform doesn't support a hardware device, there's simply no way your program can use that device on that platform. In other cases, though, your target platform's capabilities diverge only in non-essential details. For example, the file system on Windows broadly resembles the file system on Unix, but some details differ, such as their support for file locks. Your program might then work around these differences by simply avoiding the capabilities which both systems do not share in common. Alternatively, program features which rely upon certain capabilities might simply be omitted on the target platforms which do not support them. A so-called functional language is a language geared for programming in the functional style. The category includes several well-known, but not very popular languages, including Scheme, Haskell, Scala, and ML. Another language, Prolog, belongs to an entirely separate paradigm which we didn't mention, called logic programming. To give you an idea of how unpopular logic programming is, Prolog is the only logic programming language anyone's ever heard of, and even it has hardly ever been used outside of academia. A shell language is any language which runs interactively as a command prompt. The user types one line, they hit enter, and then that line is executed. While shell languages do typically have control flow of functions and variables, the stuff that usually makes up a general-purpose programming language, shell languages allow the user to run programs by simply typing their name, and then everything else about the language's syntax and semantics is built around that design decision. The result is that shell languages tend to be awkward and ugly for general-purpose use. The Windows shell language is usually just called Windows Command Prompt. On Unix systems, there's a wide variety of shells, though the default in most Linux systems is called Bash, which we'll cover in a later unit. Though shell languages are oriented around interactively entering and running commands line by line, shells can be made to execute files of sequential commands. Such a file is called a shell script. The term script in programming has come to mean a program in which most of the real work is farmed out to other programs. The program is a script in the sense that it is giving high-level directions, but then the real work is being done by all the other actors. You might occasionally hear some languages described as scripting languages. For instance, using Perl and Python became popular alternatives to writing shell scripts, so many people started calling Perl and Python scripting languages. In recent years, however, Perl, Python, and other dynamic languages have come to be used more and more in the writing of complete programs, rather than just small scripts, so in truth, the term scripting language is kind of outmoded. So far, every language I've described is a general-purpose programming language, which means that you can write code in these languages that does anything code can possibly do. While writing some programs in, say, Bash would be very impractical, it is in principle possible. In contrast, what are sometimes called data languages are not programming languages at all, even though they are forms of code heavily used by programmers. Web pages, for example, are ultimately documents expressed as text in the data language called HTML. XML is another data language. It's pretty much a standard syntax for representing hierarchical data in textual form. By using the common syntax of XML to represent their data, programmers can save themselves a lot of grunt work when reading and writing their data because they can use library code that deals with the XML format. A query language is used to make requests of a database. A database, as we'll discuss in a later unit, is basically a program for storing and organizing large quantities of data. When we write a program that needs to deal with a lot of data, it often makes sense to farm this job out to a database. To then communicate with a database, our program would use a query language like SQL, spelled S-Q-L, which stands for Structured Query Language. A domain-specific language, as the name implies, is designed to solve one particular problem in one specific domain. The term is sometimes applied to anything which isn't primarily meant to be a general-purpose language. So the term can be applied to SQL, HTML, XML, and even shell languages like Bash. Lastly, a graphical language is any language where the code is not expressed as text but rather as graphics, as something visual, either wholly or in part. There aren't many examples of graphical languages, or at least, those examples which do exist often aren't recognized as programming languages. For instance, there are programs which allow you to create a graphical user interface visually rather than having to write all the code by hand. These GUI builders, as they're called, usually generate, from the visual representation, actual code of some programming language, like say Java. Still, the graphical representation itself is like a kind of language. So the graphical languages which do exist are data languages, or otherwise domain-specific. While a general-purpose graphical language is conceivable, no one has yet demonstrated that such a thing would be a good idea. It might sound very appealing to get away from just boring text, but the disadvantage is very quickly outweigh the potential merits."),
+ Document(metadata={'source': 'transcriptions/Programming Languages - (part 5 of 7).txt'}, page_content="In programming, paradigm refers to a fundamental approach, a style, of considering and solving problems. Most programming follows either an imperative paradigm or alternatively a functional paradigm, and at the same time most programming follows either a procedural paradigm or alternatively an object-oriented paradigm. So like with static vs. dynamic typing and weak vs. strong typing, we have four combinations and procedural, imperative and object-oriented, functional and procedural, or functional and object-oriented. The distinction between the imperative and functional paradigms is that in the functional paradigm you're not supposed to modify state. It's called functional programming not because it has a monopoly on functions, imperative programming has functions too, it's just that functions in the functional paradigm are meant to conform to functions in the pure mathematical sense. In mathematics, a function, strictly defined, is meant to be idempotent, meaning that no matter when a function is called or how many times, that function should always return the same value for a given set of arguments. For example, a function foo called with the argument 5 should always return the same value no matter how many times we call the function or when. Moreover, a function, in the pure mathematical sense, produces a return value but otherwise has no effect on the world outside it. In functional programming, each function is meant to be a pure black box that takes input and returns output but otherwise has no other contact with anything outside itself, such that a function call does not affect, and is not affected by, the outside world. And be clear that the outside world includes not just the objects and variables outside the function, but also any input and output devices or data storage, such as a console or a file. Now the obvious problem with the functional ideal is that programs only do useful work by reading and writing data outside themselves, in other words, by modifying state. You can write a brilliant program which computes the meaning of life, but if the program doesn't display the meaning of life on a screen, or write it to a file, or send it across a network connection, or just in some way get the data to the world outside the program, then it doesn't matter that we've computed the secret of life, the secret will just sit there in the program memory and when the program terminates it will just disappear. So the very thing which the functional ideal prohibits, talking to the outside world, are programs need to do in one way or another. In truth then, what the functional paradigm is really about is minimizing state change by confining it to subsections of our program. The cost of doing this can be quite high, as confining state change is a tricky thing to do, but the benefit is that the purely functional portions of your code will be easier to understand, modify, and correct. Having now defined the functional paradigm, we can easily define the imperative paradigm as the opposite style, the style of programming in which we do not attempt to confine state change. I guess the imperative paradigm is the default style used in the large majority of code, as it's simply the more straightforward way of getting work done. The simplest way to think of the distinction between procedural programming and object-oriented programming is that in the procedural style we think in terms of action before data, whereas in the object-oriented style we think in terms of data before action. When programming in the procedural style, a programmer thinks first of what functions they need, and then secondarily thinks about the data types those functions will operate upon. In contrast, when programming in the object-oriented style, the programmer thinks first of what data types they need, and then secondarily thinks about the functions to operate upon those data types. This inversion of priorities may sound like just doing the same work out of order, but as we'll discuss in the video about object-oriented programming, the styles really do produce different program structures. So given our two pairs of paradigms, we have four possible combinations. Imperative Procedural Programming, Imperative Object-Oriented Programming, Functional Procedural Programming, and Functional Object-Oriented Programming. While Imperative Programming is much more popular than Functional Programming, Procedural Programming and Object-Oriented Programming are perhaps about evenly popular. I would say Imperative Object-Oriented Code is most common today, but Imperative Procedural Code follows close behind. The rules of a language, we call it syntax and semantics. Syntaxical rules concern the arrangement of the code text, whereas semantic rules concern the meaning behind that text. In practice though, learning to program in a language is about more than its rules. You must also familiarize yourself with its libraries and learn the essential associated tools. A library in programming is a body of pre-existing code. In practice, when we write a program, we don't want to have to write everything from scratch, so we often use library code for common functionality. For instance, most programs do something with files, and it would be silly if we had to write all the code ourselves to open and write files. Using a library, we should be able to read and write files by simply invoking a few pre-existing functions provided for us. Most languages have what is called a standard library, or core library, meaning a set of library code that comes stock as part of the language. In the C language, for example, your C compiler should come with the C standard libraries. For functionality not covered by the standard library, we can often use other libraries. While some of these libraries may require licensing fees, many free open source libraries are very popular for all sorts of functionality. The term tool in programming generically refers to any sort of program which programmers use to develop software. At a minimum, you'll need a text editor to write your source code, and a compiler or interpreter to run your source code. While basic usage of these tools is generally straightforward, they typically have many complex advanced features. While the choice of compiler or interpreter is of course language specific, you can generally write code for any language with your favorite text editor. Some programmers prefer basic editors like Windows Notepad, but others prefer very complicated editors like Emacs or VI, both of which have very steep learning curves. A debugger is a program that helps programmers track down the cause of bugs by executing code step by step while reporting what's happening in the program memory. A profiler is a program that helps programmers optimize their code by measuring the performance of code. By identifying the bottlenecks in their code, programmers can better optimize by focusing their optimizations on the right parts. A version control system helps programmers manage their files of code as they create and modify them over time. The basic idea is that the programmer can store a snapshot of the current state of their code in what's called a repository, such that at any future point the programmer can later retrieve this version of their code. These version control systems also greatly help teams of developers coordinate their changes to code. Lastly, an IDE, an integrated developer environment, is basically a program which combines all or some of this functionality into one program. Arguably, IDEs are just elaborate text editors with conveniences, such as hotkeys for running your compiler or debugger. While some programmers swear by their favorite IDE, other programmers insist on keeping their tools separate."),
+ Document(metadata={'source': 'transcriptions/Programming Languages - (part 3 of 7).txt'}, page_content="In a previous unit, we discussed how the address space of a process is split into three parts, the text section, the stack, and the heap. The text section simply stores the code of the process, and so is generally made read-only. The stack is a contiguous chunk in which we keep track of the chain of function calls and store their local variables. The heap is effectively the rest of the address space, where we can store any data other than the local variables. Whereas memory for the text section and the stack is effectively automatically allocated by the operating system, memory for the heap must be manually managed by the programmer. When a process begins, the heap portion of the process address space isn't backed by any actual memory. The programmer must explicitly request from the operating system each chunk of the heap address space which they wish to use. When finished with the chunk, the programmer should notify the operating system so that the operating system can allocate the memory for other uses. Most modern interpreted languages, however, such as JavaScript and Python, have a feature called automatic memory management, or automatic garbage collection. With this feature, the programmer can simply create new objects as they like, and the interpreter will request more heap memory from the operating system as needed. The interpreter then also keeps track of when objects are no longer reachable, when no references point to that object anymore. Once an object is no longer reachable, the interpreter knows that the programmer is done with the object, and so the interpreter can give the heap memory occupied by that object back to the operating system. Automatic memory management is not only convenient, it helps prevent memory leaks. A memory leak is a bug in which a program allocates heap memory, but fails to give it back once the program no longer needs the memory. Especially for long-running processes, this creates a problem as the process allocates more and more chunks of memory without giving them back. At the very least, this wastes memory that could otherwise be used by other processes. Worse, your process will likely fail once it runs out of address space, or once the operating system is unwilling to give it any more memory. When the programmer has to keep track of the chunks of memory they've allocated in order to give them back once finished with them, that's one more thing the programmer might get wrong. Even when programmers follow good practices to keep track of their memory usage, it's still a naturally error-prone task. What makes memory leaks especially devious is that they're a very difficult kind of bug to track down. When running a program, memory leaks rarely manifest at the start of the program, so leaks can lurk in code undetected for months or years. Even when we know we have a memory leak, tracking down the culprit lines of code is extremely difficult, because a leak from one part of code generally looks like a leak from any other part of code, and memory allocation business is generally scattered all throughout a codebase. So automatic memory management spares us a lot of these headaches, but understand that it doesn't completely eliminate all memory leaks. What can happen in a language like JavaScript is that the programmer might unintentionally leave around references to objects which they no longer need. For example, the programmer might add items to an array, assign the array to a global variable, and then forget about it. Until that global variable is assigned a different value, the array will stick around, and likewise, all the items in the array will stick around as well. This is a memory leak because the program is effectively keeping around a bunch of objects which it doesn't need anymore. I did say that automatic memory management is a feature of interpreted languages, but conceivably we could implement the feature in a compiled language. It just wouldn't make sense though, because compiled languages generally aim for high performance and a high degree of programmer control. Adding automatic memory management to the C language, for instance, would add performance overhead and interfere with the programmer's ability to use memory exactly as they please, thus largely defeating the whole purpose of using the C language. It's a fact of life that programmers are going to make mistakes. When writing thousands and possibly millions of lines of code, mistakes are just inevitable. One common kind of mistake we call a type error, which occurs when we perform an operation upon the wrong kind of data. For example, in this pigeon code, we define a function which computes a factorial. In the third line of the function, the parameter of the function n is used in a greater than operation. So, if we improperly invoke the factorial function with a boolean argument instead of a number, a type error is triggered in the function because the greater than operation only works with number operands, not booleans. At least, this is the behavior of a dynamic typing system, such as in pigeon JavaScript and Python. In such languages, the programmer can pass any type of value to any function, but when a built-in operator, like the greater than operator, receives the wrong kind of argument, an error occurs, which in most dynamic languages means an exception is thrown. The goal of a static typing system, such as in the C and C++ languages, is to allow us to programmatically detect type errors in code without running the code. In a language with static typing, the compiler or interpreter can find and report type errors, and in fact will generally refuse to compile or interpret the code once it finds such an error. The cost of this type checking is more restrictive use of data types. In a static language, every variable, every function parameter, every function return type, and every collection must declare a single data type. A variable can only be assigned values of its declared type, a parameter can only be passed arguments of its declared type, a function can only return values of its declared return type, and a collection, such as a list, can only store values of its declared type. So say we wanted to turn pigeon into a statically typed language. We could do so quite simply by requiring type declarations for every variable, every function parameter, every function return type, and every created collection. Let's say the declarations are written as type names prefixed with a colon. So here the factorial function's name is prefixed with num, denoting that the function can only return numbers, the parameter n is also prefixed with num, denoting that only numbers can be passed to n, and the variable val is also prefixed with num in its first assignment, denoting that only numbers can be assigned to val. So now here, a compiler or interpreter can detect the real source of our type error, which is the call to factorial with the boolean value. Our factorial function's parameter n was always meant to only receive number values, and now with a type declaration, any call to factorial that erroneously passes any other kind of value can be detected before running the code. Even if the argument expression is a variable or function call, such as here a call to some function foo, an erroneous type can be detected, because with type declarations, the type of every expression is known. Here function foo itself must have a declared return type, and so the compiler or interpreter knows whether this call to foo will return a number. Now I also mentioned that static typing requires any collection we create to have a single declared type. What this might look like in Pigeon is that we would have different operators for creating lists and dictionaries that store different types. For instance, the numList operator would create a list that can only store number values. Effectively, any two lists which store different types would themselves be considered different types of values, e.g. a numList would be a different type than a boolean list. Likewise for dictionaries. Dictionaries with string keys and number values would be a different type than dictionaries with number keys and boolean values. We could, however, still use the same get and set operators for all these different types. Here, the compiler or interpreter knows that foo is a numList, so it knows that this get operation will return a number value, and it knows that this set operation improperly attempts to store a string in the list. While requiring each collection to store just one data type is very restrictive, removing the requirement would create a huge hole in our static typing system, and we would no longer be able to programmatically determine expression types before running the code. What then does a programmer do when they need, say, a list of items of various types? Well, as we'll see when we look at static languages like C and Java, there are workarounds for this problem, but they are very cumbersome relative to the straightforward approach of dynamic languages like Pidgin and JavaScript, where we can just stuff anything into a list. Similarly, requiring each function to have just one type of returned value can be quite restrictive, as is requiring each parameter to have just one type of accepted value. Why would a programmer accept these restrictions? Well, static typing allows all of our type errors to be detected reliably without ruining our code, meaning type errors won't lurk hidden in our code, as can happen with dynamic typing. Whether eliminating this one class of bugs is worth the restrictions of static typing is one of the never-ending debates among programmers."),
+ Document(metadata={'source': 'transcriptions/Programming Languages - (part 2 of 7).txt'}, page_content="Assembly languages are often called low-level languages because they are metaphorically low in the sense that programmers using them are left down in all the details of the actual machine instructions. When you write a program in assembly, you're piecing it together, machine instruction by machine instruction. The advantage is precise control. You can have the CPU execute the precise series of instructions that you want. In contrast to low-level languages, a high-level language takes away precise control from the programmer in exchange for convenience. In a high-level language, each line of code typically corresponds to more than just one machine instruction, thereby accomplishing more work per line of code. By abandoning one-to-one correspondence between source code and machine instructions, high-level languages also allow us to write code that is portable across different processors. The programmer can write a program once and have it run on many target platforms. In the first 30 or so years of computing, most programming was done in low-level assembly languages. Even so, the vast majority of programming is done in high-level languages, and assembly is only used in a few niche cases, such as in writing certain portions of operating systems. The conversion of high-level language source code into machine code is not called assembly, but rather compilation, and the programs which do it are called compilers. The reason for the different term is that to assemble connotes a simple process of one-to-one correspondence. Each line becomes one instruction in the resulting program. To compile, in contrast, connotes a more sophisticated process of translation in which lines of source code and machine instructions do not strictly correspond one-to-one. Each line of source can translate into many machine instructions. Still, the general idea of assembly and compilation is basically the same. One form of code gets translated into another form of code. So for example, say you're programming in the high-level language C. We've written our C code in two different source files, one called foo.c and the other called bar.c, and we run each one independently through the compiler, spitting out two separate object files, foo.o and bar.o. Then just like in assembly, we run the object files together through the linker to produce a single executable. It's possible in some cases to link object files generated from different languages. For example, it's quite common to link object files generated from assembly code with object files generated from C code. This can be useful because the precise control of assembly may allow me to optimize code in a way that I just can't in C. So I might write most of my program in C for the relative convenience, but for the portion of code which I need to optimize, I might write just that part in assembly. Another reason to mix assembly code with C code is that in C, and in fact in all high-level languages really, there is no way to directly invoke a system call. Remember that system calls are invoked using a particular instruction. Well, nothing in the semantics of the C language will cause the compiler to output that machine instruction. So in fact, C code is ultimately reliant upon assembly code to invoke any system calls, and the same is true of any other high-level language. Without native machine code, without assembly, we just couldn't invoke system calls. An alternative to compilation is a scheme called interpretation, performed by programs called interpreters. Whereas a compiler reads your source code and translates it into another form of code, usually machine code, an interpreter reads your source code and translates it into action. That is to say, an interpreter reads the source code, and as it reads the source code, it does what the source code says to do. Admittedly, the choice of terms here is not apt. An interpreter in normal life refers to someone who translates one language into another, but that's more analogous to what a compiler does. An interpreter in programming refers to a program which reads and acts upon code. So whereas a compiler is more like C3PO, an interpreter is more like an action hero, like John McClane. To run a program with an interpreter, we don't produce any executable file, we just run the code through an interpreter, and the interpreter's actions as it reads the code is the running of our code. To run source code split into multiple files, we just run them all through the interpreter together. The interpreter then handles any business of linkage between the files as it runs the code. To imagine an interpreter at work, start off imagining a program which reads a list of mathematical expressions. As the program reads each line, it evaluates the expressions. So when reading these three lines, the program would get the values 93, then negative 7, then 16. Now imagine that we introduce variables, such that the value produced on one line is remembered by the program as a symbolic name, such that we can then use the name on successive lines. So here, the value of 1 plus 2 is retained as the name foo, so in the next line, the expression 1 plus foo would evaluate to 4. Next imagine that we introduce control flow with if and while, such that some lines may get evaluated only conditionally, and some lines may repeat. Lastly, imagine we introduce functions, such that a group of lines can be invoked by name. Well, once our program can process expressions, variables, control flow, and functions, we basically have an interpreter for a programming language. Another way to run code is to use compilation and interpretation together. For instance, in the Java language, we first run the source code through a compiler, but rather than spit out machine code, this compiler generates an intermediate form of code, which Java calls bytecode. This bytecode is then run and executed by an interpreter, which in Java we call a virtual machine. Java bytecode actually looks very much like machine code. The instructions of bytecode denote basically the same kinds of operations of a processor instruction set. However, no processor directly understands these bytecode instructions. Instead, a virtual machine interprets them, meaning it does what the instructions say to do as it reads them. The thinking behind this hybrid approach is that it gives us the advantages of compilation and interpretation at the same time. On the one hand, compiled code tends to run faster than interpreted code because it needn't parse the source code when we run the program, and a compiler isn't under time pressure to actually run the program, so it has all the time it wants to optimize the code it generates. On the other hand, interpreted code allows us to run the same code on multiple platforms without first compiling for each platform. In the hybrid approach, we only have to compile our source code once, in the bytecode, and then the same bytecode can run on any system with a Java virtual machine. So in short, we compile for efficiency, but interpret for portability. Now, interpretation, even of pre-compiled bytecode, always introduces performance overhead compared to running straight machine code. Whereas machine instructions are directly executed by the CPU, interpretation involves the extra work of reading the code, deciding what work that code denotes, and then actually doing the work. So for greater efficiency, many virtual machines have adopted a scheme called JIT, standing for Just-In-Time Compilation. With JIT, the virtual machine may actually compile some or all of the bytecode into machine code, and then run that machine code rather than interpret those parts of the code. Even though this of course introduces more work up front when a program is loaded, the idea is that a smart VM can decide when and where the performance gain will outweigh the cost. In fact, by delaying compilation until the program is actually run, the VM can make intelligent decisions about how to optimize the generated machine code in a way that a normal compiler cannot, because the VM has the advantage of observing the code actually run, and thus knows more about its real performance. For example, in some cases, there's a tradeoff between optimizing for space, meaning for minimizing memory usage, and optimizing for execution time, for minimizing processor usage. By measuring actual performance, the VM can make an informed choice between the two. So the argument is sometimes made that it's possible for code running in a VM with a just-in-time compiler to actually exceed the performance of code that's compiled into machine code ahead of time. How often this actually comes true in real world scenarios, if at all, that's a highly debated topic."),
+ Document(metadata={'source': 'transcriptions/Programming Languages - (part 4 of 7).txt'}, page_content="In programming, the term polymorphism refers to the ability of an operation or function to accept a varied number of inputs and or varied types of inputs and possibly change its behavior in these different cases. So, for example, in Pigeon, the print operator is polymorphic in that it accepts different types of inputs. You can pass a string, a number, or a boolean, and whatever you pass, the print operator will print a text representation of that value on the console. In the case of print, the operator does basically the same thing no matter the type of input, but in principle, a polymorphic operation or function can do totally different things depending upon the number and or types of inputs. Say in Pigeon you want to write a function which changes its behavior depending upon whether its first argument is a number or not. Well, if we have an operation called isNum, which returns true when its operand is a number, then we can simply test if the parameter is a number and branch accordingly. So when we invoke this function foo with a number for the first argument, the first branch will execute, but if we invoke the function foo with something else for the first argument, it will take the other branch. In these two branches, we of course can do entirely different things if we like. In fact, we could have one branch return one type of value and the other branch return a different type of value. So a polymorphic function or operation might change what type of value it returns depending upon the type or number of the inputs. The obstacle to polymorphism in static languages, of course, is that each function parameter must have a single declared type. To allow for polymorphism then, a static language must allow us to create multiple versions of the same function. For example, to make a function foo that accepts either one number argument or one string argument, we actually create two separate versions of foo, one with a single number parameter and one with a single string parameter. In truth, it's probably best to think of the two versions of the function as really just separate functions that happen to share the same name. Despite sharing the same name, the compiler can distinguish between calls to one or the other by the argument types. A call with a number argument is of course meant to invoke the version of foo with a number parameter, and a call with a string argument is of course meant to invoke the version of foo with a string parameter. As for creating a function which takes a varied number of arguments, in JavaScript we can pass a function as few arguments as we like, and in the function, any parameters that get no argument have the value undefined, and the length of the arguments array tells us how many arguments actually got passed in. So we can branch in the function based on the number of arguments passed. Though pidgin requires us to always pass the same number of arguments as a function has parameters, we could sort of fake passing a varied number of arguments in pidgin by testing the trailing parameters for null. Here for example, when we invoke the function with null as the second argument, the second argument is tested, and if it's null, the function runs one branch but otherwise runs the other. So it's not strictly a function that takes a variable number of arguments, but passing in null for dummy values pretty much achieves the same effect. In static languages, to make a function foo that accepts either one number argument or two number arguments, we create two separate versions of foo, one with a single number parameter and one with two number parameters. Be clear then that in a static language, the compiler or interpreter determines which function to call, not just by the function name, but also by the number and types of arguments. Together, a function's name, number of parameters, parameter types, and the order of those parameter types are often called the function's signature, because together they uniquely identify the function when the compiler or interpreter matches function calls to functions. Obviously then, we can't have multiple functions with the same signature, because then the compiler or interpreter wouldn't be able to distinguish between calls to those functions. Notice that we said a function's order of its parameter types is part of its signature. What this means is we can have functions with signatures that only differ by the order of their types. For instance, a function foo with a string parameter followed by a number parameter has a different signature than a function foo with a number parameter followed by a string parameter. Note though that a function's return type is not part of its signature. So when we create multiple versions of a function, those versions can have different return types as we please. Here, the different versions of foo have totally different return types. In addition to classifying languages by whether their typing systems are dynamic or static, we also classify languages by whether their type systems are weak or strong. In a weakly typed language, the programmer can manipulate the bytes of any data value as they like. For example, in assembly languages, which are the primary examples of weakly typed languages, it's possible to take, say, a string in memory and multiply all the bytes together of that string. Or, say, we can modify the string by flipping the third bit of every byte. The problem with doing these sorts of things is that we are not treating the data, in this case what's meant to be a string, in a way appropriate to its type. Whatever character set is used, and whatever encoding is used, it really never makes any sense to multiply together the bytes of a string. The result just doesn't have any meaning. Similarly, if you flip every third bit in each byte, the end result is generally garbage. There's really no scenario in which doing this would be useful. The point, though, is that a language with weak typing lets us do whatever we want with the bits of our data, whether useful or not. The key idea in strong typing is that data types are defined, not just by how they represent their information as bits, but also by the operations meant to be performed upon values of that type. The thinking behind strong typing is that, because arbitrary manipulation of data may lead to errors, a language should preclude such errors by allowing the programmer to do nothing with a data value except perform those operations defined for its type. So, for example, the built-in types of JavaScript are strongly typed, such that we can't do anything with, say, arrays, except perform the operations defined to work on arrays. We can't just manipulate the bits of a JavaScript array as we please. In weakly typed languages, the tradeoff is made that, well, yes, programmers might make mistakes, but sometimes programmers want the flexibility of complete control. These two distinctions, between weak typing and strong typing, and static typing and dynamic typing, are often confused. So be clear, the difference is this. Static typing makes it possible to detect type errors before running the code, while dynamic typing does not. In contrast, weak typing allows the arbitrary manipulation of the bits of any piece of data, while strong typing does not. In principle, a language can have any combination of the two. Python, for example, combines strong typing and dynamic typing, while Java combines strong typing and static typing, and C combines weak typing and static typing. However, there's no language I know of which combines weak typing and dynamic typing."),
+ Document(metadata={'source': 'transcriptions/Programming Languages - (part 6 of 7).txt'}, page_content="Now let's do a survey of the more popular languages in use today. The C language, created back in the 1970s, is a statically but weakly typed language. Like virtually all other high-level languages, C code is composed of expression statements, control flow statements like if and while, and functions, however, unlike most other high-level languages in use today, C does not automatically manage memory, so the programmer must manually allocate and deallocate heap memory. Partly for this reason, and partly because of its weak typing, code written in C can link with code written in Assembly with little overhead. On the whole, C is a high-level language that uniquely maintains much of the manual control and efficiency of Assembly code. Consequently, C is a good choice for writing low-level software, including operating systems. The Linux kernel, for instance, is written mostly in C. The code sample here is the Hello World program, written in C. Notice the use of curly braces and semicolons, which several popular languages like JavaScript later imitated. The C language is not just one of the most successful languages in the history of programming, it's also one of the most influential. The language called C++, for instance, is basically the C language, but with more stuff added. In other words, C++ is a superset of C. It has everything C has but more. Consequently, a C++ compiler should be able to compile any code written in C. However, this isn't entirely the case, because C++ is not a strict superset. Over the years, both C and C++ have evolved on their own paths, and while there's still very heavy overlap, if you look at the details, you'll find differences that will cause some C code to not compile properly with a C++ compiler. Today, it's best to think of C and C++ as really two very separate languages. The name C++ is a bit of a joke. In the C language, the operator which is two adjacent plus signs is used to increment the value of a variable by one. If you have a number variable called, say, x, and you see x++, that means take the value of x and increase it by one. So the joke is that C++ is like C, but one higher. The primary features which C++ adds to C are for facilitating object-oriented programming. C++ can be basically summed up as C with object-oriented features. To be clear, it's not impossible to program in an object-oriented style in regular C, it's just that C++ adds features that make programming in that style more convenient. Despite these added features, C++ maintains most of the same efficiency that C itself has, so when you want to code in an object-oriented style but also want the efficiencies of C, C++ is the primary choice. For two decades now, C++ has been the language of choice for most commercial applications like Photoshop or Microsoft Word, and for most commercial video games. Objective C was created about the same time as C++ for largely the same purpose. Objective C is like C, but adds features for object-oriented programming. The popularity of Objective C today mostly stems from Apple pushing it as the main application development language on OS X and iOS. Without this push, it's doubtful Objective C would be much used at all. The Java language was created in the 1990s by the company Sun Microsystems. Like C++ and Objective C, Java is heavily biased towards object-oriented programming, and its syntax imitates the C syntax. However, Java is not at all a superset of C, and has automatic memory management with garbage collection. Java also has strong rather than weak typing, and a hybrid mix of static and dynamic typing, which we'll explain in the unit on Java. Java was the first widely used language which compiles its source code to an intermediate form of code, and then runs this intermediate form via a virtual machine. By the late 90s, Java had become the most popular language in just a few short years. And so, deciding that they needed something like Java, Microsoft created the C Sharp language. C Sharp started as a virtually verbatim imitation of Java with a few more features, though over the years it has added several major features to further distinguish itself. Microsoft makes the most popular C Sharp virtual machine, which it calls the CLR, the Common Language Runtime. While the CLR only runs on Windows, Mono is a free open-source C Sharp VM that runs on other platforms, including Mac and Linux. The Perl language, which became popular in the 1990s, especially on Linux, was the first example of a dynamic interpreted language really making it big, especially on commodity PC hardware. Before Perl, dynamic languages weren't used much because of their lackluster performance. Perl didn't actually fix this problem, but by the 1990s computers became powerful enough that, for many tasks, the slowness of a dynamic interpreted language was worth the cost. Compared to the primary languages of the time, including C and C++, Perl is much more expressive, allowing the programmer to get more work done per line of code. The Perl Hello World program, for example, is just a single line that says Print Hello World. Perl, though, is criticized by many for overly complicated syntax and semantics. This complexity clearly isn't reflected in the Hello World program, but it's actually quite easy to write lines of Perl code that look like line noise, like a bunch of random characters to the untrained eye. Perl suffers from heaping conveniences upon other conveniences, making Perl code often difficult to read and understand. In contrast, another dynamic interpreted language, called Python, is widely praised for the clarity and comprehensibility of its code. Whereas Perl is criticized for its overly complex syntax, Python is praised for its notably clean and simple syntax. A clean appearance is achieved largely by virtue of Python using indentation to denote blocks of code, just like we saw in Pidgin. So instead of, say, surrounding the statements of an if body in curly braces, we just put those statements indented in one level underneath the if itself. Semantically, however, Perl and Python are really, really similar at their core, though I would say that Python has a much cleaner type system, and is therefore better for object-oriented programming. Like Python, the Ruby language is pretty much like Perl semantically, but with better syntax. However, I personally strongly prefer Python, because Ruby has too many misguided convolutions like Perl. PHP is yet another Perl-like dynamic interpreted language from the 1990s. PHP owes most of its popularity to the fact that, in the late 90s, it by far had the easiest learning curve if you wanted to get into web programming. Though PHP is heavily criticized by many programmers today for being ugly and badly designed in general, it's still commonly used for many large websites. You can't argue with good timing, and PHP just came along at the right time. One more language that shares the basic semantics of Perl, Python, Ruby, and PHP is JavaScript. Despite the name, JavaScript really has no special relationship to Java, they're totally separate languages. JavaScript was created as a language to embed in the Netscape Navigator web browser, such that web pages could include JavaScript code to manipulate the contents of the page. This feature became popular, so other browsers added support for JavaScript, and today JavaScript is still the only language that runs in all major web browsers. The most unique thing about JavaScript's semantics concern its approach to object-oriented programming. While most languages like C++, Java, and Python facilitate object-oriented programming with a feature called classes, JavaScript gets most of the same effect with a feature called prototypical inheritance."),
+ Document(metadata={'source': 'transcriptions/Programming Languages - (part 1 of 7).txt'}, page_content="A computer program, ultimately, is made up of machine code, binary instructions which are read and executed by the CPU. In the earliest days of computers, back in the 1940s, these machine instructions were input by flipping switches and moving vacuum tube plugs around. This of course was extremely clumsy because it required a lot of work by hand every time you wanted to run a program. So to fix this, computers began to store code on punch cards. A punch card is just a thick piece of paper with perforated holes and patterns to denote data, and programs can be stored as stacks of punch cards to feed into the machine. The process of creating these punch cards was still extremely tedious, and it was a huge headache when a stack got out of order, but at least now a program could be loaded multiple times without manually inputting each instruction one by one. In the 1960s, computers began to use terminals, devices which combined an electronic keyboard with some kind of text display. The earlier terminals printed out text on paper, later terminals introduced electronic screens, though usually these screens could only display monochromatic text, not graphical images. Also in the 60s, computers began to store code and data on electronic mediums, most commonly magnetic tape. In combination with electronic screen terminals, computer users, for the first time, could read and write text directly on the machine. So the question is, how does text entry help us write machine code? Well, one answer is to use a hex editor, a program which allows us to create and edit a file byte by byte using hex notation. While feasible, this approach is very impractical. Even if you are extremely familiar with the machine code of the processor for which you're working, it's just very taxing and cumbersome to write code directly in binary form. The better solution is to use what's called an assembly language. In an assembly language, each binary instruction is expressed in a more human-riddle way, usually as short mnemonics. For example, an ADD instruction is commonly denoted with the mnemonic ADD. Of course, the machine can't execute text data, so this text has to be translated somehow into binary instructions. We call this translation process assembly, hence the term assembly language. Here's the Hello World program written in an assembly language. A Hello World program, recall, simply prints the words Hello World on the screen. Understand that assembly code is always processor-specific, because the binary instructions for one processor differ from the binary instructions for another. In fact, there really is no such thing as the assembly language, there are different assembly languages for different processors. Collectively though, they're often called assembly language. So there's assembly for x86 processor, assembly for ARM processors, for MISP processors, and so forth. This particular example is x86 code. Also understand that system calls are operating system-specific, so assembly code written to run on one operating system generally won't run on another. This code here is written to run on Linux, so even though it's x86 code, it won't run on Microsoft Windows. Like in all programming languages, the assembly code written as text by the programmer is known as source code. The computer, of course, can't directly execute this code, rather the source code must be translated to machine code by a program called an assembler. For any particular processor, there may be multiple assemblers available, and the precise assembly language understood by one assembler may differ from the assembly understood by another assembler for that same processor. For example, one popular x86 assembler is Microsoft's assembler, often called Masm. Code written for the Microsoft assembler won't be understood by other x86 assemblers. So assembly code is not only processor and OS specific, it's also assembler specific. In any case, let's say our source code is written in a file called hello.asm. When we run this file through the assembler, what we get out is not an executable file, but rather what's called an object file. To produce an actual executable file, we run the object file through another program called a linker. The reason for this extra step is that, in practice, we usually write the code of a program in multiple source files, files which we may wish to assemble independently. For example, if I've written my code in two files, foo.asm and bar.asm, and I want to produce one single executable file, here called baz, I first run each source file through the assembler independently, producing an object file for each, and then those two object files are run together through the linker, producing the executable. A linker is so named because it must resolve the links in code between the object files. Although we may write our code in separate source files, the code of our program is interdependent, such that code in one source file may invoke code written in another. For example, in foo, we might invoke a function defined in bar, but because the source files are assembled independently, the assembler can't know the actual address of the function in bar when assembling foo. What the assembler does then is leave a stub address where the function is invoked. Later, the linker will fill in these stubs with actual addresses. Now we could just combine the linking and the assembly phases together in one single program, so that we don't have to run two separate programs. However, we'd like to keep the processes separate so that we can minimize work when we make code changes by assembling only the source files we've changed, then linking those new object files with the other object files. By default, when a process runs, code in its address space comes just from the single executable file which launched the program. However, modern operating systems, like Windows and Linux, allow programs to link in code from other files during execution. These files of code are called dynamic linking libraries on Windows, denoted with a file extension .dll, and shared object files on Linux, denoted with a file extension .so. More generally, they are sometimes called shared libraries. To make use of shared libraries requires instructing the linker to leave some stubs in the executable for the operating system to dynamically link at runtime. To create a shared library file, we simply run the object files we want to include in that library through a linker with the appropriate options. So you may be wondering, why would we want to use shared libraries in dynamic linking? Why not just statically link everything into one executable file? Well, one reason is to avoid producing needlessly large executable files. The concern these days, though, is not that the executable files will waste storage space – storage space today is very, very cheap – the real concern is memory usage. When multiple programs running simultaneously all make use of the same common code, it saves memory to load only one copy of that shared code. And this is exactly what modern operating systems allow us to do with shared libraries. When multiple processes all use the same shared library, the library is included in each process's address space in their virtual memory, but the actual code is stored just once in physical memory.")]</code></pre>
+</div>
+</div>
+<div id="cell-18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:13211,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778055627911,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="4830fc1f-2d6c-429a-b3d3-624663926742">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install chromadb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: chromadb in /usr/local/lib/python3.12/dist-packages (1.5.9)
+Requirement already satisfied: build&gt;=1.0.3 in /usr/local/lib/python3.12/dist-packages (from chromadb) (1.5.0)
+Requirement already satisfied: pydantic&gt;=2.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (2.12.3)
+Requirement already satisfied: pydantic-settings&gt;=2.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (2.14.0)
+Requirement already satisfied: pybase64&gt;=1.4.1 in /usr/local/lib/python3.12/dist-packages (from chromadb) (1.4.3)
+Requirement already satisfied: uvicorn&gt;=0.18.3 in /usr/local/lib/python3.12/dist-packages (from uvicorn[standard]&gt;=0.18.3-&gt;chromadb) (0.46.0)
+Requirement already satisfied: numpy&gt;=1.22.5 in /usr/local/lib/python3.12/dist-packages (from chromadb) (2.0.2)
+Requirement already satisfied: typing-extensions&gt;=4.5.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (4.15.0)
+Requirement already satisfied: onnxruntime&gt;=1.14.1 in /usr/local/lib/python3.12/dist-packages (from chromadb) (1.25.1)
+Requirement already satisfied: opentelemetry-api&gt;=1.2.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (1.41.1)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-grpc&gt;=1.2.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (1.41.1)
+Requirement already satisfied: opentelemetry-sdk&gt;=1.2.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (1.41.1)
+Requirement already satisfied: tokenizers&gt;=0.13.2 in /usr/local/lib/python3.12/dist-packages (from chromadb) (0.22.2)
+Requirement already satisfied: pypika&gt;=0.48.9 in /usr/local/lib/python3.12/dist-packages (from chromadb) (0.51.1)
+Requirement already satisfied: tqdm&gt;=4.65.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (4.67.3)
+Requirement already satisfied: overrides&gt;=7.3.1 in /usr/local/lib/python3.12/dist-packages (from chromadb) (7.7.0)
+Requirement already satisfied: importlib-resources in /usr/local/lib/python3.12/dist-packages (from chromadb) (7.1.0)
+Requirement already satisfied: grpcio&gt;=1.58.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (1.80.0)
+Requirement already satisfied: bcrypt&gt;=4.0.1 in /usr/local/lib/python3.12/dist-packages (from chromadb) (5.0.0)
+Requirement already satisfied: typer&gt;=0.9.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (0.24.2)
+Requirement already satisfied: kubernetes&gt;=28.1.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (35.0.0)
+Requirement already satisfied: tenacity&gt;=8.2.3 in /usr/local/lib/python3.12/dist-packages (from chromadb) (9.1.4)
+Requirement already satisfied: pyyaml&gt;=6.0.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (6.0.3)
+Requirement already satisfied: mmh3&gt;=4.0.1 in /usr/local/lib/python3.12/dist-packages (from chromadb) (5.2.1)
+Requirement already satisfied: orjson&gt;=3.9.12 in /usr/local/lib/python3.12/dist-packages (from chromadb) (3.11.8)
+Requirement already satisfied: httpx&gt;=0.27.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (0.28.1)
+Requirement already satisfied: rich&gt;=10.11.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (13.9.4)
+Requirement already satisfied: jsonschema&gt;=4.19.0 in /usr/local/lib/python3.12/dist-packages (from chromadb) (4.26.0)
+Requirement already satisfied: packaging&gt;=24.0 in /usr/local/lib/python3.12/dist-packages (from build&gt;=1.0.3-&gt;chromadb) (26.1)
+Requirement already satisfied: pyproject_hooks in /usr/local/lib/python3.12/dist-packages (from build&gt;=1.0.3-&gt;chromadb) (1.2.0)
+Requirement already satisfied: anyio in /usr/local/lib/python3.12/dist-packages (from httpx&gt;=0.27.0-&gt;chromadb) (4.13.0)
+Requirement already satisfied: certifi in /usr/local/lib/python3.12/dist-packages (from httpx&gt;=0.27.0-&gt;chromadb) (2026.4.22)
+Requirement already satisfied: httpcore==1.* in /usr/local/lib/python3.12/dist-packages (from httpx&gt;=0.27.0-&gt;chromadb) (1.0.9)
+Requirement already satisfied: idna in /usr/local/lib/python3.12/dist-packages (from httpx&gt;=0.27.0-&gt;chromadb) (3.13)
+Requirement already satisfied: h11&gt;=0.16 in /usr/local/lib/python3.12/dist-packages (from httpcore==1.*-&gt;httpx&gt;=0.27.0-&gt;chromadb) (0.16.0)
+Requirement already satisfied: attrs&gt;=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=4.19.0-&gt;chromadb) (26.1.0)
+Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=4.19.0-&gt;chromadb) (2025.9.1)
+Requirement already satisfied: referencing&gt;=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=4.19.0-&gt;chromadb) (0.37.0)
+Requirement already satisfied: rpds-py&gt;=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema&gt;=4.19.0-&gt;chromadb) (0.30.0)
+Requirement already satisfied: six&gt;=1.9.0 in /usr/local/lib/python3.12/dist-packages (from kubernetes&gt;=28.1.0-&gt;chromadb) (1.17.0)
+Requirement already satisfied: python-dateutil&gt;=2.5.3 in /usr/local/lib/python3.12/dist-packages (from kubernetes&gt;=28.1.0-&gt;chromadb) (2.9.0.post0)
+Requirement already satisfied: websocket-client!=0.40.0,!=0.41.*,!=0.42.*,&gt;=0.32.0 in /usr/local/lib/python3.12/dist-packages (from kubernetes&gt;=28.1.0-&gt;chromadb) (1.9.0)
+Requirement already satisfied: requests in /usr/local/lib/python3.12/dist-packages (from kubernetes&gt;=28.1.0-&gt;chromadb) (2.33.1)
+Requirement already satisfied: requests-oauthlib in /usr/local/lib/python3.12/dist-packages (from kubernetes&gt;=28.1.0-&gt;chromadb) (2.0.0)
+Requirement already satisfied: urllib3!=2.6.0,&gt;=1.24.2 in /usr/local/lib/python3.12/dist-packages (from kubernetes&gt;=28.1.0-&gt;chromadb) (2.5.0)
+Requirement already satisfied: durationpy&gt;=0.7 in /usr/local/lib/python3.12/dist-packages (from kubernetes&gt;=28.1.0-&gt;chromadb) (0.10)
+Requirement already satisfied: flatbuffers in /usr/local/lib/python3.12/dist-packages (from onnxruntime&gt;=1.14.1-&gt;chromadb) (25.12.19)
+Requirement already satisfied: protobuf in /usr/local/lib/python3.12/dist-packages (from onnxruntime&gt;=1.14.1-&gt;chromadb) (5.29.6)
+Requirement already satisfied: importlib-metadata&lt;8.8.0,&gt;=6.0 in /usr/local/lib/python3.12/dist-packages (from opentelemetry-api&gt;=1.2.0-&gt;chromadb) (8.7.1)
+Requirement already satisfied: googleapis-common-protos~=1.57 in /usr/local/lib/python3.12/dist-packages (from opentelemetry-exporter-otlp-proto-grpc&gt;=1.2.0-&gt;chromadb) (1.74.0)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.41.1 in /usr/local/lib/python3.12/dist-packages (from opentelemetry-exporter-otlp-proto-grpc&gt;=1.2.0-&gt;chromadb) (1.41.1)
+Requirement already satisfied: opentelemetry-proto==1.41.1 in /usr/local/lib/python3.12/dist-packages (from opentelemetry-exporter-otlp-proto-grpc&gt;=1.2.0-&gt;chromadb) (1.41.1)
+Requirement already satisfied: opentelemetry-semantic-conventions==0.62b1 in /usr/local/lib/python3.12/dist-packages (from opentelemetry-sdk&gt;=1.2.0-&gt;chromadb) (0.62b1)
+Requirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2.0-&gt;chromadb) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2.0-&gt;chromadb) (2.41.4)
+Requirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2.0-&gt;chromadb) (0.4.2)
+Requirement already satisfied: python-dotenv&gt;=0.21.0 in /usr/local/lib/python3.12/dist-packages (from pydantic-settings&gt;=2.0-&gt;chromadb) (1.2.2)
+Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich&gt;=10.11.0-&gt;chromadb) (4.0.0)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich&gt;=10.11.0-&gt;chromadb) (2.20.0)
+Requirement already satisfied: huggingface-hub&lt;2.0,&gt;=0.16.4 in /usr/local/lib/python3.12/dist-packages (from tokenizers&gt;=0.13.2-&gt;chromadb) (1.11.0)
+Requirement already satisfied: click&gt;=8.2.1 in /usr/local/lib/python3.12/dist-packages (from typer&gt;=0.9.0-&gt;chromadb) (8.3.3)
+Requirement already satisfied: shellingham&gt;=1.3.0 in /usr/local/lib/python3.12/dist-packages (from typer&gt;=0.9.0-&gt;chromadb) (1.5.4)
+Requirement already satisfied: annotated-doc&gt;=0.0.2 in /usr/local/lib/python3.12/dist-packages (from typer&gt;=0.9.0-&gt;chromadb) (0.0.4)
+Requirement already satisfied: httptools&gt;=0.6.3 in /usr/local/lib/python3.12/dist-packages (from uvicorn[standard]&gt;=0.18.3-&gt;chromadb) (0.7.1)
+Requirement already satisfied: uvloop&gt;=0.15.1 in /usr/local/lib/python3.12/dist-packages (from uvicorn[standard]&gt;=0.18.3-&gt;chromadb) (0.22.1)
+Requirement already satisfied: watchfiles&gt;=0.20 in /usr/local/lib/python3.12/dist-packages (from uvicorn[standard]&gt;=0.18.3-&gt;chromadb) (1.1.1)
+Requirement already satisfied: websockets&gt;=10.4 in /usr/local/lib/python3.12/dist-packages (from uvicorn[standard]&gt;=0.18.3-&gt;chromadb) (15.0.1)
+Requirement already satisfied: filelock&gt;=3.10.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0,&gt;=0.16.4-&gt;tokenizers&gt;=0.13.2-&gt;chromadb) (3.29.0)
+Requirement already satisfied: fsspec&gt;=2023.5.0 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0,&gt;=0.16.4-&gt;tokenizers&gt;=0.13.2-&gt;chromadb) (2025.3.0)
+Requirement already satisfied: hf-xet&lt;2.0.0,&gt;=1.4.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub&lt;2.0,&gt;=0.16.4-&gt;tokenizers&gt;=0.13.2-&gt;chromadb) (1.4.3)
+Requirement already satisfied: zipp&gt;=3.20 in /usr/local/lib/python3.12/dist-packages (from importlib-metadata&lt;8.8.0,&gt;=6.0-&gt;opentelemetry-api&gt;=1.2.0-&gt;chromadb) (3.23.1)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py&gt;=2.2.0-&gt;rich&gt;=10.11.0-&gt;chromadb) (0.1.2)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests-&gt;kubernetes&gt;=28.1.0-&gt;chromadb) (3.4.7)
+Requirement already satisfied: oauthlib&gt;=3.0.0 in /usr/local/lib/python3.12/dist-packages (from requests-oauthlib-&gt;kubernetes&gt;=28.1.0-&gt;chromadb) (3.3.1)</code></pre>
+</div>
+</div>
+<div id="cell-19" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> chromadb</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>chroma_client <span class="op">=</span> chromadb.Client()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-20" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set your OPENAI_API_KEY environment variable</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> chromadb.utils.embedding_functions <span class="im">import</span> OpenAIEmbeddingFunction</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> chroma_client.create_collection(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"my_tube"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    embedding_function<span class="op">=</span>OpenAIEmbeddingFunction(</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        model_name<span class="op">=</span><span class="st">"text-embedding-3-small"</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-21" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>qU langchain<span class="op">-</span>chroma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-22" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_chroma <span class="im">import</span> Chroma</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>vector_store <span class="op">=</span> Chroma(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    collection_name<span class="op">=</span><span class="st">"example_collection"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    embedding_function<span class="op">=</span>embeddings,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    persist_directory<span class="op">=</span><span class="st">"./chroma_langchain_db"</span>,  <span class="co"># Where to save data locally, remove if not necessary</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-23" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:12022,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778056368100,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="61f34a30-4146-4650-e891-d9b6dd41cfc7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data for ChromaDB</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We need lists of documents, metadatas, and unique IDs</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># doc_metadatas = [doc.metadata for doc in docs]</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># doc_contents = [doc.page_content for doc in docs]</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>doc_ids <span class="op">=</span> [<span class="ss">f"id_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(docs))]</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>vector_store.add_documents(</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    documents<span class="op">=</span>docs,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>doc_ids</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>['id_0', 'id_1', 'id_2', 'id_3', 'id_4', 'id_5', 'id_6']</code></pre>
+</div>
+</div>
+<div id="cell-24" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>retriever <span class="op">=</span> vector_store.as_retriever(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    search_type<span class="op">=</span><span class="st">'similarity'</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    search_kwargs<span class="op">=</span>{</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'k'</span>: <span class="dv">3</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"what is static typing?"</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Query in natural language</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>relevant_docs <span class="op">=</span> retriever.invoke(query)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-25" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:10,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778056896340,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="45e07198-6512-440e-cd50-4fe5e3dc0157">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(relevant_docs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="58">
+<pre><code>3</code></pre>
+</div>
+</div>
+<div id="cell-26" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:8135,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778056655324,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="eabdfc53-17e6-4b2f-b065-9aba26c773a8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install <span class="op">-</span>qqq langchain_openai</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre>   <span class="ansi-bright-black-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">0.0/98.6 kB</span> <span class="ansi-red-fg">?</span> eta <span class="ansi-cyan-fg">-:--:--</span>
+   <span class="ansi-bright-black-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">98.6/98.6 kB</span> <span class="ansi-red-fg">2.9 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+
+</pre>
+</div>
+</div>
+</div>
+<div id="cell-27" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_openai <span class="im">import</span> ChatOpenAI</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># OpenRouter chat model</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> ChatOpenAI(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"nvidia/nemotron-3-nano-30b-a3b:free"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    base_url<span class="op">=</span><span class="st">"https://openrouter.ai/api/v1"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    api_key<span class="op">=</span>os.environ[<span class="st">'OPENROUTER_API_KEY'</span>],</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-28" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>msg <span class="op">=</span> llm.invoke(<span class="st">"Which model provider do you come from? and what time is it now? asnwer in one sentence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:13,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778056750363,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="216017a7-9dee-4bb6-e38d-2c0f2e321e3c">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(msg.content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>I am a model from NVIDIA, and I don’t have real‑time access to the current time.</code></pre>
+</div>
+</div>
+<div id="cell-31" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">You are an expert assistant. Use the following pieces of retrieved context to answer the question.</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">If you don't know the answer or if the answer is not contained within the text, just say that you don't know - do not try to make up an answer.</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="st">Context:</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="sc">{context}</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="st">Question: </span><span class="sc">{question}</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="st">Answer:</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>.<span class="bu">format</span>(</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    context<span class="op">=</span><span class="st">'</span><span class="ch">\n\n</span><span class="st">'</span>.join([<span class="st">'&lt;Document&gt;'</span> <span class="op">+</span> d.page_content <span class="op">+</span> <span class="st">'&lt;/Document&gt;'</span> <span class="cf">for</span> d <span class="kw">in</span> relevant_docs]),</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    question<span class="op">=</span>query</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-32" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:82,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778057141442,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="256bbb09-bc1a-458b-a1d8-b9a2544c40a7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(prompt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+You are an expert assistant. Use the following pieces of retrieved context to answer the question.
+If you don't know the answer or if the answer is not contained within the text, just say that you don't know - do not try to make up an answer.
+
+Context:
+&lt;Document&gt;In programming, the term polymorphism refers to the ability of an operation or function to accept a varied number of inputs and or varied types of inputs and possibly change its behavior in these different cases. So, for example, in Pigeon, the print operator is polymorphic in that it accepts different types of inputs. You can pass a string, a number, or a boolean, and whatever you pass, the print operator will print a text representation of that value on the console. In the case of print, the operator does basically the same thing no matter the type of input, but in principle, a polymorphic operation or function can do totally different things depending upon the number and or types of inputs. Say in Pigeon you want to write a function which changes its behavior depending upon whether its first argument is a number or not. Well, if we have an operation called isNum, which returns true when its operand is a number, then we can simply test if the parameter is a number and branch accordingly. So when we invoke this function foo with a number for the first argument, the first branch will execute, but if we invoke the function foo with something else for the first argument, it will take the other branch. In these two branches, we of course can do entirely different things if we like. In fact, we could have one branch return one type of value and the other branch return a different type of value. So a polymorphic function or operation might change what type of value it returns depending upon the type or number of the inputs. The obstacle to polymorphism in static languages, of course, is that each function parameter must have a single declared type. To allow for polymorphism then, a static language must allow us to create multiple versions of the same function. For example, to make a function foo that accepts either one number argument or one string argument, we actually create two separate versions of foo, one with a single number parameter and one with a single string parameter. In truth, it's probably best to think of the two versions of the function as really just separate functions that happen to share the same name. Despite sharing the same name, the compiler can distinguish between calls to one or the other by the argument types. A call with a number argument is of course meant to invoke the version of foo with a number parameter, and a call with a string argument is of course meant to invoke the version of foo with a string parameter. As for creating a function which takes a varied number of arguments, in JavaScript we can pass a function as few arguments as we like, and in the function, any parameters that get no argument have the value undefined, and the length of the arguments array tells us how many arguments actually got passed in. So we can branch in the function based on the number of arguments passed. Though pidgin requires us to always pass the same number of arguments as a function has parameters, we could sort of fake passing a varied number of arguments in pidgin by testing the trailing parameters for null. Here for example, when we invoke the function with null as the second argument, the second argument is tested, and if it's null, the function runs one branch but otherwise runs the other. So it's not strictly a function that takes a variable number of arguments, but passing in null for dummy values pretty much achieves the same effect. In static languages, to make a function foo that accepts either one number argument or two number arguments, we create two separate versions of foo, one with a single number parameter and one with two number parameters. Be clear then that in a static language, the compiler or interpreter determines which function to call, not just by the function name, but also by the number and types of arguments. Together, a function's name, number of parameters, parameter types, and the order of those parameter types are often called the function's signature, because together they uniquely identify the function when the compiler or interpreter matches function calls to functions. Obviously then, we can't have multiple functions with the same signature, because then the compiler or interpreter wouldn't be able to distinguish between calls to those functions. Notice that we said a function's order of its parameter types is part of its signature. What this means is we can have functions with signatures that only differ by the order of their types. For instance, a function foo with a string parameter followed by a number parameter has a different signature than a function foo with a number parameter followed by a string parameter. Note though that a function's return type is not part of its signature. So when we create multiple versions of a function, those versions can have different return types as we please. Here, the different versions of foo have totally different return types. In addition to classifying languages by whether their typing systems are dynamic or static, we also classify languages by whether their type systems are weak or strong. In a weakly typed language, the programmer can manipulate the bytes of any data value as they like. For example, in assembly languages, which are the primary examples of weakly typed languages, it's possible to take, say, a string in memory and multiply all the bytes together of that string. Or, say, we can modify the string by flipping the third bit of every byte. The problem with doing these sorts of things is that we are not treating the data, in this case what's meant to be a string, in a way appropriate to its type. Whatever character set is used, and whatever encoding is used, it really never makes any sense to multiply together the bytes of a string. The result just doesn't have any meaning. Similarly, if you flip every third bit in each byte, the end result is generally garbage. There's really no scenario in which doing this would be useful. The point, though, is that a language with weak typing lets us do whatever we want with the bits of our data, whether useful or not. The key idea in strong typing is that data types are defined, not just by how they represent their information as bits, but also by the operations meant to be performed upon values of that type. The thinking behind strong typing is that, because arbitrary manipulation of data may lead to errors, a language should preclude such errors by allowing the programmer to do nothing with a data value except perform those operations defined for its type. So, for example, the built-in types of JavaScript are strongly typed, such that we can't do anything with, say, arrays, except perform the operations defined to work on arrays. We can't just manipulate the bits of a JavaScript array as we please. In weakly typed languages, the tradeoff is made that, well, yes, programmers might make mistakes, but sometimes programmers want the flexibility of complete control. These two distinctions, between weak typing and strong typing, and static typing and dynamic typing, are often confused. So be clear, the difference is this. Static typing makes it possible to detect type errors before running the code, while dynamic typing does not. In contrast, weak typing allows the arbitrary manipulation of the bits of any piece of data, while strong typing does not. In principle, a language can have any combination of the two. Python, for example, combines strong typing and dynamic typing, while Java combines strong typing and static typing, and C combines weak typing and static typing. However, there's no language I know of which combines weak typing and dynamic typing.&lt;/Document&gt;
+
+&lt;Document&gt;A computer program, ultimately, is made up of machine code, binary instructions which are read and executed by the CPU. In the earliest days of computers, back in the 1940s, these machine instructions were input by flipping switches and moving vacuum tube plugs around. This of course was extremely clumsy because it required a lot of work by hand every time you wanted to run a program. So to fix this, computers began to store code on punch cards. A punch card is just a thick piece of paper with perforated holes and patterns to denote data, and programs can be stored as stacks of punch cards to feed into the machine. The process of creating these punch cards was still extremely tedious, and it was a huge headache when a stack got out of order, but at least now a program could be loaded multiple times without manually inputting each instruction one by one. In the 1960s, computers began to use terminals, devices which combined an electronic keyboard with some kind of text display. The earlier terminals printed out text on paper, later terminals introduced electronic screens, though usually these screens could only display monochromatic text, not graphical images. Also in the 60s, computers began to store code and data on electronic mediums, most commonly magnetic tape. In combination with electronic screen terminals, computer users, for the first time, could read and write text directly on the machine. So the question is, how does text entry help us write machine code? Well, one answer is to use a hex editor, a program which allows us to create and edit a file byte by byte using hex notation. While feasible, this approach is very impractical. Even if you are extremely familiar with the machine code of the processor for which you're working, it's just very taxing and cumbersome to write code directly in binary form. The better solution is to use what's called an assembly language. In an assembly language, each binary instruction is expressed in a more human-riddle way, usually as short mnemonics. For example, an ADD instruction is commonly denoted with the mnemonic ADD. Of course, the machine can't execute text data, so this text has to be translated somehow into binary instructions. We call this translation process assembly, hence the term assembly language. Here's the Hello World program written in an assembly language. A Hello World program, recall, simply prints the words Hello World on the screen. Understand that assembly code is always processor-specific, because the binary instructions for one processor differ from the binary instructions for another. In fact, there really is no such thing as the assembly language, there are different assembly languages for different processors. Collectively though, they're often called assembly language. So there's assembly for x86 processor, assembly for ARM processors, for MISP processors, and so forth. This particular example is x86 code. Also understand that system calls are operating system-specific, so assembly code written to run on one operating system generally won't run on another. This code here is written to run on Linux, so even though it's x86 code, it won't run on Microsoft Windows. Like in all programming languages, the assembly code written as text by the programmer is known as source code. The computer, of course, can't directly execute this code, rather the source code must be translated to machine code by a program called an assembler. For any particular processor, there may be multiple assemblers available, and the precise assembly language understood by one assembler may differ from the assembly understood by another assembler for that same processor. For example, one popular x86 assembler is Microsoft's assembler, often called Masm. Code written for the Microsoft assembler won't be understood by other x86 assemblers. So assembly code is not only processor and OS specific, it's also assembler specific. In any case, let's say our source code is written in a file called hello.asm. When we run this file through the assembler, what we get out is not an executable file, but rather what's called an object file. To produce an actual executable file, we run the object file through another program called a linker. The reason for this extra step is that, in practice, we usually write the code of a program in multiple source files, files which we may wish to assemble independently. For example, if I've written my code in two files, foo.asm and bar.asm, and I want to produce one single executable file, here called baz, I first run each source file through the assembler independently, producing an object file for each, and then those two object files are run together through the linker, producing the executable. A linker is so named because it must resolve the links in code between the object files. Although we may write our code in separate source files, the code of our program is interdependent, such that code in one source file may invoke code written in another. For example, in foo, we might invoke a function defined in bar, but because the source files are assembled independently, the assembler can't know the actual address of the function in bar when assembling foo. What the assembler does then is leave a stub address where the function is invoked. Later, the linker will fill in these stubs with actual addresses. Now we could just combine the linking and the assembly phases together in one single program, so that we don't have to run two separate programs. However, we'd like to keep the processes separate so that we can minimize work when we make code changes by assembling only the source files we've changed, then linking those new object files with the other object files. By default, when a process runs, code in its address space comes just from the single executable file which launched the program. However, modern operating systems, like Windows and Linux, allow programs to link in code from other files during execution. These files of code are called dynamic linking libraries on Windows, denoted with a file extension .dll, and shared object files on Linux, denoted with a file extension .so. More generally, they are sometimes called shared libraries. To make use of shared libraries requires instructing the linker to leave some stubs in the executable for the operating system to dynamically link at runtime. To create a shared library file, we simply run the object files we want to include in that library through a linker with the appropriate options. So you may be wondering, why would we want to use shared libraries in dynamic linking? Why not just statically link everything into one executable file? Well, one reason is to avoid producing needlessly large executable files. The concern these days, though, is not that the executable files will waste storage space – storage space today is very, very cheap – the real concern is memory usage. When multiple programs running simultaneously all make use of the same common code, it saves memory to load only one copy of that shared code. And this is exactly what modern operating systems allow us to do with shared libraries. When multiple processes all use the same shared library, the library is included in each process's address space in their virtual memory, but the actual code is stored just once in physical memory.&lt;/Document&gt;
+
+&lt;Document&gt;In programming, paradigm refers to a fundamental approach, a style, of considering and solving problems. Most programming follows either an imperative paradigm or alternatively a functional paradigm, and at the same time most programming follows either a procedural paradigm or alternatively an object-oriented paradigm. So like with static vs. dynamic typing and weak vs. strong typing, we have four combinations and procedural, imperative and object-oriented, functional and procedural, or functional and object-oriented. The distinction between the imperative and functional paradigms is that in the functional paradigm you're not supposed to modify state. It's called functional programming not because it has a monopoly on functions, imperative programming has functions too, it's just that functions in the functional paradigm are meant to conform to functions in the pure mathematical sense. In mathematics, a function, strictly defined, is meant to be idempotent, meaning that no matter when a function is called or how many times, that function should always return the same value for a given set of arguments. For example, a function foo called with the argument 5 should always return the same value no matter how many times we call the function or when. Moreover, a function, in the pure mathematical sense, produces a return value but otherwise has no effect on the world outside it. In functional programming, each function is meant to be a pure black box that takes input and returns output but otherwise has no other contact with anything outside itself, such that a function call does not affect, and is not affected by, the outside world. And be clear that the outside world includes not just the objects and variables outside the function, but also any input and output devices or data storage, such as a console or a file. Now the obvious problem with the functional ideal is that programs only do useful work by reading and writing data outside themselves, in other words, by modifying state. You can write a brilliant program which computes the meaning of life, but if the program doesn't display the meaning of life on a screen, or write it to a file, or send it across a network connection, or just in some way get the data to the world outside the program, then it doesn't matter that we've computed the secret of life, the secret will just sit there in the program memory and when the program terminates it will just disappear. So the very thing which the functional ideal prohibits, talking to the outside world, are programs need to do in one way or another. In truth then, what the functional paradigm is really about is minimizing state change by confining it to subsections of our program. The cost of doing this can be quite high, as confining state change is a tricky thing to do, but the benefit is that the purely functional portions of your code will be easier to understand, modify, and correct. Having now defined the functional paradigm, we can easily define the imperative paradigm as the opposite style, the style of programming in which we do not attempt to confine state change. I guess the imperative paradigm is the default style used in the large majority of code, as it's simply the more straightforward way of getting work done. The simplest way to think of the distinction between procedural programming and object-oriented programming is that in the procedural style we think in terms of action before data, whereas in the object-oriented style we think in terms of data before action. When programming in the procedural style, a programmer thinks first of what functions they need, and then secondarily thinks about the data types those functions will operate upon. In contrast, when programming in the object-oriented style, the programmer thinks first of what data types they need, and then secondarily thinks about the functions to operate upon those data types. This inversion of priorities may sound like just doing the same work out of order, but as we'll discuss in the video about object-oriented programming, the styles really do produce different program structures. So given our two pairs of paradigms, we have four possible combinations. Imperative Procedural Programming, Imperative Object-Oriented Programming, Functional Procedural Programming, and Functional Object-Oriented Programming. While Imperative Programming is much more popular than Functional Programming, Procedural Programming and Object-Oriented Programming are perhaps about evenly popular. I would say Imperative Object-Oriented Code is most common today, but Imperative Procedural Code follows close behind. The rules of a language, we call it syntax and semantics. Syntaxical rules concern the arrangement of the code text, whereas semantic rules concern the meaning behind that text. In practice though, learning to program in a language is about more than its rules. You must also familiarize yourself with its libraries and learn the essential associated tools. A library in programming is a body of pre-existing code. In practice, when we write a program, we don't want to have to write everything from scratch, so we often use library code for common functionality. For instance, most programs do something with files, and it would be silly if we had to write all the code ourselves to open and write files. Using a library, we should be able to read and write files by simply invoking a few pre-existing functions provided for us. Most languages have what is called a standard library, or core library, meaning a set of library code that comes stock as part of the language. In the C language, for example, your C compiler should come with the C standard libraries. For functionality not covered by the standard library, we can often use other libraries. While some of these libraries may require licensing fees, many free open source libraries are very popular for all sorts of functionality. The term tool in programming generically refers to any sort of program which programmers use to develop software. At a minimum, you'll need a text editor to write your source code, and a compiler or interpreter to run your source code. While basic usage of these tools is generally straightforward, they typically have many complex advanced features. While the choice of compiler or interpreter is of course language specific, you can generally write code for any language with your favorite text editor. Some programmers prefer basic editors like Windows Notepad, but others prefer very complicated editors like Emacs or VI, both of which have very steep learning curves. A debugger is a program that helps programmers track down the cause of bugs by executing code step by step while reporting what's happening in the program memory. A profiler is a program that helps programmers optimize their code by measuring the performance of code. By identifying the bottlenecks in their code, programmers can better optimize by focusing their optimizations on the right parts. A version control system helps programmers manage their files of code as they create and modify them over time. The basic idea is that the programmer can store a snapshot of the current state of their code in what's called a repository, such that at any future point the programmer can later retrieve this version of their code. These version control systems also greatly help teams of developers coordinate their changes to code. Lastly, an IDE, an integrated developer environment, is basically a program which combines all or some of this functionality into one program. Arguably, IDEs are just elaborate text editors with conveniences, such as hotkeys for running your compiler or debugger. While some programmers swear by their favorite IDE, other programmers insist on keeping their tools separate.&lt;/Document&gt;
+
+Question: what is static typing?
+
+Answer:
+</code></pre>
+</div>
+</div>
+<div id="cell-33" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>answer_msg <span class="op">=</span> llm.invoke(prompt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:34,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778057188556,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="82a817dd-9129-4df2-ee24-986cf7041c4d">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(answer_msg.content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Static typing is atype‑system property in which the types of variables, expressions, and function signatures are known and checked at **compile‑time** (or at link‑time). Because the type information is fixed before the program runs, many type‑related errors can be detected before execution, unlike in dynamically typed languages where type checking occurs only at runtime. This enables early error detection and often improves tooling support, but it also requires that each function parameter (and often each variable) have a single, declared type.</code></pre>
+</div>
+</div>
+<div id="cell-35" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rag_workflow(query: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    relevant_docs <span class="op">=</span> retriever.invoke(query)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="st">You are an expert assistant. Use the following pieces of retrieved context to answer the question.</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="st">If you don't know the answer or if the answer is not contained within the text, just say that you don't know - do not try to make up an answer.</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="st">Tone: passive aggressive</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="st">Style: comdeic</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="st">Length: concise and short</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="st">Language: Arabic</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="st">Context:</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="sc">{context}</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="st">Question: </span><span class="sc">{question}</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="st">Answer:</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>.<span class="bu">format</span>(</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>    context<span class="op">=</span><span class="st">'</span><span class="ch">\n\n</span><span class="st">'</span>.join([<span class="st">'&lt;Document&gt;'</span> <span class="op">+</span> d.page_content <span class="op">+</span> <span class="st">'&lt;/Document&gt;'</span> <span class="cf">for</span> d <span class="kw">in</span> relevant_docs]),</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>    question<span class="op">=</span>query</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>    ai_msg <span class="op">=</span> llm.invoke(prompt)</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ai_msg.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;executionInfo&quot;,&quot;value&quot;:{&quot;elapsed&quot;:1647,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1778057891256,&quot;user&quot;:{&quot;displayName&quot;:&quot;Hassan Algoz&quot;,&quot;userId&quot;:&quot;16240238276851545016&quot;},&quot;user_tz&quot;:-180}}" data-outputid="5a55caaf-56c0-4a56-af91-c6fc4b1f2700">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>answer <span class="op">=</span> rag_workflow(query<span class="op">=</span><span class="st">"how important is oop?"</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(answer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>أوه، OOP؟ بالتأكيد لا غنى عنه… إذا كان هدفك أن تُعقّد الكود وتستمتع بمطاردة الأخطاء طوال الليل. 🙄</code></pre>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

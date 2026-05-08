@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>M2.Ex4: Automatic Speech Recognition (ASR) – Applied AI Bootcamp</title>
+<title>M3.Ex1: Speech RAG – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M2.Ex4: Automatic Speech Recognition (ASR)</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">M3.Ex1: Speech RAG</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,7 +152,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#task-1-youtube" id="toc-task-1-youtube" class="nav-link active" data-scroll-target="#task-1-youtube">Task 1: YouTube</a></li>
+  <li><a href="#task-1-from-speech-to-text-stt" id="toc-task-1-from-speech-to-text-stt" class="nav-link active" data-scroll-target="#task-1-from-speech-to-text-stt">Task 1: From Speech to Text (STT)</a></li>
+  <li><a href="#task-2-vector-store" id="toc-task-2-vector-store" class="nav-link" data-scroll-target="#task-2-vector-store">Task 2: Vector Store</a></li>
   </ul>
 </nav>
     </div>
@@ -161,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">M2.Ex4: Automatic Speech Recognition (ASR)</h1>
+<h1 class="title">M3.Ex1: Speech RAG</h1>
 </div>
 
 
@@ -178,18 +179,34 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="task-1-youtube" class="level2">
-<h2 class="anchored" data-anchor-id="task-1-youtube">Task 1: YouTube</h2>
-<p>Your task is to come up with a non-trivial use case for this and implement it.</p>
+<p>Goal: implement RAG system on speech data.</p>
+<p>Method: first convert from speech to text, then do simple text RAG.</p>
+<p>A practical use case: <a href="https://docling-project.github.io/docling/usage/processing_audio_media/#a-practical-use-case-searchable-meeting-archives">searchable meeting archives</a>.</p>
+<section id="task-1-from-speech-to-text-stt" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-from-speech-to-text-stt">Task 1: From Speech to Text (STT)</h2>
+<p>Step 1. Load YouTube Playlist.</p>
+<ul>
+<li>a playlist of YouTube videos (or one long)</li>
+</ul>
+<p>Step 2. Run a transcription (STT) like OpenAI Whisper on the audio file to generate the text.</p>
+<p>Note: if you run into problems with the STT model. Try a list of pdf/pptx presentations (or one long). When you finish the sub-sequent steps, you can get back to fix this one.</p>
 <p>LangChain offers three integrations with YouTube:</p>
 <ul>
-<li><a href="https://docs.langchain.com/oss/python/integrations/document_loaders/yt_dlp">YoutubeLoaderDL integration</a></li>
+<li><a href="https://docs.langchain.com/oss/python/integrations/document_loaders/yt_dlp"><del>YoutubeLoaderDL integration</del></a> (<a href="https://github.com/langchain-ai/docs/issues/3883">GitHub Issue</a>)</li>
 <li><a href="https://docs.langchain.com/oss/python/integrations/document_loaders/youtube_audio">YouTube audio integration</a></li>
 <li><a href="https://docs.langchain.com/oss/python/integrations/document_loaders/youtube_transcript">YouTube transcripts integration</a></li>
 </ul>
 <p>However, feel free to use any PyPi package, even if not listed in the LangChain integrations.</p>
-<p>See: <a href="https://developers.google.com/youtube/v3">YouTube Data API</a>.</p>
-<p>Note: you should handle the case for when the <strong>video has no transcription</strong>, by running <a href="https://docling-project.github.io/docling/usage/processing_audio_media/">Docling’s ASR Pipeline</a>.</p>
+<p>You might go for <a href="https://docling-project.github.io/docling/usage/processing_audio_media/">Docling’s ASR Pipeline</a> for For consistency with other pipeilines.</p>
+<p>Want to go further with the exercise? Explore the <a href="https://developers.google.com/youtube/v3">YouTube Data API</a>.</p>
+</section>
+<section id="task-2-vector-store" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-vector-store">Task 2: Vector Store</h2>
+<p>Goal: Replace the <code>InMemoryVectorStore</code> in the previous RAG Pipeline with ChromaDB instead.</p>
+<p>Step 1. Make persistent <a href="https://docs.trychroma.com/docs/overview/introduction">ChromaDB</a> vector store on disk.</p>
+<p>Step 2. Ingest the documents into the vector store.</p>
+<p>Step 3. Query the documents by embeddings to find similar ones.</p>
+<p>Step 4. Verify the database is kept when you restart the program, and that they embedding are not re-computed again.</p>
 
 
 </section>

@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Embeddings</title>
+  <title>Applied AI Bootcamp – RAG: Retrieval Augmented Generation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -135,15 +135,14 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Embeddings</h1>
+  <h1 class="title">RAG: Retrieval Augmented Generation</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section>
-<section id="rag-retrieval-augmented-generation" class="title-slide slide level1 center scrollable">
-<h1>RAG: Retrieval Augmented Generation</h1>
+<section class="slide level2 scrollable">
+
 <p>One of the most useful applications enabled by LLMs is sophisticated question-answering (Q&amp;A) chatbots. These are applications that can answer questions about specific source information.</p>
 <ul>
 <li class="fragment">Large Language Models (LLMs) are useful, but they have two key limitations:
@@ -174,12 +173,14 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="01_embeddings_slides_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="01_embeddings_slides_files/figure-revealjs/mermaid-figure-1.png" style="width:7.85in;height:1.81in"></a></p>
+<p><a href="01_rag_slides_files/figure-revealjs/mermaid-figure-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="01_rag_slides_files/figure-revealjs/mermaid-figure-1.png" style="width:7.85in;height:1.81in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
+</div>
+</section>
 <section id="rag-workflow" class="slide level2">
 <h2>RAG Workflow</h2>
 <p>A simple RAG from question to answer, is shown below:</p>
@@ -188,7 +189,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="01_embeddings_slides_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="01_embeddings_slides_files/figure-revealjs/mermaid-figure-3.png" style="width:8.51in;height:1.09in"></a></p>
+<p><a href="01_rag_slides_files/figure-revealjs/mermaid-figure-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="01_rag_slides_files/figure-revealjs/mermaid-figure-3.png" style="width:8.51in;height:1.09in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -243,20 +244,12 @@
 <section id="words-as-vectors" class="slide level2">
 <h2>Words as Vectors</h2>
 <p>An embedding model may represent these two meanings using two dimensions:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/word_polysemy.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/word_polysemy.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-</section>
+
+<img data-src="../assets/word_polysemy.png" class="r-stretch quarto-figure quarto-figure-center"></section>
 <section id="vectors-and-relationships-between-words" class="slide level2">
 <h2>Vectors and relationships between words</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/king_queen_man_woman.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../assets/king_queen_man_woman.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-<ul>
+
+<img data-src="../assets/king_queen_man_woman.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
 <li class="fragment">One dimension might represent “Gender”:
 <ul>
 <li class="fragment">positive for female</li>
@@ -276,12 +269,8 @@
 <section id="embeddings-capture-syntactic-semantic-and-other-relationships" class="slide level2">
 <h2>Embeddings Capture Syntactic, Semantic, and other Relationships</h2>
 <p>When visualized in 2D, embeddings show clear structure:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/semantic_syntactic.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/semantic_syntactic.jpg" class="r-stretch quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-<p><span class="math display">\[\vec{\text{Walking}} - \vec{\text{Walk}} + \vec{\text{Swim}} \approx \vec{\text{Swimming}}\]</span> <em>Embedding models</em> learn these dimensions automatically from data. We don’t manually specify what each dimension means.</p>
+
+<img data-src="../assets/semantic_syntactic.jpg" class="r-stretch quarto-figure quarto-figure-center"><p><span class="math display">\[\vec{\text{Walking}} - \vec{\text{Walk}} + \vec{\text{Swim}} \approx \vec{\text{Swimming}}\]</span> <em>Embedding models</em> learn these dimensions automatically from data. We don’t manually specify what each dimension means.</p>
 </section>
 <section id="similarity-metrics" class="slide level2 scrollable">
 <h2>Similarity Metrics</h2>
@@ -319,12 +308,8 @@
 <section id="sentence-embeddings" class="slide level2">
 <h2>Sentence Embeddings</h2>
 <p><strong>BERT</strong> is an embedding model for a complete sentence.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/BERT.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../assets/BERT.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-</section>
+
+<img data-src="../assets/BERT.png" class="r-stretch quarto-figure quarto-figure-center"></section>
 <section id="multi-modal-embeddings" class="slide level2">
 <h2>Multi-modal Embeddings</h2>
 <ul>
@@ -377,7 +362,7 @@
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<p><a href="01_embeddings_slides_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="01_embeddings_slides_files/figure-revealjs/mermaid-figure-2.png" style="width:7.62in;height:1.81in"></a></p>
+<p><a href="01_rag_slides_files/figure-revealjs/mermaid-figure-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="01_rag_slides_files/figure-revealjs/mermaid-figure-2.png" style="width:7.62in;height:1.81in"></a></p>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -395,24 +380,14 @@
 </section>
 <section id="vector-search-filtered-nearest-neighbors" class="slide level2">
 <h2>Vector Search: Filtered Nearest Neighbors</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/vector_db_query.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../assets/vector_db_query.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-</section>
+
+<img data-src="../assets/vector_db_query.png" class="r-stretch quarto-figure quarto-figure-center"></section>
 <section id="vector-database" class="slide level2">
 <h2>Vector Database</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/vector_db.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img data-src="../assets/vector_db.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
 
 
-</section>
-</div>
-</section></section>
+
+<img data-src="../assets/vector_db.png" class="r-stretch quarto-figure quarto-figure-center"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
