@@ -40,6 +40,8 @@ flowchart LR
     S -->|retrieve| R
 ```
 
+:::
+
 ## RAG Workflow
 
 A simple RAG from question to answer, is shown below:

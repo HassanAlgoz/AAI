@@ -12,19 +12,19 @@ format:
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
-| 0 | [Introduction](./M1/lessons/00_intro.qmd) ([📽️ Video](https://www.youtube.com/watch?v=-biD9mKa1tE&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=1&pp=iAQBsAgC)) |  |  |
-| 1 | Models ([📽️ Video](https://www.youtube.com/watch?v=mVlIxti1EVk&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=2&pp=iAQBsAgC)) | [Lab](./M1/lessons/01_models.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/lessons/01_models.ipynb)) | [Ex1: Models](./M1/exercises/ex1_models.qmd) ([📽️ Video](https://www.youtube.com/watch?v=kCdqyrTNm9Y&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=3&pp=iAQBsAgC)) |
+| 0 | [Introduction](./M1/lessons/00_intro.qmd) ([📽️](https://www.youtube.com/watch?v=-biD9mKa1tE&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=1&pp=iAQBsAgC)) |  |  |
+| 1 | Models ([📽️](https://www.youtube.com/watch?v=mVlIxti1EVk&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=2&pp=iAQBsAgC)) | [Lab](./M1/lessons/01_models.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/lessons/01_models.ipynb)) | [Ex1: Models](./M1/exercises/ex1_models.qmd) ([📽️](https://www.youtube.com/watch?v=kCdqyrTNm9Y&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=3&pp=iAQBsAgC)) |
 
 ## M2. Retrieval Augmented Generation (RAG)
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
-| 1 | [Embeddings](./M3/lessons/01_rag_slides.qmd) ([📽️ Video](https://www.youtube.com/watch?v=84EQ-jE12R4&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=5&pp=iAQB0gcJCQMLAYcqIYzvsAgC)) | [Lab](./M3/lessons/02_embeddings.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_embeddings.ipynb)) |  |
-| 2 | [Simple RAG](./M3/lessons/03_rag.ipynb) |  | |
-| 3 | [RAG Pipeline](./M3/lessons/04_rag_pipeline.qmd) | [Lab](./M3/lessons/05_rag_docling.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/05_rag_docling.ipynb)) | [Ex1: RAG](./M3/exercises/ex1_rag.qmd) ([📽️ Video 1](https://www.youtube.com/watch?v=0I-MJKZRyZc&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=7&pp=iAQBsAQBsAgC) & [📽️ Video 2](https://www.youtube.com/watch?v=yh79C30lUZE&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=6&pp=iAQBsAQBsAgC)) |
-| 4 | [Data Loading Pipelines](./M2/lessons/01_docling_intro.qmd) ([📽️ Video](https://www.youtube.com/watch?v=Azy5kiHMpfc&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=4&pp=iAQB0gcJCQMLAYcqIYzvsAgC))<br>(Docling's Technical Report) |  | [Ex1: Docling](./M2/exercises/ex1_docling.qmd)<br>See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/data) for various inputs to play around with Docling. |
-|   | |  | [Ex2: VLM](./M2/exercises/ex2_VLM.qmd) |
-|   | |  | [Ex3: Enrichment](./M2/exercises/ex3_enrichment.qmd) |
+| 1 | [Embeddings](./M2/lessons/01_rag_slides.qmd) ([📽️](https://www.youtube.com/watch?v=84EQ-jE12R4&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=5&pp=iAQB0gcJCQMLAYcqIYzvsAgC)) | [Lab](./M2/lessons/02_embeddings.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M2/lessons/02_embeddings.ipynb)) |  |
+| 2 | [Simple RAG](./M2/lessons/03_rag.ipynb) |  | |
+| 3 | [RAG Pipeline](./M2/lessons/04_rag_pipeline.qmd) | [Lab](./M2/lessons/05_rag_docling.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M2/lessons/05_rag_docling.ipynb)) | [Ex1: RAG](./M2/exercises/ex1_rag.qmd) ([📽️ 1](https://www.youtube.com/watch?v=0I-MJKZRyZc&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=7&pp=iAQBsAQBsAgC) & [📽️ 2](https://www.youtube.com/watch?v=yh79C30lUZE&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=6&pp=iAQBsAQBsAgC)) |
+| 4 | [Data Loading Pipelines](./M2/lessons/01_docling_intro.qmd) ([📽️](https://www.youtube.com/watch?v=Azy5kiHMpfc&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=4&pp=iAQB0gcJCQMLAYcqIYzvsAgC))<br>(Docling's Technical Report) |  | [Ex2: Docling](./M2/exercises/ex1_docling.qmd)<br>See: [tests/data](https://github.com/docling-project/docling/tree/main/tests/data) for various inputs to play around with Docling. |
+|   | |  | [Ex3: VLM](./M2/exercises/ex2_VLM.qmd) |
+|   | |  | [Ex4: Enrichment](./M2/exercises/ex3_enrichment.qmd) |
 
 Extra Resources:
 
@@ -35,12 +35,12 @@ Extra Resources:
 
 | \# | Lesson | Lab | Exercise |
 |---------------|---------------|---------------|---------------|
-| 1 | [Agents](./M4/lessons/01_agents_slides.qmd) ([📽️ Video](https://www.youtube.com/watch?v=_hjiYZJ6KhA&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=8&pp=iAQBsAgC)) | [Lab: Agent with internet search](./M4/lessons/02_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/02_agent.ipynb)) | |
-|   |   | [Lab: Agent with SQL Toolkit](./M4/lessons/03_build_sql_agent.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/03_build_sql_agent.ipynb)) ([📽️ Video](https://www.youtube.com/watch?v=EukJsreGMbE&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=9&pp=iAQBsAgC)) | |
-| 2 | Supervisor Agent Pattern<br>(*Sub-agents*) | [Lab](./M4/lessons/06_subagents.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/06_subagents.ipynb)) ([📽️ Video](https://www.youtube.com/watch?v=vrSp6gVXKvk&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=10&pp=iAQBsAQBsAgC)) |  |  |
-| 2 | Workflows | [Lab](./M1/lessons/02_workflows.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M1/lessons/02_workflows.ipynb)) | |
-| 3 | [Human-in-the-loop](./M1/lessons/03_human-in-the-loop.qmd) ([📽️ Video](https://www.youtube.com/watch?v=X_1FzF2ZCx0&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=11&pp=iAQBsAgC)) |  |  |
-| 4 | Agentic Search<br>(*Deep Research*) | [Lab](./M4/lessons/04_agentic_rag.ipynb) ([Colab](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M4/lessons/04_agentic_rag.ipynb)) ([📽️ Video](https://www.youtube.com/watch?v=vmGqxYrloUc&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=12&pp=iAQBsAQBsAgC)) |  |  |
+| 1 | [Agents](./M3/lessons/01_agents_slides.qmd) ([📽️](https://www.youtube.com/watch?v=_hjiYZJ6KhA&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=8&pp=iAQBsAgC)) | [Lab: Agent with internet search](./M3/lessons/02_agent.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_agent.ipynb)) | |
+|   |   | [Lab: Agent with SQL Toolkit](./M3/lessons/03_build_sql_agent.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/03_build_sql_agent.ipynb)) ([📽️](https://www.youtube.com/watch?v=EukJsreGMbE&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=9&pp=iAQBsAgC)) | |
+| 2 | Supervisor Agent Pattern<br>(*Sub-agents*) | [Lab](./M3/lessons/06_subagents.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/06_subagents.ipynb)) ([📽️](https://www.youtube.com/watch?v=vrSp6gVXKvk&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=10&pp=iAQBsAQBsAgC)) |  |  |
+| 2 | Workflows | [Lab](./M3/lessons/02_workflows.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/02_workflows.ipynb)) | |
+| 3 | [Human-in-the-loop](./M3/lessons/03_human-in-the-loop.qmd) ([📽️](https://www.youtube.com/watch?v=X_1FzF2ZCx0&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=11&pp=iAQBsAgC)) |  |  |
+| 4 | Agentic Search<br>(*Deep Research*) | [Lab](./M3/lessons/04_agentic_rag.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W4/M3/lessons/04_agentic_rag.ipynb)) ([📽️](https://www.youtube.com/watch?v=vmGqxYrloUc&list=PLrvHCesHYw3_mUfukmS7drOao64sJqUtx&index=12&pp=iAQBsAQBsAgC)) |  |  |
 
 ## M4. Chatbots
 
