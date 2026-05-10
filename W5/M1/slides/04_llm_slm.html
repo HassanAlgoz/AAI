@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Pipelines</title>
+  <title>Applied AI Bootcamp – Large and Small Language Models</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -201,177 +201,535 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Pipelines</h1>
+  <h1 class="title">Large and Small Language Models</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="pipeline" class="slide level2 scrollable">
-<h2>Pipeline</h2>
-<p>The <a href="../../../docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline"><code>Pipeline</code></a> is a simple but powerful <strong>inference API</strong> that is readily available for a variety of machine learning <strong>tasks</strong> with any <strong>model</strong> from the Hugging Face <a href="https://hf.co/models">Hub</a>.</p>
-<p>A pipeline wraps three things into one call:</p>
+<section id="large-language-models-llms" class="slide level2 scrollable">
+<h2>Large Language Models (LLMs)</h2>
+<p><strong>Large Language Models (LLMs)</strong> are a powerful subset of deep neural NLP models characterized by:</p>
 <ol type="1">
-<li><strong>Pre-processing</strong> – Tokenizing raw text (or processing an image/audio input).</li>
-<li><strong>Model inference</strong> – Running the fine-tuned model.</li>
-<li><strong>Post-processing</strong> – Converting raw logits/outputs into human-readable results (e.g., labels, extracted answers, or generated text).</li>
+<li>massive size (billions of parameters)</li>
+<li>extensive training data (trillions of tokens)</li>
+<li>ability to perform a wide range of language tasks</li>
 </ol>
+</section>
+<section id="original-2017-transformer" class="slide level2">
+<h2>Original 2017 Transformer</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>The <strong>encoder</strong> (left) maps an input sequence of symbol representations (tokens) to a sequence of continuous representations (vectors).</li>
+<li>The <strong>decoder</strong> (right) then generates an output sequence of symbols (tokens) one element at a time.</li>
+<li>At each step the model is auto-regressive, consuming the previously generated symbols as additional input when generating the next.</li>
+</ul>
+<p>– <a href="https://arxiv.org/abs/1706.03762">Attention is All You Need (Vaswani et al.)</a></p>
+</div><div class="column">
+<p><a href="../assets/transformer_2017.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/transformer_2017.png" class="r-stretch"></a></p>
+</div></div>
+<!-- end columns -->
+</section>
+<section id="variants-of-the-transformer" class="slide level2">
+<h2>Variants of the Transformer</h2>
 
-<img data-src="../assets/pipeline.png" class="r-stretch quarto-figure quarto-figure-center"><p>You pass in raw data and get back a structured result without touching the underlying tensors.</p>
-</section>
-<section id="example-image-segmentation-pipeline" class="slide level2">
-<h2>Example: Image Segmentation Pipeline</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a>segmenter <span class="op">=</span> pipeline(</span>
-<span id="cb1-4"><a></a>    task<span class="op">=</span><span class="st">"image-segmentation"</span>,</span>
-<span id="cb1-5"><a></a>    model<span class="op">=</span><span class="st">"facebook/detr-resnet-50-panoptic"</span></span>
-<span id="cb1-6"><a></a>)</span>
-<span id="cb1-7"><a></a>image_url <span class="op">=</span> <span class="st">"https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png"</span></span>
-<span id="cb1-8"><a></a>segments <span class="op">=</span> pipeline(image_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="example-text-classifier" class="slide level2">
-<h2>Example: Text Classifier</h2>
-<p>The following example shows a pipeline for <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=trending"><em>Text Classification</em></a>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb2-2"><a></a></span>
-<span id="cb2-3"><a></a>classifier <span class="op">=</span> pipeline(</span>
-<span id="cb2-4"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb2-5"><a></a>    model<span class="op">=</span><span class="st">"distilbert/distilbert-base-uncased-finetuned-sst-2-english"</span></span>
-<span id="cb2-6"><a></a>)</span>
-<span id="cb2-7"><a></a></span>
-<span id="cb2-8"><a></a><span class="co"># Batch inference</span></span>
-<span id="cb2-9"><a></a>classifier([</span>
-<span id="cb2-10"><a></a>    <span class="st">"I've been waiting for a HuggingFace course my whole life."</span>,</span>
-<span id="cb2-11"><a></a>    <span class="st">"I hate this so much!"</span></span>
-<span id="cb2-12"><a></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="available-pipelines-for-different-modalities" class="slide level2">
-<h2>Available pipelines for different modalities</h2>
-<p>The <code>pipeline()</code> function supports multiple modalities, allowing you to work with text, images, audio, and even multimodal tasks. In this course we’ll focus on text tasks, but it’s useful to understand the transformer architecture’s potential, so we’ll briefly outline it.</p>
+<img data-src="../assets/transformer_arch.png" class="r-stretch quarto-figure quarto-figure-center" alt="An overview of some of the most popular large language transformers organized by architecture type and developers."><p class="caption">An overview of some of the most popular large language transformers organized by architecture type and developers.</p></section>
+<section id="comparison-table" class="slide level2">
+<h2>Comparison Table</h2>
+<p>Understanding these differences will help you choose the right model for your specific task.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Task</th>
-<th>Modality</th>
-<th>Output</th>
-<th>Models</th>
-<th>Datasets</th>
+<th>Architecture</th>
+<th>Attention Style</th>
+<th>Prediction Goal</th>
+<th>Typical Use Cases</th>
+<th>Popular Models</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.AudioClassificationPipeline"><code>audio-classification</code></a></td>
-<td>Audio</td>
-<td>Classify audio into categories</td>
-<td><a href="https://huggingface.co/models?filter=audio-classification">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=audio-classification">🔗</a></td>
+<td>Encoder–decoder (2017 Original)</td>
+<td>Bidirectional (encoder) + causal (decoder)</td>
+<td>Conditional generation (output sequence given input)</td>
+<td>Translation, summarization, seq2seq</td>
+<td><a href="https://huggingface.co/docs/transformers/model_doc/bart">BART</a> - <a href="https://huggingface.co/docs/transformers/model_doc/mbart">mBART</a> - <a href="https://huggingface.co/docs/transformers/model_doc/marian">Marian</a> - <a href="https://huggingface.co/docs/transformers/model_doc/t5">T5</a></td>
 </tr>
 <tr class="even">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline"><code>image-classification</code></a></td>
-<td>Image</td>
-<td>Predicted class for an image</td>
-<td><a href="https://huggingface.co/models?filter=image-classification">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=image-classification">🔗</a></td>
+<td>Decoder-only (2018 GPT-1)</td>
+<td>Causal (masked)</td>
+<td>Next-token probability distribution</td>
+<td>Autoregressive text generation</td>
+<td><a href="https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct">Hugging Face SmolLM Series</a> - <a href="https://huggingface.co/docs/transformers/en/model_doc/llama4">Meta’s Llama Series</a> - <a href="https://huggingface.co/docs/transformers/main/en/model_doc/gemma3">Google’s Gemma Series</a> - <a href="https://huggingface.co/deepseek-ai/DeepSeek-V3">DeepSeek’s V3</a></td>
 </tr>
 <tr class="odd">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ObjectDetectionPipeline"><code>object-detection</code></a></td>
-<td>Image</td>
-<td>Locate and identify objects in images</td>
-<td><a href="https://huggingface.co/models?filter=object-detection">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=object-detection">🔗</a></td>
+<td>Encoder-only (2018 BERT)</td>
+<td>Bidirectional</td>
+<td>Contextual embeddings, not next-token prediction</td>
+<td>Classification, retrieval, NER</td>
+<td><a href="https://huggingface.co/docs/transformers/model_doc/bert">BERT</a> - <a href="https://huggingface.co/docs/transformers/model_doc/distilbert">DistilBERT</a> - <a href="https://huggingface.co/docs/transformers/en/model_doc/modernbert">ModernBERT</a></td>
 </tr>
 </tbody>
 </table>
-<p>Refer to the <a href="https://huggingface.co/docs/transformers/main/en/main_classes/pipelines">Pipelines</a> API reference for a complete list of available tasks.</p>
 </section>
-<section id="accelerator-device0-for-gpu" class="slide level2">
-<h2>Accelerator: <code>device=0</code> for GPU</h2>
-<ul>
-<li>By default a <a href="https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline">Pipeline</a> runs on a CPU which is given by <code>device=-1</code></li>
-<li>For GPU, set <code>device</code> to the associated CUDA device id. For example, <code>device=0</code> runs on the first GPU.</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb3-2"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb3-3"><a></a>    device<span class="op">=</span><span class="dv">0</span>    <span class="co"># Run on GPU</span></span>
-<span id="cb3-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="accelerator-using-accelerate-library" class="slide level2">
-<h2>Accelerator using <code>accelerate</code> library</h2>
-<ul>
-<li><a href="https://hf.co/docs/accelerate/index">Accelerate</a> is a library of <strong>distributed training</strong>.</li>
-<li>It loads and stores the model weights on the <strong>fastest device first, and then moves the weights to other devices (CPU, hard drive) as needed</strong>.</li>
-</ul>
-<p>Ensure to have <a href="https://hf.co/docs/accelerate/basic_tutorials/install">Accelerate</a> installed first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="ex">pip</span> install <span class="at">-U</span> accelerate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then you can use it with <code>device_map="auto"</code> (or <code>device="mps"</code> on Apple silicon):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb5-2"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb5-3"><a></a>    device_map<span class="op">=</span><span class="st">"auto"</span>    <span class="co"># Use Accelerate </span></span>
-<span id="cb5-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="pipeline-parameters" class="slide level2 scrollable">
-<h2>Pipeline Parameters</h2>
-<p><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#pipelines">Pipelines</a> can be configured:</p>
+<section id="modern-large-language-models-llms" class="slide level2 scrollable">
+<h2>Modern Large Language Models (LLMs)</h2>
+<p>Most LLMs today are <strong>Decoder-only</strong> with billions of parameters. Trained in two phases:</p>
 <ol type="1">
-<li><strong>Control Outputs</strong>: with task-specific parameters.</li>
-<li><strong>Optimize Processing</strong>: Pipeline supports GPUs, Apple Silicon, and half-precision weights to accelerate inference and save memory.</li>
+<li><strong>Pretraining</strong>: The model learns to predict the next token on vast amounts of text data</li>
+<li><strong>Instruction tuning</strong>: The model is fine-tuned to follow instructions and generate helpful responses</li>
+</ol>
+<p>This approach has led to models that can understand and generate human-like text across a wide range of topics and tasks.</p>
+</section>
+<section id="supervised-learning" class="slide level2">
+<h2>Supervised Learning</h2>
+<p>Training task is to mimic the human-curated: <code>(prompt, output)</code> text sequences.</p>
+<p><a href="https://arxiv.org/abs/2210.11416">FLAN T5 | Google</a>: “We finetune various language models on 1.8K tasks phrased as instructions, and evaluate them on unseen tasks”:</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Answer general knowledge questions:
+<ul>
+<li><code>Prompt: "What is the tallest building?" , Output: "The tallest building is ..."</code></li>
+</ul></li>
+<li>Translate from English to French:
+<ul>
+<li><code>Prompt: "Translate this paragraph ..." , Output: "Bonjour lemuv beleluo"</code></li>
+</ul></li>
+<li>Write code:
+<ul>
+<li><code>Prompt: "Write Python function to analyse ..." , Output: "def analyze(...)</code></li>
+</ul></li>
+</ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/FLAN-T5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/FLAN-T5.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</div></div>
+<!-- end columns -->
+</section>
+<section id="key-capabilities-of-modern-llms" class="slide level2">
+<h2>Key capabilities of modern LLMs</h2>
+<p>Modern decoder-based LLMs have demonstrated impressive capabilities, which you can experiment with <a href="https://huggingface.co/openai-community/gpt2">directly in your browser</a>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 38%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Capability</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Text generation</td>
+<td>Creating coherent and contextually relevant text</td>
+<td>Writing essays, stories, or emails</td>
+</tr>
+<tr class="even">
+<td>Summarization</td>
+<td>Condensing long documents into shorter versions</td>
+<td>Creating executive summaries of reports</td>
+</tr>
+<tr class="odd">
+<td>Translation</td>
+<td>Converting text between languages</td>
+<td>Translating English to Spanish</td>
+</tr>
+<tr class="even">
+<td>Question answering</td>
+<td>Providing answers to factual questions</td>
+<td>“What is the capital of France?”</td>
+</tr>
+<tr class="odd">
+<td>Code generation</td>
+<td>Writing or completing code snippets</td>
+<td>Creating a function based on a description</td>
+</tr>
+<tr class="even">
+<td>Reasoning</td>
+<td>Working through problems step by step</td>
+<td>Solving math problems or logical puzzles</td>
+</tr>
+<tr class="odd">
+<td>Few-shot learning</td>
+<td>Learning from a few examples in the prompt</td>
+<td>Classifying text after seeing just 2-3 examples</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="practical-applications-of-encoder-decoder-models" class="slide level2">
+<h2>Practical applications of Encoder-decoder models</h2>
+<p>Sequence-to-sequence models excel at tasks that require transforming one form of text into another while preserving meaning.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 31%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Application</th>
+<th>Description</th>
+<th>Example Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Machine translation</td>
+<td>Converting text between languages</td>
+<td>Marian, T5</td>
+</tr>
+<tr class="even">
+<td>Text summarization</td>
+<td>Creating concise summaries of longer texts</td>
+<td>BART, T5</td>
+</tr>
+<tr class="odd">
+<td>Data-to-text generation</td>
+<td>Converting structured data into natural language</td>
+<td>T5</td>
+</tr>
+<tr class="even">
+<td>Grammar correction</td>
+<td>Fixing grammatical errors in text</td>
+<td>T5</td>
+</tr>
+<tr class="odd">
+<td>Question answering</td>
+<td>Generating answers based on context</td>
+<td>BART, T5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interactive-demo-speech-to-speech-translation" class="slide level2">
+<h2>Interactive demo: speech-to-speech translation</h2>
+<p><a href="https://course-demos-speech-to-speech-translation.hf.space">Here’s an interactive demo</a> of a sequence-to-sequence model for translation:</p>
+<center>
+<iframe src="https://course-demos-speech-to-speech-translation.hf.space" frameborder="0" width="960" height="680">
+</iframe>
+</center>
+</section>
+<section id="choosing-the-right-architecture" class="slide level2">
+<h2>Choosing the right architecture</h2>
+<p>When working on a specific NLP task, how do you decide which architecture to use? Here’s a quick guide:</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li><strong>Text Classification</strong> (Sentiment, Topic)
+<ul>
+<li>Architecture: Encoder</li>
+<li>Examples: BERT, RoBERTa</li>
+</ul></li>
+<li><strong>Text Generation</strong> (Creative Writing)
+<ul>
+<li>Architecture: Decoder</li>
+<li>Examples: GPT, LLaMA</li>
+</ul></li>
+<li><strong>Translation</strong>
+<ul>
+<li>Architecture: Encoder-Decoder</li>
+<li>Examples: T5, BART</li>
+</ul></li>
+<li><strong>Summarization</strong>
+<ul>
+<li>Architecture: Encoder-Decoder</li>
+<li>Examples: BART, T5</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><strong>Named Entity Recognition</strong>
+<ul>
+<li>Architecture: Encoder</li>
+<li>Examples: BERT, RoBERTa</li>
+</ul></li>
+<li><strong>Question Answering</strong> (Extractive)
+<ul>
+<li>Architecture: Encoder</li>
+<li>Examples: BERT, RoBERTa</li>
+</ul></li>
+<li><strong>Question Answering</strong> (Generative)
+<ul>
+<li>Architecture: Encoder-Decoder or Decoder</li>
+<li>Examples: T5, GPT</li>
+</ul></li>
+<li><strong>Conversational AI</strong>
+<ul>
+<li>Architecture: Decoder</li>
+<li>Examples: GPT, LLaMA</li>
+</ul></li>
+</ul>
+</div></div>
+<!-- end columns -->
+</section>
+<section id="small-language-models" class="slide level2">
+<h2>Small Language Models</h2>
+<p><strong>SLMs</strong> are LLMs with far fewer parameters and lower compute requirements</p>
+<ul>
+<li>Crucial step toward efficient, accessible, and cost-effective AI.</li>
+<li>Practical solutions for businesses, developers, and researchers looking for powerful AI without the heavy computational burden of LLMs.</li>
+</ul>
+<p>The following examples are SLMs ranging from <strong>1-4 billion parameters</strong>:</p>
+<ul>
+<li><a href="https://huggingface.co/meta-llama/Llama-3.2-1B"><strong>Llama3.2-1B</strong></a>&nbsp;– A Meta-developed&nbsp;<em>1-billion-parameter</em>&nbsp;variant optimized for edge devices.</li>
+<li><a href="https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct"><strong>Qwen2.5-1.5B</strong></a>&nbsp;– A model from Alibaba designed for multilingual applications with&nbsp;<em>1.5 billion parameters</em>.</li>
+<li><a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"><strong>DeepSeeek-R1-1.5B</strong></a>&nbsp;- DeepSeek’s first-generation of reasoning model distilled from Qwen2.5 with&nbsp;<em>1.5 billion parameters</em>.</li>
+<li><a href="https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B"><strong>SmolLM2-1.7B</strong></a>&nbsp;– From HuggingFaceTB, a state-of-the-art “small” (<em>1.7 billion-parameter</em>) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).</li>
+<li><a href="https://huggingface.co/microsoft/Phi-3.5-mini-instruct"><strong>Phi-3.5-Mini-3.8B</strong></a>&nbsp;– Microsoft’s tiny-but-might open model with&nbsp;<em>3.8 billion-parameters</em>&nbsp;optimized for reasoning and code generation.</li>
+<li><a href="https://huggingface.co/google/gemma-3-4b-it"><strong>Gemma3-4B</strong></a>&nbsp;- Developed by Google DeepMind, this light but powerful&nbsp;<em>4 billion-parameter</em>&nbsp;model is multilingual and multimodal.</li>
+</ul>
+</section>
+<section id="benefits-of-small-language-models" class="slide level2">
+<h2>Benefits of Small Language Models</h2>
+<ul>
+<li><strong>Low Compute Requirements</strong>&nbsp;– Can run on consumer laptops, edge devices, and mobile phones.</li>
+<li><strong>Lower Energy Consumption</strong>&nbsp;– Efficient models reduce power usage, making them environmentally friendly.</li>
+<li><strong>Faster Inference</strong>&nbsp;– Smaller models generate responses quickly, ideal for real-time applications.</li>
+<li><strong>On-Device AI</strong>&nbsp;– No need for an internet connection or cloud services, enhancing privacy and security.</li>
+<li><strong>Cheaper Deployment</strong>&nbsp;– Lower hardware and cloud costs make AI more accessible to startups and developers.</li>
+<li><strong>Customizability</strong>: Easily fine-tuned for domain-specific tasks (e.g., legal document analysis).</li>
+</ul>
+</section>
+<section id="how-are-they-made-small" class="slide level2 scrollable">
+<h2>How Are They Made Small?</h2>
+<p>The process of shrinking a language model involves several techniques aimed at reducing its size without compromising too much on performance:</p>
+<ol type="1">
+<li><strong>Knowledge Distillation</strong>: Training a smaller “student” model using knowledge transferred from a larger “teacher” model.</li>
+<li><strong>Pruning</strong>: Removing redundant or less important parameters within the neural network architecture.</li>
+<li><strong>Quantization</strong>: Reducing the precision of numerical values used in calculations (e.g.&nbsp;converting floating-point numbers to integers).</li>
 </ol>
 </section>
-<section id="asr-parameters" class="slide level2">
-<h2>ASR Parameters</h2>
-<p>Example of ASR task parameters:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>pipe_asr <span class="op">=</span> pipeline(<span class="st">"automatic-speech-recognition"</span>, model<span class="op">=</span><span class="st">"openai/whisper-tiny"</span>)</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a>output <span class="op">=</span> pipe_asr(</span>
-<span id="cb6-4"><a></a>    <span class="st">"https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac"</span>,</span>
-<span id="cb6-5"><a></a>    return_timestamps<span class="op">=</span><span class="st">"word"</span>, <span class="co"># Returns precise start/end times for every word</span></span>
-<span id="cb6-6"><a></a>    chunk_length_s<span class="op">=</span><span class="dv">30</span>,        <span class="co"># Splits long audio into 30-second segments for processing</span></span>
-<span id="cb6-7"><a></a>    stride_length_s<span class="op">=</span><span class="dv">5</span>         <span class="co"># Adds 5 seconds of overlap between segments to prevent cutting words</span></span>
-<span id="cb6-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="same-task-different-models" class="slide level2">
+<h2>Same task, different models</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a><span class="co"># Task remains "text-generation", models change</span></span>
+<span id="cb1-4"><a></a>llama <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>)</span>
+<span id="cb1-5"><a></a>mistral <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"mistralai/Mistral-7B-v0.1"</span>)</span>
+<span id="cb1-6"><a></a>gemma <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"google/gemma-7b"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="text-generation-parameters" class="slide level2">
-<h2>Text Generation Parameters</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a>generator <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>)</span>
-<span id="cb7-4"><a></a>output <span class="op">=</span> generator(</span>
-<span id="cb7-5"><a></a>    <span class="st">"In this course, we will teach you how to"</span>,</span>
-<span id="cb7-6"><a></a>    max_new_tokens<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb7-7"><a></a>    num_return_sequences<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb7-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="same-model-different-tasks" class="slide level2">
+<h2>Same model, different tasks</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb2-2"><a></a></span>
+<span id="cb2-3"><a></a><span class="co"># use the same API for 3 different tasks</span></span>
+<span id="cb2-4"><a></a>checkpoint <span class="op">=</span> <span class="st">"HuggingFaceTB/SmolLM2-360M"</span></span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a>answerer <span class="op">=</span> pipeline(<span class="st">"question-answering"</span>, model<span class="op">=</span>checkpoint)</span>
+<span id="cb2-7"><a></a>classifier <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>, model<span class="op">=</span>checkpoint)</span>
+<span id="cb2-8"><a></a>generator <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span>checkpoint)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="batch-inference" class="slide level2">
-<h2>Batch Inference</h2>
-<p>Batch inference is disabled by default since hardware, data, and the model itself can affect whether it improves speed or not. In the example below, when there are 4 inputs and <code>batch_size=2</code> , Pipeline passes a batch of 2 inputs, <strong>twice</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb8-2"><a></a>    task<span class="op">=</span><span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>,</span>
-<span id="cb8-3"><a></a>    batch_size<span class="op">=</span><span class="dv">2</span> <span class="co"># Batch Inference</span></span>
-<span id="cb8-4"><a></a>)</span>
-<span id="cb8-5"><a></a>pipe([</span>
-<span id="cb8-6"><a></a>    <span class="st">"the secret to baking a really good cake is"</span>,</span>
-<span id="cb8-7"><a></a>    <span class="st">"a baguette is"</span>,</span>
-<span id="cb8-8"><a></a>    <span class="st">"paris is the"</span>,</span>
-<span id="cb8-9"><a></a>    <span class="st">"hotdogs are"</span></span>
-<span id="cb8-10"><a></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a></a>[[{'generated_text': 'the secret to baking a really good cake is to use a good cake mix.\n\ni’'}],</span>
-<span id="cb9-2"><a></a> [{'generated_text': 'a baguette is'}],</span>
-<span id="cb9-3"><a></a> [{'generated_text': 'paris is the most beautiful city in the world.\n\ni’ve been to paris 3'}],</span>
-<span id="cb9-4"><a></a> [{'generated_text': 'hotdogs are a staple of the american diet. they are a great source of protein and can'}]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="batch-inference-rules-of-thumb" class="slide level2">
-<h2>Batch Inference: rules of thumb</h2>
+<section id="half-precision-and-quantization" class="slide level2">
+<h2>Half-precision and Quantization</h2>
 <ul>
-<li>If you are using CPU, don’t batch.</li>
-<li>If you are latency constrained (live product doing inference), don’t batch.</li>
-<li>The larger the GPU the more likely batching is going to be more interesting.</li>
-<li>Handle OOM errors.</li>
+<li>We use both <strong>Half-precision</strong> and <a href="https://huggingface.co/docs/transformers/quantization/overview">Quantization</a> to reduce memory requirement.</li>
+<li>We also need to use a GPU <code>device="auto"</code></li>
 </ul>
-<p>Read more at: <a href="https://huggingface.co/docs/transformers/main_classes/pipelines#pipeline-batching">Pipeline batching</a>.</p>
-
-
+<p>Install <a href="https://hf.co/docs/bitsandbytes/installation"><code>bitsandbytes</code></a>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="ex">pip</span> install <span class="at">-U</span> bitsandbytes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Load LLM fot <code>text-generation</code> task via pipeline:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
+<span id="cb4-2"><a></a>    <span class="st">"text-generation"</span>,</span>
+<span id="cb4-3"><a></a>    model<span class="op">=</span><span class="st">"mistralai/Mistral-7B-v0.1"</span>,        </span>
+<span id="cb4-4"><a></a>    dtype<span class="op">=</span>torch.bfloat16,    <span class="co"># Half-precision (reduce memory)</span></span>
+<span id="cb4-5"><a></a>    device_map<span class="op">=</span><span class="st">"auto"</span>,       <span class="co"># Automatic Resource Allocation</span></span>
+<span id="cb4-6"><a></a>    model_kwargs<span class="op">=</span>{</span>
+<span id="cb4-7"><a></a>        <span class="co"># 8-bit Quantization (compress model)</span></span>
+<span id="cb4-8"><a></a>        <span class="st">"quantization_config"</span>: BitsAndBytesConfig(load_in_8bit<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-9"><a></a>    },</span>
+<span id="cb4-10"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
+<section id="how-llms-are-trained" class="slide level2 scrollable">
+<h2>How LLMs are Trained?</h2>
+<p>Three stages of training:</p>
+<ol type="1">
+<li>Pretraining (Unsupervised)</li>
+<li>Supervised Fine-tuning (SFT)</li>
+<li>Reinforcement Learning from Human Feedback (RLHF)</li>
+</ol>
+<p>This is the standard pipeline for building a modern Large Language Model (LLM).</p>
+</section>
+<section id="three-stages-of-llm-training" class="slide level2">
+<h2>Three stages of LLM training</h2>
+
+<img data-src="../assets/llm-training-stages.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="pretraining-the-knowledge-base" class="slide level2">
+<h2>1. Pretraining (The Knowledge Base)</h2>
+<ul>
+<li><strong>Goal:</strong> Learn language, facts, and reasoning from the internet.</li>
+<li><strong>Method:</strong> <strong>Unsupervised Learning</strong>. The model predicts the next word in a sequence (Self-Supervised).</li>
+<li><strong>Scale:</strong> Massive datasets (trillions of tokens) and high compute.</li>
+<li><strong>Outcome:</strong> A “Base Model” that is a world-class autocompleter but bad at following instructions.</li>
+</ul>
+</section>
+<section id="supervised-fine-tuning-sft-the-assistant" class="slide level2">
+<h2>2. Supervised Fine-tuning / SFT (The Assistant)</h2>
+<ul>
+<li><strong>Goal:</strong> Teach the model how to act like an assistant and follow specific formats.</li>
+<li><strong>Method:</strong> <strong>Supervised Learning</strong>. Humans write high-quality “Prompt-Response” pairs.</li>
+<li><strong>Scale:</strong> Small, curated datasets (thousands to tens of thousands of examples).</li>
+<li><strong>Outcome:</strong> An “Instruct Model” that understands commands but may still produce “hallucinations” or unsafe content.</li>
+</ul>
+</section>
+<section id="reinforcement-learning-from-human-feedback-rlhf-the-polishing" class="slide level2 scrollable">
+<h2>3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)</h2>
+<ul>
+<li><strong>Goal:</strong> Align the model with human values (helpfulness, honesty, safety).</li>
+<li><strong>Method:</strong>
+<ol type="1">
+<li><strong>Preference Labeling:</strong> Humans rank multiple model outputs from best to worst.</li>
+<li><strong>Reward Modeling:</strong> A separate model learns these preferences.</li>
+<li><strong>Optimization:</strong> The LLM is updated (often via PPO or DPO) to maximize the “reward” score.</li>
+</ol></li>
+<li><strong>Outcome:</strong> A “Chat Model”.</li>
+</ul>
+</section>
+<section id="rlhf" class="slide level2">
+<h2>RLHF</h2>
+
+<img data-src="../assets/reward_model.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="transfer-learning" class="slide level2">
+<h2>Transfer Learning</h2>
+<p><strong>Transfer learning</strong> is reusing a trained model on a new, related problem. Advantages are:</p>
+<ul>
+<li><strong>Time</strong>: Training takes days instead of months.</li>
+<li><strong>Data</strong>: You only need thousands of specialized examples instead of trillions of general ones.</li>
+<li><strong>Cost</strong>: Less time spent on training on less data means less compute and thus less cost.</li>
+</ul>
+</section>
+<section id="example-qari-ocr" class="slide level2">
+<h2>Example: QARI-OCR</h2>
+<p><a href="https://huggingface.co/NAMAA-Space/Qari-OCR-v0.3-VL-2B-Instruct">QARI-OCR</a> is a <strong>Vision-language Model (VLM)</strong> fine-tuned from <code>Qwen2-VL-2B-Instruct</code> to process Arabic documents. Key Features:</p>
+<ul>
+<li>📐&nbsp;<strong>Layout-Aware Recognition</strong>: Preserves document structure with HTML/Markdown tags</li>
+<li>🔤&nbsp;<strong>Full Diacritics Support</strong>: Accurate recognition of tashkeel (Arabic diacritical marks)</li>
+<li>📝&nbsp;<strong>Multi-Font Handling</strong>: Trained on 12 diverse Arabic fonts (14px-100px)</li>
+<li>🎯&nbsp;<strong>Structure-First Design</strong>: Optimized for documents with headers, body text, and complex layouts</li>
+<li>⚡&nbsp;<strong>Efficient Training</strong>: Only 11 hours on single GPU with 10k samples</li>
+<li>🖼️&nbsp;<strong>Robust Performance</strong>: Handles low-resolution and degraded images</li>
+</ul>
+</section>
+<section id="qari-ocr-model-performance" class="slide level2">
+<h2>QARI-OCR Model Performance</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Character Error Rate (CER)</strong></td>
+<td>0.300</td>
+</tr>
+<tr class="even">
+<td><strong>Word Error Rate (WER)</strong></td>
+<td>0.485</td>
+</tr>
+<tr class="odd">
+<td><strong>BLEU Score</strong></td>
+<td>0.545</td>
+</tr>
+<tr class="even">
+<td><strong>Training Time</strong></td>
+<td>11 hours</td>
+</tr>
+<tr class="odd">
+<td><strong>CO₂ Emissions</strong></td>
+<td>1.88 kg eq.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qari-ocr-training-details" class="slide level2">
+<h2>QARI-OCR Training Details</h2>
+<ul>
+<li><strong>Base Model</strong>: Qwen2-VL-2B-Instruct</li>
+<li><strong>Training Data</strong>: 10,000 synthetic Arabic documents with HTML markup</li>
+<li><strong>Optimization</strong>: 4-bit LoRA adapters (rank=16)</li>
+<li><strong>Hardware</strong>: Single NVIDIA A6000 GPU (48GB)</li>
+<li><strong>Framework</strong>: Unsloth + Hugging Face TRL</li>
+</ul>
+</section>
+<section>
+<section id="how-to-train" class="title-slide slide level1 center scrollable">
+<h1>How to train?</h1>
+<ol type="1">
+<li>Transformers</li>
+<li>Unsloth</li>
+</ol>
+</section>
+<section id="hunggingface-transformers-task-recipes" class="slide level2">
+<h2>HunggingFace Transformers Task Recipes</h2>
+<div class="columns">
+<div class="column">
+<p><a href="../assets/resources_task_recipes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/resources_task_recipes.png" class="r-stretch"></a></p>
+</div><div class="column">
+<p><a href="https://huggingface.co/docs/transformers/tasks/asr">Example: ASR</a>.</p>
+</div></div>
+<!-- end columns -->
+</section>
+<section id="unsloth-studio-beta" class="slide level2">
+<h2>Unsloth Studio (beta)</h2>
+
+<img data-src="https://unsloth.ai/cgi/image/studio_ui_max_cropped_9eDkhlEfAFp7TJERZpGHH.png?format=raw" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="unsloth" class="slide level2">
+<h2>Unsloth</h2>
+<p><strong>Unsloth</strong> is an open-source framework for running and training models.</p>
+<p><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners">⭐ Fine-tuning for Beginners</a>:</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide">Fine-tuning Guide</a>
+<ul>
+<li>Step-by-step on how to fine-tune!</li>
+<li>Learn the core basics of training.</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/what-model-should-i-use">What model should I use?</a>
+<ul>
+<li>Instruct or Base Model?</li>
+<li>How big should my dataset be?</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/faq-+-is-fine-tuning-right-for-me">Is Fine-tuning right for me?</a>
+<ul>
+<li>What can fine-tuning do for me?</li>
+<li>RAG vs.&nbsp;Fine-tuning?</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<ul>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/datasets-guide">Datasets Guide</a>
+<ul>
+<li>How do I structure/prepare my dataset?</li>
+<li>How do I collect data?</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/basics/inference-and-deployment">Inference &amp; Deployment</a>
+<ul>
+<li>How do I save my model locally?</li>
+<li>How do I run my model via Ollama or vLLM?</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/unsloth-requirements">Unsloth Requirements</a>
+<ul>
+<li>Does Unsloth work on my GPU?</li>
+<li>How much VRAM will I need?</li>
+</ul></li>
+</ul>
+</div></div>
+<!-- end columns -->
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

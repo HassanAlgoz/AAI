@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Pipelines</title>
+  <title>Applied AI Bootcamp – Fine-tuning</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -33,72 +33,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-ca7ff45dca864c8748a423b2ddb238b8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -201,177 +135,193 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Pipelines</h1>
+  <h1 class="title">Fine-tuning</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="pipeline" class="slide level2 scrollable">
-<h2>Pipeline</h2>
-<p>The <a href="../../../docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline"><code>Pipeline</code></a> is a simple but powerful <strong>inference API</strong> that is readily available for a variety of machine learning <strong>tasks</strong> with any <strong>model</strong> from the Hugging Face <a href="https://hf.co/models">Hub</a>.</p>
-<p>A pipeline wraps three things into one call:</p>
+<section id="how-llms-are-trained" class="slide level2 scrollable">
+<h2>How LLMs are Trained?</h2>
+<p>Three stages of training:</p>
 <ol type="1">
-<li><strong>Pre-processing</strong> – Tokenizing raw text (or processing an image/audio input).</li>
-<li><strong>Model inference</strong> – Running the fine-tuned model.</li>
-<li><strong>Post-processing</strong> – Converting raw logits/outputs into human-readable results (e.g., labels, extracted answers, or generated text).</li>
+<li>Pretraining (Unsupervised)</li>
+<li>Supervised Fine-tuning (SFT)</li>
+<li>Reinforcement Learning from Human Feedback (RLHF)</li>
 </ol>
+<p>This is the standard pipeline for building a modern Large Language Model (LLM).</p>
+</section>
+<section id="three-stages-of-llm-training" class="slide level2">
+<h2>Three stages of LLM training</h2>
 
-<img data-src="../assets/pipeline.png" class="r-stretch quarto-figure quarto-figure-center"><p>You pass in raw data and get back a structured result without touching the underlying tensors.</p>
+<img data-src="../assets/llm-training-stages.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="pretraining-the-knowledge-base" class="slide level2">
+<h2>1. Pretraining (The Knowledge Base)</h2>
+<ul>
+<li><strong>Goal:</strong> Learn language, facts, and reasoning from the internet.</li>
+<li><strong>Method:</strong> <strong>Unsupervised Learning</strong>. The model predicts the next word in a sequence (Self-Supervised).</li>
+<li><strong>Scale:</strong> Massive datasets (trillions of tokens) and high compute.</li>
+<li><strong>Outcome:</strong> A “Base Model” that is a world-class autocompleter but bad at following instructions.</li>
+</ul>
 </section>
-<section id="example-image-segmentation-pipeline" class="slide level2">
-<h2>Example: Image Segmentation Pipeline</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a>segmenter <span class="op">=</span> pipeline(</span>
-<span id="cb1-4"><a></a>    task<span class="op">=</span><span class="st">"image-segmentation"</span>,</span>
-<span id="cb1-5"><a></a>    model<span class="op">=</span><span class="st">"facebook/detr-resnet-50-panoptic"</span></span>
-<span id="cb1-6"><a></a>)</span>
-<span id="cb1-7"><a></a>image_url <span class="op">=</span> <span class="st">"https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png"</span></span>
-<span id="cb1-8"><a></a>segments <span class="op">=</span> pipeline(image_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="supervised-fine-tuning-sft-the-assistant" class="slide level2">
+<h2>2. Supervised Fine-tuning / SFT (The Assistant)</h2>
+<ul>
+<li><strong>Goal:</strong> Teach the model how to act like an assistant and follow specific formats.</li>
+<li><strong>Method:</strong> <strong>Supervised Learning</strong>. Humans write high-quality “Prompt-Response” pairs.</li>
+<li><strong>Scale:</strong> Small, curated datasets (thousands to tens of thousands of examples).</li>
+<li><strong>Outcome:</strong> An “Instruct Model” that understands commands but may still produce “hallucinations” or unsafe content.</li>
+</ul>
 </section>
-<section id="example-text-classifier" class="slide level2">
-<h2>Example: Text Classifier</h2>
-<p>The following example shows a pipeline for <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=trending"><em>Text Classification</em></a>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb2-2"><a></a></span>
-<span id="cb2-3"><a></a>classifier <span class="op">=</span> pipeline(</span>
-<span id="cb2-4"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb2-5"><a></a>    model<span class="op">=</span><span class="st">"distilbert/distilbert-base-uncased-finetuned-sst-2-english"</span></span>
-<span id="cb2-6"><a></a>)</span>
-<span id="cb2-7"><a></a></span>
-<span id="cb2-8"><a></a><span class="co"># Batch inference</span></span>
-<span id="cb2-9"><a></a>classifier([</span>
-<span id="cb2-10"><a></a>    <span class="st">"I've been waiting for a HuggingFace course my whole life."</span>,</span>
-<span id="cb2-11"><a></a>    <span class="st">"I hate this so much!"</span></span>
-<span id="cb2-12"><a></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="reinforcement-learning-from-human-feedback-rlhf-the-polishing" class="slide level2 scrollable">
+<h2>3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)</h2>
+<ul>
+<li><strong>Goal:</strong> Align the model with human values (helpfulness, honesty, safety).</li>
+<li><strong>Method:</strong>
+<ol type="1">
+<li><strong>Preference Labeling:</strong> Humans rank multiple model outputs from best to worst.</li>
+<li><strong>Reward Modeling:</strong> A separate model learns these preferences.</li>
+<li><strong>Optimization:</strong> The LLM is updated (often via PPO or DPO) to maximize the “reward” score.</li>
+</ol></li>
+<li><strong>Outcome:</strong> A “Chat Model”.</li>
+</ul>
 </section>
-<section id="available-pipelines-for-different-modalities" class="slide level2">
-<h2>Available pipelines for different modalities</h2>
-<p>The <code>pipeline()</code> function supports multiple modalities, allowing you to work with text, images, audio, and even multimodal tasks. In this course we’ll focus on text tasks, but it’s useful to understand the transformer architecture’s potential, so we’ll briefly outline it.</p>
+<section id="rlhf" class="slide level2">
+<h2>RLHF</h2>
+
+<img data-src="../assets/reward_model.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="transfer-learning" class="slide level2">
+<h2>Transfer Learning</h2>
+<p><strong>Transfer learning</strong> is reusing a trained model on a new, related problem. Advantages are:</p>
+<ul>
+<li><strong>Time</strong>: Training takes days instead of months.</li>
+<li><strong>Data</strong>: You only need thousands of specialized examples instead of trillions of general ones.</li>
+<li><strong>Cost</strong>: Less time spent on training on less data means less compute and thus less cost.</li>
+</ul>
+</section>
+<section id="example-qari-ocr" class="slide level2">
+<h2>Example: QARI-OCR</h2>
+<p><a href="https://huggingface.co/NAMAA-Space/Qari-OCR-v0.3-VL-2B-Instruct">QARI-OCR</a> is a <strong>Vision-language Model (VLM)</strong> fine-tuned from <code>Qwen2-VL-2B-Instruct</code> to process Arabic documents. Key Features:</p>
+<ul>
+<li>📐&nbsp;<strong>Layout-Aware Recognition</strong>: Preserves document structure with HTML/Markdown tags</li>
+<li>🔤&nbsp;<strong>Full Diacritics Support</strong>: Accurate recognition of tashkeel (Arabic diacritical marks)</li>
+<li>📝&nbsp;<strong>Multi-Font Handling</strong>: Trained on 12 diverse Arabic fonts (14px-100px)</li>
+<li>🎯&nbsp;<strong>Structure-First Design</strong>: Optimized for documents with headers, body text, and complex layouts</li>
+<li>⚡&nbsp;<strong>Efficient Training</strong>: Only 11 hours on single GPU with 10k samples</li>
+<li>🖼️&nbsp;<strong>Robust Performance</strong>: Handles low-resolution and degraded images</li>
+</ul>
+</section>
+<section id="qari-ocr-model-performance" class="slide level2">
+<h2>QARI-OCR Model Performance</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Task</th>
-<th>Modality</th>
-<th>Output</th>
-<th>Models</th>
-<th>Datasets</th>
+<th>Metric</th>
+<th>Score</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.AudioClassificationPipeline"><code>audio-classification</code></a></td>
-<td>Audio</td>
-<td>Classify audio into categories</td>
-<td><a href="https://huggingface.co/models?filter=audio-classification">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=audio-classification">🔗</a></td>
+<td><strong>Character Error Rate (CER)</strong></td>
+<td>0.300</td>
 </tr>
 <tr class="even">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline"><code>image-classification</code></a></td>
-<td>Image</td>
-<td>Predicted class for an image</td>
-<td><a href="https://huggingface.co/models?filter=image-classification">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=image-classification">🔗</a></td>
+<td><strong>Word Error Rate (WER)</strong></td>
+<td>0.485</td>
 </tr>
 <tr class="odd">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ObjectDetectionPipeline"><code>object-detection</code></a></td>
-<td>Image</td>
-<td>Locate and identify objects in images</td>
-<td><a href="https://huggingface.co/models?filter=object-detection">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=object-detection">🔗</a></td>
+<td><strong>BLEU Score</strong></td>
+<td>0.545</td>
+</tr>
+<tr class="even">
+<td><strong>Training Time</strong></td>
+<td>11 hours</td>
+</tr>
+<tr class="odd">
+<td><strong>CO₂ Emissions</strong></td>
+<td>1.88 kg eq.</td>
 </tr>
 </tbody>
 </table>
-<p>Refer to the <a href="https://huggingface.co/docs/transformers/main/en/main_classes/pipelines">Pipelines</a> API reference for a complete list of available tasks.</p>
 </section>
-<section id="accelerator-device0-for-gpu" class="slide level2">
-<h2>Accelerator: <code>device=0</code> for GPU</h2>
+<section id="qari-ocr-training-details" class="slide level2">
+<h2>QARI-OCR Training Details</h2>
 <ul>
-<li>By default a <a href="https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline">Pipeline</a> runs on a CPU which is given by <code>device=-1</code></li>
-<li>For GPU, set <code>device</code> to the associated CUDA device id. For example, <code>device=0</code> runs on the first GPU.</li>
+<li><strong>Base Model</strong>: Qwen2-VL-2B-Instruct</li>
+<li><strong>Training Data</strong>: 10,000 synthetic Arabic documents with HTML markup</li>
+<li><strong>Optimization</strong>: 4-bit LoRA adapters (rank=16)</li>
+<li><strong>Hardware</strong>: Single NVIDIA A6000 GPU (48GB)</li>
+<li><strong>Framework</strong>: Unsloth + Hugging Face TRL</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb3-2"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb3-3"><a></a>    device<span class="op">=</span><span class="dv">0</span>    <span class="co"># Run on GPU</span></span>
-<span id="cb3-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="accelerator-using-accelerate-library" class="slide level2">
-<h2>Accelerator using <code>accelerate</code> library</h2>
-<ul>
-<li><a href="https://hf.co/docs/accelerate/index">Accelerate</a> is a library of <strong>distributed training</strong>.</li>
-<li>It loads and stores the model weights on the <strong>fastest device first, and then moves the weights to other devices (CPU, hard drive) as needed</strong>.</li>
-</ul>
-<p>Ensure to have <a href="https://hf.co/docs/accelerate/basic_tutorials/install">Accelerate</a> installed first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="ex">pip</span> install <span class="at">-U</span> accelerate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then you can use it with <code>device_map="auto"</code> (or <code>device="mps"</code> on Apple silicon):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb5-2"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb5-3"><a></a>    device_map<span class="op">=</span><span class="st">"auto"</span>    <span class="co"># Use Accelerate </span></span>
-<span id="cb5-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="pipeline-parameters" class="slide level2 scrollable">
-<h2>Pipeline Parameters</h2>
-<p><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#pipelines">Pipelines</a> can be configured:</p>
+<section>
+<section id="how-to-train" class="title-slide slide level1 center scrollable">
+<h1>How to train?</h1>
 <ol type="1">
-<li><strong>Control Outputs</strong>: with task-specific parameters.</li>
-<li><strong>Optimize Processing</strong>: Pipeline supports GPUs, Apple Silicon, and half-precision weights to accelerate inference and save memory.</li>
+<li>Transformers</li>
+<li>Unsloth</li>
 </ol>
 </section>
-<section id="asr-parameters" class="slide level2">
-<h2>ASR Parameters</h2>
-<p>Example of ASR task parameters:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>pipe_asr <span class="op">=</span> pipeline(<span class="st">"automatic-speech-recognition"</span>, model<span class="op">=</span><span class="st">"openai/whisper-tiny"</span>)</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a>output <span class="op">=</span> pipe_asr(</span>
-<span id="cb6-4"><a></a>    <span class="st">"https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac"</span>,</span>
-<span id="cb6-5"><a></a>    return_timestamps<span class="op">=</span><span class="st">"word"</span>, <span class="co"># Returns precise start/end times for every word</span></span>
-<span id="cb6-6"><a></a>    chunk_length_s<span class="op">=</span><span class="dv">30</span>,        <span class="co"># Splits long audio into 30-second segments for processing</span></span>
-<span id="cb6-7"><a></a>    stride_length_s<span class="op">=</span><span class="dv">5</span>         <span class="co"># Adds 5 seconds of overlap between segments to prevent cutting words</span></span>
-<span id="cb6-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="hunggingface-transformers-task-recipes" class="slide level2">
+<h2>HunggingFace Transformers Task Recipes</h2>
+<div class="columns">
+<div class="column">
+<p><a href="../assets/resources_task_recipes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/resources_task_recipes.png" class="r-stretch"></a></p>
+</div><div class="column">
+<p><a href="https://huggingface.co/docs/transformers/tasks/asr">Example: ASR</a>.</p>
+</div></div>
+<!-- end columns -->
 </section>
-<section id="text-generation-parameters" class="slide level2">
-<h2>Text Generation Parameters</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a>generator <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>)</span>
-<span id="cb7-4"><a></a>output <span class="op">=</span> generator(</span>
-<span id="cb7-5"><a></a>    <span class="st">"In this course, we will teach you how to"</span>,</span>
-<span id="cb7-6"><a></a>    max_new_tokens<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb7-7"><a></a>    num_return_sequences<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb7-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="batch-inference" class="slide level2">
-<h2>Batch Inference</h2>
-<p>Batch inference is disabled by default since hardware, data, and the model itself can affect whether it improves speed or not. In the example below, when there are 4 inputs and <code>batch_size=2</code> , Pipeline passes a batch of 2 inputs, <strong>twice</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb8-2"><a></a>    task<span class="op">=</span><span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>,</span>
-<span id="cb8-3"><a></a>    batch_size<span class="op">=</span><span class="dv">2</span> <span class="co"># Batch Inference</span></span>
-<span id="cb8-4"><a></a>)</span>
-<span id="cb8-5"><a></a>pipe([</span>
-<span id="cb8-6"><a></a>    <span class="st">"the secret to baking a really good cake is"</span>,</span>
-<span id="cb8-7"><a></a>    <span class="st">"a baguette is"</span>,</span>
-<span id="cb8-8"><a></a>    <span class="st">"paris is the"</span>,</span>
-<span id="cb8-9"><a></a>    <span class="st">"hotdogs are"</span></span>
-<span id="cb8-10"><a></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a></a>[[{'generated_text': 'the secret to baking a really good cake is to use a good cake mix.\n\ni’'}],</span>
-<span id="cb9-2"><a></a> [{'generated_text': 'a baguette is'}],</span>
-<span id="cb9-3"><a></a> [{'generated_text': 'paris is the most beautiful city in the world.\n\ni’ve been to paris 3'}],</span>
-<span id="cb9-4"><a></a> [{'generated_text': 'hotdogs are a staple of the american diet. they are a great source of protein and can'}]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="batch-inference-rules-of-thumb" class="slide level2">
-<h2>Batch Inference: rules of thumb</h2>
+<section id="unsloth-studio-beta" class="slide level2">
+<h2>Unsloth Studio (beta)</h2>
+
+<img data-src="https://unsloth.ai/cgi/image/studio_ui_max_cropped_9eDkhlEfAFp7TJERZpGHH.png?format=raw" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="unsloth" class="slide level2">
+<h2>Unsloth</h2>
+<p><strong>Unsloth</strong> is an open-source framework for running and training models.</p>
+<p><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners">⭐ Fine-tuning for Beginners</a>:</p>
+<div class="columns">
+<div class="column">
 <ul>
-<li>If you are using CPU, don’t batch.</li>
-<li>If you are latency constrained (live product doing inference), don’t batch.</li>
-<li>The larger the GPU the more likely batching is going to be more interesting.</li>
-<li>Handle OOM errors.</li>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide">Fine-tuning Guide</a>
+<ul>
+<li>Step-by-step on how to fine-tune!</li>
+<li>Learn the core basics of training.</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/what-model-should-i-use">What model should I use?</a>
+<ul>
+<li>Instruct or Base Model?</li>
+<li>How big should my dataset be?</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/faq-+-is-fine-tuning-right-for-me">Is Fine-tuning right for me?</a>
+<ul>
+<li>What can fine-tuning do for me?</li>
+<li>RAG vs.&nbsp;Fine-tuning?</li>
+</ul></li>
 </ul>
-<p>Read more at: <a href="https://huggingface.co/docs/transformers/main_classes/pipelines#pipeline-batching">Pipeline batching</a>.</p>
+</div><div class="column">
+<ul>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/datasets-guide">Datasets Guide</a>
+<ul>
+<li>How do I structure/prepare my dataset?</li>
+<li>How do I collect data?</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/basics/inference-and-deployment">Inference &amp; Deployment</a>
+<ul>
+<li>How do I save my model locally?</li>
+<li>How do I run my model via Ollama or vLLM?</li>
+</ul></li>
+<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/unsloth-requirements">Unsloth Requirements</a>
+<ul>
+<li>Does Unsloth work on my GPU?</li>
+<li>How much VRAM will I need?</li>
+</ul></li>
+</ul>
+</div></div>
+<!-- end columns -->
 
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

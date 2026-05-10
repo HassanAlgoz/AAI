@@ -472,33 +472,70 @@
 </div></div>
 <!-- end columns -->
 </section>
-<section id="llm-pipelines" class="slide level2">
-<h2>LLM Pipelines</h2>
-<h3 class="smaller" id="same-model-different-tasks">Same model, different tasks</h3>
+<section id="same-task-different-models" class="slide level2">
+<h2>Same task, different models</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a><span class="co"># use the same API for 3 different tasks</span></span>
-<span id="cb1-4"><a></a>checkpoint <span class="op">=</span> <span class="st">"meta-llama/Llama-2-7b-hf"</span></span>
-<span id="cb1-5"><a></a></span>
-<span id="cb1-6"><a></a>answerer <span class="op">=</span> pipeline(<span class="st">"question-answering"</span>, model<span class="op">=</span>checkpoint)</span>
-<span id="cb1-7"><a></a>classifier <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>, model<span class="op">=</span>checkpoint)</span>
-<span id="cb1-8"><a></a>generator <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span>checkpoint)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<h3 class="smaller" id="same-task-different-models">Same task, different models</h3>
+<span id="cb1-3"><a></a><span class="co"># Task remains "text-generation", models change</span></span>
+<span id="cb1-4"><a></a>llama <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>)</span>
+<span id="cb1-5"><a></a>mistral <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"mistralai/Mistral-7B-v0.1"</span>)</span>
+<span id="cb1-6"><a></a>gemma <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"google/gemma-7b"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="same-model-different-tasks" class="slide level2">
+<h2>Same model, different tasks</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb2-2"><a></a></span>
-<span id="cb2-3"><a></a><span class="co"># Task remains "text-generation", models change</span></span>
-<span id="cb2-4"><a></a>llama <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"meta-llama/Llama-2-7b-hf"</span>)</span>
-<span id="cb2-5"><a></a>mistral <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"mistralai/Mistral-7B-v0.1"</span>)</span>
-<span id="cb2-6"><a></a>gemma <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"google/gemma-7b"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a></a><span class="co"># use the same API for 3 different tasks</span></span>
+<span id="cb2-4"><a></a>checkpoint <span class="op">=</span> <span class="st">"HuggingFaceTB/SmolLM2-360M"</span></span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a>answerer <span class="op">=</span> pipeline(<span class="st">"question-answering"</span>, model<span class="op">=</span>checkpoint)</span>
+<span id="cb2-7"><a></a>classifier <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>, model<span class="op">=</span>checkpoint)</span>
+<span id="cb2-8"><a></a>generator <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span>checkpoint)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section>
-<section id="inference-for-large-models" class="title-slide slide level1 center">
-<h1>Inference for Large Models</h1>
+<section id="small-language-models" class="slide level2">
+<h2>Small Language Models</h2>
+<p><strong>SLMs</strong> are LLMs with far fewer parameters and lower compute requirements</p>
 <ul>
-<li>We use both Half-precision and Quantization to reduce memory requirement.</li>
+<li>Crucial step toward efficient, accessible, and cost-effective AI.</li>
+<li>Practical solutions for businesses, developers, and researchers looking for powerful AI without the heavy computational burden of LLMs.</li>
+</ul>
+<p>The following examples are SLMs ranging from <strong>1-4 billion parameters</strong>:</p>
+<ul>
+<li><a href="https://huggingface.co/meta-llama/Llama-3.2-1B"><strong>Llama3.2-1B</strong></a>&nbsp;– A Meta-developed&nbsp;<em>1-billion-parameter</em>&nbsp;variant optimized for edge devices.</li>
+<li><a href="https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct"><strong>Qwen2.5-1.5B</strong></a>&nbsp;– A model from Alibaba designed for multilingual applications with&nbsp;<em>1.5 billion parameters</em>.</li>
+<li><a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"><strong>DeepSeeek-R1-1.5B</strong></a>&nbsp;- DeepSeek’s first-generation of reasoning model distilled from Qwen2.5 with&nbsp;<em>1.5 billion parameters</em>.</li>
+<li><a href="https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B"><strong>SmolLM2-1.7B</strong></a>&nbsp;– From HuggingFaceTB, a state-of-the-art “small” (<em>1.7 billion-parameter</em>) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).</li>
+<li><a href="https://huggingface.co/microsoft/Phi-3.5-mini-instruct"><strong>Phi-3.5-Mini-3.8B</strong></a>&nbsp;– Microsoft’s tiny-but-might open model with&nbsp;<em>3.8 billion-parameters</em>&nbsp;optimized for reasoning and code generation.</li>
+<li><a href="https://huggingface.co/google/gemma-3-4b-it"><strong>Gemma3-4B</strong></a>&nbsp;- Developed by Google DeepMind, this light but powerful&nbsp;<em>4 billion-parameter</em>&nbsp;model is multilingual and multimodal.</li>
+</ul>
+</section>
+<section id="benefits-of-small-language-models" class="slide level2">
+<h2>Benefits of Small Language Models</h2>
+<ul>
+<li><strong>Low Compute Requirements</strong>&nbsp;– Can run on consumer laptops, edge devices, and mobile phones.</li>
+<li><strong>Lower Energy Consumption</strong>&nbsp;– Efficient models reduce power usage, making them environmentally friendly.</li>
+<li><strong>Faster Inference</strong>&nbsp;– Smaller models generate responses quickly, ideal for real-time applications.</li>
+<li><strong>On-Device AI</strong>&nbsp;– No need for an internet connection or cloud services, enhancing privacy and security.</li>
+<li><strong>Cheaper Deployment</strong>&nbsp;– Lower hardware and cloud costs make AI more accessible to startups and developers.</li>
+<li><strong>Customizability</strong>: Easily fine-tuned for domain-specific tasks (e.g., legal document analysis).</li>
+</ul>
+</section>
+<section id="how-are-they-made-small" class="slide level2 scrollable">
+<h2>How Are They Made Small?</h2>
+<p>The process of shrinking a language model involves several techniques aimed at reducing its size without compromising too much on performance:</p>
+<ol type="1">
+<li><strong>Knowledge Distillation</strong>: Training a smaller “student” model using knowledge transferred from a larger “teacher” model.</li>
+<li><strong>Pruning</strong>: Removing redundant or less important parameters within the neural network architecture.</li>
+<li><strong>Quantization</strong>: Reducing the precision of numerical values used in calculations (e.g.&nbsp;converting floating-point numbers to integers).</li>
+</ol>
+</section>
+<section id="half-precision-and-quantization" class="slide level2">
+<h2>Half-precision and Quantization</h2>
+<ul>
+<li>We use both Half-precision and <a href="https://huggingface.co/docs/transformers/quantization/overview">Quantization</a> to reduce memory requirement.</li>
 <li>We also need to use a GPU <code>device="auto"</code></li>
 </ul>
-<p>Install:</p>
+<p>Install <a href="https://hf.co/docs/bitsandbytes/installation"><code>bitsandbytes</code></a>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="ex">pip</span> install <span class="at">-U</span> bitsandbytes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Load LLM fot <code>text-generation</code> task via pipeline:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
@@ -511,260 +548,9 @@
 <span id="cb4-8"><a></a>        <span class="st">"quantization_config"</span>: BitsAndBytesConfig(load_in_8bit<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb4-9"><a></a>    },</span>
 <span id="cb4-10"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="common-generate-options" class="slide level2">
-<h2>Common <code>generate()</code> Options</h2>
-<p>LLMs are trained to generate the next <code>token</code> given some initial <code>prompt</code>, repeatedly along with its own generated <code>outputs</code>.</p>
-<p>The <a href="https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/text_generation#transformers.GenerationMixin.generate">generate()</a> method (equivalent to using <code>__call__</code> directly)&nbsp;is a powerful tool that can be heavily customized:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Option name</th>
-<th>Type</th>
-<th>Simplified description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>max_new_tokens</code></td>
-<td><code>int</code></td>
-<td>Controls the maximum generation length. Be sure to define it, as it usually defaults to a small value.</td>
-</tr>
-<tr class="even">
-<td><code>do_sample</code></td>
-<td><code>bool</code></td>
-<td>Defines whether generation will sample the next token (<code>True</code>), or is greedy instead (<code>False</code>). Most use cases should set this flag to&nbsp;<code>True</code>. Check&nbsp;<a href="https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies">this guide</a>&nbsp;for more information.</td>
-</tr>
-<tr class="odd">
-<td><code>temperature</code></td>
-<td><code>float</code></td>
-<td>How unpredictable the next selected token will be. High values (<code>&gt;0.8</code>) are good for creative tasks, low values (e.g.&nbsp;<code>&lt;0.4</code>) for tasks that require “thinking”. Requires&nbsp;<code>do_sample=True</code>.</td>
-</tr>
-<tr class="even">
-<td><code>num_beams</code></td>
-<td><code>int</code></td>
-<td>When set to&nbsp;<code>&gt;1</code>, activates the beam search algorithm. Beam search is good on input-grounded tasks. Check&nbsp;<a href="https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies">this guide</a>&nbsp;for more information.</td>
-</tr>
-<tr class="odd">
-<td><code>repetition_penalty</code></td>
-<td><code>float</code></td>
-<td>Set it to&nbsp;<code>&gt;1.0</code>&nbsp;if you’re seeing the model repeat itself often. Larger values apply a larger penalty.</td>
-</tr>
-<tr class="even">
-<td><code>eos_token_id</code></td>
-<td><code>list[int]</code></td>
-<td>The token(s) that will cause generation to stop. The default value is usually good, but you can specify a different token.</td>
-</tr>
-</tbody>
-</table>
-<p>See: <a href="https://huggingface.co/docs/transformers/v5.5.0/en/llm_tutorial#common-options">Common Options</a>.</p>
-</section>
-<section id="pitfalls" class="slide level2 scrollable">
-<h2>Pitfalls</h2>
-<p>Common issues when using <a href="https://www.google.com/search?q=/docs/transformers/v5.5.0/en/main_classes/text_generation%23transformers.GenerationMixin.generate">generate()</a> via the <code>pipeline</code> API.</p>
-<ol type="1">
-<li>Output length</li>
-<li>Decoding strategy</li>
-<li>Padding side</li>
-<li>Prompt format</li>
-</ol>
-</section>
-<section id="issue-1-output-length" class="slide level2">
-<h2>Issue 1: Output length</h2>
-<p>Pipelines return 20 tokens by default unless defined otherwise in a model’s <a href="https://www.google.com/search?q=/docs/transformers/v5.5.0/en/main_classes/text_generation%23transformers.GenerationConfig">GenerationConfig</a>. Manually set <code>max_new_tokens</code> to control length. <a href="https://hf.co/learn/nlp-course/chapter1/6?fw=pt">Decoder-only</a> models return the prompt and generated tokens by default.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># Default: ~20 tokens</span></span>
-<span id="cb5-2"><a></a>pipe(<span class="st">"A sequence of numbers: 1, 2"</span>)</span>
-<span id="cb5-3"><a></a></span>
-<span id="cb5-4"><a></a><span class="co"># Explicit: 50 new tokens</span></span>
-<span id="cb5-5"><a></a>pipe(<span class="st">"A sequence of numbers: 1, 2"</span>, max_new_tokens<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="issue-2-decoding-strategy" class="slide level2">
-<h2>Issue 2: Decoding strategy</h2>
-<p>The default strategy is <em>greedy search</em>. For creative tasks, use <a href="https://www.google.com/search?q=./generation_strategies%23multinomial-sampling">multinomial sampling</a> by setting <code>do_sample=True</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="co"># Greedy search</span></span>
-<span id="cb6-2"><a></a>pipe(<span class="st">"I am a cat."</span>)</span>
-<span id="cb6-3"><a></a></span>
-<span id="cb6-4"><a></a><span class="co"># Multinomial sampling</span></span>
-<span id="cb6-5"><a></a>pipe(<span class="st">"I am a cat."</span>, do_sample<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="issue-3-padding-side" class="slide level2">
-<h2>Issue 3: Padding side</h2>
-<p>LLMs require <code>padding_side="left"</code> to continue generation correctly from padded batches.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a>tokenizer <span class="op">=</span> AutoTokenizer.from_pretrained(<span class="st">"mistralai/Mistral-7B-v0.1"</span>, padding_side<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb7-4"><a></a>tokenizer.pad_token <span class="op">=</span> tokenizer.eos_token</span>
-<span id="cb7-5"><a></a></span>
-<span id="cb7-6"><a></a>pipe <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"mistralai/Mistral-7B-v0.1"</span>, tokenizer<span class="op">=</span>tokenizer)</span>
-<span id="cb7-7"><a></a></span>
-<span id="cb7-8"><a></a>pipe([</span>
-<span id="cb7-9"><a></a>  <span class="st">"1, 2, 3"</span>,      <span class="co"># input 1</span></span>
-<span id="cb7-10"><a></a>  <span class="st">"A, B, C, D, E"</span> <span class="co"># input 2</span></span>
-<span id="cb7-11"><a></a>], padding<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="issue-4-prompt-format" class="slide level2">
-<h2>Issue 4: Prompt format</h2>
-<p>Models often require specific formats. Check the <a href="https://www.google.com/search?q=./tasks/prompting">prompt engineering</a> guide for details. Chat models use a <a href="https://www.google.com/search?q=./chat_templating">chat template</a> structure; passing a list of dictionaries to a pipeline handles this automatically.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>messages <span class="op">=</span> [</span>
-<span id="cb8-2"><a></a>    {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: <span class="st">"You are a pirate."</span>},</span>
-<span id="cb8-3"><a></a>    {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"How many cats does it take to change a light bulb?"</span>},</span>
-<span id="cb8-4"><a></a>]</span>
-<span id="cb8-5"><a></a></span>
-<span id="cb8-6"><a></a><span class="co"># Pipeline automatically applies the chat template</span></span>
-<span id="cb8-7"><a></a>pipe(messages, max_new_tokens<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="how-llms-actually-generate-text" class="slide level2 scrollable">
-<h2>How LLMs actually generate text?</h2>
-<ul>
-<li>Understanding the mechanism gives us control over it</li>
-<li>Having control means we can optimize to our own metrics</li>
-</ul>
-<p>Generation of text in LLMs works in two phases:</p>
-<ol type="1">
-<li><strong>Prefill</strong>
-<ol type="1">
-<li>Tokenization</li>
-<li>Embedding</li>
-<li>Processing</li>
-</ol></li>
-<li><strong>Decode</strong>
-<ol type="1">
-<li>Attention</li>
-<li>Probability</li>
-<li>Selection</li>
-<li>Check</li>
-</ol></li>
-</ol>
-</section>
-<section id="phase-1-prefill" class="slide level2 scrollable">
-<h2>Phase 1: Prefill</h2>
-<p>Like reading the entire text word-for-word each time, before starting to write the next word. It involves:</p>
-<ol type="1">
-<li><strong>Tokenization</strong>: identify input as segmented parts.</li>
-<li><strong>Embedding</strong>: map to corrresponding vectors.</li>
-<li><strong>Processing</strong>: run the vectors through the neural network.</li>
-</ol>
-</section>
-<section id="the-tokenizer-playground" class="slide level2">
-<h2>The Tokenizer Playground</h2>
-<p>You can <a href="https://agents-course-the-tokenizer-playground.static.hf.space">experiment with different tokenizers</a> (first step in this phase) in the interactive playground below:</p>
-<center>
-<iframe src="https://agents-course-the-tokenizer-playground.static.hf.space" frameborder="0" width="850" height="450">
-</iframe>
-</center>
-</section>
-<section id="the-role-of-attention" class="slide level2">
-<h2>The Role of Attention</h2>
-<p>When predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence <em>“The capital of France is …”</em>, the words “France” and “capital” are crucial for determining that “Paris” should come next. This ability to focus on relevant information is what we call attention.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/AttentionSceneFinal.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/AttentionSceneFinal.gif" class="quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-<p>This involves many computationally intensive operations.</p>
-</section>
-<section id="context-length" class="slide level2">
-<h2>Context Length</h2>
-<ul>
-<li>The model should handle the 10,000th token just as reliably as the 100th.</li>
-<li>However, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.</li>
-</ul>
-
-<img data-src="../assets/context_rot.png" class="r-stretch quarto-figure quarto-figure-center"><p>Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. – (<a href="https://www.trychroma.com/research/context-rot">July 14, 2025 Context Rot | Chroma</a>)</p>
-</section>
-<section id="phase-2-decode" class="slide level2">
-<h2>Phase 2: Decode</h2>
-<ul>
-<li>The model generates one token.</li>
-<li>It is sampled from a probability distribution over all token in the vocabulary.</li>
-<li>That token may be: a space, a comma, a digit, a character, a word, or a subword.</li>
-<li>It could be a special token <strong>EOS</strong> (end of sequence) to stop generation.</li>
-</ul>
-</section>
-<section id="sampling-strategies" class="slide level2">
-<h2>Sampling Strategies</h2>
-<p>You can <a href="https://agents-course-decoding-visualizer.hf.space">interact with the basic decoding process</a> yourself with SmolLM2 in this Space (remember, it decodes until reaching an <strong>EOS</strong> token which is <strong>&lt;|im_end|&gt;</strong> for this model):</p>
-<center>
-<iframe src="https://agents-course-decoding-visualizer.hf.space" frameborder="0" width="850" height="450">
-</iframe>
-</center>
-</section>
-<section id="token-selection" class="slide level2 scrollable">
-<h2>Token Selection</h2>
-<div class="columns">
-<div class="column">
-<ol type="1">
-<li><strong>Logits</strong>: unprocessed probability distribution over all tokens in the vocabulary</li>
-<li><strong>Temperature Scaling</strong>:
-<ul>
-<li>higher settings (&gt;1.0) make choices more random and creative</li>
-<li>lower settings (&lt;1.0) make them more focused and deterministic</li>
-</ul></li>
-<li><strong>Top-p (Nucleus) Sampling</strong>: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)</li>
-<li><strong>Top-k Filtering</strong>: An alternative approach where we only consider the <code>k</code> most likely next words</li>
-</ol>
-</div><div class="column">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/token_selection.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/token_selection.png" class="quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-</div></div>
-<!-- end columns -->
-</section>
-<section id="managing-repetition" class="slide level2 scrollable">
-<h2>Managing Repetition</h2>
-<div class="columns">
-<div class="column">
-<p>One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:</p>
-<ol type="1">
-<li><strong>Presence Penalty</strong>: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.</li>
-<li><strong>Frequency Penalty</strong>: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.</li>
-</ol>
-<p>These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.</p>
-</div><div class="column">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><a href="../assets/manage_repetition.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../assets/manage_repetition.png" class="quarto-figure quarto-figure-center"></a></p>
-</figure>
-</div>
-</div></div>
-<!-- end columns -->
-</section>
-<section id="beam-search" class="slide level2">
-<h2>Beam Search</h2>
-<p><strong>Beam Search explores multiple possible paths simultaneously</strong>. Then select the sequence with the highest overall probability.</p>
-<p>You can <a href="https://agents-course-beam-search-visualizer.hf.space">explore beam search visually here</a>:</p>
-<center>
-<iframe src="https://agents-course-beam-search-visualizer.hf.space" frameborder="0" width="850" height="450">
-</iframe>
-</center>
-<p>This approach often produces more coherent and grammatically correct text, though it requires more computational resources than simpler methods.</p>
-</section>
-<section id="custom-generation" class="slide level2 scrollable">
-<h2>Custom generation</h2>
-<p>Custom generation methods enable specialized behavior such as:</p>
-<ol type="1">
-<li>have the model continue thinking if it is uncertain;</li>
-<li>roll back generation if the model gets stuck;</li>
-<li>handle special tokens with custom logic;</li>
-<li>use specialized KV caches;</li>
-</ol>
-<p>See: <a href="https://huggingface.co/docs/transformers/generation_strategies#finding-custom-generation-methods">Finding custom generation methods</a>.</p>
-</section>
-<section id="resources" class="slide level2">
-<h2>Resources</h2>
-<ul>
-<li><a href="https://github.com/huggingface/optimum">Optimum</a>: Hardware-specific optimization.</li>
-<li><a href="https://github.com/dottxt-ai/outlines">Outlines</a>: Constrained (JSON) generation.</li>
-<li><a href="https://github.com/uiuc-focal-lab/syncode">SynCode</a>: Grammar-guided generation.</li>
-<li><a href="https://github.com/huggingface/text-generation-inference">Text Generation Inference</a>: Production server.</li>
-<li><a href="https://github.com/oobabooga/text-generation-webui">Text generation web UI</a>: Gradio interface.</li>
-<li><a href="https://github.com/NVIDIA/logits-processor-zoo">logits-processor-zoo</a>: Advanced generation control.</li>
-</ul>
 
 
-</section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Pipelines</title>
+  <title>Applied AI Bootcamp – LLM Inference</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -201,174 +201,187 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Pipelines</h1>
+  <h1 class="title">LLM Inference</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="pipeline" class="slide level2 scrollable">
-<h2>Pipeline</h2>
-<p>The <a href="../../../docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline"><code>Pipeline</code></a> is a simple but powerful <strong>inference API</strong> that is readily available for a variety of machine learning <strong>tasks</strong> with any <strong>model</strong> from the Hugging Face <a href="https://hf.co/models">Hub</a>.</p>
-<p>A pipeline wraps three things into one call:</p>
-<ol type="1">
-<li><strong>Pre-processing</strong> – Tokenizing raw text (or processing an image/audio input).</li>
-<li><strong>Model inference</strong> – Running the fine-tuned model.</li>
-<li><strong>Post-processing</strong> – Converting raw logits/outputs into human-readable results (e.g., labels, extracted answers, or generated text).</li>
-</ol>
-
-<img data-src="../assets/pipeline.png" class="r-stretch quarto-figure quarto-figure-center"><p>You pass in raw data and get back a structured result without touching the underlying tensors.</p>
-</section>
-<section id="example-image-segmentation-pipeline" class="slide level2">
-<h2>Example: Image Segmentation Pipeline</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<section id="generationconfig" class="slide level2">
+<h2>GenerationConfig</h2>
+<p>LLM <a href="https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/text_generation#transformers.GenerationMixin.generate">.generate()</a> method auto-regressively generates the next sequence given some initial <code>prompt</code>. Generation can be controlled:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline, GenerationConfig</span>
 <span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a>segmenter <span class="op">=</span> pipeline(</span>
-<span id="cb1-4"><a></a>    task<span class="op">=</span><span class="st">"image-segmentation"</span>,</span>
-<span id="cb1-5"><a></a>    model<span class="op">=</span><span class="st">"facebook/detr-resnet-50-panoptic"</span></span>
-<span id="cb1-6"><a></a>)</span>
-<span id="cb1-7"><a></a>image_url <span class="op">=</span> <span class="st">"https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png"</span></span>
-<span id="cb1-8"><a></a>segments <span class="op">=</span> pipeline(image_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a></a>pipe <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>)</span>
+<span id="cb1-4"><a></a></span>
+<span id="cb1-5"><a></a>config <span class="op">=</span> GenerationConfig(</span>
+<span id="cb1-6"><a></a>    max_new_tokens<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb1-7"><a></a>    temperature<span class="op">=</span><span class="fl">1.5</span></span>
+<span id="cb1-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="example-text-classifier" class="slide level2">
-<h2>Example: Text Classifier</h2>
-<p>The following example shows a pipeline for <a href="https://huggingface.co/models?pipeline_tag=text-classification&amp;sort=trending"><em>Text Classification</em></a>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb2-2"><a></a></span>
-<span id="cb2-3"><a></a>classifier <span class="op">=</span> pipeline(</span>
-<span id="cb2-4"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb2-5"><a></a>    model<span class="op">=</span><span class="st">"distilbert/distilbert-base-uncased-finetuned-sst-2-english"</span></span>
-<span id="cb2-6"><a></a>)</span>
-<span id="cb2-7"><a></a></span>
-<span id="cb2-8"><a></a><span class="co"># Batch inference</span></span>
-<span id="cb2-9"><a></a>classifier([</span>
-<span id="cb2-10"><a></a>    <span class="st">"I've been waiting for a HuggingFace course my whole life."</span>,</span>
-<span id="cb2-11"><a></a>    <span class="st">"I hate this so much!"</span></span>
-<span id="cb2-12"><a></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="available-pipelines-for-different-modalities" class="slide level2">
-<h2>Available pipelines for different modalities</h2>
-<p>The <code>pipeline()</code> function supports multiple modalities, allowing you to work with text, images, audio, and even multimodal tasks. In this course we’ll focus on text tasks, but it’s useful to understand the transformer architecture’s potential, so we’ll briefly outline it.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Task</th>
-<th>Modality</th>
-<th>Output</th>
-<th>Models</th>
-<th>Datasets</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.AudioClassificationPipeline"><code>audio-classification</code></a></td>
-<td>Audio</td>
-<td>Classify audio into categories</td>
-<td><a href="https://huggingface.co/models?filter=audio-classification">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=audio-classification">🔗</a></td>
-</tr>
-<tr class="even">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline"><code>image-classification</code></a></td>
-<td>Image</td>
-<td>Predicted class for an image</td>
-<td><a href="https://huggingface.co/models?filter=image-classification">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=image-classification">🔗</a></td>
-</tr>
-<tr class="odd">
-<td><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ObjectDetectionPipeline"><code>object-detection</code></a></td>
-<td>Image</td>
-<td>Locate and identify objects in images</td>
-<td><a href="https://huggingface.co/models?filter=object-detection">🔗</a></td>
-<td><a href="https://huggingface.co/datasets?task_categories=object-detection">🔗</a></td>
-</tr>
-</tbody>
-</table>
-<p>Refer to the <a href="https://huggingface.co/docs/transformers/main/en/main_classes/pipelines">Pipelines</a> API reference for a complete list of available tasks.</p>
-</section>
-<section id="accelerator-device0-for-gpu" class="slide level2">
-<h2>Accelerator: <code>device=0</code> for GPU</h2>
+<section id="common-generation-options" class="slide level2">
+<h2>Common Generation Options</h2>
+<p>See: <a href="https://huggingface.co/docs/transformers/v5.5.0/en/llm_tutorial#common-options">Common Options</a>:</p>
 <ul>
-<li>By default a <a href="https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline">Pipeline</a> runs on a CPU which is given by <code>device=-1</code></li>
-<li>For GPU, set <code>device</code> to the associated CUDA device id. For example, <code>device=0</code> runs on the first GPU.</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb3-2"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb3-3"><a></a>    device<span class="op">=</span><span class="dv">0</span>    <span class="co"># Run on GPU</span></span>
-<span id="cb3-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="accelerator-using-accelerate-library" class="slide level2">
-<h2>Accelerator using <code>accelerate</code> library</h2>
+<li class="fragment"><strong><code>max_new_tokens</code> (<code>int</code>)</strong>: Controls the maximum number of tokens generated. Make sure to set it explicitly—defaults are usually small.</li>
+<li class="fragment"><strong><code>num_beams</code> (<code>int</code>)</strong>: Activates beam search when set above 1. Useful for input-grounded tasks. See <a href="https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies">this guide</a>.</li>
+<li class="fragment"><strong><code>repetition_penalty</code> (<code>float</code>)</strong>: Set to greater than 1.0 to discourage the model from repeating itself.</li>
+<li class="fragment">Sampling:
 <ul>
-<li><a href="https://hf.co/docs/accelerate/index">Accelerate</a> is a library of <strong>distributed training</strong>.</li>
-<li>It loads and stores the model weights on the <strong>fastest device first, and then moves the weights to other devices (CPU, hard drive) as needed</strong>.</li>
+<li class="fragment"><strong><code>temperature</code> (<code>float</code>)</strong>: Influences randomness of generation. High values (<code>&gt;0.8</code>) make outputs more creative; low values (<code>&lt;0.4</code>) make them more focused and predictable. Requires <code>do_sample=True</code>.</li>
+<li class="fragment"><strong><code>do_sample</code> (<code>bool</code>)</strong>: If <code>True</code>, samples tokens randomly; if <code>False</code>, uses greedy decoding. Most applications should use <code>True</code>. See <a href="https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies">this guide</a> for more details.</li>
+</ul></li>
 </ul>
-<p>Ensure to have <a href="https://hf.co/docs/accelerate/basic_tutorials/install">Accelerate</a> installed first:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="ex">pip</span> install <span class="at">-U</span> accelerate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then you can use it with <code>device_map="auto"</code> (or <code>device="mps"</code> on Apple silicon):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb5-2"><a></a>    task<span class="op">=</span><span class="st">"sentiment-analysis"</span>,</span>
-<span id="cb5-3"><a></a>    device_map<span class="op">=</span><span class="st">"auto"</span>    <span class="co"># Use Accelerate </span></span>
-<span id="cb5-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="pipeline-parameters" class="slide level2 scrollable">
-<h2>Pipeline Parameters</h2>
-<p><a href="https://huggingface.co/docs/transformers/main_classes/pipelines#pipelines">Pipelines</a> can be configured:</p>
+<section id="how-llms-actually-generate-text" class="slide level2 scrollable">
+<h2>How LLMs actually generate text?</h2>
+<ul>
+<li>Understanding the mechanism gives us control over it</li>
+<li>Having control means we can optimize to our own metrics</li>
+</ul>
+<p>Generation of text in LLMs works in two phases:</p>
 <ol type="1">
-<li><strong>Control Outputs</strong>: with task-specific parameters.</li>
-<li><strong>Optimize Processing</strong>: Pipeline supports GPUs, Apple Silicon, and half-precision weights to accelerate inference and save memory.</li>
+<li><strong>Prefill</strong>
+<ol type="1">
+<li>Tokenization</li>
+<li>Embedding</li>
+<li>Processing</li>
+</ol></li>
+<li><strong>Decode</strong>
+<ol type="1">
+<li>Attention</li>
+<li>Probability</li>
+<li>Selection</li>
+<li>Check</li>
+</ol></li>
 </ol>
 </section>
-<section id="asr-parameters" class="slide level2">
-<h2>ASR Parameters</h2>
-<p>Example of ASR task parameters:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>pipe_asr <span class="op">=</span> pipeline(<span class="st">"automatic-speech-recognition"</span>, model<span class="op">=</span><span class="st">"openai/whisper-tiny"</span>)</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a>output <span class="op">=</span> pipe_asr(</span>
-<span id="cb6-4"><a></a>    <span class="st">"https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac"</span>,</span>
-<span id="cb6-5"><a></a>    return_timestamps<span class="op">=</span><span class="st">"word"</span>, <span class="co"># Returns precise start/end times for every word</span></span>
-<span id="cb6-6"><a></a>    chunk_length_s<span class="op">=</span><span class="dv">30</span>,        <span class="co"># Splits long audio into 30-second segments for processing</span></span>
-<span id="cb6-7"><a></a>    stride_length_s<span class="op">=</span><span class="dv">5</span>         <span class="co"># Adds 5 seconds of overlap between segments to prevent cutting words</span></span>
-<span id="cb6-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="phase-1-prefill" class="slide level2 scrollable">
+<h2>Phase 1: Prefill</h2>
+<p>Like reading the entire text word-for-word each time, before starting to write the next word. It involves:</p>
+<ol type="1">
+<li><strong>Tokenization</strong>: identify input as segmented parts.</li>
+<li><strong>Embedding</strong>: map to corrresponding vectors.</li>
+<li><strong>Processing</strong>: run the vectors through the neural network.</li>
+</ol>
 </section>
-<section id="text-generation-parameters" class="slide level2">
-<h2>Text Generation Parameters</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
-<span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a>generator <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>)</span>
-<span id="cb7-4"><a></a>output <span class="op">=</span> generator(</span>
-<span id="cb7-5"><a></a>    <span class="st">"In this course, we will teach you how to"</span>,</span>
-<span id="cb7-6"><a></a>    max_new_tokens<span class="op">=</span><span class="dv">30</span>,</span>
-<span id="cb7-7"><a></a>    num_return_sequences<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb7-8"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-tokenizer-playground" class="slide level2">
+<h2>The Tokenizer Playground</h2>
+<p>You can <a href="https://agents-course-the-tokenizer-playground.static.hf.space">experiment with different tokenizers</a> (first step in this phase) in the interactive playground below:</p>
+<center>
+<iframe src="https://agents-course-the-tokenizer-playground.static.hf.space" frameborder="0" width="850" height="450">
+</iframe>
+</center>
 </section>
-<section id="batch-inference" class="slide level2">
-<h2>Batch Inference</h2>
-<p>Batch inference is disabled by default since hardware, data, and the model itself can affect whether it improves speed or not. In the example below, when there are 4 inputs and <code>batch_size=2</code> , Pipeline passes a batch of 2 inputs, <strong>twice</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
-<span id="cb8-2"><a></a>    task<span class="op">=</span><span class="st">"text-generation"</span>, model<span class="op">=</span><span class="st">"HuggingFaceTB/SmolLM2-360M"</span>,</span>
-<span id="cb8-3"><a></a>    batch_size<span class="op">=</span><span class="dv">2</span> <span class="co"># Batch Inference</span></span>
-<span id="cb8-4"><a></a>)</span>
-<span id="cb8-5"><a></a>pipe([</span>
-<span id="cb8-6"><a></a>    <span class="st">"the secret to baking a really good cake is"</span>,</span>
-<span id="cb8-7"><a></a>    <span class="st">"a baguette is"</span>,</span>
-<span id="cb8-8"><a></a>    <span class="st">"paris is the"</span>,</span>
-<span id="cb8-9"><a></a>    <span class="st">"hotdogs are"</span></span>
-<span id="cb8-10"><a></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Output:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a></a>[[{'generated_text': 'the secret to baking a really good cake is to use a good cake mix.\n\ni’'}],</span>
-<span id="cb9-2"><a></a> [{'generated_text': 'a baguette is'}],</span>
-<span id="cb9-3"><a></a> [{'generated_text': 'paris is the most beautiful city in the world.\n\ni’ve been to paris 3'}],</span>
-<span id="cb9-4"><a></a> [{'generated_text': 'hotdogs are a staple of the american diet. they are a great source of protein and can'}]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-role-of-attention" class="slide level2">
+<h2>The Role of Attention</h2>
+<p>When predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence <em>“The capital of France is …”</em>, the words “France” and “capital” are crucial for determining that “Paris” should come next. This ability to focus on relevant information is what we call attention.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/AttentionSceneFinal.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/AttentionSceneFinal.gif" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+<p>This involves many computationally intensive operations.</p>
 </section>
-<section id="batch-inference-rules-of-thumb" class="slide level2">
-<h2>Batch Inference: rules of thumb</h2>
+<section id="context-length" class="slide level2">
+<h2>Context Length</h2>
 <ul>
-<li>If you are using CPU, don’t batch.</li>
-<li>If you are latency constrained (live product doing inference), don’t batch.</li>
-<li>The larger the GPU the more likely batching is going to be more interesting.</li>
-<li>Handle OOM errors.</li>
+<li>The model should handle the 10,000th token just as reliably as the 100th.</li>
+<li>However, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.</li>
 </ul>
-<p>Read more at: <a href="https://huggingface.co/docs/transformers/main_classes/pipelines#pipeline-batching">Pipeline batching</a>.</p>
+
+<img data-src="../assets/context_rot.png" class="r-stretch quarto-figure quarto-figure-center"><p>Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. – (<a href="https://www.trychroma.com/research/context-rot">July 14, 2025 Context Rot | Chroma</a>)</p>
+</section>
+<section id="phase-2-decode" class="slide level2">
+<h2>Phase 2: Decode</h2>
+<ul>
+<li>The model generates one token.</li>
+<li>It is sampled from a probability distribution over all token in the vocabulary.</li>
+<li>That token may be: a space, a comma, a digit, a character, a word, or a subword.</li>
+<li>It could be a special token <strong>EOS</strong> (end of sequence) to stop generation.</li>
+</ul>
+</section>
+<section id="sampling-strategies" class="slide level2">
+<h2>Sampling Strategies</h2>
+<p>You can <a href="https://agents-course-decoding-visualizer.hf.space">interact with the basic decoding process</a> yourself with SmolLM2 in this Space (remember, it decodes until reaching an <strong>EOS</strong> token which is <strong>&lt;|im_end|&gt;</strong> for this model):</p>
+<center>
+<iframe src="https://agents-course-decoding-visualizer.hf.space" frameborder="0" width="850" height="450">
+</iframe>
+</center>
+</section>
+<section id="token-selection" class="slide level2 scrollable">
+<h2>Token Selection</h2>
+<div class="columns">
+<div class="column">
+<ol type="1">
+<li><strong>Logits</strong>: unprocessed probability distribution over all tokens in the vocabulary</li>
+<li><strong>Temperature Scaling</strong>:
+<ul>
+<li>higher settings (&gt;1.0) make choices more random and creative</li>
+<li>lower settings (&lt;1.0) make them more focused and deterministic</li>
+</ul></li>
+<li><strong>Top-p (Nucleus) Sampling</strong>: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)</li>
+<li><strong>Top-k Filtering</strong>: An alternative approach where we only consider the <code>k</code> most likely next words</li>
+</ol>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/token_selection.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/token_selection.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</div></div>
+<!-- end columns -->
+</section>
+<section id="managing-repetition" class="slide level2 scrollable">
+<h2>Managing Repetition</h2>
+<div class="columns">
+<div class="column">
+<p>One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:</p>
+<ol type="1">
+<li><strong>Presence Penalty</strong>: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.</li>
+<li><strong>Frequency Penalty</strong>: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.</li>
+</ol>
+<p>These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.</p>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/manage_repetition.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/manage_repetition.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</div></div>
+<!-- end columns -->
+</section>
+<section id="beam-search" class="slide level2">
+<h2>Beam Search</h2>
+<p><strong>Beam Search explores multiple possible paths simultaneously</strong>. Then select the sequence with the highest overall probability.</p>
+<p>You can <a href="https://agents-course-beam-search-visualizer.hf.space">explore beam search visually here</a>:</p>
+<center>
+<iframe src="https://agents-course-beam-search-visualizer.hf.space" frameborder="0" width="850" height="450">
+</iframe>
+</center>
+<p>This approach often produces more coherent and grammatically correct text, though it requires more computational resources than simpler methods.</p>
+</section>
+<section id="custom-generation" class="slide level2 scrollable">
+<h2>Custom generation</h2>
+<p>Custom generation methods enable specialized behavior such as:</p>
+<ol type="1">
+<li>have the model continue thinking if it is uncertain;</li>
+<li>roll back generation if the model gets stuck;</li>
+<li>handle special tokens with custom logic;</li>
+<li>use specialized KV caches;</li>
+</ol>
+<p>See: <a href="https://huggingface.co/docs/transformers/generation_strategies#finding-custom-generation-methods">Finding custom generation methods</a>.</p>
+</section>
+<section id="resources" class="slide level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="https://github.com/huggingface/optimum">Optimum</a>: Hardware-specific optimization.</li>
+<li><a href="https://github.com/dottxt-ai/outlines">Outlines</a>: Constrained (JSON) generation.</li>
+<li><a href="https://github.com/uiuc-focal-lab/syncode">SynCode</a>: Grammar-guided generation.</li>
+<li><a href="https://github.com/huggingface/text-generation-inference">Text Generation Inference</a>: Production server.</li>
+<li><a href="https://github.com/oobabooga/text-generation-webui">Text generation web UI</a>: Gradio interface.</li>
+<li><a href="https://github.com/NVIDIA/logits-processor-zoo">logits-processor-zoo</a>: Advanced generation control.</li>
+</ul>
 
 
 </section>

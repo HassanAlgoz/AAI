@@ -6360,7 +6360,7 @@
     "href": "W5/index.html",
     "title": "Applied Deep Learning",
     "section": "",
-    "text": "Learning end-goals:\n\nUse data to fine-tune foundation AI models\n\n\nData curation: what is labelled and which tech is used to label\nInference: speed, cost, performance metric\nFine-tuning time, cost, and performance tradeoff\n\n\nSpecify the technical requirements for AI integration\nMake a decision matrix and select the most fit AI solution\nGiven a business process, evaluate the need for AI\n\nTopics:\n\nIntroduction to LLM-based NLP and HuggingFace\nPipelines\nUser Interface\nLLMs\nFine-tuning Intro\n\nSee: Prompt-based methods"
+    "text": "Learning end-goals:\nTopics:"
   },
   {
     "objectID": "W4/faq/never_expose_api_keys.html",
@@ -7417,7 +7417,7 @@
     "href": "W5/M1/slides/04_llms.html#llm-pipelines",
     "title": "Large Language Models",
     "section": "LLM Pipelines",
-    "text": "LLM Pipelines\nSame model, different tasks\nfrom transformers import pipeline\n\n# use the same API for 3 different tasks\ncheckpoint = \"meta-llama/Llama-2-7b-hf\"\n\nanswerer = pipeline(\"question-answering\", model=checkpoint)\nclassifier = pipeline(\"sentiment-analysis\", model=checkpoint)\ngenerator = pipeline(\"text-generation\", model=checkpoint)\nSame task, different models\nfrom transformers import pipeline\n\n# Task remains \"text-generation\", models change\nllama = pipeline(\"text-generation\", model=\"meta-llama/Llama-2-7b-hf\")\nmistral = pipeline(\"text-generation\", model=\"mistralai/Mistral-7B-v0.1\")\ngemma = pipeline(\"text-generation\", model=\"google/gemma-7b\")"
+    "text": "LLM Pipelines\nSame task, different models\nfrom transformers import pipeline\n\n# Task remains \"text-generation\", models change\nllama = pipeline(\"text-generation\", model=\"HuggingFaceTB/SmolLM2-360M\")\nmistral = pipeline(\"text-generation\", model=\"mistralai/Mistral-7B-v0.1\")\ngemma = pipeline(\"text-generation\", model=\"google/gemma-7b\")\nSame model, different tasks\nfrom transformers import pipeline\n\n# use the same API for 3 different tasks\ncheckpoint = \"HuggingFaceTB/SmolLM2-360M\"\n\nanswerer = pipeline(\"question-answering\", model=checkpoint)\nclassifier = pipeline(\"sentiment-analysis\", model=checkpoint)\ngenerator = pipeline(\"text-generation\", model=checkpoint)"
   },
   {
     "objectID": "W5/M1/slides/04_llms.html#common-generate-options",
@@ -7550,7 +7550,7 @@
     "href": "W5/M1/slides/02_pipelines.html#task-specific-pipeline",
     "title": "Pipelines",
     "section": "Task-specific Pipeline",
-    "text": "Task-specific Pipeline\nThe generic Pipeline class may be replaced with task-specific one. For example, to get a TextGenerationPipeline with Gemma 2, set task=\"text-generation\" and model=\"google/gemma-2-2b\" as follows:\nfrom transformers import pipeline\n\n# Instantiate\npipe = pipeline(task=\"text-generation\", model=\"google/gemma-2-2b\")\nThen you can pass input to the Pipeline like so:\n# Pass in input text\npipe(\"the secret to baking a really good cake is \")\nOutput:\n[{'generated_text': 'the secret to baking a really good cake is 1. the right ingredients 2. the'}]"
+    "text": "Task-specific Pipeline\nA task-specific pipeline wraps three things into one call:\n\nPre-processing – Tokenizing raw text (or processing an image/audio input).\nModel inference – Running the fine-tuned model.\nPost-processing – Converting raw logits/outputs into human-readable results (e.g., labels, extracted answers, or generated text).\n\nYou pass in raw data and get back a structured result without touching the underlying tensors."
   },
   {
     "objectID": "W5/M1/slides/02_pipelines.html#automatic-speech-recognition-asr-pipeline",
@@ -7599,14 +7599,14 @@
     "href": "W5/M1/slides/02_pipelines.html#accelerator-device0-for-gpu",
     "title": "Pipelines",
     "section": "Accelerator: device=0 for GPU",
-    "text": "Accelerator: device=0 for GPU\n\nBy default a Pipeline runs on a CPU which is given by device=-1\nFor GPU, set device to the associated CUDA device id. For example, device=0 runs on the first GPU.\n\npipe = pipeline(\n    task=\"text-generation\", model=\"google/gemma-2-2b\",\n    device=0    # Run on GPU\n)"
+    "text": "Accelerator: device=0 for GPU\n\nBy default a Pipeline runs on a CPU which is given by device=-1\nFor GPU, set device to the associated CUDA device id. For example, device=0 runs on the first GPU.\n\npipe = pipeline(\n    task=\"sentiment-analysis\",\n    device=0    # Run on GPU\n)"
   },
   {
     "objectID": "W5/M1/slides/02_pipelines.html#accelerator-using-accelerate-library",
     "href": "W5/M1/slides/02_pipelines.html#accelerator-using-accelerate-library",
     "title": "Pipelines",
     "section": "Accelerator using accelerate library",
-    "text": "Accelerator using accelerate library\n\nAccelerate is a library of distributed training.\nIt loads and stores the model weights on the fastest device first, and then moves the weights to other devices (CPU, hard drive) as needed.\n\nEnsure to have Accelerate installed first:\npip install -U accelerate\nThen you can use it with device_map=\"auto\" (or device=\"mps\" on Apple silicon):\npipe = pipeline(\n    task=\"text-generation\", model=\"google/gemma-2-2b\",\n    device_map=\"auto\"    # Use Accelerate \n)"
+    "text": "Accelerator using accelerate library\n\nAccelerate is a library of distributed training.\nIt loads and stores the model weights on the fastest device first, and then moves the weights to other devices (CPU, hard drive) as needed.\n\nEnsure to have Accelerate installed first:\npip install -U accelerate\nThen you can use it with device_map=\"auto\" (or device=\"mps\" on Apple silicon):\npipe = pipeline(\n    task=\"sentiment-analysis\",\n    device_map=\"auto\"    # Use Accelerate \n)"
   },
   {
     "objectID": "W5/M1/slides/02_pipelines.html#half-precision-and-quantization",
@@ -7627,7 +7627,7 @@
     "href": "W5/M1/slides/02_pipelines.html#batch-inference",
     "title": "Pipelines",
     "section": "Batch Inference",
-    "text": "Batch Inference\nBatch inference is disabled by default since hardware, data, and the model itself can affect whether it improves speed or not. In the example below, when there are 4 inputs and batch_size=2 , Pipeline passes a batch of 2 inputs, twice.\npipe = pipeline(\n    task=\"text-generation\", model=\"google/gemma-2-2b\",\n    batch_size=2 # Batch Inference\n)\npipe([\n    \"the secret to baking a really good cake is\",\n    \"a baguette is\",\n    \"paris is the\",\n    \"hotdogs are\"\n])\nOutput:\n[[{'generated_text': 'the secret to baking a really good cake is to use a good cake mix.\\n\\ni’'}],\n [{'generated_text': 'a baguette is'}],\n [{'generated_text': 'paris is the most beautiful city in the world.\\n\\ni’ve been to paris 3'}],\n [{'generated_text': 'hotdogs are a staple of the american diet. they are a great source of protein and can'}]]"
+    "text": "Batch Inference\nBatch inference is disabled by default since hardware, data, and the model itself can affect whether it improves speed or not. In the example below, when there are 4 inputs and batch_size=2 , Pipeline passes a batch of 2 inputs, twice.\npipe = pipeline(\n    task=\"text-generation\", model=\"HuggingFaceTB/SmolLM2-360M\",\n    batch_size=2 # Batch Inference\n)\npipe([\n    \"the secret to baking a really good cake is\",\n    \"a baguette is\",\n    \"paris is the\",\n    \"hotdogs are\"\n])\nOutput:\n[[{'generated_text': 'the secret to baking a really good cake is to use a good cake mix.\\n\\ni’'}],\n [{'generated_text': 'a baguette is'}],\n [{'generated_text': 'paris is the most beautiful city in the world.\\n\\ni’ve been to paris 3'}],\n [{'generated_text': 'hotdogs are a staple of the american diet. they are a great source of protein and can'}]]"
   },
   {
     "objectID": "W5/M1/slides/02_pipelines.html#batch-inference-rules-of-thumb",
@@ -7663,5 +7663,852 @@
     "title": "Large Language Models",
     "section": "Supervised Learning",
     "text": "Supervised Learning\nTraining task is to mimic the human-curated: (prompt, output) text sequences.\nFLAN T5 | Google: “We finetune various language models on 1.8K tasks phrased as instructions, and evaluate them on unseen tasks”:\n\n\n\nAnswer general knowledge questions:\n\nPrompt: \"What is the tallest building?\" , Output: \"The tallest building is ...\"\n\nTranslate from English to French:\n\nPrompt: \"Translate this paragraph ...\" , Output: \"Bonjour lemuv beleluo\"\n\nWrite code:\n\nPrompt: \"Write Python function to analyse ...\" , Output: \"def analyze(...)"
+  },
+  {
+    "objectID": "W5/challenges.html",
+    "href": "W5/challenges.html",
+    "title": "Applied AI Bootcamp",
+    "section": "",
+    "text": "challenges"
+  },
+  {
+    "objectID": "W5/challenges.html#لماذا-تعد-معالجة-اللغات-صعبة",
+    "href": "W5/challenges.html#لماذا-تعد-معالجة-اللغات-صعبة",
+    "title": "Applied AI Bootcamp",
+    "section": "لماذا تعد معالجة اللغات صعبة",
+    "text": "لماذا تعد معالجة اللغات صعبة\nندرك المعنى والتشابه بديهياً؛ بينما تحتاج الحواسيب إلى تمثيلات رقمية مهيكلة. يجب على النماذج تحويل اللغة المعقدة والمرنة إلى متجهات رياضية.\nتواجه معالجة اللغات الطبيعية الحديثة أربعة عوائق أساسية:\n\n\nالغموض (معجمي، دلالي، تركيبي)\nالتجانس اللفظي\nالتهكم والسخرية\nتعدد اللهجات\nالعامية والمصطلحات الخاصة"
+  },
+  {
+    "objectID": "W5/challenges.html#الغموض-المعجمي-lexical-ambiguity",
+    "href": "W5/challenges.html#الغموض-المعجمي-lexical-ambiguity",
+    "title": "Applied AI Bootcamp",
+    "section": "الغموض المعجمي (Lexical ambiguity)",
+    "text": "الغموض المعجمي (Lexical ambiguity)\nالغموض المعجمي هو نوع فرعي من الغموض الدلالي حيث تكون الكلمة أو المقطع الصرفي غامضاً.\n\n\n“The fisherman went to the bank” (كلمة “bank” تعني ضفة النهر أو مبنى البنك).\n“شربت من العين” (نبع الماء).\n“أبصرت بـ العين” (عضو البصر).\n“أرسل القائد عيناً لاستطلاع العدو” (جاسوساً).\n“اشتريت هذا بعينه” (بذاته/نفسه)."
+  },
+  {
+    "objectID": "W5/challenges.html#الغموض-الدلالي-semantic-ambiguity",
+    "href": "W5/challenges.html#الغموض-الدلالي-semantic-ambiguity",
+    "title": "Applied AI Bootcamp",
+    "section": "الغموض الدلالي (Semantic ambiguity)",
+    "text": "الغموض الدلالي (Semantic ambiguity)\nينتج الغموض الدلالي عن التعبيرات التي تحمل معاني متعددة.\n\n\n“It’s on the house” (مجاني أو حرفياً فوق المنزل).\n“That went over my head” (عدم فهم أو مرور شيء فوق الرأس).\n“Not your business” (ليس من شأنك).\n“طارت الطيور بأرزاقها” (حرفياً: طارت بالطعام | مقصوداً: فات الأوان)."
+  },
+  {
+    "objectID": "W5/challenges.html#الغموض-التركيبي-syntactic-ambiguity",
+    "href": "W5/challenges.html#الغموض-التركيبي-syntactic-ambiguity",
+    "title": "Applied AI Bootcamp",
+    "section": "الغموض التركيبي (Syntactic Ambiguity)",
+    "text": "الغموض التركيبي (Syntactic Ambiguity)\nيحدث الغموض التركيبي عندما يكون للجملة شجرات إعرابية متعددة.\n\n\n“I saw the man on the beach with my binoculars.”\nالتفسير 1: رأيت الرجل باستخدام منظاري.\nالتفسير 2: الرجل كان يحمل منظاري معه."
+  },
+  {
+    "objectID": "W5/challenges.html#التجانس-اللفظي-homonymy",
+    "href": "W5/challenges.html#التجانس-اللفظي-homonymy",
+    "title": "Applied AI Bootcamp",
+    "section": "التجانس اللفظي (Homonymy)",
+    "text": "التجانس اللفظي (Homonymy)\nيحدث التجانس اللفظي عندما تُنطق الكلمات بنفس الطريقة.\n\n\n“This is a row of raw materials” (تشابه نطق row و raw).\n“I see the sea” (تشابه نطق see و sea).\n“Without my glasses I can’t see the glass” (نظارة مقابل زجاج).\n“خاتم من ذَهَب” (المعدن).\n“ذَهَبَ محمد إلى المدرسة” (فعل المغادرة)."
+  },
+  {
+    "objectID": "W5/challenges.html#التهكم-والسخرية-irony-and-sarcasm",
+    "href": "W5/challenges.html#التهكم-والسخرية-irony-and-sarcasm",
+    "title": "Applied AI Bootcamp",
+    "section": "التهكم والسخرية (Irony and sarcasm)",
+    "text": "التهكم والسخرية (Irony and sarcasm)\nفي أي وقت تقول فيه عكس الحقيقة عمداً، فهذا هو التهكم اللفظي.\n\n\n“I love it when my computer crashes” (سخرية من تعطل الحاسوب).\n“Fantastic! I love waiting in line” (سخرية من الازدحام).\n“ما شاء الله، عبقري!” (تقال لمن يرتكب خطأ فادحاً).\n“جيتك يا عبد المعين تعين…” (تهكم لفظي).\n“طبيب يدخن السجائر” (مفارقة موقفية).\n“باب النجار مخلّع” (مفارقة موقفية)."
+  },
+  {
+    "objectID": "W5/challenges.html#اللهجات-dialects",
+    "href": "W5/challenges.html#اللهجات-dialects",
+    "title": "Applied AI Bootcamp",
+    "section": "اللهجات (Dialects)",
+    "text": "اللهجات (Dialects)\nتختلف اللهجات في التهجئة، النطق، والمفردات حسب المناطق.\n\n\nالفصحى: كيف حالك؟\nالخليجية: شلونك؟ / شعلومك؟\nالمصرية: إزيك؟ / عامل إيه؟\nالشامية: كيفك؟\nالمغربية: كيداير؟ / لباس؟\nالنفي (المصرية/الشامية): ما اكلتش / ما اكلت.\nالنفي (الخليجية): ما كليت / مو ماكل."
+  },
+  {
+    "objectID": "W5/challenges.html#العامية-والمصطلحات-الخاصة-slang-and-jargon",
+    "href": "W5/challenges.html#العامية-والمصطلحات-الخاصة-slang-and-jargon",
+    "title": "Applied AI Bootcamp",
+    "section": "العامية والمصطلحات الخاصة (Slang and jargon)",
+    "text": "العامية والمصطلحات الخاصة (Slang and jargon)\nكلمات غير رسمية أو فنية تتطور باستمرار ويصعب على الآلات فهم سياقها.\n\n\n“That movie was lit!” (الفيلم ممتاز).\n“I’m feeling blue” (أشعر بالحزن).\n“كبّر دماغك” (تجاهل الأمر).\n“سحَب عليه” (تجاهله/غاب عن الموعد).\n“قصف جبهته” (إحراج برد مفحم).\nROI / KPI / ML (مصطلحات مهنية تخصصية)."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#natural-language-processing-nlp",
+    "href": "W5/M1/slides/03_nlp_tasks.html#natural-language-processing-nlp",
+    "title": "Applications of NLP",
+    "section": "Natural Language Processing (NLP)",
+    "text": "Natural Language Processing (NLP)\nNLP bridges the gap between computers and human language. It combines elements of:\n\ncomputer science,\nlinguistics,\nartificial intelligence\n\nRecent success in NLP has been driven by Deep Learning approach which is based on massive datasets and models that can learn from data."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#nlu-nlg",
+    "href": "W5/M1/slides/03_nlp_tasks.html#nlu-nlg",
+    "title": "Applications of NLP",
+    "section": "NLU & NLG",
+    "text": "NLU & NLG\nNatural Language Understanding (NLU): extract meaning, intention, emotion, importance, and correlation between words/texts/speech.\n\nExamples: Classification, NER, and ASR\n\nNatural Language Generation (NLG): generate the most likely sequence given previous sequence.\n\nExamples: Question Answering, Summarization, Translation, and Coding."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#machine-translation-mt",
+    "href": "W5/M1/slides/03_nlp_tasks.html#machine-translation-mt",
+    "title": "Applications of NLP",
+    "section": "Machine Translation (MT)",
+    "text": "Machine Translation (MT)\nAutomatically converting text from one language into another. This is a challenging task because languages have different grammatical structures, vocabularies, and idioms.\n\nTranslating subtitles for movies and TV shows\nTranslating posts for marketing\nTranslating legal documents for international business\nTranslating medical records for healthcare providers\n\n\nExample: NAMAA-T5-Saudi2English fine-tuned on Saudi dialectal data (Najdi, Hijazi, Southern, Northern, and Eastern varieties) built on top of mBERT-initialized T5 architecture and aims to improve translation quality for informal and region-specific Arabic commonly used across Saudi Arabia."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#ascat-arabic-scientific-corpus-for-advanced-translation",
+    "href": "W5/M1/slides/03_nlp_tasks.html#ascat-arabic-scientific-corpus-for-advanced-translation",
+    "title": "Applications of NLP",
+    "section": "ASCAT: Arabic Scientific Corpus for Advanced Translation",
+    "text": "ASCAT: Arabic Scientific Corpus for Advanced Translation\nASCAT-Arabic-Scientific-Translation.\n\nDomains: Physics, Mathematics, Computer Science, Quantum Mechanics, Artificial Intelligence\nSize: 500 full scientific abstracts\nTotal English Tokens: 67,293\nTotal Arabic Tokens: 60,026\nArabic Vocabulary Size: 17,604 unique words"
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#spelling-correction",
+    "href": "W5/M1/slides/03_nlp_tasks.html#spelling-correction",
+    "title": "Applications of NLP",
+    "section": "Spelling Correction",
+    "text": "Spelling Correction\nNAMAA-Space/SaudiSpell-AraT5 Unlike generic Arabic correctors, this model is engineered to handle the specific orthographic and phonetic nuances of Najdi, Hijazi, and Standard Saudi dialects alongside Modern Standard Arabic (MSA). Trained on 3 Million sentences."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#named-entity-recognition-ner",
+    "href": "W5/M1/slides/03_nlp_tasks.html#named-entity-recognition-ner",
+    "title": "Applications of NLP",
+    "section": "Named-entity Recognition (NER)",
+    "text": "Named-entity Recognition (NER)\nNamed entity recognition (NER) aims to extract entities in a piece of text into predefined categories such as: personal names, organizations, locations, and quantities.\n\nExample: GLiNER.\nApplications:\n\nBuilding knowledge graphs for Arabic content.\nEnhancing search and recommendation systems with entity-aware features."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#information-retrieval-ir",
+    "href": "W5/M1/slides/03_nlp_tasks.html#information-retrieval-ir",
+    "title": "Applications of NLP",
+    "section": "Information Retrieval (IR)",
+    "text": "Information Retrieval (IR)\nInformation Retrieval (IR) is the process of finding relevant information from a collection of documents.\n\nSearch engines crawl, index, and find documents based on user queries.\nChat models uses Retriveal to Augment their Generation (RAG) to provide up-to-date and factual answers.\n\nSee: intfloat (Liang Wang)’s collections for embedding and reranker models."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#text-classification",
+    "href": "W5/M1/slides/03_nlp_tasks.html#text-classification",
+    "title": "Applications of NLP",
+    "section": "Text Classification",
+    "text": "Text Classification\nText Classification is the process of assigning a category or label to a piece of text.\nSpam Detection (Spam / Not Spam) in emails and messages:\n\n“Congratulations! You’ve won a $1000 Walmart gift card. Click here to claim your prize.”\n\nSentiment Analysis identifies the emotional tone of text.\n\nPositive: “This coffee is amazing!”\nNegative: “My order arrived cold and late.”\nNeutral: “The store opens at 8 AM.”\n\nContent Moderation essential part of any online community.\n\nFake reviews (تقييمات مزيفة)\nFake news (أخبار مزيفة)\nFake accounts (حسابات مزيفة)\nInappropriate content (محتوى غير لائق)"
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#optical-character-recognition-ocr",
+    "href": "W5/M1/slides/03_nlp_tasks.html#optical-character-recognition-ocr",
+    "title": "Applications of NLP",
+    "section": "Optical Character Recognition (OCR)",
+    "text": "Optical Character Recognition (OCR)\nOptical Character Recognition (OCR) converts images of text into searchable, editable data. Here is where it is used most effectively:\n\nTraffic: Reading license plates for automated toll collection and parking garage access.\nDigitization:\n\nConverting physical books, legal files, and historical archives into searchable digital databases.\nInstantly extracting text from invoices, receipts, and tax forms to eliminate manual typing.\n\nLive Translation: Enabling apps to translate foreign street signs or menus by simply pointing a smartphone camera at them.\n\nExample: QARI-OCR Structural Arabic Document Understanding."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#automatic-speech-recognition-asr",
+    "href": "W5/M1/slides/03_nlp_tasks.html#automatic-speech-recognition-asr",
+    "title": "Applications of NLP",
+    "section": "Automatic Speech Recognition (ASR)",
+    "text": "Automatic Speech Recognition (ASR)\nConvert spoken language into text or actionable commands.\n\nTranscription:\n\nphone calls for customer service and sales\nmeetings for note-taking and documentation\nlectures for students and researchers\npodcasts for SEO and accessibility\ninterviews for journalists and researchers\n\nDictation: for people to speak their notes directly into text documents.\nVoice Assistants: Powering smart devices (like Siri or Google Assistant) to answer questions, set reminders, and control smart homes.\n\n\nExample: NAMAA-Space/EgypTalk-ASR-v2 trained on over 200 hours of high-quality, manually curated audio data collected and prepared by the NAMAA team. It is built upon NVIDIA’s FastConformer Hybrid Large architecture and fine-tuned for Egyptian Arabic, enabling highly accurate transcription in casual, formal, and mixed dialect settings."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#text-to-speech-tts",
+    "href": "W5/M1/slides/03_nlp_tasks.html#text-to-speech-tts",
+    "title": "Applications of NLP",
+    "section": "Text to Speech (TTS)",
+    "text": "Text to Speech (TTS)\nConvert text into speech.\n\nExample: NAMAA-Saudi-TTS refined to generate natural Saudi dialect speech, targeting everyday conversational usage rather than Modern Standard Arabic (MSA)."
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#transformers-nlp-tasks",
+    "href": "W5/M1/slides/03_nlp_tasks.html#transformers-nlp-tasks",
+    "title": "Applications of NLP",
+    "section": "Transformers NLP Tasks",
+    "text": "Transformers NLP Tasks\nNatural Language Processing pipelines are:\n\n\n\nPipeline\nDescription\nTask Name\n\n\n\n\nTextClassificationPipeline\nClassifies an entire text input into one or more predefined categories (e.g., sentiment analysis).\ntext-classification\n\n\nTokenClassificationPipeline\nAssigns a label to each individual token in a sequence, such as named entities or parts of speech.\ntoken-classification\n\n\nZeroShotClassificationPipeline\nClassifies text into arbitrary candidate labels provided at inference time, without requiring task-specific training.\nzero-shot-classification\n\n\nTableQuestionAnsweringPipeline\nAnswers a natural language question using a provided table as context.\ntable-question-answering\n\n\nFillMaskPipeline\nPredicts the missing token(s) masked within a text sequence (e.g., BERT [MASK]).\nfill-mask\n\n\nTextGenerationPipeline\nContinues or completes a given text prompt by generating new tokens autoregressively.\ntext-generation"
+  },
+  {
+    "objectID": "W5/M1/slides/01_Intro.html#what-is-the-hugging-face-hub",
+    "href": "W5/M1/slides/01_Intro.html#what-is-the-hugging-face-hub",
+    "title": "Introduction to HuggingFace",
+    "section": "What is the Hugging Face Hub?",
+    "text": "What is the Hugging Face Hub?\n\nCentral Platform: Discover, use, and contribute state-of-the-art models and datasets.\nScale: Over 10,000 publicly available models.\nNot limited to 🤗 Transformers or NLP:\n\nNLP: Flair, AllenNLP\nSpeech: Asteroid, pyannote\nVision: timm"
+  },
+  {
+    "objectID": "W5/M1/slides/01_Intro.html#versioning-accessibility",
+    "href": "W5/M1/slides/01_Intro.html#versioning-accessibility",
+    "title": "Introduction to HuggingFace",
+    "section": "Versioning & Accessibility",
+    "text": "Versioning & Accessibility\n\nGit-Based: Each model is a Git repository, ensuring versioning and reproducibility.\nCommunity Focus: Sharing eliminates the need for individual training and simplifies usage.\nAccessibility: Openly accessible to anyone looking to integrate SOTA technology."
+  },
+  {
+    "objectID": "W5/M1/slides/01_Intro.html#open-source-models-on-huggingface",
+    "href": "W5/M1/slides/01_Intro.html#open-source-models-on-huggingface",
+    "title": "Introduction to HuggingFace",
+    "section": "Open-source models on HuggingFace",
+    "text": "Open-source models on HuggingFace\nTasks, or pipeline types, describe the “shape” of each model’s API (inputs and outputs) and are used to determine which Inference API and widget we want to display for any given model.\nWe recommend using the task selector in the Hugging Face Hub interface in order to select the appropriate checkpoints:"
+  },
+  {
+    "objectID": "W5/M1/slides/01_Intro.html#find-the-latest-models",
+    "href": "W5/M1/slides/01_Intro.html#find-the-latest-models",
+    "title": "Introduction to HuggingFace",
+    "section": "Find the latest models",
+    "text": "Find the latest models\nThe Models Timeline is an interactive chart of how architectures in Transformers have changed over time. You can scroll through models in order, spanning text, vision, audio, video, and multimodal use cases.\nUse the filters to narrow models by modality or task. Set custom date ranges to focus on models added during specific periods. Click a model card to see its capabilities, supported tasks, and documentation."
+  },
+  {
+    "objectID": "W5/M1/slides/01_Intro.html#hosted-inference-api",
+    "href": "W5/M1/slides/01_Intro.html#hosted-inference-api",
+    "title": "Introduction to HuggingFace",
+    "section": "Hosted Inference API",
+    "text": "Hosted Inference API\n\nAutomatic Deployment: Sharing a model automatically enables a hosted API.\nPublic Hub: Sharing and using public models is completely free.\nPrivate Options: Paid plans are available for users who wish to host models privately."
+  },
+  {
+    "objectID": "W5/M1/slides/01_Intro.html#transformers-quick-tour",
+    "href": "W5/M1/slides/01_Intro.html#transformers-quick-tour",
+    "title": "Introduction to HuggingFace",
+    "section": "Transformers Quick Tour",
+    "text": "Transformers Quick Tour\nThe 🤗 Transformers library is a PyTorch-first library. It provides models that are faithful to their papers, easy to use, and easy to hack.\n\nEngineers who want a pretrained model that “just works” with a predictable API.\nPractitioners fine-tuning, evaluating, or serving models.\nResearchers and educators exploring or extending model architectures.\n\nThis quickstart introduces you to Transformers’ key features and shows you how to:\n\nLoad a pretrained model\nRun inference with Pipeline\nFine-tune a model with Trainer"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#example-image-segmentation-pipeline",
+    "href": "W5/M1/slides/02_pipelines.html#example-image-segmentation-pipeline",
+    "title": "Pipelines",
+    "section": "Example: Image Segmentation Pipeline",
+    "text": "Example: Image Segmentation Pipeline\nfrom transformers import pipeline\n\nsegmenter = pipeline(\n    task=\"image-segmentation\",\n    model=\"facebook/detr-resnet-50-panoptic\"\n)\nimage_url = \"https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png\"\nsegments = pipeline(image_url)"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#available-pipelines-for-different-modalities",
+    "href": "W5/M1/slides/02_pipelines.html#available-pipelines-for-different-modalities",
+    "title": "Pipelines",
+    "section": "Available pipelines for different modalities",
+    "text": "Available pipelines for different modalities\nThe pipeline() function supports multiple modalities, allowing you to work with text, images, audio, and even multimodal tasks. In this course we’ll focus on text tasks, but it’s useful to understand the transformer architecture’s potential, so we’ll briefly outline it.\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\naudio-classification\nAudio\nClassify audio into categories\n🔗\n🔗\n\n\nimage-classification\nImage\nPredicted class for an image\n🔗\n🔗\n\n\nobject-detection\nImage\nLocate and identify objects in images\n🔗\n🔗\n\n\n\nRefer to the Pipelines API reference for a complete list of available tasks."
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#example-text-classifier",
+    "href": "W5/M1/slides/02_pipelines.html#example-text-classifier",
+    "title": "Pipelines",
+    "section": "Example: Text Classifier",
+    "text": "Example: Text Classifier\nThe following example shows a pipeline for Text Classification:\nfrom transformers import pipeline\n\nclassifier = pipeline(\n    task=\"sentiment-analysis\",\n    model=\"distilbert/distilbert-base-uncased-finetuned-sst-2-english\"\n)\n\n# Batch inference\nclassifier([\n    \"I've been waiting for a HuggingFace course my whole life.\",\n    \"I hate this so much!\"\n])"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#common-task-specific-pipelines",
+    "href": "W5/M1/slides/02_pipelines.html#common-task-specific-pipelines",
+    "title": "Pipelines",
+    "section": "Common task-specific pipelines",
+    "text": "Common task-specific pipelines\nRefere to the Pipelines API reference for a complete list of available tasks."
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#example-automatic-speech-recognition-asr-pipeline",
+    "href": "W5/M1/slides/02_pipelines.html#example-automatic-speech-recognition-asr-pipeline",
+    "title": "Pipelines",
+    "section": "Example: Automatic Speech Recognition (ASR) Pipeline",
+    "text": "Example: Automatic Speech Recognition (ASR) Pipeline\n# Instantiate\npipe = pipeline(task=\"automatic-speech-recognition\", model=\"openai/whisper-large-v3\")\n\n# Pass in input audio by URL\npipe(\"https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac\")\nOutput:\n{'text': ' I have a dream that one day this nation will rise up and live out the true meaning of its creed.'}"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#example-image-classification-pipeline",
+    "href": "W5/M1/slides/02_pipelines.html#example-image-classification-pipeline",
+    "title": "Pipelines",
+    "section": "Example: Image Classification Pipeline",
+    "text": "Example: Image Classification Pipeline\n# Instantiate\npipe = pipeline(task=\"image-classification\", model=\"google/vit-base-patch16-224\")\n\n# Pass in input audio by URL\npipe(images=\"https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg\")\nOutput:\n[{'label': 'lynx, catamount',\n  'score': 0.43350091576576233},\n \n {'label': 'cougar, puma, catamount, mountain lion, painter, panther, Felis concolor',\n  'score': 0.034796204417943954},\n \n {'label': 'snow leopard, ounce, Panthera uncia',\n  'score': 0.03240183740854263},\n \n {'label': 'Egyptian cat',\n  'score': 0.02394474856555462},\n \n {'label': 'tiger cat',\n  'score': 0.02288915030658245}]"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#example-visual-question-answering-vqa-pipeline",
+    "href": "W5/M1/slides/02_pipelines.html#example-visual-question-answering-vqa-pipeline",
+    "title": "Pipelines",
+    "section": "Example: Visual Question Answering (VQA) Pipeline",
+    "text": "Example: Visual Question Answering (VQA) Pipeline\n# Instantiate\npipe = pipeline(task=\"visual-question-answering\", model=\"Salesforce/blip-vqa-base\")\n\n# Pass in input audio by URL\npipe(\n    image=\"https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/idefics-few-shot.jpg\",\n    question=\"What is in the image?\",\n)\nOutput:\n[{'answer': 'statue of liberty'}]"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#example-text-generation-pipeline",
+    "href": "W5/M1/slides/02_pipelines.html#example-text-generation-pipeline",
+    "title": "Pipelines",
+    "section": "Example: Text Generation Pipeline",
+    "text": "Example: Text Generation Pipeline\nfrom transformers import pipeline\n\ngenerator = pipeline(\"text-generation\", model=\"HuggingFaceTB/SmolLM2-360M\")\noutput = generator(\n    \"In this course, we will teach you how to\",\n    max_new_tokens=30,\n    num_return_sequences=2,\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#pipeline",
+    "href": "W5/M1/slides/02_pipelines.html#pipeline",
+    "title": "Pipelines",
+    "section": "Pipeline",
+    "text": "Pipeline\nThe Pipeline is a simple but powerful inference API that is readily available for a variety of machine learning tasks with any model from the Hugging Face Hub.\nA pipeline wraps three things into one call:\n\nPre-processing – Tokenizing raw text (or processing an image/audio input).\nModel inference – Running the fine-tuned model.\nPost-processing – Converting raw logits/outputs into human-readable results (e.g., labels, extracted answers, or generated text).\n\n\nYou pass in raw data and get back a structured result without touching the underlying tensors."
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#nlp-tasks",
+    "href": "W5/M1/slides/02_pipelines.html#nlp-tasks",
+    "title": "Pipelines",
+    "section": "NLP Tasks",
+    "text": "NLP Tasks\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\ntext-classification\nText\nLabel and confidence score\n🔗\n🔗\n\n\nner\nText\nTokens with entity tags (e.g., PER, LOC)\n🔗\n🔗\n\n\nquestion-answering\nText\nExtracted answer span from a context\n🔗\n🔗"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#nli-task",
+    "href": "W5/M1/slides/02_pipelines.html#nli-task",
+    "title": "Pipelines",
+    "section": "NLI Task",
+    "text": "NLI Task\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\nzero-shot-classification\nText\nLabels matched without task-specific training\n🔗\n🔗"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#generative-tasks",
+    "href": "W5/M1/slides/02_pipelines.html#generative-tasks",
+    "title": "Pipelines",
+    "section": "Generative Tasks",
+    "text": "Generative Tasks\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\nsummarization\nText\nCondensed version of the input text\n🔗\n🔗\n\n\ntranslation\nText\nTranslated text in the target language\n🔗\n🔗\n\n\ntext-generation\nText\nAI-generated continuation\n🔗\n🔗\n\n\nimage-to-text\nImage\nGenerate text descriptions of images\n🔗\n🔗\n\n\nautomatic-speech-recognition\nAudio\nTranscribed text from audio\n🔗\n🔗\n\n\ntext-to-speech\nAudio\nConvert text to spoken audio\n🔗\n🔗\n\n\nimage-text-to-text\nMultimodal\nRespond to an image based on a text prompt\n🔗\n🔗"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#nlu-tasks",
+    "href": "W5/M1/slides/02_pipelines.html#nlu-tasks",
+    "title": "Pipelines",
+    "section": "NLU Tasks",
+    "text": "NLU Tasks\nFoundational discriminative tasks in natural language understanding (NLU):\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\ntext-classification\nText\nLabel and confidence score\n🔗\n🔗\n\n\ntoken-classification\nText\nTokens with entity tags (e.g., PER, LOC)\n🔗\n🔗\n\n\nquestion-answering\nText\nExtracted answer span from a context\n🔗\n🔗\n\n\nzero-shot-classification\nText\nLabels matched without task-specific training\n🔗\n🔗\n\n\n\nNote: unlike the other NLP tasks, zero-shot-classification, requires no task-specific training data; instead, it evaluates arbitrary candidate labels against the input text at inference time."
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#nlg-tasks",
+    "href": "W5/M1/slides/02_pipelines.html#nlg-tasks",
+    "title": "Pipelines",
+    "section": "NLG Tasks",
+    "text": "NLG Tasks\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\nsummarization\nText\nCondensed version of the input text\n🔗\n🔗\n\n\ntranslation\nText\nTranslated text in the target language\n🔗\n🔗\n\n\ntext-generation\nText\nAI-generated continuation\n🔗\n🔗\n\n\ntext-to-speech\nAudio\nConvert text to spoken audio\n🔗\n🔗\n\n\nautomatic-speech-recognition\nAudio\nTranscribed text from audio\n🔗\n🔗\n\n\nimage-to-text\nImage\nGenerate text descriptions of images\n🔗\n🔗\n\n\nimage-text-to-text\nMultimodal\nRespond to an image based on a text prompt\n🔗\n🔗"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#asr-parameters",
+    "href": "W5/M1/slides/02_pipelines.html#asr-parameters",
+    "title": "Pipelines",
+    "section": "ASR Parameters",
+    "text": "ASR Parameters\nExample of ASR task parameters:\npipe_asr = pipeline(\"automatic-speech-recognition\", model=\"openai/whisper-tiny\")\n\noutput = pipe_asr(\n    \"https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac\",\n    return_timestamps=\"word\", # Returns precise start/end times for every word\n    chunk_length_s=30,        # Splits long audio into 30-second segments for processing\n    stride_length_s=5         # Adds 5 seconds of overlap between segments to prevent cutting words\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/02_pipelines.html#text-generation-parameters",
+    "href": "W5/M1/slides/02_pipelines.html#text-generation-parameters",
+    "title": "Pipelines",
+    "section": "Text Generation Parameters",
+    "text": "Text Generation Parameters\nfrom transformers import pipeline\n\ngenerator = pipeline(\"text-generation\", model=\"HuggingFaceTB/SmolLM2-360M\")\noutput = generator(\n    \"In this course, we will teach you how to\",\n    max_new_tokens=30,\n    num_return_sequences=2,\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#nlu-tasks",
+    "href": "W5/M1/slides/03_nlp_tasks.html#nlu-tasks",
+    "title": "Applications of NLP",
+    "section": "NLU Tasks",
+    "text": "NLU Tasks\nFoundational discriminative tasks in natural language understanding (NLU):\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\ntext-classification\nText\nLabel and confidence score\n🔗\n🔗\n\n\ntoken-classification\nText\nTokens with entity tags (e.g., PER, LOC)\n🔗\n🔗\n\n\nquestion-answering\nText\nExtracted answer span from a context\n🔗\n🔗\n\n\nzero-shot-classification\nText\nLabels matched without task-specific training\n🔗\n🔗"
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#nlg-tasks",
+    "href": "W5/M1/slides/03_nlp_tasks.html#nlg-tasks",
+    "title": "Applications of NLP",
+    "section": "NLG Tasks",
+    "text": "NLG Tasks\n\n\n\nTask\nModality\nOutput\nModels\nDatasets\n\n\n\n\nsummarization\nText\nCondensed version of the input text\n🔗\n🔗\n\n\ntranslation\nText\nTranslated text in the target language\n🔗\n🔗\n\n\ntext-generation\nText\nAI-generated continuation\n🔗\n🔗\n\n\ntext-to-speech\nAudio\nConvert text to spoken audio\n🔗\n🔗\n\n\nautomatic-speech-recognition\nAudio\nTranscribed text from audio\n🔗\n🔗\n\n\nimage-to-text\nImage\nGenerate text descriptions of images\n🔗\n🔗\n\n\nimage-text-to-text\nMultimodal\nRespond to an image based on a text prompt\n🔗\n🔗"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#inference-for-large-models",
+    "href": "W5/M1/slides/04_llms.html#inference-for-large-models",
+    "title": "Large Language Models",
+    "section": "Inference for Large Models",
+    "text": "Inference for Large Models\n\nWe use both Half-precision and Quantization to reduce memory requirement.\nWe also need to use a GPU device=\"auto\"\n\nInstall bitsandbytes:\npip install -U bitsandbytes\nLoad LLM fot text-generation task via pipeline:\npipe = pipeline(\n    \"text-generation\",\n    model=\"mistralai/Mistral-7B-v0.1\",        \n    dtype=torch.bfloat16,    # Half-precision (reduce memory)\n    device_map=\"auto\",       # Automatic Resource Allocation\n    model_kwargs={\n        # 8-bit Quantization (compress model)\n        \"quantization_config\": BitsAndBytesConfig(load_in_8bit=True)\n    },\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#what-are-small-language-models",
+    "href": "W5/M1/slides/04_llms.html#what-are-small-language-models",
+    "title": "Large Language Models",
+    "section": "What are Small Language Models?",
+    "text": "What are Small Language Models?\nSLMs are Small Language Models— are LLMs with far fewer parameters and lower compute requirements. Suitable for smartphones, embedded systems, or low-power computers.\nThe following examples are SLMs ranging from 1-4 billion parameters:\n\nLlama3.2-1B – A Meta-developed 1-billion-parameter variant optimized for edge devices.\nQwen2.5-1.5B – A model from Alibaba designed for multilingual applications with 1.5 billion parameters.\nDeepSeeek-R1-1.5B - DeepSeek’s first-generation of reasoning model distilled from Qwen2.5 with 1.5 billion parameters.\nSmolLM2-1.7B – From HuggingFaceTB, a state-of-the-art “small” (1.7 billion-parameter) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).\nPhi-3.5-Mini-3.8B – Microsoft’s tiny-but-might open model with 3.8 billion-parameters optimized for reasoning and code generation.\nGemma3-4B - Developed by Google DeepMind, this light but powerful 4 billion-parameter model is multilingual and multimodal."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#how-are-they-made-small",
+    "href": "W5/M1/slides/04_llms.html#how-are-they-made-small",
+    "title": "Large Language Models",
+    "section": "How Are They Made Small?",
+    "text": "How Are They Made Small?\nThe process of shrinking a language model involves several techniques aimed at reducing its size without compromising too much on performance:\n\nKnowledge Distillation: Training a smaller “student” model using knowledge transferred from a larger “teacher” model.\nPruning: Removing redundant or less important parameters within the neural network architecture.\nQuantization: Reducing the precision of numerical values used in calculations (e.g. converting floating-point numbers to integers)."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#examples-of-small-language-models",
+    "href": "W5/M1/slides/04_llms.html#examples-of-small-language-models",
+    "title": "Large Language Models",
+    "section": "Examples of Small Language Models",
+    "text": "Examples of Small Language Models\nSeveral small yet powerful language models have emerged, proving that size isn’t everything. The following examples are SLMs ranging from 1-4 billion parameters:\n\nLlama3.2-1B – A Meta-developed 1-billion-parameter variant optimized for edge devices.\nQwen2.5-1.5B – A model from Alibaba designed for multilingual applications with 1.5 billion parameters.\nDeepSeeek-R1-1.5B - DeepSeek’s first-generation of reasoning model distilled from Qwen2.5 with 1.5 billion parameters.\nSmolLM2-1.7B – From HuggingFaceTB, a state-of-the-art “small” (1.7 billion-parameter) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).\nPhi-3.5-Mini-3.8B – Microsoft’s tiny-but-might open model with 3.8 billion-parameters optimized for reasoning and code generation.\nGemma3-4B - Developed by Google DeepMind, this light but powerful 4 billion-parameter model is multilingual and multimodal."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#benefits-of-small-language-models",
+    "href": "W5/M1/slides/04_llms.html#benefits-of-small-language-models",
+    "title": "Large Language Models",
+    "section": "Benefits of Small Language Models",
+    "text": "Benefits of Small Language Models\n\nLow Compute Requirements – Can run on consumer laptops, edge devices, and mobile phones.\nLower Energy Consumption – Efficient models reduce power usage, making them environmentally friendly.\nFaster Inference – Smaller models generate responses quickly, ideal for real-time applications.\nOn-Device AI – No need for an internet connection or cloud services, enhancing privacy and security.\nCheaper Deployment – Lower hardware and cloud costs make AI more accessible to startups and developers.\nCustomizability: Easily fine-tuned for domain-specific tasks (e.g., legal document analysis)."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#llms-inference",
+    "href": "W5/M1/slides/04_llms.html#llms-inference",
+    "title": "Large Language Models",
+    "section": "LLMs Inference",
+    "text": "LLMs Inference\n\nWe use both Half-precision and Quantization to reduce memory requirement.\nWe also need to use a GPU device=\"auto\"\n\nInstall bitsandbytes:\npip install -U bitsandbytes\nLoad LLM fot text-generation task via pipeline:\npipe = pipeline(\n    \"text-generation\",\n    model=\"mistralai/Mistral-7B-v0.1\",        \n    dtype=torch.bfloat16,    # Half-precision (reduce memory)\n    device_map=\"auto\",       # Automatic Resource Allocation\n    model_kwargs={\n        # 8-bit Quantization (compress model)\n        \"quantization_config\": BitsAndBytesConfig(load_in_8bit=True)\n    },\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#small-language-models",
+    "href": "W5/M1/slides/04_llms.html#small-language-models",
+    "title": "Large Language Models",
+    "section": "Small Language Models",
+    "text": "Small Language Models\nSLMs are LLMs with far fewer parameters and lower compute requirements\n\nCrucial step toward efficient, accessible, and cost-effective AI.\nPractical solutions for businesses, developers, and researchers looking for powerful AI without the heavy computational burden of LLMs.\n\nThe following examples are SLMs ranging from 1-4 billion parameters:\n\nLlama3.2-1B – A Meta-developed 1-billion-parameter variant optimized for edge devices.\nQwen2.5-1.5B – A model from Alibaba designed for multilingual applications with 1.5 billion parameters.\nDeepSeeek-R1-1.5B - DeepSeek’s first-generation of reasoning model distilled from Qwen2.5 with 1.5 billion parameters.\nSmolLM2-1.7B – From HuggingFaceTB, a state-of-the-art “small” (1.7 billion-parameter) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).\nPhi-3.5-Mini-3.8B – Microsoft’s tiny-but-might open model with 3.8 billion-parameters optimized for reasoning and code generation.\nGemma3-4B - Developed by Google DeepMind, this light but powerful 4 billion-parameter model is multilingual and multimodal."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#same-task-different-models",
+    "href": "W5/M1/slides/04_llms.html#same-task-different-models",
+    "title": "Large Language Models",
+    "section": "Same task, different models",
+    "text": "Same task, different models\nfrom transformers import pipeline\n\n# Task remains \"text-generation\", models change\nllama = pipeline(\"text-generation\", model=\"HuggingFaceTB/SmolLM2-360M\")\nmistral = pipeline(\"text-generation\", model=\"mistralai/Mistral-7B-v0.1\")\ngemma = pipeline(\"text-generation\", model=\"google/gemma-7b\")"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#same-model-different-tasks",
+    "href": "W5/M1/slides/04_llms.html#same-model-different-tasks",
+    "title": "Large Language Models",
+    "section": "Same model, different tasks",
+    "text": "Same model, different tasks\nfrom transformers import pipeline\n\n# use the same API for 3 different tasks\ncheckpoint = \"HuggingFaceTB/SmolLM2-360M\"\n\nanswerer = pipeline(\"question-answering\", model=checkpoint)\nclassifier = pipeline(\"sentiment-analysis\", model=checkpoint)\ngenerator = pipeline(\"text-generation\", model=checkpoint)"
+  },
+  {
+    "objectID": "W5/M1/slides/xx_ui.html#launch-interface",
+    "href": "W5/M1/slides/xx_ui.html#launch-interface",
+    "title": "Machine learning apps",
+    "section": "Launch Interface",
+    "text": "Launch Interface\nCreate a pipeline for your task, and then pass it to Gradio’s Interface.from_pipeline function to create the interface. Gradio automatically determines the appropriate input and output components for a Pipeline.\nAdd launch to create a web server and start up the app.\nfrom transformers import pipeline\nimport gradio as gr\n\npipeline = pipeline(\"image-classification\", model=\"google/vit-base-patch16-224\")\ngr.Interface.from_pipeline(pipeline).launch()\nThe web app runs on a local server by default. To share the app with other users, set share=True in launch to generate a temporary public link. For a more permanent solution, host the app on Hugging Face Spaces.\ngr.Interface.from_pipeline(pipeline).launch(share=True)\nThe Space below is created with the code above and hosted on Spaces."
+  },
+  {
+    "objectID": "W5/M1/slides/xx_ui.html#web-server-inference",
+    "href": "W5/M1/slides/xx_ui.html#web-server-inference",
+    "title": "Machine learning apps",
+    "section": "Web server inference",
+    "text": "Web server inference\nFor more control, see: web server inference."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llms.html#half-precision-and-quantization",
+    "href": "W5/M1/slides/04_llms.html#half-precision-and-quantization",
+    "title": "Large Language Models",
+    "section": "Half-precision and Quantization",
+    "text": "Half-precision and Quantization\n\nWe use both Half-precision and Quantization to reduce memory requirement.\nWe also need to use a GPU device=\"auto\"\n\nInstall bitsandbytes:\npip install -U bitsandbytes\nLoad LLM fot text-generation task via pipeline:\npipe = pipeline(\n    \"text-generation\",\n    model=\"mistralai/Mistral-7B-v0.1\",        \n    dtype=torch.bfloat16,    # Half-precision (reduce memory)\n    device_map=\"auto\",       # Automatic Resource Allocation\n    model_kwargs={\n        # 8-bit Quantization (compress model)\n        \"quantization_config\": BitsAndBytesConfig(load_in_8bit=True)\n    },\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#large-language-models-llms",
+    "href": "W5/M1/slides/04_llm_slm.html#large-language-models-llms",
+    "title": "Large and Small Language Models",
+    "section": "Large Language Models (LLMs)",
+    "text": "Large Language Models (LLMs)\nLarge Language Models (LLMs) are a powerful subset of deep neural NLP models characterized by:\n\nmassive size (billions of parameters)\nextensive training data (trillions of tokens)\nability to perform a wide range of language tasks"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#original-2017-transformer",
+    "href": "W5/M1/slides/04_llm_slm.html#original-2017-transformer",
+    "title": "Large and Small Language Models",
+    "section": "Original 2017 Transformer",
+    "text": "Original 2017 Transformer\n\n\n\nThe encoder (left) maps an input sequence of symbol representations (tokens) to a sequence of continuous representations (vectors).\nThe decoder (right) then generates an output sequence of symbols (tokens) one element at a time.\nAt each step the model is auto-regressive, consuming the previously generated symbols as additional input when generating the next.\n\n– Attention is All You Need (Vaswani et al.)"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#variants-of-the-transformer",
+    "href": "W5/M1/slides/04_llm_slm.html#variants-of-the-transformer",
+    "title": "Large and Small Language Models",
+    "section": "Variants of the Transformer",
+    "text": "Variants of the Transformer\n\nAn overview of some of the most popular large language transformers organized by architecture type and developers."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#comparison-table",
+    "href": "W5/M1/slides/04_llm_slm.html#comparison-table",
+    "title": "Large and Small Language Models",
+    "section": "Comparison Table",
+    "text": "Comparison Table\nUnderstanding these differences will help you choose the right model for your specific task.\n\n\n\nArchitecture\nAttention Style\nPrediction Goal\nTypical Use Cases\nPopular Models\n\n\n\n\nEncoder–decoder (2017 Original)\nBidirectional (encoder) + causal (decoder)\nConditional generation (output sequence given input)\nTranslation, summarization, seq2seq\nBART - mBART - Marian - T5\n\n\nDecoder-only (2018 GPT-1)\nCausal (masked)\nNext-token probability distribution\nAutoregressive text generation\nHugging Face SmolLM Series - Meta’s Llama Series - Google’s Gemma Series - DeepSeek’s V3\n\n\nEncoder-only (2018 BERT)\nBidirectional\nContextual embeddings, not next-token prediction\nClassification, retrieval, NER\nBERT - DistilBERT - ModernBERT"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#modern-large-language-models-llms",
+    "href": "W5/M1/slides/04_llm_slm.html#modern-large-language-models-llms",
+    "title": "Large and Small Language Models",
+    "section": "Modern Large Language Models (LLMs)",
+    "text": "Modern Large Language Models (LLMs)\nMost LLMs today are Decoder-only with billions of parameters. Trained in two phases:\n\nPretraining: The model learns to predict the next token on vast amounts of text data\nInstruction tuning: The model is fine-tuned to follow instructions and generate helpful responses\n\nThis approach has led to models that can understand and generate human-like text across a wide range of topics and tasks."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#supervised-learning",
+    "href": "W5/M1/slides/04_llm_slm.html#supervised-learning",
+    "title": "Large and Small Language Models",
+    "section": "Supervised Learning",
+    "text": "Supervised Learning\nTraining task is to mimic the human-curated: (prompt, output) text sequences.\nFLAN T5 | Google: “We finetune various language models on 1.8K tasks phrased as instructions, and evaluate them on unseen tasks”:\n\n\n\nAnswer general knowledge questions:\n\nPrompt: \"What is the tallest building?\" , Output: \"The tallest building is ...\"\n\nTranslate from English to French:\n\nPrompt: \"Translate this paragraph ...\" , Output: \"Bonjour lemuv beleluo\"\n\nWrite code:\n\nPrompt: \"Write Python function to analyse ...\" , Output: \"def analyze(...)"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#key-capabilities-of-modern-llms",
+    "href": "W5/M1/slides/04_llm_slm.html#key-capabilities-of-modern-llms",
+    "title": "Large and Small Language Models",
+    "section": "Key capabilities of modern LLMs",
+    "text": "Key capabilities of modern LLMs\nModern decoder-based LLMs have demonstrated impressive capabilities, which you can experiment with directly in your browser:\n\n\n\n\n\n\n\n\nCapability\nDescription\nExample\n\n\n\n\nText generation\nCreating coherent and contextually relevant text\nWriting essays, stories, or emails\n\n\nSummarization\nCondensing long documents into shorter versions\nCreating executive summaries of reports\n\n\nTranslation\nConverting text between languages\nTranslating English to Spanish\n\n\nQuestion answering\nProviding answers to factual questions\n“What is the capital of France?”\n\n\nCode generation\nWriting or completing code snippets\nCreating a function based on a description\n\n\nReasoning\nWorking through problems step by step\nSolving math problems or logical puzzles\n\n\nFew-shot learning\nLearning from a few examples in the prompt\nClassifying text after seeing just 2-3 examples"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#practical-applications-of-encoder-decoder-models",
+    "href": "W5/M1/slides/04_llm_slm.html#practical-applications-of-encoder-decoder-models",
+    "title": "Large and Small Language Models",
+    "section": "Practical applications of Encoder-decoder models",
+    "text": "Practical applications of Encoder-decoder models\nSequence-to-sequence models excel at tasks that require transforming one form of text into another while preserving meaning.\n\n\n\n\n\n\n\n\nApplication\nDescription\nExample Model\n\n\n\n\nMachine translation\nConverting text between languages\nMarian, T5\n\n\nText summarization\nCreating concise summaries of longer texts\nBART, T5\n\n\nData-to-text generation\nConverting structured data into natural language\nT5\n\n\nGrammar correction\nFixing grammatical errors in text\nT5\n\n\nQuestion answering\nGenerating answers based on context\nBART, T5"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#interactive-demo-speech-to-speech-translation",
+    "href": "W5/M1/slides/04_llm_slm.html#interactive-demo-speech-to-speech-translation",
+    "title": "Large and Small Language Models",
+    "section": "Interactive demo: speech-to-speech translation",
+    "text": "Interactive demo: speech-to-speech translation\nHere’s an interactive demo of a sequence-to-sequence model for translation:"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#choosing-the-right-architecture",
+    "href": "W5/M1/slides/04_llm_slm.html#choosing-the-right-architecture",
+    "title": "Large and Small Language Models",
+    "section": "Choosing the right architecture",
+    "text": "Choosing the right architecture\nWhen working on a specific NLP task, how do you decide which architecture to use? Here’s a quick guide:\n\n\n\nText Classification (Sentiment, Topic)\n\nArchitecture: Encoder\nExamples: BERT, RoBERTa\n\nText Generation (Creative Writing)\n\nArchitecture: Decoder\nExamples: GPT, LLaMA\n\nTranslation\n\nArchitecture: Encoder-Decoder\nExamples: T5, BART\n\nSummarization\n\nArchitecture: Encoder-Decoder\nExamples: BART, T5\n\n\n\n\nNamed Entity Recognition\n\nArchitecture: Encoder\nExamples: BERT, RoBERTa\n\nQuestion Answering (Extractive)\n\nArchitecture: Encoder\nExamples: BERT, RoBERTa\n\nQuestion Answering (Generative)\n\nArchitecture: Encoder-Decoder or Decoder\nExamples: T5, GPT\n\nConversational AI\n\nArchitecture: Decoder\nExamples: GPT, LLaMA"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#same-task-different-models",
+    "href": "W5/M1/slides/04_llm_slm.html#same-task-different-models",
+    "title": "Large and Small Language Models",
+    "section": "Same task, different models",
+    "text": "Same task, different models\nfrom transformers import pipeline\n\n# Task remains \"text-generation\", models change\nllama = pipeline(\"text-generation\", model=\"HuggingFaceTB/SmolLM2-360M\")\nmistral = pipeline(\"text-generation\", model=\"mistralai/Mistral-7B-v0.1\")\ngemma = pipeline(\"text-generation\", model=\"google/gemma-7b\")"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#same-model-different-tasks",
+    "href": "W5/M1/slides/04_llm_slm.html#same-model-different-tasks",
+    "title": "Large and Small Language Models",
+    "section": "Same model, different tasks",
+    "text": "Same model, different tasks\nfrom transformers import pipeline\n\n# use the same API for 3 different tasks\ncheckpoint = \"HuggingFaceTB/SmolLM2-360M\"\n\nanswerer = pipeline(\"question-answering\", model=checkpoint)\nclassifier = pipeline(\"sentiment-analysis\", model=checkpoint)\ngenerator = pipeline(\"text-generation\", model=checkpoint)"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#small-language-models",
+    "href": "W5/M1/slides/04_llm_slm.html#small-language-models",
+    "title": "Large and Small Language Models",
+    "section": "Small Language Models",
+    "text": "Small Language Models\nSLMs are LLMs with far fewer parameters and lower compute requirements\n\nCrucial step toward efficient, accessible, and cost-effective AI.\nPractical solutions for businesses, developers, and researchers looking for powerful AI without the heavy computational burden of LLMs.\n\nThe following examples are SLMs ranging from 1-4 billion parameters:\n\nLlama3.2-1B – A Meta-developed 1-billion-parameter variant optimized for edge devices.\nQwen2.5-1.5B – A model from Alibaba designed for multilingual applications with 1.5 billion parameters.\nDeepSeeek-R1-1.5B - DeepSeek’s first-generation of reasoning model distilled from Qwen2.5 with 1.5 billion parameters.\nSmolLM2-1.7B – From HuggingFaceTB, a state-of-the-art “small” (1.7 billion-parameter) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).\nPhi-3.5-Mini-3.8B – Microsoft’s tiny-but-might open model with 3.8 billion-parameters optimized for reasoning and code generation.\nGemma3-4B - Developed by Google DeepMind, this light but powerful 4 billion-parameter model is multilingual and multimodal."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#benefits-of-small-language-models",
+    "href": "W5/M1/slides/04_llm_slm.html#benefits-of-small-language-models",
+    "title": "Large and Small Language Models",
+    "section": "Benefits of Small Language Models",
+    "text": "Benefits of Small Language Models\n\nLow Compute Requirements – Can run on consumer laptops, edge devices, and mobile phones.\nLower Energy Consumption – Efficient models reduce power usage, making them environmentally friendly.\nFaster Inference – Smaller models generate responses quickly, ideal for real-time applications.\nOn-Device AI – No need for an internet connection or cloud services, enhancing privacy and security.\nCheaper Deployment – Lower hardware and cloud costs make AI more accessible to startups and developers.\nCustomizability: Easily fine-tuned for domain-specific tasks (e.g., legal document analysis)."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#how-are-they-made-small",
+    "href": "W5/M1/slides/04_llm_slm.html#how-are-they-made-small",
+    "title": "Large and Small Language Models",
+    "section": "How Are They Made Small?",
+    "text": "How Are They Made Small?\nThe process of shrinking a language model involves several techniques aimed at reducing its size without compromising too much on performance:\n\nKnowledge Distillation: Training a smaller “student” model using knowledge transferred from a larger “teacher” model.\nPruning: Removing redundant or less important parameters within the neural network architecture.\nQuantization: Reducing the precision of numerical values used in calculations (e.g. converting floating-point numbers to integers)."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#half-precision-and-quantization",
+    "href": "W5/M1/slides/04_llm_slm.html#half-precision-and-quantization",
+    "title": "Large and Small Language Models",
+    "section": "Half-precision and Quantization",
+    "text": "Half-precision and Quantization\n\nWe use both Half-precision and Quantization to reduce memory requirement.\nWe also need to use a GPU device=\"auto\"\n\nInstall bitsandbytes:\npip install -U bitsandbytes\nLoad LLM fot text-generation task via pipeline:\npipe = pipeline(\n    \"text-generation\",\n    model=\"mistralai/Mistral-7B-v0.1\",        \n    dtype=torch.bfloat16,    # Half-precision (reduce memory)\n    device_map=\"auto\",       # Automatic Resource Allocation\n    model_kwargs={\n        # 8-bit Quantization (compress model)\n        \"quantization_config\": BitsAndBytesConfig(load_in_8bit=True)\n    },\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#how-llms-are-trained",
+    "href": "W5/M1/slides/06_fine-tuning.html#how-llms-are-trained",
+    "title": "Fine-tuning",
+    "section": "How LLMs are Trained?",
+    "text": "How LLMs are Trained?\nThree stages of training:\n\nPretraining (Unsupervised)\nSupervised Fine-tuning (SFT)\nReinforcement Learning from Human Feedback (RLHF)\n\nThis is the standard pipeline for building a modern Large Language Model (LLM)."
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#three-stages-of-llm-training",
+    "href": "W5/M1/slides/06_fine-tuning.html#three-stages-of-llm-training",
+    "title": "Fine-tuning",
+    "section": "Three stages of LLM training",
+    "text": "Three stages of LLM training"
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#pretraining-the-knowledge-base",
+    "href": "W5/M1/slides/06_fine-tuning.html#pretraining-the-knowledge-base",
+    "title": "Fine-tuning",
+    "section": "1. Pretraining (The Knowledge Base)",
+    "text": "1. Pretraining (The Knowledge Base)\n\nGoal: Learn language, facts, and reasoning from the internet.\nMethod: Unsupervised Learning. The model predicts the next word in a sequence (Self-Supervised).\nScale: Massive datasets (trillions of tokens) and high compute.\nOutcome: A “Base Model” that is a world-class autocompleter but bad at following instructions."
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#supervised-fine-tuning-sft-the-assistant",
+    "href": "W5/M1/slides/06_fine-tuning.html#supervised-fine-tuning-sft-the-assistant",
+    "title": "Fine-tuning",
+    "section": "2. Supervised Fine-tuning / SFT (The Assistant)",
+    "text": "2. Supervised Fine-tuning / SFT (The Assistant)\n\nGoal: Teach the model how to act like an assistant and follow specific formats.\nMethod: Supervised Learning. Humans write high-quality “Prompt-Response” pairs.\nScale: Small, curated datasets (thousands to tens of thousands of examples).\nOutcome: An “Instruct Model” that understands commands but may still produce “hallucinations” or unsafe content."
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#reinforcement-learning-from-human-feedback-rlhf-the-polishing",
+    "href": "W5/M1/slides/06_fine-tuning.html#reinforcement-learning-from-human-feedback-rlhf-the-polishing",
+    "title": "Fine-tuning",
+    "section": "3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)",
+    "text": "3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)\n\nGoal: Align the model with human values (helpfulness, honesty, safety).\nMethod:\n\nPreference Labeling: Humans rank multiple model outputs from best to worst.\nReward Modeling: A separate model learns these preferences.\nOptimization: The LLM is updated (often via PPO or DPO) to maximize the “reward” score.\n\nOutcome: A “Chat Model”."
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#rlhf",
+    "href": "W5/M1/slides/06_fine-tuning.html#rlhf",
+    "title": "Fine-tuning",
+    "section": "RLHF",
+    "text": "RLHF"
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#transfer-learning",
+    "href": "W5/M1/slides/06_fine-tuning.html#transfer-learning",
+    "title": "Fine-tuning",
+    "section": "Transfer Learning",
+    "text": "Transfer Learning\nTransfer learning is reusing a trained model on a new, related problem. Advantages are:\n\nTime: Training takes days instead of months.\nData: You only need thousands of specialized examples instead of trillions of general ones.\nCost: Less time spent on training on less data means less compute and thus less cost."
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#example-qari-ocr",
+    "href": "W5/M1/slides/06_fine-tuning.html#example-qari-ocr",
+    "title": "Fine-tuning",
+    "section": "Example: QARI-OCR",
+    "text": "Example: QARI-OCR\nQARI-OCR is a Vision-language Model (VLM) fine-tuned from Qwen2-VL-2B-Instruct to process Arabic documents. Key Features:\n\n📐 Layout-Aware Recognition: Preserves document structure with HTML/Markdown tags\n🔤 Full Diacritics Support: Accurate recognition of tashkeel (Arabic diacritical marks)\n📝 Multi-Font Handling: Trained on 12 diverse Arabic fonts (14px-100px)\n🎯 Structure-First Design: Optimized for documents with headers, body text, and complex layouts\n⚡ Efficient Training: Only 11 hours on single GPU with 10k samples\n🖼️ Robust Performance: Handles low-resolution and degraded images"
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#qari-ocr-model-performance",
+    "href": "W5/M1/slides/06_fine-tuning.html#qari-ocr-model-performance",
+    "title": "Fine-tuning",
+    "section": "QARI-OCR Model Performance",
+    "text": "QARI-OCR Model Performance\n\n\n\nMetric\nScore\n\n\n\n\nCharacter Error Rate (CER)\n0.300\n\n\nWord Error Rate (WER)\n0.485\n\n\nBLEU Score\n0.545\n\n\nTraining Time\n11 hours\n\n\nCO₂ Emissions\n1.88 kg eq."
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#qari-ocr-training-details",
+    "href": "W5/M1/slides/06_fine-tuning.html#qari-ocr-training-details",
+    "title": "Fine-tuning",
+    "section": "QARI-OCR Training Details",
+    "text": "QARI-OCR Training Details\n\nBase Model: Qwen2-VL-2B-Instruct\nTraining Data: 10,000 synthetic Arabic documents with HTML markup\nOptimization: 4-bit LoRA adapters (rank=16)\nHardware: Single NVIDIA A6000 GPU (48GB)\nFramework: Unsloth + Hugging Face TRL"
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#hunggingface-transformers-task-recipes",
+    "href": "W5/M1/slides/06_fine-tuning.html#hunggingface-transformers-task-recipes",
+    "title": "Fine-tuning",
+    "section": "HunggingFace Transformers Task Recipes",
+    "text": "HunggingFace Transformers Task Recipes\n\n\n\n\nExample: ASR."
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#unsloth-studio-beta",
+    "href": "W5/M1/slides/06_fine-tuning.html#unsloth-studio-beta",
+    "title": "Fine-tuning",
+    "section": "Unsloth Studio (beta)",
+    "text": "Unsloth Studio (beta)"
+  },
+  {
+    "objectID": "W5/M1/slides/06_fine-tuning.html#unsloth",
+    "href": "W5/M1/slides/06_fine-tuning.html#unsloth",
+    "title": "Fine-tuning",
+    "section": "Unsloth",
+    "text": "Unsloth\nUnsloth is an open-source framework for running and training models.\n⭐ Fine-tuning for Beginners:\n\n\n\nFine-tuning Guide\n\nStep-by-step on how to fine-tune!\nLearn the core basics of training.\n\nWhat model should I use?\n\nInstruct or Base Model?\nHow big should my dataset be?\n\nIs Fine-tuning right for me?\n\nWhat can fine-tuning do for me?\nRAG vs. Fine-tuning?\n\n\n\n\nDatasets Guide\n\nHow do I structure/prepare my dataset?\nHow do I collect data?\n\nInference & Deployment\n\nHow do I save my model locally?\nHow do I run my model via Ollama or vLLM?\n\nUnsloth Requirements\n\nDoes Unsloth work on my GPU?\nHow much VRAM will I need?"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#common-generate-options",
+    "href": "W5/M1/slides/05_llm_inference.html#common-generate-options",
+    "title": "LLM Inference",
+    "section": "Common generate() Options",
+    "text": "Common generate() Options\nLLM .generate() auto-regressively generates the next sequence given some initial prompt. Generation can be controlled (See: Common Options):\n\neos_token_id (list[int]): Specifies which token(s) signal the end of generation. Defaults are usually sufficient, but can be customized.\nmax_new_tokens (int): Controls the maximum number of tokens generated. Make sure to set it explicitly—defaults are usually small.\ntemperature (float): Influences randomness of generation. High values (&gt;0.8) make outputs more creative; low values (&lt;0.4) make them more focused and predictable. Requires do_sample=True.\ndo_sample (bool): If True, samples tokens randomly; if False, uses greedy decoding. Most applications should use True. See this guide for more details.\nnum_beams (int): Activates beam search when set above 1. Useful for input-grounded tasks. See this guide.\nrepetition_penalty (float): Set to greater than 1.0 to discourage the model from repeating itself. Higher values impose a stronger penalty."
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#pitfalls",
+    "href": "W5/M1/slides/05_llm_inference.html#pitfalls",
+    "title": "LLM Inference",
+    "section": "Pitfalls",
+    "text": "Pitfalls\nCommon issues when using generate() via the pipeline API.\n\nOutput length\nDecoding strategy\nPadding side\nPrompt format"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#issue-1-output-length",
+    "href": "W5/M1/slides/05_llm_inference.html#issue-1-output-length",
+    "title": "LLM Inference",
+    "section": "Issue 1: Output length",
+    "text": "Issue 1: Output length\nPipelines return 20 tokens by default unless defined otherwise in a model’s GenerationConfig. Manually set max_new_tokens to control length. Decoder-only models return the prompt and generated tokens by default.\n# Default: ~20 tokens\npipe(\"A sequence of numbers: 1, 2\")\n\n# Explicit: 50 new tokens\npipe(\"A sequence of numbers: 1, 2\", max_new_tokens=50)"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#issue-2-decoding-strategy",
+    "href": "W5/M1/slides/05_llm_inference.html#issue-2-decoding-strategy",
+    "title": "LLM Inference",
+    "section": "Issue 2: Decoding strategy",
+    "text": "Issue 2: Decoding strategy\nThe default strategy is greedy search. For creative tasks, use multinomial sampling by setting do_sample=True.\n# Greedy search\npipe(\"I am a cat.\")\n\n# Multinomial sampling\npipe(\"I am a cat.\", do_sample=True)"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#issue-3-padding-side",
+    "href": "W5/M1/slides/05_llm_inference.html#issue-3-padding-side",
+    "title": "LLM Inference",
+    "section": "Issue 3: Padding side",
+    "text": "Issue 3: Padding side\nLLMs require padding_side=\"left\" to continue generation correctly from padded batches.\nfrom transformers import AutoTokenizer\n\ntokenizer = AutoTokenizer.from_pretrained(\"mistralai/Mistral-7B-v0.1\", padding_side=\"left\")\ntokenizer.pad_token = tokenizer.eos_token\n\npipe = pipeline(\"text-generation\", model=\"mistralai/Mistral-7B-v0.1\", tokenizer=tokenizer)\n\npipe([\n  \"1, 2, 3\",      # input 1\n  \"A, B, C, D, E\" # input 2\n], padding=True)"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#issue-4-prompt-format",
+    "href": "W5/M1/slides/05_llm_inference.html#issue-4-prompt-format",
+    "title": "LLM Inference",
+    "section": "Issue 4: Prompt format",
+    "text": "Issue 4: Prompt format\nModels often require specific formats. Check the prompt engineering guide for details. Chat models use a chat template structure; passing a list of dictionaries to a pipeline handles this automatically.\nmessages = [\n    {\"role\": \"system\", \"content\": \"You are a pirate.\"},\n    {\"role\": \"user\", \"content\": \"How many cats does it take to change a light bulb?\"},\n]\n\n# Pipeline automatically applies the chat template\npipe(messages, max_new_tokens=50)"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#how-llms-actually-generate-text",
+    "href": "W5/M1/slides/05_llm_inference.html#how-llms-actually-generate-text",
+    "title": "LLM Inference",
+    "section": "How LLMs actually generate text?",
+    "text": "How LLMs actually generate text?\n\nUnderstanding the mechanism gives us control over it\nHaving control means we can optimize to our own metrics\n\nGeneration of text in LLMs works in two phases:\n\nPrefill\n\nTokenization\nEmbedding\nProcessing\n\nDecode\n\nAttention\nProbability\nSelection\nCheck"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#phase-1-prefill",
+    "href": "W5/M1/slides/05_llm_inference.html#phase-1-prefill",
+    "title": "LLM Inference",
+    "section": "Phase 1: Prefill",
+    "text": "Phase 1: Prefill\nLike reading the entire text word-for-word each time, before starting to write the next word. It involves:\n\nTokenization: identify input as segmented parts.\nEmbedding: map to corrresponding vectors.\nProcessing: run the vectors through the neural network."
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#the-tokenizer-playground",
+    "href": "W5/M1/slides/05_llm_inference.html#the-tokenizer-playground",
+    "title": "LLM Inference",
+    "section": "The Tokenizer Playground",
+    "text": "The Tokenizer Playground\nYou can experiment with different tokenizers (first step in this phase) in the interactive playground below:"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#the-role-of-attention",
+    "href": "W5/M1/slides/05_llm_inference.html#the-role-of-attention",
+    "title": "LLM Inference",
+    "section": "The Role of Attention",
+    "text": "The Role of Attention\nWhen predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence “The capital of France is …”, the words “France” and “capital” are crucial for determining that “Paris” should come next. This ability to focus on relevant information is what we call attention.\n\n\n\n\n\nThis involves many computationally intensive operations."
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#context-length",
+    "href": "W5/M1/slides/05_llm_inference.html#context-length",
+    "title": "LLM Inference",
+    "section": "Context Length",
+    "text": "Context Length\n\nThe model should handle the 10,000th token just as reliably as the 100th.\nHowever, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.\n\n\nFigure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. – (July 14, 2025 Context Rot | Chroma)"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#phase-2-decode",
+    "href": "W5/M1/slides/05_llm_inference.html#phase-2-decode",
+    "title": "LLM Inference",
+    "section": "Phase 2: Decode",
+    "text": "Phase 2: Decode\n\nThe model generates one token.\nIt is sampled from a probability distribution over all token in the vocabulary.\nThat token may be: a space, a comma, a digit, a character, a word, or a subword.\nIt could be a special token EOS (end of sequence) to stop generation."
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#sampling-strategies",
+    "href": "W5/M1/slides/05_llm_inference.html#sampling-strategies",
+    "title": "LLM Inference",
+    "section": "Sampling Strategies",
+    "text": "Sampling Strategies\nYou can interact with the basic decoding process yourself with SmolLM2 in this Space (remember, it decodes until reaching an EOS token which is &lt;|im_end|&gt; for this model):"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#token-selection",
+    "href": "W5/M1/slides/05_llm_inference.html#token-selection",
+    "title": "LLM Inference",
+    "section": "Token Selection",
+    "text": "Token Selection\n\n\n\nLogits: unprocessed probability distribution over all tokens in the vocabulary\nTemperature Scaling:\n\nhigher settings (&gt;1.0) make choices more random and creative\nlower settings (&lt;1.0) make them more focused and deterministic\n\nTop-p (Nucleus) Sampling: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)\nTop-k Filtering: An alternative approach where we only consider the k most likely next words"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#managing-repetition",
+    "href": "W5/M1/slides/05_llm_inference.html#managing-repetition",
+    "title": "LLM Inference",
+    "section": "Managing Repetition",
+    "text": "Managing Repetition\n\n\nOne common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:\n\nPresence Penalty: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.\nFrequency Penalty: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.\n\nThese penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary."
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#beam-search",
+    "href": "W5/M1/slides/05_llm_inference.html#beam-search",
+    "title": "LLM Inference",
+    "section": "Beam Search",
+    "text": "Beam Search\nBeam Search explores multiple possible paths simultaneously. Then select the sequence with the highest overall probability.\nYou can explore beam search visually here:\n\n\n\n\nThis approach often produces more coherent and grammatically correct text, though it requires more computational resources than simpler methods."
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#custom-generation",
+    "href": "W5/M1/slides/05_llm_inference.html#custom-generation",
+    "title": "LLM Inference",
+    "section": "Custom generation",
+    "text": "Custom generation\nCustom generation methods enable specialized behavior such as:\n\nhave the model continue thinking if it is uncertain;\nroll back generation if the model gets stuck;\nhandle special tokens with custom logic;\nuse specialized KV caches;\n\nSee: Finding custom generation methods."
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#resources",
+    "href": "W5/M1/slides/05_llm_inference.html#resources",
+    "title": "LLM Inference",
+    "section": "Resources",
+    "text": "Resources\n\nOptimum: Hardware-specific optimization.\nOutlines: Constrained (JSON) generation.\nSynCode: Grammar-guided generation.\nText Generation Inference: Production server.\nText generation web UI: Gradio interface.\nlogits-processor-zoo: Advanced generation control."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#how-llms-are-trained",
+    "href": "W5/M1/slides/04_llm_slm.html#how-llms-are-trained",
+    "title": "Large and Small Language Models",
+    "section": "How LLMs are Trained?",
+    "text": "How LLMs are Trained?\nThree stages of training:\n\nPretraining (Unsupervised)\nSupervised Fine-tuning (SFT)\nReinforcement Learning from Human Feedback (RLHF)\n\nThis is the standard pipeline for building a modern Large Language Model (LLM)."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#three-stages-of-llm-training",
+    "href": "W5/M1/slides/04_llm_slm.html#three-stages-of-llm-training",
+    "title": "Large and Small Language Models",
+    "section": "Three stages of LLM training",
+    "text": "Three stages of LLM training"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#pretraining-the-knowledge-base",
+    "href": "W5/M1/slides/04_llm_slm.html#pretraining-the-knowledge-base",
+    "title": "Large and Small Language Models",
+    "section": "1. Pretraining (The Knowledge Base)",
+    "text": "1. Pretraining (The Knowledge Base)\n\nGoal: Learn language, facts, and reasoning from the internet.\nMethod: Unsupervised Learning. The model predicts the next word in a sequence (Self-Supervised).\nScale: Massive datasets (trillions of tokens) and high compute.\nOutcome: A “Base Model” that is a world-class autocompleter but bad at following instructions."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#supervised-fine-tuning-sft-the-assistant",
+    "href": "W5/M1/slides/04_llm_slm.html#supervised-fine-tuning-sft-the-assistant",
+    "title": "Large and Small Language Models",
+    "section": "2. Supervised Fine-tuning / SFT (The Assistant)",
+    "text": "2. Supervised Fine-tuning / SFT (The Assistant)\n\nGoal: Teach the model how to act like an assistant and follow specific formats.\nMethod: Supervised Learning. Humans write high-quality “Prompt-Response” pairs.\nScale: Small, curated datasets (thousands to tens of thousands of examples).\nOutcome: An “Instruct Model” that understands commands but may still produce “hallucinations” or unsafe content."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#reinforcement-learning-from-human-feedback-rlhf-the-polishing",
+    "href": "W5/M1/slides/04_llm_slm.html#reinforcement-learning-from-human-feedback-rlhf-the-polishing",
+    "title": "Large and Small Language Models",
+    "section": "3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)",
+    "text": "3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)\n\nGoal: Align the model with human values (helpfulness, honesty, safety).\nMethod:\n\nPreference Labeling: Humans rank multiple model outputs from best to worst.\nReward Modeling: A separate model learns these preferences.\nOptimization: The LLM is updated (often via PPO or DPO) to maximize the “reward” score.\n\nOutcome: A “Chat Model”."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#rlhf",
+    "href": "W5/M1/slides/04_llm_slm.html#rlhf",
+    "title": "Large and Small Language Models",
+    "section": "RLHF",
+    "text": "RLHF"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#transfer-learning",
+    "href": "W5/M1/slides/04_llm_slm.html#transfer-learning",
+    "title": "Large and Small Language Models",
+    "section": "Transfer Learning",
+    "text": "Transfer Learning\nTransfer learning is reusing a trained model on a new, related problem. Advantages are:\n\nTime: Training takes days instead of months.\nData: You only need thousands of specialized examples instead of trillions of general ones.\nCost: Less time spent on training on less data means less compute and thus less cost."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#example-qari-ocr",
+    "href": "W5/M1/slides/04_llm_slm.html#example-qari-ocr",
+    "title": "Large and Small Language Models",
+    "section": "Example: QARI-OCR",
+    "text": "Example: QARI-OCR\nQARI-OCR is a Vision-language Model (VLM) fine-tuned from Qwen2-VL-2B-Instruct to process Arabic documents. Key Features:\n\n📐 Layout-Aware Recognition: Preserves document structure with HTML/Markdown tags\n🔤 Full Diacritics Support: Accurate recognition of tashkeel (Arabic diacritical marks)\n📝 Multi-Font Handling: Trained on 12 diverse Arabic fonts (14px-100px)\n🎯 Structure-First Design: Optimized for documents with headers, body text, and complex layouts\n⚡ Efficient Training: Only 11 hours on single GPU with 10k samples\n🖼️ Robust Performance: Handles low-resolution and degraded images"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#qari-ocr-model-performance",
+    "href": "W5/M1/slides/04_llm_slm.html#qari-ocr-model-performance",
+    "title": "Large and Small Language Models",
+    "section": "QARI-OCR Model Performance",
+    "text": "QARI-OCR Model Performance\n\n\n\nMetric\nScore\n\n\n\n\nCharacter Error Rate (CER)\n0.300\n\n\nWord Error Rate (WER)\n0.485\n\n\nBLEU Score\n0.545\n\n\nTraining Time\n11 hours\n\n\nCO₂ Emissions\n1.88 kg eq."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#qari-ocr-training-details",
+    "href": "W5/M1/slides/04_llm_slm.html#qari-ocr-training-details",
+    "title": "Large and Small Language Models",
+    "section": "QARI-OCR Training Details",
+    "text": "QARI-OCR Training Details\n\nBase Model: Qwen2-VL-2B-Instruct\nTraining Data: 10,000 synthetic Arabic documents with HTML markup\nOptimization: 4-bit LoRA adapters (rank=16)\nHardware: Single NVIDIA A6000 GPU (48GB)\nFramework: Unsloth + Hugging Face TRL"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#hunggingface-transformers-task-recipes",
+    "href": "W5/M1/slides/04_llm_slm.html#hunggingface-transformers-task-recipes",
+    "title": "Large and Small Language Models",
+    "section": "HunggingFace Transformers Task Recipes",
+    "text": "HunggingFace Transformers Task Recipes\n\n\n\n\nExample: ASR."
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#unsloth-studio-beta",
+    "href": "W5/M1/slides/04_llm_slm.html#unsloth-studio-beta",
+    "title": "Large and Small Language Models",
+    "section": "Unsloth Studio (beta)",
+    "text": "Unsloth Studio (beta)"
+  },
+  {
+    "objectID": "W5/M1/slides/04_llm_slm.html#unsloth",
+    "href": "W5/M1/slides/04_llm_slm.html#unsloth",
+    "title": "Large and Small Language Models",
+    "section": "Unsloth",
+    "text": "Unsloth\nUnsloth is an open-source framework for running and training models.\n⭐ Fine-tuning for Beginners:\n\n\n\nFine-tuning Guide\n\nStep-by-step on how to fine-tune!\nLearn the core basics of training.\n\nWhat model should I use?\n\nInstruct or Base Model?\nHow big should my dataset be?\n\nIs Fine-tuning right for me?\n\nWhat can fine-tuning do for me?\nRAG vs. Fine-tuning?\n\n\n\n\nDatasets Guide\n\nHow do I structure/prepare my dataset?\nHow do I collect data?\n\nInference & Deployment\n\nHow do I save my model locally?\nHow do I run my model via Ollama or vLLM?\n\nUnsloth Requirements\n\nDoes Unsloth work on my GPU?\nHow much VRAM will I need?"
+  },
+  {
+    "objectID": "W5/M1/slides/03_nlp_tasks.html#example-ascat-arabic-scientific-corpus-for-advanced-translation",
+    "href": "W5/M1/slides/03_nlp_tasks.html#example-ascat-arabic-scientific-corpus-for-advanced-translation",
+    "title": "Applications of NLP",
+    "section": "Example: ASCAT: Arabic Scientific Corpus for Advanced Translation",
+    "text": "Example: ASCAT: Arabic Scientific Corpus for Advanced Translation\nASCAT-Arabic-Scientific-Translation.\n\nDomains: Physics, Mathematics, Computer Science, Quantum Mechanics, Artificial Intelligence\nSize: 500 full scientific abstracts\nTotal English Tokens: 67,293\nTotal Arabic Tokens: 60,026\nArabic Vocabulary Size: 17,604 unique words"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#generationconfig",
+    "href": "W5/M1/slides/05_llm_inference.html#generationconfig",
+    "title": "LLM Inference",
+    "section": "GenerationConfig",
+    "text": "GenerationConfig\nLLM .generate() method auto-regressively generates the next sequence given some initial prompt. Generation can be controlled:\nfrom transformers import pipeline, GenerationConfig\n\npipe = pipeline(\"text-generation\", model=\"HuggingFaceTB/SmolLM2-360M\")\n\nconfig = GenerationConfig(\n    max_new_tokens=50,\n    temperature=1.5\n)"
+  },
+  {
+    "objectID": "W5/M1/slides/05_llm_inference.html#common-generation-options",
+    "href": "W5/M1/slides/05_llm_inference.html#common-generation-options",
+    "title": "LLM Inference",
+    "section": "Common Generation Options",
+    "text": "Common Generation Options\nSee: Common Options:\n\nmax_new_tokens (int): Controls the maximum number of tokens generated. Make sure to set it explicitly—defaults are usually small.\nnum_beams (int): Activates beam search when set above 1. Useful for input-grounded tasks. See this guide.\nrepetition_penalty (float): Set to greater than 1.0 to discourage the model from repeating itself.\nSampling:\n\ntemperature (float): Influences randomness of generation. High values (&gt;0.8) make outputs more creative; low values (&lt;0.4) make them more focused and predictable. Requires do_sample=True.\ndo_sample (bool): If True, samples tokens randomly; if False, uses greedy decoding. Most applications should use True. See this guide for more details."
+  },
+  {
+    "objectID": "W5/index.html#bookmarks",
+    "href": "W5/index.html#bookmarks",
+    "title": "Applied Deep Learning",
+    "section": "Bookmarks",
+    "text": "Bookmarks\n\nRefer to HuggingChat for AI Assistance."
   }
 ]
