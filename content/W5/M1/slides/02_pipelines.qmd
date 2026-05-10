@@ -3,130 +3,74 @@ title: "Pipelines"
 format: revealjs
 ---
 
+
+## Pipeline
+
 The [`Pipeline`](/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline) is a simple but powerful **inference API** that is readily available for a variety of machine learning **tasks** with any **model** from the Hugging Face [Hub](https://hf.co/models). 
 
-## Task-specific Pipeline
+A pipeline wraps three things into one call:
 
-The generic `Pipeline` class may be replaced with task-specific one. For example, to get a [TextGenerationPipeline](/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.TextGenerationPipeline) with [Gemma 2](./model_doc/gemma2), set `task="text-generation"` and `model="google/gemma-2-2b"` as follows:
+1. **Pre-processing** – Tokenizing raw text (or processing an image/audio input).
+2. **Model inference** – Running the fine-tuned model.
+3. **Post-processing** – Converting raw logits/outputs into human-readable results (e.g., labels, extracted answers, or generated text).
+
+![](../assets/pipeline.png){.r-stretch fig-align="center"}
+
+You pass in raw data and get back a structured result without touching the underlying tensors.
+
+## Example: Image Segmentation Pipeline
 
 ```py
 from transformers import pipeline
 
-# Instantiate
-pipe = pipeline(task="text-generation", model="google/gemma-2-2b")
-```
-
-Then you can pass input to the `Pipeline` like so:
-
-```python
-# Pass in input text
-pipe("the secret to baking a really good cake is ")
-```
-
-Output:
-
-```text
-[{'generated_text': 'the secret to baking a really good cake is 1. the right ingredients 2. the'}]
-```
-
-## Automatic Speech Recognition (ASR) Pipeline
-
-```py
-# Instantiate
-pipe = pipeline(task="automatic-speech-recognition", model="openai/whisper-large-v3")
-
-# Pass in input audio by URL
-pipe("https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac")
-```
-
-Output:
-
-```text
-{'text': ' I have a dream that one day this nation will rise up and live out the true meaning of its creed.'}
-```
-
-## Image Classification Pipeline
-
-```py
-# Instantiate
-pipe = pipeline(task="image-classification", model="google/vit-base-patch16-224")
-
-# Pass in input audio by URL
-pipe(images="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg")
-```
-
-Output:
-
-```text
-[{'label': 'lynx, catamount',
-  'score': 0.43350091576576233},
- 
- {'label': 'cougar, puma, catamount, mountain lion, painter, panther, Felis concolor',
-  'score': 0.034796204417943954},
- 
- {'label': 'snow leopard, ounce, Panthera uncia',
-  'score': 0.03240183740854263},
- 
- {'label': 'Egyptian cat',
-  'score': 0.02394474856555462},
- 
- {'label': 'tiger cat',
-  'score': 0.02288915030658245}]
-```
-
-## Visual Question Answering (VQA) Pipeline
-
-```py
-# Instantiate
-pipe = pipeline(task="visual-question-answering", model="Salesforce/blip-vqa-base")
-
-# Pass in input audio by URL
-pipe(
-    image="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/idefics-few-shot.jpg",
-    question="What is in the image?",
+segmenter = pipeline(
+    task="image-segmentation",
+    model="facebook/detr-resnet-50-panoptic"
 )
+image_url = "https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png"
+segments = pipeline(image_url)
 ```
 
-Output:
+## Example: Text Classifier
 
-```text
-[{'answer': 'statue of liberty'}]
-```
+The following example shows a pipeline for [*Text Classification*](https://huggingface.co/models?pipeline_tag=text-classification&sort=trending):
 
-## Other Tasks
+```py
+from transformers import pipeline
 
-For more tasks examples, see [Transformers, what can they do? | LLM Course](https://huggingface.co/learn/llm-course/chapter1/3).
-
-## Pipeline Parameters
-
-[Pipelines](https://huggingface.co/docs/transformers/main_classes/pipelines#pipelines) can be configured:
-
-1. **Control Outputs**: with task-specific parameters.
-2. **Optimize Processing**: Pipeline supports GPUs, Apple Silicon, and half-precision weights to accelerate inference and save memory.
-
-## `automatic-speech-recognition` Parameters
-
-Example of ASR task parameters:
-
-```python
-pipe_asr = pipeline("automatic-speech-recognition", model="openai/whisper-tiny")
-
-output = pipe_asr(
-    "https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac",
-    return_timestamps="word", # Returns precise start/end times for every word
-    chunk_length_s=30,        # Splits long audio into 30-second segments for processing
-    stride_length_s=5         # Adds 5 seconds of overlap between segments to prevent cutting words
+classifier = pipeline(
+    task="sentiment-analysis",
+    model="distilbert/distilbert-base-uncased-finetuned-sst-2-english"
 )
+
+# Batch inference
+classifier([
+    "I've been waiting for a HuggingFace course my whole life.",
+    "I hate this so much!"
+])
 ```
+
+## Available pipelines for different modalities
+
+The `pipeline()` function supports multiple modalities, allowing you to work with text, images, audio, and even multimodal tasks. In this course we’ll focus on text tasks, but it’s useful to understand the transformer architecture’s potential, so we’ll briefly outline it.
+
+| Task | Modality | Output | Models | Datasets |
+|---|---|---|---|---|
+| [`audio-classification`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.AudioClassificationPipeline) | Audio | Classify audio into categories | [🔗](https://huggingface.co/models?filter=audio-classification) | [🔗](https://huggingface.co/datasets?task_categories=audio-classification) |
+| [`image-classification`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) | Image | Predicted class for an image | [🔗](https://huggingface.co/models?filter=image-classification) | [🔗](https://huggingface.co/datasets?task_categories=image-classification) |
+| [`object-detection`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ObjectDetectionPipeline) | Image | Locate and identify objects in images | [🔗](https://huggingface.co/models?filter=object-detection) | [🔗](https://huggingface.co/datasets?task_categories=object-detection) |
+
+Refer to the [Pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines) API reference for a complete list of available tasks. 
+
 
 ## Accelerator: `device=0` for GPU
 
-- By default a [Pipeline](/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline) runs on a CPU which is given by `device=-1`
+- By default a [Pipeline](https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline) runs on a CPU which is given by `device=-1`
 - For GPU, set `device` to the associated CUDA device id. For example, `device=0` runs on the first GPU.
 
 ```py
 pipe = pipeline(
-    task="text-generation", model="google/gemma-2-2b",
+    task="sentiment-analysis",
     device=0    # Run on GPU
 )
 ```
@@ -146,42 +90,43 @@ Then you can use it with `device_map="auto"` (or `device="mps"` on Apple silicon
 
 ```py
 pipe = pipeline(
-    task="text-generation", model="google/gemma-2-2b",
+    task="sentiment-analysis",
     device_map="auto"    # Use Accelerate 
 )
 ```
 
-## Half-precision and Quantization
+## Pipeline Parameters
 
-Half-precision: can be significantly faster and save memory
+[Pipelines](https://huggingface.co/docs/transformers/main_classes/pipelines#pipelines) can be configured:
 
-- add `dtype=torch.float16` (or `torch.bfloat16` for more range, if hardware supports it)
-- performance loss is negligible for most models, especially for larger ones
+1. **Control Outputs**: with task-specific parameters.
+2. **Optimize Processing**: Pipeline supports GPUs, Apple Silicon, and half-precision weights to accelerate inference and save memory.
 
-[**Quantized models**](https://huggingface.co/docs/transformers/quantization/overview) to reduce memory usage even further. Make sure you have the [bitsandbytes](https://hf.co/docs/bitsandbytes/installation) library installed first:
+## ASR Parameters
 
-```sh
-pip install -U bitsandbytes
+Example of ASR task parameters:
+
+```python
+pipe_asr = pipeline("automatic-speech-recognition", model="openai/whisper-tiny")
+
+output = pipe_asr(
+    "https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac",
+    return_timestamps="word", # Returns precise start/end times for every word
+    chunk_length_s=30,        # Splits long audio into 30-second segments for processing
+    stride_length_s=5         # Adds 5 seconds of overlap between segments to prevent cutting words
+)
 ```
 
-..and then add `quantization_config` to `model_kwargs` in the pipeline.
-
-## Inference for Large Models
-
-Let's put it all together:
+## Text Generation Parameters
 
 ```py
-import torch
-from transformers import pipeline, BitsAndBytesConfig
+from transformers import pipeline
 
-pipe = pipeline(
-    model="google/gemma-7b", # Choosing a relatively small model
-    dtype=torch.bfloat16,    # Half-precision (reduce memory)
-    device_map="auto",       # Automatic Resource Allocation
-    model_kwargs={
-        # 8-bit Quantization (compress model)
-        "quantization_config": BitsAndBytesConfig(load_in_8bit=True)
-    }
+generator = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
+output = generator(
+    "In this course, we will teach you how to",
+    max_new_tokens=30,
+    num_return_sequences=2,
 )
 ```
 
@@ -191,7 +136,7 @@ Batch inference is disabled by default since  hardware, data, and the model itse
 
 ```py
 pipe = pipeline(
-    task="text-generation", model="google/gemma-2-2b",
+    task="text-generation", model="HuggingFaceTB/SmolLM2-360M",
     batch_size=2 # Batch Inference
 )
 pipe([
@@ -218,23 +163,3 @@ Output:
 - Handle OOM errors.
 
 Read more at: [Pipeline batching](https://huggingface.co/docs/transformers/main_classes/pipelines#pipeline-batching).
-
-## `datasets` are lazily loaded
-
-Dataset iterator is smart enough to avoid immediately allocating memory for the entire dataset:
-
-```py
-from transformers.pipelines.pt_utils import KeyDataset
-from transformers import pipeline
-from accelerate import Accelerator
-from datasets import load_dataset
-
-device = Accelerator().device
-
-dataset = datasets.load_dataset("imdb", name="plain_text", split="unsupervised")
-pipeline = pipeline(task="text-classification", model="distilbert/distilbert-base-uncased-finetuned-sst-2-english", device=device)
-
-# This is safe even if the dataset don't fit in memory
-for out in pipeline(KeyDataset(dataset, "text"), batch_size=8, truncation="only_first"):
-    print(out)
-```

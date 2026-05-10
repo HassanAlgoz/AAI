@@ -1,0 +1,181 @@
+---
+title: "LLM Inference"
+format: revealjs
+---
+
+## GenerationConfig
+
+LLM [.generate()](https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/text_generation#transformers.GenerationMixin.generate) method auto-regressively generates the next sequence given some initial `prompt`. Generation can be controlled:
+
+```python
+from transformers import pipeline, GenerationConfig
+
+pipe = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
+
+config = GenerationConfig(
+    max_new_tokens=50,
+    temperature=1.5
+)
+```
+
+## Common Generation Options
+
+See: [Common Options](https://huggingface.co/docs/transformers/v5.5.0/en/llm_tutorial#common-options):
+
+::: {.incremental}
+- **`max_new_tokens` (`int`)**: Controls the maximum number of tokens generated. Make sure to set it explicitly—defaults are usually small.
+- **`num_beams` (`int`)**: Activates beam search when set above 1. Useful for input-grounded tasks. See [this guide](https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies).
+- **`repetition_penalty` (`float`)**: Set to greater than 1.0 to discourage the model from repeating itself.
+- Sampling:
+    - **`temperature` (`float`)**: Influences randomness of generation. High values (`>0.8`) make outputs more creative; low values (`<0.4`) make them more focused and predictable. Requires `do_sample=True`.
+    - **`do_sample` (`bool`)**: If `True`, samples tokens randomly; if `False`, uses greedy decoding. Most applications should use `True`. See [this guide](https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies) for more details.
+:::
+
+## How LLMs actually generate text?
+
+- Understanding the mechanism gives us control over it
+- Having control means we can optimize to our own metrics
+
+Generation of text in LLMs works in two phases:
+
+1. **Prefill**
+   1. Tokenization
+   2. Embedding
+   3. Processing
+2. **Decode**
+   1. Attention
+   2. Probability
+   3. Selection
+   4. Check
+
+## Phase 1: Prefill
+
+Like reading the entire text word-for-word each time, before starting to write the next word. It involves:
+
+1. **Tokenization**: identify input as segmented parts.
+2. **Embedding**: map to corrresponding vectors.
+3. **Processing**: run the vectors through the neural network. 
+
+## The Tokenizer Playground
+
+You can [experiment with different tokenizers](https://agents-course-the-tokenizer-playground.static.hf.space) (first step in this phase) in the interactive playground below:
+
+<center>
+<iframe
+	src="https://agents-course-the-tokenizer-playground.static.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
+</center>
+
+
+## The Role of Attention
+
+When predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence *"The capital of France is ..."*, the words "France" and "capital" are crucial for determining that "Paris" should come next. This ability to focus on relevant information is what we call attention.
+
+![](../assets/AttentionSceneFinal.gif){fig-align="center"}
+
+This involves many computationally intensive operations.
+
+## Context Length
+
+- The model should handle the 10,000th token just as reliably as the 100th.
+- However, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.
+
+![](../assets/context_rot.png){fig-align="center" .r-stretch}
+
+Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. -- ([July 14, 2025 Context Rot | Chroma](https://www.trychroma.com/research/context-rot))
+
+## Phase 2: Decode
+
+- The model generates one token.
+- It is sampled from a probability distribution over all token in the vocabulary.
+- That token may be: a space, a comma, a digit, a character, a word, or a subword.
+- It could be a special token **EOS** (end of sequence) to stop generation.
+
+## Sampling Strategies
+
+You can [interact with the basic decoding process](https://agents-course-decoding-visualizer.hf.space) yourself with SmolLM2 in this Space (remember, it decodes until reaching an **EOS** token which is  **<|im_end|>** for this model):
+
+<center>
+<iframe
+	src="https://agents-course-decoding-visualizer.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
+</center>
+
+## Token Selection
+
+::: {.columns}
+::: {.column}
+1. **Logits**: unprocessed probability distribution over all tokens in the vocabulary
+2. **Temperature Scaling**:
+    - higher settings (>1.0) make choices more random and creative
+    - lower settings (<1.0) make them more focused and deterministic
+3. **Top-p (Nucleus) Sampling**: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)
+4. **Top-k Filtering**: An alternative approach where we only consider the `k` most likely next words
+
+:::
+::: {.column}
+![](../assets/token_selection.png){fig-align="center"}
+
+:::
+:::
+<!-- end columns -->
+
+## Managing Repetition
+
+::: {.columns}
+::: {.column}
+One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:
+
+1. **Presence Penalty**: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.
+2. **Frequency Penalty**: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.
+
+These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.
+:::
+::: {.column}
+![](../assets/manage_repetition.png){fig-align="center"}
+:::
+:::
+<!-- end columns -->
+
+## Beam Search
+
+**Beam Search explores multiple possible paths simultaneously**. Then select the sequence with the highest overall probability.
+
+You can [explore beam search visually here](https://agents-course-beam-search-visualizer.hf.space):
+
+<center>
+<iframe
+	src="https://agents-course-beam-search-visualizer.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
+</center>
+
+This approach often produces more coherent and grammatically correct text, though it requires more computational resources than simpler methods.
+
+## Custom generation
+
+Custom generation methods enable specialized behavior such as:
+
+1. have the model continue thinking if it is uncertain;
+2. roll back generation if the model gets stuck;
+3. handle special tokens with custom logic;
+4. use specialized KV caches;
+
+See: [Finding custom generation methods](https://huggingface.co/docs/transformers/generation_strategies#finding-custom-generation-methods).
+
+## Resources
+
+* [Optimum](https://github.com/huggingface/optimum): Hardware-specific optimization.
+* [Outlines](https://github.com/dottxt-ai/outlines): Constrained (JSON) generation.
+* [SynCode](https://github.com/uiuc-focal-lab/syncode): Grammar-guided generation.
+* [Text Generation Inference](https://github.com/huggingface/text-generation-inference): Production server.
+* [Text generation web UI](https://github.com/oobabooga/text-generation-webui): Gradio interface.
+* [logits-processor-zoo](https://github.com/NVIDIA/logits-processor-zoo): Advanced generation control.

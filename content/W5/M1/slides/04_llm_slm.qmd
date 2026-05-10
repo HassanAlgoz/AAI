@@ -1,0 +1,364 @@
+---
+title: "Large and Small Language Models"
+format: revealjs
+---
+
+## Large Language Models (LLMs)
+
+**Large Language Models (LLMs)** are a powerful subset of deep neural NLP models characterized by:
+
+1. massive size (billions of parameters)
+2. extensive training data (trillions of tokens)
+3. ability to perform a wide range of language tasks
+
+## Original 2017 Transformer
+
+::: {.columns}
+::: {.column}
+- The **encoder** (left) maps an input sequence of symbol representations (tokens) to a sequence of continuous representations (vectors).
+- The **decoder** (right) then generates an output sequence of symbols (tokens) one element at a time.
+- At each step the model is auto-regressive, consuming the previously generated symbols as additional input when generating the next.
+
+-- [Attention is All You Need (Vaswani et al.)](https://arxiv.org/abs/1706.03762)
+
+:::
+::: {.column}
+![](../assets/transformer_2017.png){.r-stretch}
+:::
+:::
+<!-- end columns -->
+
+## Variants of the Transformer
+
+![An overview of some of the most popular large language transformers organized by architecture type and developers.](../assets/transformer_arch.png){fig-align="center" .r-stretch}
+
+## Comparison Table
+
+Understanding these differences will help you choose the right model for your specific task.
+
+| Architecture    | Attention Style                            | Prediction Goal                                      | Typical Use Cases                   | Popular Models                       |
+| --------------- | ------------------------------------------ | ---------------------------------------------------- | ----------------------------------- | ------------------------------------ |
+| Encoder–decoder (2017 Original) | Bidirectional (encoder) + causal (decoder) | Conditional generation (output sequence given input) | Translation, summarization, seq2seq | [BART](https://huggingface.co/docs/transformers/model_doc/bart) - [mBART](https://huggingface.co/docs/transformers/model_doc/mbart) - [Marian](https://huggingface.co/docs/transformers/model_doc/marian) - [T5](https://huggingface.co/docs/transformers/model_doc/t5)                   |
+| Decoder-only (2018 GPT-1)    | Causal (masked)                            | Next-token probability distribution                  | Autoregressive text generation      | [Hugging Face SmolLM Series](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct) - [Meta's Llama Series](https://huggingface.co/docs/transformers/en/model_doc/llama4) - [Google's Gemma Series](https://huggingface.co/docs/transformers/main/en/model_doc/gemma3) - [DeepSeek's V3](https://huggingface.co/deepseek-ai/DeepSeek-V3) |
+| Encoder-only (2018 BERT)    | Bidirectional                              | Contextual embeddings, not next-token prediction     | Classification, retrieval, NER      | [BERT](https://huggingface.co/docs/transformers/model_doc/bert) - [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) - [ModernBERT](https://huggingface.co/docs/transformers/en/model_doc/modernbert)                        |
+
+## Modern Large Language Models (LLMs)
+
+Most LLMs today are **Decoder-only** with billions of parameters. Trained in two phases:
+
+1. **Pretraining**: The model learns to predict the next token on vast amounts of text data
+2. **Instruction tuning**: The model is fine-tuned to follow instructions and generate helpful responses
+
+This approach has led to models that can understand and generate human-like text across a wide range of topics and tasks.
+
+## Supervised Learning
+
+Training task is to mimic the human-curated: `(prompt, output)` text sequences.
+
+[FLAN T5 | Google](https://arxiv.org/abs/2210.11416): "We finetune various language models on 1.8K tasks phrased as instructions, and evaluate them on unseen tasks":
+
+::: {.columns}
+::: {.column}
+- Answer general knowledge questions:
+    - `Prompt: "What is the tallest building?" , Output: "The tallest building is ..."`
+- Translate from English to French:
+    - `Prompt: "Translate this paragraph ..." , Output: "Bonjour lemuv beleluo"`
+- Write code:
+    - `Prompt: "Write Python function to analyse ..." , Output: "def analyze(...)`
+
+:::
+::: {.column}
+![](../assets/FLAN-T5.png){fig-align="center"}
+:::
+:::
+<!-- end columns -->
+
+## Key capabilities of modern LLMs
+
+Modern decoder-based LLMs have demonstrated impressive capabilities, which you can experiment with [directly in your browser](https://huggingface.co/openai-community/gpt2):
+
+| Capability | Description | Example |
+|------------|-------------|---------|
+| Text generation | Creating coherent and contextually relevant text | Writing essays, stories, or emails |
+| Summarization | Condensing long documents into shorter versions | Creating executive summaries of reports |
+| Translation | Converting text between languages | Translating English to Spanish |
+| Question answering | Providing answers to factual questions | "What is the capital of France?" |
+| Code generation | Writing or completing code snippets | Creating a function based on a description |
+| Reasoning | Working through problems step by step | Solving math problems or logical puzzles |
+| Few-shot learning | Learning from a few examples in the prompt | Classifying text after seeing just 2-3 examples |
+
+## Practical applications of Encoder-decoder models
+
+Sequence-to-sequence models excel at tasks that require transforming one form of text into another while preserving meaning.
+
+| Application | Description | Example Model |
+|-------------|-------------|---------------|
+| Machine translation | Converting text between languages | Marian, T5 |
+| Text summarization | Creating concise summaries of longer texts | BART, T5 |
+| Data-to-text generation | Converting structured data into natural language | T5 |
+| Grammar correction | Fixing grammatical errors in text | T5 |
+| Question answering | Generating answers based on context | BART, T5 |
+
+## Interactive demo: speech-to-speech translation
+
+[Here's an interactive demo](https://course-demos-speech-to-speech-translation.hf.space) of a sequence-to-sequence model for translation:
+
+<center>
+<iframe
+	src="https://course-demos-speech-to-speech-translation.hf.space"
+	frameborder="0"
+	width="960"
+	height="680"
+></iframe>
+</center>
+
+## Choosing the right architecture
+
+When working on a specific NLP task, how do you decide which architecture to use? Here's a quick guide:
+
+::: {.columns}
+::: {.column}
+* **Text Classification** (Sentiment, Topic)
+    * Architecture: Encoder
+    * Examples: BERT, RoBERTa
+* **Text Generation** (Creative Writing)
+    * Architecture: Decoder
+    * Examples: GPT, LLaMA
+* **Translation**
+    * Architecture: Encoder-Decoder
+    * Examples: T5, BART
+* **Summarization**
+    * Architecture: Encoder-Decoder
+    * Examples: BART, T5
+:::
+::: {.column}
+* **Named Entity Recognition**
+    * Architecture: Encoder
+    * Examples: BERT, RoBERTa
+* **Question Answering** (Extractive)
+    * Architecture: Encoder
+    * Examples: BERT, RoBERTa
+* **Question Answering** (Generative)
+    * Architecture: Encoder-Decoder or Decoder
+    * Examples: T5, GPT
+* **Conversational AI**
+    * Architecture: Decoder
+    * Examples: GPT, LLaMA
+:::
+:::
+<!-- end columns -->
+
+## Small Language Models
+
+**SLMs** are LLMs with far fewer parameters and lower compute requirements
+
+- Crucial step toward efficient, accessible, and cost-effective AI.
+- Practical solutions for businesses, developers, and researchers looking for powerful AI without the heavy computational burden of LLMs.
+
+The following examples are SLMs ranging from **1-4 billion parameters**:
+
+- [**Llama3.2-1B**](https://huggingface.co/meta-llama/Llama-3.2-1B) – A Meta-developed _1-billion-parameter_ variant optimized for edge devices.
+- [**Qwen2.5-1.5B**](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct) – A model from Alibaba designed for multilingual applications with _1.5 billion parameters_.
+- [**DeepSeeek-R1-1.5B**](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B) - DeepSeek's first-generation of reasoning model distilled from Qwen2.5 with _1.5 billion parameters_.
+- [**SmolLM2-1.7B**](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B) – From HuggingFaceTB, a state-of-the-art "small" (_1.7 billion-parameter_) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).
+- [**Phi-3.5-Mini-3.8B**](https://huggingface.co/microsoft/Phi-3.5-mini-instruct) – Microsoft's tiny-but-might open model with _3.8 billion-parameters_ optimized for reasoning and code generation.
+- [**Gemma3-4B**](https://huggingface.co/google/gemma-3-4b-it) - Developed by Google DeepMind, this light but powerful _4 billion-parameter_ model is multilingual and multimodal.
+
+## Benefits of Small Language Models
+
+- **Low Compute Requirements** – Can run on consumer laptops, edge devices, and mobile phones.
+- **Lower Energy Consumption** – Efficient models reduce power usage, making them environmentally friendly.
+- **Faster Inference** – Smaller models generate responses quickly, ideal for real-time applications.
+- **On-Device AI** – No need for an internet connection or cloud services, enhancing privacy and security.
+- **Cheaper Deployment** – Lower hardware and cloud costs make AI more accessible to startups and developers.
+- **Customizability**: Easily fine-tuned for domain-specific tasks (e.g., legal document analysis).
+
+## How Are They Made Small?
+
+The process of shrinking a language model involves several techniques aimed at reducing its size without compromising too much on performance:
+
+1. **Knowledge Distillation**: Training a smaller "student" model using knowledge transferred from a larger "teacher" model.
+2. **Pruning**: Removing redundant or less important parameters within the neural network architecture.
+3. **Quantization**: Reducing the precision of numerical values used in calculations (e.g. converting floating-point numbers to integers).
+
+## Same task, different models
+
+```py
+from transformers import pipeline
+
+# Task remains "text-generation", models change
+llama = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
+mistral = pipeline("text-generation", model="mistralai/Mistral-7B-v0.1")
+gemma = pipeline("text-generation", model="google/gemma-7b")
+```
+
+## Same model, different tasks
+
+```py
+from transformers import pipeline
+
+# use the same API for 3 different tasks
+checkpoint = "HuggingFaceTB/SmolLM2-360M"
+
+answerer = pipeline("question-answering", model=checkpoint)
+classifier = pipeline("sentiment-analysis", model=checkpoint)
+generator = pipeline("text-generation", model=checkpoint)
+```
+
+## Half-precision and Quantization
+
+- We use both **Half-precision** and [Quantization](https://huggingface.co/docs/transformers/quantization/overview) to reduce memory requirement.
+- We also need to use a GPU `device="auto"`
+
+Install [`bitsandbytes`](https://hf.co/docs/bitsandbytes/installation):
+
+```sh
+pip install -U bitsandbytes
+```
+
+Load LLM fot `text-generation` task via pipeline:
+
+```py
+pipe = pipeline(
+    "text-generation",
+    model="mistralai/Mistral-7B-v0.1",        
+    dtype=torch.bfloat16,    # Half-precision (reduce memory)
+    device_map="auto",       # Automatic Resource Allocation
+    model_kwargs={
+        # 8-bit Quantization (compress model)
+        "quantization_config": BitsAndBytesConfig(load_in_8bit=True)
+    },
+)
+```
+
+## How LLMs are Trained?
+
+Three stages of training:
+
+1. Pretraining (Unsupervised)
+2. Supervised Fine-tuning (SFT)
+3. Reinforcement Learning from Human Feedback (RLHF)
+
+This is the standard pipeline for building a modern Large Language Model (LLM).
+
+## Three stages of LLM training
+
+![](../assets/llm-training-stages.png){fig-align="center" .r-stretch}
+
+## 1. Pretraining (The Knowledge Base)
+
+* **Goal:** Learn language, facts, and reasoning from the internet.
+* **Method:** **Unsupervised Learning**. The model predicts the next word in a sequence (Self-Supervised).
+* **Scale:** Massive datasets (trillions of tokens) and high compute.
+* **Outcome:** A "Base Model" that is a world-class autocompleter but bad at following instructions.
+
+## 2. Supervised Fine-tuning / SFT (The Assistant)
+
+* **Goal:** Teach the model how to act like an assistant and follow specific formats.
+* **Method:** **Supervised Learning**. Humans write high-quality "Prompt-Response" pairs.
+* **Scale:** Small, curated datasets (thousands to tens of thousands of examples).
+* **Outcome:** An "Instruct Model" that understands commands but may still produce "hallucinations" or unsafe content.
+
+## 3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)
+
+* **Goal:** Align the model with human values (helpfulness, honesty, safety).
+* **Method:**
+    1.  **Preference Labeling:** Humans rank multiple model outputs from best to worst.
+    2.  **Reward Modeling:** A separate model learns these preferences.
+    3.  **Optimization:** The LLM is updated (often via PPO or DPO) to maximize the "reward" score.
+* **Outcome:** A "Chat Model".
+
+## RLHF
+
+![](../assets/reward_model.png){fig-align="center" .r-stretch}
+
+## Transfer Learning
+
+**Transfer learning** is reusing a trained model on a new, related problem. Advantages are:
+
+- **Time**: Training takes days instead of months.
+- **Data**: You only need thousands of specialized examples instead of trillions of general ones.
+- **Cost**: Less time spent on training on less data means less compute and thus less cost.
+
+## Example: QARI-OCR
+
+[QARI-OCR](https://huggingface.co/NAMAA-Space/Qari-OCR-v0.3-VL-2B-Instruct) is a **Vision-language Model (VLM)** fine-tuned from `Qwen2-VL-2B-Instruct` to process Arabic documents. Key Features:
+
+- 📐 **Layout-Aware Recognition**: Preserves document structure with HTML/Markdown tags
+- 🔤 **Full Diacritics Support**: Accurate recognition of tashkeel (Arabic diacritical marks)
+- 📝 **Multi-Font Handling**: Trained on 12 diverse Arabic fonts (14px-100px)
+- 🎯 **Structure-First Design**: Optimized for documents with headers, body text, and complex layouts
+- ⚡ **Efficient Training**: Only 11 hours on single GPU with 10k samples
+- 🖼️ **Robust Performance**: Handles low-resolution and degraded images
+
+## QARI-OCR Model Performance
+
+| Metric                         | Score       |
+| ------------------------------ | ----------- |
+| **Character Error Rate (CER)** | 0.300       |
+| **Word Error Rate (WER)**      | 0.485       |
+| **BLEU Score**                 | 0.545       |
+| **Training Time**              | 11 hours    |
+| **CO₂ Emissions**              | 1.88 kg eq. |
+
+## QARI-OCR Training Details
+
+- **Base Model**: Qwen2-VL-2B-Instruct
+- **Training Data**: 10,000 synthetic Arabic documents with HTML markup
+- **Optimization**: 4-bit LoRA adapters (rank=16)
+- **Hardware**: Single NVIDIA A6000 GPU (48GB)
+- **Framework**: Unsloth + Hugging Face TRL
+
+# How to train?
+
+1. Transformers
+2. Unsloth
+
+## HunggingFace Transformers Task Recipes
+
+::: {.columns}
+::: {.column}
+![](../assets/resources_task_recipes.png){.r-stretch}
+:::
+::: {.column}
+[Example: ASR](https://huggingface.co/docs/transformers/tasks/asr).
+:::
+:::
+<!-- end columns -->
+
+
+## Unsloth Studio (beta)
+
+![](https://unsloth.ai/cgi/image/studio_ui_max_cropped_9eDkhlEfAFp7TJERZpGHH.png?format=raw){fig-align="center" .r-stretch}
+
+## Unsloth
+
+**Unsloth** is an open-source framework for running and training models.
+
+[⭐ Fine-tuning for Beginners](https://unsloth.ai/docs/get-started/fine-tuning-for-beginners):
+
+::: {.columns}
+::: {.column}
+* [Fine-tuning Guide](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide)
+    * Step-by-step on how to fine-tune!
+    * Learn the core basics of training.
+* [What model should I use?](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/what-model-should-i-use)
+    * Instruct or Base Model?
+    * How big should my dataset be?
+* [Is Fine-tuning right for me?](https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/faq-+-is-fine-tuning-right-for-me)
+    * What can fine-tuning do for me?
+    * RAG vs. Fine-tuning?
+:::
+::: {.column}
+* [Datasets Guide](https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/datasets-guide)
+    * How do I structure/prepare my dataset?
+    * How do I collect data?
+* [Inference & Deployment](https://unsloth.ai/docs/basics/inference-and-deployment)
+    * How do I save my model locally?
+    * How do I run my model via Ollama or vLLM?
+* [Unsloth Requirements](https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/unsloth-requirements)
+    * Does Unsloth work on my GPU?
+    * How much VRAM will I need?
+:::
+:::
+<!-- end columns -->

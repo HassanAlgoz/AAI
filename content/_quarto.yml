@@ -10,7 +10,7 @@ project:
     - W2/
     - W3/
     - W4/
-    # - W5/
+    - W5/
 
 website:
   navbar:
