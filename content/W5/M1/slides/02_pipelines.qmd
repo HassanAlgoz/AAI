@@ -18,6 +18,23 @@ A pipeline wraps three things into one call:
 
 You pass in raw data and get back a structured result without touching the underlying tensors.
 
+## Pre- and Post-processing
+
+### Text Generative Models
+
+* **Pre-processing:** Tokenize source text into IDs and append necessary task-specific prefixes (e.g., "summarize:").
+* **Post-processing:** Generate new tokens autoregressively, decode IDs back to strings, and clean up subword artifacts and special tokens.
+
+### Audio Models
+
+* **Pre-processing:** Resample raw waveforms to the target rate (e.g., 16kHz) and extract/normalize audio features (like log-Mel spectrograms).
+* **Post-processing:** Output class probabilities for classification, or decode acoustic states (via beam search/CTC) into text for speech recognition.
+
+### Image Models
+
+* **Pre-processing:** Resize, crop, and normalize raw images using an `ImageProcessor` to generate tensor arrays (`pixel_values`), and format any task-specific annotations.
+* **Post-processing:** filtering confidence scores and scaling bounding boxes for object detection, or decoding pixel-level arrays into semantic maps for segmentation.
+
 ## Example: Image Segmentation Pipeline
 
 ```py
