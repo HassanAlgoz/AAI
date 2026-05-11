@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Fine-tuning</title>
+  <title>Applied AI Bootcamp – Large and Small Language Models</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -33,6 +33,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-ca7ff45dca864c8748a423b2ddb238b8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -135,11 +201,88 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Fine-tuning</h1>
+  <h1 class="title">Large and Small Language Models</h1>
 
 <div class="quarto-title-authors">
 </div>
 
+</section>
+<section id="large-language-models-llms" class="slide level2 scrollable">
+<h2>Large Language Models (LLMs)</h2>
+<p><strong>Large Language Models (LLMs)</strong> are a powerful subset of deep neural NLP models characterized by:</p>
+<ol type="1">
+<li>massive size (billions of parameters)</li>
+<li>extensive training data (trillions of tokens)</li>
+<li>ability to perform a wide range of language tasks</li>
+</ol>
+</section>
+<section id="model-compression" class="slide level2">
+<h2>Model Compression</h2>
+<ul>
+<li>We use both <strong>Half-precision</strong> and <a href="https://huggingface.co/docs/transformers/quantization/overview">Quantization</a> to reduce memory requirement.</li>
+<li>We also need to use a GPU <code>device="auto"</code></li>
+</ul>
+<p>Install <a href="https://hf.co/docs/bitsandbytes/installation"><code>bitsandbytes</code></a>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="ex">pip</span> install <span class="at">-U</span> bitsandbytes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Load LLM fot <code>text-generation</code> task via pipeline:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>pipe <span class="op">=</span> pipeline(</span>
+<span id="cb2-2"><a></a>    <span class="st">"text-generation"</span>,</span>
+<span id="cb2-3"><a></a>    model<span class="op">=</span><span class="st">"mistralai/Mistral-7B-v0.1"</span>,        </span>
+<span id="cb2-4"><a></a>    dtype<span class="op">=</span>torch.bfloat16,    <span class="co"># Half-precision (reduce memory)</span></span>
+<span id="cb2-5"><a></a>    device_map<span class="op">=</span><span class="st">"auto"</span>,       <span class="co"># Automatic Resource Allocation</span></span>
+<span id="cb2-6"><a></a>    model_kwargs<span class="op">=</span>{</span>
+<span id="cb2-7"><a></a>        <span class="co"># 8-bit Quantization (compress model)</span></span>
+<span id="cb2-8"><a></a>        <span class="st">"quantization_config"</span>: BitsAndBytesConfig(load_in_8bit<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-9"><a></a>    },</span>
+<span id="cb2-10"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="small-language-models" class="slide level2">
+<h2>Small Language Models</h2>
+<p><strong>SLMs</strong> are LLMs with far fewer parameters and lower compute requirements</p>
+<ul>
+<li>Crucial step toward efficient, accessible, and cost-effective AI.</li>
+<li>Practical solutions for businesses, developers, and researchers looking for powerful AI without the heavy computational burden of LLMs.</li>
+</ul>
+<p>The following examples are SLMs ranging from <strong>1-4 billion parameters</strong>:</p>
+<ul>
+<li><a href="https://huggingface.co/meta-llama/Llama-3.2-1B"><strong>Llama3.2-1B</strong></a>&nbsp;– A Meta-developed&nbsp;<em>1-billion-parameter</em>&nbsp;variant optimized for edge devices.</li>
+<li><a href="https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct"><strong>Qwen2.5-1.5B</strong></a>&nbsp;– A model from Alibaba designed for multilingual applications with&nbsp;<em>1.5 billion parameters</em>.</li>
+<li><a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"><strong>DeepSeeek-R1-1.5B</strong></a>&nbsp;- DeepSeek’s first-generation of reasoning model distilled from Qwen2.5 with&nbsp;<em>1.5 billion parameters</em>.</li>
+<li><a href="https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B"><strong>SmolLM2-1.7B</strong></a>&nbsp;– From HuggingFaceTB, a state-of-the-art “small” (<em>1.7 billion-parameter</em>) language model trained on specialized open datasets (FineMath, Stack-Edu, and SmolTalk).</li>
+<li><a href="https://huggingface.co/microsoft/Phi-3.5-mini-instruct"><strong>Phi-3.5-Mini-3.8B</strong></a>&nbsp;– Microsoft’s tiny-but-might open model with&nbsp;<em>3.8 billion-parameters</em>&nbsp;optimized for reasoning and code generation.</li>
+<li><a href="https://huggingface.co/google/gemma-3-4b-it"><strong>Gemma3-4B</strong></a>&nbsp;- Developed by Google DeepMind, this light but powerful&nbsp;<em>4 billion-parameter</em>&nbsp;model is multilingual and multimodal.</li>
+</ul>
+</section>
+<section id="benefits-of-small-language-models" class="slide level2">
+<h2>Benefits of Small Language Models</h2>
+<ul>
+<li><strong>Low Compute Requirements</strong>&nbsp;– Can run on consumer laptops, edge devices, and mobile phones.</li>
+<li><strong>Lower Energy Consumption</strong>&nbsp;– Efficient models reduce power usage, making them environmentally friendly.</li>
+<li><strong>Faster Inference</strong>&nbsp;– Smaller models generate responses quickly, ideal for real-time applications.</li>
+<li><strong>On-Device AI</strong>&nbsp;– No need for an internet connection or cloud services, enhancing privacy and security.</li>
+<li><strong>Cheaper Deployment</strong>&nbsp;– Lower hardware and cloud costs make AI more accessible to startups and developers.</li>
+<li><strong>Customizability</strong>: Easily fine-tuned for domain-specific tasks (e.g., legal document analysis).</li>
+</ul>
+</section>
+<section id="how-are-they-made-small" class="slide level2 scrollable">
+<h2>How Are They Made Small?</h2>
+<p>The process of shrinking a language model involves several techniques aimed at reducing its size without compromising too much on performance:</p>
+<ol type="1">
+<li><strong>Knowledge Distillation</strong>: Training a smaller “student” model using knowledge transferred from a larger “teacher” model.</li>
+<li><strong>Pruning</strong>: Removing redundant or less important parameters within the neural network architecture.</li>
+<li><strong>Quantization</strong>: Reducing the precision of numerical values used in calculations (e.g.&nbsp;converting floating-point numbers to integers).</li>
+</ol>
+</section>
+<section id="llm-for-specific-tasks" class="slide level2">
+<h2>LLM for Specific Tasks</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a><span class="co"># use the same API for 3 different tasks</span></span>
+<span id="cb3-4"><a></a>checkpoint <span class="op">=</span> <span class="st">"HuggingFaceTB/SmolLM2-360M"</span></span>
+<span id="cb3-5"><a></a></span>
+<span id="cb3-6"><a></a>answerer <span class="op">=</span> pipeline(<span class="st">"question-answering"</span>, model<span class="op">=</span>checkpoint)</span>
+<span id="cb3-7"><a></a>classifier <span class="op">=</span> pipeline(<span class="st">"sentiment-analysis"</span>, model<span class="op">=</span>checkpoint)</span>
+<span id="cb3-8"><a></a>generator <span class="op">=</span> pipeline(<span class="st">"text-generation"</span>, model<span class="op">=</span>checkpoint)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="how-llms-are-trained" class="slide level2 scrollable">
 <h2>How LLMs are Trained?</h2>
@@ -158,38 +301,52 @@
 <section id="pretraining-the-knowledge-base" class="slide level2">
 <h2>1. Pretraining (The Knowledge Base)</h2>
 <ul>
-<li><strong>Goal:</strong> Learn language, facts, and reasoning from the internet.</li>
-<li><strong>Method:</strong> <strong>Unsupervised Learning</strong>. The model predicts the next word in a sequence (Self-Supervised).</li>
-<li><strong>Scale:</strong> Massive datasets (trillions of tokens) and high compute.</li>
-<li><strong>Outcome:</strong> A “Base Model” that is a world-class autocompleter but bad at following instructions.</li>
+<li class="fragment"><strong>Goal:</strong> Learn language, facts, and reasoning from the internet.</li>
+<li class="fragment"><strong>Method:</strong> <strong>Unsupervised Learning</strong>. The model predicts the next word in a sequence (Self-Supervised).</li>
+<li class="fragment"><strong>Scale:</strong> Massive datasets (trillions of tokens) and high compute.</li>
+<li class="fragment"><strong>Outcome:</strong> A “Base Model” that is a world-class autocompleter but bad at following instructions.</li>
 </ul>
-</section>
-<section id="supervised-fine-tuning-sft-the-assistant" class="slide level2">
-<h2>2. Supervised Fine-tuning / SFT (The Assistant)</h2>
-<ul>
-<li><strong>Goal:</strong> Teach the model how to act like an assistant and follow specific formats.</li>
-<li><strong>Method:</strong> <strong>Supervised Learning</strong>. Humans write high-quality “Prompt-Response” pairs.</li>
-<li><strong>Scale:</strong> Small, curated datasets (thousands to tens of thousands of examples).</li>
-<li><strong>Outcome:</strong> An “Instruct Model” that understands commands but may still produce “hallucinations” or unsafe content.</li>
-</ul>
-</section>
-<section id="reinforcement-learning-from-human-feedback-rlhf-the-polishing" class="slide level2 scrollable">
-<h2>3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)</h2>
-<ul>
-<li><strong>Goal:</strong> Align the model with human values (helpfulness, honesty, safety).</li>
-<li><strong>Method:</strong>
-<ol type="1">
-<li><strong>Preference Labeling:</strong> Humans rank multiple model outputs from best to worst.</li>
-<li><strong>Reward Modeling:</strong> A separate model learns these preferences.</li>
-<li><strong>Optimization:</strong> The LLM is updated (often via PPO or DPO) to maximize the “reward” score.</li>
-</ol></li>
-<li><strong>Outcome:</strong> A “Chat Model”.</li>
-</ul>
-</section>
-<section id="rlhf" class="slide level2">
-<h2>RLHF</h2>
 
-<img data-src="../assets/reward_model.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<img data-src="../assets/common_crawl.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="supervised-fine-tuning-sft" class="slide level2">
+<h2>2. Supervised Fine-tuning (SFT)</h2>
+<ul>
+<li class="fragment"><strong>Goal:</strong> Teach the model how to act like an assistant and follow specific formats.</li>
+<li class="fragment"><strong>Method:</strong> <strong>Supervised Learning</strong>. Humans write high-quality “Prompt-Response” pairs.</li>
+<li class="fragment"><strong>Scale:</strong> Small, curated datasets (thousands to tens of thousands of examples).</li>
+<li class="fragment"><strong>Outcome:</strong> An “Instruct Model” that understands commands but may still produce “hallucinations” or unsafe content.</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/FLAN-T5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/FLAN-T5.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+<blockquote>
+<p><a href="https://arxiv.org/abs/2210.11416">FLAN T5 | Google</a>: “We finetune various language models on 1.8K tasks phrased as instructions, and evaluate them on unseen tasks”.</p>
+</blockquote>
+</div>
+</section>
+<section id="reinforcement-learning-from-human-feedback-rlhf" class="slide level2 scrollable">
+<h2>3. Reinforcement Learning from Human Feedback (RLHF)</h2>
+<ul>
+<li class="fragment"><strong>Goal:</strong> Align the model with human values (helpfulness, honesty, safety).</li>
+<li class="fragment"><strong>Method:</strong>
+<ol type="1">
+<li class="fragment"><strong>Preference Labeling:</strong> Humans rank multiple model outputs from best to worst.</li>
+<li class="fragment"><strong>Reward Modeling:</strong> A separate model learns these preferences.</li>
+<li class="fragment"><strong>Optimization:</strong> The LLM is updated (often via PPO or DPO) to maximize the “reward” score.</li>
+</ol></li>
+<li class="fragment"><strong>Outcome:</strong> A “Chat Model”.</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/reward_model.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/reward_model.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</div>
+</section>
 <section id="transfer-learning" class="slide level2">
 <h2>Transfer Learning</h2>
 <p><strong>Transfer learning</strong> is reusing a trained model on a new, related problem. Advantages are:</p>
@@ -258,7 +415,7 @@
 <section id="how-to-train" class="title-slide slide level1 center scrollable">
 <h1>How to train?</h1>
 <ol type="1">
-<li>Transformers</li>
+<li>HuggingFace</li>
 <li>Unsloth</li>
 </ol>
 </section>
@@ -266,7 +423,7 @@
 <h2>HunggingFace Transformers Task Recipes</h2>
 <div class="columns">
 <div class="column">
-<p><a href="../assets/resources_task_recipes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/resources_task_recipes.png" class="r-stretch"></a></p>
+<p><a href="../assets/resources_task_recipes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../assets/resources_task_recipes.png" class="r-stretch"></a></p>
 </div><div class="column">
 <p><a href="https://huggingface.co/docs/transformers/tasks/asr">Example: ASR</a>.</p>
 </div></div>

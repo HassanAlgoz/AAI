@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – Fine-tuning</title>
+  <title>Applied AI Bootcamp – How LLMs Generate Text?</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -135,193 +135,164 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Fine-tuning</h1>
+  <h1 class="title">How LLMs Generate Text?</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="how-llms-are-trained" class="slide level2 scrollable">
-<h2>How LLMs are Trained?</h2>
-<p>Three stages of training:</p>
-<ol type="1">
-<li>Pretraining (Unsupervised)</li>
-<li>Supervised Fine-tuning (SFT)</li>
-<li>Reinforcement Learning from Human Feedback (RLHF)</li>
-</ol>
-<p>This is the standard pipeline for building a modern Large Language Model (LLM).</p>
-</section>
-<section id="three-stages-of-llm-training" class="slide level2">
-<h2>Three stages of LLM training</h2>
-
-<img data-src="../assets/llm-training-stages.png" class="r-stretch quarto-figure quarto-figure-center"></section>
-<section id="pretraining-the-knowledge-base" class="slide level2">
-<h2>1. Pretraining (The Knowledge Base)</h2>
+<section id="how-llms-actually-generate-text" class="slide level2 scrollable">
+<h2>How LLMs actually generate text?</h2>
 <ul>
-<li><strong>Goal:</strong> Learn language, facts, and reasoning from the internet.</li>
-<li><strong>Method:</strong> <strong>Unsupervised Learning</strong>. The model predicts the next word in a sequence (Self-Supervised).</li>
-<li><strong>Scale:</strong> Massive datasets (trillions of tokens) and high compute.</li>
-<li><strong>Outcome:</strong> A “Base Model” that is a world-class autocompleter but bad at following instructions.</li>
+<li>Understanding the mechanism gives us control over it</li>
+<li>Having control means we can optimize to our own metrics</li>
 </ul>
-</section>
-<section id="supervised-fine-tuning-sft-the-assistant" class="slide level2">
-<h2>2. Supervised Fine-tuning / SFT (The Assistant)</h2>
-<ul>
-<li><strong>Goal:</strong> Teach the model how to act like an assistant and follow specific formats.</li>
-<li><strong>Method:</strong> <strong>Supervised Learning</strong>. Humans write high-quality “Prompt-Response” pairs.</li>
-<li><strong>Scale:</strong> Small, curated datasets (thousands to tens of thousands of examples).</li>
-<li><strong>Outcome:</strong> An “Instruct Model” that understands commands but may still produce “hallucinations” or unsafe content.</li>
-</ul>
-</section>
-<section id="reinforcement-learning-from-human-feedback-rlhf-the-polishing" class="slide level2 scrollable">
-<h2>3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)</h2>
-<ul>
-<li><strong>Goal:</strong> Align the model with human values (helpfulness, honesty, safety).</li>
-<li><strong>Method:</strong>
+<p>Generation of text in LLMs works in two phases:</p>
 <ol type="1">
-<li><strong>Preference Labeling:</strong> Humans rank multiple model outputs from best to worst.</li>
-<li><strong>Reward Modeling:</strong> A separate model learns these preferences.</li>
-<li><strong>Optimization:</strong> The LLM is updated (often via PPO or DPO) to maximize the “reward” score.</li>
+<li><strong>Prefill</strong>
+<ol type="1">
+<li>Tokenization</li>
+<li>Embedding</li>
+<li>Processing</li>
 </ol></li>
-<li><strong>Outcome:</strong> A “Chat Model”.</li>
-</ul>
-</section>
-<section id="rlhf" class="slide level2">
-<h2>RLHF</h2>
-
-<img data-src="../assets/reward_model.png" class="r-stretch quarto-figure quarto-figure-center"></section>
-<section id="transfer-learning" class="slide level2">
-<h2>Transfer Learning</h2>
-<p><strong>Transfer learning</strong> is reusing a trained model on a new, related problem. Advantages are:</p>
-<ul>
-<li><strong>Time</strong>: Training takes days instead of months.</li>
-<li><strong>Data</strong>: You only need thousands of specialized examples instead of trillions of general ones.</li>
-<li><strong>Cost</strong>: Less time spent on training on less data means less compute and thus less cost.</li>
-</ul>
-</section>
-<section id="example-qari-ocr" class="slide level2">
-<h2>Example: QARI-OCR</h2>
-<p><a href="https://huggingface.co/NAMAA-Space/Qari-OCR-v0.3-VL-2B-Instruct">QARI-OCR</a> is a <strong>Vision-language Model (VLM)</strong> fine-tuned from <code>Qwen2-VL-2B-Instruct</code> to process Arabic documents. Key Features:</p>
-<ul>
-<li>📐&nbsp;<strong>Layout-Aware Recognition</strong>: Preserves document structure with HTML/Markdown tags</li>
-<li>🔤&nbsp;<strong>Full Diacritics Support</strong>: Accurate recognition of tashkeel (Arabic diacritical marks)</li>
-<li>📝&nbsp;<strong>Multi-Font Handling</strong>: Trained on 12 diverse Arabic fonts (14px-100px)</li>
-<li>🎯&nbsp;<strong>Structure-First Design</strong>: Optimized for documents with headers, body text, and complex layouts</li>
-<li>⚡&nbsp;<strong>Efficient Training</strong>: Only 11 hours on single GPU with 10k samples</li>
-<li>🖼️&nbsp;<strong>Robust Performance</strong>: Handles low-resolution and degraded images</li>
-</ul>
-</section>
-<section id="qari-ocr-model-performance" class="slide level2">
-<h2>QARI-OCR Model Performance</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Metric</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Character Error Rate (CER)</strong></td>
-<td>0.300</td>
-</tr>
-<tr class="even">
-<td><strong>Word Error Rate (WER)</strong></td>
-<td>0.485</td>
-</tr>
-<tr class="odd">
-<td><strong>BLEU Score</strong></td>
-<td>0.545</td>
-</tr>
-<tr class="even">
-<td><strong>Training Time</strong></td>
-<td>11 hours</td>
-</tr>
-<tr class="odd">
-<td><strong>CO₂ Emissions</strong></td>
-<td>1.88 kg eq.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="qari-ocr-training-details" class="slide level2">
-<h2>QARI-OCR Training Details</h2>
-<ul>
-<li><strong>Base Model</strong>: Qwen2-VL-2B-Instruct</li>
-<li><strong>Training Data</strong>: 10,000 synthetic Arabic documents with HTML markup</li>
-<li><strong>Optimization</strong>: 4-bit LoRA adapters (rank=16)</li>
-<li><strong>Hardware</strong>: Single NVIDIA A6000 GPU (48GB)</li>
-<li><strong>Framework</strong>: Unsloth + Hugging Face TRL</li>
-</ul>
-</section>
-<section>
-<section id="how-to-train" class="title-slide slide level1 center scrollable">
-<h1>How to train?</h1>
+<li><strong>Decode</strong>
 <ol type="1">
-<li>Transformers</li>
-<li>Unsloth</li>
+<li>Attention</li>
+<li>Probability</li>
+<li>Selection</li>
+<li>Check</li>
+</ol></li>
 </ol>
 </section>
-<section id="hunggingface-transformers-task-recipes" class="slide level2">
-<h2>HunggingFace Transformers Task Recipes</h2>
+<section id="phase-1-prefill" class="slide level2 scrollable">
+<h2>Phase 1: Prefill</h2>
+<p>Like reading the entire text word-for-word each time, before starting to write the next word. It involves:</p>
+<ol type="1">
+<li><strong>Tokenization</strong>: identify input as segmented parts.</li>
+<li><strong>Embedding</strong>: map to corrresponding vectors.</li>
+<li><strong>Processing</strong>: run the vectors through the neural network.</li>
+</ol>
+</section>
+<section id="the-tokenizer-playground" class="slide level2">
+<h2>The Tokenizer Playground</h2>
+<p>You can <a href="https://agents-course-the-tokenizer-playground.static.hf.space">experiment with different tokenizers</a> (first step in this phase) in the interactive playground below:</p>
+<center>
+<iframe src="https://agents-course-the-tokenizer-playground.static.hf.space" frameborder="0" width="850" height="450">
+</iframe>
+</center>
+</section>
+<section id="the-role-of-attention" class="slide level2">
+<h2>The Role of Attention</h2>
+<p>When predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence <em>“The capital of France is …”</em>, the words “France” and “capital” are crucial for determining that “Paris” should come next. This ability to focus on relevant information is what we call attention.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/AttentionSceneFinal.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/AttentionSceneFinal.gif" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+<p>This involves many computationally intensive operations.</p>
+</section>
+<section id="context-length" class="slide level2">
+<h2>Context Length</h2>
+<ul>
+<li>The model should handle the 10,000th token just as reliably as the 100th.</li>
+<li>However, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.</li>
+</ul>
+
+<img data-src="../assets/context_rot.png" class="r-stretch quarto-figure quarto-figure-center"><p>Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. – (<a href="https://www.trychroma.com/research/context-rot">July 14, 2025 Context Rot | Chroma</a>)</p>
+</section>
+<section id="phase-2-decode" class="slide level2">
+<h2>Phase 2: Decode</h2>
+<ul>
+<li>The model generates one token.</li>
+<li>It is sampled from a probability distribution over all token in the vocabulary.</li>
+<li>That token may be: a space, a comma, a digit, a character, a word, or a subword.</li>
+<li>It could be a special token <strong>EOS</strong> (end of sequence) to stop generation.</li>
+</ul>
+</section>
+<section id="sampling-strategies" class="slide level2">
+<h2>Sampling Strategies</h2>
+<p>You can <a href="https://agents-course-decoding-visualizer.hf.space">interact with the basic decoding process</a> yourself with SmolLM2 in this Space (remember, it decodes until reaching an <strong>EOS</strong> token which is <strong>&lt;|im_end|&gt;</strong> for this model):</p>
+<center>
+<iframe src="https://agents-course-decoding-visualizer.hf.space" frameborder="0" width="850" height="450">
+</iframe>
+</center>
+</section>
+<section id="token-selection" class="slide level2 scrollable">
+<h2>Token Selection</h2>
 <div class="columns">
 <div class="column">
-<p><a href="../assets/resources_task_recipes.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/resources_task_recipes.png" class="r-stretch"></a></p>
+<ol type="1">
+<li><strong>Logits</strong>: unprocessed probability distribution over all tokens in the vocabulary</li>
+<li><strong>Temperature Scaling</strong>:
+<ul>
+<li>higher settings (&gt;1.0) make choices more random and creative</li>
+<li>lower settings (&lt;1.0) make them more focused and deterministic</li>
+</ul></li>
+<li><strong>Top-p (Nucleus) Sampling</strong>: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)</li>
+<li><strong>Top-k Filtering</strong>: An alternative approach where we only consider the <code>k</code> most likely next words</li>
+</ol>
 </div><div class="column">
-<p><a href="https://huggingface.co/docs/transformers/tasks/asr">Example: ASR</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/token_selection.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/token_selection.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
 </div></div>
 <!-- end columns -->
 </section>
-<section id="unsloth-studio-beta" class="slide level2">
-<h2>Unsloth Studio (beta)</h2>
-
-<img data-src="https://unsloth.ai/cgi/image/studio_ui_max_cropped_9eDkhlEfAFp7TJERZpGHH.png?format=raw" class="r-stretch quarto-figure quarto-figure-center"></section>
-<section id="unsloth" class="slide level2">
-<h2>Unsloth</h2>
-<p><strong>Unsloth</strong> is an open-source framework for running and training models.</p>
-<p><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners">⭐ Fine-tuning for Beginners</a>:</p>
+<section id="managing-repetition" class="slide level2 scrollable">
+<h2>Managing Repetition</h2>
 <div class="columns">
 <div class="column">
-<ul>
-<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide">Fine-tuning Guide</a>
-<ul>
-<li>Step-by-step on how to fine-tune!</li>
-<li>Learn the core basics of training.</li>
-</ul></li>
-<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/what-model-should-i-use">What model should I use?</a>
-<ul>
-<li>Instruct or Base Model?</li>
-<li>How big should my dataset be?</li>
-</ul></li>
-<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/faq-+-is-fine-tuning-right-for-me">Is Fine-tuning right for me?</a>
-<ul>
-<li>What can fine-tuning do for me?</li>
-<li>RAG vs.&nbsp;Fine-tuning?</li>
-</ul></li>
-</ul>
+<p>One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:</p>
+<ol type="1">
+<li><strong>Presence Penalty</strong>: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.</li>
+<li><strong>Frequency Penalty</strong>: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.</li>
+</ol>
+<p>These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.</p>
 </div><div class="column">
-<ul>
-<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-llms-guide/datasets-guide">Datasets Guide</a>
-<ul>
-<li>How do I structure/prepare my dataset?</li>
-<li>How do I collect data?</li>
-</ul></li>
-<li><a href="https://unsloth.ai/docs/basics/inference-and-deployment">Inference &amp; Deployment</a>
-<ul>
-<li>How do I save my model locally?</li>
-<li>How do I run my model via Ollama or vLLM?</li>
-</ul></li>
-<li><a href="https://unsloth.ai/docs/get-started/fine-tuning-for-beginners/unsloth-requirements">Unsloth Requirements</a>
-<ul>
-<li>Does Unsloth work on my GPU?</li>
-<li>How much VRAM will I need?</li>
-</ul></li>
-</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../assets/manage_repetition.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/manage_repetition.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
 </div></div>
 <!-- end columns -->
+</section>
+<section id="beam-search" class="slide level2">
+<h2>Beam Search</h2>
+<p><strong>Beam Search explores multiple possible paths simultaneously</strong>. Then select the sequence with the highest overall probability.</p>
+<p>You can <a href="https://agents-course-beam-search-visualizer.hf.space">explore beam search visually here</a>:</p>
+<center>
+<iframe src="https://agents-course-beam-search-visualizer.hf.space" frameborder="0" width="850" height="450">
+</iframe>
+</center>
+<p>This approach often produces more coherent and grammatically correct text, though it requires more computational resources than simpler methods.</p>
+</section>
+<section id="custom-generation" class="slide level2 scrollable">
+<h2>Custom generation</h2>
+<p>Custom generation methods enable specialized behavior such as:</p>
+<ol type="1">
+<li>have the model continue thinking if it is uncertain;</li>
+<li>roll back generation if the model gets stuck;</li>
+<li>handle special tokens with custom logic;</li>
+<li>use specialized KV caches;</li>
+</ol>
+<p>See: <a href="https://huggingface.co/docs/transformers/generation_strategies#finding-custom-generation-methods">Finding custom generation methods</a>.</p>
+</section>
+<section id="resources" class="slide level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="https://github.com/huggingface/optimum">Optimum</a>: Hardware-specific optimization.</li>
+<li><a href="https://github.com/dottxt-ai/outlines">Outlines</a>: Constrained (JSON) generation.</li>
+<li><a href="https://github.com/uiuc-focal-lab/syncode">SynCode</a>: Grammar-guided generation.</li>
+<li><a href="https://github.com/huggingface/text-generation-inference">Text Generation Inference</a>: Production server.</li>
+<li><a href="https://github.com/oobabooga/text-generation-webui">Text generation web UI</a>: Gradio interface.</li>
+<li><a href="https://github.com/NVIDIA/logits-processor-zoo">logits-processor-zoo</a>: Advanced generation control.</li>
+</ul>
 
 
-</section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
