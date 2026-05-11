@@ -35,19 +35,6 @@ You pass in raw data and get back a structured result without touching the under
 * **Pre-processing:** Resize, crop, and normalize raw images using an `ImageProcessor` to generate tensor arrays (`pixel_values`), and format any task-specific annotations.
 * **Post-processing:** filtering confidence scores and scaling bounding boxes for object detection, or decoding pixel-level arrays into semantic maps for segmentation.
 
-## Example: Image Segmentation Pipeline
-
-```py
-from transformers import pipeline
-
-segmenter = pipeline(
-    task="image-segmentation",
-    model="facebook/detr-resnet-50-panoptic"
-)
-image_url = "https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png"
-segments = pipeline(image_url)
-```
-
 ## Example: Text Classifier
 
 The following example shows a pipeline for [*Text Classification*](https://huggingface.co/models?pipeline_tag=text-classification&sort=trending):
@@ -60,36 +47,7 @@ classifier = pipeline(
     model="distilbert/distilbert-base-uncased-finetuned-sst-2-english"
 )
 
-# Batch inference
-classifier([
-    "I've been waiting for a HuggingFace course my whole life.",
-    "I hate this so much!"
-])
-```
-
-## Available pipelines for different modalities
-
-The `pipeline()` function supports multiple modalities, allowing you to work with text, images, audio, and even multimodal tasks. In this course we’ll focus on text tasks, but it’s useful to understand the transformer architecture’s potential, so we’ll briefly outline it.
-
-| Task | Modality | Output | Models | Datasets |
-|---|---|---|---|---|
-| [`audio-classification`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.AudioClassificationPipeline) | Audio | Classify audio into categories | [🔗](https://huggingface.co/models?filter=audio-classification) | [🔗](https://huggingface.co/datasets?task_categories=audio-classification) |
-| [`image-classification`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) | Image | Predicted class for an image | [🔗](https://huggingface.co/models?filter=image-classification) | [🔗](https://huggingface.co/datasets?task_categories=image-classification) |
-| [`object-detection`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ObjectDetectionPipeline) | Image | Locate and identify objects in images | [🔗](https://huggingface.co/models?filter=object-detection) | [🔗](https://huggingface.co/datasets?task_categories=object-detection) |
-
-Refer to the [Pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines) API reference for a complete list of available tasks. 
-
-
-## Accelerator: `device=0` for GPU
-
-- By default a [Pipeline](https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/pipelines#transformers.Pipeline) runs on a CPU which is given by `device=-1`
-- For GPU, set `device` to the associated CUDA device id. For example, `device=0` runs on the first GPU.
-
-```py
-pipe = pipeline(
-    task="sentiment-analysis",
-    device=0    # Run on GPU
-)
+classifier("I've been waiting for a HuggingFace course my whole life.")
 ```
 
 ## Accelerator using `accelerate` library
@@ -112,40 +70,30 @@ pipe = pipeline(
 )
 ```
 
-## Pipeline Parameters
+## Available pipelines for different modalities
 
-[Pipelines](https://huggingface.co/docs/transformers/main_classes/pipelines#pipelines) can be configured:
+The `pipeline()` function supports multiple modalities, allowing you to work with text, images, audio, and even multimodal tasks. In this course we’ll focus on text tasks, but it’s useful to understand the transformer architecture’s potential, so we’ll briefly outline it.
 
-1. **Control Outputs**: with task-specific parameters.
-2. **Optimize Processing**: Pipeline supports GPUs, Apple Silicon, and half-precision weights to accelerate inference and save memory.
+| Task | Modality | Output | Models | Datasets |
+|---|---|---|---|---|
+| [`audio-classification`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.AudioClassificationPipeline) | Audio | Classify audio into categories | [🔗](https://huggingface.co/models?filter=audio-classification) | [🔗](https://huggingface.co/datasets?task_categories=audio-classification) |
+| [`image-classification`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) | Image | Predicted class for an image | [🔗](https://huggingface.co/models?filter=image-classification) | [🔗](https://huggingface.co/datasets?task_categories=image-classification) |
+| [`object-detection`](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ObjectDetectionPipeline) | Image | Locate and identify objects in images | [🔗](https://huggingface.co/models?filter=object-detection) | [🔗](https://huggingface.co/datasets?task_categories=object-detection) |
 
-## ASR Parameters
+Refer to the [Pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines) API reference for a complete list of available tasks. 
 
-Example of ASR task parameters:
+## Joining pipelines: speech-to-text-to-speech translation
 
-```python
-pipe_asr = pipeline("automatic-speech-recognition", model="openai/whisper-tiny")
+[Here's an interactive demo](https://course-demos-speech-to-speech-translation.hf.space) of a sequence-to-sequence model for translation:
 
-output = pipe_asr(
-    "https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac",
-    return_timestamps="word", # Returns precise start/end times for every word
-    chunk_length_s=30,        # Splits long audio into 30-second segments for processing
-    stride_length_s=5         # Adds 5 seconds of overlap between segments to prevent cutting words
-)
-```
-
-## Text Generation Parameters
-
-```py
-from transformers import pipeline
-
-generator = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
-output = generator(
-    "In this course, we will teach you how to",
-    max_new_tokens=30,
-    num_return_sequences=2,
-)
-```
+<center>
+<iframe
+	src="https://course-demos-speech-to-speech-translation.hf.space"
+	frameborder="0"
+	width="960"
+	height="680"
+></iframe>
+</center>
 
 ## Batch Inference
 

@@ -1,3 +1,13 @@
+
+## Information Retrieval (IR)
+
+**Information Retrieval (IR)** is the process of finding relevant information from a collection of documents.
+
+- **Search engines** crawl, index, and find documents based on user queries.
+- **Chat models** uses Retriveal to Augment their Generation (RAG) to provide up-to-date and factual answers.
+
+See: [`intfloat` (Liang Wang)'s collections](https://huggingface.co/intfloat) for **embedding** and **reranker** models.
+
 # Topic Modeling
 
 BERTopic: Build a modern 6-step topic-modeling pipeline with BERTopic to gain insights from thousands of unstructured data points, understanding sentiment, common issues, trends, categories, inherent hierarchy, and enable semantic search, for recommendation and other use cases.

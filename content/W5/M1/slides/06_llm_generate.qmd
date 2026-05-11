@@ -1,35 +1,7 @@
 ---
-title: "LLM Inference"
+title: "How LLMs Generate Text?"
 format: revealjs
 ---
-
-## GenerationConfig
-
-LLM [.generate()](https://huggingface.co/docs/transformers/v5.5.0/en/main_classes/text_generation#transformers.GenerationMixin.generate) method auto-regressively generates the next sequence given some initial `prompt`. Generation can be controlled:
-
-```python
-from transformers import pipeline, GenerationConfig
-
-pipe = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
-
-config = GenerationConfig(
-    max_new_tokens=50,
-    temperature=1.5
-)
-```
-
-## Common Generation Options
-
-See: [Common Options](https://huggingface.co/docs/transformers/v5.5.0/en/llm_tutorial#common-options):
-
-::: {.incremental}
-- **`max_new_tokens` (`int`)**: Controls the maximum number of tokens generated. Make sure to set it explicitly—defaults are usually small.
-- **`num_beams` (`int`)**: Activates beam search when set above 1. Useful for input-grounded tasks. See [this guide](https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies).
-- **`repetition_penalty` (`float`)**: Set to greater than 1.0 to discourage the model from repeating itself.
-- Sampling:
-    - **`temperature` (`float`)**: Influences randomness of generation. High values (`>0.8`) make outputs more creative; low values (`<0.4`) make them more focused and predictable. Requires `do_sample=True`.
-    - **`do_sample` (`bool`)**: If `True`, samples tokens randomly; if `False`, uses greedy decoding. Most applications should use `True`. See [this guide](https://huggingface.co/docs/transformers/v5.5.0/en/generation_strategies) for more details.
-:::
 
 ## How LLMs actually generate text?
 

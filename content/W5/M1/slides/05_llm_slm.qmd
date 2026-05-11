@@ -11,142 +11,31 @@ format: revealjs
 2. extensive training data (trillions of tokens)
 3. ability to perform a wide range of language tasks
 
-## Original 2017 Transformer
+## Model Compression
 
-::: {.columns}
-::: {.column}
-- The **encoder** (left) maps an input sequence of symbol representations (tokens) to a sequence of continuous representations (vectors).
-- The **decoder** (right) then generates an output sequence of symbols (tokens) one element at a time.
-- At each step the model is auto-regressive, consuming the previously generated symbols as additional input when generating the next.
+- We use both **Half-precision** and [Quantization](https://huggingface.co/docs/transformers/quantization/overview) to reduce memory requirement.
+- We also need to use a GPU `device="auto"`
 
--- [Attention is All You Need (Vaswani et al.)](https://arxiv.org/abs/1706.03762)
+Install [`bitsandbytes`](https://hf.co/docs/bitsandbytes/installation):
 
-:::
-::: {.column}
-![](../assets/transformer_2017.png){.r-stretch}
-:::
-:::
-<!-- end columns -->
+```sh
+pip install -U bitsandbytes
+```
 
-## Variants of the Transformer
+Load LLM fot `text-generation` task via pipeline:
 
-![An overview of some of the most popular large language transformers organized by architecture type and developers.](../assets/transformer_arch.png){fig-align="center" .r-stretch}
-
-## Comparison Table
-
-Understanding these differences will help you choose the right model for your specific task.
-
-| Architecture    | Attention Style                            | Prediction Goal                                      | Typical Use Cases                   | Popular Models                       |
-| --------------- | ------------------------------------------ | ---------------------------------------------------- | ----------------------------------- | ------------------------------------ |
-| Encoder–decoder (2017 Original) | Bidirectional (encoder) + causal (decoder) | Conditional generation (output sequence given input) | Translation, summarization, seq2seq | [BART](https://huggingface.co/docs/transformers/model_doc/bart) - [mBART](https://huggingface.co/docs/transformers/model_doc/mbart) - [Marian](https://huggingface.co/docs/transformers/model_doc/marian) - [T5](https://huggingface.co/docs/transformers/model_doc/t5)                   |
-| Decoder-only (2018 GPT-1)    | Causal (masked)                            | Next-token probability distribution                  | Autoregressive text generation      | [Hugging Face SmolLM Series](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct) - [Meta's Llama Series](https://huggingface.co/docs/transformers/en/model_doc/llama4) - [Google's Gemma Series](https://huggingface.co/docs/transformers/main/en/model_doc/gemma3) - [DeepSeek's V3](https://huggingface.co/deepseek-ai/DeepSeek-V3) |
-| Encoder-only (2018 BERT)    | Bidirectional                              | Contextual embeddings, not next-token prediction     | Classification, retrieval, NER      | [BERT](https://huggingface.co/docs/transformers/model_doc/bert) - [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) - [ModernBERT](https://huggingface.co/docs/transformers/en/model_doc/modernbert)                        |
-
-## Modern Large Language Models (LLMs)
-
-Most LLMs today are **Decoder-only** with billions of parameters. Trained in two phases:
-
-1. **Pretraining**: The model learns to predict the next token on vast amounts of text data
-2. **Instruction tuning**: The model is fine-tuned to follow instructions and generate helpful responses
-
-This approach has led to models that can understand and generate human-like text across a wide range of topics and tasks.
-
-## Supervised Learning
-
-Training task is to mimic the human-curated: `(prompt, output)` text sequences.
-
-[FLAN T5 | Google](https://arxiv.org/abs/2210.11416): "We finetune various language models on 1.8K tasks phrased as instructions, and evaluate them on unseen tasks":
-
-::: {.columns}
-::: {.column}
-- Answer general knowledge questions:
-    - `Prompt: "What is the tallest building?" , Output: "The tallest building is ..."`
-- Translate from English to French:
-    - `Prompt: "Translate this paragraph ..." , Output: "Bonjour lemuv beleluo"`
-- Write code:
-    - `Prompt: "Write Python function to analyse ..." , Output: "def analyze(...)`
-
-:::
-::: {.column}
-![](../assets/FLAN-T5.png){fig-align="center"}
-:::
-:::
-<!-- end columns -->
-
-## Key capabilities of modern LLMs
-
-Modern decoder-based LLMs have demonstrated impressive capabilities, which you can experiment with [directly in your browser](https://huggingface.co/openai-community/gpt2):
-
-| Capability | Description | Example |
-|------------|-------------|---------|
-| Text generation | Creating coherent and contextually relevant text | Writing essays, stories, or emails |
-| Summarization | Condensing long documents into shorter versions | Creating executive summaries of reports |
-| Translation | Converting text between languages | Translating English to Spanish |
-| Question answering | Providing answers to factual questions | "What is the capital of France?" |
-| Code generation | Writing or completing code snippets | Creating a function based on a description |
-| Reasoning | Working through problems step by step | Solving math problems or logical puzzles |
-| Few-shot learning | Learning from a few examples in the prompt | Classifying text after seeing just 2-3 examples |
-
-## Practical applications of Encoder-decoder models
-
-Sequence-to-sequence models excel at tasks that require transforming one form of text into another while preserving meaning.
-
-| Application | Description | Example Model |
-|-------------|-------------|---------------|
-| Machine translation | Converting text between languages | Marian, T5 |
-| Text summarization | Creating concise summaries of longer texts | BART, T5 |
-| Data-to-text generation | Converting structured data into natural language | T5 |
-| Grammar correction | Fixing grammatical errors in text | T5 |
-| Question answering | Generating answers based on context | BART, T5 |
-
-## Interactive demo: speech-to-speech translation
-
-[Here's an interactive demo](https://course-demos-speech-to-speech-translation.hf.space) of a sequence-to-sequence model for translation:
-
-<center>
-<iframe
-	src="https://course-demos-speech-to-speech-translation.hf.space"
-	frameborder="0"
-	width="960"
-	height="680"
-></iframe>
-</center>
-
-## Choosing the right architecture
-
-When working on a specific NLP task, how do you decide which architecture to use? Here's a quick guide:
-
-::: {.columns}
-::: {.column}
-* **Text Classification** (Sentiment, Topic)
-    * Architecture: Encoder
-    * Examples: BERT, RoBERTa
-* **Text Generation** (Creative Writing)
-    * Architecture: Decoder
-    * Examples: GPT, LLaMA
-* **Translation**
-    * Architecture: Encoder-Decoder
-    * Examples: T5, BART
-* **Summarization**
-    * Architecture: Encoder-Decoder
-    * Examples: BART, T5
-:::
-::: {.column}
-* **Named Entity Recognition**
-    * Architecture: Encoder
-    * Examples: BERT, RoBERTa
-* **Question Answering** (Extractive)
-    * Architecture: Encoder
-    * Examples: BERT, RoBERTa
-* **Question Answering** (Generative)
-    * Architecture: Encoder-Decoder or Decoder
-    * Examples: T5, GPT
-* **Conversational AI**
-    * Architecture: Decoder
-    * Examples: GPT, LLaMA
-:::
-:::
-<!-- end columns -->
+```py
+pipe = pipeline(
+    "text-generation",
+    model="mistralai/Mistral-7B-v0.1",        
+    dtype=torch.bfloat16,    # Half-precision (reduce memory)
+    device_map="auto",       # Automatic Resource Allocation
+    model_kwargs={
+        # 8-bit Quantization (compress model)
+        "quantization_config": BitsAndBytesConfig(load_in_8bit=True)
+    },
+)
+```
 
 ## Small Language Models
 
@@ -181,18 +70,7 @@ The process of shrinking a language model involves several techniques aimed at r
 2. **Pruning**: Removing redundant or less important parameters within the neural network architecture.
 3. **Quantization**: Reducing the precision of numerical values used in calculations (e.g. converting floating-point numbers to integers).
 
-## Same task, different models
-
-```py
-from transformers import pipeline
-
-# Task remains "text-generation", models change
-llama = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
-mistral = pipeline("text-generation", model="mistralai/Mistral-7B-v0.1")
-gemma = pipeline("text-generation", model="google/gemma-7b")
-```
-
-## Same model, different tasks
+## LLM for Specific Tasks
 
 ```py
 from transformers import pipeline
@@ -203,32 +81,6 @@ checkpoint = "HuggingFaceTB/SmolLM2-360M"
 answerer = pipeline("question-answering", model=checkpoint)
 classifier = pipeline("sentiment-analysis", model=checkpoint)
 generator = pipeline("text-generation", model=checkpoint)
-```
-
-## Half-precision and Quantization
-
-- We use both **Half-precision** and [Quantization](https://huggingface.co/docs/transformers/quantization/overview) to reduce memory requirement.
-- We also need to use a GPU `device="auto"`
-
-Install [`bitsandbytes`](https://hf.co/docs/bitsandbytes/installation):
-
-```sh
-pip install -U bitsandbytes
-```
-
-Load LLM fot `text-generation` task via pipeline:
-
-```py
-pipe = pipeline(
-    "text-generation",
-    model="mistralai/Mistral-7B-v0.1",        
-    dtype=torch.bfloat16,    # Half-precision (reduce memory)
-    device_map="auto",       # Automatic Resource Allocation
-    model_kwargs={
-        # 8-bit Quantization (compress model)
-        "quantization_config": BitsAndBytesConfig(load_in_8bit=True)
-    },
-)
 ```
 
 ## How LLMs are Trained?
@@ -247,30 +99,44 @@ This is the standard pipeline for building a modern Large Language Model (LLM).
 
 ## 1. Pretraining (The Knowledge Base)
 
+::: {.incremental}
 * **Goal:** Learn language, facts, and reasoning from the internet.
 * **Method:** **Unsupervised Learning**. The model predicts the next word in a sequence (Self-Supervised).
 * **Scale:** Massive datasets (trillions of tokens) and high compute.
 * **Outcome:** A "Base Model" that is a world-class autocompleter but bad at following instructions.
+:::
 
-## 2. Supervised Fine-tuning / SFT (The Assistant)
+![](../assets/common_crawl.png){fig-align="center" .r-stretch}
 
+## 2. Supervised Fine-tuning (SFT)
+
+::: {.incremental}
 * **Goal:** Teach the model how to act like an assistant and follow specific formats.
 * **Method:** **Supervised Learning**. Humans write high-quality "Prompt-Response" pairs.
 * **Scale:** Small, curated datasets (thousands to tens of thousands of examples).
 * **Outcome:** An "Instruct Model" that understands commands but may still produce "hallucinations" or unsafe content.
+:::
 
-## 3. Reinforcement Learning from Human Feedback / RLHF (The Polishing)
+::: {.fragment}
+![](../assets/FLAN-T5.png){fig-align="center" .r-stretch}
 
+> [FLAN T5 | Google](https://arxiv.org/abs/2210.11416): "We finetune various language models on 1.8K tasks phrased as instructions, and evaluate them on unseen tasks".
+:::
+
+## 3. Reinforcement Learning from Human Feedback (RLHF)
+
+::: {.incremental}
 * **Goal:** Align the model with human values (helpfulness, honesty, safety).
 * **Method:**
     1.  **Preference Labeling:** Humans rank multiple model outputs from best to worst.
     2.  **Reward Modeling:** A separate model learns these preferences.
     3.  **Optimization:** The LLM is updated (often via PPO or DPO) to maximize the "reward" score.
 * **Outcome:** A "Chat Model".
+:::
 
-## RLHF
-
+::: {.fragment}
 ![](../assets/reward_model.png){fig-align="center" .r-stretch}
+:::
 
 ## Transfer Learning
 
@@ -311,7 +177,7 @@ This is the standard pipeline for building a modern Large Language Model (LLM).
 
 # How to train?
 
-1. Transformers
+1. HuggingFace
 2. Unsloth
 
 ## HunggingFace Transformers Task Recipes
