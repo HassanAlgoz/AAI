@@ -12,7 +12,7 @@
 <link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
-  <title>Applied AI Bootcamp – How LLMs Generate Text?</title>
+  <title>Applied AI Bootcamp – Controlling LLM Generation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -33,6 +33,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-ca7ff45dca864c8748a423b2ddb238b8.css">
   <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -135,7 +201,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">How LLMs Generate Text?</h1>
+  <h1 class="title">Controlling LLM Generation</h1>
 
 <div class="quarto-title-authors">
 </div>
@@ -148,6 +214,9 @@
 <li>Having control means we can optimize to our own metrics</li>
 </ul>
 <p>Generation of text in LLMs works in two phases:</p>
+
+<img data-src="../assets/llm_input_output.png" class="r-stretch quarto-figure quarto-figure-center"><div class="columns">
+<div class="column fragment">
 <ol type="1">
 <li><strong>Prefill</strong>
 <ol type="1">
@@ -155,6 +224,9 @@
 <li>Embedding</li>
 <li>Processing</li>
 </ol></li>
+</ol>
+</div><div class="column fragment">
+<ol start="2" type="1">
 <li><strong>Decode</strong>
 <ol type="1">
 <li>Attention</li>
@@ -163,6 +235,7 @@
 <li>Check</li>
 </ol></li>
 </ol>
+</div></div>
 </section>
 <section id="phase-1-prefill" class="slide level2 scrollable">
 <h2>Phase 1: Prefill</h2>
@@ -172,7 +245,8 @@
 <li><strong>Embedding</strong>: map to corrresponding vectors.</li>
 <li><strong>Processing</strong>: run the vectors through the neural network.</li>
 </ol>
-</section>
+
+<img data-src="../assets/llm_phase_1_prefill.png" class="r-stretch quarto-figure quarto-figure-center"></section>
 <section id="the-tokenizer-playground" class="slide level2">
 <h2>The Tokenizer Playground</h2>
 <p>You can <a href="https://agents-course-the-tokenizer-playground.static.hf.space">experiment with different tokenizers</a> (first step in this phase) in the interactive playground below:</p>
@@ -186,7 +260,7 @@
 <p>When predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence <em>“The capital of France is …”</em>, the words “France” and “capital” are crucial for determining that “Paris” should come next. This ability to focus on relevant information is what we call attention.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/AttentionSceneFinal.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../assets/AttentionSceneFinal.gif" class="quarto-figure quarto-figure-center"></a></p>
+<p><a href="../assets/AttentionSceneFinal.gif" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/AttentionSceneFinal.gif" class="quarto-figure quarto-figure-center"></a></p>
 </figure>
 </div>
 <p>This involves many computationally intensive operations.</p>
@@ -208,7 +282,8 @@
 <li>That token may be: a space, a comma, a digit, a character, a word, or a subword.</li>
 <li>It could be a special token <strong>EOS</strong> (end of sequence) to stop generation.</li>
 </ul>
-</section>
+
+<img data-src="../assets/llm_phase_2_decode.png" class="r-stretch quarto-figure quarto-figure-center"></section>
 <section id="sampling-strategies" class="slide level2">
 <h2>Sampling Strategies</h2>
 <p>You can <a href="https://agents-course-decoding-visualizer.hf.space">interact with the basic decoding process</a> yourself with SmolLM2 in this Space (remember, it decodes until reaching an <strong>EOS</strong> token which is <strong>&lt;|im_end|&gt;</strong> for this model):</p>
@@ -222,19 +297,19 @@
 <div class="columns">
 <div class="column">
 <ol type="1">
-<li><strong>Logits</strong>: unprocessed probability distribution over all tokens in the vocabulary</li>
-<li><strong>Temperature Scaling</strong>:
+<li class="fragment"><strong>Logits</strong>: unprocessed probability distribution over all tokens in the vocabulary</li>
+<li class="fragment"><strong>Temperature Scaling</strong>:
 <ul>
-<li>higher settings (&gt;1.0) make choices more random and creative</li>
-<li>lower settings (&lt;1.0) make them more focused and deterministic</li>
+<li class="fragment">higher settings (&gt;1.0) make choices more random and creative</li>
+<li class="fragment">lower settings (&lt;1.0) make them more focused and deterministic</li>
 </ul></li>
-<li><strong>Top-p (Nucleus) Sampling</strong>: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)</li>
-<li><strong>Top-k Filtering</strong>: An alternative approach where we only consider the <code>k</code> most likely next words</li>
+<li class="fragment"><strong>Top-p (Nucleus) Sampling</strong>: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)</li>
+<li class="fragment"><strong>Top-k Filtering</strong>: An alternative approach where we only consider the <code>k</code> most likely next words</li>
 </ol>
-</div><div class="column">
+</div><div class="column fragment">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/token_selection.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../assets/token_selection.png" class="quarto-figure quarto-figure-center"></a></p>
+<p><a href="../assets/token_selection.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../assets/token_selection.png" class="quarto-figure quarto-figure-center"></a></p>
 </figure>
 </div>
 </div></div>
@@ -244,16 +319,18 @@
 <h2>Managing Repetition</h2>
 <div class="columns">
 <div class="column">
-<p>One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:</p>
+<ul>
+<li class="fragment">One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:
 <ol type="1">
-<li><strong>Presence Penalty</strong>: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.</li>
-<li><strong>Frequency Penalty</strong>: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.</li>
-</ol>
-<p>These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.</p>
-</div><div class="column">
+<li class="fragment"><strong>Presence Penalty</strong>: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.</li>
+<li class="fragment"><strong>Frequency Penalty</strong>: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.</li>
+</ol></li>
+<li class="fragment">These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.</li>
+</ul>
+</div><div class="column fragment">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../assets/manage_repetition.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/manage_repetition.png" class="quarto-figure quarto-figure-center"></a></p>
+<p><a href="../assets/manage_repetition.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../assets/manage_repetition.png" class="quarto-figure quarto-figure-center"></a></p>
 </figure>
 </div>
 </div></div>
@@ -273,12 +350,151 @@
 <h2>Custom generation</h2>
 <p>Custom generation methods enable specialized behavior such as:</p>
 <ol type="1">
-<li>have the model continue thinking if it is uncertain;</li>
-<li>roll back generation if the model gets stuck;</li>
-<li>handle special tokens with custom logic;</li>
-<li>use specialized KV caches;</li>
+<li class="fragment">have the model continue thinking if it is uncertain;</li>
+<li class="fragment">roll back generation if the model gets stuck;</li>
+<li class="fragment">handle special tokens with custom logic;</li>
+<li class="fragment">use specialized KV caches;</li>
 </ol>
+<div class="fragment">
 <p>See: <a href="https://huggingface.co/docs/transformers/generation_strategies#finding-custom-generation-methods">Finding custom generation methods</a>.</p>
+</div>
+</section>
+<section id="outlines-structured-outputs-for-llms" class="slide level2">
+<h2>Outlines: 🗒️ Structured outputs for LLMs 🗒️</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://github.com/dottxt-ai/outlines/raw/main/docs/assets/images/logo-light-mode.svg#gh-light-mode-only" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="https://github.com/dottxt-ai/outlines/raw/main/docs/assets/images/logo-light-mode.svg#gh-light-mode-only" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="why-outlines">Why Outlines?</h3>
+<p>LLMs are powerful but their outputs are unpredictable. Most solutions attempt to fix bad outputs after generation using parsing, regex, or fragile code that breaks easily.</p>
+<p>Outlines guarantees structured outputs during generation — directly from any LLM.</p>
+<ul>
+<li class="fragment"><strong>Works with any model</strong>&nbsp;- Same code runs across OpenAI, Ollama, vLLM, and more</li>
+<li class="fragment"><strong>Simple integration</strong>&nbsp;- Just pass your desired output type:&nbsp;<code>model(prompt, output_type)</code></li>
+<li class="fragment"><strong>Guaranteed valid structure</strong>&nbsp;- No more parsing headaches or broken JSON</li>
+<li class="fragment"><strong>Provider independence</strong>&nbsp;- Switch models without changing codev</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="the-outlines-philosophy">The Outlines Philosophy</h3>
+<p>Outlines follows a simple pattern that mirrors Python’s own type system. Simply specify the desired output type, and Outlines will ensure your data matches that structure exactly:</p>
+<ul>
+<li>For a yes/no response, use&nbsp;<code>Literal["Yes", "No"]</code></li>
+<li>For numerical values, use&nbsp;<code>int</code></li>
+<li>For complex objects, define a structure with a&nbsp;<a href="https://docs.pydantic.dev/latest/">Pydantic model</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="quickstart-12">Quickstart (1/2)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="ex">pip</span> install outlines</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Connect with Transformers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">import</span> outlines</span>
+<span id="cb2-2"><a></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer, AutoModelForCausalLM</span>
+<span id="cb2-3"><a></a></span>
+<span id="cb2-4"><a></a></span>
+<span id="cb2-5"><a></a>MODEL_NAME <span class="op">=</span> <span class="st">"microsoft/Phi-3-mini-4k-instruct"</span></span>
+<span id="cb2-6"><a></a>model <span class="op">=</span> outlines.from_transformers(</span>
+<span id="cb2-7"><a></a>    AutoModelForCausalLM.from_pretrained(MODEL_NAME, device_map<span class="op">=</span><span class="st">"auto"</span>),</span>
+<span id="cb2-8"><a></a>    AutoTokenizer.from_pretrained(MODEL_NAME)</span>
+<span id="cb2-9"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section class="slide level2">
+
+<h3 id="quickstart-22">Quickstart (2/2)</h3>
+<p>Start with simple structured outputs:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="co"># Extract specific types</span></span>
+<span id="cb3-2"><a></a>temp <span class="op">=</span> model(<span class="st">"What's the boiling point of water in Celsius?"</span>, <span class="bu">int</span>)</span>
+<span id="cb3-3"><a></a><span class="bu">print</span>(temp)  <span class="co"># 100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Multiple-choice:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
+<span id="cb4-2"><a></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a><span class="co"># Simple classification</span></span>
+<span id="cb4-5"><a></a>sentiment <span class="op">=</span> model(</span>
+<span id="cb4-6"><a></a>    <span class="st">"Analyze: 'This product completely changed my life!'"</span>,</span>
+<span id="cb4-7"><a></a>    Literal[<span class="st">"Positive"</span>, <span class="st">"Negative"</span>, <span class="st">"Neutral"</span>]</span>
+<span id="cb4-8"><a></a>)</span>
+<span id="cb4-9"><a></a><span class="bu">print</span>(sentiment)  <span class="co"># "Positive"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section class="slide level2">
+
+<h3 id="create-complex-structures">Create complex structures</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel</span>
+<span id="cb5-2"><a></a><span class="im">from</span> enum <span class="im">import</span> Enum</span>
+<span id="cb5-3"><a></a></span>
+<span id="cb5-4"><a></a><span class="kw">class</span> Rating(Enum):</span>
+<span id="cb5-5"><a></a>    poor <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-6"><a></a>    fair <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb5-7"><a></a>    good <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb5-8"><a></a>    excellent <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb5-9"><a></a></span>
+<span id="cb5-10"><a></a><span class="kw">class</span> ProductReview(BaseModel):</span>
+<span id="cb5-11"><a></a>    rating: Rating</span>
+<span id="cb5-12"><a></a>    pros: <span class="bu">list</span>[<span class="bu">str</span>]</span>
+<span id="cb5-13"><a></a>    cons: <span class="bu">list</span>[<span class="bu">str</span>]</span>
+<span id="cb5-14"><a></a>    summary: <span class="bu">str</span></span>
+<span id="cb5-15"><a></a></span>
+<span id="cb5-16"><a></a>review <span class="op">=</span> model(</span>
+<span id="cb5-17"><a></a>    <span class="st">"Review: The XPS 13 has great battery life and a stunning display, but it runs hot and the webcam is poor quality."</span>,</span>
+<span id="cb5-18"><a></a>    ProductReview,</span>
+<span id="cb5-19"><a></a>    max_new_tokens<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb5-20"><a></a>)</span>
+<span id="cb5-21"><a></a></span>
+<span id="cb5-22"><a></a>review <span class="op">=</span> ProductReview.model_validate_json(review)</span>
+<span id="cb5-23"><a></a><span class="bu">print</span>(<span class="ss">f"Rating: </span><span class="sc">{</span>review<span class="sc">.</span>rating<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># "Rating: good"</span></span>
+<span id="cb5-24"><a></a><span class="bu">print</span>(<span class="ss">f"Pros: </span><span class="sc">{</span>review<span class="sc">.</span>pros<span class="sc">}</span><span class="ss">"</span>)           <span class="co"># "Pros: ['great battery life', 'stunning display']"</span></span>
+<span id="cb5-25"><a></a><span class="bu">print</span>(<span class="ss">f"Summary: </span><span class="sc">{</span>review<span class="sc">.</span>summary<span class="sc">}</span><span class="ss">"</span>)     <span class="co"># "Summary: Good laptop with great display but thermal issues"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section class="slide level2">
+
+<h3 id="tool-calling-llm-agent">Tool Calling LLM (Agent)</h3>
+
+<img data-src="../assets/tool_calling_llms.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section class="slide level2">
+
+<h3 id="outlines-core-features">Outlines: Core Features</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Description</th>
+<th style="text-align: center;">Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Multiple Choices</strong></td>
+<td>Constrain outputs to predefined options</td>
+<td style="text-align: center;"><a href="https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#multiple-choices">Multiple Choices Guide →</a></td>
+</tr>
+<tr class="even">
+<td><strong>Function Calls</strong></td>
+<td>Infer structure from function signatures</td>
+<td style="text-align: center;"><a href="https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#json-schemas">Function Guide →</a></td>
+</tr>
+<tr class="odd">
+<td><strong>JSON/Pydantic</strong></td>
+<td>Generate outputs matching JSON schemas</td>
+<td style="text-align: center;"><a href="https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#json-schemas">JSON Guide →</a></td>
+</tr>
+<tr class="even">
+<td><strong>Regular Expressions</strong></td>
+<td>Generate text following a regex pattern</td>
+<td style="text-align: center;"><a href="https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#regex-patterns">Regex Guide →</a></td>
+</tr>
+<tr class="odd">
+<td><strong>Grammars</strong></td>
+<td>Enforce complex output structures</td>
+<td style="text-align: center;"><a href="https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#context-free-grammars">Grammar Guide →</a></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>

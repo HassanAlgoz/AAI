@@ -6360,7 +6360,7 @@
     "href": "W5/index.html",
     "title": "Applied Deep Learning",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks\nNLP Tasks (♾️) & Audio Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nHow LLMs Generate Text?"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks\nNLP Tasks (♾️) & Audio Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation"
   },
   {
     "objectID": "W4/faq/never_expose_api_keys.html",
@@ -8626,84 +8626,84 @@
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#how-llms-actually-generate-text",
     "href": "W5/M1/slides/06_llm_generate.html#how-llms-actually-generate-text",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "How LLMs actually generate text?",
-    "text": "How LLMs actually generate text?\n\nUnderstanding the mechanism gives us control over it\nHaving control means we can optimize to our own metrics\n\nGeneration of text in LLMs works in two phases:\n\nPrefill\n\nTokenization\nEmbedding\nProcessing\n\nDecode\n\nAttention\nProbability\nSelection\nCheck"
+    "text": "How LLMs actually generate text?\n\nUnderstanding the mechanism gives us control over it\nHaving control means we can optimize to our own metrics\n\nGeneration of text in LLMs works in two phases:\n\n\n\n\nPrefill\n\nTokenization\nEmbedding\nProcessing\n\n\n\n\nDecode\n\nAttention\nProbability\nSelection\nCheck"
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#phase-1-prefill",
     "href": "W5/M1/slides/06_llm_generate.html#phase-1-prefill",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Phase 1: Prefill",
     "text": "Phase 1: Prefill\nLike reading the entire text word-for-word each time, before starting to write the next word. It involves:\n\nTokenization: identify input as segmented parts.\nEmbedding: map to corrresponding vectors.\nProcessing: run the vectors through the neural network."
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#the-tokenizer-playground",
     "href": "W5/M1/slides/06_llm_generate.html#the-tokenizer-playground",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "The Tokenizer Playground",
     "text": "The Tokenizer Playground\nYou can experiment with different tokenizers (first step in this phase) in the interactive playground below:"
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#the-role-of-attention",
     "href": "W5/M1/slides/06_llm_generate.html#the-role-of-attention",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "The Role of Attention",
     "text": "The Role of Attention\nWhen predicting the next word, not every word in a sentence carries equal weight - for example, in the sentence “The capital of France is …”, the words “France” and “capital” are crucial for determining that “Paris” should come next. This ability to focus on relevant information is what we call attention.\n\n\n\n\n\nThis involves many computationally intensive operations."
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#context-length",
     "href": "W5/M1/slides/06_llm_generate.html#context-length",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Context Length",
     "text": "Context Length\n\nThe model should handle the 10,000th token just as reliably as the 100th.\nHowever, in practice, this assumption does not hold. We observe that model performance varies significantly as input length changes, even on simple tasks.\n\n\nFigure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2.5, and Qwen3 models. Our results reveal that models do not use their context uniformly; instead, their performance grows increasingly unreliable as input length grows. – (July 14, 2025 Context Rot | Chroma)"
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#phase-2-decode",
     "href": "W5/M1/slides/06_llm_generate.html#phase-2-decode",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Phase 2: Decode",
     "text": "Phase 2: Decode\n\nThe model generates one token.\nIt is sampled from a probability distribution over all token in the vocabulary.\nThat token may be: a space, a comma, a digit, a character, a word, or a subword.\nIt could be a special token EOS (end of sequence) to stop generation."
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#sampling-strategies",
     "href": "W5/M1/slides/06_llm_generate.html#sampling-strategies",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Sampling Strategies",
     "text": "Sampling Strategies\nYou can interact with the basic decoding process yourself with SmolLM2 in this Space (remember, it decodes until reaching an EOS token which is &lt;|im_end|&gt; for this model):"
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#token-selection",
     "href": "W5/M1/slides/06_llm_generate.html#token-selection",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Token Selection",
     "text": "Token Selection\n\n\n\nLogits: unprocessed probability distribution over all tokens in the vocabulary\nTemperature Scaling:\n\nhigher settings (&gt;1.0) make choices more random and creative\nlower settings (&lt;1.0) make them more focused and deterministic\n\nTop-p (Nucleus) Sampling: Instead of considering all possible words, we only look at the most likely ones that add up to our chosen probability threshold (e.g., top 90%)\nTop-k Filtering: An alternative approach where we only consider the k most likely next words"
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#managing-repetition",
     "href": "W5/M1/slides/06_llm_generate.html#managing-repetition",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Managing Repetition",
-    "text": "Managing Repetition\n\n\nOne common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:\n\nPresence Penalty: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.\nFrequency Penalty: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.\n\nThese penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary."
+    "text": "Managing Repetition\n\n\n\nOne common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:\n\nPresence Penalty: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.\nFrequency Penalty: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.\n\nThese penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary."
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#beam-search",
     "href": "W5/M1/slides/06_llm_generate.html#beam-search",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Beam Search",
     "text": "Beam Search\nBeam Search explores multiple possible paths simultaneously. Then select the sequence with the highest overall probability.\nYou can explore beam search visually here:\n\n\n\n\nThis approach often produces more coherent and grammatically correct text, though it requires more computational resources than simpler methods."
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#custom-generation",
     "href": "W5/M1/slides/06_llm_generate.html#custom-generation",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Custom generation",
-    "text": "Custom generation\nCustom generation methods enable specialized behavior such as:\n\nhave the model continue thinking if it is uncertain;\nroll back generation if the model gets stuck;\nhandle special tokens with custom logic;\nuse specialized KV caches;\n\nSee: Finding custom generation methods."
+    "text": "Custom generation\nCustom generation methods enable specialized behavior such as:\n\nhave the model continue thinking if it is uncertain;\nroll back generation if the model gets stuck;\nhandle special tokens with custom logic;\nuse specialized KV caches;\n\n\nSee: Finding custom generation methods."
   },
   {
     "objectID": "W5/M1/slides/06_llm_generate.html#resources",
     "href": "W5/M1/slides/06_llm_generate.html#resources",
-    "title": "How LLMs Generate Text?",
+    "title": "Controlling LLM Generation",
     "section": "Resources",
     "text": "Resources\n\nOptimum: Hardware-specific optimization.\nOutlines: Constrained (JSON) generation.\nSynCode: Grammar-guided generation.\nText Generation Inference: Production server.\nText generation web UI: Gradio interface.\nlogits-processor-zoo: Advanced generation control."
   },
@@ -8887,7 +8887,7 @@
     "href": "W5/index.html#topics",
     "title": "Applied Deep Learning",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks\nNLP Tasks (♾️) & Audio Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nHow LLMs Generate Text?"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks\nNLP Tasks (♾️) & Audio Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation"
   },
   {
     "objectID": "W5/index.html#learning-end-goals",
@@ -8895,5 +8895,19 @@
     "title": "Applied Deep Learning",
     "section": "Learning end-goals",
     "text": "Learning end-goals\n\nUse data to fine-tune foundation AI models\n\nData curation: what is labelled and which tech is used to label\nInference: speed, cost, performance metric\nFine-tuning time, cost, and performance tradeoff\n\nSpecify the technical requirements for AI integration\nMake a decision matrix and select the most fit AI solution\nGiven a business process, evaluate the need for AI"
+  },
+  {
+    "objectID": "W5/M1/slides/06_llm_generate.html#outlines",
+    "href": "W5/M1/slides/06_llm_generate.html#outlines",
+    "title": "How LLMs Generate Text?",
+    "section": "Outlines",
+    "text": "Outlines\n\n🗒️ Structured outputs for LLMs 🗒️"
+  },
+  {
+    "objectID": "W5/M1/slides/06_llm_generate.html#outlines-structured-outputs-for-llms",
+    "href": "W5/M1/slides/06_llm_generate.html#outlines-structured-outputs-for-llms",
+    "title": "Controlling LLM Generation",
+    "section": "Outlines: 🗒️ Structured outputs for LLMs 🗒️",
+    "text": "Outlines: 🗒️ Structured outputs for LLMs 🗒️"
   }
 ]
