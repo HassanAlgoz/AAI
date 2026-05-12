@@ -16,7 +16,7 @@ format:
 | 2 | [Transformers Pipelines](M1/slides/02_pipelines.qmd) | | |
 | 3 | [Tasks](https://huggingface.co/tasks) | [NLP Tasks](M1/slides/03_nlp_tasks.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W5/M1/slides/03_nlp_tasks.ipynb)) & [Audio Tasks](M1/slides/04_audio_tasks.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W5/M1/slides/04_audio_tasks.ipynb)) | |
 | 4 | [Large and Small Language Models](M1/slides/05_llm_slm.qmd) | | |
-| 5 | [How LLMs Generate Text?](M1/slides/06_llm_generate.qmd) | | |
+| 5 | [Controlling LLM Generation](M1/slides/06_llm_generate.qmd) | | |
 
 
 ## Learning end-goals

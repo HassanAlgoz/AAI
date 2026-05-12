@@ -1,7 +1,10 @@
 ---
-title: "How LLMs Generate Text?"
-format: revealjs
+title: "Controlling LLM Generation"
+format:
+    revealjs:
+        incremental: false
 ---
+
 
 ## How LLMs actually generate text?
 
@@ -10,15 +13,31 @@ format: revealjs
 
 Generation of text in LLMs works in two phases:
 
+![](../assets/llm_input_output.png){.r-stretch fig-align="center"}
+
+::: {.columns}
+
+::: {.column .fragment}
+
 1. **Prefill**
    1. Tokenization
    2. Embedding
    3. Processing
+
+
+:::
+
+::: {.column .fragment}
 2. **Decode**
    1. Attention
    2. Probability
    3. Selection
    4. Check
+
+
+:::
+
+:::
 
 ## Phase 1: Prefill
 
@@ -27,6 +46,8 @@ Like reading the entire text word-for-word each time, before starting to write t
 1. **Tokenization**: identify input as segmented parts.
 2. **Embedding**: map to corrresponding vectors.
 3. **Processing**: run the vectors through the neural network. 
+
+![](../assets/llm_phase_1_prefill.png){.r-stretch fig-align="center"}
 
 ## The Tokenizer Playground
 
@@ -40,7 +61,6 @@ You can [experiment with different tokenizers](https://agents-course-the-tokeniz
 	height="450"
 ></iframe>
 </center>
-
 
 ## The Role of Attention
 
@@ -66,6 +86,8 @@ Figure shows 18 LLMs, including the state-of-the-art GPT-4.1, Claude 4, Gemini 2
 - That token may be: a space, a comma, a digit, a character, a word, or a subword.
 - It could be a special token **EOS** (end of sequence) to stop generation.
 
+![](../assets/llm_phase_2_decode.png){.r-stretch fig-align="center"}
+
 ## Sampling Strategies
 
 You can [interact with the basic decoding process](https://agents-course-decoding-visualizer.hf.space) yourself with SmolLM2 in this Space (remember, it decodes until reaching an **EOS** token which is  **<|im_end|>** for this model):
@@ -82,7 +104,7 @@ You can [interact with the basic decoding process](https://agents-course-decodin
 ## Token Selection
 
 ::: {.columns}
-::: {.column}
+::: {.column .incremental}
 1. **Logits**: unprocessed probability distribution over all tokens in the vocabulary
 2. **Temperature Scaling**:
     - higher settings (>1.0) make choices more random and creative
@@ -91,7 +113,7 @@ You can [interact with the basic decoding process](https://agents-course-decodin
 4. **Top-k Filtering**: An alternative approach where we only consider the `k` most likely next words
 
 :::
-::: {.column}
+::: {.column .fragment}
 ![](../assets/token_selection.png){fig-align="center"}
 
 :::
@@ -101,15 +123,13 @@ You can [interact with the basic decoding process](https://agents-course-decodin
 ## Managing Repetition
 
 ::: {.columns}
-::: {.column}
-One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:
-
-1. **Presence Penalty**: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.
-2. **Frequency Penalty**: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.
-
-These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.
+::: {.column .incremental}
+- One common challenge with LLMs is their tendency to repeat themselves. To address this, we use two types of penalties:
+    1. **Presence Penalty**: A fixed penalty applied to any token that has appeared before, regardless of how often. This helps prevent the model from reusing the same words.
+    2. **Frequency Penalty**: A scaling penalty that increases based on how often a token has been used. The more a word appears, the less likely it is to be chosen again.
+- These penalties are applied early in the token selection process, adjusting the raw probabilities before other sampling strategies are applied. Think of them as gentle nudges encouraging the model to explore new vocabulary.
 :::
-::: {.column}
+::: {.column .fragment}
 ![](../assets/manage_repetition.png){fig-align="center"}
 :::
 :::
@@ -136,12 +156,142 @@ This approach often produces more coherent and grammatically correct text, thoug
 
 Custom generation methods enable specialized behavior such as:
 
+::: {.incremental}
 1. have the model continue thinking if it is uncertain;
 2. roll back generation if the model gets stuck;
 3. handle special tokens with custom logic;
 4. use specialized KV caches;
+:::
 
+::: {.fragment}
 See: [Finding custom generation methods](https://huggingface.co/docs/transformers/generation_strategies#finding-custom-generation-methods).
+:::
+
+## Outlines: 🗒️ Structured outputs for LLMs 🗒️
+
+![](https://github.com/dottxt-ai/outlines/raw/main/docs/assets/images/logo-light-mode.svg#gh-light-mode-only){fig-align="center"}
+
+---
+
+### Why Outlines?
+
+LLMs are powerful but their outputs are unpredictable. Most solutions attempt to fix bad outputs after generation using parsing, regex, or fragile code that breaks easily.
+
+Outlines guarantees structured outputs during generation — directly from any LLM.
+
+::: {.incremental}
+- **Works with any model** - Same code runs across OpenAI, Ollama, vLLM, and more
+- **Simple integration** - Just pass your desired output type: `model(prompt, output_type)`
+- **Guaranteed valid structure** - No more parsing headaches or broken JSON
+- **Provider independence** - Switch models without changing codev
+:::
+
+---
+
+### The Outlines Philosophy
+
+Outlines follows a simple pattern that mirrors Python's own type system. Simply specify the desired output type, and Outlines will ensure your data matches that structure exactly:
+
+- For a yes/no response, use `Literal["Yes", "No"]`
+- For numerical values, use `int`
+- For complex objects, define a structure with a [Pydantic model](https://docs.pydantic.dev/latest/)
+
+---
+
+### Quickstart (1/2)
+
+```sh
+pip install outlines
+```
+
+Connect with Transformers:
+
+```python
+import outlines
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+
+MODEL_NAME = "microsoft/Phi-3-mini-4k-instruct"
+model = outlines.from_transformers(
+    AutoModelForCausalLM.from_pretrained(MODEL_NAME, device_map="auto"),
+    AutoTokenizer.from_pretrained(MODEL_NAME)
+)
+```
+---
+
+### Quickstart (2/2)
+
+Start with simple structured outputs:
+
+```python
+# Extract specific types
+temp = model("What's the boiling point of water in Celsius?", int)
+print(temp)  # 100
+```
+
+Multiple-choice:
+
+```python
+from typing import Literal
+from pydantic import BaseModel
+
+# Simple classification
+sentiment = model(
+    "Analyze: 'This product completely changed my life!'",
+    Literal["Positive", "Negative", "Neutral"]
+)
+print(sentiment)  # "Positive"
+```
+
+---
+
+### Create complex structures
+
+```python
+from pydantic import BaseModel
+from enum import Enum
+
+class Rating(Enum):
+    poor = 1
+    fair = 2
+    good = 3
+    excellent = 4
+
+class ProductReview(BaseModel):
+    rating: Rating
+    pros: list[str]
+    cons: list[str]
+    summary: str
+
+review = model(
+    "Review: The XPS 13 has great battery life and a stunning display, but it runs hot and the webcam is poor quality.",
+    ProductReview,
+    max_new_tokens=200,
+)
+
+review = ProductReview.model_validate_json(review)
+print(f"Rating: {review.rating.name}")  # "Rating: good"
+print(f"Pros: {review.pros}")           # "Pros: ['great battery life', 'stunning display']"
+print(f"Summary: {review.summary}")     # "Summary: Good laptop with great display but thermal issues"
+```
+
+---
+
+### Tool Calling LLM (Agent)
+
+![](../assets/tool_calling_llms.png){.r-stretch fig-align="center"}
+
+---
+
+### Outlines: Core Features
+
+|Feature|Description|Documentation|
+|---|---|:-:|
+|**Multiple Choices**|Constrain outputs to predefined options|[Multiple Choices Guide →](https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#multiple-choices)|
+|**Function Calls**|Infer structure from function signatures|[Function Guide →](https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#json-schemas)|
+|**JSON/Pydantic**|Generate outputs matching JSON schemas|[JSON Guide →](https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#json-schemas)|
+|**Regular Expressions**|Generate text following a regex pattern|[Regex Guide →](https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#regex-patterns)|
+|**Grammars**|Enforce complex output structures|[Grammar Guide →](https://dottxt-ai.github.io/outlines/latest/features/core/output_types/#context-free-grammars)|
 
 ## Resources
 
