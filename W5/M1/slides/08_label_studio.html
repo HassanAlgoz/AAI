@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>challenges – Applied AI Bootcamp</title>
+<title>Data Curation with Label Studio – Applied AI Bootcamp</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,27 +26,30 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7df19abe2be9a367f4b34c4e4481e6b4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-26cb82277baed0874abf678495713b90.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-5c2002231a4788fb3d7383495a4960ec.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -85,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Applied AI Bootcamp</span>
     </a>
   </div>
@@ -96,23 +99,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../W1/"> 
+    <a class="nav-link" href="../../../W1/"> 
 <span class="menu-text">Python</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../W2/"> 
+    <a class="nav-link" href="../../../W2/"> 
 <span class="menu-text">DS</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../W3/"> 
+    <a class="nav-link" href="../../../W3/"> 
 <span class="menu-text">ML</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../W4/"> 
+    <a class="nav-link" href="../../../W4/"> 
 <span class="menu-text">Agentic</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../W5/"> 
+    <a class="nav-link" href="../../../W5/"> 
 <span class="menu-text">DL</span></a>
   </li>  
 </ul>
@@ -126,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Data Curation with Label Studio</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -152,129 +155,59 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#لماذا-تعد-معالجة-اللغات-صعبة" id="toc-لماذا-تعد-معالجة-اللغات-صعبة" class="nav-link active" data-scroll-target="#لماذا-تعد-معالجة-اللغات-صعبة">لماذا تعد معالجة اللغات صعبة</a></li>
-  <li><a href="#الغموض-المعجمي-lexical-ambiguity" id="toc-الغموض-المعجمي-lexical-ambiguity" class="nav-link" data-scroll-target="#الغموض-المعجمي-lexical-ambiguity">الغموض المعجمي (Lexical ambiguity)</a></li>
-  <li><a href="#الغموض-الدلالي-semantic-ambiguity" id="toc-الغموض-الدلالي-semantic-ambiguity" class="nav-link" data-scroll-target="#الغموض-الدلالي-semantic-ambiguity">الغموض الدلالي (Semantic ambiguity)</a></li>
-  <li><a href="#الغموض-التركيبي-syntactic-ambiguity" id="toc-الغموض-التركيبي-syntactic-ambiguity" class="nav-link" data-scroll-target="#الغموض-التركيبي-syntactic-ambiguity">الغموض التركيبي (Syntactic Ambiguity)</a></li>
-  <li><a href="#التجانس-اللفظي-homonymy" id="toc-التجانس-اللفظي-homonymy" class="nav-link" data-scroll-target="#التجانس-اللفظي-homonymy">التجانس اللفظي (Homonymy)</a></li>
-  <li><a href="#التهكم-والسخرية-irony-and-sarcasm" id="toc-التهكم-والسخرية-irony-and-sarcasm" class="nav-link" data-scroll-target="#التهكم-والسخرية-irony-and-sarcasm">التهكم والسخرية (Irony and sarcasm)</a></li>
-  <li><a href="#اللهجات-dialects" id="toc-اللهجات-dialects" class="nav-link" data-scroll-target="#اللهجات-dialects">اللهجات (Dialects)</a></li>
-  <li><a href="#العامية-والمصطلحات-الخاصة-slang-and-jargon" id="toc-العامية-والمصطلحات-الخاصة-slang-and-jargon" class="nav-link" data-scroll-target="#العامية-والمصطلحات-الخاصة-slang-and-jargon">العامية والمصطلحات الخاصة (Slang and jargon)</a></li>
+  <li><a href="#label-studio" id="toc-label-studio" class="nav-link active" data-scroll-target="#label-studio">Label Studio</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="challenges.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Curation with Label Studio</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<p>challenges</p>
-<section id="لماذا-تعد-معالجة-اللغات-صعبة" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="لماذا-تعد-معالجة-اللغات-صعبة">لماذا تعد معالجة اللغات صعبة</h2>
-<p>ندرك المعنى والتشابه بديهياً؛ بينما تحتاج الحواسيب إلى تمثيلات رقمية مهيكلة. يجب على النماذج تحويل اللغة المعقدة والمرنة إلى متجهات رياضية.</p>
-<p>تواجه معالجة اللغات الطبيعية الحديثة أربعة عوائق أساسية:</p>
-<div class="incremental">
-<ul class="incremental">
-<li><strong>الغموض</strong> (معجمي، دلالي، تركيبي)</li>
-<li><strong>التجانس اللفظي</strong></li>
-<li><strong>التهكم والسخرية</strong></li>
-<li><strong>تعدد اللهجات</strong></li>
-<li><strong>العامية والمصطلحات الخاصة</strong></li>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="label-studio" class="level2">
+<h2 class="anchored" data-anchor-id="label-studio">Label Studio</h2>
+<p>Please read, watch, and follow the links to get the most out of this piece.</p>
+<blockquote class="blockquote">
+<p><a href="https://labelstud.io/">LabelStudio</a> is the open source platform for data labeling, AI evaluation, and human-in-the-loop workflows.</p>
+</blockquote>
+<p><strong>Alternatives</strong> have been considered, but they’re either too bulky (appealing to enterprise; like Kili), or lacking features (like Argilla) or seem a bit dated and pricey (like: Prodigy).</p>
+<p>Why LabelStudio? It supports annotating any type of data, it is open source, and easy to setup and use, and is feature rich, unlike competitors.</p>
+<p><a href="../assets/label_studio_annotation_templates.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/label_studio_annotation_templates.png" class="img-fluid"></a></p>
+<p>To apply the steps in the following video, please open a fresh folder with nothing else in it (and it is not part of any other project):</p>
+<ol type="1">
+<li>use <code>uv venv -p 3.12</code> to create an environment</li>
+<li>and initialize a project with <code>uv init</code> instead of using <code>conda</code></li>
+<li>then install with: <code>uv install label-studio</code></li>
+</ol>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/oHKzVhyIj-o?si=zoTgMt-1BNsFqh5Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+<ul>
+<li>To collaborate on the same project without hosting, you can use <a href="https://ngrok.com/"><code>ngrok</code></a>. It allows your localhost to be connected to via public URL, for other team members to connect to.</li>
+<li>See <a href="https://labelstud.io/tutorials/how_to_connect_hugging_face_with_label_studio_sdk">here to connect to HuggingFace</a> which means three things:
+<ol type="1">
+<li>HF → LS: Load datasets from Hugging Face into Label Studio for annotation</li>
+<li>LS → HF: Export labeled data from Label Studio for model training</li>
+<li>HF → LS: Connect Hugging Face models as ML backends for pre-annotations and active learning</li>
+</ol></li>
+<li>See <a href="https://labelstud.io/integrations/">LabelStudio Integrations</a> from data sources to AI models accelerating your annotation workflow.</li>
 </ul>
-</div>
-</section>
-<section id="الغموض-المعجمي-lexical-ambiguity" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="الغموض-المعجمي-lexical-ambiguity">الغموض المعجمي (Lexical ambiguity)</h2>
-<p><strong>الغموض المعجمي</strong> هو نوع فرعي من الغموض الدلالي حيث تكون الكلمة أو المقطع الصرفي غامضاً.</p>
-<div class="incremental">
-<ul class="incremental">
-<li>“The fisherman went to the bank” (كلمة “bank” تعني ضفة النهر أو مبنى البنك).</li>
-<li>“شربت من العين” (نبع الماء).</li>
-<li>“أبصرت بـ العين” (عضو البصر).</li>
-<li>“أرسل القائد عيناً لاستطلاع العدو” (جاسوساً).</li>
-<li>“اشتريت هذا بعينه” (بذاته/نفسه).</li>
-</ul>
-</div>
-</section>
-<section id="الغموض-الدلالي-semantic-ambiguity" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="الغموض-الدلالي-semantic-ambiguity">الغموض الدلالي (Semantic ambiguity)</h2>
-<p>ينتج <strong>الغموض الدلالي</strong> عن التعبيرات التي تحمل معاني متعددة.</p>
-<div class="incremental">
-<ul class="incremental">
-<li>“It’s on the house” (مجاني أو حرفياً فوق المنزل).</li>
-<li>“That went over my head” (عدم فهم أو مرور شيء فوق الرأس).</li>
-<li>“Not your business” (ليس من شأنك).</li>
-<li>“طارت الطيور بأرزاقها” (حرفياً: طارت بالطعام | مقصوداً: فات الأوان).</li>
-</ul>
-</div>
-</section>
-<section id="الغموض-التركيبي-syntactic-ambiguity" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="الغموض-التركيبي-syntactic-ambiguity">الغموض التركيبي (Syntactic Ambiguity)</h2>
-<p>يحدث <strong>الغموض التركيبي</strong> عندما يكون للجملة شجرات إعرابية متعددة.</p>
-<div class="incremental">
-<ul class="incremental">
-<li>“I saw the man on the beach with my binoculars.”</li>
-<li>التفسير 1: رأيت الرجل باستخدام منظاري.</li>
-<li>التفسير 2: الرجل كان يحمل منظاري معه.</li>
-</ul>
-</div>
-</section>
-<section id="التجانس-اللفظي-homonymy" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="التجانس-اللفظي-homonymy">التجانس اللفظي (Homonymy)</h2>
-<p>يحدث <strong>التجانس اللفظي</strong> عندما تُنطق الكلمات بنفس الطريقة.</p>
-<div class="incremental">
-<ul class="incremental">
-<li>“This is a row of raw materials” (تشابه نطق row و raw).</li>
-<li>“I see the sea” (تشابه نطق see و sea).</li>
-<li>“Without my glasses I can’t see the glass” (نظارة مقابل زجاج).</li>
-<li>“خاتم من ذَهَب” (المعدن).</li>
-<li>“ذَهَبَ محمد إلى المدرسة” (فعل المغادرة).</li>
-</ul>
-</div>
-</section>
-<section id="التهكم-والسخرية-irony-and-sarcasm" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="التهكم-والسخرية-irony-and-sarcasm">التهكم والسخرية (Irony and sarcasm)</h2>
-<p>في أي وقت تقول فيه عكس الحقيقة عمداً، فهذا هو التهكم اللفظي.</p>
-<div class="incremental">
-<ul class="incremental">
-<li>“I love it when my computer crashes” (سخرية من تعطل الحاسوب).</li>
-<li>“Fantastic! I love waiting in line” (سخرية من الازدحام).</li>
-<li>“ما شاء الله، عبقري!” (تقال لمن يرتكب خطأ فادحاً).</li>
-<li>“جيتك يا عبد المعين تعين…” (تهكم لفظي).</li>
-<li>“طبيب يدخن السجائر” (مفارقة موقفية).</li>
-<li>“باب النجار مخلّع” (مفارقة موقفية).</li>
-</ul>
-</div>
-</section>
-<section id="اللهجات-dialects" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="اللهجات-dialects">اللهجات (Dialects)</h2>
-<p>تختلف اللهجات في التهجئة، النطق، والمفردات حسب المناطق.</p>
-<div class="incremental">
-<ul class="incremental">
-<li>الفصحى: كيف حالك؟</li>
-<li>الخليجية: شلونك؟ / شعلومك؟</li>
-<li>المصرية: إزيك؟ / عامل إيه؟</li>
-<li>الشامية: كيفك؟</li>
-<li>المغربية: كيداير؟ / لباس؟</li>
-<li>النفي (المصرية/الشامية): ما اكلتش / ما اكلت.</li>
-<li>النفي (الخليجية): ما كليت / مو ماكل.</li>
-</ul>
-</div>
-</section>
-<section id="العامية-والمصطلحات-الخاصة-slang-and-jargon" class="level2" dir="rtl">
-<h2 dir="rtl" class="anchored" data-anchor-id="العامية-والمصطلحات-الخاصة-slang-and-jargon">العامية والمصطلحات الخاصة (Slang and jargon)</h2>
-<p>كلمات غير رسمية أو فنية تتطور باستمرار ويصعب على الآلات فهم سياقها.</p>
-<div class="incremental">
-<ul class="incremental">
-<li>“That movie was lit!” (الفيلم ممتاز).</li>
-<li>“I’m feeling blue” (أشعر بالحزن).</li>
-<li>“كبّر دماغك” (تجاهل الأمر).</li>
-<li>“سحَب عليه” (تجاهله/غاب عن الموعد).</li>
-<li>“قصف جبهته” (إحراج برد مفحم).</li>
-<li>ROI / KPI / ML (مصطلحات مهنية تخصصية).</li>
-</ul>
-</div>
 
 
 </section>
@@ -681,6 +614,38 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

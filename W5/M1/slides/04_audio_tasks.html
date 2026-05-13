@@ -247,6 +247,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Audio Spectrogram Transformer (AST)</strong> for environmental sounds.</li>
 <li>fine-tuned <strong>Wav2Vec2</strong> for speaker intent or language identification.</li>
 </ul>
+<p>Example sub-task: classify bird based on an audio clip</p>
+<p><a href="../assets/birds_classificaition_from_sounds.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/birds_classificaition_from_sounds.png" class="img-fluid"></a></p>
+<p>The <code>minds14</code> dataset is aboud classifying intent of customer speaking on the phone with a bank teller:</p>
 <div id="0138becb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:113,&quot;referenced_widgets&quot;:[&quot;2e5bdccce778453b91935e3910afae9d&quot;,&quot;e1ed7c2d2af3409ab38657e16bfae22a&quot;,&quot;0efcd30566604c66865f29c2a2958264&quot;,&quot;05ed2ad104e64d949a145d0a08821398&quot;,&quot;6eab2514d11c424daa504d7540d49ce4&quot;,&quot;71e291f42ad74d9bbc69898f502164b5&quot;,&quot;bd147d274dc64e0b88c0f9ed3e12b37c&quot;,&quot;5524000c321449f1b648bca055a5392d&quot;,&quot;28537d3b0b85450dbbcfee30d950d58b&quot;,&quot;98f07e2af5694047bd58e9ff513228d1&quot;,&quot;9c388f02a6dd4414997ccbcf2d75e1c4&quot;,&quot;0354fbbcc534411c9dec96a58f8b8adf&quot;,&quot;89694321ecba482f957a90924f14d105&quot;,&quot;89e5206469074f299169925535c941f7&quot;,&quot;b247d48b1bbe40b19efabd00f7abc167&quot;,&quot;283063af53904790bdab0e52f3558f21&quot;,&quot;729e7587882c464fb394cc6d6115bfbb&quot;,&quot;ae279bc6eab845fd9acdf1617a002bcc&quot;,&quot;d797b27ca3ae40e7a280ad654145ac3e&quot;,&quot;f357ec34c2f7441f96fe851ad9a5fd89&quot;,&quot;abb77cf855db4b319a2485f7800ee1a9&quot;,&quot;c1732a0151bb49639e4dfcd52a1cea7c&quot;,&quot;6484282db6b8408bbd294bd886f3ac4d&quot;,&quot;e04d338eb1964c698b8f58abcbb47ed1&quot;,&quot;f50552d70a6f4626bdc9ea07f3a425d8&quot;,&quot;24d519bfb4b5467eb4d9472d27e6ba59&quot;,&quot;8dab279a98c041a0a34b44eb6d791a8d&quot;,&quot;3e1b8108a72249f7a54509e232e5a522&quot;,&quot;f0c71d311f534bbfbb186b62cbec4baf&quot;,&quot;aa7fb914a84d4d31bf57be201028fd51&quot;,&quot;830ad91453d845dca499b824a0ad8523&quot;,&quot;d9cf482c65a449bd9e402ffb7e07cf3d&quot;,&quot;99165548cf7a4e57a646c4eef34bfd52&quot;]}}" data-outputid="d471f20d-5f78-468f-9c14-20f71486a5e1" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> Audio</span>
@@ -359,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Whisper</strong> (OpenAI) for robust multilingual transcription</li>
 <li><strong>SeamlessM4T</strong> (Meta) for direct speech-to-text translation.</li>
 </ul>
-<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/asr.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/asr.png?raw=1" class="img-fluid"></a></p>
+<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/asr.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/asr.png?raw=1" class="img-fluid"></a></p>
 <section id="applications" class="level3">
 <h3 class="anchored" data-anchor-id="applications">Applications</h3>
 <ul>
@@ -623,13 +626,13 @@ A custom logits processor of type &lt;class 'transformers.generation.logits_proc
 <section id="voice-activity-detection-vad" class="level2">
 <h2 class="anchored" data-anchor-id="voice-activity-detection-vad">4. Voice Activity Detection (VAD)</h2>
 <p>Tells you where speech begins and ends in an audio.</p>
-<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/vad.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/vad.png?raw=1" class="img-fluid"></a></p>
+<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/vad.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/vad.png?raw=1" class="img-fluid"></a></p>
 <p>See: <a href="https://huggingface.co/models?pipeline_tag=voice-activity-detection"><code>voice-activity-detection</code></a> on the Hub.</p>
 </section>
 <section id="speaker-diarization" class="level2">
 <h2 class="anchored" data-anchor-id="speaker-diarization">5. Speaker Diarization</h2>
 <p>Determining “who spoke when” by segmenting audio recordings according to distinct speaker identities—crucial for meetings, interviews, and call center analytics.</p>
-<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/speaker_diarization.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/speaker_diarization.png?raw=1" class="img-fluid"></a></p>
+<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/speaker_diarization.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/speaker_diarization.png?raw=1" class="img-fluid"></a></p>
 <p>Representative Models:</p>
 <ul>
 <li><strong>pyannote-audio</strong> pipeline (pretrained on VoxCeleb and AMI datasets) is widely used for robust, plug-and-play diarization.</li>
@@ -640,7 +643,7 @@ A custom logits processor of type &lt;class 'transformers.generation.logits_proc
 <section id="music-source-separation" class="level2">
 <h2 class="anchored" data-anchor-id="music-source-separation">6. Music-source Separation</h2>
 <p>Isolating specific audio tracks from a mixture or cleaning up noisy audio (e.g., separating vocals from instruments, removing background static).</p>
-<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/music_source_separation.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/music_source_separation.png?raw=1" class="img-fluid"></a></p>
+<p><a href="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/music_source_separation.png?raw=1" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="https://github.com/HassanAlgoz/B5/blob/main/content/W5/M1/assets/music_source_separation.png?raw=1" class="img-fluid"></a></p>
 <p>Representative Models:</p>
 <ul>
 <li><strong>HTDemucs</strong> for music stem separation.</li>
