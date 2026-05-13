@@ -161,11 +161,15 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#multimodal-datasets" id="toc-multimodal-datasets" class="nav-link" data-scroll-target="#multimodal-datasets">Multimodal Datasets</a></li>
   <li><a href="#multimodal-tasks-and-models" id="toc-multimodal-tasks-and-models" class="nav-link" data-scroll-target="#multimodal-tasks-and-models">Multimodal Tasks and Models</a></li>
   </ul></li>
-  <li><a href="#vision-language-models-vlm" id="toc-vision-language-models-vlm" class="nav-link" data-scroll-target="#vision-language-models-vlm">Vision Language Models (VLM)</a>
+  <li><a href="#visual-question-answering-models" id="toc-visual-question-answering-models" class="nav-link" data-scroll-target="#visual-question-answering-models">Visual Question Answering Models</a>
   <ul class="collapse">
-  <li><a href="#training-objective-fill-in-the-blank" id="toc-training-objective-fill-in-the-blank" class="nav-link" data-scroll-target="#training-objective-fill-in-the-blank">Training objective: fill in the blank</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#training-objective" id="toc-training-objective" class="nav-link" data-scroll-target="#training-objective">Training Objective</a></li>
   </ul></li>
+  <li><a href="#document-visual-question-answering-docvqa" id="toc-document-visual-question-answering-docvqa" class="nav-link" data-scroll-target="#document-visual-question-answering-docvqa">Document Visual Question Answering (DocVQA)</a>
+  <ul class="collapse">
+  <li><a href="#glm-ocr" id="toc-glm-ocr" class="nav-link" data-scroll-target="#glm-ocr">GLM-OCR</a></li>
+  </ul></li>
+  <li><a href="#arabic-qari-ocr" id="toc-arabic-qari-ocr" class="nav-link" data-scroll-target="#arabic-qari-ocr">Arabic: QARI-OCR</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="07_mutli-modal.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
     </div>
@@ -239,30 +243,60 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 </section>
 </section>
-<section id="vision-language-models-vlm" class="level2">
-<h2 class="anchored" data-anchor-id="vision-language-models-vlm">Vision Language Models (VLM)</h2>
-<p>SEEEEE https://huggingface.co/learn/computer-vision-course/unit4/multimodal-models/vlm-intro</p>
-<p>VLMs have a vision encoder, giving the LLM the ability to “see”.</p>
-<p>Task: <a href="https://huggingface.co/models?pipeline_tag=image-text-to-text&amp;sort=trending"><code>image-text-to-text</code></a> on HuggingFace (shows <code>26,049</code> models).</p>
-<section id="training-objective-fill-in-the-blank" class="level3">
-<h3 class="anchored" data-anchor-id="training-objective-fill-in-the-blank">Training objective: fill in the blank</h3>
-<p>Peek at their training (masked objective):</p>
-<p><a href="../assets/vlm_mask_objective.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/vlm_mask_objective.png" class="img-fluid"></a></p>
-<p>For a full intro, see: <a href="https://arxiv.org/pdf/2405.17247">An Introduction to Vision-Language Modeling</a>.</p>
+<section id="visual-question-answering-models" class="level2">
+<h2 class="anchored" data-anchor-id="visual-question-answering-models">Visual Question Answering Models</h2>
+<p>VQA models have two parts:</p>
+<ol type="1">
+<li>vision encoder to “see”</li>
+<li>text encoder to “read”</li>
+</ol>
+<p><a href="../assets/vlm_pre-trained_models.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../assets/vlm_pre-trained_models.png" class="img-fluid"></a></p>
+<section id="training-objective" class="level3">
+<h3 class="anchored" data-anchor-id="training-objective">Training Objective</h3>
+<p>The training objective: learn the vision-language correlation of the embeddings of the two, such that each one is representative of the other. In other words, if you mask the word “dog”, the picture region should help the model predict it. Likewise, if you mask the region in the image of the face of the dog, the word “dog” should help the model predict it. This is done by correlating the embedding vectors of the picture-description pair.</p>
+<p>Given enough data, models learn what’s a “dog”, and if replaced by a “cat”, what should the image look like instead, and vice-versa.</p>
+<p>The following figure illustrates that:</p>
+<p><a href="../assets/vlm_mask_objective.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="../assets/vlm_mask_objective.png" class="img-fluid"></a></p>
+<ul>
+<li>See: <a href="https://huggingface.co/learn/computer-vision-course/unit4/multimodal-models/vlm-intro">Introduction to Vision Language Models | HuggingFace</a>.</li>
+<li>For a full 76 page breakdown, see: <a href="https://arxiv.org/pdf/2405.17247">An Introduction to Vision-Language Modeling | Meta</a>.</li>
+</ul>
+</section>
+</section>
+<section id="document-visual-question-answering-docvqa" class="level2">
+<h2 class="anchored" data-anchor-id="document-visual-question-answering-docvqa">Document Visual Question Answering (DocVQA)</h2>
+<ul>
+<li><strong>Task:</strong> <a href="https://huggingface.co/models?pipeline_tag=document-question-answering">Document Question Answering</a>- Analyze visual and textual data, infer relationships, and generate a natural language response.</li>
+<li><strong>Input:</strong> Document image and text question.</li>
+<li><strong>Output:</strong> Accurate text answer.</li>
+</ul>
+<p><a href="../assets/vlm_input_form.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="../assets/vlm_input_form.png" class="img-fluid"></a></p>
+<p>Representative VQA Models:</p>
+<ul>
+<li><a href="https://huggingface.co/impira/layoutlm-document-qa"><strong>impira/layoutlm-document-qa</strong></a>: Approximately <strong>113 million</strong> parameters. It is based on the LayoutLM (base) architecture, which incorporates text, layout, and image information.</li>
+<li><a href="https://huggingface.co/naver-clova-ix/donut-base-finetuned-docvqa"><strong>naver-clova-ix/donut-base-finetuned-docvqa</strong></a>: Approximately <strong>201 million</strong> parameters. This model uses a Swin Transformer encoder and a mBART decoder for OCR-free document processing.</li>
+<li><a href="https://huggingface.co/facebook/nougat-base"><strong>facebook/nougat-base</strong></a>: Approximately <strong>250 million</strong> parameters. It is a transformer-based encoder-decoder model specifically optimized for transcribing scientific documents into markup.</li>
+</ul>
+<p>Learn more about how to train and use DocVQA models in HuggingFace&nbsp;<code>transformers</code>&nbsp;library&nbsp;<a href="https://huggingface.co/docs/transformers/tasks/document_question_answering">here</a>.</p>
+<section id="glm-ocr" class="level3">
+<h3 class="anchored" data-anchor-id="glm-ocr">GLM-OCR</h3>
+<blockquote class="blockquote">
+<p><a href="https://huggingface.co/zai-org/GLM-OCR">GLM-OCR</a> is a multimodal OCR model for complex document understanding, built on the GLM-V encoder–decoder architecture. It introduces Multi-Token Prediction (MTP) loss and stable full-task reinforcement learning to improve training efficiency, recognition accuracy, and generalization. The model integrates the CogViT visual encoder pre-trained on large-scale image–text data, a lightweight cross-modal connector with efficient token downsampling, and a GLM-0.5B language decoder. Combined with a two-stage pipeline of layout analysis and parallel recognition based on PP-DocLayout-V3, GLM-OCR delivers robust and high-quality OCR performance across diverse document layouts.</p>
+</blockquote>
+<p><a href="https://raw.githubusercontent.com/zai-org/GLM-OCR/refs/heads/main/resources/speed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="https://raw.githubusercontent.com/zai-org/GLM-OCR/refs/heads/main/resources/speed.png" class="img-fluid"></a></p>
+</section>
+</section>
+<section id="arabic-qari-ocr" class="level2">
+<h2 class="anchored" data-anchor-id="arabic-qari-ocr">Arabic: QARI-OCR</h2>
 <ul>
 <li><a href="https://huggingface.co/NAMAA-Space/Qari-OCR-v0.3-VL-2B-Instruct">QARI-OCR</a> Structural Arabic Document Understanding.
 <ul>
 <li><a href="https://colab.research.google.com/github/NAMAA-ORG/public-notebooks/blob/main/Qari_Free_Colab.ipynb">Try Qari - Google Colab</a></li>
 </ul></li>
 </ul>
-<p>For examples see <a href="https://huggingface.co/blog/vlms#overview-of-open-source-vision-language-models">Overview of Open-source Vision Language Models</a>.</p>
-<p>Example: <a href="https://huggingface.co/zai-org/GLM-OCR">GLM-OCR</a>.</p>
-</section>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section"></h3>
+<p>For other examples see <a href="https://huggingface.co/blog/vlms#overview-of-open-source-vision-language-models">Overview of Open-source Vision Language Models</a>.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
