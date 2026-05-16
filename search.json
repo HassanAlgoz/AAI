@@ -6360,7 +6360,7 @@
     "href": "W5/index.html",
     "title": "Applied Deep Learning",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\nData Curation with Label Studio\n\n\n\n\n9\nUltralytics YOLO Computer Vision Models\n\n\n\n\n10\nSoftware Licenses"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\n\n\nEx1: Data Curation with Label Studio\n\n\n9\nUltralytics YOLO Computer Vision Models\n\n\n\n\n10\nSoftware Licenses"
   },
   {
     "objectID": "W4/faq/never_expose_api_keys.html",
@@ -8887,7 +8887,7 @@
     "href": "W5/index.html#topics",
     "title": "Applied Deep Learning",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\nData Curation with Label Studio\n\n\n\n\n9\nUltralytics YOLO Computer Vision Models\n\n\n\n\n10\nSoftware Licenses"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\n\n\nEx1: Data Curation with Label Studio\n\n\n9\nUltralytics YOLO Computer Vision Models\n\n\n\n\n10\nSoftware Licenses"
   },
   {
     "objectID": "W5/index.html#learning-end-goals",
@@ -9216,7 +9216,7 @@
     "href": "W5/M1/slides/09_ultralytics.html#features",
     "title": "Ultralytics",
     "section": "Features",
-    "text": "Features\n\nModel Serving - Object detection, classification, segmentation, keypoint detection, OCR, VQA, and more. Supports pre-trained, fine-tuned, and foundation models.\nVideo Streaming - Efficient InferencePipeline for consuming camera feeds, RTSP streams, and video files with automatic frame management and state tracking.\nSpeed - Automatic parallelization, hardware acceleration, dynamic batching, and optional TensorRT quantization.\nExtensibility - Open source (Apache 2.0). Add custom models, Workflow blocks, and backends."
+    "text": "Features\nFeatres of Inference; The core Python package:\n\nModel Serving - Object detection, classification, segmentation, keypoint detection, OCR, VQA, and more. Supports pre-trained, fine-tuned, and foundation models.\nVideo Streaming - Efficient InferencePipeline for consuming camera feeds, RTSP streams, and video files with automatic frame management and state tracking.\nSpeed - Automatic parallelization, hardware acceleration, dynamic batching, and optional TensorRT quantization.\nExtensibility - Open source (Apache 2.0). Add custom models, Workflow blocks, and backends."
   },
   {
     "objectID": "W5/M1/slides/09_ultralytics.html#deploy-anywhere",
@@ -9231,5 +9231,12 @@
     "title": "Ultralytics",
     "section": "Inference: Alternatives",
     "text": "Inference: Alternatives\nAlternatives include:\n\nInference Servers\n\nNVIDIA Triton Inference Server\nLightning LitServe\nTensorFlow Serving\nTorchServe\nFastAPI or Flask\n\nWorkflow Builders\n\nComfyUI\nNode-RED\n\nEdge Deployment\n\nEdge Impulse\nNVIDIA DeepStream"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#drone-with-a-gpu",
+    "href": "W5/M1/slides/09_ultralytics.html#drone-with-a-gpu",
+    "title": "Ultralytics",
+    "section": "Drone with a GPU?",
+    "text": "Drone with a GPU?"
   }
 ]
