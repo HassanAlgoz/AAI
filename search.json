@@ -6360,7 +6360,7 @@
     "href": "W5/index.html",
     "title": "Applied Deep Learning",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\nData Curation with Label Studio"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\nData Curation with Label Studio\n\n\n\n\n9\nUltralytics YOLO Computer Vision Models\n\n\n\n\n10\nSoftware Licenses"
   },
   {
     "objectID": "W4/faq/never_expose_api_keys.html",
@@ -8887,7 +8887,7 @@
     "href": "W5/index.html#topics",
     "title": "Applied Deep Learning",
     "section": "",
-    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\nData Curation with Label Studio"
+    "text": "#\nLesson\nLab\nExercise\n\n\n\n\n1\nIntroduction to HuggingFace\nLab: Quick Tour\n\n\n\n2\nTransformers Pipelines\n\n\n\n\n3\nTasks (Docs)\nNLP Tasks (♾️)\n\n\n\n4\nLarge and Small Language Models\n\n\n\n\n5\nControlling LLM Generation\nLab (♾️)\n\n\n\n6\n\nAudio Tasks (♾️)\n\n\n\n7\nMulti-modal Models\n\n\n\n\n8\nData Curation with Label Studio\n\n\n\n\n9\nUltralytics YOLO Computer Vision Models\n\n\n\n\n10\nSoftware Licenses"
   },
   {
     "objectID": "W5/index.html#learning-end-goals",
@@ -9028,5 +9028,208 @@
     "title": "Controlling LLM Generation",
     "section": "Outlines: Core Features",
     "text": "Outlines: Core Features\n\n\n\nFeature\nDescription\nDocumentation\n\n\n\n\nMultiple Choices\nConstrain outputs to predefined options\nMultiple Choices Guide →\n\n\nFunction Calls\nInfer structure from function signatures\nFunction Guide →\n\n\nJSON/Pydantic\nGenerate outputs matching JSON schemas\nJSON Guide →\n\n\nRegular Expressions\nGenerate text following a regex pattern\nRegex Guide →\n\n\nGrammars\nEnforce complex output structures\nGrammar Guide →\n\n\n\n\n! pip install outlines\n\n\nCollecting outlines\n\n  Downloading outlines-1.3.0-py3-none-any.whl.metadata (29 kB)\n\nRequirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.6)\n\nRequirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (from outlines) (3.1.2)\n\nCollecting diskcache (from outlines)\n\n  Downloading diskcache-5.6.3-py3-none-any.whl.metadata (20 kB)\n\nRequirement already satisfied: pydantic&gt;=2.0 in /usr/local/lib/python3.12/dist-packages (from outlines) (2.12.3)\n\nRequirement already satisfied: jsonschema in /usr/local/lib/python3.12/dist-packages (from outlines) (4.26.0)\n\nRequirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from outlines) (11.3.0)\n\nRequirement already satisfied: typing_extensions in /usr/local/lib/python3.12/dist-packages (from outlines) (4.15.0)\n\nCollecting outlines_core==0.2.14 (from outlines)\n\n  Downloading outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.6 kB)\n\nCollecting genson (from outlines)\n\n  Downloading genson-1.3.0-py3-none-any.whl.metadata (28 kB)\n\nCollecting jsonpath_ng (from outlines)\n\n  Downloading jsonpath_ng-1.8.0-py3-none-any.whl.metadata (18 kB)\n\nRequirement already satisfied: annotated-types&gt;=0.6.0 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2.0-&gt;outlines) (0.7.0)\n\nRequirement already satisfied: pydantic-core==2.41.4 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2.0-&gt;outlines) (2.41.4)\n\nRequirement already satisfied: typing-inspection&gt;=0.4.2 in /usr/local/lib/python3.12/dist-packages (from pydantic&gt;=2.0-&gt;outlines) (0.4.2)\n\nRequirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2-&gt;outlines) (3.0.3)\n\nRequirement already satisfied: attrs&gt;=22.2.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema-&gt;outlines) (26.1.0)\n\nRequirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /usr/local/lib/python3.12/dist-packages (from jsonschema-&gt;outlines) (2025.9.1)\n\nRequirement already satisfied: referencing&gt;=0.28.4 in /usr/local/lib/python3.12/dist-packages (from jsonschema-&gt;outlines) (0.37.0)\n\nRequirement already satisfied: rpds-py&gt;=0.25.0 in /usr/local/lib/python3.12/dist-packages (from jsonschema-&gt;outlines) (0.30.0)\n\nDownloading outlines-1.3.0-py3-none-any.whl (108 kB)\n\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.4/108.4 kB 7.5 MB/s eta 0:00:00\n\nDownloading outlines_core-0.2.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.3 MB)\n\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 42.6 MB/s eta 0:00:00\n\nDownloading diskcache-5.6.3-py3-none-any.whl (45 kB)\n\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.5/45.5 kB 2.7 MB/s eta 0:00:00\n\nDownloading genson-1.3.0-py3-none-any.whl (21 kB)\n\nDownloading jsonpath_ng-1.8.0-py3-none-any.whl (67 kB)\n\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.8/67.8 kB 4.4 MB/s eta 0:00:00\n\nInstalling collected packages: jsonpath_ng, genson, outlines_core, diskcache, outlines\n\nSuccessfully installed diskcache-5.6.3 genson-1.3.0 jsonpath_ng-1.8.0 outlines-1.3.0 outlines_core-0.2.14\n\n\n\n\n\nConnect with Transformers\n\nimport outlines\nfrom transformers import AutoTokenizer, AutoModelForCausalLM\n\nmodel = outlines.from_transformers(\n    AutoModelForCausalLM.from_pretrained(checkpoint, device_map=\"auto\"),\n    AutoTokenizer.from_pretrained(checkpoint)\n)\n\n\n\n\n\n\nStart with simple structured outputs\n\n# Extract specific types\ntemp = model(\"What's the boiling point of water in Celsius?\", int)\nprint(temp)  # 100\n\n100\n\n\n\n\n\nMultiple-choice\n\nfrom typing import Literal\n\n# Simple classification\nsentiment = model(\n    \"Analyze: 'This product completely changed my life!'\",\n    Literal[\"Positive\", \"Negative\", \"Neutral\"]\n)\nprint(sentiment)  # \"Positive\"\n\nPositive\n\n\n\n\n\nCreate complex structures\n\nfrom pydantic import BaseModel\nfrom enum import Enum\n\nclass Rating(Enum):\n    poor = 1\n    fair = 2\n    good = 3\n    excellent = 4\n\nclass ProductReview(BaseModel):\n    rating: Rating\n    pros: list[str]\n    cons: list[str]\n    summary: str\n\nreview = model(\n    \"Review: The XPS 13 has great battery life and a stunning display, but it runs hot and the webcam is poor quality.\",\n    ProductReview,\n    max_new_tokens=200,\n)\n\nreview = ProductReview.model_validate_json(review)\nprint(f\"Rating: {review.rating.name}\")  # \"Rating: good\"\nprint(f\"Pros: {review.pros}\")           # \"Pros: ['great battery life', 'stunning display']\"\nprint(f\"Summary: {review.summary}\")     # \"Summary: Good laptop with great display but thermal issues\"\n\nRating: fair\n\n\n\nPros: [\"The XPS 13's battery life is impressive, making it an excellent choice for those who need to travel or have\nlimited power sources,\"]\n\n\n\nSummary: A mid-range laptop that excels in battery life and performance, but struggles with overheating and poor \ncamera quality."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html",
+    "href": "W5/M1/slides/09_ultralytics.html",
+    "title": "Ultralytics",
+    "section": "",
+    "text": "YOLO26 is the latest evolution in the YOLO series of real-time object detectors, engineered from the ground up for edge and low-power devices. It introduces a streamlined design that removes unnecessary complexity while integrating targeted innovations to deliver faster, lighter, and more accessible deployment.\nSupported tasks:\n\nObject Detection\nInstance Segmentation\nImage Classification\nPose Estimation\nOriented Object Detection (OBB)\n\n\n\n\nFigure: CV Tasks\n\n\nAll Models are automatically downloaded from the latest Ultralytics release upon first use."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#yolo",
+    "href": "W5/M1/slides/09_ultralytics.html#yolo",
+    "title": "Ultralytics",
+    "section": "YOLO",
+    "text": "YOLO\nYOLO26 is the latest evolution in the YOLO series of real-time object detectors, engineered from the ground up for edge and low-power devices. It introduces a streamlined design that removes unnecessary complexity while integrating targeted innovations to deliver faster, lighter, and more accessible deployment.\n\n\nSupported tasks:\n\nObject Detection\nInstance Segmentation\nImage Classification\nPose Estimation\nOriented Object Detection (OBB)\n\nAll Models are automatically downloaded from the latest Ultralytics release upon first use.\n\n\n\n\n\n\n\n\nFigure: CV Tasks"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#yoloe-real-time-seeing-anything",
+    "href": "W5/M1/slides/09_ultralytics.html#yoloe-real-time-seeing-anything",
+    "title": "Ultralytics",
+    "section": "YOLOE: Real-Time Seeing Anything",
+    "text": "YOLOE: Real-Time Seeing Anything\nYOLOE (Real-Time Seeing Anything) is a new advancement in zero-shot, promptable YOLO models, designed for open-vocabulary detection and segmentation. Unlike previous YOLO models limited to fixed categories, YOLOE uses text, image, or internal vocabulary prompts, enabling real-time detection of any object class. Built upon YOLOv10 and inspired by YOLO-World, YOLOE achieves state-of-the-art zero-shot performance with minimal impact on speed and accuracy."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#what-is-ultralytics",
+    "href": "W5/M1/slides/09_ultralytics.html#what-is-ultralytics",
+    "title": "Ultralytics",
+    "section": "What is Ultralytics?",
+    "text": "What is Ultralytics?\nUltralytics is an AI startup best known for developing the modern YOLO (You Only Look Once) series of open-source computer vision models. They maintain the ultralytics Python package, simplifying the process of training, evaluating, and exporting models to hardware-accelerated formats.\nThe video illustrates NAS: Neural Architecture Search, an automatic hyper-parameter tuning method for deep neural networks, and employed by Roboflow when you train models on their platform:"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#why-three-websites",
+    "href": "W5/M1/slides/09_ultralytics.html#why-three-websites",
+    "title": "Ultralytics",
+    "section": "Why Three Websites?",
+    "text": "Why Three Websites?\nIn the software and AI industry, companies almost always divide their web presence into these three distinct areas. Both in general and for Ultralytics specifically:\n\nThe www. \\(\\rightarrow\\) The Storefront: High-level marketing, features, pricing, and sales.\nThe platform. \\(\\rightarrow\\) The Workspace: The cloud-based app (GUI) where you log in to manage data, train models, and click buttons.\nThe docs. \\(\\rightarrow\\) The Manual: Technical guides, code snippets, and API references for developers"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#related-libraries",
+    "href": "W5/M1/slides/09_ultralytics.html#related-libraries",
+    "title": "Ultralytics",
+    "section": "Related Libraries",
+    "text": "Related Libraries\n\nWhile Ultralytics focuses heavily on creating the best model architectures and the underlying training engine.\n\nRoboflow App: Upload data, annotate images, train and deploy models. Get your API key.\n\nUniverse: Browse and use community datasets and models. Pass any Universe model_id directly to Inference.\n\n\nInference: application workflows, deployment and serving.\nSupervision:\n\nPost-process results: decode predictions, plot bounding boxes, track objects, slice images for small object detection.\nUnified Detections object that works with YOLO, SAM, Grounding DINO, Transformers, and 20+ model frameworks\n\nTrackers: Clean, modular implementations of leading trackers."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#inference",
+    "href": "W5/M1/slides/09_ultralytics.html#inference",
+    "title": "Ultralytics",
+    "section": "Inference",
+    "text": "Inference\nInference is an open-source computer vision deployment hub by Roboflow. It has several components that work together. The diagram below shows how they fit together:\n\ninference-sdk - Lightweight Python client for communicating with the Inference Server.\ninference-cli - Command-line tool for managing the Inference Server and running common tasks.\nInference Server - HTTP server (Docker) that wraps the inference package as a REST API.\ninference - Core Python package for model loading, inference, and Workflows execution."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#run-a-model-with-inference",
+    "href": "W5/M1/slides/09_ultralytics.html#run-a-model-with-inference",
+    "title": "Ultralytics",
+    "section": "Run a model with Inference",
+    "text": "Run a model with Inference\nLet’s run a computer vision model with Inference. There are two ways to do this:\n\nthe inference Python package which loads and runs models directly in your process, or\nthe inference-sdk which sends requests to an Inference Server over HTTP.\n\nSee: Run a model"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#gpu-on-a-drone",
+    "href": "W5/M1/slides/09_ultralytics.html#gpu-on-a-drone",
+    "title": "Ultralytics",
+    "section": "GPU on a Drone?",
+    "text": "GPU on a Drone?"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#inference-as-a-microservice",
+    "href": "W5/M1/slides/09_ultralytics.html#inference-as-a-microservice",
+    "title": "Ultralytics",
+    "section": "Inference as a Microservice",
+    "text": "Inference as a Microservice\n\nThe most common way to use Inference is as a small part of a larger system.\nIt’s producing a response that is consumed by downstream code.\nThis response sometimes represents:\n\nthe prediction from a model (for example, a set of Detections containing objects’ categorization, location, and size in an image)\nor the result of post-processing logic (like the pass/fail state of an inspection)\nor an aggregation (like the count of unique objects seen over the past hour)\nor a visualization"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#inference-as-an-appliance",
+    "href": "W5/M1/slides/09_ultralytics.html#inference-as-an-appliance",
+    "title": "Ultralytics",
+    "section": "Inference as an Appliance",
+    "text": "Inference as an Appliance\nInference can also be treated as an autonomous agent that continuously consumes and processes a video stream and performs downstream actions like:\n\nFigure: Inference as an Appliance\nupdating a database\nsending notifications\nfiring webhooks\nor signaling hardware\n\nIn this paradigm, the full logic of the system is defined in a Workflow and the output is pushed to external systems."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#inference-pipeline",
+    "href": "W5/M1/slides/09_ultralytics.html#inference-pipeline",
+    "title": "Ultralytics",
+    "section": "Inference Pipeline",
+    "text": "Inference Pipeline\n\nThe Inference Pipeline interface is made for streaming and is likely the best route to go for real time use cases.\nIt is an asynchronous interface that can consume many different video sources including:\n\nlocal devices (like webcams)\nRTSP video streams\nvideo files\n\n\n..etc.\n\n\n..With this interface, you define:\n\nthe source (of a video stream) and\nsinks"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#supervision",
+    "href": "W5/M1/slides/09_ultralytics.html#supervision",
+    "title": "Ultralytics",
+    "section": "Supervision",
+    "text": "Supervision\n\n\n\n\n\nSupervision is an open-source Python library by Roboflow for building computer vision applications. It provides a unified Detections object that works with: YOLO, Transformers, SAM, Grounding DINO, and 20+ model frameworks.\nTrusted by researchers (cited in 4,000+ papers) and practitioners (38,000+ GitHub stars, 1M+ monthly PyPI downloads), Supervision is the standard toolkit for production computer vision workflows.\nWith Supervision you can:\n\nannotate images and video with bounding boxes, masks, and labels;\ntrack objects across frames with persistent IDs;\ncount and filter detections inside polygon zones;\nload and convert datasets between YOLO, COCO, and Pascal VOC formats;\n..and benchmark model performance with mAP and confusion matrices."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#supervision-annotators",
+    "href": "W5/M1/slides/09_ultralytics.html#supervision-annotators",
+    "title": "Ultralytics",
+    "section": "Supervision: Annotators",
+    "text": "Supervision: Annotators\nAnnotators: Draw the detections with one of 20 annotators. Click the tabs to see the different annotators and their code:\n(https://supervision.roboflow.com/latest/detection/annotators/)\nSee: Supervision Cheat Sheet (which, btw, contains less than 50% of the features). See docs for all features."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#trackers",
+    "href": "W5/M1/slides/09_ultralytics.html#trackers",
+    "title": "Ultralytics",
+    "section": "Trackers",
+    "text": "Trackers\nTrackers is a package for clean, modular implementations of leading trackers."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#when-to-use-each-tracker",
+    "href": "W5/M1/slides/09_ultralytics.html#when-to-use-each-tracker",
+    "title": "Ultralytics",
+    "section": "When to Use Each Tracker?",
+    "text": "When to Use Each Tracker?\n\n\n\n\n\n\n\n\nTracker\nBest Use Case\nKey Features & Advantages\n\n\n\n\nSORT\nHigh-speed requirements, unoccluded scenes, and edge devices with tight compute budgets.\nUses a Kalman filter and Hungarian matching. Extremely fast, acts as a great baseline, and is easy to debug.\n\n\nByteTrack\nDefault choice for most apps; scenes with noisy or variable-confidence outputs (sports, aerial, retail).\nRecovers low-confidence detections via two-stage association. Reduces missed tracks and ID switches with almost no extra compute.\n\n\nOC-SORT\nErratic motion, non-linear paths, and fast turns or camera pans.\nUses an observation-centric re-update mechanism and direction consistency cost to resist drift from linear motion assumptions.\n\n\nBoT-SORT\nStrong camera ego-motion (drones, handheld, sports broadcasts) where identity stability is critical.\nExtends ByteTrack by adding Camera Motion Compensation (CMC) and confidence-aware association to minimize ID switches.\n\n\n\nSource: When to Use Each Tracker."
+  },
+  {
+    "objectID": "W5/M1/slides/10_licensing.html",
+    "href": "W5/M1/slides/10_licensing.html",
+    "title": "Software Licensing",
+    "section": "",
+    "text": "An open source license protects contributors and users. Businesses and savvy developers won’t touch a project without this protection.\n\n\n\nChoose A License .com"
+  },
+  {
+    "objectID": "W5/M1/slides/10_licensing.html#understanding-open-source-software-licenses",
+    "href": "W5/M1/slides/10_licensing.html#understanding-open-source-software-licenses",
+    "title": "Software Licensing",
+    "section": "",
+    "text": "An open source license protects contributors and users. Businesses and savvy developers won’t touch a project without this protection.\n\n\n\nChoose A License .com"
+  },
+  {
+    "objectID": "W5/M1/slides/10_licensing.html#can-i-use-ultralytics",
+    "href": "W5/M1/slides/10_licensing.html#can-i-use-ultralytics",
+    "title": "Software Licensing",
+    "section": "Can I use Ultralytics?",
+    "text": "Can I use Ultralytics?\nAlways checkout the license of the software you use:\n\nWhat does AGPL-3.0 License that mean? Let’s pull up the License Terms that define exactly:\n\nwhat a user can do (Permissions)\nmust do (Conditions)\nand cannot do (Limitations)\n\n.. with the software.\n\nIt means, if you use the Python package (pip install ultralytics). And, you use this option for a commercial product, your code must remain completely open-source (under the AGPL-3.0 license), unless you buy a commercial license directly from Ultralytics.\nSee Licenses for more details and other open source licenses."
+  },
+  {
+    "objectID": "W5/M1/slides/10_licensing.html#ultralytics-2nd-license-commercial",
+    "href": "W5/M1/slides/10_licensing.html#ultralytics-2nd-license-commercial",
+    "title": "Software Licensing",
+    "section": "Ultralytics 2nd License (Commercial)",
+    "text": "Ultralytics 2nd License (Commercial)\nUltralytics offers two licensing options to suit different needs:\n\nAGPL-3.0 License: This OSI-approved open-source license is perfect for students, researchers, and enthusiasts. It encourages open collaboration and knowledge sharing. See the LICENSE file for full details.\nUltralytics Enterprise License: Designed for commercial use, this license allows for the seamless integration of Ultralytics software and AI models into commercial products and services, bypassing the open-source requirements of AGPL-3.0. If your use case involves commercial deployment, please contact us via Ultralytics Licensing.\n\nSee: 📜 License."
+  },
+  {
+    "objectID": "W5/M1/slides/10_licensing.html#roboflow-the-commercial-licensor",
+    "href": "W5/M1/slides/10_licensing.html#roboflow-the-commercial-licensor",
+    "title": "Software Licensing",
+    "section": "Roboflow: the commercial licensor",
+    "text": "Roboflow: the commercial licensor\nUltralytics models (like YOLOv8, YOLO11, and YOLO26) are open-source but use a strict AGPL-3.0 license, which forces companies to open-source their own code if they use it. Roboflow is an authorized commercial licensor of these models. If a business deploys a YOLO model via Roboflow, they bypass the open-source restriction and can keep their proprietary code private."
+  },
+  {
+    "objectID": "W5/M1/slides/10_licensing.html#what-about-models-from-hugging-face",
+    "href": "W5/M1/slides/10_licensing.html#what-about-models-from-hugging-face",
+    "title": "Software Licensing",
+    "section": "What about Models from Hugging Face?",
+    "text": "What about Models from Hugging Face?\nHugging Face is simply a repository (like GitHub). The models hosted there have wildly different licenses:\n\nSome are completely free for commercial use (Apache 2.0, MIT)\nbut many others are strictly non-commercial (CC-BY-NC)\nor “infectious” (AGPL-3.0)"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#roboflowtrain",
+    "href": "W5/M1/slides/09_ultralytics.html#roboflowtrain",
+    "title": "Ultralytics",
+    "section": "Roboflow/train",
+    "text": "Roboflow/train"
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#www.ultralytics.com",
+    "href": "W5/M1/slides/09_ultralytics.html#www.ultralytics.com",
+    "title": "Ultralytics",
+    "section": "1. www.ultralytics.com",
+    "text": "1. www.ultralytics.com\n\n\nWhat it is: The marketing storefront.\nPurpose in General: To pitch the product, explain the company’s value, and drive new user sign-ups or enterprise sales.\nWhat you do there: Read about high-level features, check pricing, read the company blog, look at case studies, or contact sales.\nTarget Audience: Prospective customers, decision-makers, and curious visitors."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#platform.ultralytics.com",
+    "href": "W5/M1/slides/09_ultralytics.html#platform.ultralytics.com",
+    "title": "Ultralytics",
+    "section": "2. platform.ultralytics.com",
+    "text": "2. platform.ultralytics.com\n\n\nWhat it is: The actual web application or cloud workspace (for Ultralytics, this routes to “Ultralytics HUB”).\nPurpose in General: This is where the actual work gets done. It requires an account and a login. It is the graphical user interface (GUI) for the company’s cloud services.\nWhat you do there: Upload datasets, click buttons to train models in the cloud, monitor active training runs, manage team access, and export finished models.\nTarget Audience: Registered users, data scientists, and project managers."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#docs.ultralytics.com",
+    "href": "W5/M1/slides/09_ultralytics.html#docs.ultralytics.com",
+    "title": "Ultralytics",
+    "section": "3. docs.ultralytics.com",
+    "text": "3. docs.ultralytics.com\n\n\nWhat it is: The technical manual.\nPurpose in General: To explain exactly how to install, write code for, and troubleshoot the software.\nWhat you do there: Copy and paste code snippets, read API endpoint references, follow step-by-step programming tutorials, and figure out why an error code is happening.\nTarget Audience: Software engineers and developers who are actively writing code."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#features",
+    "href": "W5/M1/slides/09_ultralytics.html#features",
+    "title": "Ultralytics",
+    "section": "Features",
+    "text": "Features\n\nModel Serving - Object detection, classification, segmentation, keypoint detection, OCR, VQA, and more. Supports pre-trained, fine-tuned, and foundation models.\nVideo Streaming - Efficient InferencePipeline for consuming camera feeds, RTSP streams, and video files with automatic frame management and state tracking.\nSpeed - Automatic parallelization, hardware acceleration, dynamic batching, and optional TensorRT quantization.\nExtensibility - Open source (Apache 2.0). Add custom models, Workflow blocks, and backends."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#deploy-anywhere",
+    "href": "W5/M1/slides/09_ultralytics.html#deploy-anywhere",
+    "title": "Ultralytics",
+    "section": "Deploy Anywhere¶",
+    "text": "Deploy Anywhere¶\n\n\n\n\nServerless\nDedicated\nSelf-Hosted\n\n\n\n\nFine-Tuned & Pre-Trained Models\n✅\n✅\n✅\n\n\nWorkflows\n✅\n✅\n✅\n\n\nFoundation Models\n\n✅\n✅\n\n\nVideo Streaming\n\n✅\n✅\n\n\nDynamic Python Blocks\n\n✅\n✅\n\n\nRuns Offline\n\n\n✅\n\n\nBilling\nPer-Call\nHourly\nFree + metered\n\n\n\n\nServerless - Pay-per-Inference, scales to zero. Doesn’t support large foundation models.\nDedicated - Single-tenant VMs with optional GPU. Supports larger foundation models (SAM 2, Florence-2, PaliGemma). Billed hourly.\nSelf-Hosted - Run on your own hardware. Install guide →\nBring Your Own Cloud - Self-host on AWS, Azure, or GCP for enterprise compliance.\n\nSee: What Devices Can I Use?."
+  },
+  {
+    "objectID": "W5/M1/slides/09_ultralytics.html#inference-alternatives",
+    "href": "W5/M1/slides/09_ultralytics.html#inference-alternatives",
+    "title": "Ultralytics",
+    "section": "Inference: Alternatives",
+    "text": "Inference: Alternatives\nAlternatives include:\n\nInference Servers\n\nNVIDIA Triton Inference Server\nLightning LitServe\nTensorFlow Serving\nTorchServe\nFastAPI or Flask\n\nWorkflow Builders\n\nComfyUI\nNode-RED\n\nEdge Deployment\n\nEdge Impulse\nNVIDIA DeepStream"
   }
 ]

@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
+
+  <title>Applied AI Bootcamp – Ultralytics</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../../../site_libs/revealjs/dist/theme/quarto-ca7ff45dca864c8748a423b2ddb238b8.css">
+  <link href="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Ultralytics</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="yolo" class="slide level2">
+<h2>YOLO</h2>
+<p><a href="https://docs.ultralytics.com/models/yolo26">YOLO26</a> is the latest evolution in the YOLO series of real-time object detectors, engineered from the ground up for&nbsp;<strong>edge and low-power devices</strong>. It introduces a streamlined design that removes unnecessary complexity while integrating targeted innovations to deliver faster, lighter, and more accessible deployment.</p>
+<div class="columns">
+<div class="column">
+<p>Supported tasks:</p>
+<ul>
+<li><a href="https://docs.ultralytics.com/tasks/detect">Object Detection</a></li>
+<li><a href="https://docs.ultralytics.com/tasks/segment">Instance Segmentation</a></li>
+<li><a href="https://docs.ultralytics.com/tasks/classify">Image Classification</a></li>
+<li><a href="https://docs.ultralytics.com/tasks/pose">Pose Estimation</a></li>
+<li><a href="https://docs.ultralytics.com/tasks/obb">Oriented Object Detection (OBB)</a></li>
+</ul>
+<p>All&nbsp;<a href="https://docs.ultralytics.com/models">Models</a>&nbsp;are automatically downloaded from the latest Ultralytics&nbsp;<a href="https://github.com/ultralytics/assets/releases">release</a>&nbsp;upon first use.</p>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><a href="../assets/ultralytics/tasks.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure: CV Tasks"><img data-src="../assets/ultralytics/tasks.png" class="quarto-figure quarto-figure-right" alt="Figure: CV Tasks"></a></p>
+</figure>
+</div>
+<figcaption>Figure: CV Tasks</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="yoloe-real-time-seeing-anything" class="slide level2">
+<h2>YOLOE: Real-Time Seeing Anything</h2>
+<p><a href="https://arxiv.org/html/2503.07465v1">YOLOE (Real-Time Seeing Anything)</a>&nbsp;is a new advancement in zero-shot, promptable YOLO models, designed for&nbsp;<strong>open-vocabulary</strong>&nbsp;detection and segmentation. Unlike previous YOLO models limited to fixed categories, YOLOE uses text, image, or internal vocabulary prompts, enabling real-time detection of any object class. Built upon YOLOv10 and inspired by&nbsp;<a href="https://docs.ultralytics.com/models/yolo-world">YOLO-World</a>, YOLOE achieves&nbsp;<strong>state-of-the-art zero-shot performance</strong>&nbsp;with minimal impact on speed and accuracy.</p>
+
+<img data-src="https://cdn.jsdelivr.net/gh/ultralytics/assets@main/docs/yoloe-visualization.avif" class="r-stretch"></section>
+<section id="what-is-ultralytics" class="slide level2">
+<h2>What is Ultralytics?</h2>
+<p><strong>Ultralytics</strong> is an AI startup best known for developing the modern <strong>YOLO (You Only Look Once)</strong> series of open-source computer vision models. They maintain the <code>ultralytics</code> Python package, simplifying the process of training, evaluating, and exporting models to hardware-accelerated formats.</p>
+<p>The video illustrates <strong>NAS</strong>: Neural Architecture Search, an automatic hyper-parameter tuning method for deep neural networks, and employed by Roboflow when you train models on their platform:</p>
+</section>
+<section id="roboflowtrain" class="slide level2">
+<h2>Roboflow/train</h2>
+<video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://storage.googleapis.com/com-roboflow-marketing/webflow/video/nas-timelapse.webm"></video>
+</section>
+<section id="why-three-websites" class="slide level2 scrollable">
+<h2>Why Three Websites?</h2>
+<p>In the software and AI industry, companies almost always divide their web presence into these three distinct areas. Both in general and for Ultralytics specifically:</p>
+<ol type="1">
+<li>The <code>www.</code> <span class="math inline">\(\rightarrow\)</span> <strong>The Storefront:</strong> High-level marketing, features, pricing, and sales.</li>
+<li>The <code>platform.</code> <span class="math inline">\(\rightarrow\)</span> <strong>The Workspace:</strong> The cloud-based app (GUI) where you log in to manage data, train models, and click buttons.</li>
+<li>The <code>docs.</code> <span class="math inline">\(\rightarrow\)</span> <strong>The Manual:</strong> Technical guides, code snippets, and API references for developers</li>
+</ol>
+</section>
+<section id="www.ultralytics.com" class="slide level2">
+<h2>1. <a href="https://www.ultralytics.com">www.ultralytics.com</a></h2>
+
+<img data-src="../assets/ultralytics/bare.png" class="r-stretch quarto-figure quarto-figure-center"><ul>
+<li><strong>What it is:</strong> The marketing storefront.</li>
+<li><strong>Purpose in General:</strong> To pitch the product, explain the company’s value, and drive new user sign-ups or enterprise sales.</li>
+<li><strong>What you do there:</strong> Read about high-level features, check pricing, read the company blog, look at case studies, or contact sales.</li>
+<li><strong>Target Audience:</strong> Prospective customers, decision-makers, and curious visitors.</li>
+</ul>
+</section>
+<section id="platform.ultralytics.com" class="slide level2">
+<h2>2. <a href="https://platform.ultralytics.com/" class="r-stretch" data-fig-align="center">platform.ultralytics.com</a></h2>
+<p><a href="../assets/ultralytics/platform.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../assets/ultralytics/platform.png"></a></p>
+<ul>
+<li><strong>What it is:</strong> The actual web application or cloud workspace (for Ultralytics, this routes to “Ultralytics HUB”).</li>
+<li><strong>Purpose in General:</strong> This is where the actual work gets done. It requires an account and a login. It is the graphical user interface (GUI) for the company’s cloud services.</li>
+<li><strong>What you do there:</strong> Upload datasets, click buttons to train models in the cloud, monitor active training runs, manage team access, and export finished models.</li>
+<li><strong>Target Audience:</strong> Registered users, data scientists, and project managers.</li>
+</ul>
+</section>
+<section id="docs.ultralytics.com" class="slide level2">
+<h2>3. <a href="https://docs.ultralytics.com/" class="r-stretch" data-fig-align="center">docs.ultralytics.com</a></h2>
+<p><a href="../assets/ultralytics/docs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../assets/ultralytics/docs.png"></a></p>
+<ul>
+<li><strong>What it is:</strong> The technical manual.</li>
+<li><strong>Purpose in General:</strong> To explain exactly how to install, write code for, and troubleshoot the software.</li>
+<li><strong>What you do there:</strong> Copy and paste code snippets, read API endpoint references, follow step-by-step programming tutorials, and figure out why an error code is happening.</li>
+<li><strong>Target Audience:</strong> Software engineers and developers who are actively writing code.</li>
+</ul>
+</section>
+<section id="related-libraries" class="slide level2">
+<h2>Related Libraries</h2>
+<ul>
+<li class="fragment">While <a href="https://platform.ultralytics.com/">Ultralytics</a> focuses heavily on creating the best model architectures and the underlying training engine.
+<ul>
+<li class="fragment">Roboflow App: Upload data, annotate images, train and deploy models.&nbsp;<a href="https://docs.roboflow.com/api-reference/authentication">Get your API key</a>.
+<ul>
+<li class="fragment"><a href="https://universe.roboflow.com/">Universe</a>: Browse and use community datasets and models. Pass any Universe&nbsp;<code>model_id</code>&nbsp;directly to Inference.</li>
+</ul></li>
+</ul></li>
+<li class="fragment"><a href="https://inference.roboflow.com/">Inference</a>: application workflows, deployment and serving.</li>
+<li class="fragment"><a href="https://supervision.roboflow.com/latest/">Supervision</a>:
+<ul>
+<li class="fragment">Post-process results: decode predictions, plot bounding boxes, track objects, slice images for small object detection.</li>
+<li class="fragment">Unified <code>Detections</code> object that works with YOLO, SAM, Grounding DINO, Transformers, and 20+ model frameworks</li>
+</ul></li>
+<li class="fragment"><a href="https://trackers.roboflow.com/latest/">Trackers</a>: Clean, modular implementations of leading trackers.</li>
+</ul>
+</section>
+<section id="inference" class="slide level2">
+<h2>Inference</h2>
+<p><a href="https://inference.roboflow.com/start/overview/">Inference</a> is an open-source computer vision deployment hub by&nbsp;Roboflow. It has several components that work together. The diagram below shows how they fit together:</p>
+<ul>
+<li class="fragment"><strong><a href="https://inference.roboflow.com/inference_helpers/inference_sdk/">inference-sdk</a></strong>&nbsp;- Lightweight Python client for communicating with the Inference Server.</li>
+<li class="fragment"><strong><a href="https://inference.roboflow.com/inference_helpers/inference_cli/">inference-cli</a></strong>&nbsp;- Command-line tool for managing the Inference Server and running common tasks.</li>
+<li class="fragment"><strong><a href="https://inference.roboflow.com/quickstart/docker/">Inference Server</a></strong>&nbsp;- HTTP server (Docker) that wraps the&nbsp;<code>inference</code>&nbsp;package as a REST API.</li>
+<li class="fragment"><strong><a href="https://inference.roboflow.com/using_inference/about/">inference</a></strong>&nbsp;- Core Python package for model loading, inference, and Workflows execution.</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://inference.roboflow.com/images/img-inference-diagram-v1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="https://inference.roboflow.com/images/img-inference-diagram-v1.png" class="r-stretch quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="features" class="slide level2">
+<h2>Features</h2>
+<ul>
+<li><strong><a href="https://inference.roboflow.com/quickstart/run_a_model">Model Serving</a></strong>&nbsp;- Object detection, classification, segmentation, keypoint detection, OCR, VQA, and more. Supports&nbsp;<a href="https://inference.roboflow.com/quickstart/aliases">pre-trained</a>,&nbsp;<a href="https://roboflow.com/train">fine-tuned</a>, and&nbsp;<a href="https://inference.roboflow.com/foundation/about">foundation</a>&nbsp;models.</li>
+<li><strong><a href="https://inference.roboflow.com/workflows/video_processing/overview">Video Streaming</a></strong>&nbsp;- Efficient&nbsp;<code>InferencePipeline</code>&nbsp;for consuming camera feeds, RTSP streams, and video files with automatic frame management and state tracking.</li>
+<li><strong><a href="https://inference.roboflow.com/understand/features#speed">Speed</a></strong>&nbsp;- Automatic parallelization, hardware acceleration, dynamic batching, and optional TensorRT quantization.</li>
+<li><strong><a href="https://inference.roboflow.com/understand/features#extensibility">Extensibility</a></strong>&nbsp;- Open source (Apache 2.0). Add custom models, Workflow blocks, and backends.</li>
+</ul>
+</section>
+<section id="deploy-anywhere" class="slide level2">
+<h2>Deploy Anywhere<a href="https://inference.roboflow.com/start/overview/#deploy-anywhere">¶</a></h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th><a href="https://docs.roboflow.com/deploy/serverless-hosted-api-v2">Serverless</a></th>
+<th><a href="https://docs.roboflow.com/deploy/dedicated-deployments">Dedicated</a></th>
+<th><a href="https://inference.roboflow.com/install/">Self-Hosted</a></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fine-Tuned &amp; Pre-Trained Models</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>Workflows</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>Foundation Models</td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>Video Streaming</td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>Dynamic Python Blocks</td>
+<td></td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>Runs Offline</td>
+<td></td>
+<td></td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>Billing</td>
+<td>Per-Call</td>
+<td>Hourly</td>
+<td>Free +&nbsp;<a href="https://roboflow.com/pricing">metered</a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Serverless</strong>&nbsp;- Pay-per-Inference, scales to zero. Doesn’t support large&nbsp;<a href="https://inference.roboflow.com/foundation/about">foundation models</a>.</li>
+<li><strong>Dedicated</strong>&nbsp;- Single-tenant VMs with optional GPU. Supports larger foundation models (SAM 2, Florence-2, PaliGemma). Billed hourly.</li>
+<li><strong>Self-Hosted</strong>&nbsp;- Run on your own hardware.&nbsp;<a href="https://inference.roboflow.com/install/">Install guide →</a></li>
+<li><strong>Bring Your Own Cloud</strong>&nbsp;- Self-host on&nbsp;<a href="https://inference.roboflow.com/install/cloud/">AWS, Azure, or GCP</a>&nbsp;for enterprise compliance.</li>
+</ul>
+<p>See: <a href="https://inference.roboflow.com/quickstart/devices/">What Devices Can I Use?</a>.</p>
+</section>
+<section id="inference-alternatives" class="slide level2">
+<h2>Inference: Alternatives</h2>
+<p><a href="https://inference.roboflow.com/understand/alternatives/">Alternatives</a> include:</p>
+<ul>
+<li>Inference Servers
+<ul>
+<li>NVIDIA Triton Inference Server</li>
+<li>Lightning LitServe</li>
+<li>TensorFlow Serving</li>
+<li>TorchServe</li>
+<li>FastAPI or Flask</li>
+</ul></li>
+<li>Workflow Builders
+<ul>
+<li>ComfyUI</li>
+<li>Node-RED</li>
+</ul></li>
+<li>Edge Deployment
+<ul>
+<li>Edge Impulse</li>
+<li>NVIDIA DeepStream</li>
+</ul></li>
+</ul>
+</section>
+<section id="run-a-model-with-inference" class="slide level2 scrollable">
+<h2>Run a model with Inference</h2>
+<p>Let’s run a computer vision model with Inference. There are two ways to do this:</p>
+<ol type="1">
+<li>the&nbsp;<a href="https://inference.roboflow.com/using_inference/about/">inference Python package</a>&nbsp;which loads and runs models directly in your process, or</li>
+<li>the&nbsp;<a href="https://inference.roboflow.com/inference_helpers/inference_sdk/">inference-sdk</a>&nbsp;which sends requests to an&nbsp;<a href="https://inference.roboflow.com/quickstart/docker/">Inference Server</a>&nbsp;over HTTP.</li>
+</ol>
+<p>See: <a href="https://inference.roboflow.com/quickstart/run_a_model/">Run a model</a></p>
+</section>
+<section id="gpu-on-a-drone" class="slide level2">
+<h2>GPU on a Drone?</h2>
+
+<img data-src="../assets/ultralytics/yolo_drone.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="inference-as-a-microservice" class="slide level2 scrollable">
+<h2>Inference as a Microservice</h2>
+<ul>
+<li class="fragment">The most common way to use Inference is as a small part of a larger system.</li>
+<li class="fragment">It’s producing a&nbsp;<code>response</code>&nbsp;that is consumed by downstream code.</li>
+<li class="fragment">This response sometimes represents:
+<ol type="1">
+<li class="fragment">the prediction from a model (for example, a set of&nbsp;<code>Detections</code>&nbsp;containing objects’ categorization, location, and size in an image)</li>
+<li class="fragment">or the result of post-processing logic (like the pass/fail state of an inspection)</li>
+<li class="fragment">or an aggregation (like the count of unique objects seen over the past hour)</li>
+<li class="fragment">or a visualization</li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="image-input">Image Input</h3>
+<p>For image workloads, the input is passed in as a parameter and the response is returned synchronously.</p>
+
+<img data-src="https://inference.roboflow.com/images/architecture/microservice.svg" class="r-stretch quarto-figure quarto-figure-center" alt="Figure: Inference as a Microservice"><p class="caption">Figure: Inference as a Microservice</p><p>Example use-cases:</p>
+<div class="columns">
+<div class="column">
+<ul>
+<li class="fragment">🏷️ Tagging of user-uploaded images to a website</li>
+<li class="fragment">⚙️ Determining if a machine is setup correctly before allowing it to turn on</li>
+<li class="fragment">💊 Counting the number of pills in an image</li>
+</ul>
+</div><div class="column">
+<ul>
+<li class="fragment">🔌 Detecting mismatched wiring in a finished circuit board</li>
+<li class="fragment">📐 Inspecting a manufactured good to ensure it matches the spec</li>
+<li class="fragment">✨ Validating that an object is defect and blemish free</li>
+</ul>
+</div></div>
+</section>
+<section class="slide level2">
+
+<h3 id="video-input">Video Input</h3>
+<p>In the case of video streams, a visual agent (called&nbsp;<a href="https://inference.roboflow.com/workflows/video_processing/overview.md">an&nbsp;<code>InferencePipeline</code></a>) is started and runs in a loop until terminated. Responses are polled or subscribed to by the client application for display or processing.</p>
+
+<img data-src="https://inference.roboflow.com/images/architecture/pipeline.svg" class="r-stretch quarto-figure quarto-figure-center" alt="Figure: InferencePipeline Video Streaming"><p class="caption">Figure: InferencePipeline Video Streaming</p><p>Example use-cases:</p>
+<ul>
+<li>👤 Blurring faces in a video</li>
+</ul>
+</section>
+<section id="inference-as-an-appliance" class="slide level2 scrollable">
+<h2>Inference as an Appliance</h2>
+<p>Inference can also be treated as an autonomous agent that continuously consumes and processes a video stream and performs downstream actions like:</p>
+
+<img data-src="https://inference.roboflow.com/images/architecture/appliance.svg" class="r-stretch quarto-figure quarto-figure-center" alt="Figure: Inference as an Appliance"><p class="caption">Figure: Inference as an Appliance</p><ol type="1">
+<li>updating a database</li>
+<li>sending notifications</li>
+<li>firing webhooks</li>
+<li>or signaling hardware</li>
+</ol>
+<p>In this paradigm, the full logic of the system is defined in a <strong>Workflow</strong> and the output is pushed to external systems.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="example-appliance-use-cases">Example appliance use-cases:</h3>
+<ul>
+<li class="fragment">🛑 Stopping a conveyor belt if a jam has occurred</li>
+<li class="fragment">🛣️ Collecting highway traffic analytics</li>
+<li class="fragment">📹 Flagging suspicious activity in a security camera feed</li>
+<li class="fragment">🚚 Updating an inventory system as vehicles enter or leave a yard</li>
+<li class="fragment">🚨 Sounding an alarm when a scrap heap overflows</li>
+<li class="fragment">⏱️ Cataloguing retail customers’ wait time over the course of a day</li>
+</ul>
+</section>
+<section id="inference-pipeline" class="slide level2 scrollable">
+<h2>Inference Pipeline</h2>
+<ul>
+<li>The Inference Pipeline interface is made for streaming and is likely the best route to go for real time use cases.</li>
+<li>It is an asynchronous interface that can consume many different video sources including:
+<ol type="1">
+<li>local devices (like webcams)</li>
+<li>RTSP video streams</li>
+<li>video files</li>
+</ol>
+<ul>
+<li>..etc.</li>
+</ul></li>
+</ul>
+<p>..With this interface, you define:</p>
+<ol type="1">
+<li>the <strong>source</strong> (of a video stream) and</li>
+<li><a href="https://inference.roboflow.com/using_inference/inference_pipeline/#sinks"><strong>sinks</strong></a></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="how-the-inferencepipeline-works">How the <a href="https://inference.roboflow.com/using_inference/inference_pipeline/#how-the-inferencepipeline-works"><code>InferencePipeline</code></a> works?</h3>
+<p>The <code>InferencePipeline</code> is designed for robust, multi-source video processing, delegating tasks to dedicated threads to maximize throughput and stability.</p>
+
+<img data-src="https://media.roboflow.com/inference/inference-pipeline-diagram.jpg" class="r-stretch quarto-figure quarto-figure-center" alt="Figure: Inference Pipeline"><p class="caption">Figure: Inference Pipeline</p></section>
+<section class="slide level2 scrollable">
+
+<h3 id="video-multiplexer-reading-and-buffering">1.1 Video Multiplexer: Reading and Buffering</h3>
+
+<img data-src="../assets/ultralytics/inference_pipeline_1.png" class="r-stretch quarto-figure-center" alt="Figure: Inference Pipeline"><p class="caption">Figure: Inference Pipeline</p><ul>
+<li class="fragment"><p><strong>Concurrency:</strong> Spawns a separate consumer thread for each video source.</p></li>
+<li class="fragment"><p>For <strong>Stored videos</strong>, it just processes every frame until it is done.</p></li>
+<li class="fragment"><p>For <strong>Live streams</strong>: buffers accumulate frames if the compute budget is strained, ensuring the model can either:</p>
+<ol type="1">
+<li class="fragment">process all frames without dropping any.</li>
+<li class="fragment">skip drops and just the process the most recent ones.</li>
+</ol></li>
+<li class="fragment"><p><strong>Auto-recovery:</strong> video sources will be automatically re-connected once connectivity is lost during processing. That is meant to prevent failures in production environment when the pipeline can run long hours and need to gracefully handle sources downtimes.</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="video-multiplexer-batching">1.2 Video Multiplexer: Batching</h3>
+
+<img data-src="../assets/ultralytics/inference_pipeline_2.png" class="r-stretch quarto-figure-center" alt="Figure: Inference Pipeline"><p class="caption">Figure: Inference Pipeline</p><ul>
+<li class="fragment">Collects incoming data into a <strong>frames batch</strong> based on a <code>batch_collection_timeout</code>.
+<ul>
+<li class="fragment">If a source fails to provide a frame within the timeout, a smaller batch is passed forward.</li>
+<li class="fragment">Any missing frames (and their subsequent predictions) are safely padded with <code>None</code> before reaching the prediction stage.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 scrollable">
+
+<h3 id="processing">2. Processing</h3>
+
+<img data-src="../assets/ultralytics/inference_pipeline_3.png" class="r-stretch quarto-figure-center" alt="Figure: Inference Pipeline"><p class="caption">Figure: Inference Pipeline</p><ol type="1">
+<li class="fragment"><p><strong><code>on_video_frame(...)</code>:</strong> Runs on its own dedicated thread, serving as the execution environment for your AI model.</p></li>
+<li class="fragment"><p><strong><code>on_prediction(...)</code>:</strong> Handles downstream tasks (like visualization) on a separate thread. Controlled by the <code>sink_mode</code> parameter, it can process incoming data in either:</p>
+<ul>
+<li class="fragment"><code>SEQUENTIAL</code> mode: one element at a time or</li>
+<li class="fragment"><code>BATCH</code> mode: all batch elements simultaneously.</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+
+<h3 id="customizing-the-pipeline">Customizing the pipeline</h3>
+<p>See <a href="https://inference.roboflow.com/using_inference/inference_pipeline/">the documentation page: Inference pipeline</a> for more details.</p>
+<p>For post-processing, see section: <a href="https://inference.roboflow.com/using_inference/inference_pipeline/#custom-sink-tutorial">Custom Sink Tutorial</a> on that same page.</p>
+</section>
+<section id="supervision" class="slide level2 scrollable">
+<h2>Supervision</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://supervision.roboflow.com/latest/assets/supervision-lenny.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img data-src="https://supervision.roboflow.com/latest/assets/supervision-lenny.png" class="quarto-figure quarto-figure-center"></a></p>
+</figure>
+</div>
+<p><a href="https://supervision.roboflow.com/latest/">Supervision</a> is an open-source Python library by Roboflow for building computer vision applications. It provides a unified <code>Detections</code> object that works with: YOLO, <a href="https://huggingface.co/docs/transformers">Transformers</a>, SAM, Grounding DINO, and 20+ model frameworks.</p>
+<p>Trusted by researchers (cited in 4,000+ papers) and practitioners (38,000+ GitHub stars, 1M+ monthly PyPI downloads), Supervision is the standard toolkit for production computer vision workflows.</p>
+<p>With Supervision you can:</p>
+<ol type="1">
+<li class="fragment"><em>annotate</em> images and video with bounding <strong>boxes</strong>, <strong>masks</strong>, and <strong>labels</strong>;</li>
+<li class="fragment"><strong>track</strong> objects across frames with persistent IDs;</li>
+<li class="fragment"><strong>count</strong> and <strong>filter</strong> detections inside <strong>polygon zones</strong>;</li>
+<li class="fragment">load and <strong>convert datasets</strong> between YOLO, COCO, and Pascal VOC formats;</li>
+<li class="fragment">..and <strong>benchmark model performance</strong> with mAP and confusion matrices.</li>
+</ol>
+</section>
+<section id="supervision-annotators" class="slide level2">
+<h2>Supervision: Annotators</h2>
+<p><strong>Annotators</strong>: Draw the detections with one of&nbsp;<a href="https://supervision.roboflow.com/latest/detection/annotators/">20 annotators</a>. Click the tabs to see the different annotators and their code:</p>
+<p><span class="r-stretch" data-fig-align="center"><img data-src="../assets/ultralytics/annotators.png"></span>(https://supervision.roboflow.com/latest/detection/annotators/)</p>
+<p>See: <a href="https://roboflow.github.io/cheatsheet-supervision/">Supervision Cheat Sheet</a> (which, btw, contains less than 50% of the features). See <a href="https://supervision.roboflow.com/latest/">docs for all features</a>.</p>
+</section>
+<section id="trackers" class="slide level2">
+<h2>Trackers</h2>
+<p><a href="https://trackers.roboflow.com/latest/">Trackers</a> is a package for clean, modular implementations of leading trackers.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="bikers-and-bikes">Bikers and Bikes</h3>
+<video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://storage.googleapis.com/com-roboflow-marketing/trackers/docs/track-objects-page.mp4"></video>
+</section>
+<section class="slide level2">
+
+<h3 id="mot17">MOT17</h3>
+<p>Pedestrian tracking with crowded scenes and frequent occlusions. Strongly tests re-identification and identity stability.</p>
+<video id="video_shortcode_videojs_video3" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://storage.googleapis.com/com-roboflow-marketing/trackers/docs/datasets/MOT17_MOT17-04-DPM-1280x720.mp4"></video>
+</section>
+<section class="slide level2">
+
+<h3 id="sportsmot">SportsMOT</h3>
+<p>Sports broadcast tracking with fast motion, camera pans, and similar-looking targets. Tests association under speed and appearance ambiguity.</p>
+<video id="video_shortcode_videojs_video4" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://storage.googleapis.com/com-roboflow-marketing/trackers/docs/datasets/SportsMOT_v_-6Os86HzwCs_c001-1280x720.mp4"></video>
+</section>
+<section class="slide level2">
+
+<h3 id="soccernet-tracking">SoccerNet-tracking</h3>
+<p>Long sequences with dense interactions and partial occlusions. Tests long-term ID consistency.</p>
+<video id="video_shortcode_videojs_video5" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://storage.googleapis.com/com-roboflow-marketing/trackers/docs/datasets/SoccerNet-tracking_SNMOT-060-1280x720.mp4"></video>
+</section>
+<section class="slide level2">
+
+<h3 id="when-to-use-each-tracker">When to Use Each Tracker?</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Tracker</strong></th>
+<th><strong>Use Case</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>SORT</strong></td>
+<td>High-speed requirements, unoccluded scenes, and edge devices with tight compute budgets.</td>
+</tr>
+<tr class="even">
+<td><strong>ByteTrack</strong></td>
+<td>Default choice for most apps; scenes with noisy or variable-confidence outputs (sports, aerial, retail).</td>
+</tr>
+<tr class="odd">
+<td><strong>OC-SORT</strong></td>
+<td>Erratic motion, non-linear paths, and fast turns or camera pans.</td>
+</tr>
+<tr class="even">
+<td><strong>BoT-SORT</strong></td>
+<td>Strong camera ego-motion (drones, handheld, sports broadcasts) where identity stability is critical.</td>
+</tr>
+</tbody>
+</table>
+<p>Source: <a href="https://trackers.roboflow.com/latest/trackers/comparison/#when-to-use-each-tracker">When to Use Each Tracker</a>.</p>
+</section>
+<section id="end" class="title-slide slide level1 center">
+<h1>End</h1>
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"},{"title":"Links","icon":"<i class=\"fas fa-link\"></i>","content":"<ul class=\"slide-menu-items\">\n  <li class=\"slide-menu-item\"><a href=\"/W1/\">Python</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W2/\">Applied Data Science</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W3/\">Applied Machine Learning</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W4/\">Agentic AI</a></li>\n  <li class=\"slide-menu-item\"><a href=\"/W5/\">Applied Deep Learning</a></li>\n</ul>\n"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script>videojs(video_shortcode_videojs_video1);</script>
+    <script>videojs(video_shortcode_videojs_video2);</script>
+    <script>videojs(video_shortcode_videojs_video3);</script>
+    <script>videojs(video_shortcode_videojs_video4);</script>
+    <script>videojs(video_shortcode_videojs_video5);</script>
+    <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+    (function() {
+      let previousOnload = window.onload;
+      window.onload = () => {
+        if (previousOnload) {
+          previousOnload();
+        }
+        lightboxQuarto.on('slide_before_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          const href = trigger.getAttribute('href');
+          if (href !== null) {
+            const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+            if (imgEl !== null) {
+              const srcAttr = imgEl.getAttribute("src");
+              if (srcAttr && srcAttr.startsWith("data:")) {
+                slideConfig.href = srcAttr;
+              }
+            }
+          } 
+        });
+      
+        lightboxQuarto.on('slide_after_load', (data) => {
+          const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(slideNode);
+          }
+        });
+      
+      };
+      
+    })();
+              </script>
+    
+
+</body></html>
