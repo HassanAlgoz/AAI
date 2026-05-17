@@ -19,7 +19,7 @@ format:
 | 5 | [Controlling LLM Generation](M1/slides/06_llm_generate.qmd) | [Lab](M1/slides/06_llm_generate_lab.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W5/M1/slides/06_llm_generate_lab.ipynb)) | |
 | 6 | | [Audio Tasks](M1/slides/04_audio_tasks.ipynb) ([♾️](https://colab.research.google.com/github/HassanAlgoz/B5/blob/main/content/W5/M1/slides/04_audio_tasks.ipynb)) | |
 | 7 | [Multi-modal Models](M1/slides/07_mutli-modal.ipynb) |  | |
-| 8 | [Data Curation with Label Studio](M1/slides/08_label_studio.qmd) |  | |
+| 8 |  |  | [Ex1: Data Curation with Label Studio](M1/slides/08_label_studio.qmd) |
 | 9 | [Ultralytics YOLO Computer Vision Models](M1/slides/09_ultralytics.qmd) |  | |
 | 10 | [Software Licenses](M1/slides/10_licensing.qmd) |  | |
 

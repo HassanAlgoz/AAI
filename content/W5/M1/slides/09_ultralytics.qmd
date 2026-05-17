@@ -115,6 +115,8 @@ In the software and AI industry, companies almost always divide their web presen
 
 ## Features
 
+Featres of Inference; The core Python package:
+
 - **[Model Serving](https://inference.roboflow.com/quickstart/run_a_model)** - Object detection, classification, segmentation, keypoint detection, OCR, VQA, and more. Supports [pre-trained](https://inference.roboflow.com/quickstart/aliases), [fine-tuned](https://roboflow.com/train), and [foundation](https://inference.roboflow.com/foundation/about) models.
 - **[Video Streaming](https://inference.roboflow.com/workflows/video_processing/overview)** - Efficient `InferencePipeline` for consuming camera feeds, RTSP streams, and video files with automatic frame management and state tracking.
 - **[Speed](https://inference.roboflow.com/understand/features#speed)** - Automatic parallelization, hardware acceleration, dynamic batching, and optional TensorRT quantization.
@@ -164,10 +166,6 @@ Let's run a computer vision model with Inference. There are two ways to do this:
 2. the [inference-sdk](https://inference.roboflow.com/inference_helpers/inference_sdk/) which sends requests to an [Inference Server](https://inference.roboflow.com/quickstart/docker/) over HTTP.
 
 See: [Run a model](https://inference.roboflow.com/quickstart/run_a_model/)
-
-## GPU on a Drone?
-
-![](../assets/ultralytics/yolo_drone.png){.r-stretch fig-align="center"}
 
 ## Inference as a Microservice
 
@@ -397,5 +395,9 @@ Long sequences with dense interactions and partial occlusions. Tests long-term I
 | **BoT-SORT** | Strong camera ego-motion (drones, handheld, sports broadcasts) where identity stability is critical. |
 
 Source: [When to Use Each Tracker](https://trackers.roboflow.com/latest/trackers/comparison/#when-to-use-each-tracker).
+
+## Drone with a GPU?
+
+![](../assets/ultralytics/yolo_drone.png){.r-stretch fig-align="center"}
 
 # End
