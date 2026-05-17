@@ -1,0 +1,10 @@
+---
+title: "Agentic Engineering"
+mermaid-format: svg
+toc-depth: 2
+format: 
+  html:
+    page-layout: full
+---
+
+- [AI Skills for Real Engineers](./01_agentic_engineering.qmd)

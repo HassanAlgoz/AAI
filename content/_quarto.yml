@@ -11,6 +11,7 @@ project:
     - W3/
     - W4/
     - W5/
+    - W6/
 
 website:
   navbar:
@@ -22,9 +23,11 @@ website:
       - href: W3/
         text: "ML"
       - href: W4/
-        text: "Agentic"
+        text: "Agentic AI"
       - href: W5/
         text: "DL"
+      - href: W6/
+        text: "Agentic Engineering"
   sidebar: 
     style: docked
     search: true
@@ -78,6 +81,7 @@ format:
               <li class="slide-menu-item"><a href="/W3/">Applied Machine Learning</a></li>
               <li class="slide-menu-item"><a href="/W4/">Agentic AI</a></li>
               <li class="slide-menu-item"><a href="/W5/">Applied Deep Learning</a></li>
+              <li class="slide-menu-item"><a href="/W6/">Agentic Engineering</a></li>
             </ul>
 
 number-depth: 1
