@@ -9238,5 +9238,96 @@
     "title": "Ultralytics",
     "section": "Drone with a GPU?",
     "text": "Drone with a GPU?"
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#coding-agents",
+    "href": "W6/01_agentic_engineering.html#coding-agents",
+    "title": "Agentic Engineering",
+    "section": "Coding Agents",
+    "text": "Coding Agents\n\n\nAn agent is an AI system that autonomously plans and executes coding tasks. You give the agent a high-level goal, and it breaks the goal down into steps, executes those steps with tools, and self-corrects when it hits errors.\n\n\n\n\nchat-sessions-view"
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#examples-of-coding-agents",
+    "href": "W6/01_agentic_engineering.html#examples-of-coding-agents",
+    "title": "Agentic Engineering",
+    "section": "Examples of Coding Agents",
+    "text": "Examples of Coding Agents\n\nCursor\nAntigravity\nGitHub Copilot\nClaude Code (most expensive)\nCline (on-prem)"
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#agent-loop",
+    "href": "W6/01_agentic_engineering.html#agent-loop",
+    "title": "Agentic Engineering",
+    "section": "Agent loop",
+    "text": "Agent loop\nThe agent loop typically involves three high-level stages:\n\nUnderstand. The agent reads files, searches the codebase, and looks up documentation to understand what needs to change.\nAct. The agent modifies code, runs terminal commands, installs dependencies, or calls external services through tools.\nValidate. The agent runs tests, checks for compiler errors, and reviews its own changes. If something is wrong, it continues iterating."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#agent-types",
+    "href": "W6/01_agentic_engineering.html#agent-types",
+    "title": "Agentic Engineering",
+    "section": "Agent types",
+    "text": "Agent types\nAgents run in different environments depending on when you need results and how much oversight you want. The two key dimensions are:\n\nwhere the agent runs (your machine or the cloud) and\nhow you interact with it (interactively or autonomously in the background)"
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#system-prompt",
+    "href": "W6/01_agentic_engineering.html#system-prompt",
+    "title": "Agentic Engineering",
+    "section": "System Prompt",
+    "text": "System Prompt\n\nA AGENTS.md file placed at the root, is automatically injected into every chat session. Use when:\nYou work with multiple AI coding agents and want a single set of instructions recognized by all of them\nYou want subfolder-level instructions that apply to specific parts of a monorepo\n\nSee: Tips for writing effective instructions."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#up-to-date-code-docs",
+    "href": "W6/01_agentic_engineering.html#up-to-date-code-docs",
+    "title": "Agentic Engineering",
+    "section": "Up-to-date Code Docs",
+    "text": "Up-to-date Code Docs\nContext7 Platform.\n❌ Without Context7\nLLMs rely on outdated or generic information about the libraries you use. You get:\n\n❌ Code examples are outdated and based on year-old training data\n❌ Hallucinated APIs that don’t even exist\n❌ Generic answers for old package versions\n\n✅ With Context7\nContext7 pulls up-to-date, version-specific documentation and code examples straight from the source — and places them directly into your prompt."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#planning",
+    "href": "W6/01_agentic_engineering.html#planning",
+    "title": "Agentic Engineering",
+    "section": "Planning",
+    "text": "Planning\nVibe Coding: jumping straight into code generation; can lead to incomplete implementations or wrong architectural decisions.\nThe plan agent uses a 4-phase iterative workflow:\n\nDiscovery: research the task using read-only tools and codebase analysis.\nAlignment: ask clarifying questions to resolve ambiguities.\nDesign: draft a structured implementation plan.\nRefinement: iterate on the plan based on your feedback.\n\nThe Plan agent does not make code changes until the plan is reviewed and approved. Once approved, you can hand off the plan to the default agent or save it for further refinement.\nJust type: /plan to switch to planning mode."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#customize-planning",
+    "href": "W6/01_agentic_engineering.html#customize-planning",
+    "title": "Agentic Engineering",
+    "section": "Customize planning",
+    "text": "Customize planning\nYou can tailor the planning process to fit your team’s workflow:\n\nCreate a custom planning agent. Define a custom agent with specific instructions for your planning process, such as enforcing architectural guidelines or requiring specific planning deliverables.\nChoose models for planning and implementation. Use the chat.planAgent.defaultModel setting to select a default model for the plan agent, and github.copilot.chat.implementAgent.model for the implementation step.\nAdd extra tools to the plan agent (experimental). Use the github.copilot.chat.planAgent.additionalTools setting to give the plan agent access to additional tools during the research and planning phases. For example, use an MCP server to connect to internal data sources or tools."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#subagents",
+    "href": "W6/01_agentic_engineering.html#subagents",
+    "title": "Agentic Engineering",
+    "section": "Subagents",
+    "text": "Subagents\nThe built-in Plan agent uses subagents to perform research and analysis before creating an implementation plan. Each subagent works autonomously and returns only its findings.\nKey characteristics of subagents:\n\nContext isolation: each subagent runs in its own context window. It doesn’t inherit the main agent’s conversation history or instructions. It receives only the task prompt.\nSynchronous execution: the main agent waits for subagent results before continuing, because subagent findings typically inform the next step.\nParallel execution: VS Code can spawn multiple subagents in parallel for tasks like analyzing security, performance, and accessibility simultaneously.\nFocused results: only the final result is returned to the main agent, keeping the main context focused and reducing token usage."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#skills",
+    "href": "W6/01_agentic_engineering.html#skills",
+    "title": "Agentic Engineering",
+    "section": "Skills",
+    "text": "Skills\n\nA skill is a prompt retrieved on-demand.\nUnlike AGENTS.md which is preprended at the start of each session.\nExamples:\n\ntdd — Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.\ndiagnose — Disciplined diagnosis loop for hard bugs and performance regressions: reproduce → minimise → hypothesise → instrument → fix → regression-test."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#ai-skills-for-real-engineers",
+    "href": "W6/01_agentic_engineering.html#ai-skills-for-real-engineers",
+    "title": "Agentic Engineering",
+    "section": "AI Skills for Real Engineers",
+    "text": "AI Skills for Real Engineers\n\nPlease continue here: AI Skills for Real Engineers."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#summary",
+    "href": "W6/01_agentic_engineering.html#summary",
+    "title": "Agentic Engineering",
+    "section": "Summary",
+    "text": "Summary\n\nLet the AI ask the questions.\nSpend most time on alignment and planning (10 - 40 minutes sessions).\n\nGlobal docs (ADR / CONTEXT.md)\nCurrent conversation -&gt; PRD\nPRD -&gt; many tasks with dependencies\n\nBe intentional with architecture.\nUse TDD to give immediate feedback loops to agents.\nApply principles from 20-year-old software engineering books to AI."
+  },
+  {
+    "objectID": "W6/index.html",
+    "href": "W6/index.html",
+    "title": "Agentic Engineering",
+    "section": "",
+    "text": "AI Skills for Real Engineers"
   }
 ]
