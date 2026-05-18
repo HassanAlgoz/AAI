@@ -9314,7 +9314,7 @@
     "href": "W6/01_agentic_engineering.html#ai-skills-for-real-engineers",
     "title": "Agentic Engineering",
     "section": "AI Skills for Real Engineers",
-    "text": "AI Skills for Real Engineers\n\nPlease continue here: AI Skills for Real Engineers."
+    "text": "AI Skills for Real Engineers\n\nPlease continue here: AI Skills for Real Engineers.\n\n\n5 Agent Skills I Use Every Day\nMy 7 Phases Of AI Development\nmattpocock/skills: Skills for Real Engineers."
   },
   {
     "objectID": "W6/01_agentic_engineering.html#summary",
@@ -9329,5 +9329,40 @@
     "title": "Agentic Engineering",
     "section": "",
     "text": "AI Skills for Real Engineers"
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#ai-skills-for-real-engineers-by-matt-pocock",
+    "href": "W6/01_agentic_engineering.html#ai-skills-for-real-engineers-by-matt-pocock",
+    "title": "Agentic Engineering",
+    "section": "AI Skills for Real Engineers (by Matt Pocock)",
+    "text": "AI Skills for Real Engineers (by Matt Pocock)\n\nOverview: My 7 Phases Of AI Development.\n\nSpecific: 5 Agent Skills I Use Every Day.\nSkills Repo: mattpocock/skills: Skills for Real Engineers.\n\nDetailed walkthrough: AI Skills for Real Engineers.\n\n\n\nLive Demo:"
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#modular-design-but-not-too-small",
+    "href": "W6/01_agentic_engineering.html#modular-design-but-not-too-small",
+    "title": "Agentic Engineering",
+    "section": "Modular Design (but not too small)",
+    "text": "Modular Design (but not too small)"
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#task-dependencies",
+    "href": "W6/01_agentic_engineering.html#task-dependencies",
+    "title": "Agentic Engineering",
+    "section": "Task Dependencies",
+    "text": "Task Dependencies\nThe skill: to-issues breaks down the PRD into issues, and notes down the dependencies to allow parallel work."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#modular-design",
+    "href": "W6/01_agentic_engineering.html#modular-design",
+    "title": "Agentic Engineering",
+    "section": "Modular Design",
+    "text": "Modular Design\nModules: break down code into units; but:\n\nShallow modules have wide interface and little functionality; consider deepning it.\nBalance depth such that code surface area is easily navigable by humans and AI alike."
+  },
+  {
+    "objectID": "W6/01_agentic_engineering.html#layered-design",
+    "href": "W6/01_agentic_engineering.html#layered-design",
+    "title": "Agentic Engineering",
+    "section": "Layered Design",
+    "text": "Layered Design\n\nLLMs like coding horizontally; this means you cannot test until all code is done from L1 to L3.\nStructure Todos into vertical slices; so the agent can get immediate feedback using TDD."
   }
 ]

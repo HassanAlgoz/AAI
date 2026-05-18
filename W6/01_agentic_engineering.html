@@ -435,11 +435,42 @@
 <span id="cb2-30"><a></a>**"Whisper API failed and crashed UI."**</span>
 <span id="cb2-31"><a></a><span class="at">&gt; Missing </span><span class="in">`try/except`</span><span class="at">. Wrap API call. Log error. Keep Chainlit alive.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ai-skills-for-real-engineers" class="slide level2">
-<h2>AI Skills for Real Engineers</h2>
-<blockquote>
-<p>Please continue here: <a href="https://www.aihero.dev/grill-with-docs">AI Skills for Real Engineers</a>.</p>
-</blockquote>
+<section id="modular-design" class="slide level2">
+<h2>Modular Design</h2>
+<p>Modules: break down code into units; but:</p>
+<ul>
+<li>Shallow modules have wide interface and little functionality; consider deepning it.</li>
+<li>Balance depth such that code surface area is easily navigable by humans and AI alike.</li>
+</ul>
+
+<img data-src="./assets/modular_design.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="layered-design" class="slide level2">
+<h2>Layered Design</h2>
+<ul>
+<li>LLMs like coding horizontally; this means you cannot test until all code is done from L1 to L3.</li>
+<li>Structure Todos into vertical slices; so the agent can get immediate feedback using TDD.</li>
+</ul>
+
+<img data-src="./assets/layered_design.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="task-dependencies" class="slide level2">
+<h2>Task Dependencies</h2>
+<p>The skill: <code>to-issues</code> breaks down the PRD into issues, and notes down the dependencies to allow parallel work.</p>
+
+<img data-src="./assets/task_dependencies.png" class="r-stretch quarto-figure quarto-figure-center"></section>
+<section id="ai-skills-for-real-engineers-by-matt-pocock" class="slide level2">
+<h2>AI Skills for Real Engineers (by Matt Pocock)</h2>
+<ul>
+<li>Overview: <a href="https://www.aihero.dev/my-7-phases-of-ai-development">My 7 Phases Of AI Development</a>.
+<ul>
+<li>Specific: <a href="https://www.aihero.dev/5-agent-skills-i-use-every-day">5 Agent Skills I Use Every Day</a>.</li>
+<li>Skills Repo: <a href="https://github.com/mattpocock/skills">mattpocock/skills</a>: Skills for Real Engineers.
+<ul>
+<li>Detailed walkthrough: <a href="https://www.aihero.dev/grill-with-docs">AI Skills for Real Engineers</a>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Live Demo:</p>
+<iframe data-external="1" src="https://www.youtube.com/embed/-QFHIoCo-Ko" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
