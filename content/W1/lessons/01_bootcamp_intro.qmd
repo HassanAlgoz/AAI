@@ -21,15 +21,6 @@ Tentative schedule:
 4. Phase 2 (end of week 7): progress presentation
 5. Final submission and evaluation (week 8)
 
-## Learning Material
-
-1. **🧬 Slides**: concepts, mental models, connecting ideas, and discussion.
-2. **🔬 Labs**: details, docs, debugging, and what-ifs.
-3. **✍️ Daily Exercises**: guided through step-by-step questions.
-4. **🎯 Weekly Projects**: goal to achieve using learned skills.
-5. **📝 Quiz**: knowledge test.
-6. **💬 Presentation**: express ability to communicate technically.
-
 ## Why Presentations?
 
 - Your success in life depends on three key elements:
