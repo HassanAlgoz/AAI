@@ -28,3 +28,6 @@ TODO
 scratch/
 content/W2/M1/lessons/eur.ipynb
 content/W2/M1/lessons/scratch.ipynb
+
+# Ignore dev-rendered PDF files
+/courses/**/*.pdf
