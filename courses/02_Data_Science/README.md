@@ -1,15 +1,17 @@
 # Data Science
 
-## L1: Motivating Story for Data Science
+Time estimation: 2-3 minute per slide.
+
+## L1: Introducton to Data Science
 
 **Goal**: get to know data science; what it is, where it comes from, what it can be used for, it's processes, and what roles a data scientist can work with in the industry as a professional knowledge worker.
 
-1. [Data Science Motivation: The Cholera Outbreak and John Snow's Investigation](L1/01_story_cholera_outbreak.typ)
-2. [Data Science: Composition, Processes, Roles, and Types of Analysis](L1/02_data_science.typ)
+1. [Data Science Motivation: The Cholera Outbreak and John Snow's Investigation](L1/01_story_cholera_outbreak.typ) (25m)
+2. [Data Science: Composition, Roles, and Analyses](L1/02_data_science.typ) (50 minutes)
 
 **Exercise Sets**:
 
-- [L1.Ex1](L)
+- [L1.Ex1](L1/exset_1/data_science_quiz.md) (30m; 15 questions)
 
 **Links**:
 

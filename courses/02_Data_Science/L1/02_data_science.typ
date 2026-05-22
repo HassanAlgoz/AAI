@@ -13,8 +13,8 @@
     neutral-darkest: text-color
   ),
   config-info(
-    title: [Data Science],
-    subtitle: [Composition, Processes, Roles, and Types of Analysis],
+    title: [Introduction to Data Science],
+    subtitle: [Composition, Roles, and Analyses],
     author: [Hassan Algoz],
     date: datetime.today(),
     institution: [Alsun AI],
@@ -55,7 +55,7 @@
 == Roles in Data Science
 
 #align(center)[
-  #image("/assets/02/ds_intro/DSLC.png", width: 25%)
+  #image("/assets/02/ds_intro/DSLC.png", width: 65%)
 ]
 
 In large orgs these lines are sharp; in startups one person may wear several hats:
@@ -63,30 +63,6 @@ In large orgs these lines are sharp; in startups one person may wear several hat
 - *Data Engineers* — infrastructure: making data available and ready for others. 
 - *Data Analysts* — dashboards: what happened and where we are now?
 - *ML Engineers* — predictive models: what if we change X?
-
-== Processes in Data Science (1/2)
-
-#align(center)[
-  #image("/assets/02/ds_intro/DSLC.png", width: 25%)
-]
-
-
-+ *Collection:* Identifying and gathering raw data from diverse sources (databases, APIs, web scraping, logs). Focus is on acquiring high-quality, relevant raw material.
-  
-+ *Preprocessing:* Cleaning and organizing data. This involves handling missing values, removing duplicates, normalizing formats, and performing feature engineering to make data "machine-readable."
-
-+ *Analysis:* Exploratory Data Analysis (EDA) to uncover patterns, trends, and correlations. Using statistical techniques and visualization to understand the story the data tells.
-
-== Processes in Data Science (2/2)
-
-#align(center)[
-  #image("/assets/02/ds_intro/DSLC.png", width: 25%)
-]
-
-4. *Modeling:* Selecting, training, and tuning _Machine Learning_ algorithms to predict outcomes or classify data. Validation ensures the model performs well on unseen data.
-
-5. *Deployment:* Integrating the model into a production environment where it can process live data, provide automated insights, and deliver value to end-users.
-
 
 = Data Analysis
 
@@ -97,16 +73,47 @@ In large orgs these lines are sharp; in startups one person may wear several hat
   attribution: [Wikipedia]
 )
 
-Two approaches:
+#let bent-edge(from, to, ..args) = {
+  let midpoint = (from, 50%, to)
+  let vertices = (
+    from,
+    (from, "|-", midpoint),
+    (midpoint, "-|", to),
+    to,
+  )
+  edge(..vertices, "-|>", ..args)
+}
+
+#align(center)[
+  #diagram(
+    node-stroke: luma(80%),
+    edge-corner-radius: none,
+    spacing: (10pt, 40pt),
+
+    // Nodes
+    node((2.5,0), [*Data Analysis*], name: <DS>),
+    node((0,2), [*Exploratory*], name: <EDA>),
+    node((2,2), [*Confirmatory*], name: <CDA>),
+    node((4,2), [*Predictive*], name: <PA>),
+    
+    // Edges
+    bent-edge(<DS>, <PA>),
+    bent-edge(<DS>, <EDA>),
+    bent-edge(<DS>, <CDA>),
+  )
+]
+
+Three types of analysis:
 
 + *Exploratory Data Analysis (EDA)*: discover patterns and exceptions.
 + *Confirmatory Data Analysis (CDA)*: test general statements.
++ *Predictive Analytics (PA)*: make informed guesses based on patterns in the data.
 
 == Exploratory Data Analysis (EDA)
 
 *Exploratory Data Analysis (EDA)* is the discovery engine that finds anomalies and patterns that become the foundation for future hypotheses.
 
-_Situation_: You work for a ride-sharing company. The engineering team just handed you the *May 2026 User Ride Logs* (input data) for a newly launched city. You don't have a hypothesis yet; you just feed this raw dataset through your standard EDA script to see what it spits out.
+Example: You work for a ride-sharing company. The engineering team just handed you the *May 2026 User Ride Logs* (input data) for a newly launched city. You don't have a hypothesis yet; you just feed this raw dataset through your standard EDA script to see what it spits out.
 
 == EDA Example 1: Trip Distance
 
@@ -163,9 +170,7 @@ _Situation_: You work for a ride-sharing company. The engineering team just hand
   ],
 )
 
-= Predictive Analytics
-
-== What is Predictive Analytics?
+== Predictive Analytics (PA)
 
 #quote(
   [
@@ -193,35 +198,3 @@ Examples of *present* and *past* events predictions:
   image("/assets/02/ds_intro/predictive_analytics.png"),
   caption: [Predictive analytics],
 )
-
-== Tree Diagram: Main Types of Analysis
-
-#let bent-edge(from, to, ..args) = {
-  let midpoint = (from, 50%, to)
-  let vertices = (
-    from,
-    (from, "|-", midpoint),
-    (midpoint, "-|", to),
-    to,
-  )
-  edge(..vertices, "-|>", ..args)
-}
-
-#align(center)[
-  #diagram(
-    node-stroke: luma(80%),
-    edge-corner-radius: none,
-    spacing: (10pt, 40pt),
-
-    // Nodes
-    node((2.5,0), [*Data Science*], name: <DS>),
-    node((0,2), [*Exploratory*], name: <EDA>),
-    node((2,2), [*Confirmatory*], name: <CDA>),
-    node((4,2), [*Predictive*], name: <PA>),
-    
-    // Edges
-    bent-edge(<DS>, <PA>),
-    bent-edge(<DS>, <EDA>),
-    bent-edge(<DS>, <CDA>),
-  )
-]
