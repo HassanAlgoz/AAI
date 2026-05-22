@@ -6,6 +6,11 @@ watch:
 	# The -o flag is crucial here—it ensures typst watch can still safely take control of your terminal input.
 	fzf | xargs -o typst watch --root .
 
+
+compress:
+	@echo "Compressing PNG assets..."
+	@find assets/ -type f -name '*.png' -print0 | xargs -0 -I{} oxipng -o 4 --strip safe --alpha {}
+
 # Find all .typ files recursively
 SRC_FILES := $(shell find courses/ -name "*.typ")
 
@@ -25,13 +30,3 @@ compile:
 # recompile: Forces compilation of all files
 recompile:
 	@$(MAKE) compile FORCE=1
-
-preview:
-	quarto preview ./content
-
-publish:
-	quarto publish gh-pages ./content --no-render
-
-# restore:
-# 	git restore --staged --worktree content/ old/
-# 	git clean -fd content/ old/
