@@ -34,14 +34,38 @@ def convert_qmd_to_typ(content):
     # 5. Convert Numbered Lists: '1. Item' -> '+ Item'
     content = re.sub(r'^\s*\d+\.\s+', r'+ ', content, flags=re.MULTILINE)
 
-    # 6. Convert Images with optional CSS classes: ![Alt](URL){.class} -> #image("URL")
-    content = re.sub(r'!\[([^\]]*)\]\(([^)]+)\)(?:\{[^}]*\})?', r'#image("\2")', content)
+    # 6. Convert Images with optional CSS classes: ![Alt](URL){.class} -> #figure(image("URL"), caption: [Alt])
+    def image_repl(match):
+        alt = match.group(1).strip()
+        url = match.group(2).strip()
+        if alt:
+            return f'#figure(image("{url}"), caption: [{alt}])'
+        else:
+            return f'#figure(image("{url}"))'
+    content = re.sub(
+        r'!\[([^\]]*)\]\(([^)]+)\)(?:\{[^}]*\})?',
+        image_repl,
+        content
+    )
 
     # 7. Convert Links: [Text](URL) -> #link("URL")[Text]
     content = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'#link("\2")[\1]', content)
 
     # 8. Convert Display Math: $$math$$ -> $ math $
     content = re.sub(r'\$\$(.*?)\$\$', r'$ \1 $', content, flags=re.DOTALL)
+
+    # 9. Convert QMD notes blocks: ::: {.notes} ... :::  -> #speaker-note[ ... ]
+    # Matches blocks that start with ::: {.notes} and end with :::
+    def replace_notes_block(match):
+        block_content = match.group(1).strip()
+        # Remove leading/trailing newlines, preserve inner formatting
+        return f'#speaker-note[\n\n{block_content}\n\n]'
+    content = re.sub(
+        r'::: *\{\.notes\}\s*\n(.*?)\n:::', 
+        replace_notes_block, 
+        content, 
+        flags=re.DOTALL
+    )
 
     return content
 
