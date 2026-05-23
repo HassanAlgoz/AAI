@@ -30,3 +30,14 @@ compile:
 # recompile: Forces compilation of all files
 recompile:
 	@$(MAKE) compile FORCE=1
+
+check:
+	@echo "Running all scripts in scripts/check/..."
+	@for script in scripts/check/*; do \
+		if [ -x "$$script" ]; then \
+			echo "Running $$script..."; \
+			"$$script" || exit 1; \
+		else \
+			echo "Skipping $$script (not executable)"; \
+		fi \
+	done
