@@ -6,6 +6,8 @@ Time estimation: 2-3 minutes per slide.
 
 **Goal**: get to know data science; what it is, where it comes from, what it can be used for, it's processes, and what roles a data scientist can work with in the industry as a professional knowledge worker.
 
+Learning Material:
+
 1. [Data Science Motivation: The Cholera Outbreak and John Snow's Investigation](L1/01_story_cholera_outbreak.typ) (25m)    
     <details><summary>Links to the Story of Broad Stree Pump (London 1854) with John Snow</summary>
      
@@ -26,7 +28,13 @@ Time estimation: 2-3 minutes per slide.
 
 ## L2: Descriptive Statistics
 
-Goal: understand essential statistical terminology, learn how to interpret frequency distributions & their statistical quantities, and how to use Python to describe your data statistically.
+**Goals**:
+
+1. understand essential statistical terminology
+2. learn how to interpret frequency distributions & their statistical quantities
+3. and how to use Python to describe your data statistically
+
+**Learning Material**:
 
 1. [Statistics: Population, Sample, and Variables](L2/01_statistics.pdf) (36m)
 2. [Frequency Distribution](L2/02_frequency_distribution.pdf) (46m)
@@ -45,7 +53,6 @@ Exercises:
 
 
 ## L4: Bivariate Analysis
-
 
 
 References:
