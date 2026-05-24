@@ -1,0 +1,63 @@
+
+### M6-2: Explainable AI
+
+
+::: {.columns}
+
+::: {.column}
+
+Learning outcomes:
+
+1. Show the impact (positive and negative) of features on individual predictions made by the model
+2. Explian the Waterfall Plot as visualized
+3. Rank features by impact
+4. Show features that have infrequently high impact
+5. Interpret a SHAP heatmap
+6. Zoom in on specific features to inspect their impact and support for specific SHAP-values
+
+
+:::
+
+::: {.column}
+
+**Materials:**
+
+- [🔬 Lab: SHAP](M6/lessons/01_lab_shap.ipynb)
+
+:::
+
+:::
+
+
+### M6-3: Data Profiling and Privacy
+
+
+::: {.columns}
+
+::: {.column}
+
+Learning outcomes:
+
+1. Define *data quality profiling* and why it matters
+2. Explain how profiling differs by *data type* (tabular, time-series, text, ...)
+3. Describe how to handle *large datasets* (e.g., sampling)
+4. Use *dataset comparison* to track quality across versions
+5. Understand *data quality alerts* and turn them into next actions
+6. Understand why **Data Privacy** matters
+6. Given a dataset, indentify fields that count as PII directly and indirectly
+7. Given a dataset, apply techniques to protect sensitive data
+
+:::
+
+::: {.column}
+
+
+**Materials**:
+
+1. [🧬 Slides: Data Quality Profiling](M6/lessons/02_slides_data_quality_profiling.qmd)
+2. [🧬 Slides: Sensitive Data](M6/lessons/03_slides_sensitive_data.qmd)
+
+:::
+
+:::
+

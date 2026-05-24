@@ -1,4 +1,4 @@
-# Fundamentals Course
+# C1: Fundamentals of Data Analysis in Python
 
 - The following is a scaffold based on lectures of 60 ± 15 minutes each.
 - Each exercise set is estimated to be completed within 50 ± 10 minutes.

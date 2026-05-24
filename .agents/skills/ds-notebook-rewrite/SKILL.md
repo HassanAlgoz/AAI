@@ -1,0 +1,9 @@
+- Use the OOP API for plotting, and use seaborn sns instead of matplotlib.
+- Break down complex statements with 3 or more consecutive method calls (two dots).
+- Break down complex statements with 3 or more parenthesis (nesting).
+- Add pedagogical comments for a first-timer to learn what statements do, in that context specifically. Avoid generic commentary.
+- Prefer keyword arguments over positional arguments, and whenever the call includes more than 3 values, make it multi-line, with a comment on each argument, explaining what the value set there means.
+- Make the notebook easily navigable from a ToC, by including proper headings and sub-headings.
+- Whenever there is an import of a third-party library, include link to the docs of it.
+- Do `from pathlib import Path` and use it, instead of raw string concatentations.
+- Break down multi-sentence paragraphs into bullet points.

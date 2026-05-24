@@ -1,27 +1,78 @@
-# Data Science
+# C2: Data Science
 
-Time estimation: 2-3 minute per slide.
+Time estimation: 2-3 minutes per slide.
 
 ## L1: Introducton to Data Science
 
 **Goal**: get to know data science; what it is, where it comes from, what it can be used for, it's processes, and what roles a data scientist can work with in the industry as a professional knowledge worker.
 
-1. [Data Science Motivation: The Cholera Outbreak and John Snow's Investigation](L1/01_story_cholera_outbreak.typ) (25m)
-2. [Data Science: Composition, Roles, and Analyses](L1/02_data_science.typ) (50 minutes)
+1. [Data Science Motivation: The Cholera Outbreak and John Snow's Investigation](L1/01_story_cholera_outbreak.typ) (25m)    
+    <details><summary>Links to the Story of Broad Stree Pump (London 1854) with John Snow</summary>
+     
+     - Read Main Article: [1854 Broad Street cholera outbreak](https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak)
+     - Watch YouTube Series: [England: The Broad Street Pump - You Know Nothing, John Snow - Extra History - Part 1](https://www.youtube.com/watch?v=TLpzHHbFrHY&list=PLjLK2cYtt-VCOABKAEJypUSP68GfeBCwz&index=1)
+    </details>
+2. [Data Science: Composition, Roles, and Analyses](L1/02_data_science.typ) (50 minutes)    
+    <details><summary>Links to know more about Data Science Roles</summary>
+
+    - [Your Life As Every Data Scientist Rank](https://youtu.be/hsZDzyET9Yk?si=pqOnBlBM-4BVVLvP) (19m Video)
+    - [The Data Movie | Data Literacy Explained Visually](https://youtu.be/J2rQTJby8XM?si=CHN_dMlY9KuEtA2z) (2hr Video)
+    - [SDAIA Professional Training in the Fields of Data and AI](https://sdaia.gov.sa/ar/MediaCenter/KnowledgeCenter/ResearchLibrary/ProfessionalTrainingInTheFieldsOfDataAi.pdf) (60p Document)
+</details>
 
 **Exercise Sets**:
 
 - [L1.Ex1](L1/exset_1/data_science_quiz.md) (30m; 15 questions)
 
-**Links**:
+## L2: Descriptive Statistics
 
-- Story of Broad Stree Pump (London 1854) with John Snow:
-    - Read Main Article: [1854 Broad Street cholera outbreak](https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak)
-    - Watch YouTube Series: [England: The Broad Street Pump - You Know Nothing, John Snow - Extra History - Part 1](https://www.youtube.com/watch?v=TLpzHHbFrHY&list=PLjLK2cYtt-VCOABKAEJypUSP68GfeBCwz&index=1)
-- Getting to know Data Science Roles and Responsibilities
-    - [Your Life As Every Data Scientist Rank](https://youtu.be/hsZDzyET9Yk?si=pqOnBlBM-4BVVLvP) (Video)
-    - [The Data Movie | Data Literacy Explained Visually](https://youtu.be/J2rQTJby8XM?si=CHN_dMlY9KuEtA2z)
-    - [SDAIA Professional Training in the Fields of Data and AI](https://sdaia.gov.sa/ar/MediaCenter/KnowledgeCenter/ResearchLibrary/ProfessionalTrainingInTheFieldsOfDataAi.pdf) (Document)
-- [Our World in Data](https://ourworldindata.org/) — research and data on global challenges.
+Goal: understand essential statistical terminology, learn how to interpret frequency distributions & their statistical quantities, and how to use Python to describe your data statistically.
 
-## L2:
+1. [Statistics: Population, Sample, and Variables](L2/01_statistics.pdf) (36m)
+2. [Frequency Distribution](L2/02_frequency_distribution.pdf) (46m)
+3. [Lab 1: Descriptive Statistics on Palmer Penguins](L2/03_penguins.ipynb)
+4. [Lab 2: Normal Distribution and Outliers](L2/04_normal_and_outlier.ipynb)
+
+Exercises:
+
+- Interpretation of Distributions:
+  - Comparative IQ-Sex Plot
+  - Comparative NBA Players
+  - Mirror Plot from: https://datasaudi.sa/en
+  - Ridge Plot (y-axis is Time)
+
+## L3: Inferential Statistics
+
+
+## L4: Bivariate Analysis
+
+
+
+References:
+
+1. R4DS Chaper 1 [Data Visualization](https://github.com/hadley/r4ds/blob/main/data-visualize.qmd)
+2. R4DS Chapter 10 Exploratory data analysis
+3. R4DS Chapter 11  Communication
+4. R4DS Chapter 20 Importing data from Spreadsheets
+5. R4DS Chapter 21 Importing data from Databases
+6. IMS Chapter 2: [Study design](https://raw.githubusercontent.com/openintrostat/ims/main/data-design.qmd)
+7. [Pie Charts](https://openintro-ims.netlify.app/explore-categorical#pie-charts)
+8. [Waffle Chart](https://openintro-ims.netlify.app/explore-categorical#waffle-charts)
+9. [Comparing numerical data across groups](https://openintro-ims.netlify.app/explore-categorical#comparing-numerical-data-across-groups)
+
+Visualization Tools:
+
+- `plotnine` is for people coming from `R`
+- `matplotlib` is too low-level
+- `seaborn` is statistical
+- `plotly` has statistical plots, and interactive (HTML + JS via `dash`)
+
+1.  Study design
+2.  Data collection
+
+## References
+
+- [Introduction to Modern Statistics (2e) by Mine Çetinkaya-Rundel and Johanna Hardin](https://openintro-ims.netlify.app/)
+- [R for Data Science (2e) by Hadley Wickham, Mine, and Garrett](https://r4ds.hadley.nz/)
+<!-- - https://www.coursera.org/professional-certificates/google-advanced-data-analytics -->
+<!-- - https://www.kaggle.com/learn/data-visualization -->
