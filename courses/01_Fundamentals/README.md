@@ -47,3 +47,17 @@ Bookmark the following references in your browswer. These are **Handy References
 **Exercise Sets**:
 
 - [L3.Ex1](L3/exset_1/)
+
+## L4: Data Vizualization
+
+1. [Data Visualization](L4/01_viz.ipynb)
+
+**Exercise Sets**:
+
+- [L4.Ex1](L4/exset_1/01_viz/)
+- [L4.Ex2](L4/exset_1/02_viz/)
+
+## Extra
+
+- [Pandas Function Application](Lx/pd_function_application.ipynb)
+- [Pandas Reshape and Pivot](Lx/pd_reshape.ipynb)
