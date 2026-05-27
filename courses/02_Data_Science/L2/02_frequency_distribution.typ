@@ -121,11 +121,13 @@
 == Properties of Distributions
 
 We describe a distribtuion by three properties:
-+ *Central Tendency (التمركز)*: mean, median, mode
-+ *Skewness (الإلتواء)*: skewness
-+ *Dispersion (التشتت)*: variance, standard deviation, range
++ *Measures of Center (مقاييس المركز)*: mean, median, mode
+  + *Skewness (الإلتواء)*: skewness
++ *Measures of Variance (مقاييس التباين)*: variance, standard deviation, range
++ *Measures of Position (مقاييس الموقع)*: percentile, z-score
 
-== Central Tendency
+== Measures of Center
+
 + *Mean (المتوسط)* (a.k.a average): the center of "mass" ($overline(x)$ or $mu$).
 + *Median (الوسيط)*: the middle value when data are ordered.
 + *Mode (المنوال)*: the most frequent value.
@@ -149,7 +151,7 @@ The *skewness (الإلتواء)* statistic is interpreted as follows:
 
 #figure(image("/courses/02_Data_Science/assets/stats/skewness.png", width: 80%), caption: [Skewness])
 
-== Dispersion
+== Measures of Variation
 
 - *Range (المدى)*: the difference between the maximum and minimum values.
 - *Variance (التباين)*: the average of the squared differences from the mean ($sigma^2$).
@@ -180,7 +182,7 @@ In Physics these mathematical quantities indicate:
 
 #figure(image("/courses/02_Data_Science/assets/stats/variance_physical_metaphor.png", width: 65%), caption: [Same mean, different variance.])
 
-== Percentiles
+== Measures of Position: Percentiles
 
 A *Percentile (المئين)* is a value greater than a given percentage of all values in a sample. The *Median (الوسيط)* is the 50th percentile.
 
@@ -243,7 +245,40 @@ The rule is _empirical_ because it is derived from "experienced" observations (d
 
 #figure(image("/courses/02_Data_Science/assets/stats/human_weight_and_height.png", width: 100%), caption: [Two Histograms of Height and Weight of Humans ($n=25000$)])
 
-== Other examples of the empirical rule
+
+== Measures of Position: Z-score
+
+The *z-score* measures the position of a data point as: the number of standard deviations $sigma$ by which a data value differs from the mean $mu$:
+
+$ z = (x - mu) / sigma $
+
+We want to quantify that a person who is 1.85m tall is significantly taller than average. This is how we calculate it:
+
+$ z = (x - mu) / sigma = ("1.89m" - "1.73m") / ("0.048m") = 3.47 $
+
+A z-score of $3.47$ means this person's height is $3.47$ standard deviations *above* the mean. A *significantly high* value compared to the center!
+
+== Z-score Distribution
+
+If we translate all the values of a distribution into z-score values, the shape won't change (since it is a linear transformation) but the scale will change:
+
+#figure(image("/courses/02_Data_Science/assets/stats/in_unit_and_z_score_kde.png", width: 40%), caption: [Z-score Distribution of Human Heights])
+
+== Example 2: Z-score below the mean
+
+Another example: suppose that in a certain neighborhood:
+
+- the mean selling price of a home $mu = dollar"350,000"$
+- the standard deviation, calculated as $sigma = dollar"40,000"$
+- a particular home sells for $x = dollar"270,000"$
+
+How cheap or expensive this house is, compared to the average price in the neighborhood?
+
+$ z = (x - mu) / sigma = (dollar"270,000" - dollar"350,000") / (dollar"40,000") = -(dollar"80,000")/(dollar"40,000") = -2 $
+
+This z-score of $-2$ indicates a signifiance of $2 sigma$ *below* the mean sale price $mu$; a relatively cheap house!
+
+== Other examples of the Normal Distribution
 
 - Physical/Biological Traits:
     - Human *height* and *weight* (within a specific gender/age group).
