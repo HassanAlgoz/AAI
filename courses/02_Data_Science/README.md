@@ -49,10 +49,7 @@ Exercises:
   - Mirror Plot from: https://datasaudi.sa/en
   - Ridge Plot (y-axis is Time)
 
-## L3: Inferential Statistics
-
-
-## L4: Bivariate Analysis
+## L3: Multi-variate Analysis
 
 
 References:

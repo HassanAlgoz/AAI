@@ -1,4 +1,58 @@
+#import "@preview/touying:0.7.3": *
+#import "@preview/curryst:0.5.1" as curryst: rule
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 
+
+#import "/template/theme.typ": *
+
+#show: university-theme.with(
+  config-colors(
+    primary: primary-color,
+    secondary: secondary-color,
+    tertiary: tertiary-color,
+    neutral-darkest: text-color,
+  ),
+  config-info(
+    title: [Statistical Inference],
+    subtitle: [Hypothesis Testing],
+    author: [Hassan Algoz],
+    date: datetime.today(),
+    institution: [Alsun AI],
+  ),
+)
+
+#set heading(numbering: "1.")
+
+#title-slide()
+
+= Confirmatory Data Analysis
+
+== What is CDA?
+
+*EDA (Exploratory Data Analysis)*. It is the open-ended phase: plot everything, summarize everything, let the data surprise you, and write down candidate hypotheses for later.
+
+*CDA (Confirmatory Data Analysis)* is the closed-ended phase: state your hypothesis and analysis plan in advance, collect (or hold out) independent data, run the pre-specified test, and report what you find -- including the things you wish were not true. EDA is for learning; CDA is for proving.
+
+Both terms were coined by John Tukey: "We Need Both Exploratory and Confirmatory" (1980), published in The American Statistician, where he explicitly argued that *the two approaches must work together in a cycle*.
+
+== Hypothesis Testing
+
+See: [Foundations of Inference](https://openintro-ims.netlify.app/foundations-of-inference)
+
+*Hypothesis Testing* is the statistical procedure used to test claims about the data. This data can be from:
+
+1. *Experiments*: studies where the researchers explicitly assign treatments to cases
+    - we generate this data intentionally to test a hypothesis
+2. *Observational Studies*: studies where no treatment has been explicitly applied
+    - we look at past data to see if the hypothesis is supported by the data
+
+== What is Statistical Inference?
+
+*Statistical Inference* is the process of drawing conclusions about a population based on a sample of data.
+
+*Confirmatory Data Analysis (CDA)*, unlike EDA, starts with a claim and uses data to see if the claim is supported by the data or not.
+
+*Hypothesis Testing* is a method of testing claims about the data, and it is also used to quantify uncertainty in the conclusions. It is the primary tool of CDA.
 
 == Example: visual comparison
 
@@ -17,7 +71,6 @@ We can see *overlaps* in the distributions, hence giving us *Definitive Statemen
 
 - *Positive*: "All men are taller than women"
 - *Negative*: "No Player is shorter than the shortest woman"
-
 
 == Example outcome of statistical analysis
 
