@@ -58,9 +58,12 @@ Exercises:
 
 ## L4: Inferential Statistics
 
+1. [Inferential Statistics: Estimating Parameters with Confidence Intervals](L4/01_inferential_statistics.typ)
+2. [Bootstrapping](L4/02_bootstrap.ipynb)
+3. [Hypothesis Testing](L4/03_hypothesis_testing.pdf)
+4. [Power Analysis](L4/04_power_analysis.ipynb)
 
-
-
+Learn more about the: #link("https://youtu.be/Q_pO9NzWxPY?si=nJbx_ruQrBdtK3EC")[One sample t-test vs Independent t-test vs Paired t-test | YouTube video by: numiqo]
 
 [Bootstrapping Main Ideas!!! | StatQuest with Josh Starmer ](https://youtu.be/Xz0x-8-cgaQ?si=k9xH4e8fPvJjEGIq)
 

@@ -120,6 +120,43 @@ The claim "Method A is better than method B." is vague because it does not speci
 $ H_0: mu_"A" = mu_"B" $
 $ H_1: mu_"A" > mu_"B" $
 
+= Hypothesis Testing
+
+== The t-test
+
+A *t-test* is a statistical procedure used to compare the means of two groups to determine if they are significantly *different* (assuming _normal distribution_).
+
+A t-test outputs a *p-value*, which if less than $alpha$, indicates a *statistically significant* difference.
+
+Depending on number of groups, we have three cases...
+
+#pagebreak()
+
+=== One Sample
+
+A comparison against a historic or global value:
+
+- IQ of classroom students vs. national average.
+- Cholesterol levels of patients vs. recommended levels.
+
+=== Paired Samples
+
+Same group measured twice:
+
+- Grip strength — before vs. after eating spinach.
+- Performance — with afternoon nap vs. without.
+
+#pagebreak()
+
+=== Independent Samples
+
++ *Control group*
+  - takes a placebo
+  - uses the current method
++ *Treatment group*
+  - takes the real drug
+  - uses the new method
+
 = Statistical Power
 
 == Type I and Type II errors
@@ -207,31 +244,5 @@ To tie it all together, imagine trying to hear a friend talking to you across a 
 
 - *Effect Size* is how loud your friend is shouting (The Signal).
 - *Variability* is how loud the rest of the party is (The Noise).
-- *Sample Size* is how long you listen, or how good your hearing aids are (The Resolution).
-
-== Power in 1D
-
-== Factors that affect power
-
-1. Effect Size
-2. Sample Size
-3. Variance
-
-#pagebreak()
-
-=== Effect Size
-The larger the effect, the easier it is to detect.
-  - If a new drug extends life by 10 years, that is a massive effect size. If it extends life by 2 days, that is a tiny effect size.
-
-#pagebreak()
-
-=== Sample Size
-_how much data_ you collect.
-  - If you only test 5 people, a few outliers can skew the results. If you test 5,000 people, individual quirks wash out, revealing the true average.
-
-#pagebreak()
-
-=== Variance
-_how spread out_ or messy the data is. High variability creates "noise" that drowns out the effect you are looking for.
-  - Imagine measuring the heights of two groups. If everyone in Group A is exactly 5'0" and everyone in Group B is exactly 5'2" (zero variability), the difference is immediately obvious.
-  - But if both groups contain people ranging from 4'10" to 6'0" (high variability), it becomes incredibly difficult to tell the groups apart on average.
+- *Sample Size* is how long you listen, or how good your hearing aids are.
+- *Significance Level* is how much uncertainty you are willing to tolerate.
