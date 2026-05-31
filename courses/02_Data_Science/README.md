@@ -51,6 +51,18 @@ Exercises:
 
 ## L3: Multi-variate Analysis
 
+1. [Multi-variable Analysis](L3/01_multi-variate_analysis.typ)
+2. [Lab 1: Correlation](L3/02_correlation.ipynb)
+3. [Lab 2: Association](L3/03_association.ipynb)
+4. [Lab 3: Confounders](L3/04_confounders.ipynb)
+
+## L4: Inferential Statistics
+
+
+
+
+
+[Bootstrapping Main Ideas!!! | StatQuest with Josh Starmer ](https://youtu.be/Xz0x-8-cgaQ?si=k9xH4e8fPvJjEGIq)
 
 References:
 
@@ -71,12 +83,11 @@ Visualization Tools:
 - `seaborn` is statistical
 - `plotly` has statistical plots, and interactive (HTML + JS via `dash`)
 
-1.  Study design
-2.  Data collection
-
 ## References
 
 - [Introduction to Modern Statistics (2e) by Mine Çetinkaya-Rundel and Johanna Hardin](https://openintro-ims.netlify.app/)
 - [R for Data Science (2e) by Hadley Wickham, Mine, and Garrett](https://r4ds.hadley.nz/)
+- [H. J. Motulsky, GraphPad Statistics Guide](https://www.graphpad.com/guides/prism/latest/statistics/stat_---_principles_of_statistics_-.htm)
+- [4.8. Power analysis with statsmodels](https://jillxoreilly.github.io/StatsCourseBook_2024/Chapter7_Power/BuiltInPowerCalc.html)
 <!-- - https://www.coursera.org/professional-certificates/google-advanced-data-analytics -->
 <!-- - https://www.kaggle.com/learn/data-visualization -->
