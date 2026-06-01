@@ -27,11 +27,6 @@
 
 = Hypothesis
 
-== Review: Population and Sample
-
-- A *population* is the entire group of interest. A *sample* is a subset of the population.
-- A *parameter* is a numerical summary of a population. A *statistic* is a numerical summary of a sample.
-
 == EDA vs CDA
 
 *EDA (Exploratory Data Analysis)*. It is the open-ended phase: plot everything, summarize everything, let the data surprise you, and write down candidate hypotheses for later.
@@ -126,9 +121,13 @@ $ H_1: mu_"A" > mu_"B" $
 
 A *t-test* is a statistical procedure used to compare the means of two groups to determine if they are significantly *different* (assuming _normal distribution_).
 
-A t-test outputs a *p-value*, which if less than $alpha$, indicates a *statistically significant* difference.
+== Types of t-tests
 
-Depending on number of groups, we have three cases...
+Depending on number of groups, we have three kinds of t-tests:
+
+1. One Sample
+2. Paired Samples
+3. Independent Samples
 
 #pagebreak()
 
@@ -157,13 +156,68 @@ Same group measured twice:
   - takes the real drug
   - uses the new method
 
-= Statistical Power
+== p-value
+
+A t-test outputs a *p-value*; the probability of observing a value as extreme as the one observed, assuming the null hypothesis is true.
+
+$ "p-value" = P(z > z_c | H_0) $
+
+Where $z_c$ is the critical value for the given significance level $alpha$.
+
+- If the p-value is less than $alpha$, we *reject the null hypothesis* and *accept the alternative hypothesis*.
+- Otherwise, we *fail to reject the null hypothesis*.
+
+$ "p-value" & < alpha arrow.r.double "reject" H_0 and "accept" H_a $
+
+== Null Distribution
+
+A null hypothesis is commonly expressed as the difference in means between the treatment and control groups being zero:
+
+$ H_0: mu_"treatment" - mu_"control" = 0 $
+
+By bootstrapping, we can calculate the sampling distribution of $H_0$ and plot it:
+
+#figure(
+  image("/courses/02_Data_Science/assets/stats/null_distribution.png", height: 50%),
+  caption: [Sampling Distribution of $H_0$],
+)
+
+== p-value and Critical Value
+
+The *p-value* is the area under the curve to the right of the critical value:
+
+$ "p-value" = P(z > z_c | H_0) $
+
+#figure(
+  image("/courses/02_Data_Science/assets/stats/null_distribution_critical_value.png", height: 60%),
+  caption: [Sampling Distribution of $H_0$ with the critical value $+z_c$ marked],
+)
+
+== Alternative Distribution
+
+Here the alternative is that the drug is in fact, effective, and the difference is positive (shift right).
+
+$ H_a: mu_"treatment" - mu_"control" > 0 $
+
+#figure(
+  image("/courses/02_Data_Science/assets/stats/alternative_distribution.png", height: 60%),
+  caption: [Sampling Distributions of both $H_0$ and $H_a$],
+)
 
 == Type I and Type II errors
 
-When you make a conclusion about whether an effect is significant, you can be wrong in two ways:
+When you make a conclusion about whether an effect is significant, you can be wrong in two ways: *Type I Error ($alpha$)* and *Type II Error ($beta$)*.
 
-You've made a *Type I Error ($alpha$)* when there really is no difference or relationship overall, but random sampling caused it to show up somehow.
+#figure(
+    image("/courses/02_Data_Science/assets/stats/beta_area.png", height: 75%),
+    caption: [Type I  and Type II Errors ($alpha$ and $beta$)],
+  )
+
+== Type I Error
+
+A *Type I Error ($alpha$)* is one where $H_0$ is true, but observed data shows otherwise. In other words, no real difference or relationship actually exists, but random sampling caused it to show up somehow.
+
+$ alpha = P(z > z_c | H_0) $ 
 
 #columns(2)[
   #figure(
@@ -177,9 +231,11 @@ You've made a *Type I Error ($alpha$)* when there really is no difference or rel
   )
 ]
 
-#pagebreak()
+== Type II Error
 
-You've made a *Type II Error ($beta$)* when there really is a difference or relationship overall, but random sampling caused it to not show up.
+A *Type II Error ($beta$)* is one where $H_a$ is true, but observed data shows otherwise. In other words, a real difference or relationship does exist, but random sampling caused it to not show up.
+
+$ beta = P(z < z_c | H_a) $ 
 
 #columns(2)[
   #figure(
@@ -192,17 +248,23 @@ You've made a *Type II Error ($beta$)* when there really is a difference or rela
   )
 ]
 
-== Definition: Statistical Power
+= Statistical Power
 
-$alpha = P("Type I Error") = P("Reject" H_0 | H_0 "is true")$ 
+== Definition
   
-$beta = P("Type II Error") = P("Fail to Reject" H_0 | H_0 "is false")$  
-  
-*Power* is the probability that your experiment will produce a *p-value* small enough to claim statistical significance, assuming a true effect actually exists.
+*Power ($1 - beta$)* is the probability that your experiment will produce a *p-value* small enough (less than $alpha = 0.05$) to claim statistical significance, assuming a true effect actually exists: $P(z > z_c | H_a)$.
 
-$ "Power" & = P("p-value" < alpha | H_a "is true") \
-          & = P("Reject" H_0 | H_0 "is false") \ 
-          & = 1 - beta $
+#figure(
+  image("/courses/02_Data_Science/assets/stats/power_1_minus_beta.png", height: 55%),
+  caption: [Power is the yellow shaded area under the alternative distribution],
+)
+
+== Factors affecting power
+
+- *Effect Size* is the magnitude of the difference between the two groups.
+- *Variability* is the standard deviation of the data.
+- *Sample Size* is the number of observations in each group.
+- *Significance Level* ($alpha$) is the probability of rejecting the null hypothesis when it is true.
 
 == An analogy to understand statistical power
 
@@ -237,12 +299,3 @@ If he spent a short time looking for a small tool in a messy basement, his concl
 If you use a large sample size looking for a large effect using a system with a small standard deviation, there is a high chance that you would have obtained a "statistically significant effect" if it existed. So you can be quite confident of a conclusion of "no statistically significant effect".
 
 But if you use a small sample size looking for a small effect using a system with a large standard deviation, then the finding of "no statistically significant effect" really isn't very helpful.
-
-== Another Analogy
-
-To tie it all together, imagine trying to hear a friend talking to you across a room:
-
-- *Effect Size* is how loud your friend is shouting (The Signal).
-- *Variability* is how loud the rest of the party is (The Noise).
-- *Sample Size* is how long you listen, or how good your hearing aids are.
-- *Significance Level* is how much uncertainty you are willing to tolerate.

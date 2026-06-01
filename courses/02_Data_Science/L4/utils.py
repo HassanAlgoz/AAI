@@ -1,11 +1,11 @@
 import numpy as np
 
-def bootstraps_mean(data, n_resamples=10000, confidence_level=95, trace=False, return_bootstrap_means=False):
+def bootstraps_mean(data, n_resamples=1000, confidence_level=95, trace=False, return_bootstrap_means=False):
     """Compute a two-sided bootstrap confidence interval of the mean.
 
     Args:
         data (_type_): _description_
-        n_resamples (int, optional): _description_. Defaults to 10000.
+        n_resamples (int, optional): _description_. Defaults to 1000.
         confidence_level (int, optional): _description_. Defaults to 95.
         trace (bool, optional): _description_. Defaults to False.
         return_bootstrap_means (bool, optional): _description_. Defaults to False.
@@ -13,8 +13,8 @@ def bootstraps_mean(data, n_resamples=10000, confidence_level=95, trace=False, r
     Returns:
         _type_: _description_
     """
-    # Sample only 10% at a time for speed
-    n = len(data) // 10
+    # Sample 30 items at a time for speed
+    n = 30
     
     # 1. Bootstrapping (The Algorithm & The Loop)
     # Pre-allocate array for speed
@@ -27,7 +27,7 @@ def bootstraps_mean(data, n_resamples=10000, confidence_level=95, trace=False, r
         bootstrap_means[i] = np.mean(sample)
         if trace:
             if i % (n_resamples // 100) == 0:
-                print(f"Bootstrapped {i} samples...")
+                print(f"The {i}-th sample of size {n} is bootstrapped...")
         
     # 2. Sampling Distribution is now fully populated in 'bootstrap_means'
     if trace:

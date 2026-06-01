@@ -67,6 +67,8 @@ Learn more about the: #link("https://youtu.be/Q_pO9NzWxPY?si=nJbx_ruQrBdtK3EC")[
 
 [Bootstrapping Main Ideas!!! | StatQuest with Josh Starmer ](https://youtu.be/Xz0x-8-cgaQ?si=k9xH4e8fPvJjEGIq)
 
+[Hypothesis Testing explained in 4 parts | Mon Jul 22 2024, retrieved Jun 1 2026](https://statsig.com/blog/hypothesis-testing-explained)
+
 References:
 
 1. R4DS Chaper 1 [Data Visualization](https://github.com/hadley/r4ds/blob/main/data-visualize.qmd)
