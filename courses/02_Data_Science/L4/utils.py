@@ -1,52 +1,83 @@
 import numpy as np
 
-def bootstraps_mean(data, n_resamples=1000, confidence_level=95, trace=False, return_bootstrap_means=False):
-    """Compute a two-sided bootstrap confidence interval of the mean.
+def bootstraps(
+    data,
+    statistic=np.mean,
+    n_resamples=1000,
+    confidence_level=95,
+    n=30,
+    trace=False,
+    return_bootstrap_stats=False,
+):
+    """Compute a two-sided bootstrap confidence interval for a given statistic.
 
     Args:
-        data (_type_): _description_
-        n_resamples (int, optional): _description_. Defaults to 1000.
-        confidence_level (int, optional): _description_. Defaults to 95.
-        trace (bool, optional): _description_. Defaults to False.
-        return_bootstrap_means (bool, optional): _description_. Defaults to False.
+        data: Original 1-D array-like of observations.
+        statistic: Callable applied to each bootstrap sample (e.g. np.mean,
+            lambda x: np.std(x, ddof=1)). Defaults to np.mean.
+        n_resamples: Number of bootstrap resamples to draw. Defaults to 1000.
+        confidence_level: Confidence level as a percentage (e.g. 95). Defaults to 95.
+        n: Size of each bootstrap sample (drawn with replacement). Defaults to 30.
+        trace: When True, prints progress while bootstrapping.
+        return_bootstrap_stats: When True, also returns the full array of
+            per-resample statistics (the sampling distribution).
 
     Returns:
-        _type_: _description_
+        (point_estimate, standard_error, (ci_lower, ci_upper))
+        Or with `bootstrap_stats` appended if `return_bootstrap_stats=True`.
     """
-    # Sample 30 items at a time for speed
-    n = 30
-    
     # 1. Bootstrapping (The Algorithm & The Loop)
     # Pre-allocate array for speed
-    bootstrap_means = np.empty(n_resamples) 
+    bootstrap_stats = np.empty(n_resamples)
     if trace:
         print(f"Bootstrapping {n_resamples} samples...")
     for i in range(n_resamples):
-        # Draw N items with replacement
+        # Draw n items with replacement
         sample = np.random.choice(data, size=n, replace=True)
-        bootstrap_means[i] = np.mean(sample)
+        bootstrap_stats[i] = statistic(sample)
         if trace:
             if i % (n_resamples // 100) == 0:
                 print(f"The {i}-th sample of size {n} is bootstrapped...")
-        
-    # 2. Sampling Distribution is now fully populated in 'bootstrap_means'
+
+    # 2. Sampling Distribution is now fully populated in 'bootstrap_stats'
     if trace:
-        print(f"Sampling Distribution is now fully populated in 'bootstrap_means' with {n_resamples} samples, each of size {n}")
+        print(f"Sampling Distribution is now fully populated in 'bootstrap_stats' with {n_resamples} samples, each of size {n}")
         print("Calculating Standard Error...")
-    
+
     # 3. Standard Error (Standard deviation of the sampling distribution)
     # Using ddof=1 for sample standard deviation
-    standard_error = np.std(bootstrap_means, ddof=1) 
-    
+    standard_error = np.std(bootstrap_stats, ddof=1)
+
     # 4. Confidence Interval (Array bounds via percentiles)
     # For a 95% CI, alpha is 2.5 on each tail
-    alpha = (100 - confidence_level) / 2 
-    ci_lower = np.percentile(bootstrap_means, alpha)
-    ci_upper = np.percentile(bootstrap_means, 100 - alpha)
-    
-    if return_bootstrap_means:
-        return np.mean(bootstrap_means), standard_error, (ci_lower, ci_upper), bootstrap_means
-    return np.mean(bootstrap_means), standard_error, (ci_lower, ci_upper)
+    alpha = (100 - confidence_level) / 2
+    ci_lower = np.percentile(bootstrap_stats, alpha)
+    ci_upper = np.percentile(bootstrap_stats, 100 - alpha)
+
+    point_estimate = np.mean(bootstrap_stats)
+
+    if return_bootstrap_stats:
+        return point_estimate, standard_error, (ci_lower, ci_upper), bootstrap_stats
+    return point_estimate, standard_error, (ci_lower, ci_upper)
+
+
+def bootstraps_mean(data, **kwargs):
+    """Bootstrap CI for the population mean. See `bootstraps` for kwargs."""
+    return bootstraps(data, statistic=np.mean, **kwargs)
+
+
+def bootstraps_std(data, **kwargs):
+    """Bootstrap CI for the population standard deviation (ddof=1)."""
+    return bootstraps(data, statistic=lambda x: np.std(x, ddof=1), **kwargs)
+
+
+def bootstraps_proportion(data, **kwargs):
+    """Bootstrap CI for a population proportion.
+
+    `data` should be binary (0/1 or boolean). The proportion is the mean of
+    the binary indicator.
+    """
+    return bootstraps(data, statistic=np.mean, **kwargs)
 
 def calculate_cohens_d(*groups, popmean=None):
     """

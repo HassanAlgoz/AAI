@@ -38,7 +38,7 @@ Learning Material:
 
 1. [Statistics: Population, Sample, and Variables](L2/01_statistics.pdf) (36m)
 2. [Frequency Distribution](L2/02_frequency_distribution.pdf) (46m)
-3. [Lab 1: Descriptive Statistics on Palmer Penguins](L2/03_penguins.ipynb)
+3. [Lab 1: Descriptive Statistics on Palmer Penguins](L2/03_displot.ipynb)
 4. [Lab 2: Normal Distribution and Outliers](L2/04_normal_and_outlier.ipynb)
 
 Exercises:
@@ -51,12 +51,20 @@ Exercises:
 
 ## L3: Multi-variate Analysis
 
+**Goal**: learn to explore relationships between variables and be aware that correlation does not imply causation.
+
+**Learning Material**:
+
 1. [Multi-variable Analysis](L3/01_multi-variate_analysis.typ)
 2. [Lab 1: Correlation](L3/02_correlation.ipynb)
 3. [Lab 2: Association](L3/03_association.ipynb)
 4. [Lab 3: Confounders](L3/04_confounders.ipynb)
 
 ## L4: Inferential Statistics
+
+**Goal**: learn how to systematically generalize results from drawn samples on target population.
+
+**Learning Material**:
 
 1. [Inferential Statistics: Estimating Parameters with Confidence Intervals](L4/01_inferential_statistics.typ)
 2. [Bootstrapping](L4/02_bootstrap.ipynb)

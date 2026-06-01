@@ -1,7 +1,7 @@
 # C1: Fundamentals of Data Analysis in Python
 
-- The following is a scaffold based on lectures of 60 ± 15 minutes each.
-- Each exercise set is estimated to be completed within 50 ± 10 minutes.
+- The following is a scaffold based on lectures of: 60 ± 15 minutes each.
+- Each exercise set is estimated to be completed in: 45 ± 15 minutes (30m - 1hr).
 
 ## Bookmarks you will need
 
