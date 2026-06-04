@@ -13,51 +13,53 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## L1: Filtering, Sorting, and Aggregation
 
-**Goal**: learn how to load, read data from, and calculate using DataFrames.
+**Goal**: learn how to read/write files to manipulate tabular data structures.
 
-1. [Pandas' I/O](L1/01_pandas_io.ipynb)
-2. [DataFrame: Selecting a Subset](L1/02_select.ipynb)
-3. [DataFrames: Creation and Modification](L1/03_df_creation_modification.ipynb)
-4. [DataFrames: Aggregation](L1/04_aggregate.ipynb)
+1. [Pandas' I/O](L1/01_pandas_io.ipynb) (~14m)
+2. [DataFrame: Selecting a Subset](L1/02_select.ipynb) (~23m)
+3. [DataFrames: Creation and Modification](L1/03_df_creation_modification.ipynb) (~18m)
+4. [DataFrames: Aggregation](L1/04_aggregate.ipynb) (~11m)
+5. [The Art of Reading Docs: How to read documentation like a Data Scientist](L1/the_art_of_reading_docs.md) (~23m)
 
 **Exercise Sets**:
 
-- [L1.Ex1](L1/exset_1/)
-- [L1.Ex2](L1/exset_2/)
+- [L1.Ex1](L1/exset_1/) (~43m)
+- [L1.Ex2](L1/exset_2/) (~25m)
 
 ## L2: Data Wrangling
 
-**Goal**: learn how to create, modify, delete, rename, and combine columns.
+**Goal**: learn how to create, modify, delete, rename, and combine columns and rows.
 
-1. [DataFrame: Creating and modifying columns](L2/01_modify.ipynb)
-2. [DataFrame: Combining through Concat and Merge](L2/02_combine.ipynb)
+1. [DataFrame: Creating and modifying columns](L2/01_modify.ipynb) (~16m)
+2. [DataFrame: Combining through Concat and Merge](L2/02_combine.ipynb) (~13m)
 
 **Exercise Sets**:
 
-- [L1.Ex3](L1/exset_3/)
-- [L2.Ex1](L2/exset_1/)
+- [L1.Ex3](L1/exset_3/) (~45m)
+- [L2.Ex1](L2/exset_1/) (~22m)
 
 ## L3: Timeseries Analysis
 
 **Goal**: learn to analyze data associated with points in time.
 
-1. [Example 1: Analysis of US Census Data (2010 - 2019)](L3/01_us_census.ipynb) (~35 minutes)
-2. [Example 2: Temperature in Riyadh](L3/02_riyadh_temperature.ipynb) (~25 minutes)
+1. [Example 1: Analysis of US Census Data (2010 - 2019)](L3/01_us_census.ipynb) (~39m)
+2. [Example 2: Temperature in Riyadh](L3/02_riyadh_temperature.ipynb) (~28m)
+3. [Example 3: Trips](L3/03_trips.ipynb) (~46m)
 
 **Exercise Sets**:
 
-- [L3.Ex1](L3/exset_1/)
+- [L3.Ex1](L3/exset_1/) (~29m)
 
 ## L4: Data Vizualization
 
-1. [Data Visualization](L4/01_viz.ipynb)
+1. [Data Visualization](L4/01_viz.ipynb) (~34m)
 
 **Exercise Sets**:
 
-- [L4.Ex1](L4/exset_1/01_viz/)
-- [L4.Ex2](L4/exset_1/02_viz/)
+- [L4.Ex1](L4/exset_1/01_viz/) (~14m)
+- [L4.Ex2](L4/exset_1/02_viz/) (~19m)
 
 ## Extra
 
-- [Pandas Function Application](Lx/pd_function_application.ipynb)
-- [Pandas Reshape and Pivot](Lx/pd_reshape.ipynb)
+- [Pandas Function Application](Lx/pd_function_application.ipynb) (~14m)
+- [Pandas Reshape and Pivot](Lx/pd_reshape.ipynb) (~19m)

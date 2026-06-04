@@ -1,11 +1,11 @@
 # Course: Terminal
 
-- L0 [Terminal: Motivation](L1/01_motivation.md) (15m)
-- L1 [Moving Aronud](L1/02_moving_around.md) (20m)
-- L2 [Commands Grammar](L2/01_commands_grammar.md) (20m)
-- L3 [Version Control](L3/01_version_control.md)  (45m)
-- L4 [Command Runners](L4/01_command_runners.md) (30m)
-- L5 [Client for URLs: `curl`](L5/01_curl.md) (50m)
+- L0 [Terminal: Motivation](L1/01_motivation.md) (~6m)
+- L1 [Moving Aronud](L1/02_moving_around.md) (~11m)
+- L2 [Commands Grammar](L2/01_commands_grammar.md) (~7m)
+- L3 [Version Control](L3/01_version_control.md) (~14m)
+- L4 [Command Runners](L4/01_command_runners.md) (~11m)
+- L5 [Client for URLs: `curl`](L5/01_curl.md) (~17m)
 
 ### Tools
 
