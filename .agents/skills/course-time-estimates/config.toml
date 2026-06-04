@@ -1,0 +1,48 @@
+# Configuration for the `course-time-estimates` skill.
+#
+# Lives next to SKILL.md so the skill is self-contained. These are the
+# estimation parameters used by the report-only scripts under `scripts/`.
+# Edit the numbers here to retune time estimates without touching any
+# Python code.
+#
+# - Values left out of this file fall back to the built-in defaults shown
+#   below (the defaults live in `content_model.py`).
+# - Command-line flags (e.g. `--prose-wpm`, `--code-sec`, `--task-sec`) still
+#   override these values for a single run.
+# - Point the scripts at a different file with the
+#   COURSE_TIME_ESTIMATES_CONFIG environment variable.
+#
+# Changing these affects every estimate, so retune against the calibration
+# anchors noted below rather than guessing.
+
+# Lesson reading model (.ipynb / .md / .txt / .typ):
+#   setup_min + prose/wpm + code_lines*code_sec + output_lines*out_sec
+#             + images*img_sec + slides*slide_sec
+# Anchored to the L3 census / Riyadh notebooks; .typ slide pricing anchored to
+# `01_story_cholera_outbreak.typ` (~25m).
+[reading]
+# Fixed warm-up cost per lesson (opening the file, orienting), in minutes.
+setup_min = 3.0
+# Prose reading speed, in words per minute.
+prose_wpm = 200.0
+# Time to read/understand one non-blank line of code, in seconds.
+code_sec_per_line = 8.6
+# Time to scan one non-blank line of cell output, in seconds.
+output_sec_per_line = 2.5
+# Time to look at one rendered image/plot, in seconds.
+image_sec = 18.0
+# Time per slide for .typ decks (title slide + headings + page breaks), seconds.
+slide_sec = 105.0
+# Max output lines counted per code cell (caps huge dumps), as a line count.
+output_line_cap = 40
+
+# Exercise-set model (exset_* dirs / Ex* links):
+#   setup_min + prose/wpm + tasks*task_sec
+# Anchored to Data Wrangling `exset_1` (~45m, ~35 tasks).
+[exercise]
+# Fixed warm-up cost per exercise set, in minutes.
+setup_min = 5.0
+# Prose reading speed for exercise instructions, in words per minute.
+prose_wpm = 200.0
+# Time to complete one task (one code cell the learner fills in), in seconds.
+task_sec = 60.0

@@ -79,7 +79,7 @@ Defaults: 3m setup, 200 wpm, 8.6 s/code line, 2.5 s/output line, 18 s/image, 105
 **Exercises:** `setup_min` + prose/wpm + tasks×task_sec  
 Defaults: 5m setup per set, 200 wpm, 60 s per code cell (task). Anchored to Data Wrangling `exset_1` (~45m).
 
-Override via script flags (`--setup-min`, `--code-sec`, `--task-sec`, etc.) when the user requests retuning.
+**Where the numbers live:** All parameters are config, not code, in `config.toml` next to this `SKILL.md` (`[reading]` and `[exercise]` sections, with inline comments). Edit that file to retune persistently; the scripts fall back to built-in defaults if a key or the file is missing. Point at another file with the `COURSE_TIME_ESTIMATES_CONFIG` env var. Override for a single run via script flags (`--setup-min`, `--code-sec`, `--task-sec`, etc.).
 
 ## Agent edit checklist
 

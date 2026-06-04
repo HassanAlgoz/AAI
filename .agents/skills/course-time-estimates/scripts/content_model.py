@@ -3,17 +3,76 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
+import tomllib
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-SETUP_MIN = 3.0
-PROSE_WPM = 200.0
-CODE_SEC_PER_LINE = 8.6
-OUTPUT_SEC_PER_LINE = 2.5
-IMAGE_SEC = 18.0
-SLIDE_SEC = 105.0
-OUTPUT_LINE_CAP = 40
+# --- Estimation parameters -------------------------------------------------
+# The numbers below are tunable config, not code. They are read from the
+# skill's own `config.toml` (kept next to SKILL.md so the skill is
+# self-contained) and fall back to the defaults declared here when the file
+# (or a key) is absent. Point the loader at another file with the
+# COURSE_TIME_ESTIMATES_CONFIG env var.
+#
+# The skill root is one level up: scripts -> course-time-estimates.
+_SKILL_ROOT = Path(__file__).resolve().parents[1]
+_CONFIG_FILENAME = "config.toml"
+
+_DEFAULTS: dict[str, dict[str, float]] = {
+    "reading": {
+        "setup_min": 3.0,
+        "prose_wpm": 200.0,
+        "code_sec_per_line": 8.6,
+        "output_sec_per_line": 2.5,
+        "image_sec": 18.0,
+        "slide_sec": 105.0,
+        "output_line_cap": 40,
+    },
+    "exercise": {
+        "setup_min": 5.0,
+        "prose_wpm": 200.0,
+        "task_sec": 60.0,
+    },
+}
+
+
+def _config_path() -> Path:
+    override = os.environ.get("COURSE_TIME_ESTIMATES_CONFIG")
+    if override:
+        return Path(override).expanduser()
+    return _SKILL_ROOT / _CONFIG_FILENAME
+
+
+def load_config() -> dict[str, dict[str, float]]:
+    """Return parameters, overlaying the skill's config.toml on the defaults."""
+    cfg = {section: dict(values) for section, values in _DEFAULTS.items()}
+    path = _config_path()
+    if path.is_file():
+        with path.open("rb") as fh:
+            data = tomllib.load(fh)
+        for section, values in data.items():
+            if section in cfg and isinstance(values, dict):
+                cfg[section].update(values)
+    return cfg
+
+
+_CONFIG = load_config()
+_READING = _CONFIG["reading"]
+_EXERCISE = _CONFIG["exercise"]
+
+SETUP_MIN = float(_READING["setup_min"])
+PROSE_WPM = float(_READING["prose_wpm"])
+CODE_SEC_PER_LINE = float(_READING["code_sec_per_line"])
+OUTPUT_SEC_PER_LINE = float(_READING["output_sec_per_line"])
+IMAGE_SEC = float(_READING["image_sec"])
+SLIDE_SEC = float(_READING["slide_sec"])
+OUTPUT_LINE_CAP = int(_READING["output_line_cap"])
+
+EXSET_SETUP_MIN = float(_EXERCISE["setup_min"])
+EXSET_PROSE_WPM = float(_EXERCISE["prose_wpm"])
+TASK_SEC = float(_EXERCISE["task_sec"])
 
 NOTEBOOK_SUFFIXES = {".ipynb"}
 TEXT_SUFFIXES = {".md", ".txt"}
@@ -25,6 +84,20 @@ FENCE_RE = re.compile(
     re.DOTALL | re.MULTILINE,
 )
 LINK_RE = re.compile(r"\[(?P<text>[^\]]+)\]\((?P<target>[^)]+)\)")
+
+# In-lesson exercise / "try it" sections embedded inside a lecture's markdown.
+# A section starts at an ATX heading whose title matches EXERCISE_HEADING_RE and
+# runs until the next heading of the same or higher level (or EOF). These are
+# priced as hands-on exercises, not reading, and excluded from lecture prose.
+ATX_HEADING_RE = re.compile(r"^(#{1,6})[ \t]+(.*?)[ \t]*#*[ \t]*$", re.MULTILINE)
+EXERCISE_HEADING_RE = re.compile(
+    r"(?i)\b("
+    r"exercises?|try\s*it|try\s*this|try:|hands[\s-]*on|challenge|"
+    r"your\s+turn|practice|do\s+it\s+yourself|workshop|lab\s*exercise"
+    r")\b"
+)
+STEP_HEADING_RE = re.compile(r"(?im)^[ \t]*#{1,6}[ \t]*step\b")
+NUMBERED_ITEM_RE = re.compile(r"(?m)^[ \t]*\d+[.)][ \t]+\S")
 
 # Typst slide decks (Touying): a frame is the title slide, each heading
 # (`=` / `==`), and each explicit `#pagebreak()`. Reveal steps (`#pause`,
