@@ -14,3 +14,9 @@ dependencies = [
     "seaborn>=0.13.2",
     "statsmodels>=0.14.6",
 ]
+
+[dependency-groups]
+dev = [
+    "nbclient>=0.10.4",
+    "nbformat>=5.10.4",
+]

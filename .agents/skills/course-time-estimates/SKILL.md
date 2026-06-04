@@ -36,7 +36,7 @@ Execute only the steps the user asks for.
 1. Run `estimate_reading_time.py --course courses/<Course> [--json]`.
 2. For each linked lesson, add or refresh **`(~Xm)`** immediately after the markdown link.
 3. **If a time is already present** and the user did not ask to refresh, leave it unless the new estimate differs by more than ~20% (then mention the delta and ask, or refresh if they said “update all”).
-4. Skip external URLs and non-countable targets (`.pdf`, `.typ`, directories). Report those as “manual estimate needed”.
+4. `.typ` slide decks (Touying) ARE estimated (slides + prose + images). Skip external URLs and remaining non-countable targets (`.pdf`, directories). Report those as “manual estimate needed”.
 5. Preserve existing README structure, numbering, and wording.
 
 **Annotation format:** `[Lesson title](path/to/lesson.ipynb) (~14m)`
@@ -73,8 +73,8 @@ Data Wrangling: lessons ~187m + exercises ~210m => ~6hr 37m (suggest ~6–7hr in
 
 ## Models (do not change without recalibration)
 
-**Reading (lessons):** `setup_min` + prose/wpm + code_lines×code_sec + output_lines×out_sec + images×img_sec  
-Defaults: 3m setup, 200 wpm, 8.6 s/code line, 2.5 s/output line, 18 s/image. Anchored to L3 census/Riyadh notebooks.
+**Reading (lessons):** `setup_min` + prose/wpm + code_lines×code_sec + output_lines×out_sec + images×img_sec + slides×slide_sec  
+Defaults: 3m setup, 200 wpm, 8.6 s/code line, 2.5 s/output line, 18 s/image, 105 s/slide. Notebook/markdown lessons anchored to L3 census/Riyadh notebooks; `.typ` slide pricing anchored to `01_story_cholera_outbreak.typ` (~25m). For `.typ`, slides = title slide + headings (`=`/`==`) + `#pagebreak()`; tune with `--slide-sec`.
 
 **Exercises:** `setup_min` + prose/wpm + tasks×task_sec  
 Defaults: 5m setup per set, 200 wpm, 60 s per code cell (task). Anchored to Data Wrangling `exset_1` (~45m).
@@ -93,6 +93,7 @@ Override via script flags (`--setup-min`, `--code-sec`, `--task-sec`, etc.) when
 
 ## Limitations
 
-- `.pdf` / `.typ` / slides: not analyzed; keep or set human estimates.
+- `.pdf` / external slides: not analyzed; keep or set human estimates.
+- `.typ` slide decks ARE analyzed (slide count + prose + images). Heuristic Typst parsing: reveal steps (`#pause`, `#colbreak`) are not separate slides; quoted strings (paths/URLs) and function calls are stripped from prose, so unusual macros may over- or under-count slightly.
 - Empty or missing linked files: report `skip (missing)`; do not invent times.
 - Exercise model counts **all** code cells in exset notebooks as tasks (including empty stubs).

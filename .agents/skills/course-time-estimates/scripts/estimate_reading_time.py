@@ -6,7 +6,12 @@ computes deterministic numbers from content structure.
 
 Model (seconds, then ceil to minutes):
 
-    setup_min + prose/wpm + code_lines*code_sec + output_lines*out_sec + images*img_sec
+    setup_min + prose/wpm + code_lines*code_sec + output_lines*out_sec
+              + images*img_sec + slides*slide_sec
+
+Notebooks (.ipynb) and markdown (.md/.txt) use prose/code/output/images.
+Typst decks (.typ) are priced as slides: title slide + headings + page
+breaks, plus their prose and images.
 
 Examples:
 
@@ -33,6 +38,7 @@ from content_model import (
     CODE_SEC_PER_LINE,
     OUTPUT_SEC_PER_LINE,
     IMAGE_SEC,
+    SLIDE_SEC,
     analyze_path,
     discover_lesson_links,
     estimate_minutes,
@@ -72,6 +78,7 @@ def build_rates(args: argparse.Namespace) -> dict:
         code_sec=args.code_sec,
         out_sec=args.out_sec,
         img_sec=args.img_sec,
+        slide_sec=args.slide_sec,
     )
 
 
@@ -87,6 +94,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--code-sec", type=float, default=CODE_SEC_PER_LINE)
     parser.add_argument("--out-sec", type=float, default=OUTPUT_SEC_PER_LINE)
     parser.add_argument("--img-sec", type=float, default=IMAGE_SEC)
+    parser.add_argument("--slide-sec", type=float, default=SLIDE_SEC,
+                        help="per-slide cost for .typ decks (title slide + headings + pagebreaks)")
     args = parser.parse_args(argv)
 
     if not args.paths and args.course is None:
@@ -123,11 +132,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     width = max(len(r["target"]) for r in results)
-    print(f"{'lesson'.ljust(width)}  {'prose':>5} {'code':>4} {'out':>4} {'img':>3}  {'est':>5}")
+    print(f"{'lesson'.ljust(width)}  {'prose':>5} {'code':>4} {'out':>4} {'img':>3} {'sld':>3}  {'est':>5}")
     for r in results:
         f = r["features"]
         print(f"{r['target'].ljust(width)}  {f['prose_words']:>5} {f['code_lines']:>4} "
-              f"{f['output_lines']:>4} {f['images']:>3}  {'~' + str(r['minutes']) + 'm':>5}")
+              f"{f['output_lines']:>4} {f['images']:>3} {f['slides']:>3}  {'~' + str(r['minutes']) + 'm':>5}")
     print(f"\nTOTAL (lessons only): ~{total}m")
     return 0
 

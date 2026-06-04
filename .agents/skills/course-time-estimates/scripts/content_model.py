@@ -12,17 +12,31 @@ PROSE_WPM = 200.0
 CODE_SEC_PER_LINE = 8.6
 OUTPUT_SEC_PER_LINE = 2.5
 IMAGE_SEC = 18.0
+SLIDE_SEC = 105.0
 OUTPUT_LINE_CAP = 40
 
 NOTEBOOK_SUFFIXES = {".ipynb"}
 TEXT_SUFFIXES = {".md", ".txt"}
-COUNTABLE_SUFFIXES = NOTEBOOK_SUFFIXES | TEXT_SUFFIXES
+TYPST_SUFFIXES = {".typ"}
+COUNTABLE_SUFFIXES = NOTEBOOK_SUFFIXES | TEXT_SUFFIXES | TYPST_SUFFIXES
 
 FENCE_RE = re.compile(
     r"^[ \t]*(`{3,}|~{3,}).*?\n(.*?)^[ \t]*\1[ \t]*$",
     re.DOTALL | re.MULTILINE,
 )
 LINK_RE = re.compile(r"\[(?P<text>[^\]]+)\]\((?P<target>[^)]+)\)")
+
+# Typst slide decks (Touying): a frame is the title slide, each heading
+# (`=` / `==`), and each explicit `#pagebreak()`. Reveal steps (`#pause`,
+# `#colbreak`) stay on the same frame and are not counted as new slides.
+TYPST_HEADING_RE = re.compile(r"^\s*=+\s+\S", re.MULTILINE)
+TYPST_TITLE_SLIDE_RE = re.compile(r"#title-slide\(\)")
+TYPST_PAGEBREAK_RE = re.compile(r"#pagebreak\(\)")
+TYPST_IMAGE_RE = re.compile(r"\bimage\s*\(")
+TYPST_MATH_RE = re.compile(r"\$[^$]*\$", re.DOTALL)
+TYPST_STRING_RE = re.compile(r'"[^"]*"')
+TYPST_FUNC_RE = re.compile(r"#[A-Za-z][\w-]*")
+TYPST_MARKUP_RE = re.compile(r"[#*_=+\-\[\](){}|<>]")
 
 
 @dataclass
@@ -31,6 +45,7 @@ class Features:
     code_lines: int = 0
     output_lines: int = 0
     images: int = 0
+    slides: int = 0
 
     def seconds(self, **rates) -> float:
         setup_min = rates.get("setup_min", SETUP_MIN)
@@ -38,12 +53,14 @@ class Features:
         code_sec = rates.get("code_sec", CODE_SEC_PER_LINE)
         out_sec = rates.get("out_sec", OUTPUT_SEC_PER_LINE)
         img_sec = rates.get("img_sec", IMAGE_SEC)
+        slide_sec = rates.get("slide_sec", SLIDE_SEC)
         return (
             setup_min * 60.0
             + self.prose_words / prose_wpm * 60.0
             + self.code_lines * code_sec
             + self.output_lines * out_sec
             + self.images * img_sec
+            + self.slides * slide_sec
         )
 
     def to_dict(self) -> dict:
@@ -89,10 +106,37 @@ def analyze_markdown_text(text: str) -> Features:
     return f
 
 
+def analyze_typst_text(text: str) -> Features:
+    """Treat a Typst (Touying) source as a slide deck.
+
+    Frames = title slide + headings + explicit page breaks. Prose is the
+    readable text left after dropping the import/config preamble and
+    stripping markup, function calls, math, and quoted strings (paths/URLs).
+    """
+    f = Features()
+    f.images = len(TYPST_IMAGE_RE.findall(text))
+    f.slides = (
+        len(TYPST_TITLE_SLIDE_RE.findall(text))
+        + len(TYPST_HEADING_RE.findall(text))
+        + len(TYPST_PAGEBREAK_RE.findall(text))
+    )
+
+    first_heading = TYPST_HEADING_RE.search(text)
+    body = text[first_heading.start():] if first_heading else text
+    body = TYPST_MATH_RE.sub(" ", body)
+    body = TYPST_STRING_RE.sub(" ", body)
+    body = TYPST_FUNC_RE.sub(" ", body)
+    body = TYPST_MARKUP_RE.sub(" ", body)
+    f.prose_words = len(body.split())
+    return f
+
+
 def analyze_path(path: Path) -> Features:
     text = path.read_text(encoding="utf-8")
     if path.suffix in NOTEBOOK_SUFFIXES:
         return analyze_notebook_text(text)
+    if path.suffix in TYPST_SUFFIXES:
+        return analyze_typst_text(text)
     return analyze_markdown_text(text)
 
 
