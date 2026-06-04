@@ -52,12 +52,12 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## L4: Data Vizualization
 
-1. [Data Visualization](L4/01_viz.ipynb) (~34m)
+1. [Data Visualization: Distributions](L4/01_distributions.ipynb)
+2. [Data Visualization: Relationships](L4/02_relationships.ipynb)
 
 **Exercise Sets**:
 
-- [L4.Ex1](L4/exset_1/01_viz/) (~14m)
-- [L4.Ex2](L4/exset_1/02_viz/) (~19m)
+- [L4.Ex1](L4/exset_1/)
 
 ## Extra
 
