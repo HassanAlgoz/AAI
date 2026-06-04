@@ -38,26 +38,26 @@ Bookmark the following references in your browswer. These are **Handy References
 - [L1.Ex3](L1/exset_3/) (~45m)
 - [L2.Ex1](L2/exset_1/) (~22m)
 
-## L3: Timeseries Analysis
+## L3: Data Vizualization
+
+1. [Data Visualization: Distributions](L3/01_distributions.ipynb)
+2. [Data Visualization: Relationships](L3/02_relationships.ipynb)
+
+**Exercise Sets**:
+
+- [L3.Ex1](L3/exset_1/)
+
+## L4: Timeseries Analysis
 
 **Goal**: learn to analyze data associated with points in time.
 
-1. [Example 1: Analysis of US Census Data (2010 - 2019)](L3/01_us_census.ipynb) (~39m)
-2. [Example 2: Temperature in Riyadh](L3/02_riyadh_temperature.ipynb) (~28m)
-3. [Example 3: Trips](L3/03_trips.ipynb) (~46m)
+1. [Example 1: Analysis of US Census Data (2010 - 2019)](L4/01_us_census.ipynb) (~39m)
+2. [Example 2: Temperature in Riyadh](L4/02_riyadh_temperature.ipynb) (~28m)
+3. [Example 3: Trips](L4/03_trips.ipynb) (~46m)
 
 **Exercise Sets**:
 
-- [L3.Ex1](L3/exset_1/) (~29m)
-
-## L4: Data Vizualization
-
-1. [Data Visualization: Distributions](L4/01_distributions.ipynb)
-2. [Data Visualization: Relationships](L4/02_relationships.ipynb)
-
-**Exercise Sets**:
-
-- [L4.Ex1](L4/exset_1/)
+- [L4.Ex1](L4/exset_1/) (~29m)
 
 ## Extra
 
