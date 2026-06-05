@@ -1,10 +1,10 @@
 # C2: Data Science
 
-## L1. Introductions
+## M1. Introductions
 
 **Goal**: get to know data science; what it is, where it comes from, what it can be used for, it's processes, and what roles a data scientist can work with in the industry as a professional knowledge worker.
 
-Lessons:
+**Lessons**:
 
 1. [Data Science Motivation: The Cholera Outbreak and John Snow's Investigation](lessons/01_story_cholera_outbreak.pdf) (~24m)    
     <details><summary>Links to the Story of Broad Stree Pump (London 1854) with John Snow</summary>
@@ -20,11 +20,11 @@ Lessons:
     - [SDAIA Professional Training in the Fields of Data and AI](https://sdaia.gov.sa/ar/MediaCenter/KnowledgeCenter/ResearchLibrary/ProfessionalTrainingInTheFieldsOfDataAi.pdf) (60p Document)
 </details>
 
-**Exercise Sets**:
+**Exercises**:
 
-- [L1.Ex1](exercises/01/data_science_quiz.md) (30m; 15 questions)
+- [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (30m; 15 questions)
 
-## L2. Univariate Analysis
+## M2. Univariate Analysis
 
 **Goals**:
 
@@ -40,9 +40,9 @@ Lessons:
 
 **Exercises**:
 
-1. [Interpreting Distributions](exercises/02/01_interpreting_distributions.md)
+1. [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md)
 
-## L3. Bivariate Analysis
+## M3. Bivariate Analysis
 
 **Goal**: learn to explore relationships between variables and be aware that correlation does not imply causation.
 
@@ -51,45 +51,52 @@ Lessons:
 1. [Bivariate Analysis](lessons/06_bivariate_analysis.pdf) (~20m)
 2. [Lab 1: Correlation](lessons/07_correlation.ipynb) (~10m)
 3. [Lab 2: Association](lessons/08_association.ipynb) (~10m)
-4. [Lab 3: Confounders](lessons/09_confounders.ipynb) (~15m)
 
-## L4: Inferential Statistics
+**Exercises**:
+
+1. [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~20m)
+
+**Extra**:
+
+1. [Communicating with Plots](lessons/extra_01_communicate_plots.ipynb)
+
+## M4. Inferential Statistics
 
 **Goal**: learn how to systematically generalize results from drawn samples on target population.
 
 **Lessons**:
 
-1. [Inferential Statistics: Estimating Parameters with Confidence Intervals](lessons/10_inferential_statistics.pdf) (~29m)
-2. [Bootstrapping](lessons/11_confidence_interval.ipynb) (~27m)
-3. [Hypothesis Testing](lessons/12_hypothesis_testing.pdf) (~76m)
-4. [Power Analysis](lessons/13_power_analysis.ipynb) (~43m)
+1. [Inferential Statistics: Estimating Parameters with Confidence Intervals](lessons/09_inferential_statistics.pdf) (~29m)
+2. [Bootstrapping](lessons/10_confidence_interval.ipynb) (~27m)
+3. [Hypothesis Testing](lessons/11_hypothesis_testing.pdf) (~76m)
+4. [Power Analysis](lessons/12_power_analysis.ipynb) (~43m)
 
 **Exercises**:
 
-1. [Exercise: Hypothesis Testing: Waiter's Tips](exercises/03/Waiters_Tips.ipynb)
+1. [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb)
 
 **Resources**:
 
 - [Hypothesis Testing explained in 4 parts | Mon Jul 22 2024, retrieved Jun 1 2026](https://statsig.com/blog/hypothesis-testing-explained)
 - [Bootstrapping Main Ideas!!! | StatQuest with Josh Starmer ](https://youtu.be/Xz0x-8-cgaQ?si=k9xH4e8fPvJjEGIq)
 
-**Extra**:
-
-1. [Communicating with Plots](lessons/extra_01_communicate_plots.ipynb)
-
 ## Tools
 
 ### Visualization Tools
 
-- `plotnine` is for people coming from `R`.
-- `matplotlib` is low-level plotting library.
-- `seaborn` is statistical, built on top of `matplotlib`.
-- `plotly` is interactive (HTML + JS via `dash`).
+- [`matplotlib`](https://matplotlib.org/) is a low-level plotting library.
+- [`seaborn`](https://seaborn.pydata.org/) is statistical, built on top of `matplotlib`.
+- [`plotly`](https://plotly.com/python/) is interactive (HTML + JS via `dash`).
+- [`plotnine`](https://plotnine.readthedocs.io/en/stable/) is for people coming from `R`.
+
+### Statistics
+
+- [`statsmodels`](https://www.statsmodels.org/) statistical models, statistical tests, and statistical data exploration.
 
 ## References
 
+- [Principles of Data Science - Jan 24, 2025 | OpenStax](https://openstax.org/details/books/principles-data-science)
 - [Introduction to Modern Statistics (2e) by Mine Çetinkaya-Rundel and Johanna Hardin](https://openintro-ims.netlify.app/)
 - [R for Data Science (2e) by Hadley Wickham, Mine, and Garrett](https://r4ds.hadley.nz/)
 - [H. J. Motulsky, GraphPad Statistics Guide](https://www.graphpad.com/guides/prism/latest/statistics/stat_---_principles_of_statistics_-.htm)
 - [4.8. Power analysis with statsmodels](https://jillxoreilly.github.io/StatsCourseBook_2024/Chapter7_Power/BuiltInPowerCalc.html)
-- [Principles of Data Science - Jan 24, 2025 | OpenStax](https://openstax.org/details/books/principles-data-science)
