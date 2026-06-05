@@ -15,51 +15,51 @@ Bookmark the following references in your browswer. These are **Handy References
 
 **Goal**: learn how to read/write files to manipulate tabular data structures.
 
-1. [Pandas' I/O](L1/01_pandas_io.ipynb) (~14m)
-2. [DataFrame: Selecting a Subset](L1/02_select.ipynb) (~23m)
-3. [DataFrames: Creation and Modification](L1/03_df_creation_modification.ipynb) (~18m)
-4. [DataFrames: Aggregation](L1/04_aggregate.ipynb) (~11m)
-5. [The Art of Reading Docs: How to read documentation like a Data Scientist](L1/the_art_of_reading_docs.md) (~23m)
+1. [Pandas' I/O](lessons/01_pandas_io.ipynb) (~14m)
+2. [DataFrame: Selecting a Subset](lessons/02_select.ipynb) (~23m)
+3. [DataFrames: Creation and Modification](lessons/03_df_creation_modification.ipynb) (~18m)
+4. [DataFrames: Aggregation](lessons/04_aggregate.ipynb) (~11m)
+5. [The Art of Reading Docs: How to read documentation like a Data Scientist](lessons/05_the_art_of_reading_docs.md) (~23m)
 
 **Exercise Sets**:
 
-- [L1.Ex1](L1/exset_1/) (~43m)
-- [L1.Ex2](L1/exset_2/) (~25m)
+- [L1.Ex1](exercises/01/) (~43m)
+- [L1.Ex2](exercises/02/) (~25m)
 
 ## L2: Data Wrangling
 
 **Goal**: learn how to create, modify, delete, rename, and combine columns and rows.
 
-1. [DataFrame: Creating and modifying columns](L2/01_modify.ipynb) (~16m)
-2. [DataFrame: Combining through Concat and Merge](L2/02_combine.ipynb) (~13m)
+1. [DataFrame: Creating and modifying columns](lessons/06_modify.ipynb) (~16m)
+2. [DataFrame: Combining through Concat and Merge](lessons/07_combine.ipynb) (~13m)
 
 **Exercise Sets**:
 
-- [L1.Ex3](L1/exset_3/) (~45m)
-- [L2.Ex1](L2/exset_1/) (~22m)
+- [L1.Ex3](exercises/03/) (~45m)
+- [L2.Ex1](exercises/04/) (~22m)
 
 ## L3: Data Vizualization
 
-1. [Data Visualization](L3/01_visualization.ipynb)
-2. [Small Multiples](L3/02_small_multiples.ipynb)
+1. [Data Visualization](lessons/08_visualization.ipynb)
+2. [Small Multiples](lessons/09_small_multiples.ipynb)
 
 **Exercise Sets**:
 
-- [L3.Ex1](L3/exset_1/)
+- [L3.Ex1](exercises/05/)
 
 ## L4: Timeseries Analysis
 
 **Goal**: learn to analyze data associated with points in time.
 
-1. [Example 1: Analysis of US Census Data (2010 - 2019)](L4/01_us_census.ipynb) (~39m)
-2. [Example 2: Temperature in Riyadh](L4/02_riyadh_temperature.ipynb) (~28m)
-3. [Example 3: Trips](L4/03_trips.ipynb) (~46m)
+1. [Example 1: Analysis of US Census Data (2010 - 2019)](lessons/10_us_census.ipynb) (~39m)
+2. [Example 2: Temperature in Riyadh](lessons/11_riyadh_temperature.ipynb) (~28m)
+3. [Example 3: Trips](lessons/12_trips.ipynb) (~46m)
 
 **Exercise Sets**:
 
-- [L4.Ex1](L4/exset_1/) (~29m)
+- [L4.Ex1](exercises/06/) (~29m)
 
 ## Extra
 
-- [Pandas Function Application](Lx/pd_function_application.ipynb) (~14m)
-- [Pandas Reshape and Pivot](Lx/pd_reshape.ipynb) (~19m)
+- [Pandas Function Application](lessons/extra_01_pd_function_application.ipynb) (~14m)
+- [Pandas Reshape and Pivot](lessons/extra_02_pd_reshape.ipynb) (~19m)

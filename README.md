@@ -1,6 +1,6 @@
 # Applied Artifical Intelligence (AAI)
 
-[Introductions](/courses/Intro/L0/01_bootcamp_intro.pdf) (1hr).
+[Introductions](/courses/Intro/lessons/01_bootcamp_intro.pdf) (1hr).
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
