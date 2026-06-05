@@ -235,9 +235,9 @@ def resolve_link_target(readme: Path, target: str) -> Path | None:
 
 def _is_exercise_target(target: str, resolved: Path) -> bool:
     t = target.lower()
-    if "exset" in t or "/ex/" in t:
+    if "exercises/" in t or "exset" in t or "/ex/" in t:
         return True
-    return any(part.startswith("exset") for part in resolved.parts)
+    return any(part == "exercises" or part.startswith("exset") for part in resolved.parts)
 
 
 def discover_lesson_links(readme: Path) -> list[tuple[str, str, Path]]:
@@ -270,3 +270,57 @@ def discover_exercise_links(readme: Path) -> list[tuple[str, str, Path]]:
         if _is_exercise_target(target, resolved) or re.search(r"\bEx\d", label):
             found.append((label, target, resolved))
     return found
+
+
+TOP_NUMBERED_ITEM_RE = re.compile(r"(?m)^\d+[.)][ \t]+\S")
+
+
+def count_step_markers(text: str) -> int:
+    """Count actionable step markers in an embedded exercise section.
+
+    Markers are ``Step N`` headings plus top-level (non-indented) numbered
+    list items — the discrete actions a learner performs.
+    """
+    return len(STEP_HEADING_RE.findall(text)) + len(TOP_NUMBERED_ITEM_RE.findall(text))
+
+
+def partition_markdown_exercises(text: str) -> tuple[str, list[tuple[str, str]]]:
+    """Split markdown into ``(lecture_text, [(title, section_text), ...])``.
+
+    An exercise section starts at an ATX heading whose title matches
+    ``EXERCISE_HEADING_RE`` and runs until the next heading of the same or
+    higher level (or EOF). Nested headings inside a captured section are not
+    treated as separate exercises. ``lecture_text`` is the input with those
+    sections removed (so they are priced as exercises, not reading).
+    """
+    headings = [
+        (m.start(), len(m.group(1)), m.group(2).strip())
+        for m in ATX_HEADING_RE.finditer(text)
+    ]
+    exercises: list[tuple[str, str]] = []
+    spans: list[tuple[int, int]] = []
+    covered_until = -1
+    for i, (start, level, title) in enumerate(headings):
+        if start < covered_until:
+            continue
+        if not EXERCISE_HEADING_RE.search(title):
+            continue
+        end = len(text)
+        for nstart, nlevel, _title in headings[i + 1:]:
+            if nlevel <= level:
+                end = nstart
+                break
+        exercises.append((title, text[start:end]))
+        spans.append((start, end))
+        covered_until = end
+
+    if not spans:
+        return text, exercises
+
+    kept: list[str] = []
+    prev = 0
+    for s, e in spans:
+        kept.append(text[prev:s])
+        prev = e
+    kept.append(text[prev:])
+    return "".join(kept), exercises

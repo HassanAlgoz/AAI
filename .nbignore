@@ -1,7 +1,6 @@
 # Notebook runner ignore patterns.
 #
 # Patterns are matched against path segments and relative notebook paths.
-# For example, `exset*` skips notebooks under directories such as `exset_1/`.
+# For example, `exercise*` skips notebooks under directories such as `exercises/`.
 
-exset*
 exercise*

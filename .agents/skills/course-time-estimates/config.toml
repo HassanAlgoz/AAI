@@ -36,9 +36,9 @@ slide_sec = 105.0
 # Max output lines counted per code cell (caps huge dumps), as a line count.
 output_line_cap = 40
 
-# Exercise-set model (exset_* dirs / Ex* links):
+# Exercise-set model (exercises/ dirs / Ex* links):
 #   setup_min + prose/wpm + tasks*task_sec
-# Anchored to Data Wrangling `exset_1` (~45m, ~35 tasks).
+# Anchored to Data Wrangling `exercises/01` (~45m, ~35 tasks).
 [exercise]
 # Fixed warm-up cost per exercise set, in minutes.
 setup_min = 5.0

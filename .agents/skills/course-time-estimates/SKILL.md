@@ -18,13 +18,13 @@ SKILL=.agents/skills/course-time-estimates/scripts
 python3 $SKILL/estimate_reading_time.py --course courses/Data_Wrangling
 python3 $SKILL/estimate_reading_time.py --course courses/Data_Wrangling --json
 
-# Step 2 — exercise sets (exset_* dirs or Ex* links)
+# Step 2 — exercise sets (exercises/ dirs or Ex* links)
 python3 $SKILL/estimate_exercise_time.py --course courses/Data_Wrangling
 python3 $SKILL/estimate_exercise_time.py --course courses/Data_Wrangling --json
 
-# Scoped to one lesson or one exset
-python3 $SKILL/estimate_reading_time.py courses/Data_Wrangling/L1/02_select.ipynb
-python3 $SKILL/estimate_exercise_time.py courses/Data_Wrangling/L1/exset_1
+# Scoped to one lesson or one exercise set
+python3 $SKILL/estimate_reading_time.py courses/Data_Wrangling/lessons/02_select.ipynb
+python3 $SKILL/estimate_exercise_time.py courses/Data_Wrangling/exercises/01
 ```
 
 ## Three-step workflow (agent-driven)
@@ -44,7 +44,7 @@ Execute only the steps the user asks for.
 ### Step 2 — Exercise time → same course README
 
 1. Run `estimate_exercise_time.py --course courses/<Course> [--json]`.
-2. Apply **`(~Xm)`** after each exercise-set link (`exset_*` dirs, `L*.Ex*` labels, quiz `.md` under exset).
+2. Apply **`(~Xm)`** after each exercise-set link (`exercises/` dirs, `L*.Ex*` labels, quiz `.md` under exercises).
 3. Same “already set” rule as Step 1.
 
 ### Step 3 — Course total → root `README.md`
@@ -65,7 +65,7 @@ Data Wrangling: lessons ~187m + exercises ~210m => ~6hr 37m (suggest ~6–7hr in
 | User says | Do |
 |-----------|-----|
 | “estimate reading for Data Wrangling” / “step 1 only” | Step 1 only |
-| “exercise times for L1” | `estimate_exercise_time.py` on `L1/exset_*` paths; edit README links for L1 exsets |
+| “exercise times for L1” | `estimate_exercise_time.py` on the `exercises/` paths; edit README links for those exercise sets |
 | “full time pass on Terminal” | Steps 1 → 2 → 3 for that course |
 | “totals only, don’t edit READMEs” | Run both scripts with `--json`; print rollup; no file edits |
 | “update root README durations” | Step 3 (requires totals; run scripts if not already done) |
@@ -77,7 +77,7 @@ Data Wrangling: lessons ~187m + exercises ~210m => ~6hr 37m (suggest ~6–7hr in
 Defaults: 3m setup, 200 wpm, 8.6 s/code line, 2.5 s/output line, 18 s/image, 105 s/slide. Notebook/markdown lessons anchored to L3 census/Riyadh notebooks; `.typ` slide pricing anchored to `01_story_cholera_outbreak.typ` (~25m). For `.typ`, slides = title slide + headings (`=`/`==`) + `#pagebreak()`; tune with `--slide-sec`.
 
 **Exercises:** `setup_min` + prose/wpm + tasks×task_sec  
-Defaults: 5m setup per set, 200 wpm, 60 s per code cell (task). Anchored to Data Wrangling `exset_1` (~45m).
+Defaults: 5m setup per set, 200 wpm, 60 s per code cell (task). Anchored to Data Wrangling `exercises/01` (~45m).
 
 **Where the numbers live:** All parameters are config, not code, in `config.toml` next to this `SKILL.md` (`[reading]` and `[exercise]` sections, with inline comments). Edit that file to retune persistently; the scripts fall back to built-in defaults if a key or the file is missing. Point at another file with the `COURSE_TIME_ESTIMATES_CONFIG` env var. Override for a single run via script flags (`--setup-min`, `--code-sec`, `--task-sec`, etc.).
 
@@ -96,4 +96,4 @@ Defaults: 5m setup per set, 200 wpm, 60 s per code cell (task). Anchored to Data
 - `.pdf` / external slides: not analyzed; keep or set human estimates.
 - `.typ` slide decks ARE analyzed (slide count + prose + images). Heuristic Typst parsing: reveal steps (`#pause`, `#colbreak`) are not separate slides; quoted strings (paths/URLs) and function calls are stripped from prose, so unusual macros may over- or under-count slightly.
 - Empty or missing linked files: report `skip (missing)`; do not invent times.
-- Exercise model counts **all** code cells in exset notebooks as tasks (including empty stubs).
+- Exercise model counts **all** code cells in exercise notebooks as tasks (including empty stubs).

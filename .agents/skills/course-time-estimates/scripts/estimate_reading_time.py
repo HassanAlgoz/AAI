@@ -16,7 +16,7 @@ breaks, plus their prose and images.
 Examples:
 
     # Single lesson
-    estimate_reading_time.py courses/Data_Wrangling/L1/01_pandas_io.ipynb
+    estimate_reading_time.py courses/Data_Wrangling/lessons/01_pandas_io.ipynb
 
     # All lessons linked from a course README
     estimate_reading_time.py --course courses/Data_Wrangling

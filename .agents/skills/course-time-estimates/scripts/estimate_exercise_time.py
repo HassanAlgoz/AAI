@@ -3,9 +3,9 @@
 
 Two kinds of exercises are recognized:
 
-1. Exercise SETS — ``exset_*`` dirs / ``L*.Ex*`` links / quiz ``.md`` linked
+1. Exercise SETS — ``exercises/*`` dirs / ``L*.Ex*`` links / quiz ``.md`` linked
    from a course README. Priced by *tasks* (code cells / questions the learner
-   fills in). Calibrated against Data Wrangling exset_1 (~35 tasks -> ~45m).
+   fills in). Calibrated against Data Wrangling exercises/01 (~35 tasks -> ~45m).
 
 2. EMBEDDED exercises — ``Exercise`` / ``Try it`` / ``Hands-On`` sections found
    *inside* a lesson's markdown (common in the Terminal and Agentic Engineering
@@ -22,11 +22,11 @@ where an embedded section's ``tasks`` = fenced code blocks + step markers
 
 Examples:
 
-    estimate_exercise_time.py courses/Data_Wrangling/L1/exset_1
+    estimate_exercise_time.py courses/Data_Wrangling/exercises/01
     estimate_exercise_time.py --course courses/Data_Wrangling
     estimate_exercise_time.py --course courses/Terminal           # embedded only
     estimate_exercise_time.py --course courses/Data_Wrangling --json
-    estimate_exercise_time.py courses/Terminal/L2/01_commands_grammar.md
+    estimate_exercise_time.py courses/Terminal/lessons/03_commands_grammar.md
 """
 from __future__ import annotations
 
