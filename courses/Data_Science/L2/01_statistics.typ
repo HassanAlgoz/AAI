@@ -94,7 +94,7 @@ There are essentially two types of statistcal analysis:
 
 == Obtaining a Representative Sample
 
-The _sampling frame_ must be *representative (ممثل)* of the population and this is a question outside the scope of statistical theory; demanding a *domain expert (خبير المجال)*.
+The _sampling frame_ must be *representative* of the population and this is a question outside the scope of statistical theory; demanding a *domain expert*.
 
 Experts can make the right judgment on:
 
@@ -102,6 +102,19 @@ Experts can make the right judgment on:
 + *Under-coverage*: sampling frame does not include elements in the population.
 + *Measurement error*: e.g., when respondents misunderstand a question, or find it difficult to answer.
 + *Participation bias*: failure to obtain complete data from all selected individuals.
+
+== Survivorship bias
+
+*Survivor bias* is a statistical error that results from concentrating on entities that passed a selection process while overlooking those that did not. This can lead to incorrect conclusions because of incomplete data.
+
+=== Cats
+
+In a 1987 study, it was reported that cats who fall from fewer than six stories and are still alive have greater injuries than cats who fall from higher than six stories. It has been proposed that this might happen because cats reach terminal velocity after righting themselves at about five stories. After this point they relax, leading to less severe injuries in cats who have fallen from six or more stories.
+
+In 1996, _The Straight Dope_ newspaper column proposed that another possible explanation for this phenomenon would be survivorship bias. Cats that die in falls are less likely to be brought to a veterinarian than injured cats, and thus, many of the cats killed in falls from higher buildings are not reported in studies of the subject.
+
+#pagebreak()
+
 
 == Meet the Penguins!
 
@@ -127,7 +140,6 @@ The goal of palmerpenguins is to provide a great dataset for data exploration & 
 Data were collected and made available by #link("https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php", [Dr. Kristen Gorman]) and the #link("https://pallter.marine.rutgers.edu/", [Palmer Station, Antarctica LTER]), a member of the #link("https://lternet.edu/", [Long Term Ecological Research Network]).
 
 The dataset has: 342 penguins from 3 species: Adelie, Chinstrap, and Gentoo.
-
 
 == Variables
 

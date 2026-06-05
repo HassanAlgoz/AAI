@@ -40,8 +40,8 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## L3: Data Vizualization
 
-1. [Data Visualization: Distributions](L3/01_distributions.ipynb)
-2. [Data Visualization: Relationships](L3/02_relationships.ipynb)
+1. [Data Visualization](L3/01_visualization.ipynb)
+2. [Small Multiples](L3/02_small_multiples.ipynb)
 
 **Exercise Sets**:
 

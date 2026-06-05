@@ -38,16 +38,8 @@ Learning Material:
 
 1. [Statistics: Population, Sample, and Variables](L2/01_statistics.pdf) (~40m)
 2. [Frequency Distribution](L2/02_frequency_distribution.pdf) (~60m)
-3. [Lab 1: Descriptive Statistics on Palmer Penguins](L2/03_displot.ipynb) (~24m)
-4. [Lab 2: Normal Distribution and Outliers](L2/04_normal_and_outlier.ipynb) (~18m)
+3. [Lab 1: Normal Distribution and Outliers](L2/03_normal_and_outlier.ipynb) (~18m)
 
-Exercises:
-
-- Interpretation of Distributions:
-  - Comparative IQ-Sex Plot
-  - Comparative NBA Players
-  - Mirror Plot from: https://datasaudi.sa/en
-  - Ridge Plot (y-axis is Time)
 
 ## L3: Multi-variate Analysis
 

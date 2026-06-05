@@ -163,13 +163,13 @@ $ sigma^2 = 1/n sum_(i=1)^n (x_i - mu)^2 $
 
 #columns(2, gutter: 8pt)[
   #figure(
-    image("/courses/Data_Science/assets/stats/low_dispersion.png", width: 100%),
+    image("/courses/Data_Science/assets/stats/variation_low.png", width: 100%),
   )
 
   #colbreak()
 
   #figure(
-    image("/courses/Data_Science/assets/stats/high_dispersion.png", width: 100%),
+    image("/courses/Data_Science/assets/stats/variation_high.png", width: 100%),
   )
 ]
 

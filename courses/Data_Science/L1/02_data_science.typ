@@ -107,7 +107,7 @@ Three types of analysis:
 
 + *Exploratory Data Analysis (EDA)*: discover patterns and exceptions.
 + *Confirmatory Data Analysis (CDA)*: test general statements.
-+ *Predictive Analytics (PA)*: make informed guesses based on patterns in the data.
++ *Predictive Analytics (PA)*: make informed guesses about unknowns.
 
 == Exploratory Data Analysis (EDA)
 

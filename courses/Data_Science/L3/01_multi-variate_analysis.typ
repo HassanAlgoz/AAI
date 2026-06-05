@@ -35,43 +35,28 @@ Graphically, it measures how clustered the scatter diagram is around a straight 
 
 == Definition
 
-*Correlation* (or *linear association*) is a measure of two things with regards to the relationship between two numerical varriables: *strength* (value $in [-1, 1]$) and *direction* (sign: positive or negative).
+*Correlation* (or *linear association*) $r$ is a measure of the relationship between two numerical varriables. The formula for correlation is the average of the products of the two z-scores:
 
-- Only when the relationship is perfectly linear is the correlation either -1 or +1.
-- If the relationship is strong and positive, the correlation will be near +1.
-- If it is strong and negative, it will be near -1.
-- If there is no apparent linear relationship between the variables, then the correlation will be near zero.
+$ r = (sum(z_x z_y)) / (n - 1) in [-1, 1] $
 
-== Mathematically: Product of z-scores
+The interpretation of the correlation is as follows:
 
-The formula for correlation is:
+$ |r| &= 1 => "Perfect Correlation" \
+   r &= 0 => "No Correlation" \
+   r &> 0 => "Positive Correlation" \
+   r &< 0 => "Negative Correlation" $
 
-$ r = (1 / (n - 1)) sum_(i: 1 .. n) ((x_i - bar(x)) / s_x) ((y_i - bar(y)) / s_y) $
+== What _Linear_ means?
 
-The terms inside the parentheses are exactly the definitions of $z$-scores for $x$ and $y$:
-
-$ z_{x, i} = (x_i - bar(x)) / s_x $
-$ z_{y, i} = (y_i - bar(y)) / s_y $
-
-So, the formula simplifies to:
-
-$ r = (sum(z_x z_y)) / (n - 1) $
-
-In essence, *correlation $r$ is the average of the products of the two z-scores*.
-
-== Correlation Measures *Linear* Association Only
-
-Correlation measures only one kind of association – linear. Variables that have strong non-linear association might have very low correlation. Here is an example of variables that have a perfect quadratic relation $y = x^2$ but have correlation equal to 0.
+Pearson's correlation coefficient $r$ doesn't measure non-linear association. Here is an example of variables that have a perfect quadratic relation but $r = 0$:
 
 #figure(
-  image("/courses/Data_Science/assets/stats/linear_correlation_non-linear_data.png", width: 80%), caption: [Relationship between weights and heights of `507` physically active individuals.]
+  image("/courses/Data_Science/assets/stats/linear_correlation_non-linear_data.png", width: 32%), caption: [Quadratic relationship $y = x^2$.]
 )
 
 == Correlation Coefficient is Unitless
 
-One important aspect of the correlation is that it’s unitless (since it is a product of two untiless quantities). The following figure shows the relationship between weights and heights of `507` physically active individuals:
-
-#figure(image("/courses/Data_Science/assets/stats/correlation_unitless.png", width: 65%), caption: [Relationship between weights and heights of `507` physically active individuals.])
+#figure(image("/courses/Data_Science/assets/stats/correlation_unitless.png", height: 85%), caption: [Relationship between weights and heights of `507` physically active individuals.])
 
 - Figure a: weight is measured in kilograms (`kg`) and height in centimeters (`cm`).
 - Figure b: weight has been converted to pounds (`lbs`) and height to inches (`in`)
@@ -79,55 +64,54 @@ One important aspect of the correlation is that it’s unitless (since it is a p
 == Association
 
 #figure(
-    image("/courses/Data_Science/assets/stats/occupation_sex_association.png", width: 100%),
+    image("/courses/Data_Science/assets/stats/occupation_sex_association.png", height: 90%),
     caption: [Proportion of sex in each occupation in the UCI dataset]
 )
 
 == Association via Cramer's V
 
-#link("https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V", [*Cramer's V*]) is a measure of association between two nominal (unordered categorical) variables, giving a value between 0 and +1 (inclusive):
+*Cramer's V* ($v$) is a measure of association between two nominal (categorical, unordered) variables. It always takes values in $[0, 1]$ and may be viewed as the percentage of the maximum possible association.
 
-- $v = 0$ (no association)
-- $v = 1$ (perfect association)
+The interpretation of Cramer's V is similar to the interpretation of the correlation coefficient, but there is no notion of negative here:
 
-It may be viewed as a percentage of maximum possible variation.
+$ |v| &= 1 => "Perfect Association" \
+   v &= 0 => "No Association" $
+
+= Correlation is not Causation
 
 == Confounders
 
 A *Confounding Variable* is one that is associated with both the explanatory and response variables. Because it is associated with both variables, it prevents the study from concluding that the explanatory variable caused the response variable.
 
 #figure(
-  image("/courses/Data_Science/assets/stats/confounder.png", width: 35%),
+  image("/courses/Data_Science/assets/stats/confounder.png", width: 45%),
   caption: [Confounder Variable Causes Both]
 )
 
-Whether we get perfectly positive or negative correlation ($r = 1$ or $r = -1$), or whether we get complete assoication ($v = 1$), it would be too early to say that $x$ causes $y$ based on just calculation.
-
-One needs to use rules of *logic* and domain *expertise* to say that the relationship is, in fact, *causal*.
-
-== Example 1: Ice Cream Sales and Shark Attacks
+== 1. Ice Cream Sales & Shark Attacks
 
 Consider a silly example with total ice-cream sales as the explanatory variable and number of boating accidents as the response variable (which may seem highly correlated).
 
 #figure(
-  image("/courses/Data_Science/assets/stats/ice_cream_sales_shark_attacks.png", width: 35%),
+  image("/courses/Data_Science/assets/stats/ice_cream_sales_shark_attacks.png", width: 37%),
   caption: [Correlation between Ice Cream Sales and Shark Attacks]
 )
 
 Outside temperature is associated with both variables, and therefore we cannot conclude that high ice-cream sales is a cause of more boating accidents.
 
-== Example 2: Chocolate Consumption & Nobel Prizes.
-
-In 2012, a #link("http://www.biostat.jhsph.edu/courses/bio621/misc/Chocolate%20consumption%20cognitive%20function%20and%20nobel%20laurates%20%28NEJM%29.pdf) in the respected New England Journal of Medicine examined the relation between chocolate consumption and Nobel Prizes in a group of countries. The [Scientific American](http://blogs.scientificamerican.com/the-curious-wavefunction/chocolate-consumption-and-nobel-prizes-a-bizarre-juxtaposition-if-there-ever-was-one/", [paper]) responded seriously whereas #link("http://www.reuters.com/article/2012/10/10/us-eat-chocolate-win-the-nobel-prize-idUSBRE8991MS20121010#vFdfFkbPVlilSjsB.97", [others]) were more relaxed. You are welcome to make your own decision! The following graph, provided in the paper, should motivate you to go and take a look.
+== 2. Chocolate & Nobel Prizes.
 
 #figure(
-  image("/courses/Data_Science/assets/stats/chocoNobel.png", width: 35%),
+  image("/courses/Data_Science/assets/stats/chocoNobel.png", height: 85%),
   caption: [Correlation between Countries' Annual Per Capita Choclate Consumption and the Number of Nobel Laureates per 10 Million Population.]
 )
 
-Confounder?
 
 == How to establish causality?
+
+Whether we get perfectly positive or negative correlation ($r = 1$ or $r = -1$), or whether we get complete assoication ($v = 1$), it would be too early to say that $x$ causes $y$ based on just calculation.
+
+One needs to use rules of *logic* and domain *expertise* to say that the relationship is, in fact, *causal*.
 
 One rule is to avoid logical fallacies of *swapping the cause and effect*:
 
