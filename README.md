@@ -1,6 +1,6 @@
 # Applied Artifical Intelligence (AAI)
 
-Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://github.com/HassanAlgoz/B5/releases/latest/download/01_bootcamp_intro.pdf) (1hr 30m).
+Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://github.com/HassanAlgoz/B5/releases/latest/download/Intro_01_bootcamp_intro.pdf) (1hr 30m).
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|

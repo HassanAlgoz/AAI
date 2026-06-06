@@ -27,8 +27,10 @@ jobs:
           mkdir -p build
           while IFS= read -r file; do
             name=$(basename "$file" .typ)
-            echo "Compiling $file -> build/$name.pdf"
-            typst compile "$file" "build/$name.pdf" --root . --font-path /usr/share/fonts
+            course=$(echo "$file" | cut -d/ -f2)
+            out="build/${course}_${name}.pdf"
+            echo "Compiling $file -> $out"
+            typst compile "$file" "$out" --root . --font-path /usr/share/fonts
           done < <(find courses/ -name '*.typ')
 
       - name: Publish release assets
