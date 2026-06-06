@@ -17,7 +17,6 @@
     subtitle: [Estimating Parameters with Confidence Intervals],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 

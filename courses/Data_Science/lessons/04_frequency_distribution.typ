@@ -17,7 +17,6 @@
     subtitle: [Interpreting Data Frequencies],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 

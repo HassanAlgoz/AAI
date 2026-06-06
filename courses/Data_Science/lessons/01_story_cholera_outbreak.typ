@@ -15,7 +15,6 @@
     subtitle: [The Cholera Outbreak and John Snow's Investigation],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 

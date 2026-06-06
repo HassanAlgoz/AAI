@@ -15,7 +15,6 @@
     subtitle: [An introduction to the Applied Artificial Intelligence Bootcamp],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 

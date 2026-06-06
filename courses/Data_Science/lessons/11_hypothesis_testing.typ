@@ -17,7 +17,6 @@
     subtitle: [Testing Claims that Challenge the Status Quo],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 

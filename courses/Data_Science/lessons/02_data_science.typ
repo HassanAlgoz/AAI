@@ -17,7 +17,6 @@
     subtitle: [Composition, Roles, and Analyses],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 

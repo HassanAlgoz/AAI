@@ -17,7 +17,6 @@
     subtitle: [Correlation, Association, and Confounders],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 

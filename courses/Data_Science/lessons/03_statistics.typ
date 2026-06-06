@@ -17,7 +17,6 @@
     subtitle: [Population, Sample, and Variables],
     author: [Hassan Algoz],
     date: datetime.today(),
-    institution: [Alsun AI],
   ),
 )
 
