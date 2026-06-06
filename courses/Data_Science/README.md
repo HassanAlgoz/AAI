@@ -12,7 +12,7 @@
      - Read Main Article: [1854 Broad Street cholera outbreak](https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak)
      - Watch YouTube Series: [England: The Broad Street Pump - You Know Nothing, John Snow - Extra History - Part 1](https://www.youtube.com/watch?v=TLpzHHbFrHY&list=PLjLK2cYtt-VCOABKAEJypUSP68GfeBCwz&index=1)
     </details>
-2. [Data Science: Composition, Roles, and Analyses](lessons/02_data_science.pdf) (~42m)    
+2. [Data Science: Composition, Roles, and Analyses](lessons/02_data_science.pdf) (~47m)    
     <details><summary>Links to know more about Data Science Roles</summary>
 
     - [Your Life As Every Data Scientist Rank](https://youtu.be/hsZDzyET9Yk?si=pqOnBlBM-4BVVLvP) (19m Video)
@@ -22,7 +22,7 @@
 
 **Exercises**:
 
-- [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (30m; 15 questions)
+- [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (~25m; 15 questions)
 
 ## M2. Univariate Analysis
 
@@ -34,13 +34,13 @@
 
 **Lessons**:
 
-1. [Statistics: Population, Sample, and Variables](lessons/03_statistics.pdf) (~40m)
-2. [Frequency Distribution](lessons/04_frequency_distribution.pdf) (~60m)
+1. [Statistics: Population, Sample, and Variables](lessons/03_statistics.pdf) (~48m)
+2. [Frequency Distribution](lessons/04_frequency_distribution.pdf) (~58m)
 3. [Lab 1: Normal Distribution and Outliers](lessons/05_normal_and_outlier.ipynb) (~18m)
 
 **Exercises**:
 
-1. [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md)
+1. [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md) (~36m)
 
 ## M3. Bivariate Analysis
 
@@ -48,17 +48,17 @@
 
 **Lessons**:
 
-1. [Bivariate Analysis](lessons/06_bivariate_analysis.pdf) (~20m)
-2. [Lab 1: Correlation](lessons/07_correlation.ipynb) (~10m)
-3. [Lab 2: Association](lessons/08_association.ipynb) (~10m)
+1. [Bivariate Analysis](lessons/06_bivariate_analysis.pdf) (~43m)
+2. [Lab 1: Correlation](lessons/07_correlation.ipynb) (~24m)
+3. [Lab 2: Association](lessons/08_association.ipynb) (~22m)
 
 **Exercises**:
 
-1. [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~20m)
+1. [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~13m)
 
 **Extra**:
 
-1. [Communicating with Plots](lessons/extra_01_communicate_plots.ipynb)
+1. [Communicating with Plots](lessons/extra_01_communicate_plots.ipynb) (~70m)
 
 ## M4. Inferential Statistics
 
@@ -67,13 +67,13 @@
 **Lessons**:
 
 1. [Inferential Statistics: Estimating Parameters with Confidence Intervals](lessons/09_inferential_statistics.pdf) (~29m)
-2. [Bootstrapping](lessons/10_confidence_interval.ipynb) (~27m)
+2. [Bootstrapping](lessons/10_confidence_interval.ipynb) (~28m)
 3. [Hypothesis Testing](lessons/11_hypothesis_testing.pdf) (~76m)
 4. [Power Analysis](lessons/12_power_analysis.ipynb) (~43m)
 
 **Exercises**:
 
-1. [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb)
+1. [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb) (~23m)
 
 **Resources**:
 

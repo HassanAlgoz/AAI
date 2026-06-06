@@ -198,3 +198,25 @@ Examples of *present* and *past* events predictions:
   image("/assets/02/ds_intro/predictive_analytics.png"),
   caption: [Predictive analytics],
 )
+
+== The Non-linear Nature of Data Science
+
+In reality, *Data Science* is not sequential from 1 to 5. Rather, it is continuous process of planning, doing, reviewing, and improving.
+
+#v(10%)
+
+#figure(
+  image("/courses/Data_Science/assets/stats/whole_game.png", height: 50%),
+  caption: [Iterative refinement process in Data Science],
+)
+
+== Informed Decision-making
+
+#figure(
+  image("/courses/Data_Science/assets/stats/map_is_not_territory.png", width: 60%),
+  caption: [The Map is not the Territory],
+)
+
+Informed decisions require alignment of both:
++ *External*: reality (the territory)
++ *Internal*: perception of reality (the map); i.e., data and models

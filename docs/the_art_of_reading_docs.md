@@ -115,7 +115,7 @@ These tools are useful because they can:
 * Summarize information
 * Explain concepts
 * Connect ideas across multiple sources
-* Accelerate learning
+* Offer guided learning
 
 However, they have an important limitation:
 
@@ -134,7 +134,13 @@ An AI system may generate an explanation based on:
 * Community discussions
 * Training data
 
-The explanation may be excellent, but if precision matters, you should still verify against the official documentation.
+AI-generated summaries can be helpful, but you should be aware of their limitations. Here are some reasons why they might be misleading:
+
+1. **Loss of nuance:** AI can oversimplify important details, missing subtle behaviors or edge cases described in official documentation.
+2. **Outdated information:** AI models may be trained on old data and might summarize outdated API versions or features that no longer exist.
+3. **Conflicting sources:** AI may combine information from sources that disagree, presenting an answer with internal contradictions or errors.
+4. **Unverifiable sources:** AI usually doesn’t cite precise version numbers or official links, leaving you unable to confirm the information.
+5. **Context loss:** AI won’t always know which library version or situation applies to your question, potentially giving you a summary that doesn’t fit your actual problem.
 
 A useful rule:
 
@@ -143,8 +149,6 @@ Primary source = defines
 Secondary source = explains
 Tertiary source = summarizes
 ```
-
----
 
 # Start With a Question
 

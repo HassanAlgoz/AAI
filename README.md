@@ -1,6 +1,6 @@
 # Applied Artifical Intelligence (AAI)
 
-Welcome: [Introductions](/courses/Intro/lessons/01_bootcamp_intro.pdf) (1hr 30m).
+Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](/courses/Intro/lessons/01_bootcamp_intro.pdf) (1hr 30m).
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
@@ -15,6 +15,13 @@ Welcome: [Introductions](/courses/Intro/lessons/01_bootcamp_intro.pdf) (1hr 30m)
 **Estimated Duration**: 8 weeks.
 
 **Estimated hands-on content**: ~22hr (lessons ~14hr 25m + exercises ~7hr 34m), excluding the 1hr intro. Per-lesson estimates live in each course's `README.md`.
+
+## Bootcamp Pre-requisites
+
++ English B2 (Upper-Intermediate) level: IELTS 6.5 or TOEFL 80.
++ Algorithmic thinking and problem-solving skills.
++ Strong foundation in programming.
++ Working laptop with internet access.
 
 ## AI Policy
 
@@ -34,14 +41,12 @@ Learning only occurs when the brain is actively engaged in making sense of infor
 
 See [the research and findings that made up our AI Policy](docs/ai_policy.md).
 
-## Bootcamp Pre-requisites
+<!-- ## Assignments -->
+<!--  -->
+<!-- Submission and grading follows a [strict proof-of-work](/docs/proof-of-work.md) to avoid AI misuse. -->
 
-+ English B2 (Upper-Intermediate) level: IELTS 6.5 or TOEFL 80.
-+ Algorithmic thinking and problem-solving skills.
-+ Strong foundation in programming.
-    - See: [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية).
-+ Working laptop with internet access.
+## Resources:
 
-## Assignments
-
-Submission and grading follows a [strict proof-of-work](/docs/proof-of-work.md) to avoid AI misuse.
+- [The Art of Reading Docs](docs/the_art_of_reading_docs.md)
+- [Never expose API Keys](docs/never_expose_api_keys.qmd)
+- [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية).

@@ -226,6 +226,33 @@ ML was not invented by one person; it emerged over decades.
 - **2010s — Deep Learning:** Large open datasets and modern hardware enabled training models with millions of parameters. Breakthroughs in tasks like image and speech recognition, and natural language processing.
 
 
+== Milestones
+
+Defining milestones in the evolution of AI:
+
+- 1950: *The Turing Test*: Alan Turing publishes "Computing Machinery and Intelligence," proposing a test to measure machine intelligence and answering common objections to the idea that "machines can think."
+
+- 1956: *AI is Coined*: At the Dartmouth College summer conference, John McCarthy, Marvin Minsky, and others establish the field of AI research. McCarthy officially coins the term "artificial intelligence."
+
+- 1966: *ELIZA Chatbot*: Joseph Weizenbaum creates ELIZA at MIT, an early natural language processing program capable of simulating conversation (most famously mimicking a Rogerian psychotherapist).
+
+#pagebreak()
+
+- 1997: *Deep Blue Defeats Kasparov*: IBM's Deep Blue defeats reigning world chess champion Garry Kasparov under tournament conditions, marking a major milestone in strategic game-playing AI.
+
+- 2011: *Watson and Virtual Assistants*: IBM's Watson defeats human champions Ken Jennings and Brad Rutter on the quiz show *Jeopardy!*. The same year, Apple introduces Siri, bringing AI-driven voice assistants to the mainstream.
+
+- 2012: *The Deep Learning Boom*: A neural network called AlexNet significantly outperforms competitors in the ImageNet image recognition competition, kicking off the modern deep learning revolution.
+
+- 2016: *AlphaGo Masters Go*: Google DeepMind's AlphaGo defeats 18-time world champion Lee Sedol in the highly complex board game Go, a feat previously thought to be decades away.
+
+- 2020: *The Rise of LLMs*: OpenAI releases GPT-3, a large language model (LLM) capable of generating highly coherent, human-like text, demonstrating the rapid advancement of generative AI.
+
+- 2022: *Mainstream Generative AI*: The public release of ChatGPT makes advanced conversational AI accessible to millions, sparking global interest and rapid integration of AI across industries.
+
+- 2023 - *Present: Multimodal AI*: The deployment of advanced multimodal models capable of reasoning natively across text, audio, images, and video.
+
+
 ::: {.notes}
 So: philosophy and Turing, then rule-based AI, then data-driven "classic ML", then rise of big data and scalable algorithms, then deep learning, and now foundation models and AI everywhere.
 :::
