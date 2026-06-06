@@ -1,6 +1,6 @@
 # Applied Artifical Intelligence (AAI)
 
-Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](/courses/Intro/lessons/01_bootcamp_intro.pdf) (1hr 30m).
+Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://github.com/HassanAlgoz/B5/releases/latest/download/01_bootcamp_intro.pdf) (1hr 30m).
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
@@ -47,3 +47,8 @@ See [the research and findings that made up our AI Policy](docs/ai_policy.md).
 - [The Art of Reading Docs](docs/the_art_of_reading_docs.md)
 - [Never expose API Keys](docs/never_expose_api_keys.qmd)
 - [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية)
+
+## Development
+
+- Local dev unchanged: `just compile` / `just watch` still produce ignored local PDFs.
+- To publish: `git tag v1.0 && git push origin v1.0` -> workflow builds and attaches PDFs to the v1.0 release, which becomes latest.
