@@ -17,17 +17,6 @@ Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://
 - **Estimated Duration**: 8 weeks.
 - **Estimated hands-on content**: ~22hr (lessons ~14hr 25m + exercises ~7hr 34m), excluding the 1hr intro. Per-lesson estimates live in each course's `README.md`.
 
-## Get the course materials
-
-Download notebooks and exercises:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/HassanAlgoz/AAI/main/scripts/download_courses.py -o download_courses.py
-python3 download_courses.py
-```
-
-This creates an `AAI/` folder in your current directory.
-
 ## Bootcamp Pre-requisites
 
 + English B2 (Upper-Intermediate) level: IELTS 6.5 or TOEFL 80.
