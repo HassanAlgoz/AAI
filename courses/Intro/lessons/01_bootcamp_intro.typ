@@ -96,7 +96,7 @@ Growth comes from pushing yourself out of your comfort zone. The challenges and 
 - Exercises are due Thursday 11:59 PM (end of same week).
 - Work must be pushed to GitHub.
 - Mark as done in Google Classroom before then.
-- Commit history *MUST* follow the #link("https://github.com/HassanAlgoz/B5/blob/next/docs/proof-of-work.md", [proof-of-work]) system.
+- Commit history *MUST* follow the #link("https://github.com/HassanAlgoz/AAI/blob/main/docs/proof-of-work.md", [proof-of-work]) system.
 
 == Trainers' Expertise
 

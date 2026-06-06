@@ -293,17 +293,17 @@ These are long-running streams. Press `Ctrl+C` to stop.
 
 ```bash
 # Linux/macOS
-curl -sL https://raw.githubusercontent.com/HassanAlgoz/B5/next/scripts/curl_demo/roll.py | python3
+curl -sL https://raw.githubusercontent.com/HassanAlgoz/AAI/main/scripts/curl_demo/roll.py | python3
 ```
 
 ```powershell
 # Windows PowerShell
-curl.exe -sL https://raw.githubusercontent.com/HassanAlgoz/B5/next/scripts/curl_demo/roll.py | python
+curl.exe -sL https://raw.githubusercontent.com/HassanAlgoz/AAI/main/scripts/curl_demo/roll.py | python
 ```
 
 It looks convenient, but it executes remote code immediately with your user permissions. This demo is harmless: it downloads and opens a short Creative Commons video. A real unknown script could do much worse.
 
-> Inspect: [explainshell](https://explainshell.com/explain?cmd=curl%20-sL%20https%3A%2F%2Fraw.githubusercontent.com%2FHassanAlgoz%2FB5%2Fnext%2Fscripts%2Fcurl_demo%2Froll.py%20%7C%20python3)
+> Inspect: [explainshell](https://explainshell.com/explain?cmd=curl%20-sL%20https%3A%2F%2Fraw.githubusercontent.com%2FHassanAlgoz%2FAAI%2Fmain%2Fscripts%2Fcurl_demo%2Froll.py%20%7C%20python3)
 
 ### Why this is risky
 
@@ -319,14 +319,14 @@ If that URL changes or is malicious, damage happens before you can inspect anyth
 
 ```bash
 # Linux/macOS
-curl -fLO https://raw.githubusercontent.com/HassanAlgoz/B5/next/scripts/curl_demo/roll.py
+curl -fLO https://raw.githubusercontent.com/HassanAlgoz/AAI/main/scripts/curl_demo/roll.py
 less roll.py
 python3 roll.py
 ```
 
 ```powershell
 # Windows PowerShell
-curl.exe -fLO https://raw.githubusercontent.com/HassanAlgoz/B5/next/scripts/curl_demo/roll.py
+curl.exe -fLO https://raw.githubusercontent.com/HassanAlgoz/AAI/main/scripts/curl_demo/roll.py
 notepad roll.py
 python roll.py
 ```

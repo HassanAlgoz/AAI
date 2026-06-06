@@ -47,7 +47,7 @@ def download_video(destination: Path) -> None:
     # Wikimedia blocks anonymous clients with no User-Agent header.
     request = urllib.request.Request(
         VIDEO_URL,
-        headers={"User-Agent": "B5-curl-lesson-demo/1.0 (educational script)"},
+        headers={"User-Agent": "AAI-curl-lesson-demo/1.0 (educational script)"},
     )
     with urllib.request.urlopen(request, timeout=20) as response:
         destination.write_bytes(response.read())

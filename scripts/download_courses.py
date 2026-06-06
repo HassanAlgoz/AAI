@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download the courses/ folder from the B5 GitHub repo.
+"""Download the courses/ folder from the AAI GitHub repo.
 
 Fetches notebooks, assets, and exercises without Typst (.typ) source files,
 plus the repo's top-level README.md as an overview.
@@ -24,7 +24,7 @@ import urllib.request
 from pathlib import Path
 
 API = "https://api.github.com/repos/{repo}/tarball/{ref}"
-DEFAULT_REPO = "HassanAlgoz/B5"
+DEFAULT_REPO = "HassanAlgoz/AAI"
 DEFAULT_REF = "main"
 DEFAULT_DEST = "AAI"
 
@@ -32,7 +32,7 @@ DEFAULT_DEST = "AAI"
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Download the courses/ folder from the B5 GitHub repo "
+            "Download the courses/ folder from the AAI GitHub repo "
             "(notebooks, assets, exercises; excludes .typ source files)."
         ),
     )
@@ -94,7 +94,7 @@ def extract_courses(blob: bytes, dest: Path) -> int:
             if not member.isfile():
                 continue
 
-            # Tarball entries look like "HassanAlgoz-B5-<sha>/courses/..."; drop the top dir.
+            # Tarball entries look like "HassanAlgoz-AAI-<sha>/courses/..."; drop the top dir.
             _, _, rel = member.name.partition("/")
             out = _target_path(rel, dest)
             if out is None:
