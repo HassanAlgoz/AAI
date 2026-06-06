@@ -67,11 +67,11 @@ Finally, we build *Agentic AI* systems to automate tasks involving unstructured 
 
 == Assessment
 
-- Attendance and constructive participation.
-- Quizzes.
-- Projects (and presentations).
-- One-to-one check-ins.
-- Final project.
+- Attendance
+- Quizzes
+- Projects (and presentations)
+- One-to-one check-ins
+- Final project
 
 == AI Policy
 
@@ -155,16 +155,3 @@ Tentative schedule:
 + Progress presentation 2 (end of week 7)
 + Final submission (week 8: Tuesday)
 + Evaluation: Wednesday and Thursday
-
-== Is this for me?
-
-Signs this isn't for you:
-
-+ You are here for the certificate. #pause
-+ You are here for a job opportunity. #pause
-+ You don't have Python installed on your laptop. #pause
-+ You never enjoyed math puzzles or logical brain teasers. #pause
-+ You find it boring to follow a step-by-step guide to complete a task. #pause
-+ You find it difficult to read through the docs of a library or a framework. #pause
-+ You find it mundane to spend hours debugging just for another error to show up.
-+ You are not willing get out of your comfort zone. #pause
