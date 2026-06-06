@@ -12,9 +12,10 @@ Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](/courses
 | 6  | Applied Deep Learning                   | Use DL solution frameworks / libraries to apply AI to specific problems in NLP (language) and Computer Vision.   |                |                  |
 | 7  | Agentic AI                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. |                |                  |
 |    | **Total**                               |                                                                                                           | **29 (~14hr 25m)** | **16 (~7hr 34m)** |
-**Estimated Duration**: 8 weeks.
 
-**Estimated hands-on content**: ~22hr (lessons ~14hr 25m + exercises ~7hr 34m), excluding the 1hr intro. Per-lesson estimates live in each course's `README.md`.
+
+- **Estimated Duration**: 8 weeks.
+- **Estimated hands-on content**: ~22hr (lessons ~14hr 25m + exercises ~7hr 34m), excluding the 1hr intro. Per-lesson estimates live in each course's `README.md`.
 
 ## Bootcamp Pre-requisites
 
