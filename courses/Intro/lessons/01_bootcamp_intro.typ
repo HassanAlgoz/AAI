@@ -50,16 +50,13 @@ To reach these goals, AI researchers have used techniques including state space 
 
 The AAI bootcamp has the following courses:
 
-1. *Data Wrangling*: Fundamentals of data analysis in Python via pandas, matplotlib and seaborn.
-2. *Applied Data Science*: Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions.
-3. *Applied Machine Learning*: Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
-4. *Applied Deep Learning*: Use DL solution frameworks / libraries to apply AI to specific problems in NLP (language) and Computer Vision.
-5. *Agentic AI*: Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
+Develop basic familiarity with the *Terminal* and how to deal with data in *Data Wrangling* (loading, processing, and visualizing).
 
-== Fundamental Courses
+Move on to statistical analysis in *Applied Data Science*. Both Descriptive and Inferential.
 
-1. *Terminal*:	Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.
-2. *Agentic Engineering*: Work effectively and efficiently with AI in software engineering projects.
+Followed by predictive models in *Applied Machine Learning*. And then into *Deep Learning* for specific problems in NLP (language) and Computer Vision.
+
+Finally, we build *Agentic AI* systems to automate tasks involving unstructured data. And learn how to work effectively and efficiently with Coding Agents in software engineering projects; i.e., *Agentic Engineering*.
 
 == Pre-requisites
 
