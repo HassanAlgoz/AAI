@@ -1,5 +1,11 @@
 # AI Policy
 
+TLDR; see the video: ["The essay isn't the point."](https://www.youtube.com/watch?v=bj4LN4ul6ps).
+
+[![The essay isn't the point.](/assets/The_essay_isnt_the_point.png)](https://www.youtube.com/watch?v=bj4LN4ul6ps)
+
+## Overview
+
 Recent research into the educational use of artificial intelligence has begun to document the cognitive and psychological consequences of relying on generative models. While AI can process data and organize information rapidly, studies indicate that **using it as a substitute for active thinking can lead to cognitive atrophy, diminished critical analysis, and reduced academic engagement**.[^Kosmyna2025][^Gerlich2025][^Benedek2025]
 
 ## Recent studies: detrimental effects of AI on learning
