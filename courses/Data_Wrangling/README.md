@@ -23,8 +23,13 @@ Bookmark the following references in your browswer. These are **Handy References
 
 **Exercise Sets**:
 
-- [L1.Ex1](exercises/01/) (~43m)
-- [L1.Ex2](exercises/02/) (~25m)
+- Set 1 (~43m):
+    - `DW 1.1` [Chipotle - Basics](exercises/01/01_basics/Chipotle.ipynb)
+    - `DW 1.2` [Chipotle - Filtering & Sorting](exercises/01/02_filtering_and_sorting/Chipotle.ipynb)
+    - `DW 1.3` [Alcohol Consumption - Grouping](exercises/01/03_grouping/Alcohol_Consumption.ipynb)
+- Set 2 (~25m):
+    - `DW 2.1` [Pokemon - DataFrames & NumPy](exercises/02/01_df_np/Pokemon.ipynb)
+    - `DW 2.2` [Iris - Deleting](exercises/02/02_deleting/Iris.ipynb)
 
 ## L2: Data Wrangling
 
@@ -35,8 +40,13 @@ Bookmark the following references in your browswer. These are **Handy References
 
 **Exercise Sets**:
 
-- [L1.Ex3](exercises/03/) (~45m)
-- [L2.Ex1](exercises/04/) (~22m)
+- Set 3 (~45m):
+    - `DW 3.1` [Occupation - Basics](exercises/03/01_basics/Occupation.ipynb)
+    - `DW 3.2` [Euro 2012 - Filtering & Sorting](exercises/03/02_filtering_and_sorting/Euro12.ipynb)
+    - `DW 3.3` [Occupation - Grouping](exercises/03/03_grouping/Occupation.ipynb)
+- Set 4 (~22m):
+    - `DW 4.1` [Auto MPG - Modify](exercises/04/01_modify/Auto_MPG.ipynb)
+    - `DW 4.2` [Auto MPG - Merge](exercises/04/02_merge/Auto_MPG.ipynb)
 
 ## L3: Data Vizualization
 
@@ -45,7 +55,8 @@ Bookmark the following references in your browswer. These are **Handy References
 
 **Exercise Sets**:
 
-- [L3.Ex1](exercises/05/)
+- Set 5:
+    - `DW 5.1` [Visualization Exercises](exercises/05/01_visualization_exercises.ipynb)
 
 ## L4: Timeseries Analysis
 
@@ -57,7 +68,9 @@ Bookmark the following references in your browswer. These are **Handy References
 
 **Exercise Sets**:
 
-- [L4.Ex1](exercises/06/) (~29m)
+- Set 6 (~29m):
+    - `DW 6.1` [Investor Flow of Funds US - Timeseries](exercises/06/01_timeseries/Investor_Flow_of_Funds_US.ipynb)
+    - `DW 6.2` [Apple Stock - Timeseries](exercises/06/02_timeseries/Apple_Stock.ipynb)
 
 ## Extra
 

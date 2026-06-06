@@ -3,25 +3,39 @@
 It is required that you follow this instruction to get graded, for each exercise:
 
 1. First, `git add` and `git commit` the exercise before solving it.
-2. Each subsequent commit must have a full identifier such as:
-    1. Course number (C1, C2, ...)
-    2. Module number (M1, M2, ...)
-    3. Exercise number (Ex1, Ex2, ...) -- i.e., a notebook
-    4. Question number (Q1, Q2, ...) -- i.e., a step in the exercise of the notebook
+2. Each subsequent commit must include a full identifier in the commit message:
+    1. **Course abbreviation** (see legend below)
+    2. **Exercise number** — the set number; add a `.sub` suffix when a set contains multiple notebooks (e.g. `1.1`, `1.2`)
+    3. **Question number** (`init`, `q1`, `q2`, ...) — a step in the exercise
 3. Finally, `git push` before deadline
 4. Mark it as done in **Google Classroom**
 
-## Example
+## Course abbreviations
 
-- **Execises**:
-    - `C1 M2 Ex1: init` (1st exercise)
-    - `C1 M2 Ex1: q1`   (question 1 solved)
-    - `C1 M2 Ex1: q2`
-    - `C1 M2 Ex2: init` (started 2nd exercise)
+| Abbreviation | Course |
+|--------------|--------|
+| `DW` | Data Wrangling |
+| `DS` | Data Science |
+
+Each exercise's identifier is listed in that course's `README.md`.
+
+## Commit message format
+
+`<ABBR> <exercise>[.<sub>]: <step>`
+
+### Example
+
+- **Exercises**:
+    - `DW 1.1: init` (started 1st notebook in set 1)
+    - `DW 1.1: q1` (question 1 solved)
+    - `DW 1.1: q2`
+    - `DW 1.2: init` (started 2nd notebook in set 1)
+    - `DS 3: init`
+    - `TERM 2: q1`
     - ...
 - **Projects**:
-    - `C1 Project: init`
-    - `C1 Project: write analysis questions`
-    - `C1 Project: explore the data`
+    - `DW Project: init`
+    - `DW Project: write analysis questions`
+    - `DW Project: explore the data`
     - ...
-    - `C1 Project: add the 6th and 7th insight`
+    - `DW Project: add the 6th and 7th insight`

@@ -22,7 +22,7 @@
 
 **Exercises**:
 
-- [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (~25m; 15 questions)
+- `DS 1` [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (~25m; 15 questions)
 
 ## M2. Univariate Analysis
 
@@ -40,7 +40,7 @@
 
 **Exercises**:
 
-1. [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md) (~36m)
+1. `DS 2` [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md) (~36m)
 
 ## M3. Bivariate Analysis
 
@@ -54,7 +54,7 @@
 
 **Exercises**:
 
-1. [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~13m)
+1. `DS 3` [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~13m)
 
 **Extra**:
 
@@ -73,7 +73,7 @@
 
 **Exercises**:
 
-1. [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb) (~23m)
+1. `DS 4` [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb) (~23m)
 
 **Resources**:
 

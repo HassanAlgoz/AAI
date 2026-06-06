@@ -94,6 +94,13 @@ Growth comes from pushing yourself out of your comfort zone. The challenges and 
 - If you keep using AI, then employers won't have the incentive to hire you over the AI.
 - If you invest in yourself, you will be an invaluable asset that employers seek you.
 
+== Assigned Exercises
+
+- Exercises are due Thursday 11:59 PM (end of same week).
+- Work must be pushed to GitHub.
+- Mark as done in Google Classroom before then.
+- Commit history *MUST* follow the #link("https://github.com/HassanAlgoz/B5/blob/next/docs/proof-of-work.md", [proof-of-work]) system.
+
 == Trainers' Expertise
 
 === Classroom discussions
@@ -164,4 +171,3 @@ Signs this isn't for you:
 + You find it difficult to read through the docs of a library or a framework. #pause
 + You find it mundane to spend hours debugging just for another error to show up.
 + You are not willing get out of your comfort zone. #pause
-+ You are not committed to put in 100% effort for the next 2 months.

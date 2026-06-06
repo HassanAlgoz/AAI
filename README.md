@@ -34,12 +34,15 @@ Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](/courses
 
 See [the research and findings that made up our AI Policy](docs/ai_policy.md).
 
-<!-- ## Assignments -->
-<!--  -->
-<!-- Submission and grading follows a [strict proof-of-work](/docs/proof-of-work.md) to avoid AI misuse. -->
+## Assigned Exercises
 
-## Resources:
+- Due Thursday 11:59 PM (end of same week).
+- Work must have been pushed to GitHub.
+- Marked as done (in Google Classroom) before then.
+- Commit history **MUST** follow the [proof-of-work](/docs/proof-of-work.md) system.
+
+## Resources
 
 - [The Art of Reading Docs](docs/the_art_of_reading_docs.md)
 - [Never expose API Keys](docs/never_expose_api_keys.qmd)
-- [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية).
+- [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية)
