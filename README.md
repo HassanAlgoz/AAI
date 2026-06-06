@@ -1,24 +1,46 @@
 # Applied Artifical Intelligence (AAI)
 
-[Introductions](/courses/Intro/lessons/01_bootcamp_intro.pdf) (1hr).
+Welcome: [Introductions](/courses/Intro/lessons/01_bootcamp_intro.pdf) (1hr 30m).
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
-| 1  | [Terminal](/courses/Terminal/)          | Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.          | 6 (~1hr 6m)    | 0                |
+| 1  | [Terminal](/courses/Terminal/)          | Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.          | 1 (~30m)       | 5 (~2hr 40m)     |
 | 2  | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~41m)       | 0                |
 | 3  | [Data Wrangling](/courses/Data_Wrangling/) | Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.                 | 11 (~4hr 24m)  | 7 (~3hr 17m)     |
-| 4  | [Applied Data Science](/courses/Data_Science/) | Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions. | 14 (~8hr 12m)  | 1 (~25m)         |
+| 4  | [Applied Data Science](/courses/Data_Science/) | Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions. | 13 (~8hr 50m)  | 4 (~1hr 37m)     |
 | 5  | Applied Machine Learning                | Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.        |                |                  |
 | 6  | Applied Deep Learning                   | Use DL solution frameworks / libraries to apply AI to specific problems in NLP (language) and Computer Vision.   |                |                  |
 | 7  | Agentic AI                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. |                |                  |
-|    | **Total**                               |                                                                                                           | **35 (~14hr 23m)** | **8 (~3hr 42m)** |
+|    | **Total**                               |                                                                                                           | **29 (~14hr 25m)** | **16 (~7hr 34m)** |
 **Estimated Duration**: 8 weeks.
 
-**Estimated hands-on content**: ~18hr (lessons ~14hr 23m + exercises ~3hr 42m), excluding the 1hr intro. Per-lesson estimates live in each course's `README.md`.
+**Estimated hands-on content**: ~22hr (lessons ~14hr 25m + exercises ~7hr 34m), excluding the 1hr intro. Per-lesson estimates live in each course's `README.md`.
 
-## Pre-requisites
+## AI Policy
 
-[Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية).
+You can't rely on AI now and expect growth in your skills and acquisition of knowledge:
+
+- **Allowed use**: for feedback, hints, explanations, practice, or extra resources, while you still do the core reasoning, writing, and problem-solving.
+  - [Gemini Guided Learning](https://blog.google/products-and-platforms/products/gemini/guided-learning-google-gemini/#:~:text=%E2%80%9CThe%20idea%20is%20to%20help,to%20get%20to%20the%20result).
+  - [ChatGPT Study Mode](https://openai.com/index/chatgpt-study-mode/).
+- **Forbidden use**: treating course material as "work" and AI as an assistant to get it done "faster" or "easier" or "better". Don't mix productivity (output) with learning (you).
+
+**Punishment**: *expulsion from the bootcamp.*
+
+- If you keep using AI, then employers won't have the incentive to hire you over the AI.
+- If you invest in yourself, you will be an invaluable asset that employers seek you.
+
+Learning only occurs when the brain is actively engaged in making sense of information. The prevailing conclusion across these studies is that when AI is used to *produce an output* rather than *assist in a process*, it undercuts learning.
+
+See [the research and findings that made up our AI Policy](docs/ai_policy.md).
+
+## Bootcamp Pre-requisites
+
++ English B2 (Upper-Intermediate) level: IELTS 6.5 or TOEFL 80.
++ Algorithmic thinking and problem-solving skills.
++ Strong foundation in programming.
+    - See: [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية).
++ Working laptop with internet access.
 
 ## Assignments
 
