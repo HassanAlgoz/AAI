@@ -21,13 +21,12 @@
 
 #### Integrated Development Environment
 
+* **[VS Code](https://code.visualstudio.com/):** Microsoft's ubiquitous, highly extensible editor. It dominates the market with its massive extension ecosystem, robust debugging, and broad multi-language support.
+  * **[Cursor AI](https://cursor.com/home):** An AI-centric fork of VS Code. It prioritizes deeply integrated, codebase-wide AI assistance, allowing for intelligent multi-line predictions and natural-language code generation.
+  * **[Positron](https://positron.posit.co/):** A data science IDE by Posit (makers of RStudio). Built on the VS Code base, it is specifically tailored for R and Python workflows, data exploration, and reproducible authoring.
+  * **[VSCodium](https://vscodium.com/):** The most direct replacement. It is the exact same underlying codebase as VS Code, but compiled without Microsoft's telemetry, tracking, and proprietary branding.
 * **[Zed](https://zed.dev/):** A high-performance, multiplayer code editor written in Rust. It focuses on extreme speed, native collaborative editing, and fast out-of-the-box AI integration without the bloat of Electron.
 * **[Lapdev](https://lap.dev/lapce/):** A lightning-fast, Rust-based editor featuring a native GUI. It is built from the ground up to support remote workspaces and remote development seamlessly.
-* **[VS Code](https://code.visualstudio.com/):** Microsoft's ubiquitous, highly extensible editor. It dominates the market with its massive extension ecosystem, robust debugging, and broad multi-language support.
-  * **[VSCodium](https://vscodium.com/):** The most direct replacement. It is the exact same underlying codebase as VS Code, but compiled without Microsoft's telemetry, tracking, and proprietary branding.
-  * **[Positron](https://positron.posit.co/):** A data science IDE by Posit (makers of RStudio). Built on the VS Code base, it is specifically tailored for R and Python workflows, data exploration, and reproducible authoring.
-  * **[Cursor AI](https://cursor.com/home):** An AI-centric fork of VS Code. It prioritizes deeply integrated, codebase-wide AI assistance, allowing for intelligent multi-line predictions and natural-language code generation.
-  * **[Anti Gravity](https://antigravity.google/):** Google's "agent-first" development platform. Forked from VS Code, it introduces a dual-pane interface (Editor and Agent Manager) that allows autonomous, Gemini-powered AI agents to plan, verify, and execute coding tasks in parallel.
 
 #### Command Runner
 
