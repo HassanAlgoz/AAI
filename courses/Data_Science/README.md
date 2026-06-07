@@ -93,6 +93,12 @@
 
 - [`statsmodels`](https://www.statsmodels.org/) statistical models, statistical tests, and statistical data exploration.
 
+## Bookmarks
+
+Things that will become useful as you gain more experience. Save it and come back to it later:
+
+- [Guides: Good Data Analysis | Google](https://developers.google.com/machine-learning/guides/good-data-analysis)
+
 ## References
 
 - [Principles of Data Science - Jan 24, 2025 | OpenStax](https://openstax.org/details/books/principles-data-science)
@@ -100,3 +106,7 @@
 - [R for Data Science (2e) by Hadley Wickham, Mine, and Garrett](https://r4ds.hadley.nz/)
 - [H. J. Motulsky, GraphPad Statistics Guide](https://www.graphpad.com/guides/prism/latest/statistics/stat_---_principles_of_statistics_-.htm)
 - [4.8. Power analysis with statsmodels](https://jillxoreilly.github.io/StatsCourseBook_2024/Chapter7_Power/BuiltInPowerCalc.html)
+
+Others:
+
+- [Statistics and Probability | Khan Academy](https://www.khanacademy.org/math/statistics-probability)
