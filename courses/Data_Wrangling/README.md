@@ -37,6 +37,7 @@ Bookmark the following references in your browswer. These are **Handy References
 
 1. [DataFrame: Creating and modifying columns](lessons/05_modify.ipynb) (~16m)
 2. [DataFrame: Combining through Concat and Merge](lessons/06_combine.ipynb) (~13m)
+3. [DataFrame: Validating Structure and Types with Pandera](lessons/07_validate.ipynb) (~20m)
 
 **Exercise Sets**:
 
@@ -50,8 +51,8 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## L3: Data Vizualization
 
-1. [Data Visualization](lessons/07_visualization.ipynb)
-2. [Small Multiples](lessons/08_small_multiples.ipynb)
+1. [Data Visualization](lessons/08_visualization.ipynb)
+2. [Small Multiples](lessons/09_small_multiples.ipynb)
 
 **Exercise Sets**:
 
@@ -62,9 +63,9 @@ Bookmark the following references in your browswer. These are **Handy References
 
 **Goal**: learn to analyze data associated with points in time.
 
-1. [Example 1: Analysis of US Census Data (2010 - 2019)](lessons/09_us_census.ipynb) (~39m)
-2. [Example 2: Temperature in Riyadh](lessons/10_riyadh_temperature.ipynb) (~28m)
-3. [Example 3: Trips](lessons/11_trips.ipynb) (~46m)
+1. [Example 1: Analysis of US Census Data (2010 - 2019)](lessons/10_us_census.ipynb) (~39m)
+2. [Example 2: Temperature in Riyadh](lessons/11_riyadh_temperature.ipynb) (~28m)
+3. [Example 3: Trips](lessons/12_trips.ipynb) (~46m)
 
 **Exercise Sets**:
 
