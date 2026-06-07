@@ -198,6 +198,8 @@ Examples of *present* and *past* events predictions:
   caption: [Predictive analytics],
 )
 
+= Mental Models
+
 == The Non-linear Nature of Data Science
 
 In reality, *Data Science* is not sequential from 1 to 5. Rather, it is continuous process of planning, doing, reviewing, and improving.
