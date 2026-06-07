@@ -9,8 +9,9 @@
 1. [Moving Aronud](exercises/01_moving_around.md) (~20m)
 2. [Commands Grammar](exercises/02_commands_grammar.md) (~20m)
 3. [Version Control](exercises/03_version_control.md) (~45m)
-4. [Command Runners](exercises/04_command_runners.md) (~30m)
-5. [Client for URLs: `curl`](exercises/05_curl.md) (~45m)
+4. [Python Environments with `uv`](exercises/04_python_environments.md) (~40m)
+5. [Command Runners](exercises/05_command_runners.md) (~30m)
+6. [Client for URLs: `curl`](exercises/06_curl.md) (~45m)
 
 ### Tools
 

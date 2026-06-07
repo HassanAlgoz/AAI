@@ -122,7 +122,7 @@ Let's install it and wire it into our automation pipeline.
 Since you are already working with Python, you can install it using Python's package manager (`pip`):
 
 ```bash
-pip install ruff
+uv tool install ruff
 
 ```
 
