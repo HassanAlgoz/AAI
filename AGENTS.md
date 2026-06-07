@@ -1,1 +1,1 @@
-Write Math Equations using this reference (not LaTeX): https://typst.app/docs/reference/
+iff editing `.typ` files, write math equations using this reference from Typst: https://typst.app/docs/reference/ and not in md LaTeX.
