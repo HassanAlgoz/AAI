@@ -44,6 +44,7 @@ In this lesson we learn to:
 + Identify the two main tasks in *supervised learning*.
 + Identify the two parts of a *data matrix*.
 + Distinguish *features* from *target*.
++ Recognize whether the task is *regression* or *classification*.
 + Recognize the foundations and related fields of ML.
 + Recognize the three main branches of ML.
 
