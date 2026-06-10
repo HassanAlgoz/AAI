@@ -36,6 +36,19 @@ compile force="0":
 # Force recompile of all .typ files
 recompile: (compile "1")
 
+# Compile every .typ under courses/ to pdf/<course>_<name>.pdf (mirrors the release-pdfs GitHub workflow)
+release:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    mkdir -p pdf
+    while IFS= read -r file; do
+        name=$(basename "$file" .typ)
+        course=$(echo "$file" | cut -d/ -f2)
+        out="pdf/${course}_${name}.pdf"
+        echo "Compiling $file -> $out"
+        typst compile "$file" "$out" --root . --font-path /usr/share/fonts
+    done < <(find courses/ -name '*.typ')
+
 # Run every executable script in scripts/check/
 check:
     #!/usr/bin/env bash
