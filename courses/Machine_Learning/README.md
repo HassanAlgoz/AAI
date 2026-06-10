@@ -1,10 +1,17 @@
 # Machine Learning
 
-- Estimate unknown values by fitting the patterns using linear and non-linear regression and classification models.
-- Estimate generalization power of such preditive models empirically using task-specific metrics.
-- Optimize models for domain-specific metrics.
-- Control model hyper-parameters and data pre-processing pipelines.
-- Reflect model learned parameters onto what is means for the business.
+**Learning objectives**:
+
+- [x] Build predictive pipelines for unknown values by fitting the patterns in data using linear and non-linear regression and classification models.
+- [x] Diagnose and resolve ML issues tracing it back to data/features or model.
+- [x] Tune decision thresholds to optimize metrics associated with specific domain problems.
+- [x] Ensure reliability of pre-processing pipelines for mix-type datasets.
+- [x] Understand and use the latest and greatest ensemble models: hist-gradient boosting trees.
+- [x] Apply meta-learning method like Bayesian Search for hyper-parametr tuning.
+- [ ] **SHAP** Explain model predictions.
+    - [ ] Feature Engineering.
+    - [ ] Feature Selection.
+- [ ] AutoML: **AutoGluon**
 
 ## Lessons
 
@@ -20,11 +27,12 @@
 10. [Missing Values](lessons/10_missing_values.ipynb)
 11. [Categorical Encoding](lessons/11_categorical_encoding.ipynb)
 12. [Pipelines](lessons/12_pipelines.ipynb)
-13. [Trees](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_13_trees.pdf)
-14. [Tree Classification](lessons/14_trees_classification.ipynb)
-15. [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_15_ensemble.pdf)
-16. [Ensemble Methods (lab)](lessons/16_ensemble.ipynb)
-17. [Hyper-parameter Search](lessons/17_hp_search.ipynb)
+13. [Regression Target Transform](lessons/13_regression_target_transform.ipynb)
+14. [Trees](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_14_trees.pdf)
+15. [Tree Classification](lessons/15_trees_classification.ipynb)
+16. [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_16_ensemble.pdf)
+17. [Ensemble Methods (lab)](lessons/17_ensemble.ipynb)
+18. [Hyper-parameter Search](lessons/18_hp_search.ipynb)
 
 ## References
 
