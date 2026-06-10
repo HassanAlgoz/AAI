@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Check that asset references in Typst files and Jupyter notebooks resolve.
+"""Check that asset references in Typst files, Markdown files, and notebooks resolve.
 
-Two passes:
+Three passes:
   1. Typst files (`.typ`) under `courses/`. Paths starting with `/` are
      resolved relative to the project root; relative paths are resolved
      relative to the file itself.
-  2. Jupyter notebooks (`.ipynb`) under `courses/`. Paths in markdown cells
+  2. Markdown files (`.md`) under `courses/`. Markdown image/link targets and
+     HTML `src`/`href` attributes are resolved relative to the file itself.
+  3. Jupyter notebooks (`.ipynb`) under `courses/`. Paths in markdown cells
      (`![alt](path)` and `<img src="path">`) are resolved relative to the
      notebook's directory.
 
@@ -24,6 +26,7 @@ import re
 import sys
 from collections import defaultdict
 from pathlib import Path
+from urllib.parse import unquote
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
@@ -47,20 +50,46 @@ EXCLUDE_DIR_NAMES = {
 # Captures the first arg of a Typst `image("...")` call.
 TYPST_IMAGE_RE = re.compile(r'image\(\s*"([^"]+)"')
 
-# Markdown image: ![alt](path), allowing optional {attrs} suffix that we strip.
-MD_IMAGE_RE = re.compile(r'!\[[^\]]*\]\(\s*([^)\s]+?)(?:\s+"[^"]*")?\s*\)')
+# Single-parameter Typst helpers that build a path by concatenating a string
+# literal with the parameter, e.g.
+#   #let asset(name) = "/courses/.../assets/" + name
+#   #let asset(name) = name + "_suffix.png"
+# Captures (helper_name, prefix, suffix); exactly one of prefix/suffix is set.
+TYPST_HELPER_DEF_RE = re.compile(
+    r'#let\s+(?P<name>\w+)\s*\(\s*(?P<param>\w+)\s*\)\s*=\s*'
+    r'(?:"(?P<prefix>[^"]*)"\s*\+\s*(?P=param)'
+    r'|(?P=param)\s*\+\s*"(?P<suffix>[^"]*)")'
+)
 
-# HTML <img src="..."> in markdown cells (handles escaped quotes in JSON).
-HTML_IMG_RE = re.compile(r'<img\b[^>]*\bsrc\s*=\s*(?:"|\\")([^"\\]+)', re.IGNORECASE)
+# Markdown inline links/images. The target may contain spaces; trailing quoted
+# titles are stripped in `clean_markdown_target`.
+MD_INLINE_LINK_RE = re.compile(r'!?\[[^\]]*\]\(\s*(<[^>]+>|[^)]+?)\s*\)')
+
+# HTML src/href attributes in markdown (handles escaped quotes in JSON).
+HTML_ATTR_RE = re.compile(
+    r'<(?:img|source|video|a)\b[^>]*\b(?:src|href)\s*=\s*'
+    r'(?:(?:"|\\")(?P<double>[^"\\]+)|\'(?P<single>[^\']+)\')',
+    re.IGNORECASE,
+)
 
 
 def is_external(path: str) -> bool:
     return path.startswith(("http://", "https://", "data:", "mailto:", "#"))
 
 
-def strip_md_attrs(path: str) -> str:
+def clean_markdown_target(raw: str) -> str:
+    target = raw.strip()
+    if target.startswith("<") and target.endswith(">"):
+        target = target[1:-1].strip()
+    else:
+        # Strip optional markdown titles without breaking paths that contain
+        # spaces, e.g. `Salary Data.csv`.
+        target = re.sub(r'\s+(?:"[^"]*"|\'[^\']*\')\s*$', "", target)
     # `![](foo.png){height=400}` => `foo.png`
-    return path.split("{", 1)[0].strip()
+    target = target.split("{", 1)[0].strip()
+    # Local links may include anchors or cache-busting query strings.
+    target = target.split("#", 1)[0].split("?", 1)[0].strip()
+    return unquote(target)
 
 
 def iter_source_files(suffix: str) -> list[Path]:
@@ -90,6 +119,24 @@ def resolve_notebook_path(raw: str, notebook: Path) -> Path:
     return (notebook.parent / raw).resolve()
 
 
+def typst_helper_paths(text: str) -> list[str]:
+    """Resolve paths built via single-parameter string-concat helpers.
+
+    Handles the common indirection where an `image(...)` call wraps a helper
+    instead of a literal, e.g. `image(asset("roc_curve.png"))` with
+    `#let asset(name) = "/courses/.../assets/" + name`.
+    """
+    resolved: list[str] = []
+    for m in TYPST_HELPER_DEF_RE.finditer(text):
+        name = m.group("name")
+        prefix = m.group("prefix") or ""
+        suffix = m.group("suffix") or ""
+        call_re = re.compile(rf'\b{re.escape(name)}\(\s*"([^"]+)"')
+        for arg in call_re.findall(text):
+            resolved.append(f"{prefix}{arg}{suffix}")
+    return resolved
+
+
 def collect_typst_references() -> dict[Path, list[Path]]:
     """Return mapping of source_file -> list of resolved referenced paths."""
     refs: dict[Path, list[Path]] = defaultdict(list)
@@ -103,6 +150,35 @@ def collect_typst_references() -> dict[Path, list[Path]]:
             if is_external(raw):
                 continue
             refs[typ_file].append(resolve_typst_path(raw, typ_file))
+        for raw in typst_helper_paths(text):
+            if is_external(raw):
+                continue
+            refs[typ_file].append(resolve_typst_path(raw, typ_file))
+    return refs
+
+
+def markdown_targets(text: str) -> list[str]:
+    targets: list[str] = []
+    targets.extend(MD_INLINE_LINK_RE.findall(text))
+    for match in HTML_ATTR_RE.finditer(text):
+        targets.append(match.group("double") or match.group("single") or "")
+    return [clean_markdown_target(raw) for raw in targets]
+
+
+def collect_markdown_references() -> dict[Path, list[Path]]:
+    refs: dict[Path, list[Path]] = defaultdict(list)
+    for md_file in iter_source_files(".md"):
+        try:
+            text = md_file.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            print(f"WARN: cannot read {md_file}: {exc}", file=sys.stderr)
+            continue
+        for raw in markdown_targets(text):
+            if not raw or is_external(raw):
+                continue
+            if Path(raw).suffix.lower() not in ASSET_EXTENSIONS:
+                continue
+            refs[md_file].append(resolve_notebook_path(raw, md_file))
     return refs
 
 
@@ -129,13 +205,10 @@ def collect_notebook_references() -> dict[Path, list[Path]]:
             print(f"WARN: cannot parse {nb_file}: {exc}", file=sys.stderr)
             continue
         text = extract_markdown_text(nb_json)
-        for raw in MD_IMAGE_RE.findall(text):
-            raw = strip_md_attrs(raw)
+        for raw in markdown_targets(text):
             if not raw or is_external(raw):
                 continue
-            refs[nb_file].append(resolve_notebook_path(raw, nb_file))
-        for raw in HTML_IMG_RE.findall(text):
-            if is_external(raw):
+            if Path(raw).suffix.lower() not in ASSET_EXTENSIONS:
                 continue
             refs[nb_file].append(resolve_notebook_path(raw, nb_file))
     return refs
@@ -215,20 +288,25 @@ def main() -> int:
         print(f"  - {rel(root)}")
 
     typst_refs = collect_typst_references()
+    md_refs = collect_markdown_references()
     nb_refs = collect_notebook_references()
 
     print(
         f"\nScanned {len(typst_refs)} Typst files "
+        f"{len(md_refs)} Markdown files "
         f"and {len(nb_refs)} notebooks with references."
     )
 
     _, typst_referenced = build_report(typst_refs, "Typst")
+    _, md_referenced = build_report(md_refs, "Markdown")
     _, nb_referenced = build_report(nb_refs, "Notebooks")
 
     # For "unused", only count references that point inside our asset roots —
     # otherwise notebooks that reference local CSVs etc. would skew the set.
     referenced_in_assets = {
-        p for p in (typst_referenced | nb_referenced) if in_tracked_asset_roots(p)
+        p
+        for p in (typst_referenced | md_referenced | nb_referenced)
+        if in_tracked_asset_roots(p)
     }
     report_unused(referenced_in_assets)
 

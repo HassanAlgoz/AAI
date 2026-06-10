@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Check that data references in Typst files and Jupyter notebooks resolve.
+"""Check that data references in Typst files, Markdown files, and notebooks resolve.
 
-Two passes:
+Three passes:
   1. Typst files (`.typ`) under `courses/`. Paths in `csv("...")`, `json("...")`,
      `read("...")` (and similar) calls are resolved. Paths starting with `/`
      are project-root relative; otherwise relative to the file itself.
-  2. Jupyter notebook (`.ipynb`) code cells under `courses/`. Only string
+  2. Markdown files (`.md`) under `courses/`. Markdown image/link targets and
+     HTML `src`/`href` attributes with data-file extensions are resolved
+     relative to the file itself.
+  3. Jupyter notebook (`.ipynb`) code cells under `courses/`. Only string
      literals that sit inside a *read* construct are considered references:
        - `pd.read_csv(...)`, `read_json(...)`, `read_excel(...)`, …
        - `open(...)` and `Path(...)` calls
@@ -31,6 +34,7 @@ import re
 import sys
 from collections import defaultdict
 from pathlib import Path
+from urllib.parse import unquote
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
@@ -85,6 +89,17 @@ PY_JOIN_LITERAL_RE = re.compile(
     r'(?P<qb>["\'])(?P<vb>(?:\\.|(?!(?P=qb)).)*)(?P=qb)\s*/'
 )
 
+# Markdown inline links/images. The target may contain spaces; trailing quoted
+# titles are stripped in `clean_markdown_target`.
+MD_INLINE_LINK_RE = re.compile(r'!?\[[^\]]*\]\(\s*(<[^>]+>|[^)]+?)\s*\)')
+
+# HTML src/href attributes in markdown.
+HTML_ATTR_RE = re.compile(
+    r'<(?:img|source|video|a)\b[^>]*\b(?:src|href)\s*=\s*'
+    r'(?:(?:"|\\")(?P<double>[^"\\]+)|\'(?P<single>[^\']+)\')',
+    re.IGNORECASE,
+)
+
 
 def is_external(path: str) -> bool:
     return path.startswith(("http://", "https://", "ftp://", "s3://", "data:", "mailto:", "#"))
@@ -92,6 +107,21 @@ def is_external(path: str) -> bool:
 
 def has_data_ext(path: str) -> bool:
     return Path(path).suffix.lower() in DATA_EXTENSIONS
+
+
+def clean_markdown_target(raw: str) -> str:
+    target = raw.strip()
+    if target.startswith("<") and target.endswith(">"):
+        target = target[1:-1].strip()
+    else:
+        # Strip optional markdown titles without breaking paths that contain
+        # spaces, e.g. `Salary Data.csv`.
+        target = re.sub(r'\s+(?:"[^"]*"|\'[^\']*\')\s*$', "", target)
+    # `![](foo.csv){download}` => `foo.csv`
+    target = target.split("{", 1)[0].strip()
+    # Local links may include anchors or cache-busting query strings.
+    target = target.split("#", 1)[0].split("?", 1)[0].strip()
+    return unquote(target)
 
 
 def looks_like_dir(literal: str) -> bool:
@@ -150,6 +180,29 @@ def collect_typst_references() -> dict[Path, list[Path]]:
             if is_external(raw) or not has_data_ext(raw):
                 continue
             refs[typ_file].append(resolve_relative(raw, typ_file))
+    return refs
+
+
+def markdown_targets(text: str) -> list[str]:
+    targets: list[str] = []
+    targets.extend(MD_INLINE_LINK_RE.findall(text))
+    for match in HTML_ATTR_RE.finditer(text):
+        targets.append(match.group("double") or match.group("single") or "")
+    return [clean_markdown_target(raw) for raw in targets]
+
+
+def collect_markdown_references() -> dict[Path, list[Path]]:
+    refs: dict[Path, list[Path]] = defaultdict(list)
+    for md_file in iter_source_files(".md"):
+        try:
+            text = md_file.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            print(f"WARN: cannot read {md_file}: {exc}", file=sys.stderr)
+            continue
+        for raw in markdown_targets(text):
+            if not raw or is_external(raw) or not has_data_ext(raw):
+                continue
+            refs[md_file].append(resolve_relative(raw, md_file))
     return refs
 
 
@@ -330,18 +383,23 @@ def main() -> int:
         print(f"  - {rel(root)}")
 
     typst_refs = collect_typst_references()
+    md_refs = collect_markdown_references()
     nb_refs = collect_notebook_references()
 
     print(
         f"\nScanned {len(typst_refs)} Typst files "
+        f"{len(md_refs)} Markdown files "
         f"and {len(nb_refs)} notebooks with references."
     )
 
     _, typst_referenced = build_report(typst_refs, "Typst")
+    _, md_referenced = build_report(md_refs, "Markdown")
     _, nb_referenced = build_report(nb_refs, "Notebooks")
 
     referenced_in_data = {
-        p for p in (typst_referenced | nb_referenced) if in_tracked_data_roots(p)
+        p
+        for p in (typst_referenced | md_referenced | nb_referenced)
+        if in_tracked_data_roots(p)
     }
     report_unused(referenced_in_data)
 
