@@ -1,8 +1,8 @@
 **Subject:** A split-screen comparison illustration.
 
-- **Left Side (The Specific):** A simplified, flat vector icon of a news anchor or a person eating a fish meal, with a subtle speech bubble or caption box below containing: "Mercury poisoning from swordfish."
+- **Left Side: Type I Error (False Positive)**: a stickman being told by a stickman doctor "You are pregnant".
     
-- **Right Side (The Generalization):** A minimalist chart or a large, stylized swordfish icon with a warning symbol, paired with a caption box containing: "All swordfish are dangerous."
+- **Right Side: Type II Error (False Neagtive):** a stickwoman (gender indicated by her wearing hijab) being told by a female doctor stickwoman  (gender indicated by her wearing hijab).
     
 - **Layout:** A clear vertical divider line separating the two halves.
     
