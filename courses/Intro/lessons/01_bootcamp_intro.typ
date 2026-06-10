@@ -46,6 +46,17 @@ To reach these goals, AI researchers have used techniques including state space 
 
 #figure(image("/courses/Intro/assets/related_fields.png", width: 65%), caption: [AI = Computer Science + Mathematics + Statistics])
 
+== Use Cases of AI
+
+Few of many many use cases:
+
+- *Content moderation* and *audience analytics* (social media).
+- *Ministry of Health*: population health forecasting from electronic health records (COVID-19 pandemic).
+- *Predictive maintenance* to reduce downtime.
+- *Educator support*: content creation, assessment automation, ..etc.
+
+..what else?
+
 == Courses Outline
 
 The AAI bootcamp has the following courses:

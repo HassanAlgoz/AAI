@@ -433,8 +433,18 @@ Choosing the right metric depends on the application and its business constraint
   )
 ]
 
+
+== Minimize False Negatives
+*Pattern 1 — false negatives are unacceptable* in applications like:
+- cancer screening: A false negative sends a sick patient home; a false positive only means a follow-up test.
+
+Advice:
+
++ Fix recall $= 100%$ (catch every true case).
++ Then optimize precision (reduce false alarms once every case is found).
+
 == Minimize False Positives
-*Pattern 1 — false positives are unacceptable* in applications like: 
+*Pattern 2 — false positives are unacceptable* in applications like: 
 - _search results_: If Google's first page is filled with irrelevant junk (false positives), you will switch to another search engine. 
 - _grammar suggestions_: If Grammarly constantly gives you incorrect grammar suggestions (false positives), you will turn it off. 
 
@@ -443,14 +453,6 @@ Advice:
 + Fix precision $>= 95%$.
 + Then optimize recall (find as many relevant items as possible without breaking the precision rule).
 
-== Minimize False Negatives
-*Pattern 2 — false negatives are unacceptable* in applications like:
-- cancer screening: A false negative sends a sick patient home; a false positive only means a follow-up test.
-
-Advice:
-
-+ Fix recall $= 100%$ (catch every true case).
-+ Then optimize precision (reduce false alarms once every case is found).
 
 == Top-K
 *Pattern 3 — you can only show $K$ items (Recommendation Systems)*
