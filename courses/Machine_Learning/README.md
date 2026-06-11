@@ -1,37 +1,80 @@
-# Machine Learning
+# Applied Machine Learning
 
-**Learning objectives**:
+**Goals**:
 
-- [x] Build predictive pipelines for unknown values by fitting the patterns in data using linear and non-linear regression and classification models.
-- [x] Diagnose and resolve ML issues tracing it back to data/features or model.
-- [x] Tune decision thresholds to optimize metrics associated with specific domain problems.
-- [x] Ensure reliability of pre-processing pipelines for mix-type datasets.
-- [x] Understand and use the latest and greatest ensemble models: hist-gradient boosting trees.
-- [x] Apply meta-learning method like Bayesian Search for hyper-parametr tuning.
-- [ ] **SHAP** Explain model predictions.
-    - [ ] Feature Selection.
-- [ ] AutoML: **AutoGluon**
+1. Build predictive pipelines for unknown values by fitting the patterns in data using linear and non-linear regression and classification models.
+2. Diagnose and resolve ML issues tracing it back to data/features or model.
+3. Tune decision thresholds to optimize metrics associated with specific domain problems.
+4. Ensure reliability of pre-processing pipelines for mix-type datasets.
+5. Understand and use the latest and greatest ensemble models: hist-gradient boosting trees.
+6. Apply meta-learning methods like Bayesian Search to automatically tune models hyper-parameters.
 
-## Lessons
+## Introduction
 
-1. [Introduction: Supervised Machine Learning](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_01_intro.pdf)
-2. [Regression](lessons/02_regression.ipynb)
-3. [Non-linear Regression](lessons/03_regression_non-linear.ipynb)
-4. [Regression Metrics](lessons/04_regression_metrics.ipynb)
-5. [k-NN Classification](lessons/05_knn_classification.ipynb)
-6. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_06_model_evaluation.pdf)
-7. [Bias–Variance Tradeoff (exercise)](exercises/06/01_bias-variance_tradeoff.ipynb)
-8. [Classifier Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_08_classifier_metrics.pdf)
-9. [Classifier Metrics (lab)](lessons/09_classifier_metrics.ipynb)
-10. [Missing Values](lessons/10_missing_values.ipynb)
-11. [Categorical Encoding](lessons/11_categorical_encoding.ipynb)
-12. [Pipelines](lessons/12_pipelines.ipynb)
-13. [Regression Target Transform](lessons/13_regression_target_transform.ipynb)
-14. [Trees](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_14_trees.pdf)
-15. [Tree Classification](lessons/15_trees_classification.ipynb)
-16. [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_16_ensemble.pdf)
-17. [Ensemble Methods (lab)](lessons/17_ensemble.ipynb)
-18. [Hyper-parameter Search](lessons/18_hp_search.ipynb)
+1. [Intro: Supervised Machine Learning](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_01_intro.pdf)
+
+## M1. Supervised ML: Regression and Classification
+
+**Goal**: Build predictive pipelines for unknown values by fitting the patterns in data using linear and non-linear regression and classification models.
+
+**Topics**:
+
+1. [Regression](lessons/02_regression.ipynb)
+   - [Exercise 1: Marks vs Study Hours](exercises/02/01_reg.ipynb) ([solution](exercises/02/01_reg_solution.ipynb))
+   - [Exercise 2: Salary vs Experience](exercises/02/02_reg.ipynb) ([solution](exercises/02/02_reg_solution.ipynb))
+2. [Non-linear Regression](lessons/03_regression_non-linear.ipynb)
+3. [k-NN Classification](lessons/05_knn_classification.ipynb)
+   - [Exercise: Iris Flowers](exercises/05/01_classification.ipynb) ([solution](exercises/05/01_classification_solution.ipynb))
+4. [ ] Explain model predictions globally and locally with SHAP.
+
+## M2. Estimating and Improving Model Generalization Performance
+
+**Goals**:
+
+- Diagnose and resolve ML issues tracing it back to data/features or model.
+- Tune decision thresholds to optimize metrics associated with specific domain problems.
+
+**Topics**:
+
+1. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_06_model_evaluation.pdf)
+2. [Regression Evaluation Metrics](lessons/04_regression_metrics.ipynb)
+   - [Exercise: Bias–Variance Tradeoff](exercises/06/01_bias-variance_tradeoff.ipynb) ([solution](exercises/06/01_bias-variance_tradeoff_solution.ipynb))
+3. [Classification Evaluation Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_07_classifier_metrics.pdf) (the 3 labs below are optional)
+   1. [Threshold Tuning A: Prioritize Recall](lessons/08a_threshold_tuning.ipynb)
+   2. [Threshold Tuning B: Weighing Errors by Cost](lessons/08b_threshold_tuning.ipynb)
+   3. [Threshold Tuning C: Dynamic Cost](lessons/08c_threshold_tuning.ipynb)
+
+## M3. `Pipeline`: Building Reliable Predictive Models
+
+**Goal**: Ensure reliability of pre-processing pipelines for mix-type datasets.
+
+**Topics**:
+
+1. Preprocessing
+   - [Missing Values](lessons/10_missing_values.ipynb)
+   - [Categorical Encoding](lessons/11_categorical_encoding.ipynb)
+       - [Exercise: Dealing with High Cardinality Categorical Features](exercises/11/01_high-cardinality.ipynb) ([solution](exercises/11/01_high-cardinality_solution.ipynb))
+2.  [Pipelines](lessons/12_pipelines.ipwynb)
+3.  [Regression Target Transform](lessons/13_regression_target_transform.ipynb)
+
+## M4. Tree Algorithms
+
+**Goal**: Understand and use the latest and greatest ensemble models: hist-gradient boosting trees.
+
+**Topics**:
+
+1.  [Trees](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_14_trees.pdf)
+2.  [Tree Classification](lessons/15_trees_classification.ipynb)
+3.  [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_16_ensemble.pdf)
+4.  [Ensemble Methods (lab)](lessons/17_ensemble.ipynb)
+
+## M5. AutoML
+
+**Goal**: Apply meta-learning methods like Bayesian Search to automatically tune models hyper-parameters.
+
+**Topics**:
+
+1. [Hyper-parameter Search](lessons/18_hp_search.ipynb)
 
 ## Tabular Datasets Repositories for Machine Learning Projects 
 
@@ -46,7 +89,6 @@
 - [UK Governement open data](https://data.gov.uk/)
 - [EU open data](http://data.europa.eu/euodp/en/data/)
 - [A very long list from Forbes](https://www.forbes.com/sites/bernardmarr/2016/02/12/big-data-35-brilliant-and-free-data-sources-for-2016/)
-
 
 ## References
 
