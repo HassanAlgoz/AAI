@@ -335,3 +335,31 @@ A straight boundary works only when the classes are *linearly separable*; otherw
 - Object recognition and localization in images: #pause
   - task 1: "what is the object?" #pause *(classification)* #pause
   - task 2: "where is the object in the image?" #pause *(regression)*
+
+== Applications of ML
+
+#align(center)[
+  #set text(size: 0.8em)
+  #table(
+    columns: 4,
+    align: (left, left, left, left),
+    table.header(
+      [*Application*],
+      [*Goal*],
+      [*ML Task*],
+      [*Description*],
+    ),
+    [*Navigation*], [_ETA prediction_], [Regression], [Estimate time of arrival for a specific route.],
+    [*Weather*], [_Rainfall forecast_], [Regression], [Predict expected rainfall volume for a given area.],
+    [*Revenue*], [_Sales forecasting_], [Regression], [Estimate expected sales revenue for a future period.],
+    [*Drug Response*], [_Estimate efficacy_], [Regression or \ Classification], [Evaluate the potential effectiveness of a medical treatment.],
+    [*Manufacturing*], [_Predict component failure_], [Regression], [Estimate remaining time before a specific machine component fails.],
+    [*Cybersecurity*], [_Attack detection_], [Classification], [Identify whether network activity constitutes a malicious attack.],
+    [*Real Estate*], [_Home valuation_], [Regression], [Estimate market value of a specific residential property.],
+    [*Email*], [_Spam filtering_], [Classification], [Categorize incoming messages as legitimate or unsolicited spam.],
+    [*HR*], [_Attrition risk_], [Classification], [Estimate probability an employee will leave the company.],
+    [*Finance*], [_Fraud classification_], [Classification], [Identify fraudulent transactions.],
+    [*E-commerce*], [_Ad click likelihood_], [Classification], [Estimate likelihood a customer will click on a specific advertisement.],
+    [*Healthcare*], [_Readmission risk_], [Classification], [Estimate probability a patient will return to the hospital.],
+  )
+]
