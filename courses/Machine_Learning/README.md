@@ -20,7 +20,7 @@
 4. [Regression Metrics](lessons/04_regression_metrics.ipynb)
 5. [k-NN Classification](lessons/05_knn_classification.ipynb)
 6. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_06_model_evaluation.pdf)
-7. [Bias–Variance Tradeoff](lessons/07_bias-variance_tradeoff.ipynb)
+7. [Bias–Variance Tradeoff (exercise)](exercises/06/01_bias-variance_tradeoff.ipynb)
 8. [Classifier Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_08_classifier_metrics.pdf)
 9. [Classifier Metrics (lab)](lessons/09_classifier_metrics.ipynb)
 10. [Missing Values](lessons/10_missing_values.ipynb)
