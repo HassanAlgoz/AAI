@@ -57,16 +57,16 @@
 2.  [Pipelines](lessons/12_pipelines.ipwynb)
 3.  [Regression Target Transform](lessons/13_regression_target_transform.ipynb)
 
-## M4. Tree Algorithms
+## M4. Decision Trees and Ensembles
 
 **Goal**: Understand and use the latest and greatest ensemble models: hist-gradient boosting trees.
 
 **Topics**:
 
-1.  [Trees](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_14_trees.pdf)
-2.  [Tree Classification](lessons/15_trees_classification.ipynb)
-3.  [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_16_ensemble.pdf)
-4.  [Ensemble Methods (lab)](lessons/17_ensemble.ipynb)
+1.  [Decision Trees: Classifiers and Regressors](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_14_trees.pdf)
+    - [Exercise: Exploring decision trees with `dtreeviz`](exercises/14/dtree_viz.ipynb) ([solution](exercises/14/dtree_viz_solution.ipynb))
+2.  [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_16_ensemble.pdf)
+    - [Lab: Random Forests and Histogram Gradient Boosted Trees (HGBT)](lessons/17_ensemble.ipynb)
 
 ## M5. AutoML
 

@@ -46,7 +46,9 @@ In this lesson we learn to:
 
 == What is a decision tree?
 
-A decision tree is a set of rules, combined in a *hierarchical* manner:
+A *decision tree* is a supervised learning algorithm that learns a hierarchy of simple if-then-else rules from data. The deeper the tree, the more detailed the rules and the more closely the model fits the training data.
+
+How does a model arrive at a decision the same way you'd win a game of *20 Questions*? *Decision trees* ask one simple yes/no question at a time, and after a handful of questions they commit to an answer:
 
 - Each *split node* asks a yes/no question about *one feature* and *one threshold*.
 - Each *leaf node* stores a prediction (a class or a value).
@@ -229,12 +231,12 @@ Growth stops at one point per leaf or at a *pre-set size* (`max_depth` / `max_le
 
 == Take home messages
 
-- A *sequence of simple decision rules*: one feature and one threshold at a time.
-- The decision function is *piece-wise constant*, and therefore *non-smooth*:
-  - *mean* value in that region (regression)
-  - *most frequent* class in that region (classification)
-- *No scaling required* for numerical features — trees are invariant to rescaling, which makes them a great fit for *tabular data* with mixed units.
-- `max_depth` controls the trade-off between *underfitting* and *overfitting*.
-- A single tree is *rarely competitive on its own*, but it is the core *building block* of ensembles:
+- A *sequence of simple decision rules*: one feature and one threshold at a time. #pause
+- The decision function is *piece-wise constant*, and therefore *non-smooth*: #pause
+  - regression: *mean* $y$ value in that region #pause
+  - classification: *most frequent* $y$ class in that region #pause
+- *No scaling required* for numerical features — trees are invariant to rescaling, which makes them a great fit for *tabular data* with mixed units. #pause
+- `max_depth` controls the trade-off between *underfitting* and *overfitting*. #pause
+- A single tree is *rarely competitive on its own*, but it is the core *building block* of ensembles: #pause
   - *Random forests* (bagging),
   - *Gradient-boosted trees* (boosting).
