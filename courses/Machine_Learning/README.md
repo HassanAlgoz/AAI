@@ -9,7 +9,6 @@
 - [x] Understand and use the latest and greatest ensemble models: hist-gradient boosting trees.
 - [x] Apply meta-learning method like Bayesian Search for hyper-parametr tuning.
 - [ ] **SHAP** Explain model predictions.
-    - [ ] Feature Engineering.
     - [ ] Feature Selection.
 - [ ] AutoML: **AutoGluon**
 
@@ -33,6 +32,21 @@
 16. [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_16_ensemble.pdf)
 17. [Ensemble Methods (lab)](lessons/17_ensemble.ipynb)
 18. [Hyper-parameter Search](lessons/18_hp_search.ipynb)
+
+## Tabular Datasets Repositories for Machine Learning Projects 
+
+- [UC Irvine Machine Learning Repostiroy](https://archive.ics.uci.edu/) (661 datasets) (or [Beta](https://archive-beta.ics.uci.edu/))
+- [Open Data | Python for Data Science](https://www.python4data.science/en/latest/data-processing/opendata.html): A topic-based overview of public repositories containing research data.
+- [Kaggle](https://www.kaggle.com/datasets?fileType=csv&minUsabilityRating=10.00&feedbackIds=14) (144 datasets. Filters: `CSV, Usability: 10.00, Highly-voted, Original`)
+- HuggingFace:
+    - **[Tabular Classification](https://huggingface.co/datasets?task_categories=task_categories:tabular-classification)** (5,266 datasets): Thousands of sets for credit scoring, churn, etc.
+    - **[Tabular Regression](https://huggingface.co/datasets?task_categories=task_categories:tabular-regression)** (2,762 datasets): Housing, pricing, and sensor data.
+- [PMLB](https://github.com/EpistasisLab/pmlb): A large, curated repository of benchmark datasets for evaluating supervised machine learning algorithms. Provides classification and regression datasets in a standardized format that are accessible through a Python API.
+- [U.S. Government open data](https://catalog.data.gov/?sort=popularity) (524,718 datasets): Here you will find data, tools, and resources to conduct research, develop web and mobile applications, design data visualizations, and more.
+- [UK Governement open data](https://data.gov.uk/)
+- [EU open data](http://data.europa.eu/euodp/en/data/)
+- [A very long list from Forbes](https://www.forbes.com/sites/bernardmarr/2016/02/12/big-data-35-brilliant-and-free-data-sources-for-2016/)
+
 
 ## References
 
