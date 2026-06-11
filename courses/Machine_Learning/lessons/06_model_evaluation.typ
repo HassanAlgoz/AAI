@@ -23,15 +23,6 @@
 
 = Bias-variance Trade-off
 
-== Learning Objectives
-
-In this lesson we learn to:
-
-+ Establish a *baseline* for learning.
-+ Understand when *more data* helps (and when it does not).
-+ Detect *over-fitting vs under-fitting* and reason about *generalization*.
-+ Estimate generalization with proper *train/validation/test splits* and *cross-validation*.
-
 == Classification
 
 #figure(
@@ -60,27 +51,15 @@ In this lesson we learn to:
   align(center)[Captures noise and fails to generalize.],
 )
 
-== The Bias-variance Trade-off
+== Generalization Performance
 
+*Generalization Performance*: how well a model fits unseen data.
 
-#grid(
-  columns: (1fr, 1.2fr),
-  gutter: 0em,
-  [ 
-    The *bias-variance tradeoff* describes the tension between two competing sources of error in predictive models. The question is: if we repeatedly test the model:
-    
-    - *Bias*: mean of the errors.
-    - *Variance*: margin of error in the estimated mean.
-  ],
-  figure(
-    image("/courses/Machine_Learning/assets/bias-variance_tradeoff.png", width: 100%),
-  ),
-)
+Assuming both *in-sample* and *out-of-sample* data come from the same distribution, we can estimate the *generalization performance* of a model by sampling the statistics from a *test set* and developing a *confidence interval*:
 
-Both regression and classification models can:
-  - *Under-fit*: high bias, low variance,
-  - *Over-fit*: low bias, high variance.
-  - *Optimal*: low bias, low variance,
+- *Bias*: mean of the errors.
+- *Variance*: margin of error in the estimated mean.
+
 
 == Cross-Validation
 
@@ -99,63 +78,29 @@ Both regression and classification models can:
 - _Variance_: indicated by the line centered on top of the bar. (shorter is better)
 
 #figure(
-  image("/courses/Machine_Learning/assets/cross-validation_results.png", height: 75%),
+  image("/courses/Machine_Learning/assets/cross-validation_results.png", height: 65%),
   caption: [Models with increasing complexity (to the right)],
 )
+*Optimal*: _low bias_ and _low variance_.
 
-= Diagnosing Model Performance
+== Bias-variance as Complexity Increases
 
-== Is the model learning?
+The *bias-variance tradeoff* describes the tension between two competing sources of error in predictive models.
 
-Core sanity check: the model should be: #pause
+#figure(
+  image("/courses/Machine_Learning/assets/bias-variance_tradeoff.png", height: 75%),
+  caption: [Bias-variance Trade-off as complexity of the model increases.],
+)
 
-+ better than *random* predictions #pause
-+ better than a *guess* (dummy model) #pause
-+ better than a *baseline* (simple model) #pause
+== Over-fitting and Under-fitting
 
-#pagebreak()
+- *Under-fitting*: high bias; meaning the estimated error is high.
+- *Over-fitting*: high variance; meaning the error fluctuates a lot.
+- *Optimal*: low bias and low variance.
 
-=== `DummyClassifier`
+= Aiming for Generalization
 
-`DummyClassifier` implements simple "rules of thumb" baselines:
-
-- `constant`: always predicts a provided constant label.
-- `most_frequent`: always predicts the most frequent training label.
-- `stratified`: random predictions respecting the class distribution.
-
-*Key point*: in all cases, `predict()` ignores input features.
-
-#pagebreak()
-
-=== Compare dummy vs model
-
-```python
-from sklearn.dummy import DummyClassifier
-
-dummy_clf = DummyClassifier(strategy="most_frequent")
-dummy_clf.fit(X_train, y_train)
-
-print("   Dummy Classifier Score:", dummy_clf.score(X_test, y_test))
-print("Logistic Regression Score:", clf.score(X_test, y_test))
-```
-
-- Your trained model should *beat* the dummy baseline.
-- If accuracy is near baseline, something is likely wrong.
-
-#pagebreak()
-
-=== `DummyRegressor` (for regression)
-
-`DummyRegressor` implements simple rules:
-
-- `mean`: always predicts the mean of training targets.
-- `median`: always predicts the median of training targets.
-- `quantile`: always predicts a user-provided quantile.
-- `constant`: always predicts a provided constant value.
-
-*Key point*: these strategies ignore input features during `predict()`.
-
-== Do have enough quality data?
+== Data Quantity and Quality
 
 Data is just means to an end. Our goal is *new information*.
 
@@ -185,3 +130,49 @@ Benefit comes when new data covers *missing regions*. Adding data in regions the
 )
 
 A linear model can't capture a curve, no matter how much data we add. Here, the model is biased to look for a straight pattern, and refuses to accept that *reality is more complicated*.
+
+== ML Rules of Thumb
+
+- _Order of Magnitude_: As a rule of thumb, aim for your dataset to have at least $10 times$ (or even $100 times$) examples as the number of parameters in your model.
+- _Simple Models, Large Data_: Sometimes, simple models trained on massive datasets succeed even where complex models might fail with limited data.
+- _Simple Tasks, Small Data_: For straightforward problems, less data might suffice—but complex tasks demand more.
+- _Quality > Quantity_: While more data generally helps, ensuring the *quality* of your features is equally—if not more—important than sheer data quantity.
+
+== The ART of Data
+
+Good data should be _available_, _representative_, and _trusted_:
+
+- *Available*: All inputs required for prediction must be accessible at the time you need to make a prediction and be in the correct format.
+  - If obtaining certain feature values will be difficult at prediction time, exclude those features from your training dataset.
+
+- *Representative*: Your dataset should accurately reflect the real-world events, user behaviors, or phenomena that your model will be predicting.
+  - Training on unrepresentative data can result in poor real-world performance, even if the model looks good during training and validation.
+
+- *Trusted*: Know your data sources and their reliability.
+  - Is your data generated from sources you control and trust, such as your application's logs? Or does it come from other ML systems or external providers, where reliability or bias may be unknown?
+
+== Feature Engineering
+
+*Feature engineering* involves creating, transforming, and selecting input variables that help the model learn useful patterns. Key techniques include:
+
+1. *Creating new variables* (features):
+   - Compute `age` from `date_of_birth`
+   - Derive `BMI` from `weight` and `height`
+   - Determine `season` from `date` and `city`
+
+2. *Discretizing continuous variables*:
+   - Map `age` into `age_group` (e.g., `0–18`, `19–35`, `36–55`, `56+`)
+   - Convert `weight` to `weight_category` (e.g., `<50kg`, `50–80kg`, `>80kg`)
+   - Classify `income` into `socioeconomic_class` (e.g., `Low`, `Middle`, `High`)
+#pagebreak()
+3. *Data enrichment*:
+   - Append `neighborhood_median_income` using `zip_code`
+   - Add `historical_weather` info (such as `rainfall`, `temperature`) based on `date` and `location`
+
+4. *Data aggregation*:
+   - Summarize individual transactions into `monthly_total_spend`
+   - Compute `average_session_duration` per `user_id` from raw click logs
+
+5. *Handling date-time variables*:
+   - Extract `year`, `month`, `day`, `hour`, or time intervals from timestamps  
+   - Create features like `time_since_last_purchase`, `time_since_login`
