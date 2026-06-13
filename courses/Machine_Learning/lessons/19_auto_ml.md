@@ -27,9 +27,9 @@ To learn more about the concepts of AutoML, see:
 
 > [Fast and Accurate ML in 3 Lines of Code](https://auto.gluon.ai/stable/index.html).
 
-Watch the tutorial video:
+Click on the image to watch the video tutorial on AutoGluon:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9Epewstb7fY?si=NZkzgukUnODgM1NW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![AutoGluon tutorial video](../assets/youtube_9Epewstb7fY.jpg)](https://www.youtube.com/watch?v=9Epewstb7fY)
 
 ### What Models To Use?
 
@@ -54,13 +54,13 @@ AutoGluon is different (than other AutoML solutions) because it doesn’t rely o
 
 In comparison with the other open-source machine learning libraries, PyCaret is an alternate low-code library that can be used to replace hundreds of lines of code with few words only. This makes experiments exponentially fast and efficient. PyCaret is essentially a Python wrapper around several machine learning libraries and frameworks such as [`scikit-learn`](https://scikit-learn.org/stable/), [`XGBoost`](https://xgboost.ai/), [`LightGBM`](https://lightgbm.readthedocs.io/en/stable/), [`CatBoost`](https://catboost.ai/), [`Optuna`](https://optuna.org/), [`Hyperopt`](https://hyperopt.github.io/hyperopt/), [`Ray`](https://www.ray.io/), and many more.
 
-Watch the **detailed video tutorial** (1hr 30m):
+Click on the image to watch the video tutorial on PyCaret (1hr 30m):
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/n2TuYlHqMII?si=74zZenqvQuyFyOgI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![PyCaret detailed video tutorial](../assets/youtube_n2TuYlHqMII.jpg)](https://www.youtube.com/watch?v=n2TuYlHqMII)
 
 Or this quick 13 minutes video (**PyCaret 2.3.6 NEW Features**) for a walkthrough:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Qr6Hu2t2gwY?si=tL_gGtzJ0psQVhKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![PyCaret 2.3.6 new features walkthrough](../assets/youtube_Qr6Hu2t2gwY.jpg)](https://www.youtube.com/watch?v=Qr6Hu2t2gwY)
 
 ## Visual IDE for ML
 
