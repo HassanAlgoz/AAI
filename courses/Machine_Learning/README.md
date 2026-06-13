@@ -25,7 +25,9 @@
 2. [Non-linear Regression](lessons/03_regression_non-linear.ipynb) (~26m)
 3. [k-NN Classification](lessons/05_knn_classification.ipynb) (~26m)
    - [Exercise: Iris Flowers](exercises/05/01_classification.ipynb) (~30m) ([solution](exercises/05/01_classification_solution.ipynb))
-4. [ ] Explain model predictions globally and locally with SHAP.
+4. Explain model predictions with [`shap`](https://pypi.org/project/shap/):
+   1. [SHAP Part A: Iris Classification](lessons/06a_xai_iris.ipynb) (~22m)
+   2. [SHAP Part B: California Housing](lessons/06b_xai_california_housing.ipynb) (~20m)
 
 ## M2. Estimating and Improving Model Generalization Performance
 
