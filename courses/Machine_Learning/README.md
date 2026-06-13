@@ -75,6 +75,7 @@
 **Topics**:
 
 1. [Hyper-parameter Search](lessons/18_hp_search.ipynb) (~26m)
+2. [AutoML with Gluon](lessons/19_auto_ml.md) (~35m)
 
 ## Tabular Datasets Repositories for Machine Learning Projects 
 
