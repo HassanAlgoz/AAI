@@ -38,13 +38,13 @@
 
 **Topics**:
 
-1. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_06_model_evaluation.pdf) (~42m)
+1. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_07_model_evaluation.pdf) (~42m)
 2. [Regression Evaluation Metrics](lessons/04_regression_metrics.ipynb) (~24m)
    - [Exercise: Bias–Variance Tradeoff](exercises/06/01_bias-variance_tradeoff.ipynb) (~19m) ([solution](exercises/06/01_bias-variance_tradeoff_solution.ipynb))
-3. [Classification Evaluation Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_07_classifier_metrics.pdf) (the 3 labs below are optional)
-   1. [Threshold Tuning A: Prioritize Recall](lessons/08a_threshold_tuning.ipynb) (~29m)
-   2. [Threshold Tuning B: Weighing Errors by Cost](lessons/08b_threshold_tuning.ipynb) (~27m)
-   3. [Threshold Tuning C: Dynamic Cost](lessons/08c_threshold_tuning.ipynb) (~31m)
+3. [Classification Evaluation Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_08_classifier_metrics.pdf) (the 3 labs below are optional)
+   1. [Threshold Tuning A: Prioritize Recall](lessons/09a_threshold_tuning.ipynb) (~29m)
+   2. [Threshold Tuning B: Weighing Errors by Cost](lessons/09b_threshold_tuning.ipynb) (~27m)
+   3. [Threshold Tuning C: Dynamic Cost](lessons/09c_threshold_tuning.ipynb) (~31m)
 
 ## M3. `Pipeline`: Building Reliable Predictive Models
 
