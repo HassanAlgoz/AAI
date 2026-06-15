@@ -6,6 +6,11 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 
 ## Pre-requisites
 
++ English B2 (Upper-Intermediate) level: IELTS 6.5 or TOEFL 80.
++ Algorithmic thinking and problem-solving skills.
++ Strong foundation in programming.
++ Working laptop with internet access.
+
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
 | 1  | [Terminal](/courses/Terminal/)          | Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.          | 1 (~30m)       | 5 (~2hr 40m)     |
@@ -32,13 +37,6 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 | 1  | [Agentic AI](/courses/Agentic_AI/)                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. | 4 (~34m)       | 0                |
 | 2 | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~41m)       | 0                |
 |    | **Total**                                                       |                                                                                                          | **8 (~1hr 15m)** | **0**          |
-
-## Bootcamp Pre-requisites
-
-+ English B2 (Upper-Intermediate) level: IELTS 6.5 or TOEFL 80.
-+ Algorithmic thinking and problem-solving skills.
-+ Strong foundation in programming.
-+ Working laptop with internet access.
 
 ## AI Policy
 
