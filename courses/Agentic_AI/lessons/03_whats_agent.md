@@ -1,12 +1,8 @@
-# What is an AI Agent?
-
-
-## Agentic Workflows
+# Agentic Workflows
 
 Today's **AI Agents** are programs where LLM outputs control the workflow.
 
 **Agentic Workflows** is where autonomy of the system is at the level of dealing not just with structured data, but with messy unstructured data like language, voice, and images, to inform automatic decision-making. This is growingly done in less supervised manner; and hence, more and more **autonomous**.
-
 
 ### Degrees of Autonomy
 
@@ -85,8 +81,6 @@ When building agentic workflows, think of yourself as having a number of **build
 - In addition to AI models, you also have access to software tools, including different APIs that you can call to do web search, get real-time weather data, send emails, check calendar, and so on.
 - You might also have tools to retrieve information—to pull up data from a database, or to implement RAG (retrieval augmented generation), where you can look up a large text database and find the most relevant text.
 - Or you might have tools to execute code—a tool that lets an LLM write code and then run the code on your computer to do a huge range of things.
-
-
 
 ## Where to put the blocks?
 
