@@ -39,19 +39,6 @@ Note that tasks have their own tests to estimate the generalization performance 
 - **Customizability**: Easily fine-tuned for domain-specific tasks (e.g., legal document analysis).
 - **On-Device AI** – No need for an internet connection or cloud services, enhancing privacy and security.
 
-### Examples of Open-source Language Models
-
-The following are open-source small language models:
-
-* **[Llama 4 Scout](https://ai.meta.com/blog/llama-4-multimodal-intelligence/)** (Meta) – Distinguished by its massive capacity, offering an "industry-leading context window of 10M" to process extensive multimodal inputs (text and image) simultaneously.
-* **[Qwen3-1.7B](https://huggingface.co/collections/Qwen/qwen3)** (Alibaba) – Bridges the gap between edge deployment and long-form processing by introducing "native 128K context support" in a lightweight footprint.
-* **[DeepSeek-V4-Flash](https://teamai.com/blog/large-language-models-llms/understanding-the-different-deepseek-models/)** (DeepSeek) – Differentiated primarily by disruptive cost-efficiency, with analysts noting it prices "output tokens roughly 34 times below GPT-5.5" while maintaining high performance.
-* **[SmolLM3-3B](https://huggingface.co/blog/PrunaAI/smollm-tiny-giants-optimized-for-speed)** (HuggingFaceTB) – Built strictly for constrained environments, utilizing advanced compression to achieve "75-80% memory reduction compared to FP16 baselines."
-* **[Phi-4-reasoning-vision-15B](https://www.microsoft.com/en-us/research/wp-content/uploads/2026/03/Phi-4-reasoning-vision-15B-Tech-Report.pdf)** (Microsoft) – Stands out for training data efficiency, achieving strong reasoning and vision capabilities using "just 200 billion tokens... compared to more than 1 trillion" used by competitors.
-* **[Gemma 4](https://pub.towardsai.net/gemma-3-was-dead-last-gemma-4-is-world-class-heres-everything-that-changed-73e4119225bc)** (Google DeepMind) – Focuses on reliable, general-purpose utility over experimental features, which has allowed it to rank "third among open models on the Arena AI leaderboard."
-
-Thinking/reasoning traces (usually not visible to the user)
-
 ## Multi-modal Models
 
 A _modality_ means a medium or a way in which something exists or is done.
@@ -80,3 +67,11 @@ Specailized models have been developed to support mapping between modalities:
 Today's LLMs moved beyond language as well. Sometimes called **VLMs (Vision-language models)** and sometimes called **Multi-modal Models (MMMs)**. Searchin through [OpenRouter Models](https://openrouter.ai/models) you can find the left-pane (and the top buttons) to filter for specific modalities.
 
 ![OpenRouter](../assets/openrouter_input_modalities.png)
+
+The following are open-source small language models:
+
+* **[Llama](https://openrouter.ai/meta-llama/llama-4-scout)** (Meta) – Distinguished by its massive capacity, offering an "industry-leading context window of 10M" to process extensive multimodal inputs (text and image) simultaneously.
+* **[Qwen](https://openrouter.ai/qwen/qwen3.7-plus)** (Alibaba) – Bridges the gap between edge deployment and long-form processing by introducing "native 128K context support" in a lightweight footprint.
+* **[DeepSeek](https://openrouter.ai/provider/deepseek)** (DeepSeek) – Differentiated primarily by disruptive cost-efficiency, with analysts noting it prices "output tokens roughly 34 times below GPT-5.5" while maintaining high performance.
+* **[Phi](https://openrouter.ai/microsoft/phi-4)** (Microsoft) – Stands out for training data efficiency, achieving strong reasoning and vision capabilities using "just 200 billion tokens... compared to more than 1 trillion" used by competitors.
+* **[Gemma 4](https://openrouter.ai/google/gemma-4-26b-a4b-it:free)** (Google DeepMind) – Focuses on reliable, general-purpose utility over experimental features, which has allowed it to rank "third among open models on the Arena AI leaderboard."
