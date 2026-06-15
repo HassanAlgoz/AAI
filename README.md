@@ -2,6 +2,8 @@
 
 Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://github.com/HassanAlgoz/AAI/releases/latest/download/Intro_01_bootcamp_intro.pdf) (1hr 30m).
 
+PDF material can be downloaded from the [releases page](https://github.com/HassanAlgoz/AAI/releases).
+
 ## Pre-requisites
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
@@ -11,7 +13,7 @@ Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://
 ### Resources
 
 - [The Art of Reading Docs](docs/the_art_of_reading_docs.md)
-- [Never expose API Keys](docs/never_expose_api_keys.qmd)
+- [Never expose API Keys](docs/never_expose_api_keys.md)
 - [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية)
 
 ## Track 1: Data Science and Machine Learning
