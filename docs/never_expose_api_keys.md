@@ -1,7 +1,4 @@
----
-title: "Never Expose API Keys"
-format: html
----
+# Never Expose API Keys
 
 Think of an **API Key** as a **hotel key card**.
 

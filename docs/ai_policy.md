@@ -2,7 +2,7 @@
 
 TLDR; see the video: ["The essay isn't the point."](https://www.youtube.com/watch?v=bj4LN4ul6ps).
 
-[![The essay isn't the point.](/assets/The_essay_isnt_the_point.png)](https://www.youtube.com/watch?v=bj4LN4ul6ps)
+[![The essay isn't the point.](../assets/the_essay_isnt_the_point.png)](https://www.youtube.com/watch?v=bj4LN4ul6ps)
 
 ## Overview
 
