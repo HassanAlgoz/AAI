@@ -2,20 +2,32 @@
 
 Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://github.com/HassanAlgoz/AAI/releases/latest/download/Intro_01_bootcamp_intro.pdf) (1hr 30m).
 
+## Pre-requisites
+
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
 | 1  | [Terminal](/courses/Terminal/)          | Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.          | 1 (~30m)       | 5 (~2hr 40m)     |
-| 2  | [Data Wrangling](/courses/Data_Wrangling/) | Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.                 | 11 (~4hr 24m)  | 7 (~3hr 17m)     |
-| 3  | [Applied Data Science](/courses/Data_Science/) | Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions. | 13 (~8hr 50m)  | 4 (~1hr 37m)     |
-| 4  | [Applied Machine Learning](/courses/Machine_Learning/) | Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.        | 13 (~8hr 30m)  | 6 (~3hr)     |
-| 5  | Applied Deep Learning                   | Use DL solution frameworks / libraries to apply AI to specific problems in NLP (language) and Computer Vision.   |                |                  |
-| 6  | Agentic AI                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. |                |                  |
-| 7  | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~41m)       | 0                |
-|    | **Total**                               |                                                                                                           | **42 (~20hr 6m)** | **22 (~9hr 47m)** |
 
+### Resources
 
-- **Estimated Duration**: 8 weeks.
-- **Estimated hands-on content**: ~30hr (lessons ~20hr 6m + exercises ~9hr 47m), excluding the 1hr intro. Per-lesson estimates live in each course's `README.md`.
+- [The Art of Reading Docs](docs/the_art_of_reading_docs.md)
+- [Never expose API Keys](docs/never_expose_api_keys.qmd)
+- [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية)
+
+## Track 1: Data Science and Machine Learning
+
+| #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
+|----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
+| 1  | [Data Wrangling](/courses/Data_Wrangling/) | Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.                 | 11 (~4hr 24m)  | 7 (~3hr 17m)     |
+| 2  | [Applied Data Science](/courses/Data_Science/) | Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions. | 13 (~8hr 50m)  | 4 (~1hr 37m)     |
+| 3  | [Applied Machine Learning](/courses/Machine_Learning/) | Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.        | 13 (~8hr 30m)  | 6 (~3hr)     |
+
+## Track 2: Software Engineering (AI)
+
+| #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
+|----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
+| 1  | [Agentic AI](/courses/Agentic_AI/)                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. |                |                  |
+| 2 | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~41m)       | 0                |
 
 ## Bootcamp Pre-requisites
 
@@ -41,12 +53,6 @@ See [the research and findings that made up our AI Policy](docs/ai_policy.md).
 - Work must have been pushed to GitHub.
 - Marked as done (in Google Classroom) before then.
 - Commit history **MUST** follow the [proof-of-work](/docs/proof-of-work.md) system.
-
-## Resources
-
-- [The Art of Reading Docs](docs/the_art_of_reading_docs.md)
-- [Never expose API Keys](docs/never_expose_api_keys.qmd)
-- [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية)
 
 ---
 
