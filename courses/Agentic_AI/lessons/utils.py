@@ -1,7 +1,13 @@
 from rich.console import Console
+from rich.syntax import Syntax
 from rich.text import Text
 
 from dspy.primitives import Prediction
+
+
+def _print_python_block(console: Console, header: Text, code: str) -> None:
+    console.print(header)
+    console.print(Syntax(code, "python", theme="default", background_color="default"))
 
 
 def print_pretty_react_trajectory(result: Prediction) -> None:
@@ -72,7 +78,7 @@ def print_pretty_codeact_trajectory(result: Prediction, answer: str = None) -> N
         code_out_key = f"code_output{idx}"
         if gen_code_key in trajectory:
             text = Text(f"{emoji_mapping['generated_code']} generated_code:", style=f"bold {color_mapping['generated_code']}")
-            console.print(text, Text(str(trajectory[gen_code_key]), style="white"))
+            _print_python_block(console, text, str(trajectory[gen_code_key]))
         if code_out_key in trajectory:
             text = Text(f"{emoji_mapping['code_output']} code_output:", style=f"bold {color_mapping['code_output']}")
             console.print(text, Text(str(trajectory[code_out_key]), style="white"))
