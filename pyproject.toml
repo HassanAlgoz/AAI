@@ -6,12 +6,17 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "arabic-reshaper>=3.0.1",
+    "astral>=3.2",
+    "ddgs>=9.14.4",
+    "dspy>=3.2.1",
     "dtreeviz>=2.3.2",
     "folium>=0.20.0",
     "ipywidgets>=8.1.8",
     "pandas>=3.0.3",
     "pandera[pandas]>=0.31.1",
     "python-bidi>=0.6.10",
+    "python-dateutil>=2.9.0",
+    "python-dateutil>=2.9.0.post0",
     "scikit-learn>=1.9.0",
     "scikit-optimize>=0.10.2",
     "scipy>=1.17.1",
