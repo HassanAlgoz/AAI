@@ -31,9 +31,10 @@
 1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb)
    - [Exercise: Flights Agent](exercises/flights_agent.ipynb)
 
-### M2.3. Coder Agents
+### M2.3. Coding Agents
 
 1. [CodeAct Loop](lessons/10_dspy_CodeAct.ipynb)
+   - [Exercise: Flights Coding Agent](exercises/flights_code_agent.ipynb) ([solution](exercises/flights_code_agent_solution.ipynb))
 
 
 ## M3. Applications
