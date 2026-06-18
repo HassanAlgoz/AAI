@@ -33,7 +33,7 @@
 
 1. [Composing Modules](lessons/10_dspy_composing_modules.ipynb)
 2. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb)
-   - [Exercise: Flights Coding Agent](exercises/flights_code_agent.ipynb) ([solution](exercises/flights_code_agent_solution.ipynb))
+   - [Exercise: Flights Coding Agent (and Keep Conversation History)](exercises/flights_code_agent.ipynb) ([solution](exercises/flights_code_agent_solution.ipynb))
 
 ### M5. Optimize
 
