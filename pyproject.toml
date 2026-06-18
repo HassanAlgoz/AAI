@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "arabic-reshaper>=3.0.1",
     "astral>=3.2",
+    "chromadb>=1.5.9",
     "ddgs>=9.14.4",
     "dspy>=3.2.1",
     "dtreeviz>=2.3.2",

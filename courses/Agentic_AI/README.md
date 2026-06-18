@@ -43,6 +43,10 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 
 1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb)
 
+## M6. Retrieval Augmented Generation (RAG)
+
+1. [What is RAG?](lessons/13_rag.md)
+2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb)
 
 ## References
 
