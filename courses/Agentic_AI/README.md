@@ -18,11 +18,27 @@
 
 ## M2. DSPy Concepts
 
-...
+### M2.1. Signatures and Modules
+
+1. [Setup](lessons/05_dspy_setup.ipynb)
+2. [First Program](lessons/06_dspy_first_program.ipynb)
+3. [Class-based Signature](lessons/07_dspy_class-based_signature.ipynb)
+4. [Changing Modules](lessons/08_dspy_changing_modules.ipynb)
+   - [Exercise: Email Extraction](exercises/email_extraction.ipynb)
+
+### M2.2. Agents with Tools
+
+1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb)
+   - [Exercise: Flights Agent](exercises/flights_agent.ipynb)
+
+### M2.3. Coder Agents
+
+1. [CodeAct Loop](lessons/10_dspy_CodeAct.ipynb)
+
 
 ## M3. Applications
 
-...
+Tutorial: https://dspy.ai/tutorials/rag/
 
 ## References
 
