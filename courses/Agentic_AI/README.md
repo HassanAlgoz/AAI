@@ -24,6 +24,8 @@
 4. [Changing Modules](lessons/08_dspy_changing_modules.ipynb)
    - [Exercise: Email Extraction](exercises/email_extraction.ipynb)
 
+Recommended: [Set up MLflow Tracing to understand what's happening under the hood](lessons/mlflow.md).
+
 ## M3. Agents with Tools
 
 1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb)
@@ -35,13 +37,12 @@
 2. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb)
    - [Exercise: Flights Coding Agent (and Keep Conversation History)](exercises/flights_code_agent.ipynb) ([solution](exercises/flights_code_agent_solution.ipynb))
 
+For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](https://dspy.ai/tutorials/mem0_react_agent/).
+
 ### M5. Optimize
 
 1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb)
 
-## M6. RAG
-
-Tutorial: https://dspy.ai/tutorials/rag/
 
 ## References
 
