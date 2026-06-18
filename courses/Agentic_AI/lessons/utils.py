@@ -7,7 +7,8 @@ from dspy.primitives import Prediction
 
 def _print_python_block(console: Console, header: Text, code: str) -> None:
     console.print(header)
-    console.print(Syntax(code, "python", theme="default", background_color="default"))
+    console.print(Syntax(code, "python", theme="monokai", background_color="#333333"))
+
 
 
 def print_pretty_react_trajectory(result: Prediction) -> None:
@@ -48,22 +49,14 @@ def print_pretty_codeact_trajectory(result: Prediction, answer: str = None) -> N
     """
     console = Console()
     emoji_mapping = {
-        'generated_code': '📝',
-        'code_output': '📤',
-        'reasoning': '💡',
-        'answer': '✅'
-    }
-    color_mapping = {
-        'generated_code': 'blue',
-        'code_output': 'green',
-        'reasoning': 'magenta',
-        'answer': 'yellow'
+        'generated_code': '📜',
+        'code_output': '🖨️',
+        'reasoning': '🤔',
+        'answer': '✨'
     }
 
     trajectory = getattr(result, "trajectory", {})
     # Collect code steps by index for ordered output
-    code_blocks = []
-    code_output_blocks = []
     indices = []
     for k in trajectory:
         if k.startswith("generated_code"):
@@ -77,20 +70,20 @@ def print_pretty_codeact_trajectory(result: Prediction, answer: str = None) -> N
         gen_code_key = f"generated_code{idx}"
         code_out_key = f"code_output{idx}"
         if gen_code_key in trajectory:
-            text = Text(f"{emoji_mapping['generated_code']} generated_code:", style=f"bold {color_mapping['generated_code']}")
+            text = Text(f"{emoji_mapping['generated_code']} {gen_code_key}:", style="bold")
             _print_python_block(console, text, str(trajectory[gen_code_key]))
         if code_out_key in trajectory:
-            text = Text(f"{emoji_mapping['code_output']} code_output:", style=f"bold {color_mapping['code_output']}")
-            console.print(text, Text(str(trajectory[code_out_key]), style="white"))
+            text = Text(f"{emoji_mapping['code_output']} {code_out_key}:", style="bold")
+            console.print(text, Text(str(trajectory[code_out_key])))
 
     # Show reasoning (if present)
-    reasoning = trajectory.get("reasoning")
+    reasoning = result.get("reasoning")
     if reasoning:
-        text = Text(f"{emoji_mapping['reasoning']} reasoning:", style=f"bold {color_mapping['reasoning']}")
-        console.print(text, Text(str(reasoning), style="white"))
+        text = Text(f"{emoji_mapping['reasoning']} reasoning:", style="bold")
+        console.print(text, Text(str(reasoning)))
 
     # Show answer (provided argument)
     if answer is not None:
-        text = Text(f"{emoji_mapping['answer']} answer:", style=f"bold {color_mapping['answer']}")
-        console.print(text, Text(str(answer), style="white"))
+        text = Text(f"{emoji_mapping['answer']} answer:", style="bold")
+        console.print(text, Text(str(answer)))
 
