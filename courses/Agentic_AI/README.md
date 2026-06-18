@@ -16,9 +16,7 @@
 3. [Agentic Workflows and the Autonomy Spectrum](lessons/03_whats_agent.md)
 4. [Agentic Patterns: what works and what doesn't according to research on LLM-based agents](lessons/04_agentic_patterns.md)
 
-## M2. DSPy Concepts
-
-### M2.1. Signatures and Modules
+## M2. Signatures and Modules
 
 1. [Setup](lessons/05_dspy_setup.ipynb)
 2. [First Program](lessons/06_dspy_first_program.ipynb)
@@ -26,18 +24,22 @@
 4. [Changing Modules](lessons/08_dspy_changing_modules.ipynb)
    - [Exercise: Email Extraction](exercises/email_extraction.ipynb)
 
-### M2.2. Agents with Tools
+## M3. Agents with Tools
 
 1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb)
    - [Exercise: Flights Agent](exercises/flights_agent.ipynb)
 
-### M2.3. Coding Agents
+## M4. Coding Agents
 
-1. [CodeAct Loop](lessons/10_dspy_CodeAct.ipynb)
+1. [Composing Modules](lessons/10_dspy_composing_modules.ipynb)
+2. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb)
    - [Exercise: Flights Coding Agent](exercises/flights_code_agent.ipynb) ([solution](exercises/flights_code_agent_solution.ipynb))
 
+### M5. Optimize
 
-## M3. Applications
+1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb)
+
+## M6. RAG
 
 Tutorial: https://dspy.ai/tutorials/rag/
 
