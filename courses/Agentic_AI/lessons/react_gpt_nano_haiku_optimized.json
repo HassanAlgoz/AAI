@@ -1,0 +1,34 @@
+{
+  "traces": [],
+  "train": [],
+  "demos": [],
+  "signature": {
+    "instructions": "You will receive exactly three input fields:\n\n- `location`\n- `season`\n- `mood`\n\nYour job is to output only a single haiku, with no labels or extra text.\n\nOUTPUT RULES\n- Return only the haiku text.\n- Output exactly 3 lines.\n- Do not include titles, labels, JSON, bullets, explanations, quotes, or commentary.\n- Use at most one sentence across the full haiku.\n\nHARD CONSTRAINTS\n- The haiku must be exact 5–7–5 syllables, line by line.\n- Recount syllables conservatively before answering. If a word’s count is doubtful, replace it.\n- End line 1 or line 2 with exactly one cut mark: `—`, `:` or `...`\n- Keep syntax simple, shallow, and direct.\n- Do not use first-person pronouns.\n- Avoid repeated content words or close lemmas across lines.\n\nPRIMARY GOALS\n1. Root the haiku in the given `location` using specific, plausible, grounded imagery.\n2. Make the given `season` explicit through a concrete seasonal marker, not merely a mood word and not only the season name.\n3. Convey the given `mood` indirectly through image choice, motion, friction, pacing, contrast, emptiness, pressure, or stillness; never name the emotion directly.\n4. Create real juxtaposition: line 1 and line 3 must present clearly different images or actions, not paraphrases of each other.\n\nSTYLE TARGETS\n- Prefer concrete sensory imagery over abstraction.\n- Prefer nouns and present-tense verbs.\n- Keep adjectives extremely sparse; ideally zero, rarely more than one total.\n- Minimize articles and filler words.\n- Avoid personification-heavy phrasing.\n- Avoid generic scenery if the location suggests distinctive details.\n- Avoid abstract summary nouns such as “silence,” “peace,” “hope,” “loneliness,” “stillness,” etc., when an image can do the work.\n- Avoid weak adjective stacks such as “quiet,” “vast,” “cold,” “gray/grey,” “distant,” “faint,” “silent,” unless unavoidable.\n- Avoid named entities unless essential to the place.\n\nIMPORTANT FAILURE PATTERNS TO AVOID\n- Missing the 5–7–5 count by even one syllable.\n- Using no clear seasonal image.\n- Letting line 3 merely restate line 1.\n- Overusing adjectives.\n- Using abstract mood-language instead of concrete image.\n- Drifting away from the location into generic nature filler.\n\nSEASONAL GUIDANCE\nUse recognizable kigo-like imagery that strongly signals the season.\n\n- summer / midsummer:\n  cicadas, heat haze, sea breeze, sunflowers, evening fireflies, humid dusk\n- winter / late winter:\n  frost, sleet, bare reeds, migratory geese, low sun, ice rim, leafless branches, snow\n- spring / early spring:\n  cherry blossom, thaw, frogs, catkins, plum rain, new shoots\n- autumn / late autumn / fall:\n  red leaves, persimmons, acorns, harvest stubble, migrating cranes, first chill\n\nChoose a seasonal image that fits the location naturally whenever possible.\n\nLOCATION-ROOTING GUIDANCE\nUse imagery plausibly belonging to the place. Examples:\n\n- glacier:\n  meltwater, blue crevasse, calving ice, moraine, melt runnels, glare on ice\n- Amazon river bend:\n  riverbank, cicadas, humid dusk, driftwood, reeds, eddies, herons, floodwater, insects\n- kayak in a bay:\n  paddle drip, kelp, gulls, harbor seals, tide chop, fog, bare shore pines, eelgrass, brine\n- Mojave desert at dusk:\n  heat shimmer, dust, cactus shadow, stone, dry wash, sunset glare\n- suburban garage with garage door open:\n  tools, concrete floor, garage light, open threshold, driveway edge, snow line, frost on metal\n- quiet beach north of Santa Cruz:\n  surf, kelp wrack, crows, bluff grass, driftwood, pebbles, tide line\n- airplane lounge:\n  gate glass, stale coffee, boarding calls, carpet, charging cords, runway lights, paper cup\n- Kyoto temple garden:\n  stone basin, raked gravel, moss, gate latch, bamboo dipper, frost on stone, bare branch\n\nCOMPOSITION METHOD\nFollow this internal process:\n1. Pick one concrete image anchored in `location`.\n2. Pick one explicit seasonal image anchored in `season`.\n3. Let `mood` influence tension and selection of images, not emotional vocabulary.\n4. Build a juxtaposition with a cut after line 1 or line 2.\n5. Make line 3 pivot to a distinct image or action.\n6. Strip out adjectives, abstractions, and extra stop words.\n7. Verify exact syllable counts last.\n\nQUALITY HEURISTICS FROM PRIOR FAILURES\n- Exact 5–7–5 is weighted most heavily.\n- A concrete seasonal reference is required; vague atmosphere alone is insufficient.\n- Stronger haiku use noun-and-verb-driven imagery.\n- Present tense is preferred.\n- Simpler syntax tends to perform better.\n- Distinct line-1 vs line-3 imagery improves quality.\n- Fewer adjectives improves quality.\n- Generic words like “stillness” reduce quality versus concrete physical detail.\n\nFINAL SILENT CHECKLIST\nBefore responding, verify:\n- exactly 3 lines\n- exact 5 / 7 / 5 syllable count\n- only one sentence at most\n- line 1 or line 2 ends with `—`, `:` or `...`\n- explicit concrete seasonal image present\n- imagery is plausibly rooted in the given location\n- mood is implied, not named\n- line 1 and line 3 are clearly different\n- adjectives are minimal\n- no first-person pronouns\n- no repeated content lemmas\n- output contains only the haiku text",
+    "fields": [
+      {
+        "prefix": "Location:",
+        "description": "${location}"
+      },
+      {
+        "prefix": "Season:",
+        "description": "${season}"
+      },
+      {
+        "prefix": "Mood:",
+        "description": "${mood}"
+      },
+      {
+        "prefix": "Haiku:",
+        "description": "${haiku}"
+      }
+    ]
+  },
+  "lm": null,
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.2.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}
