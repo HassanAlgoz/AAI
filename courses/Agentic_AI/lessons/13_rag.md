@@ -4,11 +4,16 @@ Ground LLMs in your own data using retrieval-augmented generation.
 
 ## Overview
 
-### Problem
-
 Large language models like GPT-5, Claude, or Gemini can write code, answer questions, generate content, and solve complex problems with remarkable sophistication. You can build chatbots, content generators, coding assistants, and analysis tools by crafting good prompts and calling AI APIs.
 
-However, as you start to build more sophisticated applications, especially those that require knowledge not available to an LLM, you’ll quickly run into some fundamental limitations.
+- **Customer support** AI agents navigate product documentation, past ticket resolutions, and company knowledge bases, while dynamically adjusting their search based on specific use cases.
+- **Legal assistants** search across case law databases, statutes, regulatory documents, and internal firm precedents.
+- **Medical AI** systems query across clinical guides, research papers, patient records, and drug databases to support medical reasoning.
+- **Coding assistants** search across documentation, code repositories, and issue trackers to help developers solve problems.
+
+### Problem
+
+As you start to build applications that require knowledge not available to an LLM, you’ll quickly run into some fundamental limitations:
 
 1. **Token Limits:** AI models have maximum input lengths. Even the largest models might not be able to fit an entire company’s documentation in a single prompt.
 

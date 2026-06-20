@@ -42,11 +42,22 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 ### M5. Optimize
 
 1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb)
+2. make evaluation dataset to optimize prompts
 
 ## M6. Retrieval Augmented Generation (RAG)
 
 1. [What is RAG?](lessons/13_rag.md)
 2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb)
+3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb)
+
+## M7. Deploy
+
+@TODO: [using LangGraph](https://github.com/HassanAlgoz/chatbot) so we'll need another one for DSPy
+
+References:
+
+- https://dspy.ai/production/
+- https://dspy.ai/tutorials/deployment/
 
 ## References
 
