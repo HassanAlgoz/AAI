@@ -49,15 +49,15 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 1. [What is RAG?](lessons/13_rag.md)
 2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb)
 3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb)
+4. [RAG with DSPy](lessons/16_dspy_rag.ipynb)
 
 ## M7. Deploy
-
-@TODO: [using LangGraph](https://github.com/HassanAlgoz/chatbot) so we'll need another one for DSPy
 
 References:
 
 - https://dspy.ai/production/
 - https://dspy.ai/tutorials/deployment/
+- [Three Frontends with LangGraph as a backend](https://github.com/HassanAlgoz/chatbot)
 
 ## References
 
