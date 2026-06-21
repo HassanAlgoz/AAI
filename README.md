@@ -40,12 +40,14 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 
 ## AI Policy
 
-**Punishment**: *expulsion from the bootcamp.*
+**Allowed use**: for feedback, hints, explanations, practice, or extra resources, while you still do the core reasoning, writing, and problem-solving.
 
-- **Allowed use**: for feedback, hints, explanations, practice, or extra resources, while you still do the core reasoning, writing, and problem-solving.
-  - [Gemini Guided Learning](https://blog.google/products-and-platforms/products/gemini/guided-learning-google-gemini/#:~:text=%E2%80%9CThe%20idea%20is%20to%20help,to%20get%20to%20the%20result).
-  - [ChatGPT Study Mode](https://openai.com/index/chatgpt-study-mode/).
-- **Forbidden use**: treating course material as "work" and AI as an assistant to get it done "faster" or "easier" or "better". Don't mix productivity (output) with learning (you).
+- [Gemini Guided Learning](https://blog.google/products-and-platforms/products/gemini/guided-learning-google-gemini/#:~:text=%E2%80%9CThe%20idea%20is%20to%20help,to%20get%20to%20the%20result).
+- [ChatGPT Study Mode](https://openai.com/index/chatgpt-study-mode/).
+
+**Forbidden use**: treating course material as "work" and AI as an assistant to get it done "faster" or "easier" or "better". Don't mix productivity (output) with learning (you).
+
+**Punishment**: *leave the bootcamp.*
 
 See [the research and findings that made up our AI Policy](docs/ai_policy.md).
 
