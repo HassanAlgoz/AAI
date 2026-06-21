@@ -25,18 +25,18 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
-| 1  | [Data Wrangling](/courses/Data_Wrangling/) | Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.                 | 14 (~5hr 39m)  | 6 (~3hr 45m)     |
-| 2  | [Applied Data Science](/courses/Data_Science/) | Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions. | 13 (~8hr 50m)  | 4 (~1hr 37m)     |
-| 3  | [Applied Machine Learning](/courses/Machine_Learning/) | Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.        | 21 (~9hr 56m)  | 6 (~2hr 13m)     |
-|    | **Total**                               |                                                                                                           | **48 (~24hr 25m)** | **16 (~7hr 35m)** |
+| 1  | [Data Wrangling](/courses/Data_Wrangling/) | Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.                 | 14 (~7hr 35m)  | 6 (~4hr 1m)      |
+| 2  | [Applied Data Science](/courses/Data_Science/) | Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions. | 13 (~9hr 45m)  | 4 (~1hr 58m)     |
+| 3  | [Applied Machine Learning](/courses/Machine_Learning/) | Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.        | 21 (~11hr 35m) | 6 (~2hr 41m)     |
+|    | **Total**                               |                                                                                                           | **48 (~28hr 55m)** | **16 (~8hr 40m)** |
 
 ## Track 2: Software Engineering (AI)
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
-| 1  | [Agentic AI](/courses/Agentic_AI/)                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. | 4 (~34m)       | 0                |
-| 2 | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~41m)       | 0                |
-|    | **Total**                                                       |                                                                                                          | **8 (~1hr 15m)** | **0**          |
+| 1  | [Agentic AI](/courses/Agentic_AI/)                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. | 23 (~8hr 28m)  | 6 (~3hr 17m)     |
+| 2 | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~1hr 11m)   | 0                |
+|    | **Total**                                                       |                                                                                                          | **27 (~9hr 39m)** | **6 (~3hr 17m)** |
 
 ## AI Policy
 

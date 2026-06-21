@@ -11,54 +11,54 @@
 
 ## M1. Introductions
 
-1. [Overview](lessons/01_overview.md)
-2. [Language Models: Large and Small, Uni- and Multi-modal](lessons/02_llms.md)
-3. [Agentic Workflows and the Autonomy Spectrum](lessons/03_whats_agent.md)
-4. [Agentic Patterns: what works and what doesn't according to research on LLM-based agents](lessons/04_agentic_patterns.md)
+1. [Overview](lessons/01_overview.md) (~13m)
+2. [Language Models: Large and Small, Uni- and Multi-modal](lessons/02_llms.md) (~14m)
+3. [Agentic Workflows and the Autonomy Spectrum](lessons/03_whats_agent.md) (~19m)
+4. [Agentic Patterns: what works and what doesn't according to research on LLM-based agents](lessons/04_agentic_patterns.md) (~18m)
 
 ## M2. Signatures and Modules
 
-1. [Setup](lessons/05_dspy_setup.ipynb)
-2. [First Program](lessons/06_dspy_first_program.ipynb)
-3. [Class-based Signature](lessons/07_dspy_class-based_signature.ipynb)
-4. [Changing Modules](lessons/08_dspy_changing_modules.ipynb)
-   - [Exercise: Email Extraction](exercises/email_extraction.ipynb)
+1. [Setup](lessons/05_dspy_setup.ipynb) (~16m)
+2. [First Program](lessons/06_dspy_first_program.ipynb) (~22m)
+3. [Class-based Signature](lessons/07_dspy_class-based_signature.ipynb) (~20m)
+4. [Changing Modules](lessons/08_dspy_changing_modules.ipynb) (~12m)
+   - [Exercise: Email Extraction](exercises/email_extraction.ipynb) (~37m)
 
-Recommended: [Set up MLflow Tracing to understand what's happening under the hood](lessons/mlflow.md).
+Recommended: [Set up MLflow Tracing to understand what's happening under the hood](lessons/mlflow.md) (~7m).
 
 ## M3. Agents with Tools
 
-1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb)
-   - [Exercise: Flights Agent](exercises/flights_agent.ipynb)
+1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb) (~27m)
+   - [Exercise: Flights Agent](exercises/flights_agent.ipynb) (~26m)
 
 ## M4. Coding Agents
 
-1. [Composing Modules](lessons/10_dspy_composing_modules.ipynb)
-2. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb)
-   - [Exercise: Flights Coding Agent (and Keep Conversation History)](exercises/flights_code_agent.ipynb) ([solution](exercises/flights_code_agent_solution.ipynb))
+1. [Composing Modules](lessons/10_dspy_composing_modules.ipynb) (~27m)
+2. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb) (~37m)
+   - [Exercise: Flights Coding Agent (and Keep Conversation History)](exercises/flights_code_agent.ipynb) (~35m) ([solution](exercises/flights_code_agent_solution.ipynb) (~37m))
 
 For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](https://dspy.ai/tutorials/mem0_react_agent/).
 
 ## M5. Optimize
 
-1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb)
+1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb) (~59m)
 
 ## M6. Retrieval Augmented Generation (RAG)
 
-1. [What is RAG?](lessons/13_rag.md)
-2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb)
-   - [Exercise: Explore the Embedding Space](exercises/14/visualize_embeddings.ipynb) ([solution](exercises/14/visualize_embeddings_solution.ipynb))
-3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb)
-4. [RAG with DSPy](lessons/16_dspy_rag.ipynb)
+1. [What is RAG?](lessons/13_rag.md) (~25m)
+2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb) (~42m)
+   - [Exercise: Explore the Embedding Space](exercises/14/visualize_embeddings.ipynb) (~31m) ([solution](exercises/14/visualize_embeddings_solution.ipynb) (~31m))
+3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb) (~49m)
+4. [RAG with DSPy](lessons/16_dspy_rag.ipynb) (~53m)
 
 ## Projects
 
-1. [Deep Transcriber: from Lectures to a Book](projects/01_lectures_to_book.md)
-2. [Book Translation Pipeline](projects/02_translation_pipeline.md)
-3. [Syntopical Reading Assistant](projects/03_synoptical_reading_assistant.md)
-4. [Writer Assistant](projects/04_writer_assistant.md)
-5. [Code Annotation](projects/05_code_annotation.md)
-6. [Dual coding theory](projects/06_dual_coding_theory.md)
+1. [Deep Transcriber: from Lectures to a Book](projects/01_lectures_to_book.md) (~8m)
+2. [Book Translation Pipeline](projects/02_translation_pipeline.md) (~9m)
+3. [Syntopical Reading Assistant](projects/03_synoptical_reading_assistant.md) (~7m)
+4. [Writer Assistant](projects/04_writer_assistant.md) (~10m)
+5. [Code Annotation](projects/05_code_annotation.md) (~7m)
+6. [Dual coding theory](projects/06_dual_coding_theory.md) (~7m)
 
 ## References
 

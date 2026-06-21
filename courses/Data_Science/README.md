@@ -22,7 +22,7 @@
 
 **Exercises**:
 
-- `DS 1` [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (~25m; 15 questions)
+- `DS 1` [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (~30m; 15 questions)
 
 ## M2. Univariate Analysis
 
@@ -36,11 +36,11 @@
 
 1. [Statistics: Population, Sample, and Variables](https://github.com/HassanAlgoz/AAI/releases/latest/download/Data_Science_03_statistics.pdf) (~48m)
 2. [Frequency Distribution](https://github.com/HassanAlgoz/AAI/releases/latest/download/Data_Science_04_frequency_distribution.pdf) (~58m)
-3. [Lab 1: Normal Distribution and Outliers](lessons/05_normal_and_outlier.ipynb) (~18m)
+3. [Lab 1: Normal Distribution and Outliers](lessons/05_normal_and_outlier.ipynb) (~25m)
 
 **Exercises**:
 
-1. `DS 2` [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md) (~36m)
+1. `DS 2` [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md) (~46m)
 
 ## M3. Bivariate Analysis
 
@@ -49,16 +49,16 @@
 **Lessons**:
 
 1. [Bivariate Analysis](https://github.com/HassanAlgoz/AAI/releases/latest/download/Data_Science_06_bivariate_analysis.pdf) (~43m)
-2. [Lab 1: Correlation](lessons/07_correlation.ipynb) (~24m)
-3. [Lab 2: Association](lessons/08_association.ipynb) (~22m)
+2. [Lab 1: Correlation](lessons/07_correlation.ipynb) (~32m)
+3. [Lab 2: Association](lessons/08_association.ipynb) (~27m)
 
 **Exercises**:
 
-1. `DS 3` [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~13m)
+1. `DS 3` [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~14m)
 
 **Extra**:
 
-1. [Communicating with Plots](lessons/extra_01_communicate_plots.ipynb) (~70m)
+1. [Communicating with Plots](lessons/extra_01_communicate_plots.ipynb) (~85m)
 
 ## M4. Inferential Statistics
 
@@ -67,13 +67,13 @@
 **Lessons**:
 
 1. [Inferential Statistics: Estimating Parameters with Confidence Intervals](https://github.com/HassanAlgoz/AAI/releases/latest/download/Data_Science_09_inferential_statistics.pdf) (~29m)
-2. [Bootstrapping](lessons/10_confidence_interval.ipynb) (~28m)
+2. [Bootstrapping](lessons/10_confidence_interval.ipynb) (~36m)
 3. [Hypothesis Testing](https://github.com/HassanAlgoz/AAI/releases/latest/download/Data_Science_11_hypothesis_testing.pdf) (~76m)
-4. [Power Analysis](lessons/12_power_analysis.ipynb) (~43m)
+4. [Power Analysis](lessons/12_power_analysis.ipynb) (~55m)
 
 **Exercises**:
 
-1. `DS 4` [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb) (~23m)
+1. `DS 4` [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb) (~28m)
 
 **Resources**:
 

@@ -19,15 +19,15 @@
 
 **Topics**:
 
-1. [Regression](lessons/02_regression.ipynb) (~32m)
-   - [Exercise 1: Marks vs Study Hours](exercises/02/01_reg.ipynb) (~28m) ([solution](exercises/02/01_reg_solution.ipynb))
-   - [Exercise 2: Salary vs Experience](exercises/02/02_reg.ipynb) (~15m) ([solution](exercises/02/02_reg_solution.ipynb))
-2. [Non-linear Regression](lessons/03_regression_non-linear.ipynb) (~26m)
-3. [k-NN Classification](lessons/05_knn_classification.ipynb) (~26m)
-   - [Exercise: Iris Flowers](exercises/05/01_classification.ipynb) (~30m) ([solution](exercises/05/01_classification_solution.ipynb))
+1. [Regression](lessons/02_regression.ipynb) (~43m)
+   - [Exercise 1: Marks vs Study Hours](exercises/02/01_reg.ipynb) (~33m) ([solution](exercises/02/01_reg_solution.ipynb) (~33m))
+   - [Exercise 2: Salary vs Experience](exercises/02/02_reg.ipynb) (~17m) ([solution](exercises/02/02_reg_solution.ipynb) (~17m))
+2. [Non-linear Regression](lessons/03_regression_non-linear.ipynb) (~33m)
+3. [k-NN Classification](lessons/05_knn_classification.ipynb) (~35m)
+   - [Exercise: Iris Flowers](exercises/05/01_classification.ipynb) (~37m) ([solution](exercises/05/01_classification_solution.ipynb) (~37m))
 4. Explain model predictions with [`shap`](https://pypi.org/project/shap/):
-   1. [SHAP Part A: Iris Classification](lessons/06a_xai_iris.ipynb) (~22m)
-   2. [SHAP Part B: California Housing](lessons/06b_xai_california_housing.ipynb) (~20m)
+   1. [SHAP Part A: Iris Classification](lessons/06a_xai_iris.ipynb) (~32m)
+   2. [SHAP Part B: California Housing](lessons/06b_xai_california_housing.ipynb) (~29m)
 
 ## M2. Estimating and Improving Model Generalization Performance
 
@@ -39,12 +39,12 @@
 **Topics**:
 
 1. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_07_model_evaluation.pdf) (~42m)
-2. [Regression Evaluation Metrics](lessons/04_regression_metrics.ipynb) (~24m)
-   - [Exercise: Bias–Variance Tradeoff](exercises/06/01_bias-variance_tradeoff.ipynb) (~19m) ([solution](exercises/06/01_bias-variance_tradeoff_solution.ipynb))
+2. [Regression Evaluation Metrics](lessons/04_regression_metrics.ipynb) (~35m)
+   - [Exercise: Bias–Variance Tradeoff](exercises/06/01_bias-variance_tradeoff.ipynb) (~24m) ([solution](exercises/06/01_bias-variance_tradeoff_solution.ipynb) (~24m))
 3. [Classification Evaluation Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_08_classifier_metrics.pdf) (the 3 labs below are optional)
-   1. [Threshold Tuning A: Prioritize Recall](lessons/09a_threshold_tuning.ipynb) (~29m)
-   2. [Threshold Tuning B: Weighing Errors by Cost](lessons/09b_threshold_tuning.ipynb) (~27m)
-   3. [Threshold Tuning C: Dynamic Cost](lessons/09c_threshold_tuning.ipynb) (~31m)
+   1. [Threshold Tuning A: Prioritize Recall](lessons/09a_threshold_tuning.ipynb) (~38m)
+   2. [Threshold Tuning B: Weighing Errors by Cost](lessons/09b_threshold_tuning.ipynb) (~36m)
+   3. [Threshold Tuning C: Dynamic Cost](lessons/09c_threshold_tuning.ipynb) (~42m)
 
 ## M3. `Pipeline`: Building Reliable Predictive Models
 
@@ -53,11 +53,11 @@
 **Topics**:
 
 1. Preprocessing
-   - [Missing Values](lessons/10_missing_values.ipynb) (~18m)
-   - [Categorical Encoding](lessons/11_categorical_encoding.ipynb) (~18m)
-       - [Exercise: Dealing with High Cardinality Categorical Features](exercises/11/01_high-cardinality.ipynb) (~16m) ([solution](exercises/11/01_high-cardinality_solution.ipynb))
-2.  [Pipelines](lessons/12_pipelines.ipynb) (~28m)
-3.  [Regression Target Transform](lessons/13_regression_target_transform.ipynb) (~36m)
+   - [Missing Values](lessons/10_missing_values.ipynb) (~26m)
+   - [Categorical Encoding](lessons/11_categorical_encoding.ipynb) (~24m)
+       - [Exercise: Dealing with High Cardinality Categorical Features](exercises/11/01_high-cardinality.ipynb) (~18m) ([solution](exercises/11/01_high-cardinality_solution.ipynb) (~18m))
+2.  [Pipelines](lessons/12_pipelines.ipynb) (~38m)
+3.  [Regression Target Transform](lessons/13_regression_target_transform.ipynb) (~46m)
 
 ## M4. Decision Trees and Ensembles
 
@@ -66,9 +66,9 @@
 **Topics**:
 
 1.  [Decision Trees: Classifiers and Regressors](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_14_trees.pdf) (~25m)
-    - [Exercise: Exploring decision trees with `dtreeviz`](exercises/14/dtree_viz.ipynb) (~25m) ([solution](exercises/14/dtree_viz_solution.ipynb))
+    - [Exercise: Exploring decision trees with `dtreeviz`](exercises/14/dtree_viz.ipynb) (~32m) ([solution](exercises/14/dtree_viz_solution.ipynb) (~32m))
 2.  [Ensemble Methods](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_16_ensemble.pdf) (~40m)
-    - [Lab: Random Forests and Histogram Gradient Boosted Trees (HGBT)](lessons/17_ensemble.ipynb) (~20m)
+    - [Lab: Random Forests and Histogram Gradient Boosted Trees (HGBT)](lessons/17_ensemble.ipynb) (~26m)
 
 ## M5. AutoML
 
@@ -76,8 +76,8 @@
 
 **Topics**:
 
-1. [Hyper-parameter Search](lessons/18_hp_search.ipynb) (~26m)
-2. [AutoML with Gluon](lessons/19_auto_ml.md) (~35m)
+1. [Hyper-parameter Search](lessons/18_hp_search.ipynb) (~33m)
+2. [AutoML with Gluon](lessons/19_auto_ml.md) (~12m)
 
 ## Tabular Datasets Repositories for Machine Learning Projects 
 

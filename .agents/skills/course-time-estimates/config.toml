@@ -22,11 +22,11 @@
 # `01_story_cholera_outbreak.typ` (~25m).
 [reading]
 # Fixed warm-up cost per lesson (opening the file, orienting), in minutes.
-setup_min = 3.0
+setup_min = 5.0
 # Prose reading speed, in words per minute.
-prose_wpm = 200.0
+prose_wpm = 90.0
 # Time to read/understand one non-blank line of code, in seconds.
-code_sec_per_line = 8.6
+code_sec_per_line = 10.0
 # Time to scan one non-blank line of cell output, in seconds.
 output_sec_per_line = 2.5
 # Time to look at one rendered image/plot, in seconds.
@@ -43,6 +43,6 @@ output_line_cap = 40
 # Fixed warm-up cost per exercise set, in minutes.
 setup_min = 5.0
 # Prose reading speed for exercise instructions, in words per minute.
-prose_wpm = 200.0
+prose_wpm = 100.0
 # Time to complete one task (one code cell the learner fills in), in seconds.
-task_sec = 60.0
+task_sec = 120.0
