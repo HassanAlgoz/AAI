@@ -39,26 +39,26 @@ Recommended: [Set up MLflow Tracing to understand what's happening under the hoo
 
 For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](https://dspy.ai/tutorials/mem0_react_agent/).
 
-### M5. Optimize
+## M5. Optimize
 
 1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb)
-2. make evaluation dataset to optimize prompts
 
 ## M6. Retrieval Augmented Generation (RAG)
 
 1. [What is RAG?](lessons/13_rag.md)
 2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb)
-   1. [Exercise: Embeddings EDA](exercises/14/visualize_embeddings.ipynb) ([solution](exercises/14/visualize_embeddings_solution.ipynb))
+   - [Exercise: Explore the Embedding Space](exercises/14/visualize_embeddings.ipynb) ([solution](exercises/14/visualize_embeddings_solution.ipynb))
 3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb)
 4. [RAG with DSPy](lessons/16_dspy_rag.ipynb)
 
-## M7. Deploy
+## Projects
 
-References:
-
-- https://dspy.ai/production/
-- https://dspy.ai/tutorials/deployment/
-- [Three Frontends with LangGraph as a backend](https://github.com/HassanAlgoz/chatbot)
+1. [Deep Transcriber: from Lectures to a Book](projects/01_lectures_to_book.md)
+2. [Book Translation Pipeline](projects/02_translation_pipeline.md)
+3. [Syntopical Reading Assistant](projects/03_synoptical_reading_assistant.md)
+4. [Writer Assistant](projects/04_writer_assistant.md)
+5. [Code Annotation](projects/05_code_annotation.md)
+6. [Dual coding theory](projects/06_dual_coding_theory.md)
 
 ## References
 
