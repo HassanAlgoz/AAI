@@ -30,6 +30,7 @@ dependencies = [
     "shap>=0.52.0",
     "spacy>=3.8.14",
     "statsmodels>=0.14.6",
+    "umap-learn>=0.5.7",
 ]
 
 [dependency-groups]

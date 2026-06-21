@@ -48,6 +48,7 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 
 1. [What is RAG?](lessons/13_rag.md)
 2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb)
+   1. [Exercise: Embeddings EDA](exercises/14/visualize_embeddings.ipynb) ([solution](exercises/14/visualize_embeddings_solution.ipynb))
 3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb)
 4. [RAG with DSPy](lessons/16_dspy_rag.ipynb)
 
