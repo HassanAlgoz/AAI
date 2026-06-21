@@ -64,7 +64,3 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 
 - [Agentic AI Course](https://www.deeplearning.ai/courses/agentic-ai) (Andrew Ng, DeepLearningAI)
 - [DSPy](https://dspy.ai/): Program, don’t prompt, your LLMs.
-
-- Build Your Own Deep Research Agents:
-  - [Full Workshop: Build Your Own Deep Research Agents - Louis-François Bouchard, Paul Iusztin, Samridhi](https://www.youtube.com/watch?v=mYSRn6PC1mc)
-  - [Repo](https://github.com/iusztinpaul/designing-real-world-ai-agents-workshop)

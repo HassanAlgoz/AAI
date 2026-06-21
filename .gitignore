@@ -37,3 +37,7 @@ content/W2/M1/lessons/scratch.ipynb
 *.bin
 *.sqlite3
 *.pickle
+
+courses/Agentic_AI/lessons/data/ragqa/ragqa_arena_tech_corpus.jsonl
+courses/Agentic_AI/lessons/data/ragqa/ragqa_arena_tech_examples.jsonl
+courses/Agentic_AI/lessons/data/multi_page.pdf.md
