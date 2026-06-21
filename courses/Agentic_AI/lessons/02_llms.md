@@ -68,10 +68,28 @@ Today's LLMs moved beyond language as well. Sometimes called **VLMs (Vision-lang
 
 ![OpenRouter](../assets/openrouter_input_modalities.png)
 
-The following are open-source small language models:
+Twelve models worth knowing in 2026, each with one standout strength.
 
-* **[Llama](https://openrouter.ai/meta-llama/llama-4-scout)** (Meta) – Distinguished by its massive capacity, offering an "industry-leading context window of 10M" to process extensive multimodal inputs (text and image) simultaneously.
-* **[Qwen](https://openrouter.ai/qwen/qwen3.7-plus)** (Alibaba) – Bridges the gap between edge deployment and long-form processing by introducing "native 128K context support" in a lightweight footprint.
-* **[DeepSeek](https://openrouter.ai/provider/deepseek)** (DeepSeek) – Differentiated primarily by disruptive cost-efficiency, with analysts noting it prices "output tokens roughly 34 times below GPT-5.5" while maintaining high performance.
-* **[Phi](https://openrouter.ai/microsoft/phi-4)** (Microsoft) – Stands out for training data efficiency, achieving strong reasoning and vision capabilities using "just 200 billion tokens... compared to more than 1 trillion" used by competitors.
-* **[Gemma 4](https://openrouter.ai/google/gemma-4-26b-a4b-it:free)** (Google DeepMind) – Focuses on reliable, general-purpose utility over experimental features, which has allowed it to rank "third among open models on the Arena AI leaderboard."
+1. [Llama 4 Scout](https://openrouter.ai/models?q=llama+4+scout): Meta's first natively multimodal open-weight model.
+
+2. [DeepSeek V4](https://openrouter.ai/models?q=deepseek+v4): A Mixture-of-Experts model under MIT license with a native million-token context window. Near-frontier performance at a fraction of the cost per token.
+
+3. [Qwen3](https://openrouter.ai/models?q=qwen3): Alibaba's flagship open-weight model with switchable thinking and non-thinking modes, all under Apache 2.0.
+
+4. [Gemma 4](https://openrouter.ai/models?q=gemma+4): Google's open-weight family released under Apache 2.0, with the widest language coverage of any model on this list.
+
+5. [Phi 4](https://openrouter.ai/models?q=phi+4): Microsoft’s compact model trained almost entirely on synthetic, curated data. A practical choice for edge and on-device deployment.
+
+6. [Mistral Small 3.1](https://openrouter.ai/models?q=mistral+small+3.1): A VLM with a long context window that fits on a consumer laptop.
+
+7. [Nemotron 3 Super](https://openrouter.ai/models?q=nemotron+3+super): NVIDIA’s hybrid MoE with a million-token context window. Fully open weights, datasets, and recipes, with strong results on agentic coding benchmarks.
+
+8. [GLM 5.1](https://openrouter.ai/models?q=glm+5.1): The first open-weight model to top SWE-Bench Pro. Released under MIT with no commercial restrictions.
+
+9. [Kimi K2.6](https://openrouter.ai/models?q=kimi+k2.6): Competitive with leading closed models on coding while costing far less per million tokens. Available on Hugging Face under a Modified MIT license.
+
+10. [StarCoder2](https://openrouter.ai/models?q=starcoder2): One of the most transparent code models available.
+
+11. [OLMo 2 (AI2)](https://openrouter.ai/models?q=olmo+2): The most complete example of open-source reproducibility on this list. Weights, training data, code, and full recipes all released under Apache 2.0.
+
+12. [Falcon 3](https://openrouter.ai/models?q=falcon+3): A family of lightweight open-weight models built to run on a single GPU.
