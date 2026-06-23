@@ -1,4 +1,4 @@
-# Syntopical Reading Assistant
+# Comparative Analysis
 
 ## Overview
 
@@ -15,6 +15,22 @@ Read about [Synpotical Reading](https://chapterly.ai/blog/syntopical-reading-gui
 5. Formulate Your Own Analysis
 
 The idea could be generalized to: [Comparative Analysis](https://genedwrites.fas.harvard.edu/tfs-tas/comparative-analysis).
+
+## Available Datasets
+
+### 1. Shamela Library
+
+An openly accessible dataset to test the feasibility of the project is: [Shamela Library Books Datasets](https://huggingface.co/datasets/mhaamh19/shamela_books_text_full) of `8,538` books under `40` categories with a total of `7,552,019` pages.
+
+You may pick 1 or multiple categories and apply comparative analysis on a certain set of topics.
+
+### 2. YouTube
+
+1. Use YouTube's search engine to find videos
+2. Download these videos
+3. Transcribe them (speech-to-text)
+4. Find relevant passages to the topic you specified
+5. Analyze the discussions across videos
 
 ## Bonus
 

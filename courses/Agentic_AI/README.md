@@ -53,12 +53,14 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 
 ## Projects
 
-1. [Deep Transcriber: from Lectures to a Book](projects/01_lectures_to_book.md) (~8m)
-2. [Book Translation Pipeline](projects/02_translation_pipeline.md) (~9m)
-3. [Syntopical Reading Assistant](projects/03_synoptical_reading_assistant.md) (~7m)
-4. [Writer Assistant](projects/04_writer_assistant.md) (~10m)
-5. [Code Annotation](projects/05_code_annotation.md) (~7m)
-6. [Dual coding theory](projects/06_dual_coding_theory.md) (~7m)
+1. [From Lectures to an Interactive Book](projects/01_lectures_to_interactive_book.md)
+2. [Book Translation](projects/02_translation_pipeline.md)
+3. [Comparative Analysis](projects/03_comparative_analysis.md)
+4. [Writer Assistant](projects/04_writer_assistant.md)
+5. [Code Annotation](projects/05_code_annotation.md)
+6. [Step-by-step](projects/06_step_by_step.md)
+7. [DataMaster Agent](projects/07_data_master_agent.md)
+8. [Hadeeth](projects/08_hadeeth.md)
 
 ## References
 
