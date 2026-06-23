@@ -81,27 +81,16 @@ Two types of spaces:
 
 ![](../assets/hf_spaces.png){center}
 
-## How to Select the Best Model?
+## Explore Community Projects
 
-[LM Arena Leaderboard](https://arena.ai/leaderboard/) shows rankings based on user preferences across: Agent, Chat, Code, Image, Video tasks. See for example: [Text-to-image](https://arena.ai/leaderboard/text-to-image).
+Organizations and communities advancing Arabic NLP and AI:
 
-[Open Universal Arabic ASR Leaderboard](https://huggingface.co/spaces/elmresearchcenter/open_universal_arabic_asr_leaderboard): A continuous benchmark evaluating open-source architectures (e.g., Whisper variants, Conformer-CTC, Seamless-M4T) across multiple datasets including MGB-2 and Common Voice. It ranks models by Word Error Rate (WER) and Character Error Rate (CER) against specific dialects (MSA, Egyptian, Hijazi, Najdi, Khaliji) and varied acoustic conditions.
-
-[SILMA AI Arabic TTS Benchmark](https://huggingface.co/spaces/silma-ai/arabic-tts-benchmark): A dedicated framework for side-by-side, blind auditory assessments of Arabic speech synthesis models. It bypasses flawed automated metrics in favor of direct human preference evaluation to establish a qualitative gold standard.  
-
-[Massive Text Embedding Benchmark (MTEB / MMTEB)](https://huggingface.co/spaces/mteb/leaderboard): The definitive standard for evaluating embedding models across retrieval, clustering, classification, and semantic textual similarity (STS). To isolate Arabic performance, filter the Hugging Face MTEB leaderboard for the "Multilingual" (MMTEB) category or specifically for Arabic evaluation subsets. High-ranking open-weight models with proven Arabic capacity currently include the `Qwen3-Embedding` family and BAAI's `bge-m3`.
-
-## Fine-tune via Jobs
-
-[Hugging Face **Jobs**](https://huggingface.co/docs/hub/jobs) provide compute for AI and data workflows, allowing you to run workloads on Hugging Face infrastructure with a familiar UV & Docker-like interface. Jobs are ideal for fine-tuning AI models, running inference with GPUs, and data ingestion and processing.
-
-## Deploy via Inference Endpoints
-
-[Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) is a managed service to deploy your AI model to production.
-
-Instead of spending weeks configuring infrastructure, managing servers, and debugging deployment issues, you can focus on what matters most: your model and your users.
-
-## Cloud Providers
-
-For alternatives, see [Cloud Providers](cloud_providers.md).
-
+* [HUMAIN](https://huggingface.co/humain-ai)
+* [SDAIA-KFUPM Joint Research Center for Artificial Intelligence (KFUPM-JRCAI)](https://huggingface.co/KFUPM-JRCAI):
+* [King Abdullah University of Science and Technology (KAUST)](https://huggingface.co/KAUST)
+* [QCRI](https://huggingface.co/QCRI)
+* [MBZUAI](https://huggingface.co/MBZUAI)
+* [CAMeL Lab](https://huggingface.co/CAMeL-Lab)
+* [Core42](https://huggingface.co/core42)
+* [Tarteel AI](https://huggingface.co/tarteel-ai)
+* [NAMAA Community](https://huggingface.co/NAMAA-Space)
