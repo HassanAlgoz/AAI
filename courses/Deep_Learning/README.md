@@ -7,4 +7,4 @@
 3. [Inside a Pipeline](lessons/03_inside_pipeline.ipynb)
 4. [Open-weight Large Language Models](lessons/04_llm_generate.ipynb)
   - [LLM Structured Output](lessons/05_llm_structured_output.ipynb)
-5. [Fine-tuning](lessons/06_fine-tuning.md)
+5. [Model Selection and Training](lessons/06_train.md)
