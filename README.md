@@ -35,8 +35,14 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
 | 1  | [Agentic AI](/courses/Agentic_AI/)                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. | 23 (~8hr 28m)  | 6 (~3hr 17m)     |
-| 2 | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~1hr 11m)   | 0                |
+| 2  | [Applied Deep Learning](/courses/Deep_Learning/)                              | Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstrctured data tasks. | _  | _     |
 |    | **Total**                                                       |                                                                                                          | **27 (~9hr 39m)** | **6 (~3hr 17m)** |
+
+### Courses
+
+| #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
+|----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
+| 1 | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~1hr 11m)   | 0                |
 
 ## AI Policy
 
