@@ -59,15 +59,26 @@ Few of many many use cases:
 
 == Courses Outline
 
-The AAI bootcamp has the following courses:
+The bootcamp is organized into a shared foundation, two tracks, and an additional course.
 
-Develop basic familiarity with the *Terminal* and how to deal with data in *Data Wrangling* (loading, processing, and visualizing).
+=== Foundation
 
-Move on to statistical analysis in *Applied Data Science*. Both Descriptive and Inferential.
+- *Terminal*: command and conquer your machine; fear not the black box; protect yourself from malicious code.
 
-Followed by predictive models in *Applied Machine Learning*. And then into *Deep Learning* for specific problems in NLP (language) and Computer Vision.
+=== Track 1: Data Scientist
 
-Finally, we build *Agentic AI* systems to automate tasks involving unstructured data. And learn how to work effectively and efficiently with Coding Agents in software engineering projects; i.e., *Agentic Engineering*.
+- *Data Wrangling*: fundamentals of data wrangling and analysis in Python via pandas, matplotlib, and seaborn.
+- *Applied Data Science*: calculate, analyze, visualize, and extract insights from data; formulate hypotheses and draw conclusions.
+- *Applied Machine Learning*: build reliable predictive modeling pipelines, debug issues, evaluate and compare alternatives.
+
+=== Track 2: Software Engineer (AI)
+
+- *Agentic AI*: develop, debug, evaluate, deploy, and monitor LLM-driven AI agents to automate tasks involving unstructured data.
+- *Applied Deep Learning*: select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
+
+=== Courses
+
+- *Agentic Engineering*: work effectively and efficiently with AI in software engineering projects.
 
 == Pre-requisites
 
@@ -86,12 +97,9 @@ Finally, we build *Agentic AI* systems to automate tasks involving unstructured 
 
 == AI Policy
 
-- *Allowed use*: for feedback, hints, explanations, practice, or extra resources, while you still do the core reasoning, writing, and problem-solving. #pause
-- *Forbidden use*: treating course material as "work" and AI as an assistant to get it done "faster" or "easier" or "better". Don't mix productivity (output) with learning (you). #pause
+Good use of AI means it *augments, rather than replaces, thinking* — used for feedback, hints, explanations, practice, or extra resources, while *you still do the core reasoning, writing, and problem-solving*. #pause
 
-*Punishment*:  #pause _expulsion from the bootcamp_.  #pause
-
-Learning only occurs when the brain is actively engaged in making sense of information. The prevailing conclusion across these studies is that when AI is used to *produce an output* rather than *assist in a process*, it undercuts learning. #pause
+*Forbidden use*: treating course material as "work" and AI as an assistant to get it done "faster" or "easier" or "better". Don't mix productivity (output) with learning (you). #pause
 
 See the research and findings that made up our AI Policy at: `/docs/ai_policy.md`.
 
