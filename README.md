@@ -21,7 +21,7 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 - [Never expose API Keys](docs/never_expose_api_keys.md)
 - [Pythonia: المقدمة البايثونية للبرمجة](https://halgoz.quarto.pub/pythonia/) (الشرح باللغة العربية)
 
-## Track 1: Data Science and Machine Learning
+## Track 1: Data Scientist
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
@@ -30,7 +30,7 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 | 3  | [Applied Machine Learning](/courses/Machine_Learning/) | Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.        | 21 (~11hr 35m) | 6 (~2hr 41m)     |
 |    | **Total**                               |                                                                                                           | **48 (~28hr 55m)** | **16 (~8hr 40m)** |
 
-## Track 2: Software Engineering (AI)
+## Track 2: Software Engineer (AI)
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
@@ -40,14 +40,9 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 
 ## AI Policy
 
-**Allowed use**: for feedback, hints, explanations, practice, or extra resources, while you still do the core reasoning, writing, and problem-solving.
-
-- [Gemini Guided Learning](https://blog.google/products-and-platforms/products/gemini/guided-learning-google-gemini/#:~:text=%E2%80%9CThe%20idea%20is%20to%20help,to%20get%20to%20the%20result).
-- [ChatGPT Study Mode](https://openai.com/index/chatgpt-study-mode/).
+Good use of AI means it **augments, rather than replaces, thinking** — used for feedback, hints, explanations, practice, or extra resources, while **you still do the core reasoning, writing, and problem-solving**.
 
 **Forbidden use**: treating course material as "work" and AI as an assistant to get it done "faster" or "easier" or "better". Don't mix productivity (output) with learning (you).
-
-**Punishment**: *leave the bootcamp.*
 
 See [the research and findings that made up our AI Policy](docs/ai_policy.md).
 
