@@ -8,3 +8,5 @@
 4. [Open-weight Large Language Models](lessons/04_llm_generate.ipynb)
   - [LLM Structured Output](lessons/05_llm_structured_output.ipynb)
 5. [Model Selection and Training](lessons/06_train.md)
+6. [Model Serving](lessons/07_serve.md)
+   - [Cloud Providers](lessons/cloud_providers.md)

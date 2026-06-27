@@ -128,6 +128,18 @@ Also known as **RLHF (Reinforcement Learning from Human Feedback)**.
 
 More on this later in this article.
 
+## The Cost of LLM Training
+
+> Frontier models—the massive, state-of-the-art generalist models pushed by companies like OpenAI, Google, and Anthropic—require staggering capital, primarily driven by the cost of running tens of thousands of high-end GPUs (like NVIDIA H100s) for months on end.
+> 
+> - **GPT-4 (OpenAI):** According to the Stanford AI Index Report and statements from OpenAI CEO Sam Altman, training GPT-4 cost an estimated **\$78 million to well over \$100 million** in computing costs alone.
+>     
+> - **Gemini Ultra (Google):** The Stanford AI Index Report 2024 calculated that Google's Gemini Ultra 1.0 required an estimated **$191 million** in raw training compute.
+>     
+> - **Total Cost of Ownership:** These figures only account for _compute_. When factoring in the immense cost of acquiring and licensing high-quality data, paying specialized engineering talent, and the massive electrical and infrastructure overhead, the true development costs are substantially higher. **Future frontier models are projected to cost upwards of $1 billion**.
+
+![](../assets/scratch_vs_fine-tuning.png)
+
 ## Transfer Learning
 
 **Transfer learning** is reusing a trained foundation model on a new, related problem.
@@ -197,7 +209,7 @@ For example: answering math questions like: "What is 2+2?":
 
 > The total compute duration remains a tiny fraction of pre-training.
 
-The core component is the **Reward Function**.
+The core component is the **Reward Function**. The set of reward functions is called a **Rubric**.
 
 #### C.1. Rule-based Reward Functions
 
@@ -219,15 +231,13 @@ An example of hard-to-verify task is **Email Automation Task**:
     4. If the recipient's name is included → **+1**
     5. If a signature block (phone, email, address) is present → **+1**
 
-#### C.2. Rubric-and-LLM-based Reward Functions
+#### C.2. LLM-as-a-judge Reward Functions
 
 **Rubric-based scoring via an LLM**: Reward functions could also be LLMs with given rubrics and scoring for each item. This is very helpful when it is hard to write down what's wrong with a procedural step-by-step algorithm.
 
 #### C.3. Human-Feedback-based Reward Functions
 
-OpenAI popularized the concept of [RLHF](https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback) (Reinforcement Learning from Human Feedback), where we train an **"agent"** to produce outputs to a question (the **state**) that are rated more useful by human beings.
-
-The thumbs up 👍️ and down 👎️ in ChatGPT for example can be used in the RLHF process.
+OpenAI popularized the concept of [RLHF](https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback) (Reinforcement Learning from Human Feedback), where we train an **agent** to produce outputs to a question (the **state**) that are rated more useful by human beings. The thumbs up 👍️ and down 👎️ in ChatGPT for example can be used in the RLHF process.
 
 The standard old-school method [PPO](https://en.wikipedia.org/wiki/Proximal_policy_optimization) was massive, slow, and required three different AI models running at the same time to work.
 
@@ -235,19 +245,28 @@ DeepSeek developed [GRPO](https://unsloth.ai/blog/grpo) (Group Relative Policy O
 
 ## Fine-tuning Recipes
 
-- [Text-to-Speech (TTS) Fine-tuning Guide](https://unsloth.ai/docs/basics/text-to-speech-tts-fine-tuning)
-  - [Whisper Large V3 (STT)](https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Whisper.ipynb)
-- [Fine-tuning Embedding Models with Unsloth Guide](https://unsloth.ai/docs/basics/embedding-finetuning)
-- [Vision Fine-tuning](https://unsloth.ai/docs/basics/vision-fine-tuning)
+### Transformers
+
+The [**Trainer Guide**](https://huggingface.co/docs/transformers/trainer) that takes you through fully fine-tuning an LLM. (Note: requires GPU).
 
 Ready-made fine-tuning notebooks on various tasks. Pick one and modify it to your needs:
 
 - [Official Hugging Face Notebooks 🤗](https://huggingface.co/docs/transformers/notebooks)
 - [Community Notebooks](https://huggingface.co/docs/transformers/community)
 
+The [**TRL Library**](https://huggingface.co/docs/trl/index) is a more comprehensive library that provide a set of tools to train transformer language models with methods like Supervised Fine-Tuning (SFT), Group Relative Policy Optimization (GRPO), Direct Preference Optimization (DPO), Reward Modeling, and more. The library is integrated with 🤗 transformers.
+
+### Unsloth
+
 [Unsloth](https://unsloth.ai/docs) has great guides for training models using different strategies.
 
 - [Unsloth Notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks)
+
+### Unprompted Models
+
+- Some models don't have prompts to begin with like Embedding models. See: [Fine-tuning Embedding Models with Unsloth Guide](https://unsloth.ai/docs/basics/embedding-finetuning)
+- Some weren't instruct-tuned, like: Whisper. See [Fine-tuning Whisper Large V3 (STT)](https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Whisper.ipynb).
+- Some may or may not (depending on what features it has). See: [Text-to-Speech (TTS) Fine-tuning Guide](https://unsloth.ai/docs/basics/text-to-speech-tts-fine-tuning).
 
 ## Training Resources: Jobs on GPUs
 
@@ -255,12 +274,19 @@ Ready-made fine-tuning notebooks on various tasks. Pick one and modify it to you
 
 You can use [Unsloth's Jobs](https://huggingface.co/datasets/unsloth/jobs) as well.
 
-## Deployment: Inference Endpoints
+## Should you Fine-tune or Prompt-tune?
 
-[Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) is a managed service to deploy your AI model to production.
+Both PPO and GRPO are fine-tuning techniques (modify the weights of the model), whereas GEPA (as we learned in DSPy) modifies the prompts network. Both are RL (i.e., agents improve by trial and error given a set of inputs).
 
-Instead of spending weeks configuring infrastructure, managing servers, and debugging deployment issues, you can focus on what matters most: your model and your users.
+However, [Stanford Researchers from DSPy state that Most teams start prompt-only and graduate to finetune only when prompt-only plateaus](https://dspy.ai/diving-deeper/choosing-an-optimizer/#8-most-teams-start-prompt-only-and-graduate-to-finetune-only-when-prompt-only-plateaus):
 
-## Cloud Providers
+> Prompt-only optimization costs LM tokens. Finetune costs LM tokens plus training compute plus deployment of new weights. The marginal lift of finetune over GEPA or MIPROv2 is usually small and sometimes negative, while the marginal cost is much larger. Treat finetune as the last lever, not the first.
 
-For alternatives, see [Cloud Providers](cloud_providers.md).
+## Conclusion
+
+- The core idea of model selection is to balance cost, speed, customization, and privacy.
+  - Key to "learning" is using data to improve performance on a task.
+  - LLMs become "large" and expensive mainly due to high parameter counts and vast training data.
+  - Customizing LLMs: start with prompt engineering, then retrieval, and use fine-tuning only if needed.
+  - New tools (like Unsloth, TRL, RFT, GRPO) accelerate and simplify fine-tuning.
+  - Access to strong hardware (like GPUs) is increasingly available through cloud platforms.

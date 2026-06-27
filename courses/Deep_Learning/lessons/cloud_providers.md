@@ -26,9 +26,7 @@ These platforms abstract away the infrastructure, allowing you to interact direc
 
 ### Vertical Stack
 
-[Modular](https://www.modular.com/): The Modular Platform is an open and fully-integrated suite of AI libraries and tools that accelerates model serving and scales GenAI deployments. It abstracts away hardware complexity so you can run the most popular open models with industry-leading GPU and CPU performance without any code changes.
-
-Modular occupies a unique position: **it spans all three tiers**, but its core identity and greatest value proposition sit firmly in Tier 3.
+[Modular](https://www.modular.com/) occupies a unique position: **it spans all three tiers**, but its core identity and greatest value proposition sit firmly in Tier 3.
 
 - Tier 1: Hosted Model API Endpoints
 - Tier 2: MAX Container

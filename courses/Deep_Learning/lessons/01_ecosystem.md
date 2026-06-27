@@ -2,23 +2,27 @@
 
 ## Overview
 
+**Deep learning** studies representation learning algorithms to deal with high-volume low-signal data such as pixels, sound samples, or characters and words in text; also known as unstructured data.
+
 Deep Learning courses often require knowledge of linear algebra, probability, and calculus since the focus is on matrices, computaional graphs, neural networks & backpropagation, optimizing with loss functions, and how to compose and implement deep learning architectures from these modules.
 
 Since this is an _applied_ course, then, much like how we use libraries and frameworks built by other engineers, we will build on the results of those machine learning engineers who have built and made these models available with open licenses.
 
-Instead of building up from PyTorch, TensorFlow, or other Deep Learning frameworks, we will focus on _open-weight_ models and how to _choose_, _use_, _fine-tune_, _save_, and _deploy_ them. A very popular Hub for such models is HuggingFace Hub. The 🤗 HuggingFace community created an ecosystem of tools for sharing deep learning [models](https://huggingface.co/models) and [`datasets`](https://huggingface.co/datasets) and using them.
+Instead of building up from PyTorch, TensorFlow, or other Deep Learning frameworks, **we will focus on _open-weight_ models** and how to _choose_, _use_, _fine-tune_, _save_, and _deploy_ them. A very popular Hub for such models is HuggingFace Hub. The 🤗 HuggingFace community created an ecosystem of tools for sharing deep learning [models](https://huggingface.co/models) and [`datasets`](https://huggingface.co/datasets) and using them.
 
 ## What are Open Weights?
 
 [**Open Weights**](https://opensource.org/ai/open-weights) refer to the final weights and biases of a trained neural network. These values, once locked in, determine how the model interprets input data and generates outputs. When AI developers share these parameters under an [OSI Approved License](https://opensource.org/licenses), they empower others to fine-tune, adapt, or deploy the model for their own projects.
 
-However, **Open Weights** differ significantly from [**Open Source AI**](https://opensource.org/ai/open-source-ai-definition) because they do **not** include:
+However, **Open Weights** differ significantly from [**Open Source AI**](https://opensource.org/ai/open-source-ai-definition), here is a table that sums it all up:
 
-1. **Training code** – The scripts or frameworks used to **create and curate** the training dataset.
-2. **Training dataset** – The full dataset used for training, when legally possible. As an alternative, when distribution of the training dataset is not legally possible,
-    1. **Comprehensive data transparency** – Full details about dataset composition, such as source domains, cleaning methods, or balancing techniques.
-
-By withholding these critical elements, developers only provide a glimpse into the final state of the model, making it difficult for others to replicate, audit, or deeply understand the training process.
+| **Feature**                   | **Open Weights**         | **Open Source AI** |
+| ----------------------------- | ------------------------ | ------------------ |
+| **Weights & Biases**          | Released                 | Released           |
+| **Training Code**             | Not Shared               | Fully Shared       |
+| **Intermediate Checkpoints**  | Withheld                 | Nice to have       |
+| **Training dataset**          | Not Shared/Not disclosed | Released*          |
+| **Training Data Composition** | Partially/Not Disclosed  | Fully Disclosed    |
 
 See [Open Weights at opensource.org](https://opensource.org/ai/open-weights).
 
