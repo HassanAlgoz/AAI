@@ -20,3 +20,5 @@
 1. [Ultralytics YOLO: Realtime Computer Vision Ecosystem](lessons/08_cv_realtime.md)
 2. [Supervsion: apply the outputs of computer vision models](lessons/09_cv_supervision.md)
 3. [Realtime Inference: Applications and Deployment Options](lessons/10_cv_realtime_inference.md)
+4. [Computer Vision Project: Key Steps](lessons/11_cv_key_steps.md)
+     - [How to Fine-Tune YOLO on a Custom Dataset](https://docs.ultralytics.com/guides/finetuning-guide)
