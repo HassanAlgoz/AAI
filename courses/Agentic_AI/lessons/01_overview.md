@@ -52,6 +52,17 @@ But as large as the improvement was from GPT-3.5 to GPT-4, that improvement is d
 
 Even with today's best LLMs, an agentic workflow lets you get much better performance. What we saw in this example was that the improvement from one generation of model to another—which is huge—is still not as big a difference as implementing an agentic workflow on the previous generation of model.
 
+## Real Examples of Agentic Systems
+
+Below are few recent compound AI systems to show the breadth of design choices:
+
+|AI System|Components|Design|Results|
+|---|---|---|---|
+|[ChatGPT Plus](https://openai.com/chatgpt/pricing)|- LLM<br>- Web Browser plugin for retrieving timely content<br>- Code Interpreter plugin for executing Python<br>- DALL-E image generator|The ChatGPT Plus offering can call tools such as web browsing to answer questions; the LLM determines when and how to call each tool as it responds|Popular consumer AI product with millions of paid subscribers|
+|[Medprompt](https://www.microsoft.com/en-us/research/blog/the-power-of-prompting/)|- GPT-4 LLM<br>- Nearest-neighbor search in database of correct examples<br>- LLM-generated chain-of-thought examples<br>- Multiple samples and ensembling|Answers medical questions by searching for similar examples to construct a few-shot prompt, adding model-generated chain-of-thought for each example, and generating and judging up to 11 solutions|Outperforms specialized medical models like Med-PaLM used with simpler prompting strategies|
+|[AlphaCode 2](https://storage.googleapis.com/deepmind-media/AlphaCode2/AlphaCode2_Tech_Report.pdf)|- Fine-tuned LLMs for sampling and scoring programs<br>- Code execution module<br>- Clustering model|Generates up to 1 million solutions for a coding problem then filters and scores them|Matches 85th percentile of humans on coding contests|
+|[AlphaGeometry](https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/)|- Fine-tuned LLM<br>- Symbolic math engine|Iteratively suggests constructions in a geometry problem via LLM and checks deduced facts produced by symbolic engine|Between silver and gold International Math Olympiad medalists on timed test|
+
 ## What you will learn
 
 1. How to build agentic workflows made of swappable, debuggable, and composable modules.
