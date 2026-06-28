@@ -1,6 +1,6 @@
 # Applied Deep Learning Course
 
-## HuggingFace and Large Language Models
+## M1. HuggingFace and Large Language Models
 
 1. [Ecosystem](lessons/01_ecosystem.md)
 2. [Quick Tour inside the `transformers` library](lessons/02_quick_tour.md)
@@ -15,6 +15,8 @@
 6. [Model Serving](lessons/07_serve.md)
    - [Cloud Providers](lessons/cloud_providers.md)
 
-## Ultralytics and Computer Vision Models
+## M2. Realtime Computer Vision Models
 
-1. []()
+1. [Ultralytics YOLO: Realtime Computer Vision Ecosystem](lessons/08_cv_realtime.md)
+2. [Supervsion: apply the outputs of computer vision models](lessons/09_cv_supervision.md)
+3. [Realtime Inference: Applications and Deployment Options](lessons/10_cv_realtime_inference.md)
