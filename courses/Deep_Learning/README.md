@@ -20,6 +20,6 @@
 1. [Ultralytics YOLO: Realtime Computer Vision Ecosystem](lessons/08_cv_realtime.md)
 2. [Inference: Workflows](lessons/09_cv_inference_workflows.md)
 3. [Inference: Where, What, and How; with Supervision](lessons/10_cv_inference_realtime.md)
-4. [](lessons/11_cv_inference_video_streaming_pipeline.md)
-5. [Computer Vision Project: Key Steps](lessons/11_cv_key_steps.md)
+4. [Inference Pipeline: Handle Multi-source Multi-sink Video Streams](lessons/11_cv_inference_video_streaming_pipeline.md)
+5. [Computer Vision Project: Key Steps](lessons/12_cv_key_steps.md)
      - [How to Fine-Tune YOLO on a Custom Dataset](https://docs.ultralytics.com/guides/finetuning-guide)
