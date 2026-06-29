@@ -8,11 +8,13 @@ Computer vision techniques can be applied across various industries, from [auton
 
 Before discussing the details of each step involved in a computer vision project, let's look at the overall process. If you started a computer vision project today, you'd take the following steps:
 
-- Your first priority is to [understand your project's requirements](#step-1-defining-your-projects-goals).
-- Then, you [collect and accurately label](#step-2-data-collection-and-data-annotation) the images that will help train your model.
-- Next, you [clean and augment your data](#step-3-data-augmentation-and-splitting-your-dataset) to prepare it for model training.
-- After [training](#step-4-model-training), you thoroughly [evaluate](#step-5-model-evaluation-and-fine-tuning) and [test](#step-6-model-testing) your model to make sure it performs consistently under different conditions.
-- Finally, you [deploy](#step-7-model-deployment) your model into the real world and [monitor and maintain](#step-8-monitoring-maintenance-and-documentation) it based on new insights and feedback.
+1. Your first priority is to [understand your project's requirements](#step-1-defining-your-projects-goals).
+2. Then, you [collect and accurately label](#step-2-data-collection-and-data-annotation) the images that will help train your model.
+3. Next, you [clean and augment your data](#step-3-data-augmentation-and-splitting-your-dataset) to prepare it for model training.
+4. Next is [training](#step-4-model-training)
+5. Then, [testing](#step-5-model-testing)
+6. Finally, you [deploy](#step-6-model-deployment) your model into the real world
+7. And keep [monitoring](#step-7-monitoring-and-maintenance) it to maintain it based on new insights and feedback.
 
 <p align="center">
   <img width="100%" src="https://cdn.jsdelivr.net/gh/ultralytics/assets@main/docs/five-stages-of-ml-development-lifecycle.avif" alt="Computer Vision Project Steps Overview">
@@ -193,7 +195,7 @@ Once your model has been thoroughly tested, it's time to deploy it. [Model deplo
 
 For more detailed guidance on deployment strategies and best practices, check out our [model deployment practices guide](https://docs.ultralytics.com/guides/model-deployment-practices). [Ultralytics Platform](https://platform.ultralytics.com) also provides managed [deployment endpoints](https://docs.ultralytics.com/platform/deploy/endpoints) with auto-scaling across 43 global regions, handling infrastructure setup automatically.
 
-## Step 7: Monitoring, Maintenance, and Documentation
+## Step 7: Monitoring and Maintenance
 
 **Monitoring** tools can help you track key performance indicators (KPIs) and detect anomalies or drops in accuracy.
 
