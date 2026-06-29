@@ -18,25 +18,18 @@ It introduces:
 
 ![](../assets/ultralytics_yolo_tasks.png)
 
-[YOLO26](https://docs.ultralytics.com/models/yolo26) is the latest evolution in the YOLO series of real-time object detectors, engineered from the ground up for **edge and low-power devices**. It introduces a streamlined design that removes unnecessary complexity while integrating targeted innovations to deliver faster, lighter, and more accessible deployment.
-
-## Fine-tuning YOLO
-
-- See the docs: [How to Fine-Tune YOLO on a Custom Dataset](https://docs.ultralytics.com/guides/finetuning-guide).
-- Also see: [Machine Learning Best Practices and Tips for Model Training](https://docs.ultralytics.com/guides/model-training-tips).
-
-## Machine Learning Best Practices and Tips for Model Training
-
-TODO...
-
+> [YOLO26](https://docs.ultralytics.com/models/yolo26) is the latest evolution in the YOLO series of real-time object detectors, engineered from the ground up for **edge and low-power devices**. It introduces a streamlined design that removes unnecessary complexity while integrating targeted innovations to deliver faster, lighter, and more accessible deployment.
 
 ## Related Libraries
 
-- While [Ultralytics](https://platform.ultralytics.com/) focuses heavily on creating the best model architectures and the underlying training engine.
-    - Roboflow App: Upload data, annotate images, train and deploy models. [Get your API key](https://docs.roboflow.com/api-reference/authentication).
-        - [Universe](https://universe.roboflow.com/): Browse and use community datasets and models (like HuggingFace Hub). Pass any Universe `model_id` directly to `Inference` (library).
-- [Inference](https://inference.roboflow.com/): application workflows, deployment and serving.
+While [Ultralytics](https://platform.ultralytics.com/) focuses heavily on creating the best model architectures (PyTorch) and the underlying training engine.
+
+**Roboflow** is a set of tools and services for realtime computer vision applications:
+
+- [Roboflow App](https://app.roboflow.com/): Upload data, annotate images, train and deploy models.
+- [Universe](https://universe.roboflow.com/): Browse and use community datasets and models (like HuggingFace Hub). Pass any Universe `model_id` directly to `Inference` (library).
+- [Inference](https://inference.roboflow.com/): a hub for application workflows, deployment and serving.
 - [Supervision](https://supervision.roboflow.com/latest/):
-    - Post-process results: decode predictions, plot bounding boxes, track objects, slice images for small object detection.
-    - Unified `Detections` object that works with YOLO, SAM, Grounding DINO, Transformers, and 20+ model frameworks
-- [Trackers](https://trackers.roboflow.com/latest/): Clean, modular implementations of leading trackers.
+   - Post-process results: decode predictions, plot bounding boxes, track objects, slice images for small object detection.
+   - Unified `Detections` object that works with YOLO, SAM, Grounding DINO, Transformers, and 20+ model frameworks
+- [Trackers](https://trackers.roboflow.com/latest/) implemenation of video objects tracking [algorithms](https://trackers.roboflow.com/latest/#algorithms) such as SORT, ByteTrack, OC-SORT, and BoT-SORT.
