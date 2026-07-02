@@ -1,4 +1,4 @@
-# Agentic AI Course
+# Building Agentic AI Software
 
 **Goal**: learn best practices for building Agentic AI applications that will open up many more opportunities, whether job opportunities or the chance to build amazing software yourself.
 
@@ -9,14 +9,14 @@
 - How to optimize modules and workflows using training data; rather than manual prompt engineering.
 - How to utilize the results of tried and tested methods as evident by research on Agentic AI including: _Reasoning_, _Reflection_, _Planning_, and _CodeAct_.
 
-## M1. Introductions
+## Introductions
 
 1. [Overview](lessons/01_overview.md) (~13m)
 2. [Language Models: Large and Small, Uni- and Multi-modal](lessons/02_llms.md) (~14m)
 3. [Agentic Workflows and the Autonomy Spectrum](lessons/03_whats_agent.md) (~19m)
 4. [Agentic Patterns: what works and what doesn't according to research on LLM-based agents](lessons/04_agentic_patterns.md) (~18m)
 
-## M2. Signatures and Modules
+## M1. Signatures and Modules
 
 1. [Setup](lessons/05_dspy_setup.ipynb) (~16m)
 2. [First Program](lessons/06_dspy_first_program.ipynb) (~22m)
@@ -26,12 +26,12 @@
 
 Recommended: [Set up MLflow Tracing to understand what's happening under the hood](lessons/mlflow.md) (~7m).
 
-## M3. Agents with Tools
+## M2. Agents with Tools
 
 1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb) (~27m)
    - [Exercise: Flights Agent](exercises/flights_agent.ipynb) (~26m)
 
-## M4. Coding Agents
+## M3. Coding Agents
 
 1. [Composing Modules](lessons/10_dspy_composing_modules.ipynb) (~27m)
 2. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb) (~37m)
@@ -39,11 +39,11 @@ Recommended: [Set up MLflow Tracing to understand what's happening under the hoo
 
 For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](https://dspy.ai/tutorials/mem0_react_agent/).
 
-## M5. Optimize
+## M4. Optimization
 
 1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb) (~59m)
 
-## M6. Retrieval Augmented Generation (RAG)
+## M5. Retrieval Augmented Generation (RAG)
 
 1. [What is RAG?](lessons/13_rag.md) (~25m)
 2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb) (~42m)
@@ -66,3 +66,4 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 
 - [Agentic AI Course](https://www.deeplearning.ai/courses/agentic-ai) (Andrew Ng, DeepLearningAI)
 - [DSPy](https://dspy.ai/): Program, don’t prompt, your LLMs.
+- [AI Engineer Roadmap](https://www.aihero.dev/ai-engineer-roadmap)

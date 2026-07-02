@@ -1,4 +1,4 @@
-# Applied Deep Learning Course
+# Applied Deep Learning
 
 ## M1. HuggingFace and Large Language Models
 

@@ -1,4 +1,4 @@
-# C2: Data Science
+# Data Science
 
 ## M1. Introductions
 
@@ -79,6 +79,12 @@
 
 - [Hypothesis Testing explained in 4 parts | Mon Jul 22 2024, retrieved Jun 1 2026](https://statsig.com/blog/hypothesis-testing-explained)
 - [Bootstrapping Main Ideas!!! | StatQuest with Josh Starmer ](https://youtu.be/Xz0x-8-cgaQ?si=k9xH4e8fPvJjEGIq)
+
+## Projects
+
+1. [Dashboard](./projects/01_dashboard.md)
+
+
 
 ## Tools
 

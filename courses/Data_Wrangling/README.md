@@ -1,7 +1,4 @@
-# C1: Fundamentals of Data Analysis in Python
-
-- The following is a scaffold based on lectures of: 60 ± 15 minutes each.
-- Each exercise set is estimated to be completed in: 45 ± 15 minutes (30m - 1hr).
+# Data Wrangling
 
 ## Bookmarks you will need
 
@@ -11,7 +8,7 @@ Bookmark the following references in your browswer. These are **Handy References
 - [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
 - [Pandas Methods Mind Map](https://xmind.ai/share/ugVH30g4)
 
-## L1: Filtering, Sorting, and Aggregation
+## M1. Filtering, Sorting, and Aggregation
 
 **Goal**: learn how to read/write files to manipulate tabular data structures.
 
@@ -31,7 +28,7 @@ Bookmark the following references in your browswer. These are **Handy References
     - `DW 2.1` [Pokemon - DataFrames & NumPy](exercises/02/01_df_np/Pokemon.ipynb)
     - `DW 2.2` [Iris - Deleting](exercises/02/02_deleting/Iris.ipynb)
 
-## L2: Data Wrangling
+## M2. Data Wrangling
 
 **Goal**: learn how to create, modify, delete, rename, and combine columns and rows.
 
@@ -49,7 +46,7 @@ Bookmark the following references in your browswer. These are **Handy References
     - `DW 4.1` [Auto MPG - Modify](exercises/04/01_modify/Auto_MPG.ipynb)
     - `DW 4.2` [Auto MPG - Merge](exercises/04/02_merge/Auto_MPG.ipynb)
 
-## L3: Data Vizualization
+## M3. Data Vizualization
 
 1. [Data Visualization](lessons/08_visualization.ipynb) (~42m)
 2. [Small Multiples](lessons/09_small_multiples.ipynb) (~37m)
@@ -59,7 +56,7 @@ Bookmark the following references in your browswer. These are **Handy References
 - Set 5 (~28m):
     - `DW 5.1` [Visualization Exercises](exercises/05/01_visualization_exercises.ipynb)
 
-## L4: Timeseries Analysis
+## M4. Timeseries Analysis
 
 **Goal**: learn to analyze data associated with points in time.
 

@@ -30,19 +30,14 @@ PDF material can be downloaded from the [releases page](https://github.com/Hassa
 | 3  | [Applied Machine Learning](/courses/Machine_Learning/) | Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.        | 21 (~11hr 35m) | 6 (~2hr 41m)     |
 |    | **Total**                               |                                                                                                           | **48 (~28hr 55m)** | **16 (~8hr 40m)** |
 
-## Track 2: Software Engineer (AI)
-
-| #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
-|----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
-| 1  | [Agentic AI](/courses/Agentic_AI/)                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. | 23 (~8hr 28m)  | 6 (~3hr 17m)     |
-| 2  | [Applied Deep Learning](/courses/Deep_Learning/)                              | Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstrctured data tasks. | _  | _     |
-|    | **Total**                                                       |                                                                                                          | **27 (~9hr 39m)** | **6 (~3hr 17m)** |
-
-### Courses
+## Track 2: AI Engineer
 
 | #  | Course                                  | Description                                                                                               | Lessons (Time) | Exercises (Time) |
 |----|-----------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------|------------------|
 | 1 | [Agentic Engineering](/courses/Agentic_Engineering/) | Work effectively and efficiently with AI in software engineering projects.                                | 4 (~1hr 11m)   | 0                |
+| 2  | [Building Agentic AI Software](/courses/Agentic_AI/)                              | Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data. | 23 (~8hr 28m)  | 6 (~3hr 17m)     |
+| 3  | [Applied Deep Learning](/courses/Deep_Learning/)                              | Select, use, compose, fine-tune, and deploy open-weight language, audio, and vision models. | _  | _     |
+|    | **Total**                                                       |                                                                                                          | **31 (~10hr 50m)** | **6 (~3hr 17m)** |
 
 ## AI Policy
 
