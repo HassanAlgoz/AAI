@@ -1,8 +1,4 @@
-# Applied Artifical Intelligence (AAI)
-
-Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://github.com/HassanAlgoz/AAI/releases/latest/download/Intro_01_bootcamp_intro.pdf) (1hr 30m).
-
-PDF material can be downloaded from the [releases page](https://github.com/HassanAlgoz/AAI/releases).
+# Program Courses Outline
 
 ## Pre-requisites
 
@@ -85,25 +81,3 @@ Select, use, compose, fine-tune, and deploy open-weight deep learning models on 
 - M2. Realtime Computer Vision Models
 
 Time Estimate: 5 days x 6 hours.
-
-## AI Policy
-
-Good use of AI means it **augments, rather than replaces, thinking** — used for feedback, hints, explanations, practice, or extra resources, while **you still do the core reasoning, writing, and problem-solving**.
-
-**Forbidden use**: treating course material as "work" and AI as an assistant to get it done "faster" or "easier" or "better". Don't mix productivity (output) with learning (you).
-
-See [the research and findings that made up our AI Policy](docs/ai_policy.md).
-
-## Assigned Exercises
-
-- Due Thursday 11:59 PM (end of same week).
-- Work must have been pushed to GitHub.
-- Marked as done (in Google Classroom) before then.
-- Commit history **MUST** follow the [proof-of-work](/docs/proof-of-work.md) system.
-
----
-
-## Contribution (Course Development)
-
-- Local dev unchanged: `just compile` / `just watch` still produce ignored local PDFs.
-- To publish: `git tag v1.0 && git push origin v1.0` -> workflow builds and attaches PDFs to the v1.0 release, which becomes latest.

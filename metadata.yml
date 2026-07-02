@@ -1,0 +1,50 @@
+tracks:
+  - name: Pre-requisites
+    courses:
+      - title: Terminal
+        description: Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.
+        time_estimate: 1 day x 3 hours
+        path: /courses/Terminal/
+        order: 1
+
+  - name: Data Scientist
+    time_estimate: 4-5 weeks at 30 hrs/week
+    courses:
+      - title: Data Wrangling
+        description: Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.
+        time_estimate: 5 days x 6 hours
+        path: /courses/Data_Wrangling/
+        order: 1
+
+      - title: Data Science
+        description: Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions.
+        time_estimate: 5 days x 6 hours
+        path: /courses/Data_Science/
+        order: 2
+
+      - title: Applied Machine Learning
+        description: Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
+        time_estimate: 10 days x 6 hours
+        path: /courses/Machine_Learning/
+        order: 3
+
+  - name: AI Engineer
+    time_estimate: 4-5 weeks at 30 hrs/week
+    courses:
+      - title: Agentic Engineering
+        description: Work effectively and efficiently with AI in software engineering projects.
+        time_estimate: 5 days x 6 hours
+        path: /courses/Agentic_Engineering/
+        order: 1
+
+      - title: Building Agentic AI Software
+        description: Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
+        time_estimate: 10 days x 6 hours
+        path: /courses/Agentic_AI/
+        order: 2
+
+      - title: Applied Deep Learning
+        description: Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
+        time_estimate: 5 days x 6 hours
+        path: /courses/Deep_Learning/
+        order: 3

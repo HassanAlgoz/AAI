@@ -159,8 +159,25 @@ def is_module_heading(title: str) -> bool:
     return bool(MODULE_HEADING_RE.match(strip_inline_md(title)))
 
 
-def get_course_title(text: str) -> str | None:
-    """Return the first top-level (`#`) heading, if any."""
+def get_course_title(text: str, readme_path: Path | None = None,
+                     repo_root: Path | None = None) -> str | None:
+    """Return the course title from metadata.yml or the first `#` heading."""
+    if readme_path is not None and repo_root is not None:
+        sys_path = Path(__file__).resolve().parent
+        if str(sys_path) not in sys.path:
+            sys.path.insert(0, str(sys_path))
+        from course_meta import (  # noqa: E402
+            course_path_from_readme,
+            load_program_metadata_from_root,
+        )
+
+        if course_path := course_path_from_readme(readme_path, repo_root):
+            try:
+                program = load_program_metadata_from_root(repo_root)
+                return program.course_by_path(course_path).title
+            except (KeyError, FileNotFoundError):
+                pass
+
     for line, in_code in iter_lines_outside_code(text):
         if in_code:
             continue
@@ -202,10 +219,11 @@ def extract_module_sections(text: str) -> list[tuple[str, str]]:
     return sections
 
 
-def render_enriched(node: Node, base_level: int, *, index_only: bool) -> str:
+def render_enriched(node: Node, base_level: int, *, index_only: bool,
+                    repo_root: Path) -> str:
     parts: list[str] = []
     if not index_only:
-        if title := get_course_title(node.content):
+        if title := get_course_title(node.content, node.path, repo_root):
             parts.append(f"{'#' * base_level} {title}")
         for mod_title, mod_content in extract_module_sections(node.content):
             parts.append(f"{'#' * (base_level + 1)} {mod_title}")
@@ -214,14 +232,16 @@ def render_enriched(node: Node, base_level: int, *, index_only: bool) -> str:
 
     child_level = base_level if index_only else base_level + 1
     for child in node.children:
-        parts.append(render_enriched(child, child_level, index_only=False))
+        parts.append(render_enriched(child, child_level, index_only=False,
+                                     repo_root=repo_root))
     return "\n\n".join(p for p in parts if p)
 
 
-def render_toc(node: Node, depth: int = 0, *, index_only: bool) -> str:
+def render_toc(node: Node, depth: int = 0, *, index_only: bool,
+               repo_root: Path) -> str:
     lines: list[str] = []
     if not index_only:
-        if title := get_course_title(node.content):
+        if title := get_course_title(node.content, node.path, repo_root):
             indent = "  " * depth
             lines.append(f"{indent}- {strip_inline_md(title)}")
             for mod_title, _ in extract_module_sections(node.content):
@@ -229,7 +249,8 @@ def render_toc(node: Node, depth: int = 0, *, index_only: bool) -> str:
 
     child_depth = depth if index_only else depth + 1
     for child in node.children:
-        child_toc = render_toc(child, child_depth, index_only=False)
+        child_toc = render_toc(child, child_depth, index_only=False,
+                               repo_root=repo_root)
         if child_toc:
             lines.append(child_toc)
     return "\n".join(lines)
@@ -261,9 +282,9 @@ def main(argv: list[str] | None = None) -> int:
 
     tree = build_tree(readme, repo_root, visited={readme})
     result = (
-        render_enriched(tree, base_level=1, index_only=True)
+        render_enriched(tree, base_level=1, index_only=True, repo_root=repo_root)
         if args.enriched
-        else render_toc(tree, index_only=True)
+        else render_toc(tree, index_only=True, repo_root=repo_root)
     )
     result = result.rstrip("\n") + "\n"
 
