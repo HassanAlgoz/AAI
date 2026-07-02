@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Render `README.md` from `README_template.md`, `outline.md`, and `course_notes.md`.
+"""Render `README.md` from `README_template.md`, `outline.typ`, and `course_notes.md`.
 
-Before rendering, course blocks in `outline.md` are enriched from
+Before rendering, course blocks in `outline.typ` (Typst) are enriched from
 ``metadata.yml``: headings, descriptions, and per-course time estimates.
-Module lists and track structure stay in ``outline.md``; policy and exercise
-notes come from ``course_notes.md``.
+Module lists and track structure stay in ``outline.typ``; policy and exercise
+notes come from ``course_notes.md``. The enriched Typst outline is converted to
+Markdown for the README's ``{{outline}}`` placeholder, and compiles to a PDF
+via ``typst compile outline.typ``.
 
 Usage:
-    python scripts/render_readme.py                 # write README.md
+    python scripts/render_readme.py                 # write outline.typ + README.md
     python scripts/render_readme.py -o OUT.md       # write elsewhere
     python scripts/render_readme.py --check         # verify files are current
 """
@@ -20,11 +22,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_readme import find_repo_root  # noqa: E402
-from course_meta import prepare_outline, strip_outline_title  # noqa: E402
+from course_meta import outline_typst_to_markdown, prepare_outline  # noqa: E402
 
 
-def render_readme(template: str, outline: str, course_notes: str) -> str:
-    outline_body = strip_outline_title(outline)
+def render_readme(
+    template: str, outline: str, course_notes: str, repo_root: Path
+) -> str:
+    outline_body = outline_typst_to_markdown(outline, repo_root)
     rendered = template.replace("{{outline}}", outline_body)
     rendered = rendered.replace("{{course_notes}}", course_notes.strip("\n"))
     return rendered.rstrip("\n") + "\n"
@@ -38,7 +42,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--outline", type=Path, default=None,
-        help="Outline file (default: outline.md at repo root).",
+        help="Outline file (default: outline.typ at repo root).",
     )
     parser.add_argument(
         "--course-notes", type=Path, default=None,
@@ -60,7 +64,7 @@ def main(argv: list[str] | None = None) -> int:
 
     repo_root = args.root.resolve() if args.root else find_repo_root(Path(__file__))
     template_path = args.template or (repo_root / "README_template.md")
-    outline_path = args.outline or (repo_root / "outline.md")
+    outline_path = args.outline or (repo_root / "outline.typ")
     course_notes_path = args.course_notes or (repo_root / "course_notes.md")
     output_path = args.output or (repo_root / "README.md")
 
@@ -83,7 +87,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"error: {error}", file=sys.stderr)
         return 1
 
-    rendered = render_readme(template, enriched_outline, course_notes)
+    rendered = render_readme(template, enriched_outline, course_notes, repo_root)
 
     if args.check:
         outline_ok = outline == enriched_outline

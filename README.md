@@ -4,6 +4,11 @@ Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://
 
 PDF material can be downloaded from the [releases page](https://github.com/HassanAlgoz/AAI/releases).
 
+The program consists of two tracks each aimed at a specific career path:
+
+1. Data Scientist
+2. AI Engineer
+
 ## Pre-requisites
 
 Both tracks presume the following about the learner to get started:
@@ -12,6 +17,12 @@ Both tracks presume the following about the learner to get started:
 + Algorithmic thinking and problem-solving skills.
 + Strong foundation in programming.
 + Working laptop with internet access.
+
+### 1. [Terminal](/courses/Terminal/)
+
+Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.
+
+Time Estimate: 1 day x 3 hours.
 
 ## Track 1: Data Scientist
 

@@ -1,6 +1,11 @@
-# Program Courses Outline
+= Program Courses Outline
 
-## Pre-requisites
+The program consists of two tracks each aimed at a specific career path:
+
+1. Data Scientist
+2. AI Engineer
+
+== Pre-requisites
 
 Both tracks presume the following about the learner to get started:
 
@@ -9,11 +14,19 @@ Both tracks presume the following about the learner to get started:
 + Strong foundation in programming.
 + Working laptop with internet access.
 
-## Track 1: Data Scientist
+#pagebreak()
+
+=== 1. Terminal
+
+Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.
+
+Time Estimate: 1 day x 3 hours.
+
+== Track 1: Data Scientist
 
 Time Estimate: 4-5 weeks at 30 hrs/week.
 
-### 1. [Data Wrangling](/courses/Data_Wrangling/)
+=== 1. Data Wrangling
 
 Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.
 
@@ -24,7 +37,7 @@ Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and
 
 Time Estimate: 5 days x 6 hours.
 
-### 2. [Data Science](/courses/Data_Science/)
+=== 2. Data Science
 
 Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions.
 
@@ -35,7 +48,7 @@ Calculate, analyze, visualize, and extract insights from data. Formulate hypothe
 
 Time Estimate: 5 days x 6 hours.
 
-### 3. [Applied Machine Learning](/courses/Machine_Learning/)
+=== 3. Applied Machine Learning
 
 Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
 
@@ -47,11 +60,13 @@ Build reliable predictive modeling pipelines, debug its issues, evaluate and com
 
 Time Estimate: 10 days x 6 hours.
 
-## Track 2: AI Engineer
+#pagebreak()
+
+== Track 2: AI Engineer
 
 Time Estimate: 4-5 weeks at 30 hrs/week.
 
-### 1. [Agentic Engineering](/courses/Agentic_Engineering/)
+=== 1. Agentic Engineering
 
 Work effectively and efficiently with AI in software engineering projects.
 
@@ -61,7 +76,7 @@ Work effectively and efficiently with AI in software engineering projects.
 
 Time Estimate: 5 days x 6 hours.
 
-### 2. [Building Agentic AI Software](/courses/Agentic_AI/)
+=== 2. Building Agentic AI Software
 
 Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
 
@@ -73,7 +88,7 @@ Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate t
 
 Time Estimate: 10 days x 6 hours.
 
-### 3. [Applied Deep Learning](/courses/Deep_Learning/)
+=== 3. Applied Deep Learning
 
 Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
 

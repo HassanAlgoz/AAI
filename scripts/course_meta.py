@@ -8,11 +8,16 @@ from pathlib import Path
 
 import yaml
 
-COURSE_H3_RE = re.compile(
-    r"^### (\d+)\.\s+(?:\[[^\]]+\]\((?P<path>[^)]+)\)|(?P<plain>.+))\s*$"
-)
-TRACK_HEADING_RE = re.compile(r"^## Track \d+:\s+(.+)$")
-MODULE_BULLET_RE = re.compile(r"^- M\d+\.\s")
+# Outline files are Typst (`outline.typ`): `=` document title, `==` tracks,
+# `=== N. Title` courses. Courses are keyed by title (Typst headings carry no
+# link), unlike the README's Markdown `### N. [Title](path)` form.
+DOC_TITLE_RE = re.compile(r"^=\s+(?P<title>.+?)\s*$")
+COURSE_HEADING_RE = re.compile(r"^===\s+(?P<order>\d+)\.\s+(?P<title>.+?)\s*$")
+TRACK_HEADING_RE = re.compile(r"^==\s+Track \d+:\s+(?P<name>.+?)\s*$")
+PREREQUISITES_HEADING_RE = re.compile(r"^==\s+Pre-requisites\s*$")
+HEADING_RE = re.compile(r"^=+\s")
+MODULE_BULLET_RE = re.compile(r"^-\s+M\d+\.\s")
+TYPST_DIRECTIVE_RE = re.compile(r"^\s*#[A-Za-z][\w.-]*\(")
 REQUIRED_COURSE_FIELDS = ("title", "description", "time_estimate", "path", "order")
 
 
@@ -47,10 +52,8 @@ class ProgramMetadata:
         return tuple(self.courses_by_path[path] for path in sorted(self.courses_by_path))
 
     def outline_tracks(self) -> tuple[TrackMeta, ...]:
-        """Tracks that appear in `outline.md` (everything except Pre-requisites)."""
-        return tuple(
-            track for track in self.tracks if track.name != "Pre-requisites"
-        )
+        """Tracks that appear in `outline.typ`."""
+        return self.tracks
 
     def course_by_path(self, course_path: str) -> CourseMeta:
         normalized = normalize_course_path(course_path)
@@ -58,6 +61,13 @@ class ProgramMetadata:
             return self.courses_by_path[normalized]
         except KeyError as exc:
             raise KeyError(f"no course metadata for path {course_path!r}") from exc
+
+    def course_by_title(self, title: str) -> CourseMeta:
+        index = {course.title: course for course in self.courses}
+        try:
+            return index[title.strip()]
+        except KeyError as exc:
+            raise KeyError(f"no course metadata for title {title!r}") from exc
 
 
 def normalize_course_path(course_path: str) -> str:
@@ -155,39 +165,37 @@ def course_readme_from_path(course_path: str, repo_root: Path) -> Path:
 
 
 def render_course_heading(meta: CourseMeta) -> str:
-    return f"### {meta.order}. [{meta.title}]({meta.path})"
+    return f"=== {meta.order}. {meta.title}"
 
 
 def render_course_section(meta: CourseMeta, modules: list[str]) -> str:
-    """Render a full course block for README output."""
-    lines = [
-        render_course_heading(meta),
-        "",
-        meta.description,
-        "",
-        *[f"- {module}" for module in modules],
-        "",
-        f"Time Estimate: {meta.time_estimate}.",
-    ]
-    return "\n".join(lines)
+    """Render a full Typst course block for the outline."""
+    parts = [render_course_heading(meta), "", meta.description]
+    if modules:
+        parts.append("")
+        parts.extend(f"- {module}" for module in modules)
+    parts.append("")
+    parts.append(f"Time Estimate: {meta.time_estimate}.")
+    return "\n".join(parts)
 
 
-def render_track_heading(index: int, track: TrackMeta) -> list[str]:
-    lines = [f"## Track {index}: {track.name}", ""]
-    if track.time_estimate:
-        lines.append(f"Time Estimate: {track.time_estimate}.")
-        lines.append("")
-    return lines
+def parse_outline_track_name(line: str) -> str | None:
+    """Return a track name from an outline `==` heading, if recognized."""
+    if track_match := TRACK_HEADING_RE.match(line):
+        return track_match.group("name").strip()
+    if PREREQUISITES_HEADING_RE.match(line):
+        return "Pre-requisites"
+    return None
 
 
 def strip_outline_title(text: str) -> str:
-    """Drop the outline's own top-level `# ...` title and following blank lines."""
+    """Drop the outline's own top-level `= ...` title and following blank lines."""
     lines = text.splitlines()
     body: list[str] = []
     skipped_title = False
     for line in lines:
         if not skipped_title:
-            if line.startswith("# "):
+            if DOC_TITLE_RE.match(line):
                 skipped_title = True
             continue
         body.append(line)
@@ -196,71 +204,112 @@ def strip_outline_title(text: str) -> str:
     return "\n".join(body).strip("\n")
 
 
+def _outline_course_titles(outline_text: str) -> set[str]:
+    titles: set[str] = set()
+    for line in outline_text.splitlines():
+        if match := COURSE_HEADING_RE.match(line):
+            titles.add(match.group("title").strip())
+    return titles
+
+
+def _track_section_bounds(
+    lines: list[str], track_name: str
+) -> tuple[int, int] | None:
+    start: int | None = None
+    for index, line in enumerate(lines):
+        if parse_outline_track_name(line) == track_name:
+            start = index
+            break
+    if start is None:
+        return None
+
+    end = len(lines)
+    for index in range(start + 1, len(lines)):
+        if parse_outline_track_name(lines[index]) is not None:
+            end = index
+            break
+    return start, end
+
+
+def ensure_outline_courses(outline_text: str, repo_root: Path) -> str:
+    """Insert missing course headings from metadata.yml into track sections."""
+    program = load_program_metadata_from_root(repo_root)
+    lines = outline_text.splitlines()
+    existing_titles = _outline_course_titles(outline_text)
+
+    missing = [
+        course for course in program.courses if course.title not in existing_titles
+    ]
+    if not missing:
+        return outline_text
+
+    for course in sorted(
+        missing,
+        key=lambda item: (program.track_names.index(item.track), item.order),
+    ):
+        bounds = _track_section_bounds(lines, course.track)
+        if bounds is None:
+            continue
+
+        start, end = bounds
+        insert_at = end
+        for index in range(start + 1, end):
+            if match := COURSE_HEADING_RE.match(lines[index]):
+                if course.order < int(match.group("order")):
+                    insert_at = index
+                    break
+
+        block = [render_course_heading(course), ""]
+        if insert_at > 0 and lines[insert_at - 1].strip():
+            block.insert(0, "")
+        lines = [*lines[:insert_at], *block, *lines[insert_at:]]
+
+    return "\n".join(lines).rstrip("\n") + "\n"
+
+
 def validate_outline_tracks(outline_text: str, repo_root: Path) -> list[str]:
     """Return validation errors for track/order mismatches in the outline."""
     program = load_program_metadata_from_root(repo_root)
     errors: list[str] = []
     current_track: str | None = None
+    known_tracks = {track.name for track in program.outline_tracks()}
 
     for line_no, line in enumerate(outline_text.splitlines(), start=1):
-        if track_match := TRACK_HEADING_RE.match(line):
-            current_track = track_match.group(1).strip()
-            if current_track not in {track.name for track in program.outline_tracks()}:
+        if track_name := parse_outline_track_name(line):
+            current_track = track_name
+            if current_track not in known_tracks:
                 errors.append(f"{line_no}: unknown outline track {current_track!r}")
             continue
 
-        if not (course_match := COURSE_H3_RE.match(line)):
+        if not (course_match := COURSE_HEADING_RE.match(line)):
             continue
 
-        course_path = course_match.group("path")
-        if not course_path:
-            errors.append(f"{line_no}: course heading missing link path")
+        title = course_match.group("title").strip()
+        try:
+            meta = program.course_by_title(title)
+        except KeyError:
+            errors.append(f"{line_no}: unknown course {title!r}")
             continue
-
-        meta = program.course_by_path(course_path)
 
         if current_track is None:
             errors.append(f"{line_no}: course heading outside a track section")
             continue
         if meta.track != current_track:
             errors.append(
-                f"{line_no}: {meta.path} belongs to track {meta.track!r}, "
+                f"{line_no}: {meta.title!r} belongs to track {meta.track!r}, "
                 f"not {current_track!r}"
             )
-        if meta.order != int(course_match.group(1)):
+        if meta.order != int(course_match.group("order")):
             errors.append(
-                f"{line_no}: {meta.path} order is {meta.order}, "
-                f"heading shows {course_match.group(1)}"
+                f"{line_no}: {meta.title!r} order is {meta.order}, "
+                f"heading shows {course_match.group('order')}"
             )
 
     return errors
 
 
-def sync_outline_course_headings(outline_text: str, repo_root: Path) -> str:
-    """Replace `### N. ...` course headings using metadata.yml."""
-    program = load_program_metadata_from_root(repo_root)
-    lines = outline_text.splitlines()
-    result: list[str] = []
-
-    for line in lines:
-        match = COURSE_H3_RE.match(line)
-        if not match:
-            result.append(line)
-            continue
-
-        course_path = match.group("path")
-        if not course_path:
-            result.append(line)
-            continue
-
-        meta = program.course_by_path(course_path)
-        result.append(render_course_heading(meta))
-
-    return "\n".join(result).rstrip("\n") + "\n"
-
-
 def enrich_outline_body(outline_body: str, repo_root: Path) -> str:
-    """Expand course blocks with metadata heading, description, and time."""
+    """Expand Typst course blocks with metadata heading, description, and time."""
     program = load_program_metadata_from_root(repo_root)
     lines = outline_body.splitlines()
     result: list[str] = []
@@ -268,22 +317,27 @@ def enrich_outline_body(outline_body: str, repo_root: Path) -> str:
 
     while index < len(lines):
         line = lines[index]
-        match = COURSE_H3_RE.match(line)
-        if not match or not match.group("path"):
+        match = COURSE_HEADING_RE.match(line)
+        if not match:
             result.append(line)
             index += 1
             continue
 
-        meta = program.course_by_path(match.group("path"))
+        try:
+            meta = program.course_by_title(match.group("title").strip())
+        except KeyError:
+            result.append(line)
+            index += 1
+            continue
 
         index += 1
         modules: list[str] = []
         while index < len(lines):
             current = lines[index]
-            if current.startswith("## ") or COURSE_H3_RE.match(current):
+            if HEADING_RE.match(current) or TYPST_DIRECTIVE_RE.match(current):
                 break
             if MODULE_BULLET_RE.match(current):
-                modules.append(current.removeprefix("- ").strip())
+                modules.append(re.sub(r"^-\s+", "", current).strip())
             index += 1
 
         result.append(render_course_section(meta, modules).rstrip("\n"))
@@ -298,7 +352,7 @@ def enrich_outline_body(outline_body: str, repo_root: Path) -> str:
 def enrich_outline_file(outline_text: str, repo_root: Path) -> str:
     """Enrich all course blocks in an outline file, preserving its title line."""
     lines = outline_text.splitlines()
-    if lines and lines[0].startswith("# "):
+    if lines and DOC_TITLE_RE.match(lines[0]):
         title = lines[0]
         body = strip_outline_title(outline_text)
         enriched = enrich_outline_body(body, repo_root)
@@ -309,7 +363,47 @@ def enrich_outline_file(outline_text: str, repo_root: Path) -> str:
 
 def prepare_outline(outline: str, repo_root: Path) -> tuple[str, list[str]]:
     """Validate and enrich outline course blocks from metadata.yml."""
+    outline = ensure_outline_courses(outline, repo_root)
     errors = validate_outline_tracks(outline, repo_root)
     if errors:
         return outline, errors
     return enrich_outline_file(outline, repo_root), []
+
+
+def outline_typst_to_markdown(outline_text: str, repo_root: Path) -> str:
+    """Convert an enriched Typst outline into Markdown for the README.
+
+    Course headings gain a link to their course folder; the document title and
+    Typst directives (e.g. ``#pagebreak()``) are dropped.
+    """
+    program = load_program_metadata_from_root(repo_root)
+    result: list[str] = []
+
+    for line in outline_text.splitlines():
+        if DOC_TITLE_RE.match(line) or TYPST_DIRECTIVE_RE.match(line):
+            continue
+        if match := COURSE_HEADING_RE.match(line):
+            order = match.group("order")
+            title = match.group("title").strip()
+            try:
+                meta = program.course_by_title(title)
+                result.append(f"### {order}. [{title}]({meta.path})")
+            except KeyError:
+                result.append(f"### {order}. {title}")
+            continue
+        if HEADING_RE.match(line):
+            level = len(line) - len(line.lstrip("="))
+            result.append(f"{'#' * level} {line[level:].strip()}")
+            continue
+        result.append(line)
+
+    collapsed: list[str] = []
+    for line in result:
+        if not line.strip() and collapsed and not collapsed[-1].strip():
+            continue
+        collapsed.append(line)
+    while collapsed and not collapsed[0].strip():
+        collapsed.pop(0)
+    while collapsed and not collapsed[-1].strip():
+        collapsed.pop()
+    return "\n".join(collapsed)
