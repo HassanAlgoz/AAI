@@ -22,7 +22,7 @@
 
 **Exercises**:
 
-- `DS 1` [Exercise: What is Data Science?](exercises/01/data_science_quiz.md) (~30m; 15 questions)
+- [Quiz: What is Data Science?](https://docs.google.com/forms/d/e/1FAIpQLSfLrieRSe-Ruj4IoajY_fSIHOsPPrc9jeysz7xx3sz1piYldw/viewform?usp=publish-editor) (~25m; 12 questions)
 
 ## M2. Univariate Analysis
 
@@ -40,7 +40,8 @@
 
 **Exercises**:
 
-1. `DS 2` [Exercise: Interpreting Distributions](exercises/02/01_interpreting_distributions.md) (~46m)
+1. [Quiz 1: Sex-IQ Comparative Distributions](https://docs.google.com/forms/d/e/1FAIpQLSfbQD-LbfQ4zHJ8HDNrAqZb4-lO1u0M7vd3YZzZSD0w77Lcdg/viewform?usp=publish-editor) (~20m)
+2. [Quiz 2: Temperature and Visits Distributions](https://docs.google.com/forms/d/e/1FAIpQLSdpHgDl6Iw6NFzbV2S3-nJfGxN2cVHehs9x7RAmeyP_l_Ss0A/viewform?usp=publish-editor) (~20m)
 
 ## M3. Bivariate Analysis
 
@@ -54,7 +55,7 @@
 
 **Exercises**:
 
-1. `DS 3` [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~14m)
+1. [Exercise: Simpson's Paradox](exercises/03/Simpsons_Paradox.ipynb) (~14m)
 
 **Extra**:
 
@@ -73,7 +74,7 @@
 
 **Exercises**:
 
-1. `DS 4` [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb) (~28m)
+1. [Exercise: Power Analysis: Waiter's Tips](exercises/04/Waiters_Tips.ipynb) (~28m)
 
 **Resources**:
 
