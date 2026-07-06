@@ -82,9 +82,8 @@
 
 ## Projects
 
-1. [Dashboard](./projects/01_dashboard.md)
-
-
+1. [Data Apps](./projects/01_data_apps.md)
+2. [Project: Dashboard](./projects/02_project.md)
 
 ## Tools
 
@@ -94,6 +93,7 @@
 - [`seaborn`](https://seaborn.pydata.org/) is statistical, built on top of `matplotlib`.
 - [`plotly`](https://plotly.com/python/) is interactive (HTML + JS via `dash`).
 - [`plotnine`](https://plotnine.readthedocs.io/en/stable/) is for people coming from `R`.
+- [`streamlit`](https://streamlit.io/) for building data and sharing apps purely in Python
 
 ### Statistics
 
