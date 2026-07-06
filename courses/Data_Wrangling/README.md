@@ -10,7 +10,12 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## M1. Filtering, Sorting, and Aggregation
 
-**Goal**: learn how to read/write files to manipulate tabular data structures.
+**Goals**:
+
+1. I/O: load/store data from/to different sources and formats.
+2. Analyze: select, sort, filter and aggregate data to answer analytical questions.
+
+**Lessons**:
 
 1. [Pandas' I/O](lessons/01_pandas_io.ipynb) (~19m)
 2. [DataFrame: Selecting a Subset](lessons/02_select.ipynb) (~30m)
@@ -30,7 +35,9 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## M2. Data Wrangling
 
-**Goal**: learn how to create, modify, delete, rename, and combine columns and rows.
+**Goal**: create, modify, delete, rename, and combine columns and rows.
+
+**Lessons**:
 
 1. [DataFrame: Creating and modifying columns](lessons/05_modify.ipynb) (~21m)
 2. [DataFrame: Combining through Concat and Merge](lessons/06_combine.ipynb) (~16m)
@@ -48,6 +55,10 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## M3. Data Vizualization
 
+**Goal**: Visualize: create plots and charts to represent data visually.
+
+**Lessons**:
+
 1. [Data Visualization](lessons/08_visualization.ipynb) (~42m)
 2. [Small Multiples](lessons/09_small_multiples.ipynb) (~37m)
 
@@ -58,7 +69,9 @@ Bookmark the following references in your browswer. These are **Handy References
 
 ## M4. Timeseries Analysis
 
-**Goal**: learn to analyze data associated with points in time.
+**Goal**: analyze data associated with points in time.
+
+**Lessons**:
 
 1. [Example 1: Analysis of US Census Data (2010 - 2019)](lessons/10_us_census.ipynb) (~49m)
 2. [Example 2: Temperature in Riyadh](lessons/11_riyadh_temperature.ipynb) (~35m)
