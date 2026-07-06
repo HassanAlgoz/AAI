@@ -44,7 +44,7 @@ For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](http
 
 ## M5. Retrieval Augmented Generation (RAG)
 
-1. [What is RAG?](lessons/13_rag.md) (~25m)
+1. [What is RAG?](https://github.com/HassanAlgoz/AAI/releases/latest/download/Agentic_AI_13_rag.pdf) (~25m)
 2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb) (~42m)
    - [Exercise: Explore the Embedding Space](exercises/14/visualize_embeddings.ipynb) (~31m) ([solution](exercises/14/visualize_embeddings_solution.ipynb) (~31m))
 3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb) (~49m)
