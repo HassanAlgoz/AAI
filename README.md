@@ -13,9 +13,9 @@ The program consists of two tracks each aimed at a specific career path:
 
 Both tracks presume the following about the learner to get started:
 
-+ English B2 (Upper-Intermediate) level: IELTS 6.5 or TOEFL 80.
++ English B2 level: IELTS 6.0 or TOEFL 4.0 (71).
 + Algorithmic thinking and problem-solving skills.
-+ Strong foundation in programming.
++ Good foundation in programming.
 + Working laptop with internet access.
 
 ### 1. [Terminal](/courses/Terminal/)
