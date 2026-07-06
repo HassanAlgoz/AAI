@@ -11,17 +11,16 @@
 
 ## Introductions
 
-1. [Overview](lessons/01_overview.md) (~13m)
-2. [Language Models: Large and Small, Uni- and Multi-modal](lessons/02_llms.md) (~14m)
-3. [Agentic Workflows and the Autonomy Spectrum](lessons/03_whats_agent.md) (~19m)
-4. [Agentic Patterns: what works and what doesn't according to research on LLM-based agents](lessons/04_agentic_patterns.md) (~18m)
+1. [Agentic AI: Workflows, and Language Models](https://github.com/HassanAlgoz/AAI/releases/latest/download/Agentic_AI_01_agentic_ai.pdf) (~46m)
+2. [Six Agentic AI Patterns from Research Papers](https://github.com/HassanAlgoz/AAI/releases/latest/download/Agentic_AI_02_agentic_patterns.pdf) (~18m)
 
 ## M1. Signatures and Modules
 
-1. [Setup](lessons/05_dspy_setup.ipynb) (~16m)
-2. [First Program](lessons/06_dspy_first_program.ipynb) (~22m)
-3. [Class-based Signature](lessons/07_dspy_class-based_signature.ipynb) (~20m)
-4. [Changing Modules](lessons/08_dspy_changing_modules.ipynb) (~12m)
+1. [Introduction to the DSPy Framework](https://github.com/HassanAlgoz/AAI/releases/latest/download/Agentic_AI_03_dspy_overview.pdf) (~25m)
+2. [Setup](lessons/05_dspy_setup.ipynb) (~16m)
+3. [First Program](lessons/06_dspy_first_program.ipynb) (~22m)
+4. [Class-based Signature](lessons/07_dspy_class-based_signature.ipynb) (~20m)
+5. [Changing Modules](lessons/08_dspy_changing_modules.ipynb) (~12m)
    - [Exercise: Email Extraction](exercises/email_extraction.ipynb) (~37m)
 
 Recommended: [Set up MLflow Tracing to understand what's happening under the hood](lessons/mlflow.md) (~7m).
