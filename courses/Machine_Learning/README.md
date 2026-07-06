@@ -25,9 +25,8 @@
 2. [Non-linear Regression](lessons/03_regression_non-linear.ipynb) (~33m)
 3. [k-NN Classification](lessons/05_knn_classification.ipynb) (~35m)
    - [Exercise: Iris Flowers](exercises/05/01_classification.ipynb) (~37m) ([solution](exercises/05/01_classification_solution.ipynb) (~37m))
-4. Explain model predictions with [`shap`](https://pypi.org/project/shap/):
-   1. [SHAP Part A: Iris Classification](lessons/06a_xai_iris.ipynb) (~32m)
-   2. [SHAP Part B: California Housing](lessons/06b_xai_california_housing.ipynb) (~29m)
+4. [SHAP Part A: Iris Classification](lessons/06a_xai_iris.ipynb) (~32m)
+5. [SHAP Part B: California Housing](lessons/06b_xai_california_housing.ipynb) (~29m)
 
 ## M2. Estimating and Improving Model Generalization Performance
 
@@ -41,7 +40,7 @@
 1. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_07_model_evaluation.pdf) (~42m)
 2. [Regression Evaluation Metrics](lessons/04_regression_metrics.ipynb) (~35m)
    - [Exercise: Bias–Variance Tradeoff](exercises/06/01_bias-variance_tradeoff.ipynb) (~24m) ([solution](exercises/06/01_bias-variance_tradeoff_solution.ipynb) (~24m))
-3. [Classification Evaluation Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_08_classifier_metrics.pdf) (the 3 labs below are optional)
+3. [Classification Evaluation Metrics](https://github.com/HassanAlgoz/AAI/releases/latest/download/Machine_Learning_08_classifier_metrics.pdf) (the 3 labs below are **optional**)
    1. [Threshold Tuning A: Prioritize Recall](lessons/09a_threshold_tuning.ipynb) (~38m)
    2. [Threshold Tuning B: Weighing Errors by Cost](lessons/09b_threshold_tuning.ipynb) (~36m)
    3. [Threshold Tuning C: Dynamic Cost](lessons/09c_threshold_tuning.ipynb) (~42m)
@@ -79,7 +78,16 @@
 1. [Hyper-parameter Search](lessons/18_hp_search.ipynb) (~33m)
 2. [AutoML with Gluon](lessons/19_auto_ml.md) (~12m)
 
-## Tabular Datasets Repositories for Machine Learning Projects 
+## Project
+
+You are given a dataset and an ML Task. After training, save the model, then load it into another python app with UI to do what-if scenarios. As a user I want to change inputs (salary, age, price, demand, etc.) and immediately see the predicted outcome. In short:
+
+1. Train
+2. Save
+3. Load
+4. What-if-scenarios via UI (each project will require a different method for the UI)
+
+### Tabular Datasets Repositories for Machine Learning Projects 
 
 - [UC Irvine Machine Learning Repostiroy](https://archive.ics.uci.edu/) (661 datasets) (or [Beta](https://archive-beta.ics.uci.edu/))
 - [Open Data | Python for Data Science](https://www.python4data.science/en/latest/data-processing/opendata.html): A topic-based overview of public repositories containing research data.
