@@ -232,25 +232,35 @@ Few years ago, this work mostly lived inside frontier labs. Now the tooling has 
   ],
 )
 
-== Modular and the cloud stack
+== Modular
 
-#grid(
-  columns: (0.85fr, 1.15fr),
-  gutter: 1em,
-  [
-    #link("https://docs.modular.com/")[Modular]
+#link("https://docs.modular.com/")[Modular] offers fully-managed deployments for the latest open source models, or you can create a self-hosted endpoint with any model.
 
-    - Founded by #link("https://en.wikipedia.org/wiki/Chris_Lattner")[Chris Lattner] (known for Swift) and *Tim Davis*.
-    - Tries to unify the serving stack from kernels to cloud.
-    - Emphasizes performance across different hardware backends.
-    - Includes the *MAX* engine and the #link("https://mojolang.org/")[Mojo language] (Write like Python, run like C++).
-  ],
-  [
-    #figure(
-      image("/courses/Deep_Learning/assets/modular_stack.png", width: 100%)
-    )
-  ],
+#figure(
+  image("/courses/Deep_Learning/assets/modular_stack.png", height: 75%),
+  caption: [Modular Stack]
 )
+
+#pagebreak()
+=== Co-Founder: Chris Lattner
+
+#figure(
+  image("/courses/Deep_Learning/assets/chris_lattner.png", height:45%),
+  caption: [#link("https://en.wikipedia.org/wiki/Chris_Lattner")[Chris Lattner]]
+)
+#quote(block:true)[Distinguished Leader who founded and scaled critical infrastructure including LLVM, Clang, MLIR, Cloud TPUs and the Swift programming language. Chris built AI and core systems at multiple world leading technology companies including Apple, Google, SiFive and Tesla.]
+
+#pagebreak()
+=== Mission: #link("https://www.modular.com/company/about")[Building AI’s unified compute layer.]
+
+#quote(block:true)["AI is powerful - but expensive, fragmented, and locked into a few hardware ecosystems. We believe everyone should have the freedom to build and run AI anywhere, without limits. Our mission: make AI’s compute layer unified, efficient, and accessible to all."]
+
+#pagebreak()
+=== Kernel development
+
+The Mojo language allows you to write custom GPU kernels for MAX graphs that run on NVIDIA, AMD, and Apple GPUs.
+
+#link("https://puzzles.modular.com/")[Mojo 🔥 GPU Puzzles]: A hands-on guide to mastering GPU programming with Mojo. Write like Python, run like C++.
 
 == Takeaways
 
