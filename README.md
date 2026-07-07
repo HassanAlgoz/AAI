@@ -81,9 +81,9 @@ Time Estimate: 5 days x 6 hours.
 Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
 
 - M1. Signatures and Modules
-- M2. Agents with Tools
-- M3. Coding Agents
-- M4. Optimization
+- M2. Agents, Tools, and Code
+- M3. Optimization
+- M4. Deployment
 - M5. Retrieval Augmented Generation (RAG)
 
 Time Estimate: 10 days x 6 hours.
@@ -92,8 +92,9 @@ Time Estimate: 10 days x 6 hours.
 
 Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
 
-- M1. HuggingFace and Large Language Models
-- M2. Realtime Computer Vision Models
+- M1. HuggingFace
+- M2. Large Language Models
+- M3. Applied Computer Vision
 
 Time Estimate: 5 days x 6 hours.
 
