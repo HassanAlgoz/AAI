@@ -10,8 +10,8 @@
     neutral-darkest: text-color,
   ),
   config-info(
-    title: [Realtime Computer Vision],
-    subtitle: [Models, tooling, and deployment for live vision systems],
+    title: [Introduction to Computer Vision Tasks],
+    subtitle: [Roboflow Ecosystem and YOLO],
     author: [Hassan Algoz],
     date: datetime.today(),
   ),
@@ -21,11 +21,11 @@
 
 #title-slide()
 
-= Realtime Computer Vision
+= Computer Vision Applications
 
-== Why this lesson matters
+== Overview
 
-Realtime CV is about *useful predictions under latency constraints*.
+Computer Vision Applications are about *useful predictions under latency constraints*.
 
 - The system must process frames quickly enough to support live decisions.
 - Accuracy still matters, but *speed, memory, and deployment cost* become first-class requirements.
@@ -62,33 +62,6 @@ YOLO26 family supports the following tasks:
   + #link("https://docs.ultralytics.com/tasks/segment")[Instance segmentation]: also distinguishes between different objects of the same class (e.g. two separate persons).
 + #link("https://docs.ultralytics.com/tasks/pose")[Pose / keypoint estimation]: Detects and localizes important points or "keypoints" of objects, most commonly used for estimating human pose by marking joints like elbows, knees, and ankles within an image.
 
-== Why YOLO-style models win in practice
-
-#quote(
-  [YOLO26 is the latest evolution in the YOLO series of real-time object detectors, engineered from the ground up for *edge and low-power devices*. It removes unnecessary complexity while preserving fast, lightweight deployment.],
-  attribution: [Adapted from #link("https://docs.ultralytics.com/models/yolo26")[Ultralytics YOLO26 documentation]],
-)
-
-For practitioners, the key idea is simple:
-
-- one family
-- multiple tasks
-- deployment-minded design
-
-== Realtime CV Pipeline
-
-Model architecture (YOLO) is only half the story.
-
-A practical realtime Computer Vision pipeline often looks like this:
-
-1. capture a frame from camera or video stream
-2. run a detector / segmenter / pose model
-3. post-process predictions
-4. track objects across frames
-5. render or trigger downstream actions
-
-Realtime CV is therefore both a *modeling* problem and a *systems* problem.
-
 == Computer Vision Projects
 
 Strong realtime CV products also need tooling around the model:
@@ -102,10 +75,18 @@ Strong realtime CV products also need tooling around the model:
 
 == The Roboflow ecosystem
 
-Roboflow focuses on the application workflow around realtime computer vision, providing an integrated set of tools and libraries for every stage:
+#link("https://docs.roboflow.com/")[Roboflow] focuses on the application workflow around realtime computer vision, providing an integrated set of tools and libraries for every stage:
+
+=== Dataset, Model, Training, and Deployment #pause
 
 - #link("https://app.roboflow.com/")[Roboflow App]: upload data, annotate, train, and deploy
 - #link("https://universe.roboflow.com/")[Universe]: browse reusable datasets and models
+  - #link("https://docs.roboflow.com/annotate/annotation-tools")[Roboflow Annotate]: provides a fast, robust interface through which you can annotate images, manually or with AI.
+  - #link("https://rapid.roboflow.com/")[Roboflow Rapid]: lets you go from raw data to a ready-to-use object detection API in five minutes.
+
+#pagebreak()
+=== Inference Workflows #pause
+
 - #link("https://inference.roboflow.com/")[Inference]: run models in deployment workflows
 - #link("https://supervision.roboflow.com/latest/")[Supervision]: post-process and visualize predictions
 - #link("https://trackers.roboflow.com/latest/")[Trackers]: track objects across frames with #link("https://trackers.roboflow.com/latest/#algorithms")[algorithms] such as SORT, ByteTrack, OC-SORT, and BoT-SORT

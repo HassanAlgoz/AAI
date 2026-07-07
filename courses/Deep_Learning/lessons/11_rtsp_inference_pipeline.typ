@@ -9,8 +9,8 @@
     neutral-darkest: text-color,
   ),
   config-info(
-    title: [Inference Pipeline],
-    subtitle: [Real-time video inference without blocking your stream],
+    title: [RTSP Inference Pipeline],
+    subtitle: [Roboflow Non-blocking InferencePipeline for Live Network Video],
     author: [Hassan Algoz],
     date: datetime.today(),
   ),
@@ -133,7 +133,7 @@ The sink is where "model output" becomes "application behavior."
 The Inference Pipeline works like this:
 
 #align(center)[
-video source #sym.arrow.r frame batches #sym.arrow.r inference #sym.arrow.r sink
+video source #sym.arrow.r frame batches #sym.arrow.r *inference* #sym.arrow.r sink
 ]
 
 = Custom Logic Example
@@ -220,23 +220,6 @@ Live streams are messy, so the sink must tolerate missing items.
   - `join()` keeps the script alive until processing is done
   - the pipeline handles coordination; you provide the business logic
 ]
-
-
-== Post-processing with Supervision
-
-#align(center)[
-  #image("/courses/Deep_Learning/assets/supervision_lenny.png", height: 64pt)
-]
-
-#link("https://supervision.roboflow.com/latest/")[Supervision] is the library used for *post-processing*, which is done in the `on_prediction(...)` function.
-
-See the links below for detailed tutorials:
-
-- #link("https://supervision.roboflow.com/latest/how_to/detect_and_annotate/")[detect and annotate objects] on images,
-- #link("https://supervision.roboflow.com/latest/how_to/track_objects/")[track objects] across video,
-- #link("https://supervision.roboflow.com/latest/how_to/count_in_zone/")[count objects in zones],
-- #link("https://supervision.roboflow.com/latest/notebooks/count-objects-crossing-the-line/")[count line crossings],
-- #link("https://supervision.roboflow.com/latest/notebooks/occupancy_analytics/")[build task-specific analytics] such as parking occupancy.
 
 = Under the Hood
 
@@ -329,14 +312,18 @@ Choose `init_with_custom_logic()` when: #pause
 - you need custom preprocessing or batching behavior
 - you want application-specific post-processing in the sink
 
-== Summary
+== Supervision
 
-Effective realtime inference depends as much on *system design* as it does on the model itself (YOLO).
+#align(center)[
+  #image("/courses/Deep_Learning/assets/supervision_lenny.png", height: 64pt)
+]
 
-- RTSP streams require asynchronous handling, not a blocking loop.
-- The pipeline cleanly separates inputs, processing, and sinks.
-- Custom logic gives you control without rebuilding stream orchestration.
-- Robust live systems treat dropped frames and reconnects as normal.
-- *Supervision* handles post-processing: annotation, analytics, and integration.
+#link("https://supervision.roboflow.com/latest/")[Supervision] is the library used for *post-processing*, which is done in the `on_prediction(...)` function.
 
-For deeper customization details, see the #link("https://inference.roboflow.com/using_inference/inference_pipeline/")[Inference Pipeline documentation] and the #link("https://inference.roboflow.com/using_inference/inference_pipeline/#custom-sink-tutorial")[custom sink tutorial].
+See the links below for detailed tutorials:
+
+- #link("https://supervision.roboflow.com/latest/how_to/detect_and_annotate/")[detect and annotate objects] on images,
+- #link("https://supervision.roboflow.com/latest/how_to/track_objects/")[track objects] across video,
+- #link("https://supervision.roboflow.com/latest/how_to/count_in_zone/")[count objects in zones],
+- #link("https://supervision.roboflow.com/latest/notebooks/count-objects-crossing-the-line/")[count line crossings],
+- #link("https://supervision.roboflow.com/latest/notebooks/occupancy_analytics/")[build task-specific analytics] such as parking occupancy.

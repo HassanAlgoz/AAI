@@ -10,8 +10,8 @@
     neutral-darkest: text-color,
   ),
   config-info(
-    title: [Realtime Inference],
-    subtitle: [Where, what, and how computer vision inference runs in production],
+    title: [Computer Vision Applications],
+    subtitle: [Snapshot #sym.arrow.r Video #sym.arrow.r Action],
     author: [Hassan Algoz],
     date: datetime.today(),
   ),
