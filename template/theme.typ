@@ -10,6 +10,7 @@
 #let primary-color = green.darken(60%)
 #let secondary-color = green.darken(40%)
 #let tertiary-color = green.darken(30%)
+#let link-color = rgb("#0B57D0")
 #let text-color = black.transparentize(20%)
 
 #let todo(content: text(style: "oblique")[TODO]) = box(stroke: 2pt + red, content)
@@ -411,6 +412,8 @@
       init: (self: none, body) => {
         set text(fill: self.colors.neutral-darkest, size: 22pt)
         show heading: set text(fill: self.colors.primary)
+        show link: set text(fill: link-color)
+        show link: underline
 
         body
       },
