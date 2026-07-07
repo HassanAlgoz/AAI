@@ -72,6 +72,11 @@ Scrolling down you find:
 
 On the right side, you see: "Spaces using `openai/whisper-large-v3-turbo`" host deployed models with simple UI.
 
+## Colab
+
+- See this whisper notebook on colab: [YouTube Video Transcription with OpenAI's Whisper](https://colab.research.google.com/github/HassanAlgoz/AAI/blob/main/courses/Deep_Learning/lessons/youtube_whisper.ipynb)
+- Select the T4 GPU (free) to download the model and run it on the video to be transcribed
+
 ## Spaces: Hosted Inference API
 
 [Spaces](https://huggingface.co/spaces) is a directory for hosted AI Apps (demos) to discover and find inspiration.

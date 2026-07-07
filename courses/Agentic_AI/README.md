@@ -25,28 +25,34 @@
 
 Recommended: [Set up MLflow Tracing to understand what's happening under the hood](lessons/mlflow.md) (~7m).
 
-## M2. Agents with Tools
+## M2. Agents, Tools, and Code
 
 1. [ReAct Loop](lessons/09_dspy_ReAct.ipynb) (~27m)
    - [Exercise: Flights Agent](exercises/flights_agent.ipynb) (~26m)
-
-## M3. Coding Agents
-
-1. [Composing Modules](lessons/10_dspy_composing_modules.ipynb) (~27m)
-2. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb) (~37m)
+2. [Composing Modules](lessons/10_dspy_composing_modules.ipynb) (~27m)
+3. [CodeAct Loop](lessons/11_dspy_CodeAct.ipynb) (~37m)
    - [Exercise: Flights Coding Agent (and Keep Conversation History)](exercises/flights_code_agent.ipynb) (~35m) ([solution](exercises/flights_code_agent_solution.ipynb) (~37m))
 
-For long-term/persistent memory see [Memory-Enabled ReAct Agents with Mem0](https://dspy.ai/tutorials/mem0_react_agent/).
+If you are looking for MCP, see: [Tutorial: Use MCP tools in DSPy](https://dspy.ai/tutorials/mcp/)
 
-## M4. Optimization
+## M3. Optimization
 
 1. [Evaluation and Optimization](lessons/12_dspy_evaluation_and_optimization.ipynb) (~59m)
+2. Inference-time Output Refinement:
+   - [Tutorial: Output Refinement: BestOfN and Refine](https://dspy.ai/tutorials/output_refinement/best-of-n-and-refine/).
+   - and [Tutorial: Image Generation Prompt iteration](https://dspy.ai/tutorials/image_generation_prompting/)
+
+## M4. Deployment
+
+- [Tutorial: Deploying your DSPy program](https://dspy.ai/tutorials/deployment/)
+- and [Tutorial: Memory-Enabled ReAct Agents with Mem0](https://dspy.ai/tutorials/mem0_react_agent/)
 
 ## M5. Retrieval Augmented Generation (RAG)
 
 1. [What is RAG?](https://github.com/HassanAlgoz/AAI/releases/latest/download/Agentic_AI_13_rag.pdf) (~25m)
 2. [ChromaDB: Ingestion and Querying](lessons/14_chromadb.ipynb) (~42m)
    - [Exercise: Explore the Embedding Space](exercises/14/visualize_embeddings.ipynb) (~31m) ([solution](exercises/14/visualize_embeddings_solution.ipynb) (~31m))
+   - [Optional: Multi-modal Embeddings](https://docs.trychroma.com/docs/embeddings/multimodal)
 3. [Chunking: Searching PDF Documents](lessons/15_chunking.ipynb) (~49m)
 4. [RAG with DSPy](lessons/16_dspy_rag.ipynb) (~53m)
 
