@@ -2,12 +2,8 @@
 
 ## AI Skills for Real Engineers (by Matt Pocock)
 
-- Overview: [My 7 Phases Of AI Development](https://www.aihero.dev/my-7-phases-of-ai-development).
-  - Specific: [5 Agent Skills I Use Every Day](https://www.aihero.dev/5-agent-skills-i-use-every-day).
-  - Skills Repo: [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering): Skills for Real Engineers.
-    - Detailed walkthrough: [AI Skills for Real Engineers](https://www.aihero.dev/grill-with-docs).
-
-Live Demo: https://youtu.be/-QFHIoCo-Ko?si=k-Hvbhhqgbaqq_Y0
+- Demo: [Real-world feature build with Claude Code: every step explained](https://www.aihero.dev/real-world-feature-build-with-claude-code).
+- Skills: [mattpocock/skills](https://github.com/mattpocock/skills/tree/main/skills/engineering).
 
 ## Layered Design
 
@@ -15,6 +11,8 @@ Live Demo: https://youtu.be/-QFHIoCo-Ko?si=k-Hvbhhqgbaqq_Y0
 - Structure Todos into vertical slices; so the agent can get immediate feedback using TDD.
 
 ![](../assets/03/layered_design.png)
+
+See: [Tracer Bullets: Keeping AI Slop Under Control](https://www.aihero.dev/tracer-bullets)
 
 ## Modular Design
 
@@ -24,6 +22,8 @@ Modules: break down code into units; but:
 - Balance depth such that code surface area is easily navigable by humans and AI alike.
 
 ![](../assets/03/modular_design.png)
+
+See: [How To Make Codebases AI Agents Love](https://www.aihero.dev/how-to-make-codebases-ai-agents-love)
 
 ## Task Dependencies
 
