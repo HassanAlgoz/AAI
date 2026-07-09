@@ -205,14 +205,6 @@ If the agent goes off track — wrong direction, unrelated edits, drifting scope
 
 *Agent Mode* is the most general mode, it allows the agent to edit files, run terminal commands, and change anything in your workspace.
 
-You can spawn *sub-agents* from here as well.
-
-Example:
-
-```md
-Implement the @plan.md and dedicate a sub-agent for each independent task or file being edited.
-```
-
 = 4. Debug Mode
 
 == What is it

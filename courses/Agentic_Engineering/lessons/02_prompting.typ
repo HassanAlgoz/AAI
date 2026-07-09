@@ -31,9 +31,7 @@
   image("/courses/Agentic_Engineering/assets/02/agentic_ai_economy_meme.png", height: 100%),
 )
 
-== Context Management
-
-=== Keep an eye on your current context usage
+== Context Usage
 
 #figure(
   image("/courses/Agentic_Engineering/assets/04/04_context_limit.png"),
@@ -67,6 +65,33 @@
 
 Use *Planning Mode* to breakdown your tasks into smaller chunks; then use *Multi-Task Mode* to execute each task in isolated conversations.
 
+#figure(
+  image("/courses/Agentic_Engineering/assets/plan_coordinate.png", height: 40%),
+  caption: [Plan and Multi-task],
+)
+
+You can spawn *sub-agents* by specifying that in the prompt. Example:
+
+```md
+Implement the @plan.md and dedicate a sub-agent for each independent task.
+```
+
+
+== MCP Tools
+
+#link("https://cursor.com/docs/customize-cursor")[Model Context Protocol (MCP)] enables Agents to connect to external tools and data sources; such as databases, APIs, and more.
+
+#figure(
+  image("/courses/Agentic_Engineering/assets/mcp_postgres.png", height: 75%),
+  caption: [PostgresSQL MCP],
+)
+
+#pagebreak()
+
+=== Context7 by Upstash
+
+Highly recommended tool by Upstash: #link("https://github.com/mcp/upstash/context7")[context7], used to get the *Up-to-date code docs for any prompt*, to decrease the chance of generating stale code or hallucinations.
+
 == General Tips
 
 Source: #link("https://code.visualstudio.com/docs/copilot/customization/custom-instructions#_tips-for-writing-effective-instructions")[Tips for writing effective instructions | VS Code]
@@ -77,6 +102,7 @@ Source: #link("https://code.visualstudio.com/docs/copilot/customization/custom-i
 - When you have several things to say, split them into several instructions instead of cramming everything into one sentence.
 - Whitespace between instructions is ignored, so format them however reads best: one paragraph, separate lines, or separated by blank lines.
 
+#pagebreak()
 ==== Bad
 
 ```md
@@ -84,7 +110,6 @@ Always use type hints and make sure to validate inputs and also wrap file reads
 in try/except and remember to log errors and never use a bare `except` anywhere.
 ```
 
-#pagebreak()
 
 ==== Good
 
@@ -96,35 +121,19 @@ in try/except and remember to log errors and never use a bare `except` anywhere.
 - Never use a bare `except:`.
 ```
 
-=== Example: Research
-
-```md
-Construct a software lineage graph that shows each software package (library or framework) and it's lineage (predecessors).
-For each you will also show (grounded in web search)
-1. first release (and under which license)
-2. any new major releases (and license if it has changed)
-3. main contributors (people) and their affiliations (i.e., which institute they worked at) at the time, and what city they are from; and a quote on why they have developed this thing
-- pandas
-- NumPy
-- matplotlib
-- seaborn
-- pandera
-- folium
-```
-
+#pagebreak()
 === Tip 2. Include the Reasoning Behind Rules
 
 - State the rule, then explain _why_ it exists.
 - The rationale lets the AI make better decisions in edge cases the rule never explicitly covered.
 - A rule without a reason is easy to misapply or ignore when the situation is slightly different.
 
+#pagebreak()
 ==== Bad
 
 ```md
 - Use `httpx` instead of `requests`.
 ```
-
-#pagebreak()
 
 ==== Good
 
@@ -133,39 +142,32 @@ For each you will also show (grounded in web search)
   HTTP/2, which we rely on for our concurrent data-fetching jobs.
 ```
 
+#pagebreak()
 === Tip 3. Show Preferred and Avoided Patterns with Code
 
 - The AI responds more effectively to concrete examples than to abstract rules.
 - Pair an "avoid this" snippet with a "prefer this" snippet so the desired pattern is unambiguous.
 - Examples remove guesswork about exactly which API or style you mean.
 
+#pagebreak()
 ==== Bad
 
 ```md
 - Read files the recommended way.
 ```
 
-#pagebreak()
-
 ==== Good
 
-```md
-- Read text files with `pathlib`, not via `open()`/`close()`.
-
-Avoid:
-
-```python
+```py
+# Read text files with `pathlib`, not via `open()`/`close()`.
+# Avoid:
 f = open("data.txt")
 content = f.read()
 f.close()
-```
 
-Prefer:
-
-```python
+# Prefer:
 from pathlib import Path
 content = Path("data.txt").read_text()
-```
 ```
 
 #pagebreak()
@@ -176,6 +178,7 @@ content = Path("data.txt").read_text()
 - Spend your instruction budget on project-specific knowledge the agent cannot infer from tooling.
 - Restating obvious formatting rules just dilutes the instructions that actually matter.
 
+#pagebreak()
 ==== Bad
 
 ```md
@@ -184,8 +187,6 @@ content = Path("data.txt").read_text()
 - Remove unused imports and trailing whitespace.
 ```
 
-#pagebreak()
-
 ==== Good
 
 ```md
@@ -193,6 +194,8 @@ content = Path("data.txt").read_text()
 - New DB columns require an Alembic migration in `migrations/` plus a downgrade step.
 ```
 
+
+#pagebreak()
 === Tip 5. Include Relevant Context
 
 Type `\@` in the chat input to attach concrete context to the prompt. The most useful pulls in Plan Mode:
@@ -233,6 +236,9 @@ script to fix my data? It's super urgent and I'd be so grateful, thank you!!
 - Lean on system-design verbs that map cleanly to code: `initialize`, `iterate`, `map`, `filter`, `validate`, `fetch`, `mutate`, `return`, `throw`, `catch`.
 - Spelling out the control flow yourself (`for each ... if ... else ...`) gives fine-grained control over the specifics, instead of leaving them to the agent's guess.
 
+
+#pagebreak()
+
 ==== Bad
 
 ```md
@@ -241,8 +247,6 @@ then save their profile data to the database
 ```
 
 Why? Vague — it leaves the agent guessing what "valid" means, what data counts as a "profile," and how to handle failures.
-
-#pagebreak()
 
 ==== Good
 
