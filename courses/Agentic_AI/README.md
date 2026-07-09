@@ -66,6 +66,7 @@ If you are looking for MCP, see: [Tutorial: Use MCP tools in DSPy](https://dspy.
 6. [Step-by-step](projects/06_step_by_step.md)
 7. [DataMaster Agent](projects/07_data_master_agent.md)
 8. [Hadeeth](projects/08_hadeeth.md)
+9. [oTranscribe](projects/09_oTranscribe.md)
 
 ## References
 
