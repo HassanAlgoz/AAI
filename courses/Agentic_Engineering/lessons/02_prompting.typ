@@ -31,6 +31,42 @@
   image("/courses/Agentic_Engineering/assets/02/agentic_ai_economy_meme.png", height: 100%),
 )
 
+== Context Management
+
+=== Keep an eye on your current context usage
+
+#figure(
+  image("/courses/Agentic_Engineering/assets/04/04_context_limit.png"),
+  caption: [Context Usage in Cursor Agents],
+)
+
+#pagebreak()
+
+=== Avoid the Dumb Zone
+
+#grid(
+  columns: (0.9fr, 1.2fr),
+  gutter: 1em,
+  [
+    LLMs attention fades away as context grows resulting in:
+    + lower performance
+    + higher latency
+    + higher costs
+    
+    Start a new conversation `Ctrl+N` for each new feature to keepe context fresh and efficient.
+  ],
+  [
+    #figure(
+      image("/courses/Agentic_Engineering/assets/smart_dumb_zones.png", width: 100%),
+      caption: [New context for each new feature],
+    )
+  ],
+)
+
+== Plan and Multi-task
+
+Use *Planning Mode* to breakdown your tasks into smaller chunks; then use *Multi-Task Mode* to execute each task in isolated conversations.
+
 == General Tips
 
 Source: #link("https://code.visualstudio.com/docs/copilot/customization/custom-instructions#_tips-for-writing-effective-instructions")[Tips for writing effective instructions | VS Code]
@@ -58,6 +94,22 @@ in try/except and remember to log errors and never use a bare `except` anywhere.
 - Wrap file reads in try/except.
 - Log caught errors with the `logging` module, not `print`.
 - Never use a bare `except:`.
+```
+
+=== Example: Research
+
+```md
+Construct a software lineage graph that shows each software package (library or framework) and it's lineage (predecessors).
+For each you will also show (grounded in web search)
+1. first release (and under which license)
+2. any new major releases (and license if it has changed)
+3. main contributors (people) and their affiliations (i.e., which institute they worked at) at the time, and what city they are from; and a quote on why they have developed this thing
+- pandas
+- NumPy
+- matplotlib
+- seaborn
+- pandera
+- folium
 ```
 
 === Tip 2. Include the Reasoning Behind Rules

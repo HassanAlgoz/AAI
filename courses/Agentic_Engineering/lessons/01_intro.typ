@@ -12,7 +12,7 @@
   ),
   config-info(
     title: [Agentic Engineering],
-    subtitle: [From vibe coding to structured AI collaboration],
+    subtitle: [From Vibe Coding to Agentic Engineering],
     author: [Hassan Algoz],
     date: datetime.today(),
   ),
@@ -24,17 +24,61 @@
 
 = Agentic Engineering
 
+== Model vs Harness
+
+#grid(
+  columns: (1.1fr, 0.9fr),
+  gutter: 1em,
+  [
+    #quote[A #link("https://addyosmani.com/blog/agent-harness-engineering/")[Harness] is every piece of code, configuration, and execution logic that isn't the model itself. A raw model is not an agent. It becomes one once a harness gives it state, tool execution, feedback loops, and enforceable constraints.] -- addyosmani
+
+    *Agent = Model + Harness*.
+
+    Examples:
+    - #link("https://github.com/dzhng/deep-research")[Open Deep Research]
+    - #link("https://github.com/iusztinpaul/designing-real-world-ai-agents-workshop/tree/main")[Writing Workflow]
+    - #link("https://github.com/k8sgpt-ai/k8sgpt")[k8sgpt]
+  ],
+  [
+    #figure(
+      image("/courses/Agentic_Engineering/assets/04/agent_harness.png", width: 100%),
+      caption: [Harness],
+    )
+  ],
+)
+
 == Coding Agents
 
 An agent is an AI system that autonomously plans and executes coding tasks. You give the agent a high-level goal, and it breaks the goal down into steps, executes those steps with #link("https://code.visualstudio.com/docs/copilot/concepts/tools")[tools], and self-corrects when it hits errors.
 
-=== Examples of Coding Agents
+=== Coding Agent Harnesses
 
 - #link("https://claude.com/product/claude-code")[Claude Code]
 - #link("https://cursor.com/")[Cursor Agent]
 - #link("https://aider.chat/")[Aider]
 - #link("https://cline.bot/")[Cline]
 - #link("https://opencode.ai/")[OpenCode]
+
+== Models: Latency-Quality Tradeoff
+
+The *Model* is the core engine; the LLM allowing the *Agent* reason & communicate.
+
+- *Faster models* work well for quick edits and routine tasks (GPT-5.4-mini or Gemini Flash)
+- *More capable models* are better for complex reasoning and multi-file refactoring (GPT-5.4 or Gemini Pro)
+
+=== How to switch between models
+
+Use the model picker dropdown at the top of the chat input to switch models, or press `Ctrl /` to cycle through models. The change applies to the current conversation going forward. Set a default model in *Cursor Settings > Models*.
+
+You can switch models mid-conversation, for example when a faster model handled exploration but you need deeper reasoning for implementation. See #link("https://cursor.com/docs/models-and-pricing")[Models & Pricing] for the full list.
+
+== Which One to Pick?
+
+Addy Osmani #link("https://addyosmani.com/blog/agent-harness-engineering/")[wrote]:
+
+#quote[Look at the top coding agents side by side (Claude Code, Cursor, Codex, Aider, Cline) and they look more like each other than their underlying models do. The models are different. The harness patterns are converging. I don't think that's an accident. It's the industry slowly finding the load-bearing pieces of scaffolding that turn a generative model into something that can ship.] -- addyosmani
+
+#pagebreak()
 
 == Vibe Coding
 
@@ -176,7 +220,7 @@ Essentially the problem is that AI models can only handle so much context, so we
 An Agent is a Man-in-the-Middle (MITM). It sits between the user and the system they are trying to control, intercepting the communication and routing it to servers hosting AI models, and back to the system to execute remotely generated instructions.
 
 #figure(
-  image("/courses/Agentic_Engineering/assets/01/cli_agent_openai.png", height: 60%),
+  image("/courses/Agentic_Engineering/assets/user-agent_interface.png", height: 60%),
   caption: [The User-Agent Interface],
 )
 
