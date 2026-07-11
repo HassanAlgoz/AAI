@@ -635,6 +635,22 @@ wheels = [
 ]
 
 [[package]]
+name = "cmdstanpy"
+version = "1.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine == 'x86_64' and sys_platform == 'darwin'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin'" },
+    { name = "pandas" },
+    { name = "stanio" },
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/40/0a/cc5cbec39155e5ab76b96cbb1acd23bd7f19a4e2203fdf9948a7cbec65b8/cmdstanpy-1.3.0.tar.gz", hash = "sha256:60b10d110993bd8345735994786b2b17782fdc5530a6adbc0cd8ec836d82c2b9", size = 122922, upload-time = "2025-10-20T19:25:08.128Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ef/04/7bbe85aa6abf99236cc657ceb5a629f63a82a01910a095533111ea3860f3/cmdstanpy-1.3.0-py3-none-any.whl", hash = "sha256:67d83fbb823948c3ca8a84912359d6c0a5c616a62025526dba5f43a1d970bc52", size = 99147, upload-time = "2025-10-20T19:25:06.306Z" },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -1298,6 +1314,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/fb/d1/90a498d05447980b977b1669246eeeeae4cfb0ea3e7a286eaba627f91bf9/hf_xet-1.5.1-cp37-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:6208adb15d192b90e4c2ad2a27ed864359b2cb0f2494eb6d7c7f3699ac02e2bf", size = 4719498, upload-time = "2026-06-08T23:02:49.268Z" },
     { url = "https://files.pythonhosted.org/packages/6d/b6/20f99cfe97cc663a711f7b33cc21d4793e51968e9a26125b4afcd77315ba/hf_xet-1.5.1-cp37-abi3-win_amd64.whl", hash = "sha256:f7b3002f95d1c13e24bcb4537baa8f0eb3838957067c91bb4959bc004a6435f5", size = 4026419, upload-time = "2026-06-08T23:02:50.829Z" },
     { url = "https://files.pythonhosted.org/packages/f9/fa/77453694888f03e5a8c8852d1514a0894d8e81c622d39edbaf308ea0dcf4/hf_xet-1.5.1-cp37-abi3-win_arm64.whl", hash = "sha256:93d090b57b211133f6c0dab0205ef5cb6d89162979ba75a74845045cc3063b8e", size = 3855178, upload-time = "2026-06-08T23:02:52.452Z" },
+]
+
+[[package]]
+name = "holidays"
+version = "0.100"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "python-dateutil" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/19/65/4bec113c00c42fb8d6d71a816774a97d009c8f1341a70ecb6a9ba96176bb/holidays-0.100.tar.gz", hash = "sha256:76e963cd17758ba0e0519daff725f676eaebeda71e500cd235f647307be31e31", size = 949733, upload-time = "2026-07-06T21:15:34.947Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/78/86/4eab0e2339cf09cfd00233073f5fa37810ceacbff5db5133e26aaa610255/holidays-0.100-py3-none-any.whl", hash = "sha256:cf67e8983c3af182b62081be27c965c6fdf41377026aa62ac82d1bbc8c7ebd8f", size = 1529449, upload-time = "2026-07-06T21:15:32.949Z" },
 ]
 
 [[package]]
@@ -3217,6 +3245,29 @@ wheels = [
 ]
 
 [[package]]
+name = "prophet"
+version = "1.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "cmdstanpy" },
+    { name = "holidays" },
+    { name = "importlib-resources" },
+    { name = "matplotlib" },
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine == 'x86_64' and sys_platform == 'darwin'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin'" },
+    { name = "pandas" },
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/52/37/523fa4a9213106e5015d708db9dd95c3116ff0e75d05dde78b8e7a44385c/prophet-1.3.0.tar.gz", hash = "sha256:7ec252e898199a1965ca10db3ca625a4ec75e4e6f738d2b4108fe603666a9ef0", size = 66509, upload-time = "2026-01-27T22:47:07.209Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ef/a1/aa921c7908f6ac2329dfc34340452cb0a156c76f2487ecd076ce6b5060c1/prophet-1.3.0-py3-none-macosx_10_11_x86_64.whl", hash = "sha256:fe70571cbd051a8e1f6c5ff3a53215a6287820b7f2991df056406eefb4a615a7", size = 12743908, upload-time = "2026-01-27T22:46:53.915Z" },
+    { url = "https://files.pythonhosted.org/packages/36/8f/f5eca76310e5860d886518a695aaf559f25711cae4e04a08e6bb876bcea9/prophet-1.3.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:1f51922a0db9bae8af3e46e33b094487f1be0c96a373b47ec3ad041020adacd0", size = 12121075, upload-time = "2026-01-27T22:46:57.198Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/a5/9734b9a219616fa07fb0a5e302c7d51512e4e77b94bb13c58cf874d3dd2d/prophet-1.3.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:b65f189002a406413c58a28af40b6f2b240bba1ebf1158d204c46ebc570cd3c0", size = 12118450, upload-time = "2026-01-27T22:46:59.811Z" },
+    { url = "https://files.pythonhosted.org/packages/88/4e/88e27dd270128586a6ff9a8b2a5dbb1d302559549fed286eff5c9aeef20e/prophet-1.3.0-py3-none-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ed25f79e554d928b123cbf4f5a8a4e33bb003c7e26dcc2c8352e900f11f6b770", size = 11879366, upload-time = "2026-01-27T22:47:02.854Z" },
+    { url = "https://files.pythonhosted.org/packages/d9/9c/af59d9f30e9e72f2b36bd578a47a84c8fbf7f72c2d9771ef40ef16fb36eb/prophet-1.3.0-py3-none-win_amd64.whl", hash = "sha256:6790f9f06cc9e76d2f21c501f5889cf37f75917fba6859e196889dfde4bfec3b", size = 12109233, upload-time = "2026-01-27T22:47:05.284Z" },
+]
+
+[[package]]
 name = "protobuf"
 version = "6.33.6"
 source = { registry = "https://pypi.org/simple" }
@@ -3287,6 +3338,7 @@ dependencies = [
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin'" },
     { name = "pandas" },
     { name = "pandera", extra = ["pandas"] },
+    { name = "prophet" },
     { name = "pymupdf4llm" },
     { name = "python-bidi" },
     { name = "python-dateutil" },
@@ -3322,6 +3374,7 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.3.5" },
     { name = "pandas", specifier = ">=3.0.3" },
     { name = "pandera", extras = ["pandas"], specifier = ">=0.31.1" },
+    { name = "prophet", specifier = ">=1.3.0" },
     { name = "pymupdf4llm", specifier = ">=1.27.2.3" },
     { name = "python-bidi", specifier = ">=0.6.10" },
     { name = "python-dateutil", specifier = ">=2.9.0" },
@@ -4547,6 +4600,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/28/e3/55dcc2cfbc3ca9c29519eb6884dd1415ecb53b0e934862d3559ddcb7e20b/stack_data-0.6.3.tar.gz", hash = "sha256:836a778de4fec4dcd1dcd89ed8abff8a221f58308462e1c4aa2a3cf30148f0b9", size = 44707, upload-time = "2023-09-30T13:58:05.479Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f1/7b/ce1eafaf1a76852e2ec9b22edecf1daa58175c090266e9f6c64afcd81d91/stack_data-0.6.3-py3-none-any.whl", hash = "sha256:d5558e0c25a4cb0853cddad3d77da9891a08cb85dd9f9f91b9f8cd66e511e695", size = 24521, upload-time = "2023-09-30T13:58:03.53Z" },
+]
+
+[[package]]
+name = "stanio"
+version = "0.5.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine == 'x86_64' and sys_platform == 'darwin'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'x86_64' or sys_platform != 'darwin'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2c/5b/6e376499c3f9d71e4154b031d059663598534dd038f421e8c643d61afec5/stanio-0.5.1.tar.gz", hash = "sha256:348d52f947dec431e118f4b601c4c5296929b86401d4d4dd5aa9373b0d4ae4ac", size = 11983, upload-time = "2024-07-08T19:35:48.029Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/56/87/37a80e4d5bd453c33262d8fb618b6840fd98d24ed08e046a4a9b10177fa3/stanio-0.5.1-py3-none-any.whl", hash = "sha256:99ad590daa5834681245c2b651716ec2e06223853661ada21430c621521c849f", size = 8065, upload-time = "2024-07-08T19:35:46.503Z" },
 ]
 
 [[package]]
