@@ -186,14 +186,20 @@ Forecasters need to be aware of their own limitations, and not claim more than i
 
 See: #link("https://otexts.com/fpp3/judgmental.html#judgmental")[Chapter 6 Judgmental forecasts] in *Forecasting: Principles and Practice* by Rob J Hyndman and George Athanasopoulos.
 
-== Good forecasts subtract noise
-
-Good forecasts capture the genuine patterns and relationships which exist in the historical data, *but do not replicate past events that will not occur again* — i.e., spikes or dips caused by specific events or policies.
+== Good forecasts uncertainty intervals
 
 #figure(
-  image("/courses/Timeseries/assets/us_retail_employment.png", height: 60%),
-  caption: [A series with genuine structure — and occasional one-off shocks.],
+  image("/courses/Timeseries/assets/prophet_prediction_interval.png", height: 65%),
+  caption: [A forecast with an 80% uncertainty interval (Short-term visitors)],
 )
+
+In the chart:
+
+- the *black line* is history used to train the model;
+- the *blue line* is the point forecast;
+- the *shaded band* is the 80% uncertainty interval — about 80% of future values should fall inside it *if the future behaves like the past*.
+
+Reporting intervals keeps us honest. A point forecast alone can look precise even when the model is uncertain.
 
 == Good forecasts capture change
 
@@ -201,19 +207,54 @@ Many people wrongly assume that forecasts are not possible in a changing environ
 
 What is normally assumed is that the *way* the environment is changing will continue into the future:
 
-- a highly volatile environment will continue to be highly volatile;
-- a business with fluctuating sales will continue to have fluctuating sales;
-- an economy that has gone through booms and busts will continue to go through booms and busts.
+- a highly volatile environment will continue to be highly volatile; #pause
+- a business with fluctuating sales will continue to have fluctuating sales; #pause
+- an economy that has gone through booms and busts will continue to go through booms and busts. #pause
 
 A forecasting model is intended to capture the way things *move*, not just where things are.
 
+#pagebreak()
+=== Changing environments: retail employment
+
+Good forecasts capture the genuine patterns and relationships which exist in the historical data even when there are occasional one-off shocks.
+
+#figure(
+  image("/courses/Timeseries/assets/us_retail_employment.png", height: 65%),
+  caption: [Retail employment in the US from 1990 to 2020],
+)
+
+
+== Good forecasts model turning points
+
+We fit a model on monthly Australian short-term visitor arrivals using only data through December 2019, then forecast what we expected over the next few years.
+
+#figure(
+  image("/courses/Timeseries/assets/pre-covid_forecast.png", height: 72%),
+  caption: [Pre-COVID-19 forecast vs actual short-term visitor arrivals.],
+)
+
+#pagebreak()
+
+The history we used to fit the model had no event like it.
+
+- The model learned trend and seasonality from a past that looked stable and repeatable.
+- It had no way to anticipate border closures and the collapse of international travel.
+
+#quote(
+  [He who sees the past as surprise-free is bound to have a future full of surprises.],
+) -- Amos Tversky (Nobel Prize in Economics, 2002)
+
+- Pandemics have happened before, *but not in this dataset*.
+- *Solution*: Prophet *custom holidays* — mark one-off shocks (like COVID travel restrictions) in a `holidays` DataFrame so they are modeled explicitly and not repeated in the forecast.
+
 == Conclusion
 
-Forecasting is not about predicting everything — it is about knowing *when* a forecast is worth making and *what* a good forecast should capture.
+Forecasting is not about predicting everything — it is about knowing *when* a forecast is worth making, *what* it should include, and *how much* to trust it.
 
-+ *Not all targets are equally forecastable* — physical systems and temperature-driven demand are often easier than financial markets.
-+ *Four factors drive predictability*: causality, information, similarity, and reflexivity.
-+ *Honesty matters* — when reflexivity and volatility dominate, a coin toss may be as good as any model.
-+ *Good forecasts* extract repeatable structure from history without copying one-off shocks, and model how things *change*, not just where they are today.
++ *Forecastability varies* — physics and weather-driven demand are easier than exchange rates and stock prices.
++ *Four factors explain why*: causality, information, similarity, and reflexivity.
++ *Know your limits* — sometimes an honest forecast is no better than a coin toss.
++ *Report uncertainty* — a point forecast is not enough; prediction intervals show the plausible range.
++ *Include known events* — even strong models fail when the future breaks from the past; tools like Prophet *custom holidays* help only for shocks you can name and include.
 
 Next: we define *time series* and learn to read the patterns — trend, seasonality, and noise — that forecasting methods build on.
