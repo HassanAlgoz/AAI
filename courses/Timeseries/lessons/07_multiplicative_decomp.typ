@@ -118,3 +118,7 @@ Fortunately, *Guerrero's method* (Guerrero, 1993) automatically selects a value 
   image("/courses/Timeseries/assets/air_passengers_log_vs_boxcox.png", height: 65%),
   caption: [Log transform (left) and Guerrero Box-Cox (right) on air passenger bookings. Shaded bands mark 1949 and 1960; both methods compress the growing seasonal amplitude, with Guerrero keeping amplitudes slightly more uniform.],
 )
+
+== Inverse Transformation
+
+Oftentimes, interpreting the results would be more convenient on the original scale. To do that, we post-process the resulting numbers through an *inverse transformation* to have them back in the original scale.

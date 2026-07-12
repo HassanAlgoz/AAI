@@ -16,6 +16,7 @@ _site/
 /.luarc.json
 _freeze/
 .jupyter_cache/
+courses/Timeseries/.cache/
 site_libs/
 .vscode/
 *.quarto*
