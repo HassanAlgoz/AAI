@@ -121,21 +121,14 @@ A trend is a statement about a *segment* of the series, not necessarily about th
   A *seasonal component* is a deterministic cyclic component in a time series with a fixed and known frequency, often caused by the way the measurements are obtained.
 ]
 
-Seasonal patterns have a *constant length*:
-
-- Quarterly data repeats every 4 observations.
-- Monthly data repeats every 12 observations.
-- Weekly data repeats every 7 observations.
-
-The timing of peaks and troughs is *predictable*.
-
-#pagebreak()
 Examples:
 
 - *Quarter of the year* — summer vs winter demand
-- *Month* — retail sales spike in Ramadan (Eid)
+- *Month of the year* — retail sales spike in Ramadan (Eid)
 - *Day of the week* — office electricity use is lower on weekends
 - *Time of day* — household electricity demand spikes when people wake up and return home
+
+The timing of peaks and troughs is *predictable*.
 
 == Cyclic pattern
 
