@@ -106,9 +106,9 @@ Typical examples include:
   caption: [SMI daily closes with a fitted linear regression trend (green).],
 )
 
-=== Trends describe parts of a series
+=== Non-linear Trends
 
-A trend is a statement about a *segment* of the series, not necessarily about the whole series. The same series can rise over one period and fall over another.
+If the trend changes, we call it *non-linear*. that is, no line can describe the whole, since the series can rise over one period and fall over another. So we'd need multiple line segments or a continuous curve, to describe the trend.
 
 #figure(
   image("/courses/Timeseries/assets/aus_bricks_partial_trends.png", width: 100%),
