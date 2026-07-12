@@ -11,8 +11,8 @@
     neutral-darkest: text-color
   ),
   config-info(
-    title: [Transformations and Adjustments],
-    subtitle: [Simplifying patterns before modelling],
+    title: [Adjustments],
+    subtitle: [Smoothing and corrections before modelling],
     author: [Hassan Algoz],
     date: datetime.today(),
   ),
