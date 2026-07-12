@@ -96,20 +96,25 @@ $
 A good value of $lambda$ is one which makes the size of the seasonal variation about the same across the whole series, as that makes the forecasting model simpler.
 
 #pagebreak()
-=== Example: Box-Cox on gas production
+=== Example: Box-Cox on air passenger bookings
 
 #figure(
-  image("/courses/Timeseries/assets/box_cox_gas_lambdas.png", width: 100%),
-  caption: [Increasing labmda to the right, reduces the seasonal variation.],
+  image("/courses/Timeseries/assets/air_passengers_box_cox_lambdas.png", width: 100%),
+  caption: [Box-Cox transforms of air passenger bookings. At $lambda = 0$ (left) seasonal swings are much closer in size; at $lambda = 1.5$ (right) they grow even larger!],
 )
-
-In this case, $lambda = 0.10$ works quite well, although any value of $lambda$ between 0.0 and 0.2 would give similar results.
 
 == Guerrero's method
 
-Fortunately, the *guerrero feature* (Guerrero, 1993) automatically selects the best value of $lambda$ for you.
+Fortunately, *Guerrero's method* (Guerrero, 1993) automatically selects a value of $lambda$ by minimising the coefficient of variation of seasonal subseries.
 
 #figure(
-  image("/courses/Timeseries/assets/gas_box_cox_guerrero.png", height: 68%),
-  caption: [Transformed Australian quarterly gas production with the $lambda = 0.11$ parameter chosen using the Guerrero method.],
+  image("/courses/Timeseries/assets/air_passengers_box_cox_guerrero.png", height: 68%),
+  caption: [Air passenger bookings transformed with $lambda = -0.29$, chosen by Guerrero's method.],
+)
+
+== Log vs Box-Cox: a comparison
+
+#figure(
+  image("/courses/Timeseries/assets/air_passengers_log_vs_boxcox.png", height: 65%),
+  caption: [Log transform (left) and Guerrero Box-Cox (right) on air passenger bookings. Shaded bands mark 1949 and 1960; both methods compress the growing seasonal amplitude, with Guerrero keeping amplitudes slightly more uniform.],
 )
