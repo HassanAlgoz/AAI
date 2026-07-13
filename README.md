@@ -26,7 +26,7 @@ Time Estimate: 1 day x 3 hours.
 
 ## Track 1: Data Scientist
 
-Time Estimate: 4-5 weeks at 30 hrs/week.
+Time Estimate: 5-6 weeks at 30 hrs/week.
 
 ### 1. [Data Wrangling](/courses/Data_Wrangling/)
 
@@ -62,6 +62,18 @@ Build reliable predictive modeling pipelines, debug its issues, evaluate and com
 
 Time Estimate: 10 days x 6 hours.
 
+### 4. [Applied Timeseries Analysis](/courses/Timeseries/)
+
+Visualize, analyze, and characterize time series -- then build forecasting models.
+
+- M1. Visualizing Time Series
+- M2. Correlation and Autocorrelation
+- M3. Time Series Decomposition
+- M4. Time Series Features
+- M5. Forecasting
+
+Time Estimate: 5 days x 6 hours.
+
 ## Track 2: AI Engineer
 
 Time Estimate: 4-5 weeks at 30 hrs/week.
@@ -70,9 +82,18 @@ Time Estimate: 4-5 weeks at 30 hrs/week.
 
 Work effectively and efficiently with AI in software engineering projects.
 
-- M1. From Vibe Coding to Agentic Engineering
-- M2. Skills for Engineers
-- M3. Agent Modes
+*Learning Outcomes*:
+
++ Differentiate between Vibe Coding and Agentic Engineering.
++ Differentiate between Models and Harnesses.
++ Understand the tradeoffs between probabilistic and deterministic methods of editor features, and when to use each for the best results.
++ Understand when to use Ask, Plan, Agent, Multi-task, and Debugging Modes of Coding Agents.
++ Make your own codebases agentic and ready for coding agents.
++ Understand the limitations of AI and the necessity for Software Engineering Fundamentals.
+
+*Modules*:
+
+- M1. Pushing the Limits of AI Agents
 
 Time Estimate: 5 days x 6 hours.
 
