@@ -13,6 +13,7 @@ dependencies = [
     "dspy>=3.2.1",
     "dtreeviz>=2.3.2",
     "folium>=0.20.0",
+    "ipykernel>=7.3.0",
     "ipywidgets>=8.1.8",
     "langchain-text-splitters>=0.3.0",
     "numpy>=2.3.5",
@@ -24,6 +25,8 @@ dependencies = [
     "python-dateutil>=2.9.0",
     "python-dateutil>=2.9.0.post0",
     "pyyaml>=6.0",
+    "rdata>=1.1.0",
+    "requests>=2.34.2",
     "scikit-learn>=1.9.0",
     "scikit-optimize>=0.10.2",
     "scipy>=1.17.1",
@@ -31,6 +34,7 @@ dependencies = [
     "shap>=0.52.0",
     "spacy>=3.8.14",
     "statsmodels>=0.14.6",
+    "tsfeatures>=0.4.5",
     "umap-learn>=0.5.7",
 ]
 

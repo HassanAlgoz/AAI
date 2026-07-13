@@ -100,8 +100,6 @@ For 2014 Victorian electricity demand and temperature, $r = 0.28$. That sounds w
 
 This is why it is important to *always plot the data*, and not rely on $r$ values alone.
 
-We can also use a non-linear measure of correlation called *Chatterjee's xi* ($xi$)--discussed later.
-
 #pagebreak()
 === Pairwise scatterplots
 
@@ -194,50 +192,3 @@ We can summarise pairwise linear association in a *correlation matrix*:
 These numbers describe *association*, not *causation*.
 
 Nevertheless, they are a useful first step before building a model.
-
-= Beyond linear correlation: Chatterjee's xi
-#pagebreak()
-Recall the *problem* with the demand-versus-temperature scatterplot: the relationship is clearly horn-shaped, yet Pearson $r = 0.28$ made it look weak.
-
-Correlation only sees *straight lines*.
-
-*Chatterjee's xi* ($xi$):
-
-- Unlike Pearson $r$, $xi$ can detect *non-linear* and *non-monotonic* patterns (such as the horn-shaped demand–temperature curve).
-- Unlike correlation, $xi$ is *asymmetric*: $xi(x, y) eq.not xi(y, x)$ — the order of variables matters.
-
-We use #link("https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chatterjeexi.html")[`scipy.stats.chatterjeexi`].
-
-#pagebreak()
-=== Example: Chatterjee's xi on demand and temperature
-Computed on the 2014 half-hourly `vic_elec` data:
-#table(
-  columns: (auto, auto),
-  inset: (x: 0.9em, y: 0.9em),
-  align: (left, center),
-  table.header([*Direction*], [$xi$]),
-  [Temperature $arrow.r$ Demand], [$0.34$],
-  [Demand $arrow.r$ Temperature], [$0.06$],
-)
-
-Notice: $xi approx 0.34$ is *higher than* $r = 0.28$, reflecting the horn-shaped pattern that linear correlation understates. The reverse direction ($xi approx 0.06$) is much weaker.
-
-== Chatterjee's xi matrix
-
-#figure(
-  image("/courses/Timeseries/assets/us_change_chatterjee_xi_matrix.png", height: 85%),
-  caption: [
-    Chatterjee $xi$ matrix: $xi$ for *every ordered pair* of variables. Since $xi$ is directional, the matrix is *not symmetric* — cell $(i, j)$ is $xi(x_i, y_j)$
-  ],
-)
-
-#pagebreak()
-=== Reading the matrix
-
-Compare this matrix to the Pearson correlation matrix above:
-
-- *Production* and *Unemployment* had $r approx -0.77$, but $xi approx 0.24$–$0.33$ — a strong negative linear link still shows up as moderate association strength.
-- *Savings* and *Income* had $r approx 0.72$; the corresponding $xi$ cells are also among the highest in the matrix.
-- *Unemployment $arrow.r$ Production* ($xi approx 0.33$) exceeds *Production $arrow.r$ Unemployment* ($xi approx 0.24$) — the same pair of variables, but association strength runs mostly one way.
-
-*Correlation and Chatterjee's xi measure different things.* Use $r$ to describe _linear association_ (including sign), and $xi$ when you suspect _non-linear_ or _non-monotonic_ dependence — and, as always, *plot the data first*.

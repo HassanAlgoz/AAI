@@ -397,4 +397,4 @@ The series looks fairly random: no obvious trend or seasonality. But an ACF plot
 
 Several of the first 16 spikes lie outside the blue bands. The clearest signal is at *lag 12* — the seasonal lag for monthly data — which suggests leftover seasonality that is hard to see in the time plot. The series does *not* appear to be white noise.
 
-When reading an ACF, do not over-interpret every small bump. Focus on spikes that are clearly outside the blue lines, especially when several spikes exceed the bounds or when a large spike occurs at a seasonal lag.
+When reading an ACF, focus on spikes that are clearly outside the blue lines, especially when several spikes exceed the bounds or when a large spike occurs at a seasonal lag.
