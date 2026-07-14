@@ -58,7 +58,9 @@ Note: regression models were developed independently by Carl Friedrich Gauss (18
 === Harmonic Regression
 *Harmonic Regression*, developed in 1898 by Arthur Schuster, applying Joseph Fourier's mathematics (1807-1822) for finding "hidden" cycles in nature: e.g., weather seasons, solar sunspots, ocean tides, and magnetic storms.
 
-#quote[When there are long seasonal periods, a dynamic regression with *Fourier terms* is often better than any of models we have considered so far. Such model is called a *harmonic regression model*.] -- fpp3
+#quote[When there are *long seasonal periods*, a dynamic regression with *Fourier terms* is often better than any of models we have considered so far.] -- fpp3
+
+We call this model a *Dynamic Harmonic Regression (DHR)* Model.
 
 == Prophet
 A recent development in the field of time series forecasting is the *Prophet* model, introduced by Facebook (#link("https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1380080")[S. J. Taylor & Letham, 2018: Forecasting at Scale]). It is:
@@ -80,3 +82,8 @@ Where:
 - $h(t)$ captures the holiday effects
   - Holiday effects are added as simple dummy variables.
 - $epsilon_t$ is a white noise error term.
+
+== Foundation Models
+
+TimeGPT-1 and others...
+
