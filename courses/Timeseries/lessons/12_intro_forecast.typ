@@ -39,11 +39,11 @@ In this lesson we learn to:
   Forecasting is about predicting the future as accurately as possible, given all of the information available, including historical data and knowledge of any future events that might impact the forecasts.
 ]
 
-Forecasting is a common statistical task in business, where it helps to inform decisions about the scheduling of production, transportation and personnel, and provides a guide to long-term strategic planning.
+Forecasting is a common statistical task in business, where it helps to inform decisions about the scheduling of production, transportation and personnel, and provides a guide to long-term strategic planning. For example:
 
-- Deciding whether to build another power generation plant in the next five years requires forecasts of future demand.
-- Scheduling staff in a call centre next week requires forecasts of call volumes.
-- Stocking an inventory requires forecasts of stock requirements.
+- Deciding whether to build another power generation plant in the next five years requires forecasts of *future demand*.
+- Scheduling staff in a call centre next week requires forecasts of *call volumes*.
+- Stocking an inventory requires forecasts of *stock requirements*.
 
 #pagebreak()
 
@@ -52,7 +52,10 @@ Forecasting is a common statistical task in business, where it helps to inform d
 #quote(
   [If we could first know where we are and whither we are tending, we could better judge what to do and how to do it.],
   attribution: [Abraham Lincoln],
-)
+) -- #text[
+    #set text(size: 0.80em)
+    Abraham Lincoln (1809-1865) 16th president of the United States
+  ]
 
 - *Data*: "where we are".
 - *Forecasting*: "whither we are tending".
@@ -63,11 +66,11 @@ Forecasting is a common statistical task in business, where it helps to inform d
 
 === Forecast Horizon
 
-- *Short-term forecasts* are needed for the scheduling of personnel, production and transportation. As part of the scheduling process, forecasts of demand are often also required.
-- *Medium-term forecasts* are needed to determine future resource requirements, in order to purchase raw materials, hire personnel, or buy machinery and equipment.
-- *Long-term forecasts* are used in strategic planning. Such decisions must take account of market opportunities, environmental factors and internal resources.
-
 Forecasts can be required several years in advance (capital investments), or only a few minutes beforehand (telecommunication routing).
+#pause
++ *Short-term forecasts* are needed for the scheduling of personnel, production and transportation. As part of the scheduling process, forecasts of demand are often also required. #pause
++ *Medium-term forecasts* are needed to determine future resource requirements, in order to purchase raw materials, hire personnel, or buy machinery and equipment. #pause
++ *Long-term forecasts* are used in strategic planning. Such decisions must take account of market opportunities, environmental factors and internal resources. 
 
 #pagebreak()
 
@@ -77,18 +80,18 @@ Forecasts can be required several years in advance (capital investments), or onl
 - Such forecasting systems require the development of *expertise* in identifying forecasting problems, applying a range of *forecasting methods*, selecting appropriate methods for each problem, and evaluating and refining forecasting methods over time.
 - It is also important to have strong *organisational support* for the use of formal forecasting methods if they are to be used successfully.
 
-== Exercise: rank by difficulty
+== Exercise: what influences forecasting difficulty?
 
-Some things are easier to forecast than others. can you rank the following from easiest to most difficult to forecast?
+Can you rank the following from easiest to most difficult to forecast?
 
-- daily electricity demand in 3 days time
-- time of sunrise this day next year
-- Google stock price tomorrow
-- Google stock price in 6 months time
-- maximum temperature tomorrow
-- exchange rate of \$USD/AUS next week
-- total sales of drugs in Australian pharmacies next month
-- timing of next Halley's comet appearance
++ daily electricity demand in 3 days time
++ time of sunrise this day next year
++ Google stock price tomorrow
++ Google stock price in 6 months time
++ maximum temperature tomorrow
++ exchange rate of \$USD/AUS next week
++ total sales of drugs in Australian pharmacies next month
++ timing of next Halley's comet appearance
 
 Note: while doing the exercise, think about what makes something *easy* or *difficult* to forecast.
 
@@ -168,9 +171,11 @@ However,
 
 2. we have a limited understanding of the factors that affect exchange rate (causality)
 3. the future may well differ from the past during a financial or political crisis (similarity)
-4. and forecasts of the exchange rate have a direct effect on the exchange rate itself (reflexivity)
+#pagebreak()
 
 === Self-fulfilling forecasts
+
+4. ..and forecasts of the exchange rate have a direct effect on the exchange rate itself (reflexivity)
 
 If there are well-publicised forecasts that the exchange rate will increase, people immediately adjust the price they are willing to pay — the *forecasts are self-fulfilling*.
 
@@ -180,72 +185,71 @@ Consequently, forecasting whether the exchange rate will rise or fall tomorrow i
 
 == Limitations of forecasting
 
-Often in forecasting, a key step is knowing when something can be forecast accurately, and when forecasts will be no better than tossing a coin.
-
-Forecasters need to be aware of their own limitations, and not claim more than is possible.
+Often in forecasting, a key step is knowing when something can be forecast accurately, and when forecasts will be no better than tossing a coin. Forecasters need to be aware of their own limitations, and not claim more than is possible.
 
 See: #link("https://otexts.com/fpp3/judgmental.html#judgmental")[Chapter 6 Judgmental forecasts] in *Forecasting: Principles and Practice* by Rob J Hyndman and George Athanasopoulos.
 
-== Good forecasts uncertainty intervals
+== Good forecasts quantify prediction uncertainty
 
 #figure(
-  image("/courses/Timeseries/assets/prophet_prediction_interval.png", height: 65%),
+  image("/courses/Timeseries/assets/prophet_prediction_interval.png", height: 90%),
+  caption: [A forecast with an 80% uncertainty interval (Short-term visitors)],
+)
+#pagebreak()
+#figure(
+  image("/courses/Timeseries/assets/prophet_prediction_interval.png", height: 45%),
   caption: [A forecast with an 80% uncertainty interval (Short-term visitors)],
 )
 
-In the chart:
-
+Reporting uncertainty intervals keeps us honest. A point forecast alone can look precise even when the model is uncertain:
 - the *black line* is history used to train the model;
 - the *blue line* is the point forecast;
 - the *shaded band* is the 80% uncertainty interval — about 80% of future values should fall inside it *if the future behaves like the past*.
 
-Reporting intervals keeps us honest. A point forecast alone can look precise even when the model is uncertain.
+
 
 == Good forecasts capture change
 
 Many people wrongly assume that forecasts are not possible in a changing environment. Every environment is changing, and a good forecasting model captures the way in which things are changing.
 
-What is normally assumed is that the *way* the environment is changing will continue into the future:
+What is normally assumed is that the *way* the environment is changing will continue into the future: #pause
 
 - a highly volatile environment will continue to be highly volatile; #pause
 - a business with fluctuating sales will continue to have fluctuating sales; #pause
 - an economy that has gone through booms and busts will continue to go through booms and busts. #pause
 
-A forecasting model is intended to capture the way things *move*, not just where things are.
+..etc. A forecasting model is intended to *capture the way things move* and project that into the future.
 
 #pagebreak()
 === Changing environments: retail employment
 
-Good forecasts capture the genuine patterns and relationships which exist in the historical data even when there are occasional one-off shocks.
-
 #figure(
-  image("/courses/Timeseries/assets/us_retail_employment.png", height: 65%),
-  caption: [Retail employment in the US from 1990 to 2020],
+  image("/courses/Timeseries/assets/us_retail_employment_trend.png", height: 50%),
+  caption: [US retail employment: raw data (grey) and trend-cycle (orange).],
 )
-
+Here, the orange curveatures represent change:
+- growth through the 1990s; #pause
+- a mild dip around the early 2000s; #pause
+- the Great Recession in the 2008-2009 period, then recovery.
 
 == Good forecasts model turning points
 
 We fit a model on monthly Australian short-term visitor arrivals using only data through December 2019, then forecast what we expected over the next few years.
 
 #figure(
-  image("/courses/Timeseries/assets/pre-covid_forecast.png", height: 72%),
+  image("/courses/Timeseries/assets/pre-covid_forecast.png", height: 75%),
   caption: [Pre-COVID-19 forecast vs actual short-term visitor arrivals.],
 )
 
 #pagebreak()
 
-The history we used to fit the model had no event like it.
 
-- The model learned trend and seasonality from a past that looked stable and repeatable.
-- It had no way to anticipate border closures and the collapse of international travel.
+#figure(
+  image("/courses/Timeseries/assets/pre-covid_forecast.png", height: 58%),
+  caption: [Pre-COVID-19 forecast vs actual short-term visitor arrivals.],
+)
 
-#quote(
-  [He who sees the past as surprise-free is bound to have a future full of surprises.],
-) -- Amos Tversky (Nobel Prize in Economics, 2002)
-
-- Pandemics have happened before, *but not in this dataset*.
-- *Solution*: Prophet *custom holidays* — mark one-off shocks (like COVID travel restrictions) in a `holidays` DataFrame so they are modeled explicitly and not repeated in the forecast.
+The model learned trend and seasonality from a past that looked stable and repeatable. The history we used to fit the model had no event like it. It had no way to anticipate border closures and the collapse of international travel. Pandemics have happened before, *but not included in the training data*.
 
 == Conclusion
 
@@ -255,6 +259,10 @@ Forecasting is not about predicting everything — it is about knowing *when* a 
 + *Four factors explain why*: causality, information, similarity, and reflexivity.
 + *Know your limits* — sometimes an honest forecast is no better than a coin toss.
 + *Report uncertainty* — a point forecast is not enough; prediction intervals show the plausible range.
-+ *Include known events* — even strong models fail when the future breaks from the past; tools like Prophet *custom holidays* help only for shocks you can name and include.
 
-Next: we define *time series* and learn to read the patterns — trend, seasonality, and noise — that forecasting methods build on.
+#quote(
+  [He who sees the past as surprise-free is bound to have a future full of surprises.],
+) #text[
+  #set text(size: 0.80em)
+  Amos Tversky (Nobel Prize in Economics, 2002)
+]
