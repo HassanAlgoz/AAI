@@ -39,6 +39,15 @@ In this lesson we learn to:
   Forecasting is about predicting the future as accurately as possible, given all of the information available, including historical data and knowledge of any future events that might impact the forecasts.
 ]
 
+#figure(
+  image("/courses/Timeseries/assets/prophet_prediction_interval.png", height: 90%),
+  caption: [Forecast of short-term visitors to Australia using Prophet for 2020-2022.],
+)
+
+#pagebreak()
+
+=== Applications of Forecasting
+
 Forecasting is a common statistical task in business, where it helps to inform decisions about the scheduling of production, transportation and personnel, and provides a guide to long-term strategic planning. For example:
 
 - Deciding whether to build another power generation plant in the next five years requires forecasts of *future demand*.
