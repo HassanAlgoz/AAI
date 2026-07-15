@@ -56,7 +56,11 @@
 **Lessons**:
 
 1. [Forecasting: An Introduction](https://github.com/HassanAlgoz/AAI/releases/latest/download/Timeseries_12_intro_forecast.pdf) (~74m)
-2. [Quick start: forecasting page views with Prophet](lessons/13_prophet_forecast_quick_start.ipynb) (~27m)
+2. [Forecasting Models](https://github.com/HassanAlgoz/AAI/releases/latest/download/Timeseries_13_forecasting_models.pdf)
+3. [Quick start: forecasting page views with Prophet](lessons/14_prophet_forecast_quick_start.ipynb) (~27m)
+4. [Modeling Events and Holidays](lessons/15_events_and_holidays.ipynb)
+5. [Handling Shocks: Pedestrian Activity pre-post COVID-19](lessons/16_handling_shocks.ipynb)
+6. [Model Evaluation and Tuning](lessons/17_evaluation_and_tuning.ipynb)
 
 ## References
 
