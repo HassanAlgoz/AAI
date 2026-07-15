@@ -262,12 +262,10 @@ The model learned trend and seasonality from a past that looked stable and repea
 
 == Conclusion
 
-Forecasting is not about predicting everything — it is about knowing *when* a forecast is worth making, *what* it should include, and *how much* to trust it.
-
 + *Forecastability varies* — physics and weather-driven demand are easier than exchange rates and stock prices.
 + *Four factors explain why*: causality, information, similarity, and reflexivity.
-+ *Know your limits* — sometimes an honest forecast is no better than a coin toss.
 + *Report uncertainty* — a point forecast is not enough; prediction intervals show the plausible range.
++ *Some things are not predictable* — sometimes an honest forecast is no better than a coin toss.
 
 #quote(
   [He who sees the past as surprise-free is bound to have a future full of surprises.],
