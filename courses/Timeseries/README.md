@@ -60,8 +60,11 @@
 3. [Quick start: forecasting page views with Prophet](lessons/14_prophet_forecast_quick_start.ipynb) (~27m)
 4. [Modeling Events and Holidays](lessons/15_events_and_holidays.ipynb)
 5. [Handling Shocks: Pedestrian Activity pre-post COVID-19](lessons/16_handling_shocks.ipynb)
-6. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Timeseries_17_model_evaluation.pdf)
-7. [Lab: Model Evaluation and Hyperparameter Tuning](lessons/18_evaluation_and_tuning.ipynb)
+
+## M6. Model Evaluation and Optimization
+
+1. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Timeseries_17_model_evaluation.pdf)
+2. [Lab: Model Evaluation and Hyperparameter Tuning](lessons/18_evaluation_and_tuning.ipynb)
 
 ## References
 

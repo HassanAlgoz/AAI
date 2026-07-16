@@ -71,6 +71,7 @@ Visualize, analyze, and characterize time series -- then build forecasting model
 - M3. Time Series Decomposition
 - M4. Time Series Features
 - M5. Forecasting
+- M6. Model Evaluation and Optimization
 
 Time Estimate: 5 days x 6 hours.
 
