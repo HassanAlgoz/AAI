@@ -950,3 +950,17 @@ def plot_acf_correlogram(
         title=title or "",
     )
     return ax
+
+
+def plot_diagnostics(data):
+    _, axes = plt.subplot_mosaic([["resid", "resid"], ["acf", "hist"]])
+    ax = axes["resid"]
+    ax.plot(data["ds"], data["resid"])
+    ax.set(title="Innovation Residuals")
+    ax = axes["acf"]
+    plot_acf(data["resid"].dropna(),
+        zero=False, bartlett_confint=False, auto_ylims=True, ax=ax)
+    ax.set(title="ACF Plot", xlabel="lag[1]", ylabel="acf")
+    ax = axes["hist"]
+    ax.hist(data["resid"], bins=20)
+    ax.set(title="Histogram", xlabel="resid", ylabel="count")

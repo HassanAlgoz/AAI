@@ -11,8 +11,8 @@
     neutral-darkest: text-color
   ),
   config-info(
-    title: [The Prophet Model],
-    subtitle: [Selecting the Best Time Series Model],
+    title: [Forecasting Models],
+    subtitle: [Models Evolution History],
     author: [Hassan Algoz],
     date: datetime.today(),
   ),
@@ -22,7 +22,7 @@
 
 #title-slide()
 
-= The Prophet Model
+= Forecasting Models
 
 == Models Evolution History
 

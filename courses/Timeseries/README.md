@@ -60,7 +60,8 @@
 3. [Quick start: forecasting page views with Prophet](lessons/14_prophet_forecast_quick_start.ipynb) (~27m)
 4. [Modeling Events and Holidays](lessons/15_events_and_holidays.ipynb)
 5. [Handling Shocks: Pedestrian Activity pre-post COVID-19](lessons/16_handling_shocks.ipynb)
-6. [Model Evaluation and Tuning](lessons/17_evaluation_and_tuning.ipynb)
+6. [Model Evaluation](https://github.com/HassanAlgoz/AAI/releases/latest/download/Timeseries_17_model_evaluation.pdf)
+7. [Lab: Model Evaluation and Hyperparameter Tuning](lessons/18_evaluation_and_tuning.ipynb)
 
 ## References
 
@@ -69,6 +70,9 @@
   - "we only assume that readers are familiar with introductory statistics, and with high-school algebra. There are a couple of sections that also require knowledge of matrices, but these are flagged".
 - [Dettling, M. (2020). Applied time series analysis. Seminar for Statistics, ETH Zürich.](https://ethz.ch/content/dam/ethz/special-interest/math/statistics/sfs/Education/Advanced_Studies/course-material-1921/Zeitreihen/ATSA_Script_v200504.pdf)
 - [`Nixtla/tsfeatures`](https://github.com/Nixtla/tsfeatures): Python implementation of the R package `tsfeatures`.
+- [`Nixtla/statsforecast`](https://pypi.org/project/statsforecast/): Lightning fast forecasting with statistical and econometric models
+- [Chronos 2 via AutoGluon](https://auto.gluon.ai/stable/tutorials/timeseries/forecasting-chronos.html)
+- [Timeseries Forecasting Models on HuggingFace](https://huggingface.co/models?pipeline_tag=time-series-forecasting)
 - [Non-linear correlation detection with mutual information](https://polsys.github.io/ennemi/)
 - [Abhishek Murthy - Backtesting Time Series Forecasting Algorithms in SKTime and SKForecast](https://www.youtube.com/watch?v=7NXCdfzr5d8)
 - Datasets: https://opentimeseries.com/datasets/public_datasets/
