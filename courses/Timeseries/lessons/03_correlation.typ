@@ -189,6 +189,16 @@ We can summarise pairwise linear association in a *correlation matrix*:
 
 == Correlation $!=$ Causation
 
-These numbers describe *association*, not *causation*.
+Correlation means two things *move together*. It does *not* mean one *causes* the other.
 
-Nevertheless, they are a useful first step before building a model.
+A variable $x$ can still help forecast $y$ even when $x$ does not cause $y$.
+
+#pause
+
+=== A hidden third variable
+
+Ice-cream sales and beach drownings both go up in summer. You could forecast drownings from ice-cream sales — and it might work.
+
+But ice-cream does not cause drownings. *Hot weather* causes both: more swimming *and* more ice-cream.
+
+That hidden third variable is a *confounder*. It makes causal stories hard, but forecasts can still be useful.
