@@ -16,13 +16,13 @@ breaks, plus their prose and images.
 Examples:
 
     # Single lesson
-    estimate_reading_time.py courses/Data_Wrangling/lessons/01_pandas_io.ipynb
+    estimate_reading_time.py courses/Data_Analysis/lessons/01_pandas_io.ipynb
 
     # All lessons linked from a course README
-    estimate_reading_time.py --course courses/Data_Wrangling
+    estimate_reading_time.py --course courses/Data_Analysis
 
     # Machine-readable output for an agent
-    estimate_reading_time.py --course courses/Data_Wrangling --json
+    estimate_reading_time.py --course courses/Data_Analysis --json
 """
 from __future__ import annotations
 

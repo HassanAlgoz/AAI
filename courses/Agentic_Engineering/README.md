@@ -1,5 +1,7 @@
 # Agentic Engineering
 
+**Depends on**: [Software Engineering](/courses/Software_Engineering/)
+
 **Learning Outcomes**:
 
 + Differentiate between Vibe Coding and Agentic Engineering.

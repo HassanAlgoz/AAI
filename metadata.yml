@@ -1,5 +1,6 @@
 tracks:
-  - name: Pre-requisites
+  - name: Core
+    description: Shared foundation for both tracks. Taught with an engineering orientation.
     courses:
       - title: Terminal
         description: Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.
@@ -7,44 +8,80 @@ tracks:
         path: /courses/Terminal/
         order: 1
 
-  - name: Data Scientist
-    time_estimate: 4-5 weeks at 30 hrs/week
-    courses:
-      - title: Data Wrangling
-        description: Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.
-        time_estimate: 5 days x 6 hours
-        path: /courses/Data_Wrangling/
-        order: 1
-
-      - title: Data Science
-        description: Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions.
-        time_estimate: 5 days x 6 hours
-        path: /courses/Data_Science/
+      - title: Python
+        description: Programming foundations in Python (external material).
+        time_estimate: self-paced
+        path: /courses/Python/
         order: 2
 
-      - title: Applied Machine Learning
-        description: Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
-        time_estimate: 10 days x 6 hours
-        path: /courses/Machine_Learning/
+  - name: Analysts Track
+    time_estimate: 5-6 weeks at 30 hrs/week
+    courses:
+      - title: Data Analysis
+        description: Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.
+        time_estimate: 5 days x 6 hours
+        path: /courses/Data_Analysis/
+        order: 1
+
+      - title: Statistical Analysis
+        description: Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions.
+        time_estimate: 5 days x 6 hours
+        path: /courses/Statistical_Analysis/
+        order: 2
+
+      - title: Inferential Statistics
+        description: Systematically generalize results from drawn samples onto a target population.
+        time_estimate: 2 days x 6 hours
+        path: /courses/Inferential_Statistics/
         order: 3
 
-  - name: AI Engineer
+      - title: Applied Timeseries Analysis
+        description: Visualize, analyze, and characterize time series -- then build forecasting models.
+        time_estimate: 5 days x 6 hours
+        path: /courses/Timeseries/
+        order: 4
+
+  - name: Engineers Track
     time_estimate: 4-5 weeks at 30 hrs/week
     courses:
+      - title: Software Engineering
+        description: Software design, systems, and construction fundamentals for building reliable applications.
+        time_estimate: TBD
+        path: /courses/Software_Engineering/
+        order: 1
+
       - title: Agentic Engineering
         description: Work effectively and efficiently with AI in software engineering projects.
         time_estimate: 5 days x 6 hours
         path: /courses/Agentic_Engineering/
-        order: 1
-
-      - title: Building Agentic AI Software
-        description: Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
-        time_estimate: 10 days x 6 hours
-        path: /courses/Agentic_AI/
         order: 2
 
-      - title: Applied Deep Learning
+      - title: Building with Deep Learning
         description: Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
         time_estimate: 5 days x 6 hours
-        path: /courses/Deep_Learning/
+        path: /courses/Building_with_Deep_Learning/
         order: 3
+
+      - title: Building with Agentic AI
+        description: Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
+        time_estimate: 10 days x 6 hours
+        path: /courses/Building_with_Agentic_AI/
+        order: 4
+
+  - name: Shared
+    description: Merge point between the Analysts and Engineers tracks.
+    courses:
+      - title: Applied Machine Learning
+        description: Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
+        time_estimate: 10 days x 6 hours
+        path: /courses/Machine_Learning/
+        order: 1
+
+  - name: Level 3
+    description: Advanced courses after Applied Machine Learning.
+    courses:
+      - title: Building Machine Learning Systems
+        description: Design and operate production machine learning systems (advanced).
+        time_estimate: TBD
+        path: /courses/Building_Machine_Learning_Systems/
+        order: 1

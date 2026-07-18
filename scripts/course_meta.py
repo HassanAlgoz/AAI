@@ -14,11 +14,13 @@ import yaml
 DOC_TITLE_RE = re.compile(r"^=\s+(?P<title>.+?)\s*$")
 COURSE_HEADING_RE = re.compile(r"^===\s+(?P<order>\d+)\.\s+(?P<title>.+?)\s*$")
 TRACK_HEADING_RE = re.compile(r"^==\s+Track \d+:\s+(?P<name>.+?)\s*$")
-PREREQUISITES_HEADING_RE = re.compile(r"^==\s+Pre-requisites\s*$")
+# Any other `==` section heading (Core, Analysts Track, Shared, Level 3, …).
+SECTION_HEADING_RE = re.compile(r"^==\s+(?P<name>.+?)\s*$")
 HEADING_RE = re.compile(r"^=+\s")
 MODULE_BULLET_RE = re.compile(r"^-\s+M\d+\.\s")
 TYPST_DIRECTIVE_RE = re.compile(r"^\s*#[A-Za-z][\w.-]*\(")
 REQUIRED_COURSE_FIELDS = ("title", "description", "time_estimate", "path", "order")
+LEGACY_TRACK_NAMES = {"Pre-requisites": "Core"}
 
 
 @dataclass(frozen=True)
@@ -182,9 +184,11 @@ def render_course_section(meta: CourseMeta, modules: list[str]) -> str:
 def parse_outline_track_name(line: str) -> str | None:
     """Return a track name from an outline `==` heading, if recognized."""
     if track_match := TRACK_HEADING_RE.match(line):
-        return track_match.group("name").strip()
-    if PREREQUISITES_HEADING_RE.match(line):
-        return "Pre-requisites"
+        name = track_match.group("name").strip()
+        return LEGACY_TRACK_NAMES.get(name, name)
+    if section_match := SECTION_HEADING_RE.match(line):
+        name = section_match.group("name").strip()
+        return LEGACY_TRACK_NAMES.get(name, name)
     return None
 
 

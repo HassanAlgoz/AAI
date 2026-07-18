@@ -4,10 +4,14 @@ Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://
 
 PDF material can be downloaded from the [releases page](https://github.com/HassanAlgoz/AAI/releases).
 
-The program consists of two tracks each aimed at a specific career path:
+The program has a shared **Core**, two career tracks (**Analysts** and **Engineers**), a shared **merge** course, and optional **Level 3** advanced work.
 
-1. Data Scientist
-2. AI Engineer
+![AAI Bootcamp track dependency graph](assets/aai_roadmap.png)
+
+- **Blue** — Analysts Track
+- **Green** — Engineers Track (Terminal and Python sit here visually because Core is taught with an engineering orientation; they are Core to both tracks)
+- **Yellow** — merge point between tracks
+- **Red** — Level 3 (advanced)
 
 ## Pre-requisites
 
@@ -18,17 +22,29 @@ Both tracks presume the following about the learner to get started:
 + Good foundation in programming.
 + Working laptop with internet access.
 
+## Core
+
+Shared foundation for both tracks. Order: Terminal → Python.
+
 ### 1. [Terminal](/courses/Terminal/)
 
 Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.
 
 Time Estimate: 1 day x 3 hours.
 
-## Track 1: Data Scientist
+### 2. [Python](/courses/Python/)
+
+Programming foundations in Python (external material).
+
+Time Estimate: self-paced.
+
+## Analysts Track
 
 Time Estimate: 5-6 weeks at 30 hrs/week.
 
-### 1. [Data Wrangling](/courses/Data_Wrangling/)
+Path: Data Analysis → Statistical Analysis → {Inferential Statistics, Applied Timeseries Analysis, Applied Machine Learning}.
+
+### 1. [Data Analysis](/courses/Data_Analysis/)
 
 Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and seaborn.
 
@@ -39,28 +55,23 @@ Fundamentals of data wrangling and analysis in Python via pandas, matplotlib and
 
 Time Estimate: 5 days x 6 hours.
 
-### 2. [Data Science](/courses/Data_Science/)
+### 2. [Statistical Analysis](/courses/Statistical_Analysis/)
 
 Calculate, analyze, visualize, and extract insights from data. Formulate hypotheses and draw conclusions.
 
 - M1. Introductions
 - M2. Univariate Analysis
 - M3. Bivariate Analysis
-- M4. Inferential Statistics
 
 Time Estimate: 5 days x 6 hours.
 
-### 3. [Applied Machine Learning](/courses/Machine_Learning/)
+### 3. [Inferential Statistics](/courses/Inferential_Statistics/)
 
-Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
+Systematically generalize results from drawn samples onto a target population.
 
-- M1. Supervised ML: Regression and Classification
-- M2. Estimating and Improving Model Generalization Performance
-- M3. Pipeline: Building Reliable Predictive Models
-- M4. Decision Trees and Ensembles
-- M5. AutoML
+- M1. Inferential Statistics
 
-Time Estimate: 10 days x 6 hours.
+Time Estimate: 2 days x 6 hours.
 
 ### 4. [Applied Timeseries Analysis](/courses/Timeseries/)
 
@@ -76,13 +87,23 @@ Visualize, analyze, and characterize time series -- then build forecasting model
 
 Time Estimate: 5 days x 6 hours.
 
-## Track 2: AI Engineer
+## Engineers Track
 
 Time Estimate: 4-5 weeks at 30 hrs/week.
 
-### 1. [Agentic Engineering](/courses/Agentic_Engineering/)
+Path: Software Engineering → {Agentic Engineering, Building with Deep Learning, Building with Agentic AI, Applied Machine Learning}.
+
+### 1. [Software Engineering](/courses/Software_Engineering/)
+
+Software design, systems, and construction fundamentals for building reliable applications.
+
+Time Estimate: TBD.
+
+### 2. [Agentic Engineering](/courses/Agentic_Engineering/)
 
 Work effectively and efficiently with AI in software engineering projects.
+
+*Depends on*: Software Engineering.
 
 *Learning Outcomes*:
 
@@ -99,9 +120,23 @@ Work effectively and efficiently with AI in software engineering projects.
 
 Time Estimate: 5 days x 6 hours.
 
-### 2. [Building Agentic AI Software](/courses/Agentic_AI/)
+### 3. [Building with Deep Learning](/courses/Building_with_Deep_Learning/)
+
+Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
+
+*Depends on*: Software Engineering.
+
+- M1. HuggingFace
+- M2. Large Language Models
+- M3. Applied Computer Vision
+
+Time Estimate: 5 days x 6 hours.
+
+### 4. [Building with Agentic AI](/courses/Building_with_Agentic_AI/)
 
 Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
+
+*Depends on*: Software Engineering.
 
 - M1. Signatures and Modules
 - M2. Agents, Tools, and Code
@@ -111,15 +146,31 @@ Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate t
 
 Time Estimate: 10 days x 6 hours.
 
-### 3. [Applied Deep Learning](/courses/Deep_Learning/)
+## Shared (merge)
 
-Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
+### 1. [Applied Machine Learning](/courses/Machine_Learning/)
 
-- M1. HuggingFace
-- M2. Large Language Models
-- M3. Applied Computer Vision
+Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
 
-Time Estimate: 5 days x 6 hours.
+Reached from Statistical Analysis (Analysts) or Software Engineering (Engineers).
+
+- M1. Supervised ML: Regression and Classification
+- M2. Estimating and Improving Model Generalization Performance
+- M3. Pipeline: Building Reliable Predictive Models
+- M4. Decision Trees and Ensembles
+- M5. AutoML
+
+Time Estimate: 10 days x 6 hours.
+
+## Level 3
+
+### 1. [Building Machine Learning Systems](/courses/Building_Machine_Learning_Systems/)
+
+Design and operate production machine learning systems (advanced).
+
+*Depends on*: Applied Machine Learning.
+
+Time Estimate: TBD.
 
 ## AI Policy
 

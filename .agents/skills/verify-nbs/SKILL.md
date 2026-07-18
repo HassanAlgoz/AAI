@@ -18,7 +18,7 @@ SKILL=.agents/skills/verify-nbs/scripts
 uv run python $SKILL/run_notebooks.py
 
 # Run a specific folder
-uv run python $SKILL/run_notebooks.py courses/Data_Wrangling
+uv run python $SKILL/run_notebooks.py courses/Data_Analysis
 
 # Preview selection without executing (fast sanity check on filtering)
 uv run python $SKILL/run_notebooks.py courses --list-only

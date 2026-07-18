@@ -14,8 +14,10 @@ It is required that you follow this instruction to get graded, for each exercise
 
 | Abbreviation | Course |
 |--------------|--------|
-| `DW` | Data Wrangling |
-| `DS` | Data Science |
+| `DA` | Data Analysis |
+| `SA` | Statistical Analysis |
+| `IS` | Inferential Statistics |
+| `TERM` | Terminal |
 
 Each exercise's identifier is listed in that course's `README.md`.
 
@@ -26,16 +28,17 @@ Each exercise's identifier is listed in that course's `README.md`.
 ### Example
 
 - **Exercises**:
-    - `DW 1.1: init` (started 1st notebook in set 1)
-    - `DW 1.1: q1` (question 1 solved)
-    - `DW 1.1: q2`
-    - `DW 1.2: init` (started 2nd notebook in set 1)
-    - `DS 3: init`
+    - `DA 1.1: init` (started 1st notebook in set 1)
+    - `DA 1.1: q1` (question 1 solved)
+    - `DA 1.1: q2`
+    - `DA 1.2: init` (started 2nd notebook in set 1)
+    - `SA 3: init`
+    - `IS 1: init`
     - `TERM 2: q1`
     - ...
 - **Projects**:
-    - `DW Project: init`
-    - `DW Project: write analysis questions`
-    - `DW Project: explore the data`
+    - `DA Project: init`
+    - `DA Project: write analysis questions`
+    - `DA Project: explore the data`
     - ...
-    - `DW Project: add the 6th and 7th insight`
+    - `DA Project: add the 6th and 7th insight`

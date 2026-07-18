@@ -15,16 +15,16 @@ Run from repo root (adjust `python3` path as needed):
 SKILL=.agents/skills/course-time-estimates/scripts
 
 # Step 1 — lessons (linked .ipynb / .md / .txt in course README)
-python3 $SKILL/estimate_reading_time.py --course courses/Data_Wrangling
-python3 $SKILL/estimate_reading_time.py --course courses/Data_Wrangling --json
+python3 $SKILL/estimate_reading_time.py --course courses/Data_Analysis
+python3 $SKILL/estimate_reading_time.py --course courses/Data_Analysis --json
 
 # Step 2 — exercise sets (exercises/ dirs or Ex* links)
-python3 $SKILL/estimate_exercise_time.py --course courses/Data_Wrangling
-python3 $SKILL/estimate_exercise_time.py --course courses/Data_Wrangling --json
+python3 $SKILL/estimate_exercise_time.py --course courses/Data_Analysis
+python3 $SKILL/estimate_exercise_time.py --course courses/Data_Analysis --json
 
 # Scoped to one lesson or one exercise set
-python3 $SKILL/estimate_reading_time.py courses/Data_Wrangling/lessons/02_select.ipynb
-python3 $SKILL/estimate_exercise_time.py courses/Data_Wrangling/exercises/01
+python3 $SKILL/estimate_reading_time.py courses/Data_Analysis/lessons/02_select.ipynb
+python3 $SKILL/estimate_exercise_time.py courses/Data_Analysis/exercises/01
 ```
 
 ## Three-step workflow (agent-driven)
@@ -57,14 +57,14 @@ Execute only the steps the user asks for.
 **Example rollup line to print for the user:**
 
 ```text
-Data Wrangling: lessons ~187m + exercises ~210m => ~6hr 37m (suggest ~6–7hr in catalog)
+Data Analysis: lessons ~187m + exercises ~210m => ~6hr 37m (suggest ~6–7hr in catalog)
 ```
 
 ## Natural-language control
 
 | User says | Do |
 |-----------|-----|
-| “estimate reading for Data Wrangling” / “step 1 only” | Step 1 only |
+| “estimate reading for Data Analysis” / “step 1 only” | Step 1 only |
 | “exercise times for L1” | `estimate_exercise_time.py` on the `exercises/` paths; edit README links for those exercise sets |
 | “full time pass on Terminal” | Steps 1 → 2 → 3 for that course |
 | “totals only, don’t edit READMEs” | Run both scripts with `--json`; print rollup; no file edits |
@@ -77,7 +77,7 @@ Data Wrangling: lessons ~187m + exercises ~210m => ~6hr 37m (suggest ~6–7hr in
 Defaults: 3m setup, 200 wpm, 8.6 s/code line, 2.5 s/output line, 18 s/image, 105 s/slide. Notebook/markdown lessons anchored to L3 census/Riyadh notebooks; `.typ` slide pricing anchored to `01_story_cholera_outbreak.typ` (~25m). For `.typ`, slides = title slide + headings (`=`/`==`) + `#pagebreak()`; tune with `--slide-sec`.
 
 **Exercises:** `setup_min` + prose/wpm + tasks×task_sec  
-Defaults: 5m setup per set, 200 wpm, 60 s per code cell (task). Anchored to Data Wrangling `exercises/01` (~45m).
+Defaults: 5m setup per set, 200 wpm, 60 s per code cell (task). Anchored to Data Analysis `exercises/01` (~45m).
 
 **Where the numbers live:** All parameters are config, not code, in `config.toml` next to this `SKILL.md` (`[reading]` and `[exercise]` sections, with inline comments). Edit that file to retune persistently; the scripts fall back to built-in defaults if a key or the file is missing. Point at another file with the `COURSE_TIME_ESTIMATES_CONFIG` env var. Override for a single run via script flags (`--setup-min`, `--code-sec`, `--task-sec`, etc.).
 

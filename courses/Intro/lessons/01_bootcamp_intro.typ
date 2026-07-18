@@ -59,26 +59,34 @@ Few of many many use cases:
 
 == Courses Outline
 
-The bootcamp is organized into a shared foundation, two tracks, and an additional course.
+The bootcamp has a shared *Core*, two career tracks (*Analysts* and *Engineers*), a shared merge course, and optional Level 3 advanced work.
 
-=== Foundation
+=== Core
 
 - *Terminal*: command and conquer your machine; fear not the black box; protect yourself from malicious code.
+- *Python*: programming foundations (external material).
 
-=== Track 1: Data Scientist
+=== Analysts Track
 
-- *Data Wrangling*: fundamentals of data wrangling and analysis in Python via pandas, matplotlib, and seaborn.
-- *Applied Data Science*: calculate, analyze, visualize, and extract insights from data; formulate hypotheses and draw conclusions.
-- *Applied Machine Learning*: build reliable predictive modeling pipelines, debug issues, evaluate and compare alternatives.
+- *Data Analysis*: fundamentals of data wrangling and analysis in Python via pandas, matplotlib, and seaborn.
+- *Statistical Analysis*: calculate, analyze, visualize, and extract insights from data; formulate hypotheses and draw conclusions.
+- *Inferential Statistics*: generalize results from samples onto a target population.
+- *Applied Timeseries Analysis*: visualize, analyze, and forecast time series.
 
-=== Track 2: Software Engineer (AI)
+=== Engineers Track
 
-- *Agentic AI*: develop, debug, evaluate, deploy, and monitor LLM-driven AI agents to automate tasks involving unstructured data.
-- *Applied Deep Learning*: select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
+- *Software Engineering*: software design and construction fundamentals.
+- *Agentic Engineering*: work effectively with AI in software engineering projects.
+- *Building with Deep Learning*: select, use, compose, fine-tune, and deploy open-weight deep learning models.
+- *Building with Agentic AI*: develop, debug, evaluate, deploy, and monitor LLM-driven AI agents.
 
-=== Courses
+=== Shared (merge)
 
-- *Agentic Engineering*: work effectively and efficiently with AI in software engineering projects.
+- *Applied Machine Learning*: build reliable predictive modeling pipelines; reached from either track.
+
+=== Level 3
+
+- *Building Machine Learning Systems*: design and operate production ML systems (advanced).
 
 == Pre-requisites
 
