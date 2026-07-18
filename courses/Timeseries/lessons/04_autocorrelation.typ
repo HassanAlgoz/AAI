@@ -24,8 +24,6 @@
 
 = Autocorrelation
 
-Adapted from #link("https://otexts.com/fpp3/lag-plots.html")[Forecasting: Principles and Practice (3rd ed), §§2.7–2.9].
-
 #pagebreak()
 
 The graphs discussed so far help us identify and visualise features of *individual* time series. In the previous lesson we studied relationships *between* multiple time series using scatterplots.
@@ -33,8 +31,6 @@ The graphs discussed so far help us identify and visualise features of *individu
 A key feature of most time series is that adjacent observations tend to be correlated, i.e. *serially dependent*. Here we study how a series relates to its own past values.
 
 = Lag plots
-
-Adapted from #link("https://otexts.com/fpp3/lag-plots.html")[§2.7].
 
 #pagebreak()
 
@@ -142,8 +138,6 @@ We use `aus_production` from `data/aus_production.csv`. The dataset has seven co
 )
 
 = Autocorrelation Function
-
-Adapted from #link("https://otexts.com/fpp3/acf.html")[§2.8].
 
 #pagebreak()
 
@@ -308,8 +302,6 @@ Google closing prices in 2015 have no regular seasonal cycle, but they are stron
 ACF plots are useful for raw time series, and even more useful later when we inspect *model residuals*. A residual ACF can reveal leftover structure that is hard to see in a time plot.
 
 = White noise
-
-Adapted from #link("https://otexts.com/fpp3/wn.html")[§2.9].
 
 #pagebreak()
 

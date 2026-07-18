@@ -24,8 +24,6 @@
 
 = Time Series Decomposition
 
-Adapted from #link("https://otexts.com/fpp3/decomposition.html")[Forecasting: Principles and Practice (3rd ed), Chapter 3].
-
 #pagebreak()
 
 Time series data can exhibit a variety of patterns, and it is often helpful to split a time series into several components, each representing an underlying pattern category. We can think of a time series as comprising three components:

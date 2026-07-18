@@ -24,8 +24,6 @@
 
 = Scatterplots and Correlation
 
-Adapted from #link("https://otexts.com/fpp3/scatterplots.html")[Forecasting: Principles and Practice (3rd ed), §2.6].
-
 #pagebreak()
 
 The graphs discussed so far help us identify and visualise features of *individual* time series. Sometimes we are interested in relationships _between_ multiple time series.

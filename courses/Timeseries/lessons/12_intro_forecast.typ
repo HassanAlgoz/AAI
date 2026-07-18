@@ -192,12 +192,6 @@ In a sense, the exchange rates become their own forecasts. This is an example of
 
 Consequently, forecasting whether the exchange rate will rise or fall tomorrow is about as predictable as forecasting whether a tossed coin will come down as a head or a tail. In both situations, you will be correct about 50% of the time.
 
-== Limitations of forecasting
-
-Often in forecasting, a key step is knowing when something can be forecast accurately, and when forecasts will be no better than tossing a coin. Forecasters need to be aware of their own limitations, and not claim more than is possible.
-
-See: #link("https://otexts.com/fpp3/judgmental.html#judgmental")[Chapter 6 Judgmental forecasts] in *Forecasting: Principles and Practice* by Rob J Hyndman and George Athanasopoulos.
-
 == Good forecasts quantify prediction uncertainty
 
 #figure(

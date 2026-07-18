@@ -24,8 +24,6 @@
 
 = Adjustments
 
-Adapted from [Forecasting: Principles and Practice (3rd ed), §3.1](https://otexts.com/fpp3/transformations.html).
-
 #pagebreak()
 
 In Professional practice, analysts rarely work with time series data as is. Quite often, transforming the data:
