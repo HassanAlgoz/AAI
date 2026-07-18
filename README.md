@@ -1,48 +1,71 @@
 # Applied Artifical Intelligence (AAI)
 
-Welcome: [introduction to the Applied Artificial Intelligence Bootcamp](https://github.com/HassanAlgoz/AAI/releases/latest/download/Intro_01_bootcamp_intro.pdf) (1hr 30m).
+## Roadmap
+
+![AAI Roadmap](assets/aai_roadmap.png)
+
+The roadmap was design with career paths in mind, to help you land a job (Insha' Allah).
+
+You can read this roadmap from the end (bottom to top) if you want to start from **job roles**; going back to the required courses that help you learn the necessary knowlede, skills, and mindset; to get your foot in the door.
+
+### Corresponding **Job Titles**
+
+Here we just list them down (as shown in the fiure above).
+
+**Analysts Track**:
+
+1. **Inferential Statistics** — Data Analyst, Statistician, Quantitative Researcher, Biostatistician, Market Researcher
+2. **Applied Timeseries Analysis** — Data Analyst, Financial Analyst, Quantitative Analyst, Business Intelligence Analyst, Supply Chain Analyst
+
+**Engineers Track**:
+
+1. **Building with Deep Learning** — AI Engineer, Applied Machine Learning Engineer, Computer Vision Engineer, Generative AI Developer, Full-Stack AI Engineer, Machine Learning Developer
+1. **Building with Agentic AI** — AI Engineer, Generative AI Engineer, LLM Engineer, Applied AI Developer, Full-Stack AI Engineer
+
+**Mid-level**:
+
+1. **Applied Machine Learning** — Data Scientist, Machine Learning Scientist, Tabular ML Engineer, Quantitative Data Scientist, Applied Statistician, Predictive Modeler, Analytics Engineer
+
+**Senior-level**:
+
+1. **Building Machine Learning Systems** — Machine Learning Engineer, MLOps Engineer, AI Engineer, Machine Learning Infrastructure Engineer, ML Systems Engineer, Platform Engineer (AI/ML)
+
+## Course Material
 
 PDF material can be downloaded from the [releases page](https://github.com/HassanAlgoz/AAI/releases).
 
-The program has a shared **Core**, two career tracks (**Analysts** and **Engineers**), a shared **merge** course, and optional **Level 3** advanced work.
-
-![AAI Bootcamp track dependency graph](assets/aai_roadmap.png)
-
-- **Blue** — Analysts Track
-- **Green** — Engineers Track (Terminal and Python sit here visually because Core is taught with an engineering orientation; they are Core to both tracks)
-- **Yellow** — merge point between tracks
-- **Red** — Level 3 (advanced)
+Link to introductory slides: [introduction to the Applied Artificial Intelligence Roadmap](https://github.com/HassanAlgoz/AAI/releases/latest/download/Intro_01_bootcamp_intro.pdf).
 
 ## Pre-requisites
 
 Both tracks presume the following about the learner to get started:
 
-+ English B2 level: IELTS 6.0 or TOEFL 4.0 (71).
++ **English B2 level**: IELTS 6.0 or TOEFL 4.0 (71).
 + Algorithmic thinking and problem-solving skills.
 + Good foundation in programming.
 + Working laptop with internet access.
 
 ## Core
 
-Shared foundation for both tracks. Order: Terminal → Python.
+Shared foundation for both tracks.
 
-### 1. [Terminal](/courses/Terminal/)
+### 1. [Python](/courses/Python/)
+
+Programming foundations in Python (external material).
+
+Time Estimate: self-paced (about 2-5 weeks; take your time).
+
+### 2. [Terminal](/courses/Terminal/)
+
+Understanding how to command your computer is essential for using it effectively and responsibly.
 
 Command and conquer your machine. Fear not the black box. Protect yourself from malicious code.
 
 Time Estimate: 1 day x 3 hours.
 
-### 2. [Python](/courses/Python/)
-
-Programming foundations in Python (external material).
-
-Time Estimate: self-paced.
-
 ## Analysts Track
 
 Time Estimate: 5-6 weeks at 30 hrs/week.
-
-Path: Data Analysis → Statistical Analysis → {Inferential Statistics, Applied Timeseries Analysis, Applied Machine Learning}.
 
 ### 1. [Data Analysis](/courses/Data_Analysis/)
 
@@ -65,7 +88,9 @@ Calculate, analyze, visualize, and extract insights from data. Formulate hypothe
 
 Time Estimate: 5 days x 6 hours.
 
-### 3. [Inferential Statistics](/courses/Inferential_Statistics/)
+---
+
+### 3.A [Inferential Statistics](/courses/Inferential_Statistics/)
 
 Systematically generalize results from drawn samples onto a target population.
 
@@ -73,7 +98,7 @@ Systematically generalize results from drawn samples onto a target population.
 
 Time Estimate: 2 days x 6 hours.
 
-### 4. [Applied Timeseries Analysis](/courses/Timeseries/)
+### 3.B [Applied Timeseries Analysis](/courses/Timeseries/)
 
 Visualize, analyze, and characterize time series -- then build forecasting models.
 
@@ -99,7 +124,7 @@ Software design, systems, and construction fundamentals for building reliable ap
 
 Time Estimate: TBD.
 
-### 2. [Agentic Engineering](/courses/Agentic_Engineering/)
+### 2.A [Agentic Engineering](/courses/Agentic_Engineering/)
 
 Work effectively and efficiently with AI in software engineering projects.
 
@@ -120,7 +145,7 @@ Work effectively and efficiently with AI in software engineering projects.
 
 Time Estimate: 5 days x 6 hours.
 
-### 3. [Building with Deep Learning](/courses/Building_with_Deep_Learning/)
+### 2.B [Building with Deep Learning](/courses/Building_with_Deep_Learning/)
 
 Select, use, compose, fine-tune, and deploy open-weight deep learning models on various unstructured data tasks.
 
@@ -132,7 +157,7 @@ Select, use, compose, fine-tune, and deploy open-weight deep learning models on 
 
 Time Estimate: 5 days x 6 hours.
 
-### 4. [Building with Agentic AI](/courses/Building_with_Agentic_AI/)
+### 2.C [Building with Agentic AI](/courses/Building_with_Agentic_AI/)
 
 Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate tasks involving unstructured data.
 
@@ -146,13 +171,15 @@ Develop, debug, evaluate, deploy, and monitor LLM-driven AI Agents to automate t
 
 Time Estimate: 10 days x 6 hours.
 
-## Shared (merge)
+---
+
+## Level 2 $\rArr$ Level 3 Courses
+
+This track is a merge that requires both engineering and analysis.
 
 ### 1. [Applied Machine Learning](/courses/Machine_Learning/)
 
 Build reliable predictive modeling pipelines, debug its issues, evaluate and compare alternatives.
-
-Reached from Statistical Analysis (Analysts) or Software Engineering (Engineers).
 
 - M1. Supervised ML: Regression and Classification
 - M2. Estimating and Improving Model Generalization Performance
@@ -162,15 +189,15 @@ Reached from Statistical Analysis (Analysts) or Software Engineering (Engineers)
 
 Time Estimate: 10 days x 6 hours.
 
-## Level 3
-
-### 1. [Building Machine Learning Systems](/courses/Building_Machine_Learning_Systems/)
+### 2. [Building Machine Learning Systems](/courses/Building_Machine_Learning_Systems/)
 
 Design and operate production machine learning systems (advanced).
 
 *Depends on*: Applied Machine Learning.
 
 Time Estimate: TBD.
+
+---
 
 ## AI Policy
 

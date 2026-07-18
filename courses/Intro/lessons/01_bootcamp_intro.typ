@@ -57,14 +57,21 @@ Few of many many use cases:
 
 ..what else?
 
-== Courses Outline
+== Roadmap
 
 The bootcamp has a shared *Core*, two career tracks (*Analysts* and *Engineers*), a shared merge course, and optional Level 3 advanced work.
+The roadmap was designed with career paths in mind — to help you land a job (Inshallah).
+
+You can read it from the end (bottom to top): start from *job roles*, then work back through the courses that build the knowledge, skills, and mindset to get your foot in the door.
+
+#figure(image("/assets/aai_roadmap.png", width: 90%), caption: [AAI Courses Roadmap])
+
+== Courses Outline
 
 === Core
 
-- *Terminal*: command and conquer your machine; fear not the black box; protect yourself from malicious code.
 - *Python*: programming foundations (external material).
+- *Terminal*: command and conquer your machine; fear not the black box; protect yourself from malicious code.
 
 === Analysts Track
 
@@ -80,7 +87,7 @@ The bootcamp has a shared *Core*, two career tracks (*Analysts* and *Engineers*)
 - *Building with Deep Learning*: select, use, compose, fine-tune, and deploy open-weight deep learning models.
 - *Building with Agentic AI*: develop, debug, evaluate, deploy, and monitor LLM-driven AI agents.
 
-=== Shared (merge)
+=== Level 2
 
 - *Applied Machine Learning*: build reliable predictive modeling pipelines; reached from either track.
 
