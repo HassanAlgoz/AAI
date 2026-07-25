@@ -20,6 +20,12 @@ The floating text at the end of each path, is the **job roles** you can apply fo
 
 PDF material can be downloaded from the [releases page](https://github.com/HassanAlgoz/AAI/releases).
 
+Clone the repo to get the notebooks:
+
+```sh
+git clone https://github.com/HassanAlgoz/AAI
+```
+
 ## Core
 
 Shared foundation for both tracks.
